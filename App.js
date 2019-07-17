@@ -83,7 +83,7 @@ const RootStack = createStackNavigator({
             } else if (routeName === 'OldBuzz') {
               iconName = `🐝`;
             }
-            return <View onPress={() => Vibration.vibrate()} style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;
+            return <TouchableOpacity onPress={() => Vibration.vibrate()} style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></TouchableOpacity>;
           },
         }),
         tabBarOptions: {

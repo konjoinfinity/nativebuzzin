@@ -5,7 +5,8 @@ import {
     ScrollView,
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    Vibration
 } from 'react-native';
 
 class OldBuzzScreen extends Component {
