@@ -10,6 +10,7 @@ import {
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
 import OldBuzzScreen from "./OldBuzz"
 import BuzzScreen from "./Buzz"
+import AsyncStorage from '@react-native-community/async-storage';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -106,8 +107,7 @@ class HomeScreen extends Component {
 
   async saveBuzz() {
     const key = "buzzes"
-    var value = JSON.stringify(this.state.buzzes)
-    // await SInfo.setItem(key, value, {});
+    await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
   }
 
   checkBac() {

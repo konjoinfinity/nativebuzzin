@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Vibration
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 class BuzzScreen extends Component {
@@ -18,32 +19,47 @@ class BuzzScreen extends Component {
         }
     };
 
-    // async componentDidMount() {
-    //     var data = await SInfo.getItem(buzzes, {});
-    //     console.log(data)
-    //     this.setState({ buzzes: data })
-    // }
+    async componentDidMount() {
+        const key = "buzzes"
+        await AsyncStorage.getItem(key, (error, result) => {
+            this.setState({ buzzes: JSON.parse(result) }
+            )
+        })
+        console.log(this.state.buzzes)
+    }
 
     render() {
+        console.log(this.state.buzzes)
+        let buzzes;
+        this.state.buzzes &&
+            (buzzes = this.state.buzzes.map((buzz, id) => {
+                return (
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }} key={id}>
+                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>1 - {buzz.drinkType}</Text>
+                        {buzz.drinkType === "Beer" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍺</Text>}
+                        {buzz.drinkType === "Wine" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍷</Text>}
+                        {buzz.drinkType === "Liquor" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🥃</Text>}
+                        <Text style={{ fontSize: 15, textAlign: "center", paddingBottom: 10 }}>{buzz.dateCreated}</Text>
+                    </View>
+                )
+            }
+            )
+            )
         return (
             <View>
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
-                        <TouchableOpacity style={styles.checkBacButton} onPress={() => Vibration.vibrate()}><Text style={styles.checkBacButtonText}>Delete All Buzzes 🗑</Text></TouchableOpacity>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>3 days, 20 hours, 13 minutes, and 45 seconds</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>
-                    </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>1 Beer/Wine/Liquor</Text>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>Monday July 15th 2019 14:31</Text>
-                        <TouchableOpacity style={styles.checkBacButton} onPress={() => Vibration.vibrate()}><Text style={styles.checkBacButtonText}>Delete 🗑</Text></TouchableOpacity>
-                    </View>
+                    {this.state.buzzes === "" &&
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>3 days, 20 hours, 13 minutes, and 45 seconds</Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>
+                        </View>}
+                    {buzzes}
                 </ScrollView>
             </View>
         );
