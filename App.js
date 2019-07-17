@@ -10,6 +10,7 @@ import {
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
 import OldBuzzScreen from "./OldBuzz"
 import BuzzScreen from "./Buzz"
+import SInfo from 'react-native-sensitive-info';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -87,7 +88,7 @@ class HomeScreen extends Component {
     return bac;
   }
 
-  addDrink(drink) {
+  async addDrink(drink) {
     Vibration.vibrate();
     var drinkDate = new Date();
     this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
@@ -101,6 +102,9 @@ class HomeScreen extends Component {
         this.checkBac();
       }
     }, 100);
+    setTimeout(() => {
+      await SInfo.setItem(buzzes, this.state.buzzes, {});
+    }, 300);
   }
 
   checkBac() {
@@ -201,9 +205,9 @@ const RootStack = createStackNavigator({
   MyTab: {
     screen: createBottomTabNavigator(
       {
-        Home: HomeScreen,
-        Buzz: BuzzScreen,
-        OldBuzz: OldBuzzScreen
+        Home: { screen: props => <HomeScreen {...props} /> },
+        Buzz: { screen: props => <BuzzScreen {...props} /> },
+        OldBuzz: { screen: props => <OldBuzzScreen {...props} /> }
 
       },
       {
@@ -212,13 +216,10 @@ const RootStack = createStackNavigator({
             const { routeName } = navigation.state;
             let iconName;
             if (routeName === 'Home') {
-              navigation.state.params = this.state
               iconName = `🏠`;
             } else if (routeName === 'Buzz') {
-              navigation.state.params = this.state
               iconName = `🍺`
             } else if (routeName === 'OldBuzz') {
-              navigation.state.params = this.state
               iconName = `🐝`;
             }
             Vibration.vibrate();

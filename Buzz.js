@@ -8,11 +8,20 @@ import {
     TouchableOpacity,
     Vibration
 } from 'react-native';
+import SInfo from 'react-native-sensitive-info';
 
 class BuzzScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            buzzes: ""
+        }
+    };
 
-    componentDidMount() {
-        console.log(this.props)
+    async componentDidMount() {
+        var data = await SInfo.getItem(buzzes, {});
+        console.log(data)
+        this.setState({ buzzes: data })
     }
 
     render() {
