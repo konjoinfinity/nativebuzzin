@@ -89,11 +89,19 @@ class HomeScreen extends Component {
 
   addDrink(drink) {
     Vibration.vibrate();
-    var total = this.getBAC(this.state.user.weight, this.state.user.gender, 1, drink, 0)
-    total = parseFloat(total.toFixed(6));
-    this.setState({ bac: total })
     var drinkDate = new Date();
     this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
+    if (this.state.buzzes.length == 0) {
+      var total = this.getBAC(this.state.user.weight, this.state.user.gender, 1, drink, 0)
+      total = parseFloat(total.toFixed(6));
+      this.setState({ bac: total })
+    }
+    setTimeout(() => {
+      if (this.state.buzzes.length >= 1) {
+        console.log("if statement works")
+        this.checkBac();
+      }
+    }, 100);
   }
 
   checkBac() {
