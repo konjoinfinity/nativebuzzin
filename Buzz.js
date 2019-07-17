@@ -11,6 +11,10 @@ import {
 
 class BuzzScreen extends Component {
 
+    componentDidMount() {
+        console.log(this.props)
+    }
+
     render() {
         return (
             <View>

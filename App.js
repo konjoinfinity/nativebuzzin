@@ -24,6 +24,8 @@ class HomeScreen extends Component {
       buzzes: [],
       oldbuzzes: []
     }
+    this.addDrink = this.addDrink.bind(this);
+    this.getBAC = this.getBAC.bind(this);
   };
 
   componentDidMount() {
@@ -88,23 +90,41 @@ class HomeScreen extends Component {
   addDrink(drink) {
     Vibration.vibrate();
     var total = this.getBAC(this.state.user.weight, this.state.user.gender, 1, drink, 0)
+    total = parseFloat(total.toFixed(6));
     this.setState({ bac: total })
     var drinkDate = new Date();
     this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
   }
 
+  checkBac() {
+    Vibration.vibrate();
+    if (this.state.buzzes <= 1) {
+      duration = singleDuration(this.state.buzzes[0].dateCreated);
+      totalBac = getBAC(
+        user.weight,
+        user.gender,
+        user.buzzes.length,
+        this.state.buzzes[0].drinkType,
+        duration
+      );
+      totalBac = parseFloat(totalBac.toFixed(6));
+      this.setState({ bac: totalBac })
+    }
+  }
+
   render() {
     // Once users have signed up, we don't need to display their weight and gender.  
     // A name/email is sufficient for a greeting.
+    console.log(this.state.buzzes)
     return (
       <View>
         <ScrollView>
           <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Name/Email - 123@abc.com</Text>
-            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Gender - Male/Female</Text>
-            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Weight - xxx lbs.</Text>
+            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>{this.state.user.name}</Text>
+            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>{this.state.user.gender}</Text>
+            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Weight - {this.state.user.weight} lbs.</Text>
             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current BAC</Text>
-            <View borderRadius={15}><Text style={{ fontSize: 30, textAlign: "center" }}>0.0</Text></View>
+            <View borderRadius={15}><Text style={{ fontSize: 30, textAlign: "center" }}>{this.state.bac}</Text></View>
             <TouchableOpacity style={styles.checkBacButton} onPress={() => Vibration.vibrate()}><Text style={styles.checkBacButtonText}>Check BAC</Text></TouchableOpacity>
           </View>
           <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
@@ -150,10 +170,13 @@ const RootStack = createStackNavigator({
             const { routeName } = navigation.state;
             let iconName;
             if (routeName === 'Home') {
+              navigation.state.params = this.state
               iconName = `🏠`;
             } else if (routeName === 'Buzz') {
+              navigation.state.params = this.state
               iconName = `🍺`
             } else if (routeName === 'OldBuzz') {
+              navigation.state.params = this.state
               iconName = `🐝`;
             }
             Vibration.vibrate();
