@@ -11,10 +11,6 @@ import {
 
 class OldBuzzScreen extends Component {
 
-    componentDidMount() {
-        Vibration.vibrate();
-    }
-
     render() {
         return (
             <View>
@@ -28,7 +24,6 @@ class OldBuzzScreen extends Component {
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>Monday July 1st 2019 19:11</Text>
                         <TouchableOpacity style={styles.checkBacButton} onPress={() => Vibration.vibrate()}><Text style={styles.checkBacButtonText}>Delete 🗑</Text></TouchableOpacity>
                     </View>
-                    <View paddingBottom={100}></View>
                 </ScrollView>
             </View>
         );

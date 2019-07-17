@@ -43,7 +43,6 @@ class HomeScreen extends Component {
             <TouchableOpacity style={styles.checkBacButton} onPress={() => Vibration.vibrate()}><Text style={styles.checkBacButtonText}>+1 Wine 🍷</Text></TouchableOpacity>
             <TouchableOpacity style={styles.checkBacButton} onPress={() => Vibration.vibrate()}><Text style={styles.checkBacButtonText}>+1 Liquor 🥃</Text></TouchableOpacity>
           </View>
-          <View paddingBottom={100}></View>
         </ScrollView>
       </View>
     );
@@ -94,6 +93,11 @@ const RootStack = createStackNavigator({
           activeTintColor: '#00897b',
           inactiveTintColor: 'gray',
         },
+        navigationOptions: {
+          tabBarOnPress: () => {
+            Vibration.vibrate();
+          }
+        }
       }
     ),
     navigationOptions: {
