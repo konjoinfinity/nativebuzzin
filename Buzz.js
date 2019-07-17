@@ -29,7 +29,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(this.state.buzzes)
+        this.componentDidMount();
         let buzzes;
         this.state.buzzes &&
             (buzzes = this.state.buzzes.map((buzz, id) => {
