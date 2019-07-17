@@ -8,7 +8,6 @@ import {
     TouchableOpacity,
     Vibration
 } from 'react-native';
-// import SInfo from 'react-native-sensitive-info';
 
 class OldBuzzScreen extends Component {
     // constructor(props) {

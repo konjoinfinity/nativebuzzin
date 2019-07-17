@@ -28,7 +28,6 @@ target 'buzzin' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'react-native-sensitive-info', :path => '../node_modules/react-native-sensitive-info'
 
   target 'buzzinTests' do
     inherit! :search_paths
