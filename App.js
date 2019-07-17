@@ -98,7 +98,6 @@ class HomeScreen extends Component {
     }
     setTimeout(() => {
       if (this.state.buzzes.length >= 1) {
-        console.log("if statement works")
         this.checkBac();
       }
     }, 100);
@@ -132,7 +131,42 @@ class HomeScreen extends Component {
             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>{this.state.user.gender}</Text>
             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Weight - {this.state.user.weight} lbs.</Text>
             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current BAC</Text>
-            <View borderRadius={15}><Text style={{ fontSize: 30, textAlign: "center" }}>{this.state.bac}</Text></View>
+            {(this.state.bac === 0 || this.state.bac === undefined) && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></View>)}
+            {this.state.bac > 0.00 && this.state.bac < 0.01 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#b5d3a0", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.01 && this.state.bac < 0.02 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#96c060", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.02 && this.state.bac < 0.03 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#9fc635", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.03 && this.state.bac < 0.04 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#d3e50e", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.04 && this.state.bac < 0.05 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#ffeb00", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.05 && this.state.bac < 0.06 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#f9bf00", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.06 && this.state.bac < 0.07 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#e98f00", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.07 && this.state.bac < 0.08 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#d05900", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.08 && this.state.bac < 0.09 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#AE0000", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac > 0.09 && this.state.bac < 0.10 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#571405", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+            {this.state.bac >= 0.10 && (
+              <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#000000", margin: 10 }}>
+                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
             <TouchableOpacity style={styles.checkBacButton} onPress={() => this.checkBac()}><Text style={styles.checkBacButtonText}>Check BAC</Text></TouchableOpacity>
           </View>
           <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
