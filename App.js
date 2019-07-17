@@ -5,8 +5,7 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Vibration,
-  Button
+  Vibration
 } from 'react-native';
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
 import OldBuzzScreen from "./OldBuzz"
