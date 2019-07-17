@@ -133,8 +133,7 @@ class HomeScreen extends Component {
       <View>
         <ScrollView>
           <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-            <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.user.name} - {this.state.user.gender}</Text>
-            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Weight - {this.state.user.weight} lbs.</Text>
+            <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.user.name} - {this.state.user.gender} - {this.state.user.weight} lbs.</Text>
             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current BAC</Text>
             {(this.state.bac === 0 || this.state.bac === undefined) && (
               <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", margin: 10 }}>
