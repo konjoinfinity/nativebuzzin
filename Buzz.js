@@ -10,6 +10,11 @@ import {
 } from 'react-native';
 
 class BuzzScreen extends Component {
+
+    componentDidMount() {
+        Vibration.vibrate();
+    }
+
     render() {
         return (
             <View>

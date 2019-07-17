@@ -19,6 +19,10 @@ class HomeScreen extends Component {
     };
   }
 
+  componentDidMount() {
+    Vibration.vibrate();
+  }
+
   render() {
     // Once users have signed up, we don't need to display their weight and gender.  
     // A name/email is sufficient for a greeting.
@@ -83,7 +87,7 @@ const RootStack = createStackNavigator({
             } else if (routeName === 'OldBuzz') {
               iconName = `🐝`;
             }
-            return <TouchableOpacity onPress={() => Vibration.vibrate()} style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></TouchableOpacity>;
+            return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;
           },
         }),
         tabBarOptions: {
