@@ -17,12 +17,21 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: ""
         }
+        this.deleteBuzzes = this.deleteBuzzes.bind(this);
     };
 
     async componentDidMount() {
         const key = "buzzes"
         await AsyncStorage.getItem(key, (error, result) => {
             this.setState({ buzzes: JSON.parse(result) }
+            )
+        })
+    }
+
+    async deleteBuzzes() {
+        const key = "buzzes"
+        await AsyncStorage.removeItem(key, (error, result) => {
+            this.setState({ buzzes: "" }
             )
         })
     }
@@ -49,6 +58,7 @@ class BuzzScreen extends Component {
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
+                        <TouchableOpacity style={styles.checkBacButton} onPress={() => this.deleteBuzzes()}><Text style={styles.checkBacButtonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
                     </View>
                     {this.state.buzzes === "" &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
