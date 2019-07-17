@@ -129,7 +129,6 @@ class HomeScreen extends Component {
   render() {
     // Once users have signed up, we don't need to display their weight and gender.  
     // A name/email is sufficient for a greeting.
-    console.log(this.state.buzzes)
     return (
       <View>
         <ScrollView>

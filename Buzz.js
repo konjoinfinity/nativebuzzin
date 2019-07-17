@@ -25,7 +25,6 @@ class BuzzScreen extends Component {
             this.setState({ buzzes: JSON.parse(result) }
             )
         })
-        console.log(this.state.buzzes)
     }
 
     render() {
