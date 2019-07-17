@@ -126,6 +126,15 @@ class HomeScreen extends Component {
     }
   }
 
+  async clearDrinks() {
+    Vibration.vibrate();
+    const key = "buzzes"
+    await AsyncStorage.removeItem(key, (error, result) => {
+      this.setState({ buzzes: [], bac: 0.0 }
+      )
+    })
+  }
+
   render() {
     // Once users have signed up, we don't need to display their weight and gender.  
     // A name/email is sufficient for a greeting.
@@ -178,6 +187,10 @@ class HomeScreen extends Component {
             <TouchableOpacity style={styles.checkBacButton} onPress={() => this.addDrink("Beer")}><Text style={styles.checkBacButtonText}>+1 Beer 🍺</Text></TouchableOpacity>
             <TouchableOpacity style={styles.checkBacButton} onPress={() => this.addDrink("Wine")}><Text style={styles.checkBacButtonText}>+1 Wine 🍷</Text></TouchableOpacity>
             <TouchableOpacity style={styles.checkBacButton} onPress={() => this.addDrink("Liquor")}><Text style={styles.checkBacButtonText}>+1 Liquor 🥃</Text></TouchableOpacity>
+          </View>
+          <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
+            <TouchableOpacity style={styles.checkBacButton} onPress={() => this.clearDrinks()}><Text style={styles.checkBacButtonText}>Clear</Text></TouchableOpacity>
           </View>
         </ScrollView>
       </View>
