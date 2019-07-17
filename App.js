@@ -49,7 +49,7 @@ class HomeScreen extends Component {
     var currentDate = new Date();
     var date2 = currentDate.getTime();
     var date1 = initialbuzz.getTime();
-    var dayHourMin = getDayHourMin(date1, date2);
+    var dayHourMin = this.getDayHourMin(date1, date2);
     var days = dayHourMin[0];
     var hours = dayHourMin[1];
     var minutes = dayHourMin[2];
@@ -98,12 +98,12 @@ class HomeScreen extends Component {
 
   checkBac() {
     Vibration.vibrate();
-    if (this.state.buzzes <= 1) {
-      duration = singleDuration(this.state.buzzes[0].dateCreated);
-      totalBac = getBAC(
-        user.weight,
-        user.gender,
-        user.buzzes.length,
+    if (this.state.buzzes.length >= 1) {
+      var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
+      var totalBac = this.getBAC(
+        this.state.user.weight,
+        this.state.user.gender,
+        this.state.buzzes.length,
         this.state.buzzes[0].drinkType,
         duration
       );
@@ -125,7 +125,7 @@ class HomeScreen extends Component {
             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Weight - {this.state.user.weight} lbs.</Text>
             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current BAC</Text>
             <View borderRadius={15}><Text style={{ fontSize: 30, textAlign: "center" }}>{this.state.bac}</Text></View>
-            <TouchableOpacity style={styles.checkBacButton} onPress={() => Vibration.vibrate()}><Text style={styles.checkBacButtonText}>Check BAC</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.checkBacButton} onPress={() => this.checkBac()}><Text style={styles.checkBacButtonText}>Check BAC</Text></TouchableOpacity>
           </View>
           <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Add a Drink</Text>
