@@ -163,7 +163,9 @@ class HomeScreen extends Component {
       this.setState({ bac: 0.0, oldbuzzes: this.state.buzzes })
     })
     await AsyncStorage.removeItem(key, () => {
-      this.setState({ buzzes: [] })
+      setTimeout(() => {
+        this.setState({ buzzes: [] })
+      }, 200);
     })
   }
 

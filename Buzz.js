@@ -60,7 +60,7 @@ class BuzzScreen extends Component {
                         {buzz.drinkType === "Wine" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍷</Text>}
                         {buzz.drinkType === "Liquor" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🥃</Text>}
                         <Text style={{ fontSize: 15, textAlign: "center", paddingBottom: 10 }}>{buzz.dateCreated}</Text>
-                        <TouchableOpacity style={styles.checkBacButton} onPress={() => this.deleteBuzz(id)}><Text style={styles.checkBacButtonText}>Delete 🗑</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>Delete 🗑</Text></TouchableOpacity>
                     </View>
                 )
             }
@@ -71,7 +71,7 @@ class BuzzScreen extends Component {
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
-                        <TouchableOpacity style={styles.checkBacButton} onPress={() => this.deleteBuzzes()}><Text style={styles.checkBacButtonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
                     </View>
                     {this.state.buzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
@@ -91,7 +91,7 @@ class BuzzScreen extends Component {
 export default BuzzScreen;
 
 const styles = StyleSheet.create({
-    checkBacButton: {
+    button: {
         borderWidth: 1,
         borderColor: "#00897b",
         backgroundColor: "#00897b",
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         margin: 5,
         borderRadius: 15
     },
-    checkBacButtonText: {
+    buttonText: {
         color: "#FFFFFF",
         fontSize: 22,
         textAlign: "center"
