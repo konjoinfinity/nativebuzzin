@@ -27,10 +27,26 @@ class HomeScreen extends Component {
     }
     this.addDrink = this.addDrink.bind(this);
     this.getBAC = this.getBAC.bind(this);
+    this.checkBac = this.checkBac.bind(this);
+    this.singleDuration = this.singleDuration.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.getDayHourMin = this.getDayHourMin.bind(this);
+    this.saveBuzz = this.saveBuzz.bind(this);
+    this.clearDrinks = this.clearDrinks.bind(this);
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     Vibration.vibrate();
+    const key = "buzzes"
+    await AsyncStorage.getItem(key, (error, result) => {
+      console.log(JSON.parse(result))
+      if (result !== null) {
+        this.setState({ buzzes: JSON.parse(result) })
+        setTimeout(() => {
+          this.checkBac();
+        }, 500);
+      }
+    })
   }
 
   getDayHourMin(date1, date2) {
@@ -46,10 +62,13 @@ class HomeScreen extends Component {
   }
 
   singleDuration(initialbuzz) {
+    var date1 = Date.parse(initialbuzz)
+    // var date1 = initialbuzz.getTime();
     var duration;
     var currentDate = new Date();
     var date2 = currentDate.getTime();
-    var date1 = initialbuzz.getTime();
+    console.log(date2)
+    console.log(date1)
     var dayHourMin = this.getDayHourMin(date1, date2);
     var days = dayHourMin[0];
     var hours = dayHourMin[1];
@@ -88,7 +107,7 @@ class HomeScreen extends Component {
     return bac;
   }
 
-  async addDrink(drink) {
+  addDrink(drink) {
     Vibration.vibrate();
     var drinkDate = new Date();
     this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
