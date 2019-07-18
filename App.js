@@ -261,7 +261,6 @@ const RootStack = createStackNavigator({
         Home: HomeScreen,
         Buzz: BuzzScreen,
         OldBuzz: OldBuzzScreen
-
       },
       {
         defaultNavigationOptions: ({ navigation }) => ({
