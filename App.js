@@ -42,9 +42,7 @@ class HomeScreen extends Component {
       console.log(JSON.parse(result))
       if (result !== null) {
         this.setState({ buzzes: JSON.parse(result) })
-        setTimeout(() => {
-          this.checkBac();
-        }, 500);
+        this.checkBac();
       }
     })
   }
