@@ -22,9 +22,7 @@ class HomeScreen extends Component {
         weight: 220
       },
       bac: 0.0,
-      buzzes: [{ drinkType: 'Beer', dateCreated: '2019-07-18T08:06:20.747Z' },
-      { drinkType: 'Wine', dateCreated: '2019-07-18T08:16:20.747Z' },
-      { drinkType: 'Liquor', dateCreated: '2019-07-18T08:36:20.747Z' }],
+      buzzes: [],
       oldbuzzes: []
     }
     this.addDrink = this.addDrink.bind(this);
@@ -180,9 +178,6 @@ class HomeScreen extends Component {
   render() {
     // Once users have signed up, we don't need to display their weight and gender.  
     // A name/email is sufficient for a greeting.
-    console.log(this.state.buzzes)
-    console.log(this.state.oldbuzzes)
-    console.log(this.state)
     return (
       <View>
         <ScrollView>
@@ -225,17 +220,17 @@ class HomeScreen extends Component {
             {this.state.bac >= 0.10 && (
               <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#000000", margin: 10 }}>
                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
-            <TouchableOpacity style={styles.checkBacButton} onPress={() => this.checkBac()}><Text style={styles.checkBacButtonText}>Check BAC</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
           </View>
           <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Add a Drink</Text>
-            <TouchableOpacity style={styles.checkBacButton} onPress={() => this.addDrink("Beer")}><Text style={styles.checkBacButtonText}>+1 Beer 🍺</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.checkBacButton} onPress={() => this.addDrink("Wine")}><Text style={styles.checkBacButtonText}>+1 Wine 🍷</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.checkBacButton} onPress={() => this.addDrink("Liquor")}><Text style={styles.checkBacButtonText}>+1 Liquor 🥃</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => this.addDrink("Beer")}><Text style={styles.buttonText}>+1 Beer 🍺</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => this.addDrink("Wine")}><Text style={styles.buttonText}>+1 Wine 🍷</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => this.addDrink("Liquor")}><Text style={styles.buttonText}>+1 Liquor 🥃</Text></TouchableOpacity>
           </View>
           <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
-            <TouchableOpacity style={styles.checkBacButton} onPress={() => this.clearDrinks()}><Text style={styles.checkBacButtonText}>Clear</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
           </View>
         </ScrollView>
       </View>
@@ -244,7 +239,7 @@ class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  checkBacButton: {
+  button: {
     borderWidth: 1,
     borderColor: "#00897b",
     backgroundColor: "#00897b",
@@ -252,7 +247,7 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 15
   },
-  checkBacButtonText: {
+  buttonText: {
     color: "#FFFFFF",
     fontSize: 22,
     textAlign: "center"
