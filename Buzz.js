@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -49,7 +48,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(this.state.buzzes)
         let buzzes;
         this.state.buzzes &&
             (buzzes = this.state.buzzes.map((buzz, id) => {

@@ -48,7 +48,6 @@ class OldBuzzScreen extends Component {
     }
 
     render() {
-        console.log(this.state.oldbuzzes)
         let oldbuzzes;
         this.state.oldbuzzes &&
             (oldbuzzes = this.state.oldbuzzes.map((oldbuzz, id) => {
