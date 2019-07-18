@@ -11,6 +11,13 @@ import {
     Picker
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
+import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
+
+const options = [
+    'Cancel',
+    <Text style={{ color: 'blue', fontSize: 30 }}>Male</Text>,
+    <Text style={{ color: 'pink', fontSize: 30 }}>Female</Text>
+]
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -26,6 +33,10 @@ class LoginScreen extends React.Component {
 
     componentDidMount() {
         Vibration.vibrate();
+    }
+
+    showActionSheet = () => {
+        this.ActionSheet.show()
     }
 
     handleNameChange(name) {
@@ -110,6 +121,17 @@ class LoginScreen extends React.Component {
                             <Picker.Item label="245 lbs." value={245} />
                             <Picker.Item label="250 lbs." value={250} />
                         </Picker>
+                    </View>
+                    <View>
+                        <Text onPress={this.showActionSheet}>Choose Your Gender</Text>
+                        <ActionSheet
+                            ref={o => this.ActionSheet = o}
+                            title={<Text style={{ color: '#000', fontSize: 35 }}>Choose Your Gender</Text>}
+                            options={options}
+                            cancelButtonIndex={0}
+                            destructiveButtonIndex={4}
+                            onPress={(index) => { this.setState({ gender: options[index].props.children }) }}
+                        />
                     </View>
                     <View style={{ paddingTop: 250 }}>
                         <TouchableOpacity
