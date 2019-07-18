@@ -30,7 +30,7 @@ class BuzzScreen extends Component {
     async deleteBuzzes() {
         Vibration.vibrate();
         const key = "buzzes"
-        await AsyncStorage.removeItem(key, (error, result) => {
+        await AsyncStorage.removeItem(key, () => {
             this.setState({ buzzes: "" })
         })
     }
