@@ -14,7 +14,7 @@ class BuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buzzes: ""
+            buzzes: null
         }
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
         this.deleteBuzz = this.deleteBuzz.bind(this);
@@ -31,7 +31,7 @@ class BuzzScreen extends Component {
         Vibration.vibrate();
         const key = "buzzes"
         await AsyncStorage.removeItem(key, () => {
-            this.setState({ buzzes: "" })
+            this.setState({ buzzes: null })
         })
     }
 
@@ -40,12 +40,15 @@ class BuzzScreen extends Component {
         const key = "buzzes"
         var filtered = this.state.buzzes.filter(buzz => buzz !== this.state.buzzes[id]);
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => {
-            this.setState({ buzzes: filtered })
+            if (filtered.length === 0) {
+                this.setState({ buzzes: null })
+            } else {
+                this.setState({ buzzes: filtered })
+            }
         })
     }
 
     render() {
-        this.componentDidMount();
         console.log(this.state.buzzes)
         let buzzes;
         this.state.buzzes &&
@@ -70,7 +73,7 @@ class BuzzScreen extends Component {
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
                         <TouchableOpacity style={styles.checkBacButton} onPress={() => this.deleteBuzzes()}><Text style={styles.checkBacButtonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
                     </View>
-                    {this.state.buzzes === "" &&
+                    {this.state.buzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>

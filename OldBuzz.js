@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -8,19 +7,22 @@ import {
     TouchableOpacity,
     Vibration
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class OldBuzzScreen extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //       oldbuzzes: []
-    //     }
-    //   };
+    constructor(props) {
+        super(props);
+        this.state = {
+            oldbuzzes: ""
+        }
+    };
 
-    // async componentDidMount() {
-    //     var oldbuzzes = await SInfo.getItem(oldbuzzes, {});
-    //     console.log(oldbuzzes)
-    // }
+    async componentDidMount() {
+        const oldkey = "oldbuzzes"
+        await AsyncStorage.getItem(oldkey, (error, result) => {
+            this.setState({ buzzes: JSON.parse(result) })
+        })
+    }
 
     render() {
         return (

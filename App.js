@@ -22,7 +22,9 @@ class HomeScreen extends Component {
         weight: 220
       },
       bac: 0.0,
-      buzzes: [],
+      buzzes: [{ drinkType: 'Beer', dateCreated: '2019-07-18T08:06:20.747Z' },
+      { drinkType: 'Wine', dateCreated: '2019-07-18T08:16:20.747Z' },
+      { drinkType: 'Liquor', dateCreated: '2019-07-18T08:36:20.747Z' }],
       oldbuzzes: []
     }
     this.addDrink = this.addDrink.bind(this);
@@ -176,6 +178,9 @@ class HomeScreen extends Component {
   render() {
     // Once users have signed up, we don't need to display their weight and gender.  
     // A name/email is sufficient for a greeting.
+    console.log(this.state.buzzes)
+    console.log(this.state.oldbuzzes)
+    console.log(this.state)
     return (
       <View>
         <ScrollView>
