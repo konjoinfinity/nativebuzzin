@@ -17,6 +17,7 @@ class BuzzScreen extends Component {
             buzzes: ""
         }
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
+        this.deleteBuzz = this.deleteBuzz.bind(this);
     };
 
     async componentDidMount() {
