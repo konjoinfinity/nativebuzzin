@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Vibration
 } from 'react-native';
-import { createStackNavigator, createAppContainer, createBottomTabNavigator, NavigationEvents } from "react-navigation";
+import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
 import OldBuzzScreen from "./OldBuzz"
 import BuzzScreen from "./Buzz"
 import AsyncStorage from '@react-native-community/async-storage';
@@ -70,7 +70,6 @@ class HomeScreen extends Component {
 
   singleDuration(initialbuzz) {
     var date1 = Date.parse(initialbuzz)
-    // var date1 = initialbuzz.getTime();
     var duration;
     var currentDate = new Date();
     var date2 = currentDate.getTime();
@@ -146,17 +145,31 @@ class HomeScreen extends Component {
         this.state.buzzes[0].drinkType,
         duration
       );
-      totalBac = parseFloat(totalBac.toFixed(6));
-      this.setState({ bac: totalBac })
+      if (totalBac > 0) {
+        totalBac = parseFloat(totalBac.toFixed(6));
+        this.setState({ bac: totalBac })
+      } else {
+        this.moveToOld();
+      }
     }
+  }
+
+  async moveToOld() {
+    const key = "buzzes"
+    const oldkey = "oldbuzzes"
+    await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.buzzes), () => {
+      this.setState({ bac: 0.0, oldbuzzes: this.state.buzzes })
+    })
+    await AsyncStorage.removeItem(key, () => {
+      this.setState({ buzzes: [] })
+    })
   }
 
   async clearDrinks() {
     Vibration.vibrate();
     const key = "buzzes"
-    await AsyncStorage.removeItem(key, (error, result) => {
-      this.setState({ buzzes: [], bac: 0.0 }
-      )
+    await AsyncStorage.removeItem(key, () => {
+      this.setState({ buzzes: [], bac: 0.0 })
     })
   }
 
