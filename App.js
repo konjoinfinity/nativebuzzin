@@ -65,8 +65,6 @@ class HomeScreen extends Component {
     var duration;
     var currentDate = new Date();
     var date2 = currentDate.getTime();
-    console.log(date2)
-    console.log(date1)
     var dayHourMin = this.getDayHourMin(date1, date2);
     var days = dayHourMin[0];
     var hours = dayHourMin[1];
