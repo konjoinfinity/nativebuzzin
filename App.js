@@ -11,6 +11,7 @@ import { createStackNavigator, createAppContainer, createBottomTabNavigator } fr
 import OldBuzzScreen from "./OldBuzz"
 import BuzzScreen from "./Buzz"
 import AsyncStorage from '@react-native-community/async-storage';
+import LoginScreen from './Login';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -260,7 +261,8 @@ const RootStack = createStackNavigator({
       {
         Home: HomeScreen,
         Buzz: BuzzScreen,
-        OldBuzz: OldBuzzScreen
+        OldBuzz: OldBuzzScreen,
+        Login: LoginScreen
       },
       {
         defaultNavigationOptions: ({ navigation }) => ({
