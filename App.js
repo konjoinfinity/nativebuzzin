@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Vibration
 } from 'react-native';
-import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
+import { createStackNavigator, createAppContainer, createBottomTabNavigator, NavigationEvents } from "react-navigation";
 import OldBuzzScreen from "./OldBuzz"
 import BuzzScreen from "./Buzz"
 import AsyncStorage from '@react-native-community/async-storage';
@@ -39,7 +39,16 @@ class HomeScreen extends Component {
     Vibration.vibrate();
     const key = "buzzes"
     await AsyncStorage.getItem(key, (error, result) => {
-      console.log(JSON.parse(result))
+      if (result !== null) {
+        this.setState({ buzzes: JSON.parse(result) })
+        this.checkBac();
+      }
+    })
+  }
+
+  async getBuzzes() {
+    const key = "buzzes"
+    await AsyncStorage.getItem(key, (error, result) => {
       if (result !== null) {
         this.setState({ buzzes: JSON.parse(result) })
         this.checkBac();
@@ -112,6 +121,7 @@ class HomeScreen extends Component {
       total = parseFloat(total.toFixed(6));
       this.setState({ bac: total })
     }
+    // fix this
     setTimeout(() => {
       if (this.state.buzzes.length >= 1) {
         this.checkBac();
@@ -233,9 +243,9 @@ const RootStack = createStackNavigator({
   MyTab: {
     screen: createBottomTabNavigator(
       {
-        Home: { screen: props => <HomeScreen {...props} /> },
-        Buzz: { screen: props => <BuzzScreen {...props} /> },
-        OldBuzz: { screen: props => <OldBuzzScreen {...props} /> }
+        Home: HomeScreen,
+        Buzz: BuzzScreen,
+        OldBuzz: OldBuzzScreen
 
       },
       {

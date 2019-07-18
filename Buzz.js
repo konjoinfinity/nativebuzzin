@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-
 class BuzzScreen extends Component {
     constructor(props) {
         super(props);
@@ -23,8 +22,7 @@ class BuzzScreen extends Component {
     async componentDidMount() {
         const key = "buzzes"
         await AsyncStorage.getItem(key, (error, result) => {
-            this.setState({ buzzes: JSON.parse(result) }
-            )
+            this.setState({ buzzes: JSON.parse(result) })
         })
     }
 
@@ -32,13 +30,22 @@ class BuzzScreen extends Component {
         Vibration.vibrate();
         const key = "buzzes"
         await AsyncStorage.removeItem(key, (error, result) => {
-            this.setState({ buzzes: "" }
-            )
+            this.setState({ buzzes: "" })
+        })
+    }
+
+    async deleteBuzz(id) {
+        Vibration.vibrate();
+        const key = "buzzes"
+        var filtered = this.state.buzzes.filter(buzz => buzz !== this.state.buzzes[id]);
+        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => {
+            this.setState({ buzzes: filtered })
         })
     }
 
     render() {
         this.componentDidMount();
+        console.log(this.state.buzzes)
         let buzzes;
         this.state.buzzes &&
             (buzzes = this.state.buzzes.map((buzz, id) => {
@@ -49,6 +56,7 @@ class BuzzScreen extends Component {
                         {buzz.drinkType === "Wine" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍷</Text>}
                         {buzz.drinkType === "Liquor" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🥃</Text>}
                         <Text style={{ fontSize: 15, textAlign: "center", paddingBottom: 10 }}>{buzz.dateCreated}</Text>
+                        <TouchableOpacity style={styles.checkBacButton} onPress={() => this.deleteBuzz(id)}><Text style={styles.checkBacButtonText}>Delete 🗑</Text></TouchableOpacity>
                     </View>
                 )
             }
