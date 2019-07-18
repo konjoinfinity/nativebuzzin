@@ -15,8 +15,8 @@ import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 
 const options = [
     'Cancel',
-    <Text style={{ color: 'blue', fontSize: 30 }}>Male</Text>,
-    <Text style={{ color: 'pink', fontSize: 30 }}>Female</Text>
+    <Text style={{ color: 'blue', fontSize: 25 }}>Male</Text>,
+    <Text style={{ color: 'pink', fontSize: 25 }}>Female</Text>
 ]
 
 class LoginScreen extends React.Component {
@@ -71,7 +71,7 @@ class LoginScreen extends React.Component {
                             onChangeText={this.handleNameChange}
                             value={this.state.name} />
                     </View>
-                    <Picker
+                    {/* <Picker
                         selectedValue={this.state.gender}
                         style={{ height: 0, width: 350, margin: 10, padding: 10 }}
                         onValueChange={(itemValue, itemIndex) =>
@@ -121,16 +121,20 @@ class LoginScreen extends React.Component {
                             <Picker.Item label="245 lbs." value={245} />
                             <Picker.Item label="250 lbs." value={250} />
                         </Picker>
-                    </View>
+                    </View> */}
                     <View>
-                        <Text onPress={this.showActionSheet}>Choose Your Gender</Text>
+                        <Text style={{ textAlign: "center", fontSize: 30 }} onPress={this.showActionSheet}>Select Gender</Text>
                         <ActionSheet
                             ref={o => this.ActionSheet = o}
-                            title={<Text style={{ color: '#000', fontSize: 35 }}>Choose Your Gender</Text>}
+                            title={<Text style={{ color: '#000', fontSize: 25 }}>Gender</Text>}
                             options={options}
                             cancelButtonIndex={0}
                             destructiveButtonIndex={4}
-                            onPress={(index) => { this.setState({ gender: options[index].props.children }) }}
+                            onPress={(index) => {
+                                if (options[index].props.children !== undefined) {
+                                    this.setState({ gender: options[index].props.children })
+                                }
+                            }}
                         />
                     </View>
                     <View style={{ paddingTop: 250 }}>
