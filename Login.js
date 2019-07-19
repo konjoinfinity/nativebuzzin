@@ -37,7 +37,7 @@ class LoginScreen extends React.Component {
         Vibration.vibrate();
     }
 
-    showActionSheet = () => {
+    showActionSheet() {
         this.ActionSheet.show()
     }
 
