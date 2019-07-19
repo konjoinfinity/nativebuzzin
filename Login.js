@@ -3,12 +3,11 @@ import {
     StyleSheet,
     Text,
     View,
-    ScrollView,
     TextInput,
     TouchableOpacity,
     Vibration,
     KeyboardAvoidingView,
-    Picker
+    Alert
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
@@ -55,11 +54,21 @@ class LoginScreen extends React.Component {
         const namekey = "name"
         const genderkey = "gender"
         const weightkey = "weight"
-        await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
-        await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
-        await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
-        this.props.navigation.navigate("Home");
-        console.log(this.state)
+        if (this.state.name !== "") {
+            if (this.state.gender !== "") {
+                Alert.alert("Please Select Gender")
+                await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
+                await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
+                await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
+                this.props.navigation.navigate("Home");
+            } else {
+                Vibration.vibrate();
+                Alert.alert("Please Select Gender")
+            }
+        } else {
+            Vibration.vibrate();
+            Alert.alert("Please Enter Name")
+        }
     }
 
     render() {
