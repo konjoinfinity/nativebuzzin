@@ -56,9 +56,6 @@ class HomeScreen extends Component {
     await AsyncStorage.getItem(weightkey, (error, result) => {
       this.setState({ weight: JSON.parse(result) })
     })
-    await AsyncStorage.removeItem(namekey)
-    await AsyncStorage.removeItem(genderkey)
-    await AsyncStorage.removeItem(weightkey)
   }
 
   async getBuzzes() {
