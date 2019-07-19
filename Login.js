@@ -15,8 +15,8 @@ import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 
 const options = [
     'Cancel',
-    <Text style={{ color: 'blue', fontSize: 25 }}>Male</Text>,
-    <Text style={{ color: 'pink', fontSize: 25 }}>Female</Text>
+    <Text style={{ color: '#94BFE2', fontSize: 25 }}>Male</Text>,
+    <Text style={{ color: '#F398BE', fontSize: 25 }}>Female</Text>
 ]
 
 class LoginScreen extends React.Component {
