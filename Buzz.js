@@ -5,7 +5,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration
+    Vibration,
+    TouchableHighlight
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
@@ -67,21 +68,36 @@ class BuzzScreen extends Component {
             )
         return (
             <View>
-                <ScrollView>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
-                    </View>
-                    {this.state.buzzes === null &&
+                <View>
+                    <ScrollView>
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>3 days, 20 hours, 13 minutes, and 45 seconds</Text>
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>
-                        </View>}
-                    {buzzes}
-                </ScrollView>
+                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
+                            <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
+                        </View>
+                        {this.state.buzzes === null &&
+                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>3 days, 20 hours, 13 minutes, and 45 seconds</Text>
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>
+                            </View>}
+                        {buzzes}
+                    </ScrollView>
+                </View>
+                <View style={styles.mainviewStyle}>
+                    <View style={styles.footer}>
+                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Home")}>
+                            <Text style={styles.footerText}>🏠</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Buzz")}>
+                            <Text style={styles.footerText}>🍺</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("OldBuzz")}>
+                            <Text style={styles.footerText}>🐝</Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
             </View>
         );
     }
@@ -102,5 +118,38 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 22,
         textAlign: "center"
+    },
+    mainviewStyle: {
+        flex: 1,
+        flexDirection: 'column',
+        paddingTop: 55
+    },
+    footer: {
+        position: 'absolute',
+        flex: 0.1,
+        left: 0,
+        right: 0,
+        bottom: -20,
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        height: 80,
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderTopColor: '#A8A8A8'
+    },
+    bottomButtons: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+    },
+    footerText: {
+        color: 'black',
+        fontWeight: 'bold',
+        alignItems: 'center',
+        fontSize: 25,
+    },
+    textStyle: {
+        alignSelf: 'center',
+        color: 'orange'
     }
 })

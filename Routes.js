@@ -1,18 +1,43 @@
-import { createStackNavigator, createAppContainer, createSwitchNavigator } from "react-navigation";
+import React from 'react';
+import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
 import OldBuzzScreen from "./OldBuzz"
 import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
+import { Vibration, View, Text } from "react-native"
 
 const AppStack = createStackNavigator({
-    Home: HomeScreen,
-    Buzz: BuzzScreen,
-    OldBuzz: OldBuzzScreen
-},
-    {
-        initialRouteName: 'Home',
-        defaultNavigationOptions: {
+    MyTab: {
+        screen: createBottomTabNavigator(
+            {
+                Home: HomeScreen,
+                Buzz: BuzzScreen,
+                OldBuzz: OldBuzzScreen
+            },
+            {
+                defaultNavigationOptions: ({ navigation }) => ({
+                    tabBarIcon: ({ horizontal, tintColor }) => {
+                        const { routeName } = navigation.state;
+                        let iconName;
+                        if (routeName === 'Home') {
+                            iconName = `🏠`;
+                        } else if (routeName === 'Buzz') {
+                            iconName = `🍺`
+                        } else if (routeName === 'OldBuzz') {
+                            iconName = `🐝`;
+                        }
+                        Vibration.vibrate();
+                        return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;
+                    },
+                }),
+                tabBarOptions: {
+                    activeTintColor: '#00897b',
+                    inactiveTintColor: 'gray',
+                }
+            }
+        ),
+        navigationOptions: {
             title: `Buzzin'`, headerStyle: {
                 backgroundColor: '#80cbc4'
             },
@@ -22,7 +47,7 @@ const AppStack = createStackNavigator({
             }
         }
     }
-)
+})
 
 const AuthStack = createStackNavigator({
     Login: LoginScreen,

@@ -10,27 +10,6 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-
-class Nav extends Component {
-    render() {
-        return (
-            <View style={styles.mainviewStyle}>
-                <View style={styles.footer}>
-                    <TouchableHighlight style={styles.bottomButtons} onPress={() => navigation.push("Home")}>
-                        <Text style={styles.footerText}>🏠</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={styles.bottomButtons} onPress={() => navigation.push("Buzz")}>
-                        <Text style={styles.footerText}>🍺</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={styles.bottomButtons} onPress={() => navigation.push("OldBuzz")}>
-                        <Text style={styles.footerText}>🐝</Text>
-                    </TouchableHighlight>
-                </View>
-            </View>
-        );
-    }
-}
-
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -256,7 +235,19 @@ class HomeScreen extends Component {
                         <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
                     </View>
                 </ScrollView>
-                <Nav />
+                <View style={styles.mainviewStyle}>
+                    <View style={styles.footer}>
+                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Home")}>
+                            <Text style={styles.footerText}>🏠</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Buzz")}>
+                            <Text style={styles.footerText}>🍺</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("OldBuzz")}>
+                            <Text style={styles.footerText}>🐝</Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
             </View>
         );
     }
