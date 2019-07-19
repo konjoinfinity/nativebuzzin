@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   Vibration
 } from 'react-native';
-import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation";
+import { createStackNavigator, createAppContainer, createBottomTabNavigator, createSwitchNavigator } from "react-navigation";
 import OldBuzzScreen from "./OldBuzz"
 import BuzzScreen from "./Buzz"
 import AsyncStorage from '@react-native-community/async-storage';
 import LoginScreen from './Login';
+import AuthLoadScreen from "./AuthLoad"
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -55,6 +56,9 @@ class HomeScreen extends Component {
     await AsyncStorage.getItem(weightkey, (error, result) => {
       this.setState({ weight: JSON.parse(result) })
     })
+    await AsyncStorage.removeItem(namekey)
+    await AsyncStorage.removeItem(genderkey)
+    await AsyncStorage.removeItem(weightkey)
   }
 
   async getBuzzes() {
@@ -265,14 +269,13 @@ const styles = StyleSheet.create({
   }
 })
 
-const RootStack = createStackNavigator({
+const AppStack = createStackNavigator({
   MyTab: {
     screen: createBottomTabNavigator(
       {
         Home: HomeScreen,
         Buzz: BuzzScreen,
-        OldBuzz: OldBuzzScreen,
-        Login: LoginScreen
+        OldBuzz: OldBuzzScreen
       },
       {
         defaultNavigationOptions: ({ navigation }) => ({
@@ -308,7 +311,32 @@ const RootStack = createStackNavigator({
   }
 })
 
-const AppContainer = createAppContainer(RootStack);
+const AuthStack = createStackNavigator({
+  Login: LoginScreen,
+},
+  {
+    initialRouteName: 'Login',
+    defaultNavigationOptions: {
+      title: `Buzzin'`, headerStyle: {
+        backgroundColor: '#80cbc4'
+      },
+      headerTitleStyle: {
+        color: "#ffffff",
+        fontSize: 25
+      }
+    }
+  });
+
+const AppContainer = createAppContainer(createSwitchNavigator(
+  {
+    AuthLoad: AuthLoadScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoad',
+  }
+));
 
 export default class App extends React.Component {
   render() {
