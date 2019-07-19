@@ -58,16 +58,6 @@ class HomeScreen extends Component {
     })
   }
 
-  async getBuzzes() {
-    const key = "buzzes"
-    await AsyncStorage.getItem(key, (error, result) => {
-      if (result !== null) {
-        this.setState({ buzzes: JSON.parse(result) })
-        this.checkBac();
-      }
-    })
-  }
-
   getDayHourMin(date1, date2) {
     var dateDiff = date2 - date1;
     dateDiff = dateDiff / 1000;
