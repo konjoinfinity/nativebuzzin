@@ -8,6 +8,7 @@ import {
     Vibration
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from "moment";
 
 class BuzzScreen extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ class BuzzScreen extends Component {
                         {buzz.drinkType === "Beer" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍺</Text>}
                         {buzz.drinkType === "Wine" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍷</Text>}
                         {buzz.drinkType === "Liquor" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🥃</Text>}
-                        <Text style={{ fontSize: 15, textAlign: "center", paddingBottom: 10 }}>{buzz.dateCreated}</Text>
+                        <View style={{ alignItems: "center", paddingBottom: 10 }}><Text>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm:ss a')}</Text></View>
                         <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>Delete 🗑</Text></TouchableOpacity>
                     </View>
                 )
