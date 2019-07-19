@@ -6,7 +6,7 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    TouchableHighlight
+    RefreshControl
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -19,7 +19,8 @@ class HomeScreen extends Component {
             weight: "",
             bac: 0.0,
             buzzes: [],
-            oldbuzzes: []
+            oldbuzzes: [],
+            refreshing: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.getBAC = this.getBAC.bind(this);
@@ -29,6 +30,8 @@ class HomeScreen extends Component {
         this.getDayHourMin = this.getDayHourMin.bind(this);
         this.saveBuzz = this.saveBuzz.bind(this);
         this.clearDrinks = this.clearDrinks.bind(this);
+        this.getBuzzes = this.getBuzzes.bind(this);
+        this.onRefresh = this.onRefresh.bind(this);
     };
 
     async componentDidMount() {
@@ -55,6 +58,27 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
+    }
+
+    async getBuzzes() {
+        Vibration.vibrate();
+        const key = "buzzes"
+        await AsyncStorage.getItem(key, (error, result) => {
+            console.log(result)
+            if (result !== null) {
+                console.log(result)
+                this.setState({ buzzes: JSON.parse(result) })
+                setTimeout(() => {
+                    this.checkBac();
+                }, 400);
+            }
+        })
+    }
+
+    onRefresh() {
+        this.setState({ refreshing: true });
+        this.getBuzzes();
+        this.setState({ refreshing: false });
     }
 
     getDayHourMin(date1, date2) {
@@ -182,7 +206,10 @@ class HomeScreen extends Component {
     render() {
         return (
             <View>
-                <ScrollView>
+                <ScrollView refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.name} - {this.state.gender} - {this.state.weight} lbs.</Text>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current BAC</Text>
@@ -235,19 +262,6 @@ class HomeScreen extends Component {
                         <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
                     </View>
                 </ScrollView>
-                <View style={styles.mainviewStyle}>
-                    <View style={styles.footer}>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Home")}>
-                            <Text style={styles.footerText}>🏠</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Buzz")}>
-                            <Text style={styles.footerText}>🍺</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("OldBuzz")}>
-                            <Text style={styles.footerText}>🐝</Text>
-                        </TouchableHighlight>
-                    </View>
-                </View>
             </View>
         );
     }
@@ -268,38 +282,5 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 22,
         textAlign: "center"
-    },
-    mainviewStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        paddingTop: 55
-    },
-    footer: {
-        position: 'absolute',
-        flex: 0.1,
-        left: 0,
-        right: 0,
-        bottom: -20,
-        backgroundColor: '#fff',
-        flexDirection: 'row',
-        height: 80,
-        alignItems: 'center',
-        borderTopWidth: 1,
-        borderTopColor: '#A8A8A8'
-    },
-    bottomButtons: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-    footerText: {
-        color: 'black',
-        fontWeight: 'bold',
-        alignItems: 'center',
-        fontSize: 25,
-    },
-    textStyle: {
-        alignSelf: 'center',
-        color: 'orange'
     }
 })

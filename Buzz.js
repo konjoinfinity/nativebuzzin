@@ -6,7 +6,7 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    TouchableHighlight
+    RefreshControl
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
@@ -15,10 +15,13 @@ class BuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buzzes: null
+            buzzes: null,
+            refreshing: false
         }
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
         this.deleteBuzz = this.deleteBuzz.bind(this);
+        this.getBuzzes = this.getBuzzes.bind(this);
+        this.onRefresh = this.onRefresh.bind(this);
     };
 
     async componentDidMount() {
@@ -26,6 +29,19 @@ class BuzzScreen extends Component {
         await AsyncStorage.getItem(key, (error, result) => {
             this.setState({ buzzes: JSON.parse(result) })
         })
+    }
+
+    async getBuzzes() {
+        const key = "buzzes"
+        await AsyncStorage.getItem(key, (error, result) => {
+            this.setState({ buzzes: JSON.parse(result) })
+        })
+    }
+
+    onRefresh() {
+        this.setState({ refreshing: true });
+        this.getBuzzes();
+        this.setState({ refreshing: false });
     }
 
     async deleteBuzzes() {
@@ -68,36 +84,21 @@ class BuzzScreen extends Component {
             )
         return (
             <View>
-                <View>
-                    <ScrollView>
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
-                        </View>
-                        {this.state.buzzes === null &&
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
-                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
-                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>
-                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>3 days, 20 hours, 13 minutes, and 45 seconds</Text>
-                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>
-                            </View>}
-                        {buzzes}
-                    </ScrollView>
-                </View>
-                <View style={styles.mainviewStyle}>
-                    <View style={styles.footer}>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Home")}>
-                            <Text style={styles.footerText}>🏠</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Buzz")}>
-                            <Text style={styles.footerText}>🍺</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("OldBuzz")}>
-                            <Text style={styles.footerText}>🐝</Text>
-                        </TouchableHighlight>
+                <ScrollView>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
                     </View>
-                </View>
+                    {this.state.buzzes === null &&
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>3 days, 20 hours, 13 minutes, and 45 seconds</Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>
+                        </View>}
+                    {buzzes}
+                </ScrollView>
             </View>
         );
     }

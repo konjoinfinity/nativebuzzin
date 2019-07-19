@@ -6,7 +6,7 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    TouchableHighlight
+    RefreshControl
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
@@ -15,7 +15,8 @@ class OldBuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            oldbuzzes: null
+            oldbuzzes: null,
+            refreshing: false
         }
         this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
         this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
@@ -79,19 +80,6 @@ class OldBuzzScreen extends Component {
                         </View>}
                     {oldbuzzes}
                 </ScrollView>
-                <View style={styles.mainviewStyle}>
-                    <View style={styles.footer}>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Home")}>
-                            <Text style={styles.footerText}>🏠</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("Buzz")}>
-                            <Text style={styles.footerText}>🍺</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={styles.bottomButtons} onPress={() => this.props.navigation.push("OldBuzz")}>
-                            <Text style={styles.footerText}>🐝</Text>
-                        </TouchableHighlight>
-                    </View>
-                </View>
             </View>
         );
     }
@@ -112,38 +100,5 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 22,
         textAlign: "center"
-    },
-    mainviewStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        paddingTop: 400
-    },
-    footer: {
-        position: 'absolute',
-        flex: 0.1,
-        left: 0,
-        right: 0,
-        bottom: -20,
-        backgroundColor: '#fff',
-        flexDirection: 'row',
-        height: 80,
-        alignItems: 'center',
-        borderTopWidth: 1,
-        borderTopColor: '#A8A8A8'
-    },
-    bottomButtons: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-    footerText: {
-        color: 'black',
-        fontWeight: 'bold',
-        alignItems: 'center',
-        fontSize: 25,
-    },
-    textStyle: {
-        alignSelf: 'center',
-        color: 'orange'
     }
 })

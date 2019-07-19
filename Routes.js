@@ -5,7 +5,7 @@ import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
-import { Vibration, View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { Vibration, View, Text } from "react-native"
 
 const AppStack = createStackNavigator({
     MyTab: {
@@ -76,21 +76,3 @@ export default createAppContainer(createSwitchNavigator(
         initialRouteName: 'AuthLoad',
     }
 ));
-
-const styles = StyleSheet.create({
-    headerButton: {
-        height: 35,
-        width: 35,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgba(250, 250, 250, 0.7)',
-        borderRadius: 50,
-        margin: 10,
-        shadowColor: 'black',
-        shadowOpacity: 0.5,
-        shadowOffset: {
-            width: 2,
-            height: 2,
-        }
-    }
-})
