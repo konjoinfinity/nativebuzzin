@@ -17,11 +17,9 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
-        name: "Wesley",
-        gender: "Male",
-        weight: 220
-      },
+      name: "",
+      gender: "",
+      weight: "",
       bac: 0.0,
       buzzes: [],
       oldbuzzes: []
@@ -39,11 +37,23 @@ class HomeScreen extends Component {
   async componentDidMount() {
     Vibration.vibrate();
     const key = "buzzes"
+    const namekey = "name"
+    const genderkey = "gender"
+    const weightkey = "weight"
     await AsyncStorage.getItem(key, (error, result) => {
       if (result !== null) {
         this.setState({ buzzes: JSON.parse(result) })
         this.checkBac();
       }
+    })
+    await AsyncStorage.getItem(namekey, (error, result) => {
+      this.setState({ name: JSON.parse(result) })
+    })
+    await AsyncStorage.getItem(genderkey, (error, result) => {
+      this.setState({ gender: JSON.parse(result) })
+    })
+    await AsyncStorage.getItem(weightkey, (error, result) => {
+      this.setState({ weight: JSON.parse(result) })
     })
   }
 
@@ -117,7 +127,7 @@ class HomeScreen extends Component {
     var drinkDate = new Date();
     this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
     if (this.state.buzzes.length == 0) {
-      var total = this.getBAC(this.state.user.weight, this.state.user.gender, 1, drink, 0)
+      var total = this.getBAC(this.state.weight, this.state.gender, 1, drink, 0)
       total = parseFloat(total.toFixed(6));
       this.setState({ bac: total })
     }
@@ -140,8 +150,8 @@ class HomeScreen extends Component {
     if (this.state.buzzes.length >= 1) {
       var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
       var totalBac = this.getBAC(
-        this.state.user.weight,
-        this.state.user.gender,
+        this.state.weight,
+        this.state.gender,
         this.state.buzzes.length,
         this.state.buzzes[0].drinkType,
         duration
@@ -183,7 +193,7 @@ class HomeScreen extends Component {
       <View>
         <ScrollView>
           <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-            <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.user.name} - {this.state.user.gender} - {this.state.user.weight} lbs.</Text>
+            <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.name} - {this.state.gender} - {this.state.weight} lbs.</Text>
             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current BAC</Text>
             {(this.state.bac === 0 || this.state.bac === undefined) && (
               <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", margin: 10 }}>
