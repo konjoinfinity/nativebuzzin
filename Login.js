@@ -29,6 +29,7 @@ class LoginScreen extends React.Component {
         };
         this.handleLogin = this.handleLogin.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleGender = this.handleGender.bind(this);
     }
 
     componentDidMount() {
@@ -41,6 +42,12 @@ class LoginScreen extends React.Component {
 
     handleNameChange(name) {
         this.setState({ name });
+    }
+
+    handleGender(index) {
+        if (index !== 0) {
+            this.setState({ gender: options[index].props.children })
+        }
     }
 
     async handleLogin() {
@@ -71,16 +78,21 @@ class LoginScreen extends React.Component {
                             onChangeText={this.handleNameChange}
                             value={this.state.name} />
                     </View>
-                    {/* <Picker
-                        selectedValue={this.state.gender}
-                        style={{ height: 0, width: 350, margin: 10, padding: 10 }}
-                        onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ gender: itemValue })
-                        }>
-                        <Picker.Item label="Select Gender" value="" />
-                        <Picker.Item label="Male" value="Male" />
-                        <Picker.Item label="Female" value="Female" />
-                    </Picker>
+                    <View style={{ paddingTop: 15 }}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.showActionSheet()}><Text style={styles.buttonText}>Select Gender ♂♀</Text></TouchableOpacity>
+                        <ActionSheet
+                            ref={o => this.ActionSheet = o}
+                            title={<Text style={{ color: '#000', fontSize: 25 }}>Gender</Text>}
+                            options={options}
+                            cancelButtonIndex={0}
+                            onPress={this.handleGender}
+                        />
+                        {this.state.gender !== "" &&
+                            <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
+                                <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
+                            </View>}
+                    </View>
+                    {/* 
                     <View style={{ paddingTop: 100 }}>
                         <Picker
                             selectedValue={this.state.weight}
@@ -122,21 +134,7 @@ class LoginScreen extends React.Component {
                             <Picker.Item label="250 lbs." value={250} />
                         </Picker>
                     </View> */}
-                    <View>
-                        <Text style={{ textAlign: "center", fontSize: 30 }} onPress={this.showActionSheet}>Select Gender</Text>
-                        <ActionSheet
-                            ref={o => this.ActionSheet = o}
-                            title={<Text style={{ color: '#000', fontSize: 25 }}>Gender</Text>}
-                            options={options}
-                            cancelButtonIndex={0}
-                            destructiveButtonIndex={4}
-                            onPress={(index) => {
-                                if (options[index].props.children !== undefined) {
-                                    this.setState({ gender: options[index].props.children })
-                                }
-                            }}
-                        />
-                    </View>
+
                     <View style={{ paddingTop: 250 }}>
                         <TouchableOpacity
                             style={styles.loginButton}
@@ -186,5 +184,13 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 20,
         textAlign: "center"
+    },
+    button: {
+        borderWidth: 1,
+        borderColor: "#00897b",
+        backgroundColor: "#00897b",
+        padding: 15,
+        margin: 5,
+        borderRadius: 15
     }
 });
