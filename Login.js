@@ -79,7 +79,7 @@ class LoginScreen extends React.Component {
                             onChangeText={this.handleNameChange}
                             value={this.state.name} />
                     </View>
-                    <View style={{ paddingTop: 50 }}>
+                    <View style={{ paddingTop: 30 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.showActionSheet()}><Text style={styles.buttonText}>Select Gender ♂♀</Text></TouchableOpacity>
                         <ActionSheet
                             ref={o => this.ActionSheet = o}
@@ -93,7 +93,8 @@ class LoginScreen extends React.Component {
                                 <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                             </View>}
                     </View>
-                    <View style={{ paddingTop: 50, alignItems: "center" }}>
+                    <View style={{ paddingTop: 30, alignItems: "center" }}>
+                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight</Text>
                         <NumericInput
                             minValue={80}
                             maxValue={300}
@@ -107,9 +108,9 @@ class LoginScreen extends React.Component {
                             rightButtonBackgroundColor='#00897b'
                             leftButtonBackgroundColor='#00897b' />
                     </View>
-                    <View style={{ paddingTop: 50 }}>
+                    <View style={{ paddingTop: 30 }}>
                         <TouchableOpacity
-                            style={styles.loginButton}
+                            style={styles.button}
                             onPress={this.handleLogin}>
                             <Text style={styles.buttonText}>Login</Text>
                         </TouchableOpacity>
