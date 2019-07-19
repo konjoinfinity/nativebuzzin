@@ -56,7 +56,6 @@ class LoginScreen extends React.Component {
         const weightkey = "weight"
         if (this.state.name !== "") {
             if (this.state.gender !== "") {
-                Alert.alert("Please Select Gender")
                 await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
                 await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
                 await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
