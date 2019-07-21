@@ -30,7 +30,6 @@ class HomeScreen extends Component {
         this.getDayHourMin = this.getDayHourMin.bind(this);
         this.saveBuzz = this.saveBuzz.bind(this);
         this.clearDrinks = this.clearDrinks.bind(this);
-        this.getBuzzes = this.getBuzzes.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
     };
 
@@ -60,25 +59,12 @@ class HomeScreen extends Component {
         })
     }
 
-    async getBuzzes() {
-        Vibration.vibrate();
-        const key = "buzzes"
-        await AsyncStorage.getItem(key, (error, result) => {
-            console.log(result)
-            if (result !== null) {
-                console.log(result)
-                this.setState({ buzzes: JSON.parse(result) })
-                setTimeout(() => {
-                    this.checkBac();
-                }, 400);
-            }
-        })
-    }
-
     onRefresh() {
         this.setState({ refreshing: true });
-        this.getBuzzes();
-        this.setState({ refreshing: false });
+        this.checkBac()
+        setTimeout(() => {
+            this.setState({ refreshing: false });
+        }, 200);
     }
 
     getDayHourMin(date1, date2) {
@@ -151,7 +137,6 @@ class HomeScreen extends Component {
             if (this.state.buzzes.length >= 1) {
                 console.log("if equal to or more than 1")
                 this.checkBac();
-                this.saveBuzz();
             }
         }, 100);
     }
@@ -175,6 +160,9 @@ class HomeScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
+                setTimeout(() => {
+                    this.saveBuzz();
+                }, 200);
             } else {
                 console.log("moved to old - toalBAC:" + ` ${totalBac}`)
                 this.moveToOld();
