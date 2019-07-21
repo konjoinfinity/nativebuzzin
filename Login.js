@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Vibration,
     KeyboardAvoidingView,
-    Alert
+    Alert,
+    Keyboard
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
@@ -37,6 +38,7 @@ class LoginScreen extends React.Component {
     }
 
     showActionSheet() {
+        Keyboard.dismiss()
         this.ActionSheet.show()
     }
 
@@ -82,12 +84,12 @@ class LoginScreen extends React.Component {
                             autoFocus={true}
                             name="name"
                             id="name"
-                            returnKeyType={"next"}
+                            returnKeyType={"default"}
                             blurOnSubmit={false}
                             onChangeText={this.handleNameChange}
                             value={this.state.name} />
                     </View>
-                    <View style={{ paddingTop: 30 }}>
+                    <View style={{ paddingTop: 20 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.showActionSheet()}><Text style={styles.buttonText}>Select Gender ♂♀</Text></TouchableOpacity>
                         <ActionSheet
                             ref={o => this.ActionSheet = o}
@@ -101,7 +103,7 @@ class LoginScreen extends React.Component {
                                 <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                             </View>}
                     </View>
-                    <View style={{ paddingTop: 30, alignItems: "center" }}>
+                    <View style={{ paddingTop: 20, alignItems: "center" }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                         <NumericInput
                             minValue={80}
@@ -116,7 +118,7 @@ class LoginScreen extends React.Component {
                             rightButtonBackgroundColor='#00897b'
                             leftButtonBackgroundColor='#00897b' />
                     </View>
-                    <View style={{ paddingTop: 30 }}>
+                    <View style={{ paddingTop: 20 }}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={this.handleLogin}>
@@ -132,8 +134,7 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        paddingTop: 10
+        flex: 1
     },
     header: {
         fontSize: 30,
