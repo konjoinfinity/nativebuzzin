@@ -35,19 +35,10 @@ class HomeScreen extends Component {
 
     async componentDidMount() {
         Vibration.vibrate();
-        const key = "buzzes"
         const namekey = "name"
         const genderkey = "gender"
         const weightkey = "weight"
-        await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null) {
-                console.log(result)
-                this.setState({ buzzes: JSON.parse(result) })
-                setTimeout(() => {
-                    this.checkBac();
-                }, 400);
-            }
-        })
+        const key = "buzzes"
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
         })
@@ -57,12 +48,28 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
+        await AsyncStorage.getItem(key, (error, result) => {
+            if (result !== null) {
+                console.log(result)
+                this.setState({ buzzes: JSON.parse(result) })
+            }
+        })
+        setTimeout(() => {
+            this.checkBac();
+        }, 200);
     }
 
-    onRefresh() {
+    async onRefresh() {
+        const key = "buzzes"
         this.setState({ refreshing: true });
-        this.checkBac()
+        await AsyncStorage.getItem(key, (error, result) => {
+            if (result !== null) {
+                console.log(result)
+                this.setState({ buzzes: JSON.parse(result) })
+            }
+        })
         setTimeout(() => {
+            this.checkBac()
             this.setState({ refreshing: false });
         }, 200);
     }
@@ -146,7 +153,7 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
     }
 
-    checkBac() {
+    async checkBac() {
         Vibration.vibrate();
         if (this.state.buzzes.length >= 1) {
             var duration = this.singleDuration(this.state.buzzes[0].dateCreated);

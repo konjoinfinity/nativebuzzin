@@ -20,12 +20,30 @@ class OldBuzzScreen extends Component {
         }
         this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
         this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
+        this.getOldBuzzes = this.getOldBuzzes.bind(this);
+        this.onRefresh = this.onRefresh.bind(this);
     };
 
     async componentDidMount() {
         const oldkey = "oldbuzzes"
         await AsyncStorage.getItem(oldkey, (error, result) => {
             this.setState({ oldbuzzes: JSON.parse(result) })
+        })
+    }
+
+    onRefresh() {
+        this.setState({ refreshing: true });
+        this.getOldBuzzes();
+        setTimeout(() => {
+            this.setState({ refreshing: false });
+        }, 200);
+    }
+
+    async getOldBuzzes() {
+        Vibration.vibrate();
+        const key = "buzzes"
+        await AsyncStorage.getItem(key, (error, result) => {
+            this.setState({ buzzes: JSON.parse(result) })
         })
     }
 
@@ -69,7 +87,10 @@ class OldBuzzScreen extends Component {
             )
         return (
             <View>
-                <ScrollView>
+                <ScrollView refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 🥃</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  🗑</Text></TouchableOpacity>

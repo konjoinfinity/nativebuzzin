@@ -32,6 +32,7 @@ class BuzzScreen extends Component {
     }
 
     async getBuzzes() {
+        Vibration.vibrate();
         const key = "buzzes"
         await AsyncStorage.getItem(key, (error, result) => {
             this.setState({ buzzes: JSON.parse(result) })
@@ -41,7 +42,9 @@ class BuzzScreen extends Component {
     onRefresh() {
         this.setState({ refreshing: true });
         this.getBuzzes();
-        this.setState({ refreshing: false });
+        setTimeout(() => {
+            this.setState({ refreshing: false });
+        }, 200);
     }
 
     async deleteBuzzes() {
@@ -84,7 +87,10 @@ class BuzzScreen extends Component {
             )
         return (
             <View>
-                <ScrollView>
+                <ScrollView refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
