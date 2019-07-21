@@ -11,6 +11,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 
+const key = "buzzes"
+
 class BuzzScreen extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +27,6 @@ class BuzzScreen extends Component {
     };
 
     async componentDidMount() {
-        const key = "buzzes"
         await AsyncStorage.getItem(key, (error, result) => {
             this.setState({ buzzes: JSON.parse(result) })
         })
@@ -33,7 +34,6 @@ class BuzzScreen extends Component {
 
     async getBuzzes() {
         Vibration.vibrate();
-        const key = "buzzes"
         await AsyncStorage.getItem(key, (error, result) => {
             this.setState({ buzzes: JSON.parse(result) })
         })
@@ -49,7 +49,6 @@ class BuzzScreen extends Component {
 
     async deleteBuzzes() {
         Vibration.vibrate();
-        const key = "buzzes"
         await AsyncStorage.removeItem(key, () => {
             this.setState({ buzzes: null })
         })
@@ -57,7 +56,6 @@ class BuzzScreen extends Component {
 
     async deleteBuzz(id) {
         Vibration.vibrate();
-        const key = "buzzes"
         var filtered = this.state.buzzes.filter(buzz => buzz !== this.state.buzzes[id]);
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => {
             if (filtered.length === 0) {

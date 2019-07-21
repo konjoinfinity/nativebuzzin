@@ -11,6 +11,12 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 
+const oldkey = "oldbuzzes"
+const namekey = "name"
+const genderkey = "gender"
+const weightkey = "weight"
+const key = "buzzes"
+
 class OldBuzzScreen extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +32,6 @@ class OldBuzzScreen extends Component {
     };
 
     async componentDidMount() {
-        const oldkey = "oldbuzzes"
         await AsyncStorage.getItem(oldkey, (error, result) => {
             this.setState({ oldbuzzes: JSON.parse(result) })
         })
@@ -42,15 +47,13 @@ class OldBuzzScreen extends Component {
 
     async getOldBuzzes() {
         Vibration.vibrate();
-        const key = "buzzes"
-        await AsyncStorage.getItem(key, (error, result) => {
-            this.setState({ buzzes: JSON.parse(result) })
+        await AsyncStorage.getItem(oldkey, (error, result) => {
+            this.setState({ oldbuzzes: JSON.parse(result) })
         })
     }
 
     async deleteOldBuzzes() {
         Vibration.vibrate();
-        const oldkey = "oldbuzzes"
         await AsyncStorage.removeItem(oldkey, () => {
             this.setState({ oldbuzzes: null })
         })
@@ -58,7 +61,6 @@ class OldBuzzScreen extends Component {
 
     async deleteOldBuzz(id) {
         Vibration.vibrate();
-        const oldkey = "oldbuzzes"
         var filtered = this.state.oldbuzzes.filter(oldbuzz => oldbuzz !== this.state.oldbuzzes[id]);
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => {
             if (filtered.length === 0) {
@@ -71,11 +73,6 @@ class OldBuzzScreen extends Component {
 
     async LogOut() {
         Vibration.vibrate();
-        const namekey = "name"
-        const genderkey = "gender"
-        const weightkey = "weight"
-        const key = "buzzes"
-        const oldkey = "oldbuzzes"
         await AsyncStorage.removeItem(oldkey, () => {
             this.setState({ oldbuzzes: null })
         })

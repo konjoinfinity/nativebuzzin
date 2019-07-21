@@ -10,6 +10,12 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
+const namekey = "name"
+const genderkey = "gender"
+const weightkey = "weight"
+const key = "buzzes"
+const oldkey = "oldbuzzes"
+
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -35,10 +41,6 @@ class HomeScreen extends Component {
 
     async componentDidMount() {
         Vibration.vibrate();
-        const namekey = "name"
-        const genderkey = "gender"
-        const weightkey = "weight"
-        const key = "buzzes"
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
         })
@@ -60,7 +62,6 @@ class HomeScreen extends Component {
     }
 
     async onRefresh() {
-        const key = "buzzes"
         this.setState({ refreshing: true });
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null) {
@@ -149,7 +150,6 @@ class HomeScreen extends Component {
     }
 
     async saveBuzz() {
-        const key = "buzzes"
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
     }
 
@@ -178,8 +178,6 @@ class HomeScreen extends Component {
     }
 
     async moveToOld() {
-        const key = "buzzes"
-        const oldkey = "oldbuzzes"
         await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.buzzes), () => {
             this.setState({ bac: 0.0, oldbuzzes: this.state.buzzes })
         })
@@ -192,7 +190,6 @@ class HomeScreen extends Component {
 
     async clearDrinks() {
         Vibration.vibrate();
-        const key = "buzzes"
         await AsyncStorage.removeItem(key, () => {
             this.setState({ buzzes: [], bac: 0.0 })
         })
