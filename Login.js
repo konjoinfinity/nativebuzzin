@@ -85,7 +85,7 @@ class LoginScreen extends React.Component {
                             name="name"
                             id="name"
                             returnKeyType={"default"}
-                            blurOnSubmit={false}
+                            blurOnSubmit={true}
                             onChangeText={this.handleNameChange}
                             value={this.state.name} />
                     </View>
