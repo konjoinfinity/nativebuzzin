@@ -22,6 +22,7 @@ class OldBuzzScreen extends Component {
         this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
         this.getOldBuzzes = this.getOldBuzzes.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
+        this.LogOut = this.LogOut.bind(this);
     };
 
     async componentDidMount() {
@@ -68,6 +69,24 @@ class OldBuzzScreen extends Component {
         })
     }
 
+    async LogOut() {
+        Vibration.vibrate();
+        const namekey = "name"
+        const genderkey = "gender"
+        const weightkey = "weight"
+        const key = "buzzes"
+        const oldkey = "oldbuzzes"
+        await AsyncStorage.removeItem(oldkey, () => {
+            this.setState({ oldbuzzes: null })
+        })
+        await AsyncStorage.removeItem(key)
+        await AsyncStorage.removeItem(namekey)
+        await AsyncStorage.removeItem(key)
+        await AsyncStorage.removeItem(genderkey)
+        await AsyncStorage.removeItem(weightkey)
+        this.props.navigation.navigate("Login")
+    }
+
     render() {
         let oldbuzzes;
         this.state.oldbuzzes &&
@@ -91,6 +110,9 @@ class OldBuzzScreen extends Component {
                     <RefreshControl
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}><Text style={styles.buttonText}>Logout 👤</Text></TouchableOpacity>
+                    </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 🥃</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  🗑</Text></TouchableOpacity>
