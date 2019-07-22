@@ -315,7 +315,8 @@ class HomeScreen extends Component {
                             actions={actions}
                             onPressItem={name => { this.addDrink(name); }}
                             color={"#1de9b6"}
-                            overlayColor={"#e0f2f1"} />
+                            overlayColor={"#e0f2f1"}
+                            onPressMain={() => { Vibration.vibrate() }} />
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
