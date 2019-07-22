@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { FloatingAction } from "react-native-floating-action";
+import Speedometer from 'react-native-speedometer-chart';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -245,6 +246,46 @@ class HomeScreen extends Component {
     }
 
     render() {
+        var gaugeColor;
+        var bacPercentage;
+        if (this.state.bac === 0 || this.state.bac === undefined) {
+            gaugeColor = "#ffffff"
+            bacPercentage = 0
+        } else if (this.state.bac > 0.00 && this.state.bac < 0.01) {
+            gaugeColor = "#b5d3a0"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.01 && this.state.bac < 0.02) {
+            gaugeColor = "#96c060"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.02 && this.state.bac < 0.03) {
+            gaugeColor = "#9fc635"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.03 && this.state.bac < 0.04) {
+            gaugeColor = "#d3e50e"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.04 && this.state.bac < 0.05) {
+            gaugeColor = "#ffeb00"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.05 && this.state.bac < 0.06) {
+            gaugeColor = "#f9bf00"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.06 && this.state.bac < 0.07) {
+            gaugeColor = "#e98f00"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.07 && this.state.bac < 0.08) {
+            gaugeColor = "#d05900"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.08 && this.state.bac < 0.09) {
+            gaugeColor = "#AE0000"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac > 0.09 && this.state.bac < 0.10) {
+            gaugeColor = "#571405"
+            bacPercentage = this.state.bac * 1000
+        } else if (this.state.bac >= 0.10) {
+            gaugeColor = "#000000"
+            bacPercentage = 100
+        }
+        console.log(bacPercentage)
         return (
             <View>
                 <ScrollView refreshControl={
@@ -252,7 +293,10 @@ class HomeScreen extends Component {
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        {(this.state.bac === 0 || this.state.bac === undefined) && (
+                        <View style={{ alignSelf: "center", paddingBottom: 10 }}>
+                            <Speedometer value={bacPercentage} totalValue={100} size={380} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} showIndicator />
+                        </View>
+                        {/* {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <Image style={{ alignSelf: "center" }} source={require('./img/1bac.png')} />)}
                         {this.state.bac > 0.00 && this.state.bac < 0.02 && (
                             <Image style={{ alignSelf: "center" }} source={require('./img/2bac.png')} />)}
@@ -263,7 +307,7 @@ class HomeScreen extends Component {
                         {this.state.bac > 0.06 && this.state.bac < 0.08 && (
                             <Image style={{ alignSelf: "center" }} source={require('./img/5bac.png')} />)}
                         {this.state.bac >= 0.08 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/6bac.png')} />)}
+                            <Image style={{ alignSelf: "center" }} source={require('./img/6bac.png')} />)} */}
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></View>)}
