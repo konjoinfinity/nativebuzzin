@@ -6,8 +6,7 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    RefreshControl,
-    Image
+    RefreshControl
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { FloatingAction } from "react-native-floating-action";
@@ -296,18 +295,6 @@ class HomeScreen extends Component {
                         <View style={{ alignSelf: "center", paddingBottom: 10 }}>
                             <Speedometer value={bacPercentage} totalValue={100} size={380} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} showIndicator />
                         </View>
-                        {/* {(this.state.bac === 0 || this.state.bac === undefined) && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/1bac.png')} />)}
-                        {this.state.bac > 0.00 && this.state.bac < 0.02 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/2bac.png')} />)}
-                        {this.state.bac > 0.02 && this.state.bac < 0.04 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/3bac.png')} />)}
-                        {this.state.bac > 0.04 && this.state.bac < 0.06 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/4bac.png')} />)}
-                        {this.state.bac > 0.06 && this.state.bac < 0.08 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/5bac.png')} />)}
-                        {this.state.bac >= 0.08 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/6bac.png')} />)} */}
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></View>)}
