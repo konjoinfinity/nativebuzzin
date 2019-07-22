@@ -304,13 +304,15 @@ class HomeScreen extends Component {
                             style={{ alignSelf: "center" }}
                             source={require('./img/1bac.png')} />
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 80 }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 55 }}>
+                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Add a Drink</Text>
                         <FloatingAction
                             actions={actions}
-                            onPressItem={name => { Alert.alert(`selected button: ${name}`); }}
+                            onPressItem={name => { this.addDrink(name); }}
                             color={"#1de9b6"}
-                            distanceToEdge={40} />
+                            overlayColor={"#e0f2f1"} />
                     </View>
+
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
