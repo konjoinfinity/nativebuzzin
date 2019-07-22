@@ -25,11 +25,11 @@ class HomeScreen extends Component {
             gender: "",
             weight: "",
             bac: 0.0,
-            buzzes: [{ drinkType: "Beer", dateCreated: "2019-07-19T18:26:20.747Z" }, { drinkType: "Liquor", dateCreated: "2019-07-19T18:36:20.747Z" }],
-            oldbuzzes: [{ drinkType: "Beer", dateCreated: "2019-07-18T15:06:20.747Z" }, { drinkType: "Wine", dateCreated: "2019-07-18T15:16:20.747Z" }, { drinkType: "Beer", dateCreated: "2019-07-18T15:26:20.747Z" }, { drinkType: "Liquor", dateCreated: "2019-07-18T15:36:20.747Z" }],
+            buzzes: [],
+            oldbuzzes: [],
             refreshing: false,
-            highbac: [{ total: 0.1265, dateCreated: "2019-07-18T15:06:20.747Z" }],
-            oldhighbac: [{ total: 0.2845, dateCreated: "2019-07-19T19:06:20.747Z" }]
+            highbac: [],
+            oldhighbac: []
         }
         this.addDrink = this.addDrink.bind(this);
         this.getBAC = this.getBAC.bind(this);
