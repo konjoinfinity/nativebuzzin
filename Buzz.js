@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
+import _ from 'lodash'
 
 const key = "buzzes"
 const oldkey = "oldbuzzes"
@@ -46,7 +47,7 @@ class BuzzScreen extends Component {
             this.setState({ buzzes: JSON.parse(result) })
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null) {
+            if (_.isArray(JSON.parse(result)) === true) {
                 this.setState({ oldbuzzes: JSON.parse(result) })
                 setTimeout(() => {
                     var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1].dateCreated)
@@ -128,10 +129,14 @@ class BuzzScreen extends Component {
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>
+                            {this.state.timesince !== null &&
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>}
                             {this.state.timesince !== null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>{this.state.timesince}</Text>}
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>
+                            {this.state.timesince !== null &&
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>}
+                            {this.state.timesince === null &&
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
                     {buzzes}
                 </ScrollView>

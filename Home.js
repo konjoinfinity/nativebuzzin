@@ -60,7 +60,7 @@ class HomeScreen extends Component {
             gender: "",
             weight: "",
             bac: 0.0,
-            buzzes: [],
+            buzzes: [{ drinkType: "Liquor", dateCreated: "2019-07-18T15:36:20.747Z" }],
             oldbuzzes: [],
             refreshing: false,
             highbac: [],
@@ -89,11 +89,11 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
-        await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null) {
-                this.setState({ buzzes: JSON.parse(result) })
-            }
-        })
+        // await AsyncStorage.getItem(key, (error, result) => {
+        //     if (result !== null) {
+        //         this.setState({ buzzes: JSON.parse(result) })
+        //     }
+        // })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
                 this.setState({ oldbuzzes: JSON.parse(result) })
