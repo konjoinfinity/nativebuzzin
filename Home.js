@@ -25,8 +25,8 @@ class HomeScreen extends Component {
             gender: "",
             weight: "",
             bac: 0.0,
-            buzzes: [],
-            oldbuzzes: [],
+            buzzes: [{ drinkType: "Beer", dateCreated: "2019-07-19T18:26:20.747Z" }, { drinkType: "Liquor", dateCreated: "2019-07-19T18:36:20.747Z" }],
+            oldbuzzes: [{ drinkType: "Beer", dateCreated: "2019-07-18T15:06:20.747Z" }, { drinkType: "Wine", dateCreated: "2019-07-18T15:16:20.747Z" }, { drinkType: "Beer", dateCreated: "2019-07-18T15:26:20.747Z" }, { drinkType: "Liquor", dateCreated: "2019-07-18T15:36:20.747Z" }],
             refreshing: false,
             highbac: 0
         }
@@ -39,6 +39,7 @@ class HomeScreen extends Component {
         this.saveBuzz = this.saveBuzz.bind(this);
         this.clearDrinks = this.clearDrinks.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
+        this.moveToOld = this.moveToOld.bind(this);
     };
 
     async componentDidMount() {
@@ -59,13 +60,11 @@ class HomeScreen extends Component {
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
-                console.log(result)
                 this.setState({ oldbuzzes: JSON.parse(result) })
             }
         })
         await AsyncStorage.getItem(highkey, (error, result) => {
             if (result !== null) {
-                console.log(result)
                 this.setState({ highbac: JSON.parse(result) })
             }
         })
@@ -149,7 +148,6 @@ class HomeScreen extends Component {
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
         setTimeout(() => {
             if (this.state.buzzes.length >= 1) {
-                console.log("if equal to or more than 1")
                 this.checkBac();
             }
         }, 100);
@@ -194,14 +192,13 @@ class HomeScreen extends Component {
         oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
         console.log(oldbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
-        this.setState(prevState => ({ highbac: [...prevState.highbac, this.state.highbac] }))
-        await AsyncStorage.setItem(highkey, JSON.stringify(this.state.highbac), () => {
-            this.setState({ bac: 0.0 })
-        })
+        // this.setState(prevState => ({ highbac: [...prevState.highbac, this.state.highbac] }))
+        // await AsyncStorage.setItem(highkey, JSON.stringify(this.state.highbac), () => {
+        //     this.setState({  })
+        // })
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
-                this.setState({ buzzes: [] })
-                this.setState({ oldbuzzes: [] })
+                this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
             }, 200);
         })
     }
