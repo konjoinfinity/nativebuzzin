@@ -36,6 +36,15 @@ class OldBuzzScreen extends Component {
         await AsyncStorage.getItem(oldkey, (error, result) => {
             this.setState({ oldbuzzes: JSON.parse(result) })
         })
+        await AsyncStorage.getItem(namekey, (error, result) => {
+            this.setState({ name: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(genderkey, (error, result) => {
+            this.setState({ gender: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(weightkey, (error, result) => {
+            this.setState({ weight: JSON.parse(result) })
+        })
     }
 
     onRefresh() {
