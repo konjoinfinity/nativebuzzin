@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
     Vibration,
     RefreshControl,
-    Alert,
     Image
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';

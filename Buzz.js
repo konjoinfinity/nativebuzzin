@@ -12,13 +12,16 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 
 const key = "buzzes"
+const oldkey = "oldbuzzes"
 
 class BuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             buzzes: null,
-            refreshing: false
+            refreshing: false,
+            oldbuzzes: null,
+            timesince: null
         }
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
         this.deleteBuzz = this.deleteBuzz.bind(this);
@@ -26,9 +29,37 @@ class BuzzScreen extends Component {
         this.onRefresh = this.onRefresh.bind(this);
     };
 
+    getDayHourMin(date1, date2) {
+        var dateDiff = date2 - date1;
+        dateDiff = dateDiff / 1000;
+        var seconds = Math.floor(dateDiff % 60);
+        dateDiff = dateDiff / 60;
+        var minutes = Math.floor(dateDiff % 60);
+        dateDiff = dateDiff / 60;
+        var hours = Math.floor(dateDiff % 24);
+        var days = Math.floor(dateDiff / 24);
+        return [days, hours, minutes, seconds];
+    }
+
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
             this.setState({ buzzes: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(oldkey, (error, result) => {
+            if (result !== null) {
+                this.setState({ oldbuzzes: JSON.parse(result) })
+                setTimeout(() => {
+                    var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1].dateCreated)
+                    var currentDate = new Date();
+                    var date2 = currentDate.getTime();
+                    var dayHourMin = this.getDayHourMin(date1, date2);
+                    var days = dayHourMin[0];
+                    var hours = dayHourMin[1];
+                    var minutes = dayHourMin[2];
+                    var seconds = dayHourMin[3];
+                    this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
+                }, 100);
+            }
         })
     }
 
@@ -98,7 +129,8 @@ class BuzzScreen extends Component {
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>3 days, 20 hours, 13 minutes, and 45 seconds</Text>
+                            {this.state.timesince !== null &&
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>{this.state.timesince}</Text>}
                             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>
                         </View>}
                     {buzzes}
