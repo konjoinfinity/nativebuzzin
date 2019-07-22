@@ -16,6 +16,7 @@ const namekey = "name"
 const genderkey = "gender"
 const weightkey = "weight"
 const key = "buzzes"
+const highkey = "highbac"
 
 class OldBuzzScreen extends Component {
     constructor(props) {
@@ -81,6 +82,7 @@ class OldBuzzScreen extends Component {
         await AsyncStorage.removeItem(key)
         await AsyncStorage.removeItem(genderkey)
         await AsyncStorage.removeItem(weightkey)
+        await AsyncStorage.removeItem(highkey)
         this.props.navigation.navigate("Login")
     }
 

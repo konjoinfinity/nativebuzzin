@@ -28,7 +28,8 @@ class HomeScreen extends Component {
             buzzes: [{ drinkType: "Beer", dateCreated: "2019-07-19T18:26:20.747Z" }, { drinkType: "Liquor", dateCreated: "2019-07-19T18:36:20.747Z" }],
             oldbuzzes: [{ drinkType: "Beer", dateCreated: "2019-07-18T15:06:20.747Z" }, { drinkType: "Wine", dateCreated: "2019-07-18T15:16:20.747Z" }, { drinkType: "Beer", dateCreated: "2019-07-18T15:26:20.747Z" }, { drinkType: "Liquor", dateCreated: "2019-07-18T15:36:20.747Z" }],
             refreshing: false,
-            highbac: 0
+            highbac: 0,
+            oldhighbac: []
         }
         this.addDrink = this.addDrink.bind(this);
         this.getBAC = this.getBAC.bind(this);
@@ -172,6 +173,8 @@ class HomeScreen extends Component {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
                 if (totalBac > this.state.highbac) {
+                    // totalBac > this.state.highbac.total
+                    // { total: totalBac, dateCreated: bacDate }
                     this.setState({ highbac: totalBac })
                 }
                 setTimeout(() => {
@@ -185,22 +188,24 @@ class HomeScreen extends Component {
     }
 
     async moveToOld() {
-        // realized oldbuzzes arew overwritten when being written to asyncstorage
-        // getItem oldkey, place in array, push new olds to array, setItem oldkey
         var oldbuzzarray = this.state.oldbuzzes;
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
         console.log(oldbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
-        // this.setState(prevState => ({ highbac: [...prevState.highbac, this.state.highbac] }))
-        // await AsyncStorage.setItem(highkey, JSON.stringify(this.state.highbac), () => {
-        //     this.setState({  })
-        // })
+        // if (this.state.highbac > 0) {
+        var bacDate = new Date();
+        this.setState(prevState => ({ oldhighbac: [...prevState.oldhighbac, { highbac: this.state.highbac, dateCreated: bacDate }] }))
+        await AsyncStorage.setItem(highkey, JSON.stringify(this.state.oldhighbac))
+        // }
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
                 this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
+                // add setstate highbac to 0
             }, 200);
         })
+        console.log(this.state.highbac)
+        console.log(this.state.oldhighbac)
     }
 
     async clearDrinks() {
