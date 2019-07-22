@@ -28,8 +28,8 @@ class HomeScreen extends Component {
             buzzes: [{ drinkType: "Beer", dateCreated: "2019-07-19T18:26:20.747Z" }, { drinkType: "Liquor", dateCreated: "2019-07-19T18:36:20.747Z" }],
             oldbuzzes: [{ drinkType: "Beer", dateCreated: "2019-07-18T15:06:20.747Z" }, { drinkType: "Wine", dateCreated: "2019-07-18T15:16:20.747Z" }, { drinkType: "Beer", dateCreated: "2019-07-18T15:26:20.747Z" }, { drinkType: "Liquor", dateCreated: "2019-07-18T15:36:20.747Z" }],
             refreshing: false,
-            highbac: 0,
-            oldhighbac: []
+            highbac: [{ total: 0.1265, dateCreated: "2019-07-18T15:06:20.747Z" }],
+            oldhighbac: [{ total: 0.2845, dateCreated: "2019-07-19T19:06:20.747Z" }]
         }
         this.addDrink = this.addDrink.bind(this);
         this.getBAC = this.getBAC.bind(this);
@@ -172,10 +172,10 @@ class HomeScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
-                if (totalBac > this.state.highbac) {
-                    // totalBac > this.state.highbac.total
-                    // { total: totalBac, dateCreated: bacDate }
-                    this.setState({ highbac: totalBac })
+                console.log(totalBac)
+                if (totalBac > this.state.highbac.total) {
+                    var bacDate = new Date();
+                    this.setState({ highbac: [{ total: totalBac, dateCreated: bacDate }] })
                 }
                 setTimeout(() => {
                     this.saveBuzz();
@@ -193,11 +193,11 @@ class HomeScreen extends Component {
         oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
         console.log(oldbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
-        // if (this.state.highbac > 0) {
-        var bacDate = new Date();
-        this.setState(prevState => ({ oldhighbac: [...prevState.oldhighbac, { highbac: this.state.highbac, dateCreated: bacDate }] }))
-        await AsyncStorage.setItem(highkey, JSON.stringify(this.state.oldhighbac))
-        // }
+        if (this.state.highbac.total > 0) {
+            var bacDate = new Date();
+            this.setState(prevState => ({ oldhighbac: [...prevState.oldhighbac, { total: this.state.highbac.total, dateCreated: this.state.highbac.dateCreated }] }))
+            await AsyncStorage.setItem(highkey, JSON.stringify(this.state.oldhighbac))
+        }
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
                 this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
