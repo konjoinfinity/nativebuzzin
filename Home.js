@@ -284,7 +284,6 @@ class HomeScreen extends Component {
             gaugeColor = "#000000"
             bacPercentage = 100
         }
-        console.log(bacPercentage)
         return (
             <View>
                 <ScrollView refreshControl={
@@ -292,8 +291,8 @@ class HomeScreen extends Component {
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <View style={{ alignSelf: "center", paddingBottom: 10 }}>
-                            <Speedometer value={bacPercentage} totalValue={100} size={380} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} showIndicator />
+                        <View style={{ alignSelf: "center", padding: 10 }}>
+                            <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} showIndicator />
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", margin: 10 }}>
@@ -332,7 +331,7 @@ class HomeScreen extends Component {
                             <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#000000", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingBottom: 65, paddingTop: 10, paddingRight: 10, paddingLeft: 10 }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingBottom: 80, paddingTop: 10, paddingRight: 10, paddingLeft: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Add a Drink</Text>
                         <FloatingAction
@@ -362,7 +361,7 @@ const styles = StyleSheet.create({
         borderColor: "#00897b",
         backgroundColor: "#00897b",
         padding: 15,
-        margin: 5,
+        margin: 10,
         borderRadius: 15
     },
     buttonText: {
