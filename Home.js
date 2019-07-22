@@ -298,6 +298,14 @@ class HomeScreen extends Component {
                             <Image style={{ alignSelf: "center" }} source={require('./img/1bac.png')} />)}
                         {this.state.bac > 0.00 && this.state.bac < 0.02 && (
                             <Image style={{ alignSelf: "center" }} source={require('./img/2bac.png')} />)}
+                        {this.state.bac > 0.02 && this.state.bac < 0.04 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/3bac.png')} />)}
+                        {this.state.bac > 0.04 && this.state.bac < 0.06 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/4bac.png')} />)}
+                        {this.state.bac > 0.06 && this.state.bac < 0.08 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/5bac.png')} />)}
+                        {this.state.bac >= 0.08 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/6bac.png')} />)}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 55 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Add a Drink</Text>
