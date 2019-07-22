@@ -113,7 +113,6 @@ class HomeScreen extends Component {
         this.setState({ refreshing: true });
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null) {
-                console.log(result)
                 this.setState({ buzzes: JSON.parse(result) })
             }
         })
@@ -207,7 +206,6 @@ class HomeScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
-                console.log(totalBac)
                 if (totalBac > this.state.highbac.total) {
                     var bacDate = new Date();
                     this.setState({ highbac: [{ total: totalBac, dateCreated: bacDate }] })
@@ -216,7 +214,6 @@ class HomeScreen extends Component {
                     this.saveBuzz();
                 }, 200);
             } else {
-                console.log("moved to old - toalBAC:" + ` ${totalBac}`)
                 this.moveToOld();
             }
         }
@@ -226,7 +223,6 @@ class HomeScreen extends Component {
         var oldbuzzarray = this.state.oldbuzzes;
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
-        console.log(oldbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         if (this.state.highbac.total > 0) {
             var bacDate = new Date();
@@ -236,11 +232,9 @@ class HomeScreen extends Component {
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
                 this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
-                // add setstate highbac to 0
+                // add setstate highbac to 0, how to implement this? Possibly add to single drink
             }, 200);
         })
-        console.log(this.state.highbac)
-        console.log(this.state.oldhighbac)
     }
 
     async clearDrinks() {
