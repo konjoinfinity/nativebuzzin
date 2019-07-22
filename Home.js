@@ -6,9 +6,12 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    RefreshControl
+    RefreshControl,
+    Alert,
+    Image
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { FloatingAction } from "react-native-floating-action";
 
 const namekey = "name"
 const genderkey = "gender"
@@ -16,6 +19,33 @@ const weightkey = "weight"
 const key = "buzzes"
 const oldkey = "oldbuzzes"
 const highkey = "highbac"
+
+const actions = [
+    {
+        text: "+1 Beer",
+        icon: require("./img/beer.png"),
+        name: "Beer",
+        position: 1,
+        color: "#00bfa5",
+        size: 80
+    },
+    {
+        text: "+1 Wine",
+        icon: require("./img/wine.png"),
+        name: "Wine",
+        position: 2,
+        color: "#00bfa5",
+        size: 80
+    },
+    {
+        text: "+1 Liquor",
+        icon: require("./img/liquor.png"),
+        name: "Liquor",
+        position: 3,
+        color: "#00bfa5",
+        size: 80
+    }
+];
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -263,17 +293,30 @@ class HomeScreen extends Component {
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    {/* <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Add a Drink</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.addDrink("Beer")}><Text style={styles.buttonText}>+1 Beer 🍺</Text></TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => this.addDrink("Wine")}><Text style={styles.buttonText}>+1 Wine 🍷</Text></TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => this.addDrink("Liquor")}><Text style={styles.buttonText}>+1 Liquor 🥃</Text></TouchableOpacity>
+                    </View> */}
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <Image
+                            style={{ alignSelf: "center" }}
+                            source={require('./img/1bac.png')} />
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 80 }}>
+                        <FloatingAction
+                            actions={actions}
+                            onPressItem={name => { Alert.alert(`selected button: ${name}`); }}
+                            color={"#1de9b6"}
+                            distanceToEdge={40} />
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
                     </View>
                 </ScrollView>
+
             </View>
         );
     }
