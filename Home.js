@@ -196,7 +196,10 @@ class HomeScreen extends Component {
     async moveToOld() {
         // realized oldbuzzes arew overwritten when being written to asyncstorage
         // getItem oldkey, place in array, push new olds to array, setItem oldkey
-        this.setState(prevState => ({ oldbuzzes: [...prevState.oldbuzzes, this.state.buzzes] }))
+        var oldbuzzarray = this.state.oldbuzzes;
+        var newbuzzarray = this.state.buzzes;
+        oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
+        console.log(oldbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.oldbuzzes))
         this.setState(prevState => ({ highbac: [...prevState.highbac, this.state.highbac] }))
         await AsyncStorage.setItem(highkey, JSON.stringify(this.state.highbac), () => {
