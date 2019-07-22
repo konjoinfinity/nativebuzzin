@@ -15,6 +15,7 @@ const genderkey = "gender"
 const weightkey = "weight"
 const key = "buzzes"
 const oldkey = "oldbuzzes"
+const highkey = "highbac"
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -26,7 +27,8 @@ class HomeScreen extends Component {
             bac: 0.0,
             buzzes: [],
             oldbuzzes: [],
-            refreshing: false
+            refreshing: false,
+            highbac: 0
         }
         this.addDrink = this.addDrink.bind(this);
         this.getBAC = this.getBAC.bind(this);
@@ -52,8 +54,19 @@ class HomeScreen extends Component {
         })
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null) {
-                console.log(result)
                 this.setState({ buzzes: JSON.parse(result) })
+            }
+        })
+        await AsyncStorage.getItem(oldkey, (error, result) => {
+            if (result !== null) {
+                console.log(result)
+                this.setState({ oldbuzzes: JSON.parse(result) })
+            }
+        })
+        await AsyncStorage.getItem(highkey, (error, result) => {
+            if (result !== null) {
+                console.log(result)
+                this.setState({ highbac: JSON.parse(result) })
             }
         })
         setTimeout(() => {
@@ -167,6 +180,9 @@ class HomeScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
+                if (totalBac > this.state.highbac) {
+                    this.setState({ highbac: totalBac })
+                }
                 setTimeout(() => {
                     this.saveBuzz();
                 }, 200);
@@ -178,7 +194,12 @@ class HomeScreen extends Component {
     }
 
     async moveToOld() {
-        await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.buzzes), () => {
+        // realized oldbuzzes arew overwritten when being written to asyncstorage
+        // getItem oldkey, place in array, push new olds to array, setItem oldkey
+        this.setState(prevState => ({ oldbuzzes: [...prevState.oldbuzzes, this.state.buzzes] }))
+        await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.oldbuzzes))
+        this.setState(prevState => ({ highbac: [...prevState.highbac, this.state.highbac] }))
+        await AsyncStorage.setItem(highkey, JSON.stringify(this.state.highbac), () => {
             this.setState({ bac: 0.0, oldbuzzes: this.state.buzzes })
         })
         await AsyncStorage.removeItem(key, () => {
