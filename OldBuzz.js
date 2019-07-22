@@ -6,7 +6,8 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    RefreshControl
+    RefreshControl,
+    Button
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
@@ -23,13 +24,15 @@ class OldBuzzScreen extends Component {
         super(props);
         this.state = {
             oldbuzzes: null,
-            refreshing: false
+            refreshing: false,
+            showHideBuzzes: false
         }
         this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
         this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
         this.getOldBuzzes = this.getOldBuzzes.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
         this.LogOut = this.LogOut.bind(this);
+        this.showHideBuzzes = this.showHideBuzzes.bind(this);
     };
 
     async componentDidMount() {
@@ -95,6 +98,13 @@ class OldBuzzScreen extends Component {
         this.props.navigation.navigate("Login")
     }
 
+    showHideBuzzes() {
+        this.setState(prevState => ({
+            showHideBuzzes: !prevState.showHideBuzzes
+        }));
+        Vibration.vibrate();
+    }
+
     render() {
         let oldbuzzes;
         this.state.oldbuzzes &&
@@ -132,7 +142,21 @@ class OldBuzzScreen extends Component {
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                         </View>}
-                    {oldbuzzes}
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        {this.state.showHideBuzzes === false && (
+                            this.state.oldbuzzes !== null && (
+                                <Button onPress={() => this.showHideBuzzes()}
+                                    title="Show Buzzes" />))}
+                        {this.state.showHideBuzzes === true && (
+                            this.state.oldbuzzes !== null && (
+                                <Button onPress={() => this.showHideBuzzes()}
+                                    title="Hide Buzzes" />))}
+                    </View>
+                    {this.state.showHideBuzzes === true && (
+                        <View>
+                            {oldbuzzes}
+                        </View>
+                    )}
                 </ScrollView>
             </View>
         );
