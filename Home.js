@@ -26,24 +26,30 @@ const actions = [
         icon: require("./img/beer.png"),
         name: "Beer",
         position: 1,
-        color: "#00bfa5",
-        size: 80
+        color: "#1de9b6",
+        size: 80,
+        textBackground: "#00796b",
+        textColor: "#ffffff"
     },
     {
         text: "+1 Wine",
         icon: require("./img/wine.png"),
         name: "Wine",
         position: 2,
-        color: "#00bfa5",
-        size: 80
+        color: "#1de9b6",
+        size: 80,
+        textBackground: "#00796b",
+        textColor: "#ffffff"
     },
     {
         text: "+1 Liquor",
         icon: require("./img/liquor.png"),
         name: "Liquor",
         position: 3,
-        color: "#00bfa5",
-        size: 80
+        color: "#1de9b6",
+        size: 80,
+        textBackground: "#00796b",
+        textColor: "#ffffff"
     }
 ];
 
@@ -253,8 +259,21 @@ class HomeScreen extends Component {
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.name} - {this.state.gender} - {this.state.weight} lbs.</Text>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current BAC</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.name} - {this.state.gender} - {this.state.weight} lbs.</Text>
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        {(this.state.bac === 0 || this.state.bac === undefined) && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/1bac.png')} />)}
+                        {this.state.bac > 0.00 && this.state.bac < 0.02 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/2bac.png')} />)}
+                        {this.state.bac > 0.02 && this.state.bac < 0.04 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/3bac.png')} />)}
+                        {this.state.bac > 0.04 && this.state.bac < 0.06 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/4bac.png')} />)}
+                        {this.state.bac > 0.06 && this.state.bac < 0.08 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/5bac.png')} />)}
+                        {this.state.bac >= 0.08 && (
+                            <Image style={{ alignSelf: "center" }} source={require('./img/6bac.png')} />)}
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></View>)}
@@ -293,21 +312,7 @@ class HomeScreen extends Component {
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        {(this.state.bac === 0 || this.state.bac === undefined) && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/1bac.png')} />)}
-                        {this.state.bac > 0.00 && this.state.bac < 0.02 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/2bac.png')} />)}
-                        {this.state.bac > 0.02 && this.state.bac < 0.04 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/3bac.png')} />)}
-                        {this.state.bac > 0.04 && this.state.bac < 0.06 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/4bac.png')} />)}
-                        {this.state.bac > 0.06 && this.state.bac < 0.08 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/5bac.png')} />)}
-                        {this.state.bac >= 0.08 && (
-                            <Image style={{ alignSelf: "center" }} source={require('./img/6bac.png')} />)}
-                    </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 55 }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 75 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Add a Drink</Text>
                         <FloatingAction
                             actions={actions}
