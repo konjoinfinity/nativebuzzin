@@ -147,13 +147,6 @@ class HomeScreen extends Component {
         Vibration.vibrate();
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
-        if (this.state.buzzes.length == 0) {
-            console.log("if equal to 0")
-            var total = this.getBAC(this.state.weight, this.state.gender, 1, drink, 0)
-            total = parseFloat(total.toFixed(6));
-            this.setState({ bac: total })
-        }
-        // fix this ????????
         setTimeout(() => {
             if (this.state.buzzes.length >= 1) {
                 console.log("if equal to or more than 1")
@@ -200,14 +193,15 @@ class HomeScreen extends Component {
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
         console.log(oldbuzzarray);
-        await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.oldbuzzes))
+        await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         this.setState(prevState => ({ highbac: [...prevState.highbac, this.state.highbac] }))
         await AsyncStorage.setItem(highkey, JSON.stringify(this.state.highbac), () => {
-            this.setState({ bac: 0.0, oldbuzzes: this.state.buzzes })
+            this.setState({ bac: 0.0 })
         })
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
                 this.setState({ buzzes: [] })
+                this.setState({ oldbuzzes: [] })
             }, 200);
         })
     }
