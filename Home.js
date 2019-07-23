@@ -13,6 +13,7 @@ import { FloatingAction } from "react-native-floating-action";
 import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
+import { Dropdown } from 'react-native-material-dropdown';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -66,7 +67,8 @@ class HomeScreen extends Component {
             oldbuzzes: [],
             refreshing: false,
             highbac: [],
-            oldhighbac: []
+            oldhighbac: [],
+            alctype: "Beer"
         }
         this.addDrink = this.addDrink.bind(this);
         this.getBAC = this.getBAC.bind(this);
@@ -286,6 +288,13 @@ class HomeScreen extends Component {
             gaugeColor = "#000000"
             bacPercentage = 100
         }
+        let data = [{
+            value: 'Beer',
+        }, {
+            value: 'Wine',
+        }, {
+            value: 'Liquor',
+        }];
         return (
             <View>
                 <ScrollView refreshControl={
@@ -335,42 +344,119 @@ class HomeScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingBottom: 20, paddingTop: 10, paddingRight: 10, paddingLeft: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
-                        <View style={{ paddingBottom: 10 }}>
-                            <MultiSwitch choiceSize={50}
-                                activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]}
-                                layout={{ vertical: 0, horizontal: -1 }}
-                                containerStyles={_.times(4, () => ({
-                                    backgroundColor: 'white',
-                                    borderRadius: 20,
-                                    borderWidth: 1,
-                                    borderColor: "lightgrey",
-                                    justifyContent: 'space-between',
-                                }))}
-                                onActivate={(number) => { console.log(number) }}
-                                active={1}>
-                                <Text style={{ fontSize: 20 }}>4%</Text>
-                                <Text style={{ fontSize: 20 }}>5%</Text>
-                                <Text style={{ fontSize: 20 }}>6.5%</Text>
-                                <Text style={{ fontSize: 20 }}>8%</Text>
-                            </MultiSwitch>
+                        <View style={{ flex: 1, flexDirection: "row" }}>
+                            {this.state.alctype === "Beer" &&
+                                <MultiSwitch choiceSize={50}
+                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(4, () => ({
+                                        backgroundColor: 'white',
+                                        borderRadius: 20,
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        justifyContent: 'space-between',
+                                    }))}
+                                    onActivate={(number) => { console.log(number) }}
+                                    active={1}>
+                                    <Text style={{ fontSize: 20 }}>4%</Text>
+                                    <Text style={{ fontSize: 20 }}>5%</Text>
+                                    <Text style={{ fontSize: 20 }}>6.5%</Text>
+                                    <Text style={{ fontSize: 20 }}>8%</Text>
+                                </MultiSwitch>}
+                            {this.state.alctype === "Wine" &&
+                                <MultiSwitch choiceSize={50}
+                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => ({
+                                        backgroundColor: 'white',
+                                        borderRadius: 20,
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        justifyContent: 'space-between',
+                                    }))}
+                                    onActivate={(number) => { console.log(number) }}
+                                    active={1}>
+                                    <Text style={{ fontSize: 20 }}>11%</Text>
+                                    <Text style={{ fontSize: 20 }}>12%</Text>
+                                    <Text style={{ fontSize: 20 }}>13%</Text>
+                                </MultiSwitch>}
+                            {this.state.alctype === "Liquor" &&
+                                <MultiSwitch choiceSize={50}
+                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => ({
+                                        backgroundColor: 'white',
+                                        borderRadius: 20,
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        justifyContent: 'space-between',
+                                    }))}
+                                    onActivate={(number) => { console.log(number) }}
+                                    active={1}>
+                                    <Text style={{ fontSize: 20 }}>30%</Text>
+                                    <Text style={{ fontSize: 20 }}>40%</Text>
+                                    <Text style={{ fontSize: 20 }}>50%</Text>
+                                </MultiSwitch>}
+                            <Dropdown
+                                label='Drink Type'
+                                data={data}
+                                containerStyle={{ minWidth: 120, paddingLeft: 10 }}
+                                value="Beer"
+                                onChangeText={(value) => this.setState({ alctype: value })}
+                            />
                         </View>
-                        <View style={{ paddingBottom: 10 }}>
-                            <MultiSwitch choiceSize={50}
-                                activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
-                                layout={{ vertical: 0, horizontal: -1 }}
-                                containerStyles={_.times(3, () => ({
-                                    backgroundColor: 'white',
-                                    borderRadius: 20,
-                                    borderWidth: 1,
-                                    borderColor: "lightgrey",
-                                    justifyContent: 'space-between',
-                                }))}
-                                onActivate={(number) => { console.log(number) }}
-                                active={0}>
-                                <Text style={{ fontSize: 20 }}>12oz</Text>
-                                <Text style={{ fontSize: 20 }}>16oz</Text>
-                                <Text style={{ fontSize: 20 }}>20oz</Text>
-                            </MultiSwitch>
+                        <View>
+                            {this.state.alctype === "Beer" &&
+                                <MultiSwitch choiceSize={50}
+                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => ({
+                                        backgroundColor: 'white',
+                                        borderRadius: 20,
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        justifyContent: 'space-between',
+                                    }))}
+                                    onActivate={(number) => { console.log(number) }}
+                                    active={0}>
+                                    <Text style={{ fontSize: 20 }}>12oz</Text>
+                                    <Text style={{ fontSize: 20 }}>16oz</Text>
+                                    <Text style={{ fontSize: 20 }}>20oz</Text>
+                                </MultiSwitch>}
+                            {this.state.alctype === "Wine" &&
+                                <MultiSwitch choiceSize={50}
+                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => ({
+                                        backgroundColor: 'white',
+                                        borderRadius: 20,
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        justifyContent: 'space-between',
+                                    }))}
+                                    onActivate={(number) => { console.log(number) }}
+                                    active={0}>
+                                    <Text style={{ fontSize: 20 }}>5oz</Text>
+                                    <Text style={{ fontSize: 20 }}>8oz</Text>
+                                    <Text style={{ fontSize: 20 }}>25oz</Text>
+                                </MultiSwitch>}
+                            {this.state.alctype === "Liquor" &&
+                                <MultiSwitch choiceSize={50}
+                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => ({
+                                        backgroundColor: 'white',
+                                        borderRadius: 20,
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        justifyContent: 'space-between',
+                                    }))}
+                                    onActivate={(number) => { console.log(number) }}
+                                    active={0}>
+                                    <Text style={{ fontSize: 20 }}>1.5oz</Text>
+                                    <Text style={{ fontSize: 20 }}>3oz</Text>
+                                    <Text style={{ fontSize: 20 }}>6oz</Text>
+                                </MultiSwitch>}
                         </View>
                         <FloatingAction
                             actions={actions}
@@ -378,7 +464,7 @@ class HomeScreen extends Component {
                             color={"#1de9b6"}
                             overlayColor={"#e0f2f1"}
                             onPressMain={() => { Vibration.vibrate() }}
-                            distanceToEdge={25} />
+                            distanceToEdge={15} />
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
