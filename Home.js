@@ -361,7 +361,7 @@ class HomeScreen extends Component {
                             <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flex: 1, flexDirection: "row", paddingBottom: 10 }}>
                             <View style={{ paddingLeft: 10, paddingRight: 45 }}>
                                 <Dropdown
@@ -484,30 +484,29 @@ class HomeScreen extends Component {
                             <View style={{ paddingLeft: 60 }}></View>
                             {this.state.alctype === "Beer" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Beer")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 60, width: 60, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 22, color: "white" }}>🍺</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 25, color: "white" }}>🍺</Text></TouchableOpacity>}
                             {this.state.alctype === "Wine" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Wine")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 60, width: 60, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 22, color: "white" }}>🍷</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 25, color: "white" }}>🍷</Text></TouchableOpacity>}
                             {this.state.alctype === "Liquor" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Liquor")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 60, width: 60, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 22, color: "white" }}>🥃</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 25, color: "white" }}>🥃</Text></TouchableOpacity>}
                         </View>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
                     </View>
                 </ScrollView>
-
             </View>
         );
     }
