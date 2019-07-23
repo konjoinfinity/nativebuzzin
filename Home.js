@@ -344,7 +344,7 @@ class HomeScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <View style={{ flex: 1, flexDirection: "row", paddingBottom: 10 }}>
-                            <View style={{ paddingRight: 70 }}>
+                            <View style={{ paddingLeft: 10, paddingRight: 45 }}>
                                 <Dropdown
                                     label='Drink Type'
                                     data={data}
@@ -357,9 +357,9 @@ class HomeScreen extends Component {
                         <View style={{ flex: 1, flexDirection: "row", paddingBottom: 10 }}>
                             {this.state.alctype === "Beer" &&
                                 <MultiSwitch choiceSize={50}
-                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
                                     layout={{ vertical: 0, horizontal: -1 }}
-                                    containerStyles={_.times(4, () => ({
+                                    containerStyles={_.times(3, () => ({
                                         backgroundColor: 'white',
                                         borderRadius: 20,
                                         borderWidth: 1,
@@ -370,8 +370,7 @@ class HomeScreen extends Component {
                                     active={1}>
                                     <Text style={{ fontSize: 20 }}>4%</Text>
                                     <Text style={{ fontSize: 20 }}>5%</Text>
-                                    <Text style={{ fontSize: 20 }}>6.5%</Text>
-                                    <Text style={{ fontSize: 20 }}>8%</Text>
+                                    <Text style={{ fontSize: 20 }}>7%</Text>
                                 </MultiSwitch>}
                             {this.state.alctype === "Wine" &&
                                 <MultiSwitch choiceSize={50}
@@ -407,7 +406,7 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: 20 }}>40%</Text>
                                     <Text style={{ fontSize: 20 }}>50%</Text>
                                 </MultiSwitch>}
-                            <Text style={{ fontSize: 20, alignSelf: "center", paddingLeft: 25 }}>Add Drink</Text>
+                            <Text style={{ fontSize: 20, alignSelf: "center", paddingLeft: 55 }}>Add Drink</Text>
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ paddingTop: 10 }}>
@@ -463,25 +462,25 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: 20 }}>6oz</Text>
                                     </MultiSwitch>}
                             </View>
-                            <View style={{ paddingLeft: 75 }}></View>
+                            <View style={{ paddingLeft: 60 }}></View>
                             {this.state.alctype === "Beer" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Beer")} style={{
                                     borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 22, color: "white" }}>+🍺</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 22, color: "white" }}>🍺</Text></TouchableOpacity>}
                             {this.state.alctype === "Wine" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Wine")} style={{
                                     borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 22, color: "white" }}>+🍷</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 22, color: "white" }}>🍷</Text></TouchableOpacity>}
                             {this.state.alctype === "Liquor" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Liquor")} style={{
                                     borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 22, color: "white" }}>+🥃</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 22, color: "white" }}>🥃</Text></TouchableOpacity>}
                         </View>
                         {/* <FloatingAction
                             actions={actions}
