@@ -9,7 +9,6 @@ import {
     RefreshControl
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { FloatingAction } from "react-native-floating-action";
 import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -482,13 +481,6 @@ class HomeScreen extends Component {
                                 }}>
                                     <Text style={{ fontSize: 22, color: "white" }}>🥃</Text></TouchableOpacity>}
                         </View>
-                        {/* <FloatingAction
-                            actions={actions}
-                            onPressItem={name => { this.addDrink(name); }}
-                            color={"#1de9b6"}
-                            overlayColor={"#e0f2f1"}
-                            onPressMain={() => { Vibration.vibrate() }}
-                            distanceToEdge={15} /> */}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
