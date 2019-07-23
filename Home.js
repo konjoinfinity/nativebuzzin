@@ -405,7 +405,7 @@ class HomeScreen extends Component {
                                 onChangeText={(value) => this.setState({ alctype: value })}
                             />
                         </View>
-                        <View>
+                        <View style={{ flex: 1, flexDirection: "row" }}>
                             {this.state.alctype === "Beer" &&
                                 <MultiSwitch choiceSize={50}
                                     activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
@@ -457,6 +457,8 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: 20 }}>3oz</Text>
                                     <Text style={{ fontSize: 20 }}>6oz</Text>
                                 </MultiSwitch>}
+                            <TouchableOpacity style={{ borderRadius: 28, backgroundColor: "#1de9b6", opacity: 0.7, maxHeight: 75, maxWidth: 75, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3 }}>
+                                <Text style={{ fontSize: 30, color: "white" }}>+🍺</Text></TouchableOpacity>
                         </View>
                         <FloatingAction
                             actions={actions}
