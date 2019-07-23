@@ -220,16 +220,19 @@ class HomeScreen extends Component {
     handleOz(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
+            // this.addDrink("Beer", oz, abv)
             if (number === 0) { console.log("12oz - Beer") }
             if (number === 1) { console.log("16oz - Beer") }
             if (number === 2) { console.log("20oz - Beer") }
         }
         if (this.state.alctype === "Wine") {
+            // this.addDrink("Beer", oz, abv)
             if (number === 0) { console.log("5oz - Wine") }
             if (number === 1) { console.log("8oz - Wine") }
             if (number === 2) { console.log("25oz - Wine") }
         }
         if (this.state.alctype === "Liquor") {
+            // this.addDrink("Beer", oz, abv)
             if (number === 0) { console.log("1.5oz - Liquor") }
             if (number === 1) { console.log("3oz - Liquor") }
             if (number === 2) { console.log("6oz - Liquor") }
@@ -239,16 +242,19 @@ class HomeScreen extends Component {
     handleAbv(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
+            // this.addDrink("Beer", oz, abv)
             if (number === 0) { console.log("4% ABV - Beer") }
             if (number === 1) { console.log("5% ABV - Beer") }
             if (number === 2) { console.log("7% ABV - Beer") }
         }
         if (this.state.alctype === "Wine") {
+            // this.addDrink("Beer", oz, abv)
             if (number === 0) { console.log("11% ABV - Wine") }
             if (number === 1) { console.log("12% ABV - Wine") }
             if (number === 2) { console.log("13% ABV - Wine") }
         }
         if (this.state.alctype === "Liquor") {
+            // this.addDrink("Beer", oz, abv)
             if (number === 0) { console.log("30% ABV - Liquor") }
             if (number === 1) { console.log("40% ABV - Liquor") }
             if (number === 2) { console.log("50% ABV - Liquor") }
