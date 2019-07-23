@@ -465,19 +465,19 @@ class HomeScreen extends Component {
                             <View style={{ paddingLeft: 60 }}></View>
                             {this.state.alctype === "Beer" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Beer")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
                                     <Text style={{ fontSize: 22, color: "white" }}>🍺</Text></TouchableOpacity>}
                             {this.state.alctype === "Wine" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Wine")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
                                     <Text style={{ fontSize: 22, color: "white" }}>🍷</Text></TouchableOpacity>}
                             {this.state.alctype === "Liquor" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Liquor")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
                                     <Text style={{ fontSize: 22, color: "white" }}>🥃</Text></TouchableOpacity>}
