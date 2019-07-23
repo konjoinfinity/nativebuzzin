@@ -151,6 +151,11 @@ class HomeScreen extends Component {
     }
 
     addDrink(drink) {
+        // this.addDrink("Beer" (this.state.alctype), oz (this.state.oz), abv (this.state.abv))
+        // This would negate the arg/param, read straight from state
+        // Modify buzz data model to include - ABV and oz
+        // Conditional to add to variable buzz to variable array
+        // Add variable bac amounts to totalBac after
         Vibration.vibrate();
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
@@ -166,6 +171,8 @@ class HomeScreen extends Component {
     }
 
     async checkBac() {
+        // Add logic to check for variable array, if it has data - calculate and add to totalBac
+        // Looping logic will be required, determine each variable buzz bac and add together
         Vibration.vibrate();
         if (this.state.buzzes.length >= 1) {
             var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
