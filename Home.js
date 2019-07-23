@@ -220,76 +220,41 @@ class HomeScreen extends Component {
     handleOz(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
-            if (number === 0) {
-                console.log("12oz - Beer")
-            }
-            if (number === 1) {
-                console.log("16oz - Beer")
-            }
-            if (number === 2) {
-                console.log("20oz - Beer")
-            }
+            if (number === 0) { console.log("12oz - Beer") }
+            if (number === 1) { console.log("16oz - Beer") }
+            if (number === 2) { console.log("20oz - Beer") }
         }
         if (this.state.alctype === "Wine") {
-            if (number === 0) {
-                console.log("5oz - Wine")
-            }
-            if (number === 1) {
-                console.log("8oz - Wine")
-            }
-            if (number === 2) {
-                console.log("25oz - Wine")
-            }
+            if (number === 0) { console.log("5oz - Wine") }
+            if (number === 1) { console.log("8oz - Wine") }
+            if (number === 2) { console.log("25oz - Wine") }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) {
-                console.log("1.5oz - Liquor")
-            }
-            if (number === 1) {
-                console.log("3oz - Liquor")
-            }
-            if (number === 2) {
-                console.log("6oz - Liquor")
-            }
+            if (number === 0) { console.log("1.5oz - Liquor") }
+            if (number === 1) { console.log("3oz - Liquor") }
+            if (number === 2) { console.log("6oz - Liquor") }
         }
     }
 
     handleAbv(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
-            if (number === 0) {
-                console.log("4% ABV - Beer")
-            }
-            if (number === 1) {
-                console.log("5% ABV - Beer")
-            }
-            if (number === 2) {
-                console.log("7% ABV - Beer")
-            }
+            if (number === 0) { console.log("4% ABV - Beer") }
+            if (number === 1) { console.log("5% ABV - Beer") }
+            if (number === 2) { console.log("7% ABV - Beer") }
         }
         if (this.state.alctype === "Wine") {
-            if (number === 0) {
-                console.log("11% ABV - Wine")
-            }
-            if (number === 1) {
-                console.log("12% ABV - Wine")
-            }
-            if (number === 2) {
-                console.log("13% ABV - Wine")
-            }
+            if (number === 0) { console.log("11% ABV - Wine") }
+            if (number === 1) { console.log("12% ABV - Wine") }
+            if (number === 2) { console.log("13% ABV - Wine") }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) {
-                console.log("30% ABV - Liquor")
-            }
-            if (number === 1) {
-                console.log("40% ABV - Liquor")
-            }
-            if (number === 2) {
-                console.log("50% ABV - Liquor")
-            }
+            if (number === 0) { console.log("30% ABV - Liquor") }
+            if (number === 1) { console.log("40% ABV - Liquor") }
+            if (number === 2) { console.log("50% ABV - Liquor") }
         }
     }
+
     handleDrinkType(value) {
         Vibration.vibrate();
         this.setState({ alctype: value })
@@ -335,13 +300,7 @@ class HomeScreen extends Component {
             gaugeColor = "#000000"
             bacPercentage = 100
         }
-        let data = [{
-            value: 'Beer',
-        }, {
-            value: 'Wine',
-        }, {
-            value: 'Liquor',
-        }];
+        let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
         return (
             <View>
                 <ScrollView refreshControl={
@@ -353,40 +312,40 @@ class HomeScreen extends Component {
                             <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} showIndicator />
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></View>)}
                         {this.state.bac > 0.00 && this.state.bac < 0.01 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#b5d3a0", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.01 && this.state.bac < 0.02 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#96c060", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.02 && this.state.bac < 0.03 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#9fc635", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.03 && this.state.bac < 0.04 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#d3e50e", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.04 && this.state.bac < 0.05 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#ffeb00", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.05 && this.state.bac < 0.06 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#f9bf00", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.06 && this.state.bac < 0.07 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#e98f00", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.07 && this.state.bac < 0.08 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#d05900", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.08 && this.state.bac < 0.09 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#AE0000", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.09 && this.state.bac < 0.10 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#571405", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac >= 0.10 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#000000", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
