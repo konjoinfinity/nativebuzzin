@@ -337,9 +337,9 @@ class HomeScreen extends Component {
                         <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
                         <View style={{ paddingBottom: 10 }}>
                             <MultiSwitch choiceSize={50}
-                                activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]}
                                 layout={{ vertical: 0, horizontal: -1 }}
-                                containerStyles={_.times(3, () => ({
+                                containerStyles={_.times(4, () => ({
                                     backgroundColor: 'white',
                                     borderRadius: 20,
                                     borderWidth: 1,
@@ -350,6 +350,7 @@ class HomeScreen extends Component {
                                 active={1}>
                                 <Text style={{ fontSize: 20 }}>4%</Text>
                                 <Text style={{ fontSize: 20 }}>5%</Text>
+                                <Text style={{ fontSize: 20 }}>6.5%</Text>
                                 <Text style={{ fontSize: 20 }}>8%</Text>
                             </MultiSwitch>
                         </View>
