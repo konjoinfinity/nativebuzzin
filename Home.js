@@ -302,49 +302,59 @@ class HomeScreen extends Component {
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <View style={{ alignSelf: "center", padding: 10 }}>
+                        <View style={{ alignSelf: "center", paddingBottom: 5 }}>
                             <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} showIndicator />
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "white", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></View>)}
                         {this.state.bac > 0.00 && this.state.bac < 0.01 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#b5d3a0", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#b5d3a0", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.01 && this.state.bac < 0.02 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#96c060", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#96c060", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.02 && this.state.bac < 0.03 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#9fc635", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#9fc635", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.03 && this.state.bac < 0.04 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#d3e50e", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#d3e50e", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.04 && this.state.bac < 0.05 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#ffeb00", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#ffeb00", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.05 && this.state.bac < 0.06 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#f9bf00", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#f9bf00", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.06 && this.state.bac < 0.07 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#e98f00", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#e98f00", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.07 && this.state.bac < 0.08 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#d05900", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#d05900", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.08 && this.state.bac < 0.09 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#AE0000", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#AE0000", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac > 0.09 && this.state.bac < 0.10 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#571405", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#571405", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                         {this.state.bac >= 0.10 && (
-                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#000000", margin: 10 }}>
+                            <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#000000", marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingBottom: 20, paddingTop: 10, paddingRight: 10, paddingLeft: 10 }}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
-                        <View style={{ flex: 1, flexDirection: "row" }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <View style={{ flex: 1, flexDirection: "row", paddingBottom: 10 }}>
+                            <View style={{ paddingRight: 70 }}>
+                                <Dropdown
+                                    label='Drink Type'
+                                    data={data}
+                                    containerStyle={{ minWidth: 120, paddingLeft: 10 }}
+                                    value="Beer"
+                                    onChangeText={(value) => this.setState({ alctype: value })} />
+                            </View>
+                            <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: "row", paddingBottom: 10 }}>
                             {this.state.alctype === "Beer" &&
                                 <MultiSwitch choiceSize={50}
                                     activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]}
@@ -397,85 +407,81 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: 20 }}>40%</Text>
                                     <Text style={{ fontSize: 20 }}>50%</Text>
                                 </MultiSwitch>}
-                            <Dropdown
-                                label='Drink Type'
-                                data={data}
-                                containerStyle={{ minWidth: 120, paddingLeft: 10 }}
-                                value="Beer"
-                                onChangeText={(value) => this.setState({ alctype: value })}
-                            />
+                            <Text style={{ fontSize: 20, alignSelf: "center", paddingLeft: 25 }}>Add Drink</Text>
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
-                            {this.state.alctype === "Beer" &&
-                                <MultiSwitch choiceSize={50}
-                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
-                                    layout={{ vertical: 0, horizontal: -1 }}
-                                    containerStyles={_.times(3, () => ({
-                                        backgroundColor: 'white',
-                                        borderRadius: 20,
-                                        borderWidth: 1,
-                                        borderColor: "lightgrey",
-                                        justifyContent: 'space-between',
-                                    }))}
-                                    onActivate={(number) => { console.log(number) }}
-                                    active={0}>
-                                    <Text style={{ fontSize: 20 }}>12oz</Text>
-                                    <Text style={{ fontSize: 20 }}>16oz</Text>
-                                    <Text style={{ fontSize: 20 }}>20oz</Text>
-                                </MultiSwitch>}
-                            {this.state.alctype === "Wine" &&
-                                <MultiSwitch choiceSize={50}
-                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
-                                    layout={{ vertical: 0, horizontal: -1 }}
-                                    containerStyles={_.times(3, () => ({
-                                        backgroundColor: 'white',
-                                        borderRadius: 20,
-                                        borderWidth: 1,
-                                        borderColor: "lightgrey",
-                                        justifyContent: 'space-between',
-                                    }))}
-                                    onActivate={(number) => { console.log(number) }}
-                                    active={0}>
-                                    <Text style={{ fontSize: 20 }}>5oz</Text>
-                                    <Text style={{ fontSize: 20 }}>8oz</Text>
-                                    <Text style={{ fontSize: 20 }}>25oz</Text>
-                                </MultiSwitch>}
-                            {this.state.alctype === "Liquor" &&
-                                <MultiSwitch choiceSize={50}
-                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
-                                    layout={{ vertical: 0, horizontal: -1 }}
-                                    containerStyles={_.times(3, () => ({
-                                        backgroundColor: 'white',
-                                        borderRadius: 20,
-                                        borderWidth: 1,
-                                        borderColor: "lightgrey",
-                                        justifyContent: 'space-between',
-                                    }))}
-                                    onActivate={(number) => { console.log(number) }}
-                                    active={0}>
-                                    <Text style={{ fontSize: 20 }}>1.5oz</Text>
-                                    <Text style={{ fontSize: 20 }}>3oz</Text>
-                                    <Text style={{ fontSize: 20 }}>6oz</Text>
-                                </MultiSwitch>}
+                            <View style={{ paddingTop: 10 }}>
+                                {this.state.alctype === "Beer" &&
+                                    <MultiSwitch choiceSize={50}
+                                        activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                        layout={{ vertical: 0, horizontal: -1 }}
+                                        containerStyles={_.times(3, () => ({
+                                            backgroundColor: 'white',
+                                            borderRadius: 20,
+                                            borderWidth: 1,
+                                            borderColor: "lightgrey",
+                                            justifyContent: 'space-between',
+                                        }))}
+                                        onActivate={(number) => { console.log(number) }}
+                                        active={0}>
+                                        <Text style={{ fontSize: 20 }}>12oz</Text>
+                                        <Text style={{ fontSize: 20 }}>16oz</Text>
+                                        <Text style={{ fontSize: 20 }}>20oz</Text>
+                                    </MultiSwitch>}
+                                {this.state.alctype === "Wine" &&
+                                    <MultiSwitch choiceSize={50}
+                                        activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                        layout={{ vertical: 0, horizontal: -1 }}
+                                        containerStyles={_.times(3, () => ({
+                                            backgroundColor: 'white',
+                                            borderRadius: 20,
+                                            borderWidth: 1,
+                                            borderColor: "lightgrey",
+                                            justifyContent: 'space-between',
+                                        }))}
+                                        onActivate={(number) => { console.log(number) }}
+                                        active={0}>
+                                        <Text style={{ fontSize: 20 }}>5oz</Text>
+                                        <Text style={{ fontSize: 20 }}>8oz</Text>
+                                        <Text style={{ fontSize: 20 }}>25oz</Text>
+                                    </MultiSwitch>}
+                                {this.state.alctype === "Liquor" &&
+                                    <MultiSwitch choiceSize={50}
+                                        activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                        layout={{ vertical: 0, horizontal: -1 }}
+                                        containerStyles={_.times(3, () => ({
+                                            backgroundColor: 'white',
+                                            borderRadius: 20,
+                                            borderWidth: 1,
+                                            borderColor: "lightgrey",
+                                            justifyContent: 'space-between',
+                                        }))}
+                                        onActivate={(number) => { console.log(number) }}
+                                        active={0}>
+                                        <Text style={{ fontSize: 20 }}>1.5oz</Text>
+                                        <Text style={{ fontSize: 20 }}>3oz</Text>
+                                        <Text style={{ fontSize: 20 }}>6oz</Text>
+                                    </MultiSwitch>}
+                            </View>
                             <View style={{ paddingLeft: 75 }}></View>
                             {this.state.alctype === "Beer" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Beer")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 60, width: 60, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 25, color: "white" }}>+🍺</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 22, color: "white" }}>+🍺</Text></TouchableOpacity>}
                             {this.state.alctype === "Wine" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Wine")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 60, width: 60, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 25, color: "white" }}>+🍷</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 22, color: "white" }}>+🍷</Text></TouchableOpacity>}
                             {this.state.alctype === "Liquor" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Liquor")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 60, width: 60, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
+                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.7, height: 55, width: 55, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <Text style={{ fontSize: 25, color: "white" }}>+🥃</Text></TouchableOpacity>}
+                                    <Text style={{ fontSize: 22, color: "white" }}>+🥃</Text></TouchableOpacity>}
                         </View>
                         {/* <FloatingAction
                             actions={actions}
