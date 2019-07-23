@@ -21,39 +21,6 @@ const key = "buzzes"
 const oldkey = "oldbuzzes"
 const highkey = "highbac"
 
-const actions = [
-    {
-        text: "+1 Beer",
-        icon: require("./img/beer.png"),
-        name: "Beer",
-        position: 1,
-        color: "#1de9b6",
-        size: 80,
-        textBackground: "#00796b",
-        textColor: "#ffffff"
-    },
-    {
-        text: "+1 Wine",
-        icon: require("./img/wine.png"),
-        name: "Wine",
-        position: 2,
-        color: "#1de9b6",
-        size: 80,
-        textBackground: "#00796b",
-        textColor: "#ffffff"
-    },
-    {
-        text: "+1 Liquor",
-        icon: require("./img/liquor.png"),
-        name: "Liquor",
-        position: 3,
-        color: "#1de9b6",
-        size: 80,
-        textBackground: "#00796b",
-        textColor: "#ffffff"
-    }
-];
-
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -79,6 +46,9 @@ class HomeScreen extends Component {
         this.clearDrinks = this.clearDrinks.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
         this.moveToOld = this.moveToOld.bind(this);
+        this.handleAbv = this.handleAbv.bind(this);
+        this.handleOz = this.handleOz.bind(this);
+        this.handleDrinkType = this.handleDrinkType.bind(this);
     };
 
     async componentDidMount() {
@@ -247,6 +217,20 @@ class HomeScreen extends Component {
         })
     }
 
+    handleOz(number) {
+        Vibration.vibrate();
+        console.log(number)
+    }
+
+    handleAbv(number) {
+        Vibration.vibrate();
+        console.log(number)
+    }
+    handleDrinkType(value) {
+        Vibration.vibrate();
+        this.setState({ alctype: value })
+    }
+
     render() {
         var gaugeColor;
         var bacPercentage;
@@ -349,7 +333,7 @@ class HomeScreen extends Component {
                                     data={data}
                                     containerStyle={{ minWidth: 120, paddingLeft: 10 }}
                                     value="Beer"
-                                    onChangeText={(value) => this.setState({ alctype: value })} />
+                                    onChangeText={(value) => this.handleDrinkType(value)} />
                             </View>
                             <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
                         </View>
@@ -365,7 +349,7 @@ class HomeScreen extends Component {
                                         borderColor: "lightgrey",
                                         justifyContent: 'space-between',
                                     }))}
-                                    onActivate={(number) => { console.log(number) }}
+                                    onActivate={(number) => { this.handleAbv(number) }}
                                     active={1}>
                                     <Text style={{ fontSize: 20 }}>4%</Text>
                                     <Text style={{ fontSize: 20 }}>5%</Text>
@@ -382,7 +366,7 @@ class HomeScreen extends Component {
                                         borderColor: "lightgrey",
                                         justifyContent: 'space-between',
                                     }))}
-                                    onActivate={(number) => { console.log(number) }}
+                                    onActivate={(number) => { this.handleAbv(number) }}
                                     active={1}>
                                     <Text style={{ fontSize: 20 }}>11%</Text>
                                     <Text style={{ fontSize: 20 }}>12%</Text>
@@ -399,7 +383,7 @@ class HomeScreen extends Component {
                                         borderColor: "lightgrey",
                                         justifyContent: 'space-between',
                                     }))}
-                                    onActivate={(number) => { console.log(number) }}
+                                    onActivate={(number) => { this.handleAbv(number) }}
                                     active={1}>
                                     <Text style={{ fontSize: 20 }}>30%</Text>
                                     <Text style={{ fontSize: 20 }}>40%</Text>
@@ -420,7 +404,7 @@ class HomeScreen extends Component {
                                             borderColor: "lightgrey",
                                             justifyContent: 'space-between',
                                         }))}
-                                        onActivate={(number) => { console.log(number) }}
+                                        onActivate={(number) => { this.handleOz(number) }}
                                         active={0}>
                                         <Text style={{ fontSize: 20 }}>12oz</Text>
                                         <Text style={{ fontSize: 20 }}>16oz</Text>
@@ -437,7 +421,7 @@ class HomeScreen extends Component {
                                             borderColor: "lightgrey",
                                             justifyContent: 'space-between',
                                         }))}
-                                        onActivate={(number) => { console.log(number) }}
+                                        onActivate={(number) => { this.handleOz(number) }}
                                         active={0}>
                                         <Text style={{ fontSize: 20 }}>5oz</Text>
                                         <Text style={{ fontSize: 20 }}>8oz</Text>
@@ -454,7 +438,7 @@ class HomeScreen extends Component {
                                             borderColor: "lightgrey",
                                             justifyContent: 'space-between',
                                         }))}
-                                        onActivate={(number) => { console.log(number) }}
+                                        onActivate={(number) => { this.handleOz(number) }}
                                         active={0}>
                                         <Text style={{ fontSize: 20 }}>1.5oz</Text>
                                         <Text style={{ fontSize: 20 }}>3oz</Text>
