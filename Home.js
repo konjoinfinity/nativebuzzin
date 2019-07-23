@@ -11,6 +11,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { FloatingAction } from "react-native-floating-action";
 import Speedometer from 'react-native-speedometer-chart';
+import MultiSwitch from "react-native-multi-switch";
+import _ from 'lodash';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -331,9 +333,25 @@ class HomeScreen extends Component {
                             <View style={{ borderRadius: 15, border: "solid teal 2px", padding: 10, backgroundColor: "#000000", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingBottom: 80, paddingTop: 10, paddingRight: 10, paddingLeft: 10 }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingBottom: 40, paddingTop: 10, paddingRight: 10, paddingLeft: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.checkBac()}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Add a Drink</Text>
+                        <MultiSwitch choiceSize={50}
+                            activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                            layout={{ vertical: 0, horizontal: -1 }}
+                            containerStyles={_.times(3, () => ({
+                                backgroundColor: 'white',
+                                borderRadius: 20,
+                                borderWidth: 1,
+                                borderColor: "lightgrey",
+                                justifyContent: 'space-between',
+                            }))}
+                            onActivate={(number) => { console.log(number) }}
+                            active={1}>
+                            <Text style={{ fontSize: 20 }}>4%</Text>
+                            <Text style={{ fontSize: 20 }}>5%</Text>
+                            <Text style={{ fontSize: 20 }}>8%</Text>
+                        </MultiSwitch>
                         <FloatingAction
                             actions={actions}
                             onPressItem={name => { this.addDrink(name); }}
