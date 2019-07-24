@@ -487,22 +487,13 @@ class HomeScreen extends Component {
                                     </MultiSwitch>}
                             </View>
                             {this.state.alctype === "Beer" &&
-                                <TouchableOpacity onPress={() => this.addDrink("Beer")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 100, width: 100, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}>
+                                <TouchableOpacity onPress={() => this.addDrink("Beer")} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🍺</Text></TouchableOpacity>}
                             {this.state.alctype === "Wine" &&
-                                <TouchableOpacity onPress={() => this.addDrink("Wine")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 100, width: 100, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}>
+                                <TouchableOpacity onPress={() => this.addDrink("Wine")} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🍷</Text></TouchableOpacity>}
                             {this.state.alctype === "Liquor" &&
-                                <TouchableOpacity onPress={() => this.addDrink("Liquor")} style={{
-                                    borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 100, width: 100, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}>
+                                <TouchableOpacity onPress={() => this.addDrink("Liquor")} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🥃</Text></TouchableOpacity>}
                         </View>
                     </View>
@@ -542,5 +533,22 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 70,
         marginRight: 70
+    },
+    addButton: {
+        borderRadius: 50,
+        backgroundColor: "#1de9b6",
+        opacity: 0.8,
+        height: 100,
+        width: 100,
+        margin: 10,
+        shadowOpacity: 0.35,
+        shadowOffset: {
+            width: 0,
+            height: 5
+        },
+        shadowColor: "#000000",
+        shadowRadius: 3,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
