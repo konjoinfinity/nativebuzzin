@@ -8,6 +8,8 @@ import {
     Vibration
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import MultiSwitch from "react-native-multi-switch";
+import _ from 'lodash';
 
 const oldkey = "oldbuzzes"
 const namekey = "name"
@@ -15,6 +17,7 @@ const genderkey = "gender"
 const weightkey = "weight"
 const key = "buzzes"
 const highkey = "highbac"
+const defaultkey = "defaultacltype"
 
 class OldBuzzScreen extends Component {
     constructor(props) {
@@ -25,6 +28,7 @@ class OldBuzzScreen extends Component {
             weight: ""
         }
         this.LogOut = this.LogOut.bind(this);
+        this.setDefaultDrink = this.setDefaultDrink.bind(this);
     };
 
     async componentDidMount() {
@@ -37,6 +41,10 @@ class OldBuzzScreen extends Component {
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
+    }
+
+    async setDefaultDrink(drink) {
+        await AsyncStorage.setItem(defaultkey, drink)
     }
 
     async LogOut() {
@@ -52,6 +60,8 @@ class OldBuzzScreen extends Component {
     }
 
     render() {
+        let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
+        let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
                 <ScrollView>
@@ -59,6 +69,25 @@ class OldBuzzScreen extends Component {
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}</Text>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10, alignSelf: "center" }}>
+                        <Text style={{ fontSize: 25, textAlign: "center", padding: 20 }}>Default Drink Type</Text>
+                        <MultiSwitch choiceSize={75}
+                            activeItemStyle={activeStyle}
+                            layout={{ vertical: 0, horizontal: -1 }}
+                            containerStyles={_.times(3, () => ({
+                                backgroundColor: 'white',
+                                borderRadius: 20,
+                                borderWidth: 1,
+                                borderColor: "lightgrey",
+                                justifyContent: 'space-between'
+                            }))}
+                            onActivate={(number) => { this.setDefaultDrink(data[number].value) }}
+                            active={0}>
+                            <Text style={{ fontSize: 30 }}>🍺</Text>
+                            <Text style={{ fontSize: 30 }}>🍷</Text>
+                            <Text style={{ fontSize: 30 }}>🥃</Text>
+                        </MultiSwitch>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}><Text style={styles.buttonText}>Logout ➡️🚪</Text></TouchableOpacity>

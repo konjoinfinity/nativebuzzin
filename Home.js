@@ -12,7 +12,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
-import { typeAlias } from '@babel/types';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -20,6 +19,7 @@ const weightkey = "weight"
 const key = "buzzes"
 const oldkey = "oldbuzzes"
 const highkey = "highbac"
+const defaultkey = "defaultacltype"
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -75,6 +75,11 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(highkey, (error, result) => {
             if (result !== null) {
                 this.setState({ highbac: JSON.parse(result) })
+            }
+        })
+        await AsyncStorage.getItem(defaultkey, (error, result) => {
+            if (result !== null) {
+                this.setState({ alctype: result })
             }
         })
         setTimeout(() => {
