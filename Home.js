@@ -370,7 +370,7 @@ class HomeScreen extends Component {
                                     borderRadius: 20,
                                     borderWidth: 1,
                                     borderColor: "lightgrey",
-                                    justifyContent: 'space-between',
+                                    justifyContent: 'space-between'
                                 }))}
                                 onActivate={(number) => { this.handleDrinkType(data[number].value) }}
                                 active={0}>
