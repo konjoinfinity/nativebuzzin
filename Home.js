@@ -325,41 +325,41 @@ class HomeScreen extends Component {
                             <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} showIndicator />
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></TouchableOpacity>)}
                         {this.state.bac > 0.00 && this.state.bac < 0.01 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.01 && this.state.bac < 0.02 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.02 && this.state.bac < 0.03 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.03 && this.state.bac < 0.04 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.04 && this.state.bac < 0.05 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.05 && this.state.bac < 0.06 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.06 && this.state.bac < 0.07 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.07 && this.state.bac < 0.08 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.08 && this.state.bac < 0.09 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.09 && this.state.bac < 0.10 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac >= 0.10 && (
-                            <View style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></View>)}
+                            <TouchableOpacity style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flex: 1, flexDirection: "row", paddingBottom: 10 }}>
