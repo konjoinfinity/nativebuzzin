@@ -12,7 +12,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
-import { Dropdown } from 'react-native-material-dropdown';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -363,12 +362,6 @@ class HomeScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ alignSelf: "center", paddingBottom: 15 }}>
-                            {/* <Dropdown
-                                    label='Drink Type'
-                                    data={data}
-                                    containerStyle={{ minWidth: 120, paddingLeft: 10 }}
-                                    value="Beer"
-                                    onChangeText={(value) => this.handleDrinkType(value)} /> */}
                             <MultiSwitch choiceSize={75}
                                 activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
                                 layout={{ vertical: 0, horizontal: -1 }}
@@ -493,7 +486,6 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: 20 }}>6oz</Text>
                                     </MultiSwitch>}
                             </View>
-                            {/* <Text style={{ fontSize: 20, alignSelf: "center", paddingLeft: 55 }}>Add Drink</Text> */}
                             {this.state.alctype === "Beer" &&
                                 <TouchableOpacity onPress={() => this.addDrink("Beer")} style={{
                                     borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 100, width: 100, margin: 10, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center',
