@@ -324,40 +324,40 @@ class HomeScreen extends Component {
                             <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} showIndicator />
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></TouchableOpacity>)}
                         {this.state.bac > 0.00 && this.state.bac < 0.01 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.01 && this.state.bac < 0.02 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.02 && this.state.bac < 0.03 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.03 && this.state.bac < 0.04 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.04 && this.state.bac < 0.05 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.05 && this.state.bac < 0.06 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.06 && this.state.bac < 0.07 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.07 && this.state.bac < 0.08 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.08 && this.state.bac < 0.09 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac > 0.09 && this.state.bac < 0.10 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                         {this.state.bac >= 0.10 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={{ borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, backgroundColor: gaugeColor, marginTop: 10, marginBottom: 10, marginLeft: 70, marginRight: 70 }}>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
@@ -531,5 +531,16 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 22,
         textAlign: "center"
+    },
+    bac: {
+        borderRadius: 15,
+        borderStyle: "solid",
+        borderColor: "teal",
+        borderWidth: 2,
+        padding: 10,
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 70,
+        marginRight: 70
     }
 })
