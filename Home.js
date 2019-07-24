@@ -364,14 +364,30 @@ class HomeScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flex: 1, flexDirection: "row", paddingBottom: 10 }}>
                             <View style={{ paddingLeft: 10, paddingRight: 45 }}>
-                                <Dropdown
+                                {/* <Dropdown
                                     label='Drink Type'
                                     data={data}
                                     containerStyle={{ minWidth: 120, paddingLeft: 10 }}
                                     value="Beer"
-                                    onChangeText={(value) => this.handleDrinkType(value)} />
+                                    onChangeText={(value) => this.handleDrinkType(value)} /> */}
+                                <MultiSwitch choiceSize={75}
+                                    activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => ({
+                                        backgroundColor: 'white',
+                                        borderRadius: 20,
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        justifyContent: 'space-between',
+                                    }))}
+                                    onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                    active={0}>
+                                    <Text style={{ fontSize: 30 }}>🍺</Text>
+                                    <Text style={{ fontSize: 30 }}>🍷</Text>
+                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                </MultiSwitch>
                             </View>
-                            <TouchableOpacity style={styles.button}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity>
+                            {/* <TouchableOpacity style={styles.button}><Text style={styles.buttonText}>Check BAC</Text></TouchableOpacity> */}
                         </View>
                         <View style={{ flex: 1, flexDirection: "row", paddingBottom: 10 }}>
                             {this.state.alctype === "Beer" &&
@@ -425,7 +441,7 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: 20 }}>40%</Text>
                                     <Text style={{ fontSize: 20 }}>50%</Text>
                                 </MultiSwitch>}
-                            <Text style={{ fontSize: 20, alignSelf: "center", paddingLeft: 55 }}>Add Drink</Text>
+                            {/* <Text style={{ fontSize: 20, alignSelf: "center", paddingLeft: 55 }}>Add Drink</Text> */}
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ paddingTop: 10 }}>
