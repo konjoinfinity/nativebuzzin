@@ -142,16 +142,18 @@ class OldBuzzScreen extends Component {
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                         </View>}
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        {this.state.showHideBuzzes === false && (
-                            this.state.oldbuzzes !== null && (
+                    {this.state.showHideBuzzes === false && (
+                        this.state.oldbuzzes !== null && (
+                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Button onPress={() => this.showHideBuzzes()}
-                                    title="Show Buzzes" />))}
-                        {this.state.showHideBuzzes === true && (
-                            this.state.oldbuzzes !== null && (
+                                    title="Show Buzzes" />
+                            </View>))}
+                    {this.state.showHideBuzzes === true && (
+                        this.state.oldbuzzes !== null && (
+                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Button onPress={() => this.showHideBuzzes()}
-                                    title="Hide Buzzes" />))}
-                    </View>
+                                    title="Hide Buzzes" />
+                            </View>))}
                     {this.state.showHideBuzzes === true && (
                         <View>
                             {oldbuzzes}
