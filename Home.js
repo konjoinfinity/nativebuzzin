@@ -313,6 +313,7 @@ class HomeScreen extends Component {
             bacPercentage = 100
         }
         let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
+        let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
                 <ScrollView refreshControl={
@@ -363,7 +364,7 @@ class HomeScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ alignSelf: "center", paddingBottom: 15 }}>
                             <MultiSwitch choiceSize={75}
-                                activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                activeItemStyle={activeStyle}
                                 layout={{ vertical: 0, horizontal: -1 }}
                                 containerStyles={_.times(3, () => (styles.multiSwitch))}
                                 onActivate={(number) => { this.handleDrinkType(data[number].value) }}
@@ -378,7 +379,7 @@ class HomeScreen extends Component {
                                 <View style={{ paddingBottom: 15 }}>
                                     {this.state.alctype === "Beer" &&
                                         <MultiSwitch choiceSize={50}
-                                            activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                            activeItemStyle={activeStyle}
                                             layout={{ vertical: 0, horizontal: -1 }}
                                             containerStyles={_.times(3, () => (styles.multiSwitch))}
                                             onActivate={(number) => { this.handleAbv(number) }}
@@ -389,7 +390,7 @@ class HomeScreen extends Component {
                                         </MultiSwitch>}
                                     {this.state.alctype === "Wine" &&
                                         <MultiSwitch choiceSize={50}
-                                            activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                            activeItemStyle={activeStyle}
                                             layout={{ vertical: 0, horizontal: -1 }}
                                             containerStyles={_.times(3, () => (styles.multiSwitch))}
                                             onActivate={(number) => { this.handleAbv(number) }}
@@ -400,7 +401,7 @@ class HomeScreen extends Component {
                                         </MultiSwitch>}
                                     {this.state.alctype === "Liquor" &&
                                         <MultiSwitch choiceSize={50}
-                                            activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
+                                            activeItemStyle={activeStyle}
                                             layout={{ vertical: 0, horizontal: -1 }}
                                             containerStyles={_.times(3, () => (styles.multiSwitch))}
                                             onActivate={(number) => { this.handleAbv(number) }}
@@ -412,7 +413,7 @@ class HomeScreen extends Component {
                                 </View>
                                 {this.state.alctype === "Beer" &&
                                     <MultiSwitch choiceSize={50}
-                                        activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                        activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => (styles.multiSwitch))}
                                         onActivate={(number) => { this.handleOz(number) }}
@@ -423,7 +424,7 @@ class HomeScreen extends Component {
                                     </MultiSwitch>}
                                 {this.state.alctype === "Wine" &&
                                     <MultiSwitch choiceSize={50}
-                                        activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                        activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => (styles.multiSwitch))}
                                         onActivate={(number) => { this.handleOz(number) }}
@@ -434,7 +435,7 @@ class HomeScreen extends Component {
                                     </MultiSwitch>}
                                 {this.state.alctype === "Liquor" &&
                                     <MultiSwitch choiceSize={50}
-                                        activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
+                                        activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => (styles.multiSwitch))}
                                         onActivate={(number) => { this.handleOz(number) }}
