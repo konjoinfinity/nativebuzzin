@@ -48,6 +48,7 @@ class ProfileScreen extends Component {
     }
 
     async setDefaultDrink(drink) {
+        Vibration.vibrate();
         await AsyncStorage.setItem(defaultkey, drink)
     }
 
@@ -78,42 +79,44 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: 25, textAlign: "center", padding: 20 }}>Default Drink Choice</Text>
                         <View style={[styles.multiSwitchViews, { alignSelf: "center", paddingBottom: 15 }]}>
                             {this.state.alctype === "Beer" &&
-                                <MultiSwitch choiceSize={75}
+                                <MultiSwitch choiceSize={90}
                                     activeItemStyle={activeStyle}
                                     layout={{ vertical: 0, horizontal: -1 }}
                                     containerStyles={_.times(3, () => (styles.multiSwitch))}
                                     onActivate={(number) => { this.setDefaultDrink(data[number].value) }}
                                     active={0}>
-                                    <Text style={{ fontSize: 30 }}>🍺</Text>
-                                    <Text style={{ fontSize: 30 }}>🍷</Text>
-                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                    <Text style={{ fontSize: 35 }}>🍺</Text>
+                                    <Text style={{ fontSize: 35 }}>🍷</Text>
+                                    <Text style={{ fontSize: 35 }}>🥃</Text>
                                 </MultiSwitch>}
                             {this.state.alctype === "Wine" &&
-                                <MultiSwitch choiceSize={75}
+                                <MultiSwitch choiceSize={90}
                                     activeItemStyle={activeStyle}
                                     layout={{ vertical: 0, horizontal: -1 }}
                                     containerStyles={_.times(3, () => (styles.multiSwitch))}
                                     onActivate={(number) => { this.setDefaultDrink(data[number].value) }}
                                     active={1}>
-                                    <Text style={{ fontSize: 30 }}>🍺</Text>
-                                    <Text style={{ fontSize: 30 }}>🍷</Text>
-                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                    <Text style={{ fontSize: 35 }}>🍺</Text>
+                                    <Text style={{ fontSize: 35 }}>🍷</Text>
+                                    <Text style={{ fontSize: 35 }}>🥃</Text>
                                 </MultiSwitch>}
                             {this.state.alctype === "Liquor" &&
-                                <MultiSwitch choiceSize={75}
+                                <MultiSwitch choiceSize={90}
                                     activeItemStyle={activeStyle}
                                     layout={{ vertical: 0, horizontal: -1 }}
                                     containerStyles={_.times(3, () => (styles.multiSwitch))}
                                     onActivate={(number) => { this.setDefaultDrink(data[number].value) }}
                                     active={2}>
-                                    <Text style={{ fontSize: 30 }}>🍺</Text>
-                                    <Text style={{ fontSize: 30 }}>🍷</Text>
-                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                    <Text style={{ fontSize: 35 }}>🍺</Text>
+                                    <Text style={{ fontSize: 35 }}>🍷</Text>
+                                    <Text style={{ fontSize: 35 }}>🥃</Text>
                                 </MultiSwitch>}
                         </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}><Text style={styles.buttonText}>Logout ➡️🚪</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}>
+                            <Text style={styles.buttonText}>Logout ➡️🚪</Text>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>
