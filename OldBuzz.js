@@ -5,12 +5,9 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration,
-    RefreshControl,
-    Button
+    Vibration
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import moment from "moment";
 
 const oldkey = "oldbuzzes"
 const namekey = "name"
@@ -23,22 +20,14 @@ class OldBuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            oldbuzzes: null,
-            refreshing: false,
-            showHideBuzzes: false
+            name: "",
+            gender: "",
+            weight: ""
         }
-        this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
-        this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
-        this.getOldBuzzes = this.getOldBuzzes.bind(this);
-        this.onRefresh = this.onRefresh.bind(this);
         this.LogOut = this.LogOut.bind(this);
-        this.showHideBuzzes = this.showHideBuzzes.bind(this);
     };
 
     async componentDidMount() {
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            this.setState({ oldbuzzes: JSON.parse(result) })
-        })
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
         })
@@ -50,45 +39,9 @@ class OldBuzzScreen extends Component {
         })
     }
 
-    onRefresh() {
-        this.setState({ refreshing: true });
-        this.getOldBuzzes();
-        setTimeout(() => {
-            this.setState({ refreshing: false });
-        }, 200);
-    }
-
-    async getOldBuzzes() {
-        Vibration.vibrate();
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            this.setState({ oldbuzzes: JSON.parse(result) })
-        })
-    }
-
-    async deleteOldBuzzes() {
-        Vibration.vibrate();
-        await AsyncStorage.removeItem(oldkey, () => {
-            this.setState({ oldbuzzes: null })
-        })
-    }
-
-    async deleteOldBuzz(id) {
-        Vibration.vibrate();
-        var filtered = this.state.oldbuzzes.filter(oldbuzz => oldbuzz !== this.state.oldbuzzes[id]);
-        await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => {
-            if (filtered.length === 0) {
-                this.setState({ oldbuzzes: null })
-            } else {
-                this.setState({ oldbuzzes: filtered })
-            }
-        })
-    }
-
     async LogOut() {
         Vibration.vibrate();
-        await AsyncStorage.removeItem(oldkey, () => {
-            this.setState({ oldbuzzes: null })
-        })
+        await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.removeItem(key)
         await AsyncStorage.removeItem(namekey)
         await AsyncStorage.removeItem(key)
@@ -98,67 +51,18 @@ class OldBuzzScreen extends Component {
         this.props.navigation.navigate("Login")
     }
 
-    showHideBuzzes() {
-        this.setState(prevState => ({
-            showHideBuzzes: !prevState.showHideBuzzes
-        }));
-        Vibration.vibrate();
-    }
-
     render() {
-        let oldbuzzes;
-        this.state.oldbuzzes &&
-            (oldbuzzes = this.state.oldbuzzes.map((oldbuzz, id) => {
-                return (
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }} key={id}>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>1 - {oldbuzz.drinkType}</Text>
-                        {oldbuzz.drinkType === "Beer" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍺</Text>}
-                        {oldbuzz.drinkType === "Wine" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍷</Text>}
-                        {oldbuzz.drinkType === "Liquor" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🥃</Text>}
-                        <Text style={{ fontSize: 15, textAlign: "center", paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzz(id)}><Text style={styles.buttonText}>Delete 🗑</Text></TouchableOpacity>
-                    </View>
-                )
-            }
-            )
-            )
         return (
             <View>
-                <ScrollView refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this.onRefresh} />}>
+                <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.name} - {this.state.gender} - {this.state.weight} lbs.</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}><Text style={styles.buttonText}>Logout 👤</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}><Text style={styles.buttonText}>Logout ➡️🚪</Text></TouchableOpacity>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 🥃</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  🗑</Text></TouchableOpacity>
-                    </View>
-                    {this.state.oldbuzzes === null &&
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
-                        </View>}
-                    {this.state.showHideBuzzes === false && (
-                        this.state.oldbuzzes !== null && (
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Button onPress={() => this.showHideBuzzes()}
-                                    title="Show Buzzes" />
-                            </View>))}
-                    {this.state.showHideBuzzes === true && (
-                        this.state.oldbuzzes !== null && (
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Button onPress={() => this.showHideBuzzes()}
-                                    title="Hide Buzzes" />
-                            </View>))}
-                    {this.state.showHideBuzzes === true && (
-                        <View>
-                            {oldbuzzes}
-                        </View>
-                    )}
                 </ScrollView>
             </View>
         );
