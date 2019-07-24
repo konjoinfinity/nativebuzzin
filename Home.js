@@ -361,7 +361,7 @@ class HomeScreen extends Component {
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
+                    <View style={styles.cardView}>
                         <View style={{ alignSelf: "center", paddingBottom: 15 }}>
                             <MultiSwitch choiceSize={75}
                                 activeItemStyle={activeStyle}
@@ -456,7 +456,7 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: 40, color: "white" }}>+🥃</Text></TouchableOpacity>}
                         </View>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }}>
+                    <View style={styles.cardView}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
                     </View>
@@ -516,5 +516,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "lightgrey",
         justifyContent: 'space-between'
+    },
+    cardView: {
+        backgroundColor: "#e0f2f1",
+        borderRadius: 15,
+        marginRight: 10,
+        marginLeft: 10,
+        marginBottom: 10,
+        padding: 10
     }
 })
