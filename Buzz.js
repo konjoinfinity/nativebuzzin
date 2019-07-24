@@ -98,6 +98,8 @@ class BuzzScreen extends Component {
         })
     }
 
+    // Consider combining the Buzz and Old Buzz Screens, turning the old Buzz Screen into the profile screen
+
     render() {
         let buzzes;
         this.state.buzzes &&
