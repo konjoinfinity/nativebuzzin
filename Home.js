@@ -369,16 +369,39 @@ class HomeScreen extends Component {
                     </View>
                     <View style={styles.cardView}>
                         <View style={[styles.multiSwitchViews, { alignSelf: "center", paddingBottom: 15 }]}>
-                            <MultiSwitch choiceSize={75}
-                                activeItemStyle={activeStyle}
-                                layout={{ vertical: 0, horizontal: -1 }}
-                                containerStyles={_.times(3, () => (styles.multiSwitch))}
-                                onActivate={(number) => { this.handleDrinkType(data[number].value) }}
-                                active={0}>
-                                <Text style={{ fontSize: 30 }}>🍺</Text>
-                                <Text style={{ fontSize: 30 }}>🍷</Text>
-                                <Text style={{ fontSize: 30 }}>🥃</Text>
-                            </MultiSwitch>
+                            {this.state.alctype === "Beer" &&
+                                <MultiSwitch choiceSize={75}
+                                    activeItemStyle={activeStyle}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                    onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                    active={0}>
+                                    <Text style={{ fontSize: 30 }}>🍺</Text>
+                                    <Text style={{ fontSize: 30 }}>🍷</Text>
+                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                </MultiSwitch>}
+                            {this.state.alctype === "Wine" &&
+                                <MultiSwitch choiceSize={75}
+                                    activeItemStyle={activeStyle}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                    onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                    active={1}>
+                                    <Text style={{ fontSize: 30 }}>🍺</Text>
+                                    <Text style={{ fontSize: 30 }}>🍷</Text>
+                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                </MultiSwitch>}
+                            {this.state.alctype === "Liquor" &&
+                                <MultiSwitch choiceSize={75}
+                                    activeItemStyle={activeStyle}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                    onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                    active={2}>
+                                    <Text style={{ fontSize: 30 }}>🍺</Text>
+                                    <Text style={{ fontSize: 30 }}>🍷</Text>
+                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                </MultiSwitch>}
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ flex: 1, flexDirection: "column", paddingBottom: 15 }}>
@@ -479,7 +502,7 @@ class HomeScreen extends Component {
                         <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
                     </View>
                 </ScrollView>
-            </View>
+            </View >
         );
     }
 }
