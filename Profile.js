@@ -43,7 +43,11 @@ class ProfileScreen extends Component {
             this.setState({ weight: JSON.parse(result) })
         })
         await AsyncStorage.getItem(defaultkey, (error, result) => {
-            this.setState({ alctype: result })
+            if (result !== null) {
+                this.setState({ alctype: result })
+            } else {
+                this.setState({ alctype: "Beer" })
+            }
         })
     }
 

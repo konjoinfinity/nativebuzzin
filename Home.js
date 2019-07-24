@@ -278,6 +278,8 @@ class HomeScreen extends Component {
         this.setState({ alctype: value })
     }
 
+    // Add animations? Could be good to have intro animations for extra icing
+
     render() {
         var gaugeColor;
         var bacPercentage;
