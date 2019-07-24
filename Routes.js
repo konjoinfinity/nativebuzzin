@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
-import OldBuzzScreen from "./OldBuzz"
+import ProfileScreen from "./Profile"
 import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
@@ -13,7 +13,7 @@ const AppStack = createStackNavigator({
             {
                 Home: HomeScreen,
                 Buzz: BuzzScreen,
-                OldBuzz: OldBuzzScreen
+                Profile: ProfileScreen
             },
             {
                 defaultNavigationOptions: ({ navigation }) => ({
@@ -24,8 +24,8 @@ const AppStack = createStackNavigator({
                             iconName = `🏠`;
                         } else if (routeName === 'Buzz') {
                             iconName = `🍺`
-                        } else if (routeName === 'OldBuzz') {
-                            iconName = `🐝`;
+                        } else if (routeName === 'Profile') {
+                            iconName = `👤`;
                         }
                         Vibration.vibrate();
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;

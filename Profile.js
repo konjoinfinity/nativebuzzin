@@ -19,13 +19,14 @@ const key = "buzzes"
 const highkey = "highbac"
 const defaultkey = "defaultacltype"
 
-class OldBuzzScreen extends Component {
+class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             name: "",
             gender: "",
-            weight: ""
+            weight: "",
+            alctype: ""
         }
         this.LogOut = this.LogOut.bind(this);
         this.setDefaultDrink = this.setDefaultDrink.bind(this);
@@ -40,6 +41,9 @@ class OldBuzzScreen extends Component {
         })
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(defaultkey, (error, result) => {
+            this.setState({ alctype: result })
         })
     }
 
@@ -71,23 +75,42 @@ class OldBuzzScreen extends Component {
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10, alignSelf: "center" }}>
-                        <Text style={{ fontSize: 25, textAlign: "center", padding: 20 }}>Default Drink Type</Text>
-                        <MultiSwitch choiceSize={75}
-                            activeItemStyle={activeStyle}
-                            layout={{ vertical: 0, horizontal: -1 }}
-                            containerStyles={_.times(3, () => ({
-                                backgroundColor: 'white',
-                                borderRadius: 20,
-                                borderWidth: 1,
-                                borderColor: "lightgrey",
-                                justifyContent: 'space-between'
-                            }))}
-                            onActivate={(number) => { this.setDefaultDrink(data[number].value) }}
-                            active={0}>
-                            <Text style={{ fontSize: 30 }}>🍺</Text>
-                            <Text style={{ fontSize: 30 }}>🍷</Text>
-                            <Text style={{ fontSize: 30 }}>🥃</Text>
-                        </MultiSwitch>
+                        <Text style={{ fontSize: 25, textAlign: "center", padding: 20 }}>Default Drink Choice</Text>
+                        <View style={[styles.multiSwitchViews, { alignSelf: "center", paddingBottom: 15 }]}>
+                            {this.state.alctype === "Beer" &&
+                                <MultiSwitch choiceSize={75}
+                                    activeItemStyle={activeStyle}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                    onActivate={(number) => { this.setDefaultDrink(data[number].value) }}
+                                    active={0}>
+                                    <Text style={{ fontSize: 30 }}>🍺</Text>
+                                    <Text style={{ fontSize: 30 }}>🍷</Text>
+                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                </MultiSwitch>}
+                            {this.state.alctype === "Wine" &&
+                                <MultiSwitch choiceSize={75}
+                                    activeItemStyle={activeStyle}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                    onActivate={(number) => { this.setDefaultDrink(data[number].value) }}
+                                    active={1}>
+                                    <Text style={{ fontSize: 30 }}>🍺</Text>
+                                    <Text style={{ fontSize: 30 }}>🍷</Text>
+                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                </MultiSwitch>}
+                            {this.state.alctype === "Liquor" &&
+                                <MultiSwitch choiceSize={75}
+                                    activeItemStyle={activeStyle}
+                                    layout={{ vertical: 0, horizontal: -1 }}
+                                    containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                    onActivate={(number) => { this.setDefaultDrink(data[number].value) }}
+                                    active={2}>
+                                    <Text style={{ fontSize: 30 }}>🍺</Text>
+                                    <Text style={{ fontSize: 30 }}>🍷</Text>
+                                    <Text style={{ fontSize: 30 }}>🥃</Text>
+                                </MultiSwitch>}
+                        </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}><Text style={styles.buttonText}>Logout ➡️🚪</Text></TouchableOpacity>
@@ -98,7 +121,7 @@ class OldBuzzScreen extends Component {
     }
 }
 
-export default OldBuzzScreen;
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
     button: {
@@ -113,5 +136,15 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 22,
         textAlign: "center"
+    },
+    multiSwitchViews: {
+        opacity: 0.8,
+        shadowOpacity: 0.35,
+        shadowOffset: {
+            width: 0,
+            height: 5
+        },
+        shadowColor: "#000000",
+        shadowRadius: 3
     }
 })
