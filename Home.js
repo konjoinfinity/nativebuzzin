@@ -365,13 +365,7 @@ class HomeScreen extends Component {
                             <MultiSwitch choiceSize={75}
                                 activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
                                 layout={{ vertical: 0, horizontal: -1 }}
-                                containerStyles={_.times(3, () => ({
-                                    backgroundColor: 'white',
-                                    borderRadius: 20,
-                                    borderWidth: 1,
-                                    borderColor: "lightgrey",
-                                    justifyContent: 'space-between'
-                                }))}
+                                containerStyles={_.times(3, () => (styles.multiSwitch))}
                                 onActivate={(number) => { this.handleDrinkType(data[number].value) }}
                                 active={0}>
                                 <Text style={{ fontSize: 30 }}>🍺</Text>
@@ -386,13 +380,7 @@ class HomeScreen extends Component {
                                         <MultiSwitch choiceSize={50}
                                             activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
                                             layout={{ vertical: 0, horizontal: -1 }}
-                                            containerStyles={_.times(3, () => ({
-                                                backgroundColor: 'white',
-                                                borderRadius: 20,
-                                                borderWidth: 1,
-                                                borderColor: "lightgrey",
-                                                justifyContent: 'space-between',
-                                            }))}
+                                            containerStyles={_.times(3, () => (styles.multiSwitch))}
                                             onActivate={(number) => { this.handleAbv(number) }}
                                             active={1}>
                                             <Text style={{ fontSize: 20 }}>4%</Text>
@@ -403,13 +391,7 @@ class HomeScreen extends Component {
                                         <MultiSwitch choiceSize={50}
                                             activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
                                             layout={{ vertical: 0, horizontal: -1 }}
-                                            containerStyles={_.times(3, () => ({
-                                                backgroundColor: 'white',
-                                                borderRadius: 20,
-                                                borderWidth: 1,
-                                                borderColor: "lightgrey",
-                                                justifyContent: 'space-between',
-                                            }))}
+                                            containerStyles={_.times(3, () => (styles.multiSwitch))}
                                             onActivate={(number) => { this.handleAbv(number) }}
                                             active={1}>
                                             <Text style={{ fontSize: 20 }}>11%</Text>
@@ -420,13 +402,7 @@ class HomeScreen extends Component {
                                         <MultiSwitch choiceSize={50}
                                             activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' }]}
                                             layout={{ vertical: 0, horizontal: -1 }}
-                                            containerStyles={_.times(3, () => ({
-                                                backgroundColor: 'white',
-                                                borderRadius: 20,
-                                                borderWidth: 1,
-                                                borderColor: "lightgrey",
-                                                justifyContent: 'space-between',
-                                            }))}
+                                            containerStyles={_.times(3, () => (styles.multiSwitch))}
                                             onActivate={(number) => { this.handleAbv(number) }}
                                             active={1}>
                                             <Text style={{ fontSize: 20 }}>30%</Text>
@@ -438,13 +414,7 @@ class HomeScreen extends Component {
                                     <MultiSwitch choiceSize={50}
                                         activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
                                         layout={{ vertical: 0, horizontal: -1 }}
-                                        containerStyles={_.times(3, () => ({
-                                            backgroundColor: 'white',
-                                            borderRadius: 20,
-                                            borderWidth: 1,
-                                            borderColor: "lightgrey",
-                                            justifyContent: 'space-between',
-                                        }))}
+                                        containerStyles={_.times(3, () => (styles.multiSwitch))}
                                         onActivate={(number) => { this.handleOz(number) }}
                                         active={0}>
                                         <Text style={{ fontSize: 20 }}>12oz</Text>
@@ -455,13 +425,7 @@ class HomeScreen extends Component {
                                     <MultiSwitch choiceSize={50}
                                         activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
                                         layout={{ vertical: 0, horizontal: -1 }}
-                                        containerStyles={_.times(3, () => ({
-                                            backgroundColor: 'white',
-                                            borderRadius: 20,
-                                            borderWidth: 1,
-                                            borderColor: "lightgrey",
-                                            justifyContent: 'space-between',
-                                        }))}
+                                        containerStyles={_.times(3, () => (styles.multiSwitch))}
                                         onActivate={(number) => { this.handleOz(number) }}
                                         active={0}>
                                         <Text style={{ fontSize: 20 }}>5oz</Text>
@@ -472,13 +436,7 @@ class HomeScreen extends Component {
                                     <MultiSwitch choiceSize={50}
                                         activeItemStyle={[{ color: 'white' }, { color: 'white' }, { color: 'white' },]}
                                         layout={{ vertical: 0, horizontal: -1 }}
-                                        containerStyles={_.times(3, () => ({
-                                            backgroundColor: 'white',
-                                            borderRadius: 20,
-                                            borderWidth: 1,
-                                            borderColor: "lightgrey",
-                                            justifyContent: 'space-between',
-                                        }))}
+                                        containerStyles={_.times(3, () => (styles.multiSwitch))}
                                         onActivate={(number) => { this.handleOz(number) }}
                                         active={0}>
                                         <Text style={{ fontSize: 20 }}>1.5oz</Text>
@@ -550,5 +508,12 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    multiSwitch: {
+        backgroundColor: 'white',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: "lightgrey",
+        justifyContent: 'space-between'
     }
 })
