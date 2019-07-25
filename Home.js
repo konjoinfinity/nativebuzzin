@@ -251,7 +251,7 @@ class HomeScreen extends Component {
             // this.addDrink("Beer", oz, abv)
             if (number === 0) {
                 console.log("5oz - Wine")
-                // this.setState({ oz: 5 })
+                // this.setState({ oz: 5 }) default
             }
             if (number === 1) {
                 console.log("8oz - Wine")
@@ -264,9 +264,18 @@ class HomeScreen extends Component {
         }
         if (this.state.alctype === "Liquor") {
             // this.addDrink("Beer", oz, abv)
-            if (number === 0) { console.log("1.5oz - Liquor") }
-            if (number === 1) { console.log("3oz - Liquor") }
-            if (number === 2) { console.log("6oz - Liquor") }
+            if (number === 0) {
+                console.log("1.5oz - Liquor")
+                // this.setState({ oz: 1.5 }) default
+            }
+            if (number === 1) {
+                console.log("3oz - Liquor")
+                // this.setState({ oz: 3 })
+            }
+            if (number === 2) {
+                console.log("6oz - Liquor")
+                // this.setState({ oz: 6 })
+            }
         }
     }
 
@@ -274,21 +283,48 @@ class HomeScreen extends Component {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
             // this.addDrink("Beer", oz, abv)
-            if (number === 0) { console.log("4% ABV - Beer") }
-            if (number === 1) { console.log("5% ABV - Beer") }
-            if (number === 2) { console.log("7% ABV - Beer") }
+            if (number === 0) {
+                console.log("4% ABV - Beer")
+                // this.setState({ abv: 0.04 })
+            }
+            if (number === 1) {
+                console.log("5% ABV - Beer")
+                // this.setState({ abv: 0.05 }) default
+            }
+            if (number === 2) {
+                console.log("7% ABV - Beer")
+                // this.setState({ abv: 0.07 })
+            }
         }
         if (this.state.alctype === "Wine") {
             // this.addDrink("Beer", oz, abv)
-            if (number === 0) { console.log("11% ABV - Wine") }
-            if (number === 1) { console.log("12% ABV - Wine") }
-            if (number === 2) { console.log("13% ABV - Wine") }
+            if (number === 0) {
+                console.log("11% ABV - Wine")
+                // this.setState({ abv: 0.11 })
+            }
+            if (number === 1) {
+                console.log("12% ABV - Wine")
+                // this.setState({ abv: 0.12 }) default
+            }
+            if (number === 2) {
+                console.log("13% ABV - Wine")
+                // this.setState({ abv: 0.13 })
+            }
         }
         if (this.state.alctype === "Liquor") {
             // this.addDrink("Beer", oz, abv)
-            if (number === 0) { console.log("30% ABV - Liquor") }
-            if (number === 1) { console.log("40% ABV - Liquor") }
-            if (number === 2) { console.log("50% ABV - Liquor") }
+            if (number === 0) {
+                console.log("30% ABV - Liquor")
+                // this.setState({ abv: 0.30 }) 
+            }
+            if (number === 1) {
+                console.log("40% ABV - Liquor")
+                // this.setState({ abv: 0.40 })
+            }
+            if (number === 2) {
+                console.log("50% ABV - Liquor")
+                // this.setState({ abv: 0.50 })
+            }
         }
     }
 
