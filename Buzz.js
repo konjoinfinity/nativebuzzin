@@ -24,7 +24,6 @@ class BuzzScreen extends Component {
             refreshing: false,
             oldbuzzes: null,
             timesince: null,
-            oldbuzzes: null,
             showHideBuzzes: false
         }
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
@@ -52,9 +51,6 @@ class BuzzScreen extends Component {
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
             this.setState({ buzzes: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            this.setState({ oldbuzzes: JSON.parse(result) })
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (_.isArray(JSON.parse(result)) === true) {
@@ -245,38 +241,5 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 22,
         textAlign: "center"
-    },
-    mainviewStyle: {
-        flex: 1,
-        flexDirection: 'column',
-        paddingTop: 55
-    },
-    footer: {
-        position: 'absolute',
-        flex: 0.1,
-        left: 0,
-        right: 0,
-        bottom: -20,
-        backgroundColor: '#fff',
-        flexDirection: 'row',
-        height: 80,
-        alignItems: 'center',
-        borderTopWidth: 1,
-        borderTopColor: '#A8A8A8'
-    },
-    bottomButtons: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-    footerText: {
-        color: 'black',
-        fontWeight: 'bold',
-        alignItems: 'center',
-        fontSize: 25,
-    },
-    textStyle: {
-        alignSelf: 'center',
-        color: 'orange'
     }
 })
