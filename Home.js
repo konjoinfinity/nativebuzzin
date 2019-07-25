@@ -49,7 +49,6 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        Vibration.vibrate();
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
         })
