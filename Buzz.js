@@ -141,7 +141,7 @@ class BuzzScreen extends Component {
         }));
         Vibration.vibrate();
     }
-
+    // Add animate scroll to bottom when oldbuzz show button triggered
     render() {
         let buzzes;
         this.state.buzzes &&
