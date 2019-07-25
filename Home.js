@@ -156,12 +156,50 @@ class HomeScreen extends Component {
         return bac;
     }
 
+    varGetBAC(weight, gender, hours, buzz) {
+        // constants (weight, gender) variables (drinks (number of times to loop - buzz.length), drinkType, 
+        // hours, oz, abv) will have to update the data model
+        // this function should work for single drinks as well - might have to add coditional for reduce
+        var distribution;
+        var drinkTotal;
+        var totalAlc;
+        var totalArray = [];
+        if (gender === "Female") {
+            distribution = 0.66;
+        }
+        if (gender === "Male") {
+            distribution = 0.73;
+        }
+        for (var i = 0; i < buzz.length - 1; i++) {
+
+            if (buzz[i].drinkType === "Beer") {
+                drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
+            }
+            if (buzz[i].drinkType === "Wine") {
+                drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
+            }
+            if (buzz[i].drinkType === "Liquor") {
+                drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
+            }
+            console.log(drinkTotal)
+            totalArray.push(drinkTotal)
+        }
+        console.log(totalArray)
+        totalAlc = totalArray.reduce((a, b) => a + b, 0)
+        console.log(totalAlc)
+        var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
+        this.setState({ bac: bac })
+    }
+
     addDrink(drink) {
         // this.addDrink("Beer" (this.state.alctype), oz (this.state.oz), abv (this.state.abv))
         // This would negate the arg/param, read straight from state
         // Modify buzz data model to include - ABV and oz
         // Conditional to add to variable buzz to variable array
         // Add variable bac amounts to totalBac after
+        // if (this.state.oz !== "" || this.state.abv !== "") {
+        //    run variable add drink loop
+        // }
         Vibration.vibrate();
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
