@@ -39,7 +39,6 @@ class HomeScreen extends Component {
             abv: 0.05
         }
         this.addDrink = this.addDrink.bind(this);
-        this.getBAC = this.getBAC.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
         this.checkBac = this.checkBac.bind(this);
         this.singleDuration = this.singleDuration.bind(this);
@@ -136,28 +135,6 @@ class HomeScreen extends Component {
         return duration;
     }
 
-    getBAC(weight, gender, drinks, drinkType, hours) {
-        var distribution;
-        if (gender == "Female") {
-            distribution = 0.66;
-        }
-        if (gender == "Male") {
-            distribution = 0.73;
-        }
-        var totalAlc;
-        if (drinkType == "Beer") {
-            totalAlc = 12 * drinks * 0.05;
-        }
-        if (drinkType == "Wine") {
-            totalAlc = 5 * drinks * 0.12;
-        }
-        if (drinkType == "Liquor") {
-            totalAlc = 1.5 * drinks * 0.4;
-        }
-        var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
-        return bac;
-    }
-
     varGetBAC(weight, gender, hours, buzz) {
         var distribution;
         var drinkTotal;
@@ -232,11 +209,11 @@ class HomeScreen extends Component {
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
-        if (this.state.highbac.total > 0) {
-            var bacDate = new Date();
-            this.setState(prevState => ({ oldhighbac: [...prevState.oldhighbac, { total: this.state.highbac.total, dateCreated: this.state.highbac.dateCreated }] }))
-            await AsyncStorage.setItem(highkey, JSON.stringify(this.state.oldhighbac))
-        }
+        // if (this.state.highbac.total > 0) {
+        //     var bacDate = new Date();
+        //     this.setState(prevState => ({ oldhighbac: [...prevState.oldhighbac, { total: this.state.highbac.total, dateCreated: this.state.highbac.dateCreated }] }))
+        //     await AsyncStorage.setItem(highkey, JSON.stringify(this.state.oldhighbac))
+        // }
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
                 this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
@@ -366,40 +343,40 @@ class HomeScreen extends Component {
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0  😶</Text></TouchableOpacity>)}
                         {this.state.bac > 0.00 && this.state.bac < 0.01 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  🙂</Text></TouchableOpacity>)}
                         {this.state.bac > 0.01 && this.state.bac < 0.02 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  😊</Text></TouchableOpacity>)}
                         {this.state.bac > 0.02 && this.state.bac < 0.03 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  ☺️</Text></TouchableOpacity>)}
                         {this.state.bac > 0.03 && this.state.bac < 0.04 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}  😃</Text></TouchableOpacity>)}
                         {this.state.bac > 0.04 && this.state.bac < 0.05 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}  😄</Text></TouchableOpacity>)}
                         {this.state.bac > 0.05 && this.state.bac < 0.06 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}  😆</Text></TouchableOpacity>)}
                         {this.state.bac > 0.06 && this.state.bac < 0.07 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  😝</Text></TouchableOpacity>)}
                         {this.state.bac > 0.07 && this.state.bac < 0.08 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  😜</Text></TouchableOpacity>)}
                         {this.state.bac > 0.08 && this.state.bac < 0.09 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  🤪</Text></TouchableOpacity>)}
                         {this.state.bac > 0.09 && this.state.bac < 0.10 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  🤢</Text></TouchableOpacity>)}
                         {this.state.bac >= 0.10 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}</Text></TouchableOpacity>)}
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  🤮</Text></TouchableOpacity>)}
                     </View>
                     <View style={styles.cardView}>
                         <View style={[styles.multiSwitchViews, { alignSelf: "center", paddingBottom: 15 }]}>
@@ -565,9 +542,9 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         padding: 10,
         marginTop: 10,
-        marginBottom: 10,
-        marginLeft: 70,
-        marginRight: 70,
+        marginBottom: 5,
+        marginLeft: 60,
+        marginRight: 60,
         opacity: 0.8,
         shadowOpacity: 0.35,
         shadowOffset: {
