@@ -159,10 +159,6 @@ class HomeScreen extends Component {
     }
 
     varGetBAC(weight, gender, hours, buzz) {
-        // constants (weight, gender) variables (drinks (number of times to loop - buzz.length), drinkType, 
-        // hours, oz, abv) will have to update the data model
-        // this function should work for single drinks as well - might have to add coditional for reduce
-        console.log(buzz)
         var distribution;
         var drinkTotal;
         var totalAlc;
@@ -174,7 +170,6 @@ class HomeScreen extends Component {
             distribution = 0.73;
         }
         for (var i = 0; i < buzz.length; i++) {
-
             if (buzz[i].drinkType === "Beer") {
                 drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
             }
@@ -184,14 +179,10 @@ class HomeScreen extends Component {
             if (buzz[i].drinkType === "Liquor") {
                 drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
             }
-            console.log(drinkTotal)
             totalArray.push(drinkTotal)
         }
-        console.log(totalArray)
         totalAlc = totalArray.reduce((a, b) => a + b, 0)
-        console.log(totalAlc)
         var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
-        // weight and gender could be read directly from state, only args/params would be hours and buzz
         return bac;
     }
 
@@ -211,18 +202,9 @@ class HomeScreen extends Component {
     }
 
     async checkBac() {
-        // Add logic to check for variable array, if it has data - calculate and add to totalBac
-        // Looping logic will be required, determine each variable buzz bac and add together
         Vibration.vibrate();
         if (this.state.buzzes.length >= 1) {
             var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
-            // var totalBac = this.getBAC(
-            //     this.state.weight,
-            //     this.state.gender,
-            //     this.state.buzzes.length,
-            //     this.state.buzzes[0].drinkType,
-            //     duration
-            // );
             var totalBac = this.varGetBAC(
                 this.state.weight,
                 this.state.gender,
@@ -273,92 +255,38 @@ class HomeScreen extends Component {
     handleOz(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
-            if (number === 0) {
-                console.log("12oz - Beer")
-                this.setState({ oz: 12 })
-            }
-            if (number === 1) {
-                console.log("16oz - Beer")
-                this.setState({ oz: 16 })
-            }
-            if (number === 2) {
-                console.log("20oz - Beer")
-                this.setState({ oz: 20 })
-            }
+            if (number === 0) { this.setState({ oz: 12 }) }
+            if (number === 1) { this.setState({ oz: 16 }) }
+            if (number === 2) { this.setState({ oz: 20 }) }
         }
         if (this.state.alctype === "Wine") {
-            if (number === 0) {
-                console.log("5oz - Wine")
-                this.setState({ oz: 5 })
-            }
-            if (number === 1) {
-                console.log("8oz - Wine")
-                this.setState({ oz: 8 })
-            }
-            if (number === 2) {
-                console.log("25oz - Wine")
-                this.setState({ oz: 12 })
-            }
+            if (number === 0) { this.setState({ oz: 5 }) }
+            if (number === 1) { this.setState({ oz: 8 }) }
+            if (number === 2) { this.setState({ oz: 12 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) {
-                console.log("1.5oz - Liquor")
-                this.setState({ oz: 1.5 })
-            }
-            if (number === 1) {
-                console.log("3oz - Liquor")
-                this.setState({ oz: 3 })
-            }
-            if (number === 2) {
-                console.log("6oz - Liquor")
-                this.setState({ oz: 6 })
-            }
+            if (number === 0) { this.setState({ oz: 1.5 }) }
+            if (number === 1) { this.setState({ oz: 3 }) }
+            if (number === 2) { this.setState({ oz: 6 }) }
         }
     }
 
     handleAbv(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
-            if (number === 0) {
-                console.log("4% ABV - Beer")
-                this.setState({ abv: 0.04 })
-            }
-            if (number === 1) {
-                console.log("5% ABV - Beer")
-                this.setState({ abv: 0.05 })
-            }
-            if (number === 2) {
-                console.log("7% ABV - Beer")
-                this.setState({ abv: 0.07 })
-            }
+            if (number === 0) { this.setState({ abv: 0.04 }) }
+            if (number === 1) { this.setState({ abv: 0.05 }) }
+            if (number === 2) { this.setState({ abv: 0.07 }) }
         }
         if (this.state.alctype === "Wine") {
-            if (number === 0) {
-                console.log("11% ABV - Wine")
-                this.setState({ abv: 0.11 })
-            }
-            if (number === 1) {
-                console.log("12% ABV - Wine")
-                this.setState({ abv: 0.12 })
-            }
-            if (number === 2) {
-                console.log("13% ABV - Wine")
-                this.setState({ abv: 0.13 })
-            }
+            if (number === 0) { this.setState({ abv: 0.11 }) }
+            if (number === 1) { this.setState({ abv: 0.12 }) }
+            if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) {
-                console.log("30% ABV - Liquor")
-                this.setState({ abv: 0.30 })
-            }
-            if (number === 1) {
-                console.log("40% ABV - Liquor")
-                this.setState({ abv: 0.40 })
-            }
-            if (number === 2) {
-                console.log("50% ABV - Liquor")
-                this.setState({ abv: 0.50 })
-            }
+            if (number === 0) { this.setState({ abv: 0.30 }) }
+            if (number === 1) { this.setState({ abv: 0.40 }) }
+            if (number === 2) { this.setState({ abv: 0.50 }) }
         }
     }
 
