@@ -42,12 +42,10 @@ class ProfileScreen extends Component {
     async LogOut() {
         Vibration.vibrate();
         await AsyncStorage.removeItem(oldkey)
-        await AsyncStorage.removeItem(key)
         await AsyncStorage.removeItem(namekey)
         await AsyncStorage.removeItem(key)
         await AsyncStorage.removeItem(genderkey)
         await AsyncStorage.removeItem(weightkey)
-        await AsyncStorage.removeItem(highkey)
         this.props.navigation.navigate("Login")
     }
 
