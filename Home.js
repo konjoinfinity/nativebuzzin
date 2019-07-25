@@ -18,8 +18,6 @@ const genderkey = "gender"
 const weightkey = "weight"
 const key = "buzzes"
 const oldkey = "oldbuzzes"
-const highkey = "highbac"
-const defaultkey = "defaultacltype"
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -32,8 +30,6 @@ class HomeScreen extends Component {
             buzzes: [],
             oldbuzzes: [],
             refreshing: false,
-            highbac: [],
-            oldhighbac: [],
             alctype: "Beer",
             oz: 12,
             abv: 0.05
@@ -42,7 +38,6 @@ class HomeScreen extends Component {
         this.varGetBAC = this.varGetBAC.bind(this);
         this.checkBac = this.checkBac.bind(this);
         this.singleDuration = this.singleDuration.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
         this.getDayHourMin = this.getDayHourMin.bind(this);
         this.saveBuzz = this.saveBuzz.bind(this);
         this.clearDrinks = this.clearDrinks.bind(this);
@@ -72,16 +67,6 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
                 this.setState({ oldbuzzes: JSON.parse(result) })
-            }
-        })
-        await AsyncStorage.getItem(highkey, (error, result) => {
-            if (result !== null) {
-                this.setState({ highbac: JSON.parse(result) })
-            }
-        })
-        await AsyncStorage.getItem(defaultkey, (error, result) => {
-            if (result !== null) {
-                this.setState({ alctype: result })
             }
         })
         setTimeout(() => {
@@ -191,10 +176,6 @@ class HomeScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
-                if (totalBac > this.state.highbac.total) {
-                    var bacDate = new Date();
-                    this.setState({ highbac: [{ total: totalBac, dateCreated: bacDate }] })
-                }
                 setTimeout(() => {
                     this.saveBuzz();
                 }, 200);
@@ -209,15 +190,9 @@ class HomeScreen extends Component {
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
-        // if (this.state.highbac.total > 0) {
-        //     var bacDate = new Date();
-        //     this.setState(prevState => ({ oldhighbac: [...prevState.oldhighbac, { total: this.state.highbac.total, dateCreated: this.state.highbac.dateCreated }] }))
-        //     await AsyncStorage.setItem(highkey, JSON.stringify(this.state.oldhighbac))
-        // }
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
                 this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
-                // add setstate highbac to 0, how to implement this? Possibly add to single drink
             }, 200);
         })
     }
