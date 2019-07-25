@@ -294,6 +294,15 @@ class HomeScreen extends Component {
     handleDrinkType(value) {
         Vibration.vibrate();
         this.setState({ alctype: value })
+        if (value === "Beer") {
+            this.setState({ abv: 0.05, oz: 12 })
+        }
+        if (value === "Wine") {
+            this.setState({ abv: 0.12, oz: 5 })
+        }
+        if (value === "Liquor") {
+            this.setState({ abv: 0.40, oz: 1.5 })
+        }
     }
 
     // Add animations? Could be good to have intro animations for extra icing
