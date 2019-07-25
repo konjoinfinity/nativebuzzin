@@ -34,10 +34,13 @@ class HomeScreen extends Component {
             refreshing: false,
             highbac: [],
             oldhighbac: [],
-            alctype: "Beer"
+            alctype: "Beer",
+            oz: 12,
+            abv: 0.05
         }
         this.addDrink = this.addDrink.bind(this);
         this.getBAC = this.getBAC.bind(this);
+        this.varGetBAC = this.varGetBAC.bind(this);
         this.checkBac = this.checkBac.bind(this);
         this.singleDuration = this.singleDuration.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -134,7 +137,6 @@ class HomeScreen extends Component {
     }
 
     getBAC(weight, gender, drinks, drinkType, hours) {
-
         var distribution;
         if (gender == "Female") {
             distribution = 0.66;
@@ -160,6 +162,7 @@ class HomeScreen extends Component {
         // constants (weight, gender) variables (drinks (number of times to loop - buzz.length), drinkType, 
         // hours, oz, abv) will have to update the data model
         // this function should work for single drinks as well - might have to add coditional for reduce
+        console.log(buzz)
         var distribution;
         var drinkTotal;
         var totalAlc;
@@ -170,7 +173,7 @@ class HomeScreen extends Component {
         if (gender === "Male") {
             distribution = 0.73;
         }
-        for (var i = 0; i < buzz.length - 1; i++) {
+        for (var i = 0; i < buzz.length; i++) {
 
             if (buzz[i].drinkType === "Beer") {
                 drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
@@ -192,18 +195,10 @@ class HomeScreen extends Component {
         return bac;
     }
 
-    addDrink(drink) {
-        // this.addDrink("Beer" (this.state.alctype), oz (this.state.oz), abv (this.state.abv))
-        // This would negate the arg/param, read straight from state
-        // Modify buzz data model to include - ABV and oz
-        // Conditional to add to variable buzz to variable array
-        // Add variable bac amounts to totalBac after
-        // if (this.state.oz !== "" || this.state.abv !== "") {
-        //    run variable add drink loop
-        // }
+    addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
-        this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: drink, dateCreated: drinkDate }] }))
+        this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }))
         setTimeout(() => {
             if (this.state.buzzes.length >= 1) {
                 this.checkBac();
@@ -221,13 +216,19 @@ class HomeScreen extends Component {
         Vibration.vibrate();
         if (this.state.buzzes.length >= 1) {
             var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
-            var totalBac = this.getBAC(
+            // var totalBac = this.getBAC(
+            //     this.state.weight,
+            //     this.state.gender,
+            //     this.state.buzzes.length,
+            //     this.state.buzzes[0].drinkType,
+            //     duration
+            // );
+            var totalBac = this.varGetBAC(
                 this.state.weight,
                 this.state.gender,
-                this.state.buzzes.length,
-                this.state.buzzes[0].drinkType,
-                duration
-            );
+                duration,
+                this.state.buzzes
+            )
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
@@ -272,48 +273,45 @@ class HomeScreen extends Component {
     handleOz(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
-            // this.addDrink("Beer", oz, abv)
             if (number === 0) {
                 console.log("12oz - Beer")
-                // this.setState({ oz: 12 }) default
+                this.setState({ oz: 12 })
             }
             if (number === 1) {
                 console.log("16oz - Beer")
-                // this.setState({ oz: 16 })
+                this.setState({ oz: 16 })
             }
             if (number === 2) {
                 console.log("20oz - Beer")
-                // this.setState({ oz: 20 })
+                this.setState({ oz: 20 })
             }
         }
         if (this.state.alctype === "Wine") {
-            // this.addDrink("Beer", oz, abv)
             if (number === 0) {
                 console.log("5oz - Wine")
-                // this.setState({ oz: 5 }) default
+                this.setState({ oz: 5 })
             }
             if (number === 1) {
                 console.log("8oz - Wine")
-                // this.setState({ oz: 8 })
+                this.setState({ oz: 8 })
             }
             if (number === 2) {
                 console.log("25oz - Wine")
-                // this.setState({ oz: 12 })
+                this.setState({ oz: 12 })
             }
         }
         if (this.state.alctype === "Liquor") {
-            // this.addDrink("Beer", oz, abv)
             if (number === 0) {
                 console.log("1.5oz - Liquor")
-                // this.setState({ oz: 1.5 }) default
+                this.setState({ oz: 1.5 })
             }
             if (number === 1) {
                 console.log("3oz - Liquor")
-                // this.setState({ oz: 3 })
+                this.setState({ oz: 3 })
             }
             if (number === 2) {
                 console.log("6oz - Liquor")
-                // this.setState({ oz: 6 })
+                this.setState({ oz: 6 })
             }
         }
     }
@@ -321,48 +319,45 @@ class HomeScreen extends Component {
     handleAbv(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
-            // this.addDrink("Beer", oz, abv)
             if (number === 0) {
                 console.log("4% ABV - Beer")
-                // this.setState({ abv: 0.04 })
+                this.setState({ abv: 0.04 })
             }
             if (number === 1) {
                 console.log("5% ABV - Beer")
-                // this.setState({ abv: 0.05 }) default
+                this.setState({ abv: 0.05 })
             }
             if (number === 2) {
                 console.log("7% ABV - Beer")
-                // this.setState({ abv: 0.07 })
+                this.setState({ abv: 0.07 })
             }
         }
         if (this.state.alctype === "Wine") {
-            // this.addDrink("Beer", oz, abv)
             if (number === 0) {
                 console.log("11% ABV - Wine")
-                // this.setState({ abv: 0.11 })
+                this.setState({ abv: 0.11 })
             }
             if (number === 1) {
                 console.log("12% ABV - Wine")
-                // this.setState({ abv: 0.12 }) default
+                this.setState({ abv: 0.12 })
             }
             if (number === 2) {
                 console.log("13% ABV - Wine")
-                // this.setState({ abv: 0.13 })
+                this.setState({ abv: 0.13 })
             }
         }
         if (this.state.alctype === "Liquor") {
-            // this.addDrink("Beer", oz, abv)
             if (number === 0) {
                 console.log("30% ABV - Liquor")
-                // this.setState({ abv: 0.30 }) 
+                this.setState({ abv: 0.30 })
             }
             if (number === 1) {
                 console.log("40% ABV - Liquor")
-                // this.setState({ abv: 0.40 })
+                this.setState({ abv: 0.40 })
             }
             if (number === 2) {
                 console.log("50% ABV - Liquor")
-                // this.setState({ abv: 0.50 })
+                this.setState({ abv: 0.50 })
             }
         }
     }
@@ -587,13 +582,13 @@ class HomeScreen extends Component {
                                 </View>
                             </View>
                             {this.state.alctype === "Beer" &&
-                                <TouchableOpacity onPress={() => this.addDrink("Beer")} style={styles.addButton}>
+                                <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🍺</Text></TouchableOpacity>}
                             {this.state.alctype === "Wine" &&
-                                <TouchableOpacity onPress={() => this.addDrink("Wine")} style={styles.addButton}>
+                                <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🍷</Text></TouchableOpacity>}
                             {this.state.alctype === "Liquor" &&
-                                <TouchableOpacity onPress={() => this.addDrink("Liquor")} style={styles.addButton}>
+                                <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🥃</Text></TouchableOpacity>}
                         </View>
                     </View>
