@@ -188,7 +188,8 @@ class HomeScreen extends Component {
         totalAlc = totalArray.reduce((a, b) => a + b, 0)
         console.log(totalAlc)
         var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
-        this.setState({ bac: bac })
+        // weight and gender could be read directly from state, only args/params would be hours and buzz
+        return bac;
     }
 
     addDrink(drink) {
