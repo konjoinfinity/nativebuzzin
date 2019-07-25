@@ -134,6 +134,7 @@ class HomeScreen extends Component {
     }
 
     getBAC(weight, gender, drinks, drinkType, hours) {
+
         var distribution;
         if (gender == "Female") {
             distribution = 0.66;
@@ -233,15 +234,33 @@ class HomeScreen extends Component {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
             // this.addDrink("Beer", oz, abv)
-            if (number === 0) { console.log("12oz - Beer") }
-            if (number === 1) { console.log("16oz - Beer") }
-            if (number === 2) { console.log("20oz - Beer") }
+            if (number === 0) {
+                console.log("12oz - Beer")
+                // this.setState({ oz: 12 }) default
+            }
+            if (number === 1) {
+                console.log("16oz - Beer")
+                // this.setState({ oz: 16 })
+            }
+            if (number === 2) {
+                console.log("20oz - Beer")
+                // this.setState({ oz: 20 })
+            }
         }
         if (this.state.alctype === "Wine") {
             // this.addDrink("Beer", oz, abv)
-            if (number === 0) { console.log("5oz - Wine") }
-            if (number === 1) { console.log("8oz - Wine") }
-            if (number === 2) { console.log("25oz - Wine") }
+            if (number === 0) {
+                console.log("5oz - Wine")
+                // this.setState({ oz: 5 })
+            }
+            if (number === 1) {
+                console.log("8oz - Wine")
+                // this.setState({ oz: 8 })
+            }
+            if (number === 2) {
+                console.log("25oz - Wine")
+                // this.setState({ oz: 12 })
+            }
         }
         if (this.state.alctype === "Liquor") {
             // this.addDrink("Beer", oz, abv)
@@ -279,6 +298,10 @@ class HomeScreen extends Component {
     }
 
     // Add animations? Could be good to have intro animations for extra icing
+    // Look into switching to stack navigation for push data refresh
+    // Snap to abv variable slider, instead of snap, vibrate on set values (4,5,6,7,8%)
+    // Picture gallery of common drinks to add, abv/oz selectors could be confusing
+    // Consider removing the third value from the oz selector, keep it simple (single, double)
 
     render() {
         var gaugeColor;
@@ -471,7 +494,7 @@ class HomeScreen extends Component {
                                             active={0}>
                                             <Text style={{ fontSize: 20 }}>5oz</Text>
                                             <Text style={{ fontSize: 20 }}>8oz</Text>
-                                            <Text style={{ fontSize: 20 }}>25oz</Text>
+                                            <Text style={{ fontSize: 20 }}>12oz</Text>
                                         </MultiSwitch>}
                                 </View>
                                 <View style={styles.multiSwitchViews}>
