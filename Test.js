@@ -459,7 +459,7 @@ class TestScreen extends Component {
                                 <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                             </View>}
                     </View>
-                    <View style={{ paddingTop: 20, alignItems: "center" }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 20 }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                         <NumericInput
                             minValue={80}
@@ -474,6 +474,7 @@ class TestScreen extends Component {
                             rightButtonBackgroundColor='#00897b'
                             leftButtonBackgroundColor='#00897b' />
                     </View>
+                    <View style={{ paddingTop: 20 }}></View>
                 </ScrollView>
             </View >
         );
