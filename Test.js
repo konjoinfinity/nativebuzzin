@@ -38,7 +38,6 @@ class TestScreen extends Component {
         this.checkBac = this.checkBac.bind(this);
         this.singleDuration = this.singleDuration.bind(this);
         this.getDayHourMin = this.getDayHourMin.bind(this);
-        this.saveBuzz = this.saveBuzz.bind(this);
         this.clearDrinks = this.clearDrinks.bind(this);
         this.onRefresh = this.onRefresh.bind(this);
         this.handleAbv = this.handleAbv.bind(this);
