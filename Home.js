@@ -229,7 +229,8 @@ class HomeScreen extends Component {
             if (number === 0) { this.setState({ abv: 0.04 }) }
             if (number === 1) { this.setState({ abv: 0.05 }) }
             if (number === 2) { this.setState({ abv: 0.06 }) }
-            if (number === 3) { this.setState({ abv: 0.08 }) }
+            if (number === 3) { this.setState({ abv: 0.07 }) }
+            if (number === 4) { this.setState({ abv: 0.08 }) }
         }
         if (this.state.alctype === "Wine") {
             if (number === 0) { this.setState({ abv: 0.11 }) }
@@ -305,7 +306,7 @@ class HomeScreen extends Component {
         }
         let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
         let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
-        let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+        let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
                 <ScrollView refreshControl={
@@ -394,16 +395,17 @@ class HomeScreen extends Component {
                                 <View style={{ paddingBottom: 15 }}>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Beer" &&
-                                            <MultiSwitch choiceSize={50}
+                                            <MultiSwitch choiceSize={45}
                                                 activeItemStyle={beerActive}
                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                containerStyles={_.times(4, () => (styles.multiSwitch))}
+                                                containerStyles={_.times(5, () => (styles.multiSwitch))}
                                                 onActivate={(number) => { this.handleAbv(number) }}
                                                 active={1}>
-                                                <Text style={{ fontSize: 20 }}>4%</Text>
-                                                <Text style={{ fontSize: 20 }}>5%</Text>
-                                                <Text style={{ fontSize: 20 }}>6%</Text>
-                                                <Text style={{ fontSize: 20 }}>8%</Text>
+                                                <Text style={{ fontSize: 18 }}>4%</Text>
+                                                <Text style={{ fontSize: 18 }}>5%</Text>
+                                                <Text style={{ fontSize: 18 }}>6%</Text>
+                                                <Text style={{ fontSize: 18 }}>7%</Text>
+                                                <Text style={{ fontSize: 18 }}>8%</Text>
                                             </MultiSwitch>}
                                     </View>
                                     <View style={styles.multiSwitchViews}>
