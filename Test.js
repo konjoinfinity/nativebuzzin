@@ -12,15 +12,22 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
+import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
+import NumericInput from 'react-native-numeric-input'
 
 const testkey = "testbuzzes"
+const options = [
+    'Cancel',
+    <Text style={{ color: '#94BFE2', fontSize: 25 }}>Male</Text>,
+    <Text style={{ color: '#F398BE', fontSize: 25 }}>Female</Text>
+]
 
 class TestScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             gender: "Male",
-            weight: "180",
+            weight: 180,
             bac: 0.0,
             testbuzzes: [],
             refreshing: false,
@@ -39,6 +46,8 @@ class TestScreen extends Component {
         this.handleAbv = this.handleAbv.bind(this);
         this.handleOz = this.handleOz.bind(this);
         this.handleDrinkType = this.handleDrinkType.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleGender = this.handleGender.bind(this);
     };
 
     async componentDidMount() {
@@ -124,7 +133,7 @@ class TestScreen extends Component {
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }))
         setTimeout(() => {
-            if (this.state.buzzes.length >= 1) {
+            if (this.state.testbuzzes.length >= 1) {
                 this.checkBac();
             }
         }, 100);
@@ -136,13 +145,13 @@ class TestScreen extends Component {
 
     async checkBac() {
         Vibration.vibrate();
-        if (this.state.buzzes.length >= 1) {
-            var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
+        if (this.state.testbuzzes.length >= 1) {
+            var duration = this.singleDuration(this.state.testbuzzes[0].dateCreated);
             var totalBac = this.varGetBAC(
                 this.state.weight,
                 this.state.gender,
                 duration,
-                this.state.buzzes
+                this.state.testbuzzes
             )
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
@@ -213,6 +222,17 @@ class TestScreen extends Component {
         }
         if (value === "Liquor") {
             this.setState({ abv: 0.40, oz: 1.5 })
+        }
+    }
+
+    showActionSheet() {
+        // Keyboard.dismiss()
+        this.ActionSheet.show()
+    }
+
+    handleGender(index) {
+        if (index !== 0) {
+            this.setState({ gender: options[index].props.children })
         }
     }
 
@@ -440,6 +460,35 @@ class TestScreen extends Component {
                     <View style={styles.cardView}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <TouchableOpacity style={styles.button} onPress={() => this.showActionSheet()}><Text style={styles.buttonText}>Select Gender ♂♀</Text></TouchableOpacity>
+                        <ActionSheet
+                            ref={o => this.ActionSheet = o}
+                            title={<Text style={{ color: '#000', fontSize: 25 }}>Gender</Text>}
+                            options={options}
+                            cancelButtonIndex={0}
+                            onPress={this.handleGender}
+                        />
+                        {this.state.gender !== "" &&
+                            <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
+                                <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
+                            </View>}
+                    </View>
+                    <View style={{ paddingTop: 20, alignItems: "center" }}>
+                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
+                        <NumericInput
+                            minValue={80}
+                            maxValue={300}
+                            value={this.state.weight}
+                            onChange={(weight) => this.setState({ weight })}
+                            totalWidth={325}
+                            step={5}
+                            rounded
+                            textColor='#103900'
+                            iconStyle={{ color: 'white' }}
+                            rightButtonBackgroundColor='#00897b'
+                            leftButtonBackgroundColor='#00897b' />
                     </View>
                 </ScrollView>
             </View >
