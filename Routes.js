@@ -38,6 +38,7 @@ const AppStack = createStackNavigator({
                 tabBarOptions: {
                     activeTintColor: '#00897b',
                     inactiveTintColor: 'gray',
+                    activeBackgroundColor: "#e0f2f1"
                 }
             }
         ),

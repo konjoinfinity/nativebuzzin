@@ -8,14 +8,12 @@ import {
     Vibration,
     RefreshControl
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 import NumericInput from 'react-native-numeric-input'
 
-const testkey = "testbuzzes"
 const options = [
     'Cancel',
     <Text style={{ color: '#94BFE2', fontSize: 25 }}>Male</Text>,
@@ -50,9 +48,6 @@ class TestScreen extends Component {
     };
 
     async componentDidMount() {
-        await AsyncStorage.getItem(testkey, (error, result) => {
-            this.setState({ testbuzzes: JSON.parse(result) })
-        })
         setTimeout(() => {
             this.checkBac();
         }, 200);
@@ -130,16 +125,12 @@ class TestScreen extends Component {
     addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
-        this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }))
+        this.setState(prevState => ({ testbuzzes: [...prevState.testbuzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }))
         setTimeout(() => {
             if (this.state.testbuzzes.length >= 1) {
                 this.checkBac();
             }
         }, 100);
-    }
-
-    async saveBuzz() {
-        await AsyncStorage.setItem(testkey, JSON.stringify(this.state.testbuzzes))
     }
 
     async checkBac() {
@@ -155,20 +146,15 @@ class TestScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
-                setTimeout(() => {
-                    this.saveBuzz();
-                }, 200);
             } else {
-                this.setState({ buzzes: [], bac: 0.0 })
+                this.setState({ testbuzzes: [], bac: 0.0 })
             }
         }
     }
 
     async clearDrinks() {
         Vibration.vibrate();
-        await AsyncStorage.removeItem(key, () => {
-            this.setState({ buzzes: [], bac: 0.0 })
-        })
+        this.setState({ testbuzzes: [], bac: 0.0 })
     }
 
     handleOz(number) {
