@@ -46,7 +46,6 @@ class TestScreen extends Component {
         this.handleAbv = this.handleAbv.bind(this);
         this.handleOz = this.handleOz.bind(this);
         this.handleDrinkType = this.handleDrinkType.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
         this.handleGender = this.handleGender.bind(this);
     };
 
