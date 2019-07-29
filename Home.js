@@ -13,6 +13,7 @@ import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
+import { AlertHelper } from './AlertHelper';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -251,6 +252,9 @@ class HomeScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
+                if (this.state.bac > 0.04 && this.state.bac < 0.06) {
+                    AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
+                }
                 setTimeout(() => {
                     this.saveBuzz();
                 }, 200);
