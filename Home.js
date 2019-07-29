@@ -96,9 +96,11 @@ class HomeScreen extends Component {
             setTimeout(() => {
                 this.addDrink()
             }, 2000);
-            setTimeout(() => {
-                this.clearDrinks()
-            }, 3000);
+            if (step.order === 1 || step.order === 2) {
+                setTimeout(() => {
+                    this.clearDrinks()
+                }, 3000);
+            }
         }
         if (step.order === 3) {
             setTimeout(() => {
@@ -138,6 +140,11 @@ class HomeScreen extends Component {
             setTimeout(() => {
                 this.setState({ oz: 12 })
             }, 3000);
+        }
+        if (step.order === 7) {
+            setTimeout(() => {
+                this.clearDrinks()
+            }, 1000);
         }
     }
 
