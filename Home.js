@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
+import { copilot } from 'react-native-copilot';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -496,7 +497,7 @@ class HomeScreen extends Component {
     }
 }
 
-export default HomeScreen;
+export default copilot()(HomeScreen);
 
 const styles = StyleSheet.create({
     button: {
