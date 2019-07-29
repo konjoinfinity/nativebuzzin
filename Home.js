@@ -21,7 +21,6 @@ const key = "buzzes"
 const oldkey = "oldbuzzes"
 
 const CopilotView = walkthroughable(View);
-const that = this;
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -78,6 +77,27 @@ class HomeScreen extends Component {
         }, 200);
         this.props.copilotEvents.on('stepChange', this.handleStepChange);
         this.props.start();
+    }
+
+    handleStepChange = (step) => {
+        console.log(step);
+        if (step.order === 1 || step.order === 2) {
+            setTimeout(() => {
+                this.addDrink()
+            }, 1000);
+            setTimeout(() => {
+                this.addDrink()
+            }, 2000);
+            setTimeout(() => {
+                this.addDrink()
+            }, 3000);
+            setTimeout(() => {
+                this.addDrink()
+            }, 4000);
+            setTimeout(() => {
+                this.clearDrinks()
+            }, 5000);
+        }
     }
 
     async onRefresh() {
@@ -209,25 +229,6 @@ class HomeScreen extends Component {
         await AsyncStorage.removeItem(key, () => {
             this.setState({ buzzes: [], bac: 0.0 })
         })
-    }
-
-    handleStepChange(step) {
-        console.log(step);
-        that.addDrink()
-        // if (step.order === 1) {
-        //     setTimeout(() => {
-
-        //     }, 2000);
-        //     // setTimeout(() => {
-        //     //     this.addDrink()
-        //     // }, 2000);
-        //     // setTimeout(() => {
-        //     //     this.addDrink()
-        //     // }, 3000);
-        //     // setTimeout(() => {
-        //     //     this.clearDrinks()
-        //     // }, 4000);
-        // }
     }
 
     handleOz(number) {
