@@ -375,8 +375,15 @@ class HomeScreen extends Component {
         let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
         let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+        if (this.state.bac > 0.04 && this.state.bac < 0.06) {
+            var viewColor = "#64ffda"
+        } else {
+            var viewColor = "#ffffff"
+        }
         return (
-            <View>
+            <View style={{
+                backgroundColor: viewColor
+            }}>
                 <ScrollView
                     refreshControl={
                         <RefreshControl
@@ -407,12 +414,12 @@ class HomeScreen extends Component {
                         {this.state.bac > 0.03 && this.state.bac < 0.04 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}  😃</Text></TouchableOpacity>)}
-                        {this.state.bac > 0.04 && this.state.bac < 0.05 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}  😄</Text></TouchableOpacity>)}
-                        {this.state.bac > 0.05 && this.state.bac < 0.06 && (
-                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}  😆</Text></TouchableOpacity>)}
+                        {this.state.bac > 0.04 && this.state.bac < 0.05 && (<View style={{ flexDirection: "row", justifyContent: "space-around" }}><Text style={{ fontSize: 15, paddingTop: 30 }}>Optimal </Text>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.optimalbac, { backgroundColor: gaugeColor }]}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}  😄</Text></TouchableOpacity><Text style={{ fontSize: 15, paddingTop: 30 }}> Buzz!</Text></View>)}
+                        {this.state.bac > 0.05 && this.state.bac < 0.06 && (<View style={{ flexDirection: "row", justifyContent: "space-around" }}><Text style={{ fontSize: 15, paddingTop: 30 }}>Optimal </Text>
+                            <TouchableOpacity onPress={() => this.checkBac()} style={[styles.optimalbac, { backgroundColor: gaugeColor }]}>
+                                <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>{this.state.bac}  😆</Text></TouchableOpacity><Text style={{ fontSize: 15, paddingTop: 30 }}> Buzz!</Text></View>)}
                         {this.state.bac > 0.06 && this.state.bac < 0.07 && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  😝</Text></TouchableOpacity>)}
@@ -697,6 +704,25 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginLeft: 60,
         marginRight: 60,
+        opacity: 0.8,
+        shadowOpacity: 0.35,
+        shadowOffset: {
+            width: 0,
+            height: 5
+        },
+        shadowColor: "#000000",
+        shadowRadius: 3
+    },
+    optimalbac: {
+        borderRadius: 15,
+        borderStyle: "solid",
+        borderColor: "teal",
+        borderWidth: 2,
+        padding: 10,
+        marginTop: 10,
+        marginBottom: 5,
+        marginLeft: 5,
+        marginRight: 5,
         opacity: 0.8,
         shadowOpacity: 0.35,
         shadowOffset: {
