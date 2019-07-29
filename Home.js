@@ -100,11 +100,6 @@ class HomeScreen extends Component {
             setTimeout(() => {
                 this.clearDrinks()
             }, 5000);
-            if (step.order === 6) {
-                setTimeout(() => {
-                    this.scrollView.scrollToEnd({ animated: true })
-                }, 6000);
-            }
         }
         if (step.order === 3) {
             setTimeout(() => {
@@ -675,6 +670,7 @@ class HomeScreen extends Component {
         );
     }
 }
+
 
 export default copilot()(HomeScreen);
 
