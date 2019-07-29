@@ -312,7 +312,7 @@ class TestScreen extends Component {
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  🤮</Text></TouchableOpacity>)}
                     </View>
                     <View style={styles.cardView}>
-                        <View style={[styles.multiSwitchViews, { alignSelf: "center", paddingBottom: 15 }]}>
+                        <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                             {this.state.alctype === "Beer" &&
                                 <MultiSwitch choiceSize={75}
                                     activeItemStyle={activeStyle}
@@ -346,6 +346,13 @@ class TestScreen extends Component {
                                     <Text style={{ fontSize: 30 }}>🍷</Text>
                                     <Text style={{ fontSize: 30 }}>🥃</Text>
                                 </MultiSwitch>}
+                            <TouchableOpacity
+                                style={styles.headerButton}
+                                onPress={() => this.clearDrinks()}>
+                                <View>
+                                    <Text style={{ fontSize: 30 }}>🗑</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ flex: 1, flexDirection: "column", paddingBottom: 15 }}>
@@ -442,10 +449,6 @@ class TestScreen extends Component {
                                 <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🥃</Text></TouchableOpacity>}
                         </View>
-                    </View>
-                    <View style={styles.cardView}>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.showActionSheet()}><Text style={styles.buttonText}>Select Gender ♂♀</Text></TouchableOpacity>
@@ -559,5 +562,20 @@ const styles = StyleSheet.create({
         },
         shadowColor: "#000000",
         shadowRadius: 3
+    },
+    headerButton: {
+        height: 50,
+        width: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(250, 250, 250, 0.7)',
+        borderRadius: 50,
+        margin: 10,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        }
     }
 })
