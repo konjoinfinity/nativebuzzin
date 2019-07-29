@@ -61,7 +61,7 @@ class LoginScreen extends React.Component {
                 await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
                 await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
                 await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
-                this.props.navigation.navigate("Home");
+                this.props.navigation.navigate("Home", { login: true });
             } else {
                 Vibration.vibrate();
                 Alert.alert("Please Select Gender")

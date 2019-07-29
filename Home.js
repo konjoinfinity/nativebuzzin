@@ -75,8 +75,11 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.checkBac();
         }, 200);
-        this.props.copilotEvents.on('stepChange', this.handleStepChange);
-        this.props.start();
+        const login = this.props.navigation.getParam('login');
+        if (login === true) {
+            this.props.copilotEvents.on('stepChange', this.handleStepChange);
+            this.props.start();
+        }
     }
 
     handleStepChange = (step) => {
@@ -97,6 +100,11 @@ class HomeScreen extends Component {
             setTimeout(() => {
                 this.clearDrinks()
             }, 5000);
+            if (step.order === 6) {
+                setTimeout(() => {
+                    this.scrollView.scrollToEnd({ animated: true })
+                }, 6000);
+            }
         }
         if (step.order === 3) {
             setTimeout(() => {
@@ -428,7 +436,7 @@ class HomeScreen extends Component {
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  🤮</Text></TouchableOpacity>)}
                     </View>
                     <View style={styles.cardView}>
-                        <View style={[styles.multiSwitchViews, { alignSelf: "center", paddingBottom: 15 }]}>
+                        <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                             {this.state.alctype === "Beer" &&
                                 <CopilotStep text="Press each icon to change drink type." order={3} name="drink">
                                     <CopilotView>
@@ -466,6 +474,17 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: 30 }}>🍷</Text>
                                     <Text style={{ fontSize: 30 }}>🥃</Text>
                                 </MultiSwitch>}
+                            <CopilotStep text="Press to clear all drinks." order={7} name="clear">
+                                <CopilotView>
+                                    <TouchableOpacity
+                                        style={styles.headerButton}
+                                        onPress={() => this.clearDrinks()}>
+                                        <View>
+                                            <Text style={{ fontSize: 30 }}>🗑</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </CopilotView>
+                            </CopilotStep>
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ flex: 1, flexDirection: "column", paddingBottom: 15 }}>
@@ -651,16 +670,8 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: 40, color: "white" }}>+🥃</Text></TouchableOpacity>}
                         </View>
                     </View>
-                    <View style={styles.cardView}>
-                        <CopilotStep text="Press to clear all drinks." order={7} name="clear">
-                            <CopilotView>
-                                <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Clear All Drinks</Text>
-                                <TouchableOpacity style={styles.button} onPress={() => this.clearDrinks()}><Text style={styles.buttonText}>Clear</Text></TouchableOpacity>
-                            </CopilotView>
-                        </CopilotStep>
-                    </View>
                 </ScrollView>
-            </View >
+            </View>
         );
     }
 }
@@ -741,5 +752,20 @@ const styles = StyleSheet.create({
         },
         shadowColor: "#000000",
         shadowRadius: 3
+    },
+    headerButton: {
+        height: 50,
+        width: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(250, 250, 250, 0.7)',
+        borderRadius: 50,
+        margin: 10,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        }
     }
 })
