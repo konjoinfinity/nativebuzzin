@@ -81,7 +81,7 @@ class HomeScreen extends Component {
 
     handleStepChange = (step) => {
         console.log(step);
-        if (step.order === 1 || step.order === 2) {
+        if (step.order === 1 || step.order === 2 || step.order === 6) {
             setTimeout(() => {
                 this.addDrink()
             }, 1000);
@@ -97,6 +97,45 @@ class HomeScreen extends Component {
             setTimeout(() => {
                 this.clearDrinks()
             }, 5000);
+        }
+        if (step.order === 3) {
+            setTimeout(() => {
+                this.setState({ alctype: "Wine" })
+            }, 1000);
+            setTimeout(() => {
+                this.setState({ alctype: "Liquor" })
+            }, 2000);
+            setTimeout(() => {
+                this.setState({ alctype: "Beer" })
+            }, 3000);
+        }
+        if (step.order === 4) {
+            setTimeout(() => {
+                this.setState({ abv: 0.06 })
+            }, 1000);
+            setTimeout(() => {
+                this.setState({ abv: 0.07 })
+            }, 2000);
+            setTimeout(() => {
+                this.setState({ abv: 0.08 })
+            }, 3000);
+            setTimeout(() => {
+                this.setState({ abv: 0.04 })
+            }, 4000);
+            setTimeout(() => {
+                this.setState({ abv: 0.05 })
+            }, 5000);
+        }
+        if (step.order === 5) {
+            setTimeout(() => {
+                this.setState({ oz: 16 })
+            }, 1000);
+            setTimeout(() => {
+                this.setState({ oz: 20 })
+            }, 2000);
+            setTimeout(() => {
+                this.setState({ oz: 12 })
+            }, 3000);
         }
     }
 
@@ -336,10 +375,11 @@ class HomeScreen extends Component {
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
-                <ScrollView refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this.onRefresh} />}>
+                <ScrollView ref={(ref) => this.scrollView = ref}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center", paddingBottom: 5 }}>
@@ -434,18 +474,71 @@ class HomeScreen extends Component {
                                         {this.state.alctype === "Beer" &&
                                             <CopilotStep text="Press each percent to change drink ABV." order={4} name="abv">
                                                 <CopilotView>
-                                                    <MultiSwitch choiceSize={45}
-                                                        activeItemStyle={beerActive}
-                                                        layout={{ vertical: 0, horizontal: -1 }}
-                                                        containerStyles={_.times(5, () => (styles.multiSwitch))}
-                                                        onActivate={(number) => { this.handleAbv(number) }}
-                                                        active={1}>
-                                                        <Text style={{ fontSize: 18 }}>4%</Text>
-                                                        <Text style={{ fontSize: 18 }}>5%</Text>
-                                                        <Text style={{ fontSize: 18 }}>6%</Text>
-                                                        <Text style={{ fontSize: 18 }}>7%</Text>
-                                                        <Text style={{ fontSize: 18 }}>8%</Text>
-                                                    </MultiSwitch>
+                                                    {this.state.abv === 0.05 &&
+                                                        <MultiSwitch choiceSize={45}
+                                                            activeItemStyle={beerActive}
+                                                            layout={{ vertical: 0, horizontal: -1 }}
+                                                            containerStyles={_.times(5, () => (styles.multiSwitch))}
+                                                            onActivate={(number) => { this.handleAbv(number) }}
+                                                            active={1}>
+                                                            <Text style={{ fontSize: 18 }}>4%</Text>
+                                                            <Text style={{ fontSize: 18 }}>5%</Text>
+                                                            <Text style={{ fontSize: 18 }}>6%</Text>
+                                                            <Text style={{ fontSize: 18 }}>7%</Text>
+                                                            <Text style={{ fontSize: 18 }}>8%</Text>
+                                                        </MultiSwitch>}
+                                                    {this.state.abv === 0.06 &&
+                                                        <MultiSwitch choiceSize={45}
+                                                            activeItemStyle={beerActive}
+                                                            layout={{ vertical: 0, horizontal: -1 }}
+                                                            containerStyles={_.times(5, () => (styles.multiSwitch))}
+                                                            onActivate={(number) => { this.handleAbv(number) }}
+                                                            active={2}>
+                                                            <Text style={{ fontSize: 18 }}>4%</Text>
+                                                            <Text style={{ fontSize: 18 }}>5%</Text>
+                                                            <Text style={{ fontSize: 18 }}>6%</Text>
+                                                            <Text style={{ fontSize: 18 }}>7%</Text>
+                                                            <Text style={{ fontSize: 18 }}>8%</Text>
+                                                        </MultiSwitch>}
+                                                    {this.state.abv === 0.07 &&
+                                                        <MultiSwitch choiceSize={45}
+                                                            activeItemStyle={beerActive}
+                                                            layout={{ vertical: 0, horizontal: -1 }}
+                                                            containerStyles={_.times(5, () => (styles.multiSwitch))}
+                                                            onActivate={(number) => { this.handleAbv(number) }}
+                                                            active={3}>
+                                                            <Text style={{ fontSize: 18 }}>4%</Text>
+                                                            <Text style={{ fontSize: 18 }}>5%</Text>
+                                                            <Text style={{ fontSize: 18 }}>6%</Text>
+                                                            <Text style={{ fontSize: 18 }}>7%</Text>
+                                                            <Text style={{ fontSize: 18 }}>8%</Text>
+                                                        </MultiSwitch>}
+                                                    {this.state.abv === 0.08 &&
+                                                        <MultiSwitch choiceSize={45}
+                                                            activeItemStyle={beerActive}
+                                                            layout={{ vertical: 0, horizontal: -1 }}
+                                                            containerStyles={_.times(5, () => (styles.multiSwitch))}
+                                                            onActivate={(number) => { this.handleAbv(number) }}
+                                                            active={4}>
+                                                            <Text style={{ fontSize: 18 }}>4%</Text>
+                                                            <Text style={{ fontSize: 18 }}>5%</Text>
+                                                            <Text style={{ fontSize: 18 }}>6%</Text>
+                                                            <Text style={{ fontSize: 18 }}>7%</Text>
+                                                            <Text style={{ fontSize: 18 }}>8%</Text>
+                                                        </MultiSwitch>}
+                                                    {this.state.abv === 0.04 &&
+                                                        <MultiSwitch choiceSize={45}
+                                                            activeItemStyle={beerActive}
+                                                            layout={{ vertical: 0, horizontal: -1 }}
+                                                            containerStyles={_.times(5, () => (styles.multiSwitch))}
+                                                            onActivate={(number) => { this.handleAbv(number) }}
+                                                            active={0}>
+                                                            <Text style={{ fontSize: 18 }}>4%</Text>
+                                                            <Text style={{ fontSize: 18 }}>5%</Text>
+                                                            <Text style={{ fontSize: 18 }}>6%</Text>
+                                                            <Text style={{ fontSize: 18 }}>7%</Text>
+                                                            <Text style={{ fontSize: 18 }}>8%</Text>
+                                                        </MultiSwitch>}
                                                 </CopilotView>
                                             </CopilotStep>}
                                     </View>
@@ -480,16 +573,39 @@ class HomeScreen extends Component {
                                     {this.state.alctype === "Beer" &&
                                         <CopilotStep text="Press each number to change drink size." order={5} name="oz">
                                             <CopilotView>
-                                                <MultiSwitch choiceSize={50}
-                                                    activeItemStyle={activeStyle}
-                                                    layout={{ vertical: 0, horizontal: -1 }}
-                                                    containerStyles={_.times(3, () => (styles.multiSwitch))}
-                                                    onActivate={(number) => { this.handleOz(number) }}
-                                                    active={0}>
-                                                    <Text style={{ fontSize: 20 }}>12oz</Text>
-                                                    <Text style={{ fontSize: 20 }}>16oz</Text>
-                                                    <Text style={{ fontSize: 20 }}>20oz</Text>
-                                                </MultiSwitch>
+                                                {this.state.oz === 12 &&
+                                                    <MultiSwitch choiceSize={50}
+                                                        activeItemStyle={activeStyle}
+                                                        layout={{ vertical: 0, horizontal: -1 }}
+                                                        containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                                        onActivate={(number) => { this.handleOz(number) }}
+                                                        active={0}>
+                                                        <Text style={{ fontSize: 20 }}>12oz</Text>
+                                                        <Text style={{ fontSize: 20 }}>16oz</Text>
+                                                        <Text style={{ fontSize: 20 }}>20oz</Text>
+                                                    </MultiSwitch>}
+                                                {this.state.oz === 16 &&
+                                                    <MultiSwitch choiceSize={50}
+                                                        activeItemStyle={activeStyle}
+                                                        layout={{ vertical: 0, horizontal: -1 }}
+                                                        containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                                        onActivate={(number) => { this.handleOz(number) }}
+                                                        active={1}>
+                                                        <Text style={{ fontSize: 20 }}>12oz</Text>
+                                                        <Text style={{ fontSize: 20 }}>16oz</Text>
+                                                        <Text style={{ fontSize: 20 }}>20oz</Text>
+                                                    </MultiSwitch>}
+                                                {this.state.oz === 20 &&
+                                                    <MultiSwitch choiceSize={50}
+                                                        activeItemStyle={activeStyle}
+                                                        layout={{ vertical: 0, horizontal: -1 }}
+                                                        containerStyles={_.times(3, () => (styles.multiSwitch))}
+                                                        onActivate={(number) => { this.handleOz(number) }}
+                                                        active={2}>
+                                                        <Text style={{ fontSize: 20 }}>12oz</Text>
+                                                        <Text style={{ fontSize: 20 }}>16oz</Text>
+                                                        <Text style={{ fontSize: 20 }}>20oz</Text>
+                                                    </MultiSwitch>}
                                             </CopilotView>
                                         </CopilotStep>}
                                 </View>
@@ -523,7 +639,7 @@ class HomeScreen extends Component {
                             {this.state.alctype === "Beer" &&
                                 <CopilotStep text="Press to add drink with selected options." order={6} name="add">
                                     <CopilotView>
-                                        <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
+                                        <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton} ref={(touchable) => this._touchable = touchable}>
                                             <Text style={{ fontSize: 40, color: "white" }}>+🍺</Text></TouchableOpacity>
                                     </CopilotView>
                                 </CopilotStep>}
