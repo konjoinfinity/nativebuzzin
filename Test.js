@@ -264,15 +264,9 @@ class TestScreen extends Component {
         let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
         let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
-        if (this.state.bac > 0.04 && this.state.bac < 0.06) {
-            var viewColor = "#64ffda"
-        } else {
-            var viewColor = "#ffffff"
-        }
+
         return (
-            <View style={{
-                backgroundColor: viewColor
-            }}>
+            <View>
                 <ScrollView refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
