@@ -78,12 +78,17 @@ class HomeScreen extends Component {
         const login = this.props.navigation.getParam('login');
         if (login === true) {
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
-            this.props.start();
+            setTimeout(() => {
+                this.props.start();
+            }, 1000);
         }
     }
 
+    componentWillUnmount() {
+        this.props.copilotEvents.off('stop');
+    }
+
     handleStepChange = (step) => {
-        console.log(step);
         if (step.order === 1 || step.order === 2 || step.order === 6) {
             setTimeout(() => {
                 this.addDrink()
@@ -91,12 +96,6 @@ class HomeScreen extends Component {
             setTimeout(() => {
                 this.addDrink()
             }, 2000);
-            setTimeout(() => {
-                this.addDrink()
-            }, 3000);
-            setTimeout(() => {
-                this.addDrink()
-            }, 4000);
             setTimeout(() => {
                 this.clearDrinks()
             }, 5000);
@@ -378,7 +377,7 @@ class HomeScreen extends Component {
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
-                <ScrollView ref={(ref) => this.scrollView = ref}
+                <ScrollView
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing}
