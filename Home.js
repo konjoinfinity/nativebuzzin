@@ -85,6 +85,22 @@ class HomeScreen extends Component {
         }
     }
 
+    async componentWillFocus() {
+        await AsyncStorage.getItem(key, (error, result) => {
+            if (result !== null) {
+                this.setState({ buzzes: JSON.parse(result) })
+            }
+        })
+        await AsyncStorage.getItem(oldkey, (error, result) => {
+            if (result !== null) {
+                this.setState({ oldbuzzes: JSON.parse(result) })
+            }
+        })
+        setTimeout(() => {
+            this.checkBac();
+        }, 200);
+    }
+
     componentWillUnmount() {
         this.props.copilotEvents.off('stop');
     }

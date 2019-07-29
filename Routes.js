@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
+import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator, NavigationActions, StackActions } from "react-navigation";
 import ProfileScreen from "./Profile"
 import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
@@ -33,7 +33,7 @@ const AppStack = createStackNavigator({
                         }
                         Vibration.vibrate();
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;
-                    },
+                    }
                 }),
                 tabBarOptions: {
                     activeTintColor: 'gray',
