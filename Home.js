@@ -12,13 +12,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
-import { copilot } from 'react-native-copilot';
+import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
 
 const namekey = "name"
 const genderkey = "gender"
 const weightkey = "weight"
 const key = "buzzes"
 const oldkey = "oldbuzzes"
+const CopilotText = walkthroughable(Text);
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -316,6 +317,9 @@ class HomeScreen extends Component {
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <View style={{ alignSelf: "center", paddingBottom: 5 }}>
+                            <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
+                                <CopilotText>BAC Gauge</CopilotText>
+                            </CopilotStep>
                             <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator />
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
