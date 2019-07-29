@@ -143,14 +143,10 @@ class BuzzScreen extends Component {
         this.state.buzzes &&
             (buzzes = this.state.buzzes.map((buzz, id) => {
                 return (
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }} key={id}>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>1 - {buzz.drinkType}</Text>
-                        {buzz.drinkType === "Beer" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍺</Text>}
-                        {buzz.drinkType === "Wine" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍷</Text>}
-                        {buzz.drinkType === "Liquor" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🥃</Text>}
-                        <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>{buzz.oz}oz - {Math.round(buzz.abv * 100)}% ABV</Text>
-                        <View style={{ alignItems: "center", paddingBottom: 10 }}><Text>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
-                        <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>Delete 🗑</Text></TouchableOpacity>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                        <View style={{ flexDirection: "column" }}>
+                            <Text style={{ fontSize: 20, paddingBottom: 10 }}>{buzz.oz}oz  {buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(buzz.abv * 100)}% ABV</Text>
+                            <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
                     </View>
                 )
             }
@@ -160,14 +156,10 @@ class BuzzScreen extends Component {
         this.state.oldbuzzes &&
             (oldbuzzes = this.state.oldbuzzes.map((oldbuzz, id) => {
                 return (
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }} key={id}>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>1 - {oldbuzz.drinkType}</Text>
-                        {oldbuzz.drinkType === "Beer" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍺</Text>}
-                        {oldbuzz.drinkType === "Wine" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🍷</Text>}
-                        {oldbuzz.drinkType === "Liquor" && <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>🥃</Text>}
-                        <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>{oldbuzz.oz}oz - {Math.round(oldbuzz.abv * 100)}% ABV</Text>
-                        <Text style={{ fontSize: 15, textAlign: "center", paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzz(id)}><Text style={styles.buttonText}>Delete 🗑</Text></TouchableOpacity>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                        <View style={{ flexDirection: "column" }}>
+                            <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
+                            <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteOldBuzz(id)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
                     </View>
                 )
             }
@@ -196,7 +188,9 @@ class BuzzScreen extends Component {
                             {this.state.timesince === null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
-                    {buzzes}
+                    {_.isArray(this.state.buzzes) &&
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                            {buzzes}</View>}
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 🥃</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  🗑</Text></TouchableOpacity>
@@ -218,7 +212,7 @@ class BuzzScreen extends Component {
                                     title="Hide Buzzes" />
                             </View>))}
                     {this.state.showHideBuzzes === true && (
-                        <View>
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             {oldbuzzes}
                         </View>
                     )}
@@ -243,5 +237,20 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 22,
         textAlign: "center"
+    },
+    headerButton: {
+        height: 35,
+        width: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(250, 250, 250, 0.7)',
+        borderRadius: 50,
+        margin: 10,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        }
     }
 })

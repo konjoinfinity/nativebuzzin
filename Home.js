@@ -276,6 +276,8 @@ class HomeScreen extends Component {
         })
     }
 
+    // [oldbuzzes]
+
     async clearDrinks() {
         Vibration.vibrate();
         await AsyncStorage.removeItem(key, () => {
