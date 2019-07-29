@@ -20,6 +20,7 @@ const weightkey = "weight"
 const key = "buzzes"
 const oldkey = "oldbuzzes"
 const CopilotText = walkthroughable(Text);
+const CopilotView = walkthroughable(View);
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -73,6 +74,7 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.checkBac();
         }, 200);
+        this.props.start();
     }
 
     async onRefresh() {
@@ -316,12 +318,11 @@ class HomeScreen extends Component {
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <View style={{ alignSelf: "center", paddingBottom: 5 }}>
-                            <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
-                                <CopilotText>BAC Gauge</CopilotText>
-                            </CopilotStep>
-                            <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator />
-                        </View>
+                        <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
+                            <CopilotView style={{ alignSelf: "center", paddingBottom: 5 }}>
+                                <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator />
+                            </CopilotView>
+                        </CopilotStep>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0  😶</Text></TouchableOpacity>)}
