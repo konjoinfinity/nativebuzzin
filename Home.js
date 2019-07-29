@@ -98,7 +98,7 @@ class HomeScreen extends Component {
             }, 2000);
             setTimeout(() => {
                 this.clearDrinks()
-            }, 5000);
+            }, 3000);
         }
         if (step.order === 3) {
             setTimeout(() => {
