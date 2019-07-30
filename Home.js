@@ -277,6 +277,8 @@ class HomeScreen extends Component {
             } else {
                 this.moveToOld();
             }
+        } else {
+            this.setState({ bac: 0.0 })
         }
     }
 
@@ -295,10 +297,37 @@ class HomeScreen extends Component {
     // [oldbuzzes]
 
     async clearDrinks() {
-        Vibration.vibrate();
-        await AsyncStorage.removeItem(key, () => {
-            this.setState({ buzzes: [], bac: 0.0 })
-        })
+        var lastDrinkTime = this.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
+        console.log(lastDrinkTime)
+        console.log(lastDrinkTime > 0.0333333)
+        if (lastDrinkTime < 0.0333333) {
+            Vibration.vibrate();
+            console.log(this.state.buzzes)
+            var undobuzz;
+            await AsyncStorage.getItem(key, (error, result) => {
+                if (result !== null) {
+                    undobuzz = JSON.parse(result)
+                    undobuzz.pop();
+                    this.setState({ buzzes: undobuzz })
+                }
+            })
+            await AsyncStorage.setItem(key, JSON.stringify(undobuzz))
+            setTimeout(() => {
+                console.log(this.state.buzzes)
+                this.checkBac();
+            }, 200);
+        }
+    }
+
+    checkLastDrink() {
+        var lastDrinkTime = this.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
+        if (lastDrinkTime < 0.0333333) {
+            console.log(true)
+            return true
+        } else {
+            console.log(false)
+            return false
+        }
     }
 
     handleOz(number) {
@@ -499,13 +528,14 @@ class HomeScreen extends Component {
                                 </MultiSwitch>}
                             <CopilotStep text="Press to clear all drinks." order={7} name="clear">
                                 <CopilotView>
-                                    <TouchableOpacity
-                                        style={styles.headerButton}
-                                        onPress={() => this.clearDrinks()}>
-                                        <View>
-                                            <Text style={{ fontSize: 30 }}>🗑</Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                    {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
+                                        <TouchableOpacity
+                                            style={styles.headerButton}
+                                            onPress={() => this.clearDrinks()}>
+                                            <View>
+                                                <Text style={{ fontSize: 30 }}>↩️</Text>
+                                            </View>
+                                        </TouchableOpacity>}
                                 </CopilotView>
                             </CopilotStep>
                         </View>
