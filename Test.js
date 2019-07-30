@@ -277,51 +277,63 @@ class TestScreen extends Component {
                         <View style={{ alignSelf: "center", paddingBottom: 5 }}>
                             <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                 {
-                                    labelColor: '#ffffff',
+                                    name: '1',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#ffffff',
                                 },
                                 {
-                                    labelColor: '#b5d3a0',
+                                    name: '2',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#b5d3a0',
                                 },
                                 {
-                                    labelColor: '#96c060',
+                                    name: '3',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#96c060',
                                 },
                                 {
-                                    labelColor: '#9fc635',
+                                    name: '4',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#9fc635',
                                 },
                                 {
-                                    labelColor: '#d3e50e',
+                                    name: '5',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#d3e50e',
                                 },
                                 {
-                                    labelColor: '#ffeb00',
+                                    name: '6',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#ffeb00',
                                 },
                                 {
-                                    labelColor: '#f9bf00',
+                                    name: '7',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#f9bf00',
                                 },
                                 {
-                                    labelColor: '#e98f00',
+                                    name: '8',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#e98f00',
                                 },
                                 {
-                                    labelColor: '#d05900',
+                                    name: '9',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#d05900',
                                 },
                                 {
-                                    labelColor: '#AE0000',
+                                    name: '10',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#AE0000',
                                 },
                                 {
-                                    labelColor: '#571405',
+                                    name: '11',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#571405',
                                 },
                                 {
-                                    labelColor: '#000000',
+                                    name: '12',
+                                    labelColor: '#e0f2f1',
                                     activeBarColor: '#000000',
                                 }
                             ]} />
