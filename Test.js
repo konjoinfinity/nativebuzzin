@@ -275,7 +275,7 @@ class TestScreen extends Component {
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <View style={{ alignSelf: "center", paddingBottom: 5 }}>
-                            <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labelNoteStyle={{ visibility: "hidden" }} labels={[
+                            <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                 {
                                     labelColor: '#ffffff',
                                     activeBarColor: '#ffffff',
