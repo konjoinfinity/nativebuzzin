@@ -14,6 +14,8 @@ import _ from 'lodash';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 import NumericInput from 'react-native-numeric-input'
 
+import RNSpeedometer from 'react-native-speedometer'
+
 const options = [
     'Cancel',
     <Text style={{ color: '#94BFE2', fontSize: 25 }}>Male</Text>,
@@ -273,7 +275,8 @@ class TestScreen extends Component {
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <View style={{ alignSelf: "center", paddingBottom: 5 }}>
-                            <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator />
+                            <RNSpeedometer value={bacPercentage} size={350} maxValue={0.20} defaultValue={0} />
+                            {/* <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator /> */}
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
