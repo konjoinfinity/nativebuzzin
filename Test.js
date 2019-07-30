@@ -275,7 +275,56 @@ class TestScreen extends Component {
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <View style={{ alignSelf: "center", paddingBottom: 5 }}>
-                            <RNSpeedometer value={bacPercentage} size={350} maxValue={0.20} defaultValue={0} />
+                            <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labelNoteStyle={{ visibility: "hidden" }} labels={[
+                                {
+                                    labelColor: '#ffffff',
+                                    activeBarColor: '#ffffff',
+                                },
+                                {
+                                    labelColor: '#b5d3a0',
+                                    activeBarColor: '#b5d3a0',
+                                },
+                                {
+                                    labelColor: '#96c060',
+                                    activeBarColor: '#96c060',
+                                },
+                                {
+                                    labelColor: '#9fc635',
+                                    activeBarColor: '#9fc635',
+                                },
+                                {
+                                    labelColor: '#d3e50e',
+                                    activeBarColor: '#d3e50e',
+                                },
+                                {
+                                    labelColor: '#ffeb00',
+                                    activeBarColor: '#ffeb00',
+                                },
+                                {
+                                    labelColor: '#f9bf00',
+                                    activeBarColor: '#f9bf00',
+                                },
+                                {
+                                    labelColor: '#e98f00',
+                                    activeBarColor: '#e98f00',
+                                },
+                                {
+                                    labelColor: '#d05900',
+                                    activeBarColor: '#d05900',
+                                },
+                                {
+                                    labelColor: '#AE0000',
+                                    activeBarColor: '#AE0000',
+                                },
+                                {
+                                    labelColor: '#571405',
+                                    activeBarColor: '#571405',
+                                },
+                                {
+                                    labelColor: '#000000',
+                                    activeBarColor: '#000000',
+                                }
+                            ]} />
                             {/* <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator /> */}
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
