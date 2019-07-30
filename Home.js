@@ -166,7 +166,6 @@ class HomeScreen extends Component {
                 this.clearDrinks()
             }, 2000);
         }
-        console.log(this.state.buzzes)
     }
 
     async onRefresh() {
@@ -305,11 +304,8 @@ class HomeScreen extends Component {
 
     async undoLastDrink() {
         var lastDrinkTime = this.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
-        console.log(lastDrinkTime)
-        console.log(lastDrinkTime > 0.0333333)
         if (lastDrinkTime < 0.0333333) {
             Vibration.vibrate();
-            console.log(this.state.buzzes)
             var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
                 if (result !== null) {
@@ -320,7 +316,6 @@ class HomeScreen extends Component {
             })
             await AsyncStorage.setItem(key, JSON.stringify(undobuzz))
             setTimeout(() => {
-                console.log(this.state.buzzes)
                 this.checkBac();
             }, 200);
         }
@@ -329,10 +324,8 @@ class HomeScreen extends Component {
     checkLastDrink() {
         var lastDrinkTime = this.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
         if (lastDrinkTime < 0.0333333) {
-            console.log(true)
             return true
         } else {
-            console.log(false)
             return false
         }
     }
