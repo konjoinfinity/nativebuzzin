@@ -48,11 +48,13 @@ class BuzzScreen extends Component {
         var days = Math.floor(dateDiff / 24);
         return [days, hours, minutes, seconds];
     }
-
+    // this needs to be fixed and refactored to reflect sub arrays
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
-            if (JSON.parse(result).length !== 0) {
+            if (_.isArray(JSON.parse(result)) === true) {
                 this.setState({ buzzes: JSON.parse(result) })
+            } else {
+                this.setState({ buzzes: null })
             }
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
@@ -69,10 +71,12 @@ class BuzzScreen extends Component {
                     var seconds = dayHourMin[3];
                     this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
                 }, 100);
+            } else {
+                this.setState({ oldbuzzes: null })
             }
         })
     }
-
+    // these refresh methods need to be updated...
     async getBuzzes() {
         Vibration.vibrate();
         await AsyncStorage.getItem(key, (error, result) => {
@@ -155,6 +159,9 @@ class BuzzScreen extends Component {
             }
             )
             )
+        // How are we going to map/sort and render separate buzz sessions?
+        // We could pass them into a duration method which sorts buzzes/drinks if duration is less than 8 hours apart from subsequent buzz/drink
+
         let oldbuzzes;
         this.state.oldbuzzes &&
             (oldbuzzes = this.state.oldbuzzes.map((oldbuzz, id) => {

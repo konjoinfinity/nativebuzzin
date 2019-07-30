@@ -288,6 +288,7 @@ class HomeScreen extends Component {
         }
     }
 
+    // oldbuzzarray.push(newbuzzarray);
     async moveToOld() {
         var oldbuzzarray = this.state.oldbuzzes;
         var newbuzzarray = this.state.buzzes;
