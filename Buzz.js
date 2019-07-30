@@ -51,7 +51,10 @@ class BuzzScreen extends Component {
 
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
-            this.setState({ buzzes: JSON.parse(result) })
+            console.log(result)
+            if (JSON.parse(result).length !== 0) {
+                this.setState({ buzzes: JSON.parse(result) })
+            }
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (_.isArray(JSON.parse(result)) === true) {
@@ -166,6 +169,8 @@ class BuzzScreen extends Component {
             }
             )
             )
+        console.log(_.isArray(this.state.buzzes))
+        console.log(this.state.buzzes)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
