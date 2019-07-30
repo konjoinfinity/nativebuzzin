@@ -275,7 +275,8 @@ class TestScreen extends Component {
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <View style={{ alignSelf: "center", paddingBottom: 5 }}>
+                        <Text style={{ textAlign: "center", color: "#00bfa5" }}>|                       |</Text>
+                        <View style={{ alignSelf: "center" }}>
                             <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                 {
                                     name: '1',
@@ -421,7 +422,7 @@ class TestScreen extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
-                            <View style={{ flex: 1, flexDirection: "column", paddingBottom: 15 }}>
+                            <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
                                 <View style={{ paddingBottom: 15 }}>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Beer" &&
