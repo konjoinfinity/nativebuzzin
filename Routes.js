@@ -6,7 +6,7 @@ import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
 import { Vibration, View, Text } from "react-native"
-import TestScreen from './Test';
+import DemoScreen from './Demo';
 
 const AppStack = createStackNavigator({
     MyTab: {
@@ -15,7 +15,7 @@ const AppStack = createStackNavigator({
                 Home: HomeScreen,
                 Buzz: BuzzScreen,
                 Profile: ProfileScreen,
-                Test: TestScreen
+                Demo: DemoScreen
             },
             {
                 defaultNavigationOptions: ({ navigation }) => ({
@@ -28,7 +28,7 @@ const AppStack = createStackNavigator({
                             iconName = `🍺`
                         } else if (routeName === 'Profile') {
                             iconName = `👤`;
-                        } else if (routeName === 'Test') {
+                        } else if (routeName === 'Demo') {
                             iconName = `📋`;
                         }
                         Vibration.vibrate();

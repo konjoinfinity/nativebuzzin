@@ -8,7 +8,6 @@ import {
     Vibration,
     RefreshControl
 } from 'react-native';
-import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
@@ -22,7 +21,7 @@ const options = [
     <Text style={{ color: '#F398BE', fontSize: 25 }}>Female</Text>
 ]
 
-class TestScreen extends Component {
+class DemoScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -339,7 +338,6 @@ class TestScreen extends Component {
                                     activeBarColor: '#000000',
                                 }
                             ]} />
-                            {/* <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator /> */}
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
@@ -553,7 +551,7 @@ class TestScreen extends Component {
     }
 }
 
-export default TestScreen;
+export default DemoScreen;
 
 const styles = StyleSheet.create({
     button: {
