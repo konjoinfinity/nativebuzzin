@@ -88,13 +88,10 @@ class HomeScreen extends Component {
     }
 
     async navRender() {
-        console.log(this.state.buzzes)
         await AsyncStorage.getItem(key, (error, result) => {
-            console.log(result)
             if (result !== null) {
                 this.setState({ buzzes: JSON.parse(result) })
             } else {
-                console.log("else")
                 this.setState({ buzzes: [], bac: 0.0 })
             }
         })
@@ -106,7 +103,6 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.checkBac();
         }, 200);
-        console.log(this.state.buzzes)
     }
 
     componentWillUnmount() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator, NavigationActions, StackActions } from "react-navigation";
+import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
 import ProfileScreen from "./Profile"
 import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
