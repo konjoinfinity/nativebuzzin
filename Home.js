@@ -160,9 +160,13 @@ class HomeScreen extends Component {
         }
         if (step.order === 7) {
             setTimeout(() => {
-                this.clearDrinks()
+                this.undoLastDrink()
             }, 1000);
+            setTimeout(() => {
+                this.clearDrinks()
+            }, 2000);
         }
+        console.log(this.state.buzzes)
     }
 
     async onRefresh() {
@@ -277,8 +281,6 @@ class HomeScreen extends Component {
             } else {
                 this.moveToOld();
             }
-        } else {
-            this.setState({ bac: 0.0 })
         }
     }
 
@@ -294,9 +296,14 @@ class HomeScreen extends Component {
         })
     }
 
-    // [oldbuzzes]
-
     async clearDrinks() {
+        Vibration.vibrate();
+        await AsyncStorage.removeItem(key, () => {
+            this.setState({ buzzes: [], bac: 0.0 })
+        })
+    }
+
+    async undoLastDrink() {
         var lastDrinkTime = this.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
         console.log(lastDrinkTime)
         console.log(lastDrinkTime > 0.0333333)
@@ -526,12 +533,12 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: 30 }}>🍷</Text>
                                     <Text style={{ fontSize: 30 }}>🥃</Text>
                                 </MultiSwitch>}
-                            <CopilotStep text="Press to clear all drinks." order={7} name="clear">
+                            <CopilotStep text="Press to undo last drink." order={7} name="clear">
                                 <CopilotView>
                                     {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                                         <TouchableOpacity
                                             style={styles.headerButton}
-                                            onPress={() => this.clearDrinks()}>
+                                            onPress={() => this.undoLastDrink()}>
                                             <View>
                                                 <Text style={{ fontSize: 30 }}>↩️</Text>
                                             </View>
