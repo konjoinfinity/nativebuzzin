@@ -10,37 +10,56 @@ import TestScreen from './Test';
 
 const AppStack = createStackNavigator({
     MyTab: {
-        screen: createBottomTabNavigator(
-            {
-                Home: HomeScreen,
-                Buzz: BuzzScreen,
-                Profile: ProfileScreen,
-                Test: TestScreen
-            },
-            {
-                defaultNavigationOptions: ({ navigation }) => ({
-                    tabBarIcon: ({ horizontal, tintColor }) => {
-                        const { routeName } = navigation.state;
-                        let iconName;
-                        if (routeName === 'Home') {
-                            iconName = `🏠`;
-                        } else if (routeName === 'Buzz') {
-                            iconName = `🍺`
-                        } else if (routeName === 'Profile') {
-                            iconName = `👤`;
-                        } else if (routeName === 'Test') {
-                            iconName = `📋`;
-                        }
-                        Vibration.vibrate();
-                        return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;
+        screen: createBottomTabNavigator({
+            Home: {
+                screen: HomeScreen,
+                navigationOptions: {
+                    tabBarLabel: 'Home',
+                    tabBarIcon: <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25 }}>🏠</Text></View>,
+                    tabBarOptions: {
+                        activeTintColor: 'gray',
+                        inactiveTintColor: 'gray',
+                        activeBackgroundColor: "#e0f2f1"
                     }
-                }),
-                tabBarOptions: {
-                    activeTintColor: 'gray',
-                    inactiveTintColor: 'gray',
-                    activeBackgroundColor: "#e0f2f1"
-                }
+                },
+            },
+            Buzz: {
+                screen: BuzzScreen,
+                navigationOptions: {
+                    tabBarLabel: 'Buzz',
+                    tabBarIcon: <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25 }}>🍺</Text></View>,
+                    tabBarOptions: {
+                        activeTintColor: 'gray',
+                        inactiveTintColor: 'gray',
+                        activeBackgroundColor: "#e0f2f1"
+                    }
+                },
+            },
+            Profile: {
+                screen: ProfileScreen,
+                navigationOptions: {
+                    tabBarLabel: 'Profile',
+                    tabBarIcon: <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25 }}>👤</Text></View>,
+                    tabBarOptions: {
+                        activeTintColor: 'gray',
+                        inactiveTintColor: 'gray',
+                        activeBackgroundColor: "#e0f2f1"
+                    }
+                },
+            },
+            Test: {
+                screen: TestScreen,
+                navigationOptions: {
+                    tabBarLabel: 'Test',
+                    tabBarIcon: <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25 }}>📋</Text></View>,
+                    tabBarOptions: {
+                        activeTintColor: 'gray',
+                        inactiveTintColor: 'gray',
+                        activeBackgroundColor: "#e0f2f1"
+                    }
+                },
             }
+        }
         ),
         navigationOptions: {
             title: `Buzzin'`,

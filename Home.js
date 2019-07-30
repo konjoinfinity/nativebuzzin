@@ -14,6 +14,7 @@ import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
 import { AlertHelper } from './AlertHelper';
+import { NavigationEvents } from "react-navigation";
 
 const namekey = "name"
 const genderkey = "gender"
@@ -51,6 +52,7 @@ class HomeScreen extends Component {
         this.handleOz = this.handleOz.bind(this);
         this.handleDrinkType = this.handleDrinkType.bind(this);
         this.hhandleStepChange = this.handleStepChange.bind(this);
+        this.navRender = this.navRender.bind(this);
     };
 
     async componentDidMount() {
@@ -85,10 +87,15 @@ class HomeScreen extends Component {
         }
     }
 
-    async componentWillFocus() {
+    async navRender() {
+        console.log(this.state.buzzes)
         await AsyncStorage.getItem(key, (error, result) => {
+            console.log(result)
             if (result !== null) {
                 this.setState({ buzzes: JSON.parse(result) })
+            } else {
+                console.log("else")
+                this.setState({ buzzes: [], bac: 0.0 })
             }
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
@@ -99,6 +106,7 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.checkBac();
         }, 200);
+        console.log(this.state.buzzes)
     }
 
     componentWillUnmount() {
@@ -280,6 +288,8 @@ class HomeScreen extends Component {
             } else {
                 this.moveToOld();
             }
+        } else if (this.state.buzzes.length === 0) {
+            this.setState({ bac: 0.0 })
         }
     }
 
@@ -385,7 +395,6 @@ class HomeScreen extends Component {
     }
 
     // Add animations? Could be good to have intro animations for extra icing
-    // Look into switching to stack navigation for push data refresh
     // Snap to abv variable slider, instead of snap, vibrate on set values (4,5,6,7,8%)
     // Picture gallery of common drinks to add, abv/oz selectors could be confusing
     // Consider removing the third value from the oz selector, keep it simple (single, double)
@@ -435,6 +444,7 @@ class HomeScreen extends Component {
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
+                <NavigationEvents onWillFocus={() => this.navRender()} />
                 <ScrollView
                     refreshControl={
                         <RefreshControl

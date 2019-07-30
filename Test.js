@@ -13,8 +13,8 @@ import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 import NumericInput from 'react-native-numeric-input'
-
 import RNSpeedometer from 'react-native-speedometer'
+import { NavigationEvents } from "react-navigation";
 
 const options = [
     'Cancel',
@@ -269,6 +269,7 @@ class TestScreen extends Component {
 
         return (
             <View>
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}

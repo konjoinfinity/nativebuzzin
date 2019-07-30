@@ -12,6 +12,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
+import { NavigationEvents } from "react-navigation";
 
 const key = "buzzes"
 const oldkey = "oldbuzzes"
@@ -167,6 +168,7 @@ class BuzzScreen extends Component {
             )
         return (
             <View>
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
