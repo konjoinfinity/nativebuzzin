@@ -262,7 +262,6 @@ class HomeScreen extends Component {
     }
 
     async checkBac() {
-        // Consider adding async storage getItem to pull fresh data
         Vibration.vibrate();
         if (this.state.buzzes.length >= 1) {
             var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
