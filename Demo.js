@@ -149,6 +149,8 @@ class DemoScreen extends Component {
             } else {
                 this.setState({ testbuzzes: [], bac: 0.0 })
             }
+        } else if (this.state.testbuzzes.length === 0) {
+            this.setState({ bac: 0.0 })
         }
     }
 
@@ -222,6 +224,32 @@ class DemoScreen extends Component {
         }
     }
 
+    async undoLastDrink() {
+        var lastDrinkTime = this.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
+        if (lastDrinkTime < 0.0333333) {
+            Vibration.vibrate();
+            var undobuzz = this.state.testbuzzes;
+            console.log(undobuzz)
+            if (undobuzz.length >= 1) {
+                undobuzz.pop();
+                this.setState({ testbuzzes: undobuzz })
+            }
+            setTimeout(() => {
+                this.checkBac();
+                console.log(this.state.testbuzzes)
+            }, 200);
+        }
+    }
+
+    checkLastDrink() {
+        var lastDrinkTime = this.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
+        if (lastDrinkTime < 0.0333333) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     render() {
         var gaugeColor;
         var bacPercentage;
@@ -274,7 +302,7 @@ class DemoScreen extends Component {
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ textAlign: "center", color: "#00bfa5" }}>|                       |</Text>
+                        <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
                         <View style={{ alignSelf: "center" }}>
                             <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                 {
@@ -411,13 +439,21 @@ class DemoScreen extends Component {
                                     <Text style={{ fontSize: 30 }}>🍷</Text>
                                     <Text style={{ fontSize: 30 }}>🥃</Text>
                                 </MultiSwitch>}
-                            <TouchableOpacity
-                                style={styles.headerButton}
-                                onPress={() => this.clearDrinks()}>
-                                <View>
-                                    <Text style={{ fontSize: 30 }}>🗑</Text>
-                                </View>
-                            </TouchableOpacity>
+                            {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true ?
+                                <TouchableOpacity
+                                    style={styles.headerButton}
+                                    onPress={() => this.undoLastDrink()}>
+                                    <View>
+                                        <Text style={{ fontSize: 30 }}>↩️</Text>
+                                    </View>
+                                </TouchableOpacity> :
+                                <TouchableOpacity
+                                    style={styles.headerButton}
+                                    onPress={() => this.clearDrinks()}>
+                                    <View>
+                                        <Text style={{ fontSize: 30 }}>🗑</Text>
+                                    </View>
+                                </TouchableOpacity>}
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>

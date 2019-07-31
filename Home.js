@@ -449,7 +449,7 @@ class HomeScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
-                                <Text style={{ textAlign: "center", color: "#00bfa5" }}>|                       |</Text>
+                                <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
                                 <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                     {
                                         name: '1',
