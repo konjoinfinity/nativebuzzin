@@ -9,7 +9,6 @@ import {
     RefreshControl
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import Speedometer from 'react-native-speedometer-chart';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
@@ -448,9 +447,9 @@ class HomeScreen extends Component {
                             refreshing={this.state.refreshing}
                             onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ textAlign: "center", color: "#00bfa5" }}>|                       |</Text>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
+                                <Text style={{ textAlign: "center", color: "#00bfa5" }}>|                       |</Text>
                                 <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                     {
                                         name: '1',
@@ -513,7 +512,6 @@ class HomeScreen extends Component {
                                         activeBarColor: '#000000',
                                     }
                                 ]} />
-                                {/* <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator /> */}
                             </CopilotView>
                         </CopilotStep>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
