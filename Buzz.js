@@ -141,15 +141,13 @@ class BuzzScreen extends Component {
         var filtered = this.state.oldbuzzes[obid].filter(buzz => buzz !== this.state.oldbuzzes[obid][id])
         console.log(filtered)
         newArray[obid] = filtered;
-        this.setState({ oldbuzzes: newArray });
-
-        // await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => {
-        //     if (filtered.length === 0) {
-        //         this.setState({ oldbuzzes: null })
-        //     } else {
-        //         this.setState({ oldbuzzes: filtered })
-        //     }
-        // })
+        await AsyncStorage.setItem(oldkey, JSON.stringify(newArray), () => {
+            if (newArray.length === 0) {
+                this.setState({ oldbuzzes: null })
+            } else {
+                this.setState({ oldbuzzes: newArray })
+            }
+        })
     }
 
     showHideBuzzes() {
@@ -245,10 +243,11 @@ class BuzzScreen extends Component {
                                     title="Hide Buzzes" />
                             </View>))}
                     {this.state.showHideBuzzes === true && (
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            {oldbuzzes}
-                        </View>
-                    )}
+                        this.state.oldbuzzes !== null && (
+                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                                {oldbuzzes}
+                            </View>
+                        ))}
                 </ScrollView>
             </View>
         );
