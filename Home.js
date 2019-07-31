@@ -32,7 +32,7 @@ class HomeScreen extends Component {
             gender: "",
             weight: "",
             bac: 0.0,
-            buzzes: [{ drinkType: "Beer", dateCreated: "2019-07-19T18:26:20.747Z", oz: 12, abv: 0.05 }, { drinkType: "Liquor", dateCreated: "2019-07-19T18:36:20.747Z", oz: 1.5, abv: 0.40 }],
+            buzzes: [],
             oldbuzzes: [],
             refreshing: false,
             alctype: "Beer",
