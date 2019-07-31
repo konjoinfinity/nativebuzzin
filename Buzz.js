@@ -148,9 +148,14 @@ class BuzzScreen extends Component {
         this.setState(prevState => ({
             showHideBuzzes: !prevState.showHideBuzzes
         }));
+        setTimeout(() => {
+            if (this.state.showHideBuzzes === true) {
+                this.scrolltop.scrollToEnd({ animated: true });
+            }
+        }, 300)
         Vibration.vibrate();
     }
-    // Add animate scroll to bottom when oldbuzz show button triggered
+
     render() {
         let buzzes;
         this.state.buzzes &&
@@ -172,7 +177,7 @@ class BuzzScreen extends Component {
                 return buzz.map((oldbuzz, id) => {
                     return (
                         <View key={id}>
-                            {id === 0 && <Text style={{ fontSize: 20, paddingBottom: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
+                            {id === 0 && <Text style={{ fontSize: 20, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                                 <View style={{ flexDirection: "column" }}>
                                     <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
@@ -190,7 +195,7 @@ class BuzzScreen extends Component {
                 <ScrollView refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
-                        onRefresh={this.onRefresh} />}>
+                        onRefresh={this.onRefresh} />} ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
