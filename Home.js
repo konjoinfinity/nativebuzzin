@@ -51,7 +51,7 @@ class HomeScreen extends Component {
         this.handleAbv = this.handleAbv.bind(this);
         this.handleOz = this.handleOz.bind(this);
         this.handleDrinkType = this.handleDrinkType.bind(this);
-        this.hhandleStepChange = this.handleStepChange.bind(this);
+        this.handleStepChange = this.handleStepChange.bind(this);
         this.navRender = this.navRender.bind(this);
     };
 
