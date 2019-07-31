@@ -48,13 +48,11 @@ class BuzzScreen extends Component {
         var days = Math.floor(dateDiff / 24);
         return [days, hours, minutes, seconds];
     }
-    // this needs to be fixed and refactored to reflect sub arrays
+
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
-            console.log(result)
             if (result !== null) {
                 if (result !== "[]") {
-                    // if (_.isArray(JSON.parse(result)) === true) {
                     this.setState({ buzzes: JSON.parse(result) })
                 } else {
                     this.setState({ buzzes: null })
@@ -82,18 +80,41 @@ class BuzzScreen extends Component {
             }
         })
     }
-    // these refresh methods need to be updated...
+
     async getBuzzes() {
         Vibration.vibrate();
         await AsyncStorage.getItem(key, (error, result) => {
-            this.setState({ buzzes: JSON.parse(result) })
+            if (result !== null) {
+                if (result !== "[]") {
+                    this.setState({ buzzes: JSON.parse(result) })
+                } else {
+                    this.setState({ buzzes: null })
+                }
+            } else {
+                this.setState({ buzzes: null })
+            }
         })
     }
 
     async getOldBuzzes() {
         Vibration.vibrate();
         await AsyncStorage.getItem(oldkey, (error, result) => {
-            this.setState({ oldbuzzes: JSON.parse(result) })
+            if (_.isArray(JSON.parse(result)) === true) {
+                this.setState({ oldbuzzes: JSON.parse(result) })
+                setTimeout(() => {
+                    var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes.length - 1].dateCreated)
+                    var currentDate = new Date();
+                    var date2 = currentDate.getTime();
+                    var dayHourMin = this.getDayHourMin(date1, date2);
+                    var days = dayHourMin[0];
+                    var hours = dayHourMin[1];
+                    var minutes = dayHourMin[2];
+                    var seconds = dayHourMin[3];
+                    this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
+                }, 100);
+            } else {
+                this.setState({ oldbuzzes: null })
+            }
         })
     }
 
@@ -135,11 +156,7 @@ class BuzzScreen extends Component {
     async deleteOldBuzz(id, obid) {
         var newArray = this.state.oldbuzzes;
         Vibration.vibrate();
-        console.log(id, obid)
-        console.log(this.state.oldbuzzes[obid][id])
-        console.log(this.state.oldbuzzes[obid])
         var filtered = this.state.oldbuzzes[obid].filter(buzz => buzz !== this.state.oldbuzzes[obid][id])
-        console.log(filtered)
         newArray[obid] = filtered;
         await AsyncStorage.setItem(oldkey, JSON.stringify(newArray), () => {
             if (newArray.length === 0) {
@@ -154,12 +171,12 @@ class BuzzScreen extends Component {
         this.setState(prevState => ({
             showHideBuzzes: !prevState.showHideBuzzes
         }));
+        Vibration.vibrate();
         setTimeout(() => {
             if (this.state.showHideBuzzes === true) {
                 this.scrolltop.scrollToEnd({ animated: true });
             }
         }, 300)
-        Vibration.vibrate();
     }
 
     render() {
@@ -176,7 +193,6 @@ class BuzzScreen extends Component {
             }
             )
             )
-        this.state.oldbuzzes !== null && console.log(this.state.oldbuzzes)
         let oldbuzzes;
         this.state.oldbuzzes !== null &&
             (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
