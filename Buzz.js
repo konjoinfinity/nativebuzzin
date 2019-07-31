@@ -67,7 +67,7 @@ class BuzzScreen extends Component {
             if (_.isArray(JSON.parse(result)) === true) {
                 this.setState({ oldbuzzes: JSON.parse(result) })
                 setTimeout(() => {
-                    var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1].dateCreated)
+                    var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes.length - 1].dateCreated)
                     var currentDate = new Date();
                     var date2 = currentDate.getTime();
                     var dayHourMin = this.getDayHourMin(date1, date2);
@@ -173,19 +173,20 @@ class BuzzScreen extends Component {
         this.state.oldbuzzes !== null && console.log(this.state.oldbuzzes[1][1])
 
         let oldbuzzes;
-        this.state.oldbuzzes !== null && (
-            (oldbuzzes = this.state.oldbuzzes.map((oldbuzz, id) => {
-                return (
-                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
-                        <View style={{ flexDirection: "column" }}>
-                            <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
-                            <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteOldBuzz(id)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
-                    </View>
-                )
+        this.state.oldbuzzes !== null &&
+            (oldbuzzes = this.state.oldbuzzes.map((buzz) => {
+                return buzz.map((oldbuzz, id) => {
+                    return (
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                            <View style={{ flexDirection: "column" }}>
+                                <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
+                                <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteOldBuzz(id)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
+                        </View>
+                    )
+                })
             }
             )
             )
-        )
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
