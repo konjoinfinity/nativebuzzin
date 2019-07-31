@@ -65,16 +65,16 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
-        await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null) {
-                this.setState({ buzzes: JSON.parse(result) })
-            }
-        })
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null) {
-                this.setState({ oldbuzzes: JSON.parse(result) })
-            }
-        })
+        // await AsyncStorage.getItem(key, (error, result) => {
+        //     if (result !== null) {
+        //         this.setState({ buzzes: JSON.parse(result) })
+        //     }
+        // })
+        // await AsyncStorage.getItem(oldkey, (error, result) => {
+        //     if (result !== null) {
+        //         this.setState({ oldbuzzes: JSON.parse(result) })
+        //     }
+        // })
         setTimeout(() => {
             this.checkBac();
         }, 200);
@@ -88,18 +88,18 @@ class HomeScreen extends Component {
     }
 
     async navRender() {
-        await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null) {
-                this.setState({ buzzes: JSON.parse(result) })
-            } else {
-                this.setState({ buzzes: [], bac: 0.0 })
-            }
-        })
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null) {
-                this.setState({ oldbuzzes: JSON.parse(result) })
-            }
-        })
+        // await AsyncStorage.getItem(key, (error, result) => {
+        //     if (result !== null) {
+        //         this.setState({ buzzes: JSON.parse(result) })
+        //     } else {
+        //         this.setState({ buzzes: [], bac: 0.0 })
+        //     }
+        // })
+        // await AsyncStorage.getItem(oldkey, (error, result) => {
+        //     if (result !== null) {
+        //         this.setState({ oldbuzzes: JSON.parse(result) })
+        //     }
+        // })
         setTimeout(() => {
             this.checkBac();
         }, 200);
@@ -292,7 +292,8 @@ class HomeScreen extends Component {
     async moveToOld() {
         var oldbuzzarray = this.state.oldbuzzes;
         var newbuzzarray = this.state.buzzes;
-        oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
+        oldbuzzarray.push(newbuzzarray);
+        // oldbuzzarray.push.apply(oldbuzzarray, newbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {

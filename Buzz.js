@@ -54,14 +54,14 @@ class BuzzScreen extends Component {
             console.log(result)
             if (result !== null) {
                 if (result !== "[]") {
-            // if (_.isArray(JSON.parse(result)) === true) {
-                this.setState({ buzzes: JSON.parse(result) })
+                    // if (_.isArray(JSON.parse(result)) === true) {
+                    this.setState({ buzzes: JSON.parse(result) })
+                } else {
+                    this.setState({ buzzes: null })
+                }
             } else {
                 this.setState({ buzzes: null })
             }
-        } else {
-            this.setState({ buzzes: null })
-        }
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (_.isArray(JSON.parse(result)) === true) {
@@ -167,9 +167,13 @@ class BuzzScreen extends Component {
             )
         // How are we going to map/sort and render separate buzz sessions?
         // We could pass them into a duration method which sorts buzzes/drinks if duration is less than 8 hours apart from subsequent buzz/drink
+        this.state.oldbuzzes !== null && console.log(this.state.oldbuzzes[0][0])
+        this.state.oldbuzzes !== null && console.log(this.state.oldbuzzes[0][1])
+        this.state.oldbuzzes !== null && console.log(this.state.oldbuzzes[1][0])
+        this.state.oldbuzzes !== null && console.log(this.state.oldbuzzes[1][1])
 
         let oldbuzzes;
-        this.state.oldbuzzes &&
+        this.state.oldbuzzes !== null && (
             (oldbuzzes = this.state.oldbuzzes.map((oldbuzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
@@ -181,6 +185,7 @@ class BuzzScreen extends Component {
             }
             )
             )
+        )
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
