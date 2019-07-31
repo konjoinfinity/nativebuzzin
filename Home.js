@@ -15,6 +15,7 @@ import _ from 'lodash';
 import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
 import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
+import RNSpeedometer from 'react-native-speedometer'
 
 const namekey = "name"
 const genderkey = "gender"
@@ -447,9 +448,72 @@ class HomeScreen extends Component {
                             refreshing={this.state.refreshing}
                             onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <Text style={{ textAlign: "center", color: "#00bfa5" }}>|                       |</Text>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
-                            <CopilotView style={{ alignSelf: "center", paddingBottom: 5 }}>
-                                <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator />
+                            <CopilotView style={{ alignSelf: "center" }}>
+                                <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
+                                    {
+                                        name: '1',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#ffffff',
+                                    },
+                                    {
+                                        name: '2',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#b5d3a0',
+                                    },
+                                    {
+                                        name: '3',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#96c060',
+                                    },
+                                    {
+                                        name: '4',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#9fc635',
+                                    },
+                                    {
+                                        name: '5',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#d3e50e',
+                                    },
+                                    {
+                                        name: '6',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#ffeb00',
+                                    },
+                                    {
+                                        name: '7',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#f9bf00',
+                                    },
+                                    {
+                                        name: '8',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#e98f00',
+                                    },
+                                    {
+                                        name: '9',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#d05900',
+                                    },
+                                    {
+                                        name: '10',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#AE0000',
+                                    },
+                                    {
+                                        name: '11',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#571405',
+                                    },
+                                    {
+                                        name: '12',
+                                        labelColor: '#e0f2f1',
+                                        activeBarColor: '#000000',
+                                    }
+                                ]} />
+                                {/* <Speedometer value={bacPercentage} totalValue={100} size={350} innerColor="#e0f2f1" outerColor="#ffffff" internalColor={gaugeColor} indicatorColor="teal" showIndicator /> */}
                             </CopilotView>
                         </CopilotStep>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
@@ -546,7 +610,7 @@ class HomeScreen extends Component {
                             </CopilotStep>
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
-                            <View style={{ flex: 1, flexDirection: "column", paddingBottom: 15 }}>
+                            <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
                                 <View style={{ paddingBottom: 15 }}>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Beer" &&
