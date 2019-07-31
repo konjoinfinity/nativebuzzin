@@ -51,11 +51,17 @@ class BuzzScreen extends Component {
     // this needs to be fixed and refactored to reflect sub arrays
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
-            if (_.isArray(JSON.parse(result)) === true) {
+            console.log(result)
+            if (result !== null) {
+                if (result !== "[]") {
+            // if (_.isArray(JSON.parse(result)) === true) {
                 this.setState({ buzzes: JSON.parse(result) })
             } else {
                 this.setState({ buzzes: null })
             }
+        } else {
+            this.setState({ buzzes: null })
+        }
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (_.isArray(JSON.parse(result)) === true) {
@@ -199,7 +205,7 @@ class BuzzScreen extends Component {
                             {this.state.timesince === null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
-                    {_.isArray(this.state.buzzes) &&
+                    {this.state.buzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             {buzzes}</View>}
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
