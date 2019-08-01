@@ -33,7 +33,8 @@ class DemoScreen extends Component {
             alctype: "Beer",
             oz: 12,
             abv: 0.05,
-            countdown: false
+            countdown: false,
+            timer: ""
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -158,23 +159,24 @@ class DemoScreen extends Component {
                 this.setState({ testbuzzes: [], bac: 0.0, countdown: false })
                 setTimeout(() => {
                     this.countdownBac();
-                }, 500);
+                }, 1000);
             }
         } else if (this.state.testbuzzes.length === 0) {
             this.setState({ bac: 0.0, countdown: false })
             setTimeout(() => {
                 this.countdownBac();
-            }, 500);
+            }, 1000);
         }
     }
 
     countdownBac() {
-        let timerId;
+        let bacTimer;
         if (this.state.countdown === true) {
-            timerId = setInterval(() => this.checkBac(), 1000);
-        }
-        if (this.state.countdown === false) {
-            clearInterval(timerId)
+            bacTimer = setInterval(() => this.checkBac(), 500);
+            this.setState({ timer: bacTimer })
+        } else if (this.state.countdown === false) {
+            clearInterval(this.state.timer)
+            setTimeout(() => this.setState({ timer: "" }), 300);
         }
     }
 
@@ -274,6 +276,7 @@ class DemoScreen extends Component {
 
     render() {
         console.log(this.state.countdown)
+        console.log(this.state.timer)
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {
