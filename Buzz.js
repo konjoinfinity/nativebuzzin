@@ -13,10 +13,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
 import { NavigationEvents } from "react-navigation";
-import { BarChart, Grid, XAxis, YAxis, LineChart } from 'react-native-svg-charts'
-import { Defs, LinearGradient, Stop, Text as TextSVG } from "react-native-svg";
-
-
 
 const key = "buzzes"
 const oldkey = "oldbuzzes"
@@ -184,23 +180,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        const data = [0.0234, 0.0482, 0.0935, 0.0501, 0.0398, 0.102]
-        const CUT_OFF = 0.08
-        const Labels = ({ x, y, bandwidth, data }) => (
-            data.map((value, index) => (
-                <TextSVG
-                    key={index}
-                    x={x(index) + (bandwidth / 2)}
-                    y={value < CUT_OFF ? y(value) + 15 : y(value) - 10}
-                    fontSize={14}
-                    fill={value >= CUT_OFF ? 'black' : 'white'}
-                    alignmentBaseline={'middle'}
-                    textAnchor={'middle'}>
-                    {value}
-                </TextSVG>
-            ))
-        )
-
         let buzzes;
         this.state.buzzes &&
             (buzzes = this.state.buzzes.map((buzz, id) => {
@@ -239,19 +218,6 @@ class BuzzScreen extends Component {
                     <RefreshControl
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />} ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ flexDirection: 'row', height: 250, paddingVertical: 16 }}>
-                        <BarChart
-                            style={{ flex: 1 }}
-                            data={data}
-                            svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-                            contentInset={{ top: 10, bottom: 10 }}
-                            spacing={0.2}
-                            gridMin={0}
-                        >
-                            <Grid direction={Grid.Direction.HORIZONTAL} />
-                            <Labels />
-                        </BarChart>
-                    </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
