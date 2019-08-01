@@ -137,7 +137,9 @@ class DemoScreen extends Component {
     }
 
     async checkBac() {
-        Vibration.vibrate();
+        if (this.state.countdown === false) {
+            Vibration.vibrate();
+        }
         if (this.state.testbuzzes.length >= 1) {
             var duration = this.singleDuration(this.state.testbuzzes[0].dateCreated);
             var totalBac = this.varGetBAC(

@@ -265,7 +265,9 @@ class HomeScreen extends Component {
     }
 
     async checkBac() {
-        Vibration.vibrate();
+        if (this.state.countdown === false) {
+            Vibration.vibrate();
+        }
         if (this.state.buzzes.length >= 1) {
             var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
             var totalBac = this.varGetBAC(
