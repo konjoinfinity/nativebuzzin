@@ -137,9 +137,6 @@ class DemoScreen extends Component {
     }
 
     async checkBac() {
-        if (this.state.countdown === false) {
-            Vibration.vibrate();
-        }
         if (this.state.testbuzzes.length >= 1) {
             var duration = this.singleDuration(this.state.testbuzzes[0].dateCreated);
             var totalBac = this.varGetBAC(
@@ -172,10 +169,10 @@ class DemoScreen extends Component {
     }
 
     countdownBac() {
-        let bacTimer;
+        let testBacTimer;
         if (this.state.countdown === true) {
-            bacTimer = setInterval(() => this.checkBac(), 500);
-            this.setState({ timer: bacTimer })
+            testBacTimer = setInterval(() => this.checkBac(), 1000);
+            this.setState({ timer: testBacTimer })
         } else if (this.state.countdown === false) {
             clearInterval(this.state.timer)
             setTimeout(() => this.setState({ timer: "" }), 300);
