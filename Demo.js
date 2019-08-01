@@ -32,8 +32,8 @@ class DemoScreen extends Component {
             refreshing: false,
             alctype: "Beer",
             oz: 12,
-            abv: 0.05
-            // countdown: false
+            abv: 0.05,
+            countdown: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
