@@ -155,18 +155,26 @@ class DemoScreen extends Component {
                     }, 1000);
                 }
             } else {
-                this.setState({ testbuzzes: [], bac: 0.0 })
+                this.setState({ testbuzzes: [], bac: 0.0, countdown: false })
+                setTimeout(() => {
+                    this.countdownBac();
+                }, 500);
             }
         } else if (this.state.testbuzzes.length === 0) {
-            this.setState({ bac: 0.0 })
+            this.setState({ bac: 0.0, countdown: false })
+            setTimeout(() => {
+                this.countdownBac();
+            }, 500);
         }
     }
 
     countdownBac() {
-        let timerId = setInterval(() => this.checkBac(), 1000);
-        if (this.state.bac <= 0) {
-            setTimeout(() => clearInterval(timerId), 100);
-            this.setState({ countdown: true })
+        let timerId;
+        if (this.state.countdown === true) {
+            timerId = setInterval(() => this.checkBac(), 1000);
+        }
+        if (this.state.countdown === false) {
+            clearInterval(timerId)
         }
     }
 
@@ -245,14 +253,12 @@ class DemoScreen extends Component {
         if (lastDrinkTime < 0.0333333) {
             Vibration.vibrate();
             var undobuzz = this.state.testbuzzes;
-            console.log(undobuzz)
             if (undobuzz.length >= 1) {
                 undobuzz.pop();
                 this.setState({ testbuzzes: undobuzz })
             }
             setTimeout(() => {
                 this.checkBac();
-                console.log(this.state.testbuzzes)
             }, 200);
         }
     }
@@ -267,6 +273,7 @@ class DemoScreen extends Component {
     }
 
     render() {
+        console.log(this.state.countdown)
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {
