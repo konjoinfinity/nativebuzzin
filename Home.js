@@ -37,7 +37,9 @@ class HomeScreen extends Component {
             refreshing: false,
             alctype: "Beer",
             oz: 12,
-            abv: 0.05
+            abv: 0.05,
+            countdown: false,
+            timer: ""
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -53,6 +55,7 @@ class HomeScreen extends Component {
         this.handleDrinkType = this.handleDrinkType.bind(this);
         this.handleStepChange = this.handleStepChange.bind(this);
         this.navRender = this.navRender.bind(this);
+        this.countdownBac = this.countdownBac.bind(this);
     };
 
     async componentDidMount() {
@@ -277,14 +280,38 @@ class HomeScreen extends Component {
                 if (this.state.bac > 0.04 && this.state.bac < 0.06) {
                     AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
                 }
+                if (this.state.countdown === false) {
+                    this.setState({ countdown: true })
+                    setTimeout(() => {
+                        this.countdownBac();
+                    }, 1000);
+                }
                 setTimeout(() => {
                     this.saveBuzz();
                 }, 200);
             } else {
                 this.moveToOld();
+                this.setState({ countdown: false })
+                setTimeout(() => {
+                    this.countdownBac();
+                }, 1000);
             }
         } else if (this.state.buzzes.length === 0) {
-            this.setState({ bac: 0.0 })
+            this.setState({ bac: 0.0, countdown: false })
+            setTimeout(() => {
+                this.countdownBac();
+            }, 1000);
+        }
+    }
+
+    countdownBac() {
+        let bacTimer;
+        if (this.state.countdown === true) {
+            bacTimer = setInterval(() => this.checkBac(), 500);
+            this.setState({ timer: bacTimer })
+        } else if (this.state.countdown === false) {
+            clearInterval(this.state.timer)
+            setTimeout(() => this.setState({ timer: "" }), 300);
         }
     }
 

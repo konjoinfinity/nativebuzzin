@@ -275,8 +275,6 @@ class DemoScreen extends Component {
     }
 
     render() {
-        console.log(this.state.countdown)
-        console.log(this.state.timer)
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {
