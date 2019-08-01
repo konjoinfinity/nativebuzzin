@@ -33,6 +33,7 @@ class DemoScreen extends Component {
             alctype: "Beer",
             oz: 12,
             abv: 0.05
+            // countdown: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -45,6 +46,7 @@ class DemoScreen extends Component {
         this.handleOz = this.handleOz.bind(this);
         this.handleDrinkType = this.handleDrinkType.bind(this);
         this.handleGender = this.handleGender.bind(this);
+        this.countdownBac = this.countdownBac.bind(this);
     };
 
     async componentDidMount() {
@@ -146,11 +148,25 @@ class DemoScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
+                if (this.state.countdown === false) {
+                    this.setState({ countdown: true })
+                    setTimeout(() => {
+                        this.countdownBac();
+                    }, 1000);
+                }
             } else {
                 this.setState({ testbuzzes: [], bac: 0.0 })
             }
         } else if (this.state.testbuzzes.length === 0) {
             this.setState({ bac: 0.0 })
+        }
+    }
+
+    countdownBac() {
+        let timerId = setInterval(() => this.checkBac(), 1000);
+        if (this.state.bac <= 0) {
+            setTimeout(() => clearInterval(timerId), 100);
+            this.setState({ countdown: true })
         }
     }
 
