@@ -106,8 +106,8 @@ class LoginScreen extends React.Component {
                     <View style={{ paddingTop: 20, alignItems: "center" }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                         <NumericInput
-                            minValue={80}
-                            maxValue={300}
+                            minValue={50}
+                            maxValue={400}
                             value={this.state.weight}
                             onChange={(weight) => this.setState({ weight })}
                             totalWidth={325}
