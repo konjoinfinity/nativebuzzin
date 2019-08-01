@@ -13,8 +13,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
 import { NavigationEvents } from "react-navigation";
-import { BarChart, Grid } from 'react-native-svg-charts'
-import { Defs, LinearGradient, Stop } from "react-native-svg";
+import { BarChart, Grid, XAxis, YAxis, LineChart } from 'react-native-svg-charts'
+import { Defs, LinearGradient, Stop, Text as TextSVG } from "react-native-svg";
+
+
 
 const key = "buzzes"
 const oldkey = "oldbuzzes"
@@ -182,78 +184,54 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        const data = [
-            {
-                value: 60,
-            },
-            {
-                value: 20,
-                svg: {
-                    fill: 'rgba(134, 65, 244, 0.5)',
-                },
-            },
-            {
-                value: 50,
-                svg: {
-                    stroke: 'purple',
-                    strokeWidth: 2,
-                    fill: 'white',
-                    strokeDasharray: [4, 2],
-                },
-            },
-            {
-                value: 75,
-                svg: {
-                    fill: 'url(#gradient)',
-                },
-            },
-            {
-                value: 105,
-                svg: {
-                    fill: 'green',
-                },
-            },
-        ]
-
-        const Gradient = () => (
-            <Defs key={'gradient'}>
-                <LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'100%'} y2={'0%'}>
-                    <Stop offset={'0%'} stopColor={'rgb(134, 65, 244)'} />
-                    <Stop offset={'100%'} stopColor={'rgb(66, 194, 244)'} />
-                </LinearGradient>
-            </Defs>
+        const data = [0.0234, 0.0482, 0.0935, 0.0501, 0.0398, 0.102]
+        const CUT_OFF = 0.08
+        const Labels = ({ x, y, bandwidth, data }) => (
+            data.map((value, index) => (
+                <TextSVG
+                    key={index}
+                    x={x(index) + (bandwidth / 2)}
+                    y={value < CUT_OFF ? y(value) + 15 : y(value) - 10}
+                    fontSize={14}
+                    fill={value >= CUT_OFF ? 'black' : 'white'}
+                    alignmentBaseline={'middle'}
+                    textAnchor={'middle'}>
+                    {value}
+                </TextSVG>
+            ))
         )
-        // let buzzes;
-        // this.state.buzzes &&
-        //     (buzzes = this.state.buzzes.map((buzz, id) => {
-        //         return (
-        //             <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
-        //                 <View style={{ flexDirection: "column" }}>
-        //                     <Text style={{ fontSize: 20, paddingBottom: 10 }}>{buzz.oz}oz  {buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(buzz.abv * 100)}% ABV</Text>
-        //                     <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
-        //             </View>
-        //         )
-        //     }
-        //     )
-        //     )
-        // let oldbuzzes;
-        // this.state.oldbuzzes !== null &&
-        //     (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
-        //         return buzz.map((oldbuzz, id) => {
-        //             return (
-        //                 <View key={id}>
-        //                     {id === 0 && <Text style={{ fontSize: 20, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
-        //                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
-        //                         <View style={{ flexDirection: "column" }}>
-        //                             <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
-        //                             <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteOldBuzz(id, obid)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
-        //                     </View>
-        //                 </View>
-        //             )
-        //         })
-        //     }
-        //     )
-        //     )
+
+        let buzzes;
+        this.state.buzzes &&
+            (buzzes = this.state.buzzes.map((buzz, id) => {
+                return (
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                        <View style={{ flexDirection: "column" }}>
+                            <Text style={{ fontSize: 20, paddingBottom: 10 }}>{buzz.oz}oz  {buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(buzz.abv * 100)}% ABV</Text>
+                            <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
+                    </View>
+                )
+            }
+            )
+            )
+        let oldbuzzes;
+        this.state.oldbuzzes !== null &&
+            (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
+                return buzz.map((oldbuzz, id) => {
+                    return (
+                        <View key={id}>
+                            {id === 0 && <Text style={{ fontSize: 20, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
+                                <View style={{ flexDirection: "column" }}>
+                                    <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
+                                    <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteOldBuzz(id, obid)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
+                            </View>
+                        </View>
+                    )
+                })
+            }
+            )
+            )
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
@@ -261,19 +239,20 @@ class BuzzScreen extends Component {
                     <RefreshControl
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />} ref={(ref) => { this.scrolltop = ref }}>
-                    <BarChart
-                        animate={true}
-                        style={{ height: 200 }}
-                        data={data}
-                        gridMin={0}
-                        svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-                        yAccessor={({ item }) => item.value}
-                        contentInset={{ top: 20, bottom: 20 }}
-                    >
-                        <Grid />
-                        <Gradient />
-                    </BarChart>
-                    {/* <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <View style={{ flexDirection: 'row', height: 250, paddingVertical: 16 }}>
+                        <BarChart
+                            style={{ flex: 1 }}
+                            data={data}
+                            svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+                            contentInset={{ top: 10, bottom: 10 }}
+                            spacing={0.2}
+                            gridMin={0}
+                        >
+                            <Grid direction={Grid.Direction.HORIZONTAL} />
+                            <Labels />
+                        </BarChart>
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
                     </View>
@@ -319,7 +298,7 @@ class BuzzScreen extends Component {
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                                 {oldbuzzes}
                             </View>
-                        ))} */}
+                        ))}
                 </ScrollView>
             </View>
         );
