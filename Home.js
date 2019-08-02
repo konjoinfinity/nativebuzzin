@@ -328,6 +328,7 @@ class HomeScreen extends Component {
     }
 
     async moveToOld() {
+        // Does this fire twice because of the timer? If so cancel the time on componentdidunmount?
         var oldbuzzarray = this.state.oldbuzzes;
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push(newbuzzarray);
