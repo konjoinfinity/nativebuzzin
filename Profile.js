@@ -5,8 +5,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration,
-    Alert
+    Vibration
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -52,7 +51,6 @@ class ProfileScreen extends Component {
 
     async takeAbreak() {
         Vibration.vibrate();
-        Alert.alert("Taking a break - Choose Date")
         this.setState({ break: true })
         await AsyncStorage.setItem(breakkey, JSON.stringify(true))
     }
@@ -83,7 +81,7 @@ class ProfileScreen extends Component {
                                 <Text style={styles.buttonText}>Take a Break</Text>
                             </TouchableOpacity>}
                         {this.state.break === true &&
-                            <Text style={{ fontSize: 20 }}>Congrats, You are taking a break.  Keep up the good work!</Text>}
+                            <Text style={{ fontSize: 22, textAlign: "center" }}>Congrats, You are taking a break.  Keep up the good work!</Text>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}>
