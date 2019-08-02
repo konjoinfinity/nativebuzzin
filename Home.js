@@ -22,6 +22,7 @@ const weightkey = "weight"
 const key = "buzzes"
 const oldkey = "oldbuzzes"
 const breakkey = "break"
+const breakdatekey = "breakdate"
 
 const CopilotView = walkthroughable(View);
 
@@ -41,7 +42,9 @@ class HomeScreen extends Component {
             abv: 0.05,
             countdown: false,
             timer: "",
-            break: ""
+            break: "",
+            breakdate: "",
+            breaktime: ""
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -64,6 +67,22 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
+            }
+        })
+        await AsyncStorage.getItem(breakdatekey, (error, result) => {
+            if (result !== null) {
+                this.setState({ breakdate: JSON.parse(result) })
+                setTimeout(() => {
+                    var date1 = Date.parse(this.state.breakdate)
+                    var currentDate = new Date();
+                    var date2 = currentDate.getTime();
+                    var dayHourMin = this.getDayHourMin(date2, date1);
+                    var days = dayHourMin[0];
+                    var hours = dayHourMin[1];
+                    var minutes = dayHourMin[2];
+                    var seconds = dayHourMin[3];
+                    this.setState({ breaktime: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.` })
+                }, 100);
             }
         })
         await AsyncStorage.getItem(namekey, (error, result) => {
@@ -113,6 +132,22 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
+            }
+        })
+        await AsyncStorage.getItem(breakdatekey, (error, result) => {
+            if (result !== null) {
+                this.setState({ breakdate: JSON.parse(result) })
+                setTimeout(() => {
+                    var date1 = Date.parse(this.state.breakdate)
+                    var currentDate = new Date();
+                    var date2 = currentDate.getTime();
+                    var dayHourMin = this.getDayHourMin(date2, date1);
+                    var days = dayHourMin[0];
+                    var hours = dayHourMin[1];
+                    var minutes = dayHourMin[2];
+                    var seconds = dayHourMin[3];
+                    this.setState({ breaktime: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.` })
+                }, 100);
             }
         })
         setTimeout(() => {
@@ -302,10 +337,13 @@ class HomeScreen extends Component {
                     this.saveBuzz();
                 }, 200);
             } else {
-                this.moveToOld();
+                // Was this the issue?
                 this.setState({ countdown: false })
                 setTimeout(() => {
                     this.countdownBac();
+                }, 300);
+                setTimeout(() => {
+                    this.moveToOld();
                 }, 1000);
             }
         } else if (this.state.buzzes.length === 0) {
@@ -836,8 +874,9 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.break === true &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 25, textAlign: "center" }}>You are taking a break from drinking until:</Text>
-                            <Text style={{ fontSize: 25, textAlign: "center", paddingTop: 10, fontWeight: "bold" }}>Chosen Date</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{this.state.breaktime}</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
                         </View>}
                 </ScrollView>
             </View>
