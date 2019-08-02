@@ -257,6 +257,7 @@ class HomeScreen extends Component {
             if (this.state.buzzes.length >= 1) {
                 this.checkBac();
             }
+            console.log(this.state.buzzes)
         }, 100);
     }
 

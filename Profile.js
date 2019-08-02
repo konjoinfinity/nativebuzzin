@@ -5,7 +5,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration
+    Vibration,
+    Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -14,6 +15,7 @@ const namekey = "name"
 const genderkey = "gender"
 const weightkey = "weight"
 const key = "buzzes"
+const breakkey = "break"
 
 class ProfileScreen extends Component {
     constructor(props) {
@@ -22,9 +24,11 @@ class ProfileScreen extends Component {
             name: "",
             gender: "",
             weight: "",
-            alctype: ""
+            alctype: "",
+            break: ""
         }
         this.LogOut = this.LogOut.bind(this);
+        this.takeAbreak = this.takeAbreak.bind(this);
     };
 
     async componentDidMount() {
@@ -37,6 +41,20 @@ class ProfileScreen extends Component {
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
+        await AsyncStorage.getItem(breakkey, (error, result) => {
+            if (result !== null) {
+                this.setState({ break: JSON.parse(result) })
+            } else {
+                this.setState({ break: false })
+            }
+        })
+    }
+
+    async takeAbreak() {
+        Vibration.vibrate();
+        Alert.alert("Taking a break - Choose Date")
+        this.setState({ break: true })
+        await AsyncStorage.setItem(breakkey, JSON.stringify(true))
     }
 
     async LogOut() {
@@ -46,6 +64,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(key)
         await AsyncStorage.removeItem(genderkey)
         await AsyncStorage.removeItem(weightkey)
+        await AsyncStorage.removeItem(breakkey)
         this.props.navigation.navigate("Login")
     }
 
@@ -57,6 +76,14 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}</Text>
                         <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        {this.state.break === false &&
+                            <TouchableOpacity style={styles.button} onPress={() => this.takeAbreak()}>
+                                <Text style={styles.buttonText}>Take a Break</Text>
+                            </TouchableOpacity>}
+                        {this.state.break === true &&
+                            <Text style={{ fontSize: 20 }}>Congrats, You are taking a break.  Keep up the good work!</Text>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}>
