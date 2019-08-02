@@ -64,6 +64,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
+        clearInterval(this.state.timer)
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
@@ -157,6 +158,7 @@ class HomeScreen extends Component {
 
     componentWillUnmount() {
         this.props.copilotEvents.off('stop');
+        clearInterval(this.state.timer)
     }
 
     handleStepChange = (step) => {
@@ -339,18 +341,22 @@ class HomeScreen extends Component {
             } else {
                 // Was this the issue?
                 this.setState({ countdown: false })
-                setTimeout(() => {
-                    this.countdownBac();
-                }, 300);
+                clearInterval(this.state.timer)
+                setTimeout(() => this.setState({ timer: "" }), 300);
+                // setTimeout(() => {
+                //     this.countdownBac();
+                // }, 300);
                 setTimeout(() => {
                     this.moveToOld();
                 }, 1000);
             }
         } else if (this.state.buzzes.length === 0) {
             this.setState({ bac: 0.0, countdown: false })
-            setTimeout(() => {
-                this.countdownBac();
-            }, 1000);
+            clearInterval(this.state.timer)
+            setTimeout(() => this.setState({ timer: "" }), 300);
+            // setTimeout(() => {
+            //     this.countdownBac();
+            // }, 1000);
         }
     }
 
@@ -368,7 +374,9 @@ class HomeScreen extends Component {
     async moveToOld() {
         // Does this fire twice because of the timer? If so cancel the time on componentdidunmount?
         var oldbuzzarray = this.state.oldbuzzes;
+        console.log(oldbuzzarray)
         var newbuzzarray = this.state.buzzes;
+        console.log(newbuzzarray)
         oldbuzzarray.push(newbuzzarray);
         console.log(oldbuzzarray)
         console.log(JSON.stringify(oldbuzzarray))
@@ -449,7 +457,7 @@ class HomeScreen extends Component {
             if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.30 }) }
+            if (number === 0) { this.setState({ abv: 0.01 }) }
             if (number === 1) { this.setState({ abv: 0.40 }) }
             if (number === 2) { this.setState({ abv: 0.50 }) }
         }
@@ -475,6 +483,7 @@ class HomeScreen extends Component {
     // Consider removing the third value from the oz selector, keep it simple (single, double)
 
     render() {
+        console.log(this.state.timer)
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {

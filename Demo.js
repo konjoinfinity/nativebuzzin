@@ -592,7 +592,7 @@ class DemoScreen extends Component {
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                         <NumericInput
                             minValue={50}
-                            maxValue={400}
+                            maxValue={500}
                             value={this.state.weight}
                             onChange={(weight) => this.setState({ weight })}
                             totalWidth={325}
