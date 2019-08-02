@@ -110,6 +110,11 @@ class HomeScreen extends Component {
                 this.setState({ oldbuzzes: JSON.parse(result) })
             }
         })
+        await AsyncStorage.getItem(breakkey, (error, result) => {
+            if (result !== null) {
+                this.setState({ break: JSON.parse(result) })
+            }
+        })
         setTimeout(() => {
             this.checkBac();
         }, 200);

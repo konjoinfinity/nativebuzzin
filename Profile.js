@@ -28,6 +28,7 @@ class ProfileScreen extends Component {
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
+        this.stopBreak = this.stopBreak.bind(this);
     };
 
     async componentDidMount() {
@@ -53,6 +54,12 @@ class ProfileScreen extends Component {
         Vibration.vibrate();
         this.setState({ break: true })
         await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+    }
+
+    async stopBreak() {
+        Vibration.vibrate();
+        this.setState({ break: false })
+        await AsyncStorage.setItem(breakkey, JSON.stringify(false))
     }
 
     async LogOut() {
@@ -81,7 +88,12 @@ class ProfileScreen extends Component {
                                 <Text style={styles.buttonText}>Take a Break</Text>
                             </TouchableOpacity>}
                         {this.state.break === true &&
-                            <Text style={{ fontSize: 22, textAlign: "center" }}>Congrats, You are taking a break.  Keep up the good work!</Text>}
+                            <View>
+                                <Text style={{ fontSize: 22, textAlign: "center" }}>Congrats, You are taking a break.  Keep up the good work!</Text>
+                                <TouchableOpacity style={styles.button} onPress={() => this.stopBreak()}>
+                                    <Text style={styles.buttonText}>Stop Break</Text>
+                                </TouchableOpacity>
+                            </View>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}>
