@@ -54,6 +54,8 @@ class ProfileScreen extends Component {
         Vibration.vibrate();
         this.setState({ break: true })
         await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+        // newDate for current value and value for future date
+        // Display duration between the two in months/weeks/days/hours/mins/secs
     }
 
     async stopBreak() {
