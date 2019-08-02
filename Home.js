@@ -318,6 +318,8 @@ class HomeScreen extends Component {
         var oldbuzzarray = this.state.oldbuzzes;
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push(newbuzzarray);
+        console.log(oldbuzzarray)
+        console.log(JSON.stringify(oldbuzzarray))
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
