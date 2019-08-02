@@ -202,9 +202,11 @@ class BuzzScreen extends Component {
             }
             )
             )
+        console.log(this.state.oldbuzzes)
         let oldbuzzes;
         this.state.oldbuzzes !== null &&
             (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
+                // conditional to check if more than one array, if so continue double map, otherwise only map once?
                 return buzz.map((oldbuzz, id) => {
                     return (
                         <View key={id}>
