@@ -9,17 +9,10 @@ import {
 } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
-import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 import NumericInput from 'react-native-numeric-input'
 import RNSpeedometer from 'react-native-speedometer'
 import { NavigationEvents } from "react-navigation";
 import { AlertHelper } from './AlertHelper';
-
-const options = [
-    'Cancel',
-    <Text style={{ color: '#94BFE2', fontSize: 25 }}>Male</Text>,
-    <Text style={{ color: '#F398BE', fontSize: 25 }}>Female</Text>
-]
 
 class DemoScreen extends Component {
     constructor(props) {
@@ -44,7 +37,7 @@ class DemoScreen extends Component {
         this.handleAbv = this.handleAbv.bind(this);
         this.handleOz = this.handleOz.bind(this);
         this.handleDrinkType = this.handleDrinkType.bind(this);
-        this.handleGender = this.handleGender.bind(this);
+        this.switchGender = this.switchGender.bind(this);
         this.countdownBac = this.countdownBac.bind(this);
     };
 
@@ -233,14 +226,13 @@ class DemoScreen extends Component {
         }
     }
 
-    showActionSheet() {
-        // Keyboard.dismiss()
-        this.ActionSheet.show()
-    }
-
-    handleGender(index) {
-        if (index !== 0) {
-            this.setState({ gender: options[index].props.children })
+    switchGender() {
+        Vibration.vibrate();
+        if (this.state.gender === "Male") {
+            this.setState({ gender: "Female" })
+        }
+        if (this.state.gender === "Female") {
+            this.setState({ gender: "Male" })
         }
     }
 
@@ -567,18 +559,10 @@ class DemoScreen extends Component {
                         </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.showActionSheet()}><Text style={styles.buttonText}>Select Gender ♂♀</Text></TouchableOpacity>
-                        <ActionSheet
-                            ref={o => this.ActionSheet = o}
-                            title={<Text style={{ color: '#000', fontSize: 25 }}>Gender</Text>}
-                            options={options}
-                            cancelButtonIndex={0}
-                            onPress={this.handleGender}
-                        />
-                        {this.state.gender !== "" &&
-                            <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
-                            </View>}
+                        <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
+                        <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
+                            <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
+                        </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 20 }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>

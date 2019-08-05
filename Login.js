@@ -25,30 +25,29 @@ class LoginScreen extends React.Component {
         super(props);
         this.state = {
             name: "",
-            gender: "",
+            gender: "Male",
             weight: 150
         };
         this.handleLogin = this.handleLogin.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleGender = this.handleGender.bind(this);
+        this.switchGender = this.switchGender.bind(this);
     }
 
     componentDidMount() {
         Vibration.vibrate();
     }
 
-    showActionSheet() {
-        Keyboard.dismiss()
-        this.ActionSheet.show()
-    }
-
     handleNameChange(name) {
         this.setState({ name });
     }
 
-    handleGender(index) {
-        if (index !== 0) {
-            this.setState({ gender: options[index].props.children })
+    switchGender() {
+        Vibration.vibrate();
+        if (this.state.gender === "Male") {
+            this.setState({ gender: "Female" })
+        }
+        if (this.state.gender === "Female") {
+            this.setState({ gender: "Male" })
         }
     }
 
@@ -90,18 +89,10 @@ class LoginScreen extends React.Component {
                             value={this.state.name} />
                     </View>
                     <View style={{ paddingTop: 20 }}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.showActionSheet()}><Text style={styles.buttonText}>Select Gender ♂♀</Text></TouchableOpacity>
-                        <ActionSheet
-                            ref={o => this.ActionSheet = o}
-                            title={<Text style={{ color: '#000', fontSize: 25 }}>Gender</Text>}
-                            options={options}
-                            cancelButtonIndex={0}
-                            onPress={this.handleGender}
-                        />
-                        {this.state.gender !== "" &&
-                            <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
-                            </View>}
+                        <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
+                        <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
+                            <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
+                        </View>
                     </View>
                     <View style={{ paddingTop: 20, alignItems: "center" }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
