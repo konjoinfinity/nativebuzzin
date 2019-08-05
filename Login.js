@@ -7,11 +7,9 @@ import {
     TouchableOpacity,
     Vibration,
     KeyboardAvoidingView,
-    Alert,
-    Keyboard
+    Alert
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
-import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 import NumericInput from 'react-native-numeric-input'
 
 const options = [
