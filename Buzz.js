@@ -64,21 +64,18 @@ class BuzzScreen extends Component {
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
                 if (result !== "[]") {
-                    console.log(result)
-                    console.log(JSON.parse(result))
                     this.setState({ oldbuzzes: JSON.parse(result) })
-                    // setTimeout(() => {
-                    //     console.log(this.state.oldbuzzes)
-                    //     var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes.length - 1].dateCreated)
-                    //     var currentDate = new Date();
-                    //     var date2 = currentDate.getTime();
-                    //     var dayHourMin = this.getDayHourMin(date1, date2);
-                    //     var days = dayHourMin[0];
-                    //     var hours = dayHourMin[1];
-                    //     var minutes = dayHourMin[2];
-                    //     var seconds = dayHourMin[3];
-                    //     this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
-                    // }, 100);
+                    setTimeout(() => {
+                        var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
+                        var currentDate = new Date();
+                        var date2 = currentDate.getTime();
+                        var dayHourMin = this.getDayHourMin(date1, date2);
+                        var days = dayHourMin[0];
+                        var hours = dayHourMin[1];
+                        var minutes = dayHourMin[2];
+                        var seconds = dayHourMin[3];
+                        this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
+                    }, 500);
                 } else {
                     this.setState({ oldbuzzes: null })
                 }
@@ -109,17 +106,18 @@ class BuzzScreen extends Component {
             if (result !== null) {
                 if (result !== "[]") {
                     this.setState({ oldbuzzes: JSON.parse(result) })
-                    // setTimeout(() => {
-                    //     var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes.length - 1].dateCreated)
-                    //     var currentDate = new Date();
-                    //     var date2 = currentDate.getTime();
-                    //     var dayHourMin = this.getDayHourMin(date1, date2);
-                    //     var days = dayHourMin[0];
-                    //     var hours = dayHourMin[1];
-                    //     var minutes = dayHourMin[2];
-                    //     var seconds = dayHourMin[3];
-                    //     this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
-                    // }, 100);
+                    setTimeout(() => {
+                        console.log(this.state.oldbuzzes)
+                        var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
+                        var currentDate = new Date();
+                        var date2 = currentDate.getTime();
+                        var dayHourMin = this.getDayHourMin(date1, date2);
+                        var days = dayHourMin[0];
+                        var hours = dayHourMin[1];
+                        var minutes = dayHourMin[2];
+                        var seconds = dayHourMin[3];
+                        this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
+                    }, 500);
                 } else {
                     this.setState({ oldbuzzes: null })
                 }
@@ -148,8 +146,6 @@ class BuzzScreen extends Component {
     async deleteBuzz(id) {
         Vibration.vibrate();
         var filtered = this.state.buzzes.filter(buzz => buzz !== this.state.buzzes[id]);
-        console.log(filtered)
-        console.log(JSON.stringify(filtered))
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => {
             if (filtered.length === 0) {
                 this.setState({ buzzes: null })

@@ -64,7 +64,6 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        console.log("fired")
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
@@ -96,11 +95,8 @@ class HomeScreen extends Component {
             this.setState({ weight: JSON.parse(result) })
         })
         await AsyncStorage.getItem(key, (error, result) => {
-            console.log(this.state.buzzes)
             if (result !== null) {
                 if (result !== "[]") {
-                    console.log(result)
-                    console.log("wrote buzzes to state")
                     this.setState({ buzzes: JSON.parse(result) })
                 } else {
                     this.setState({ buzzes: [] })
@@ -114,6 +110,11 @@ class HomeScreen extends Component {
                 if (result !== "[]") {
                     this.setState({ oldbuzzes: JSON.parse(result) })
                 }
+                else {
+                    this.setState({ oldbuzzes: [] })
+                }
+            } else {
+                this.setState({ oldbuzzes: [] })
             }
         })
         setTimeout(() => {
@@ -430,7 +431,7 @@ class HomeScreen extends Component {
             if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.30 }) }
+            if (number === 0) { this.setState({ abv: 0.01 }) }
             if (number === 1) { this.setState({ abv: 0.40 }) }
             if (number === 2) { this.setState({ abv: 0.50 }) }
         }
