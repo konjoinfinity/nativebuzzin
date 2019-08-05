@@ -14,6 +14,7 @@ import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
 import NumericInput from 'react-native-numeric-input'
 import RNSpeedometer from 'react-native-speedometer'
 import { NavigationEvents } from "react-navigation";
+import { AlertHelper } from './AlertHelper';
 
 const options = [
     'Cancel',
@@ -134,6 +135,11 @@ class DemoScreen extends Component {
                 this.checkBac();
             }
         }, 100);
+        setTimeout(() => {
+            if (this.state.bac > 0.04 && this.state.bac < 0.06) {
+                AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
+            }
+        }, 300);
     }
 
     async checkBac() {
