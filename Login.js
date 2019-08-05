@@ -52,7 +52,6 @@ class LoginScreen extends React.Component {
     }
 
     async handleLogin() {
-        this.setModalVisible(!this.state.modalVisible);
         const namekey = "name"
         const genderkey = "gender"
         const weightkey = "weight"
@@ -61,6 +60,7 @@ class LoginScreen extends React.Component {
                 await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
                 await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
                 await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
+                this.setModalVisible(!this.state.modalVisible);
                 this.props.navigation.navigate("Home", { login: true });
             } else {
                 Vibration.vibrate();
