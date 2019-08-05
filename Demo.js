@@ -5,8 +5,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration,
-    RefreshControl
+    Vibration
 } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -30,7 +29,6 @@ class DemoScreen extends Component {
             weight: 180,
             bac: 0.0,
             testbuzzes: [],
-            refreshing: false,
             alctype: "Beer",
             oz: 12,
             abv: 0.05,
@@ -43,7 +41,6 @@ class DemoScreen extends Component {
         this.singleDuration = this.singleDuration.bind(this);
         this.getDayHourMin = this.getDayHourMin.bind(this);
         this.clearDrinks = this.clearDrinks.bind(this);
-        this.onRefresh = this.onRefresh.bind(this);
         this.handleAbv = this.handleAbv.bind(this);
         this.handleOz = this.handleOz.bind(this);
         this.handleDrinkType = this.handleDrinkType.bind(this);
@@ -54,14 +51,6 @@ class DemoScreen extends Component {
     async componentDidMount() {
         setTimeout(() => {
             this.checkBac();
-        }, 200);
-    }
-
-    async onRefresh() {
-        this.setState({ refreshing: true });
-        setTimeout(() => {
-            this.checkBac()
-            this.setState({ refreshing: false });
         }, 200);
     }
 
@@ -326,10 +315,7 @@ class DemoScreen extends Component {
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
-                <ScrollView refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this.onRefresh} />}>
+                <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
                         <View style={{ alignSelf: "center" }}>

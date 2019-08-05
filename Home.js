@@ -5,8 +5,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration,
-    RefreshControl
+    Vibration
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
@@ -36,7 +35,6 @@ class HomeScreen extends Component {
             bac: 0.0,
             buzzes: [],
             oldbuzzes: [],
-            refreshing: false,
             alctype: "Beer",
             oz: 12,
             abv: 0.05,
@@ -54,7 +52,6 @@ class HomeScreen extends Component {
         this.getDayHourMin = this.getDayHourMin.bind(this);
         this.saveBuzz = this.saveBuzz.bind(this);
         this.clearDrinks = this.clearDrinks.bind(this);
-        this.onRefresh = this.onRefresh.bind(this);
         this.moveToOld = this.moveToOld.bind(this);
         this.handleAbv = this.handleAbv.bind(this);
         this.handleOz = this.handleOz.bind(this);
@@ -199,19 +196,6 @@ class HomeScreen extends Component {
                 this.clearDrinks()
             }, 2000);
         }
-    }
-
-    async onRefresh() {
-        this.setState({ refreshing: true });
-        await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null) {
-                this.setState({ buzzes: JSON.parse(result) })
-            }
-        })
-        setTimeout(() => {
-            this.checkBac()
-            this.setState({ refreshing: false });
-        }, 200);
     }
 
     getDayHourMin(date1, date2) {
@@ -512,11 +496,7 @@ class HomeScreen extends Component {
         return (
             <View>
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => this.componentDidMount()} />}
-                <ScrollView
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.refreshing}
-                            onRefresh={this.onRefresh} />}>
+                <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="These tick marks show the optimal buzz range." order={3} name="ticks">
                             <CopilotView>
@@ -881,7 +861,6 @@ class HomeScreen extends Component {
         );
     }
 }
-
 
 export default copilot()(HomeScreen);
 
