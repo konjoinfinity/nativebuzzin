@@ -286,6 +286,11 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.saveBuzz();
         }, 200);
+        setTimeout(() => {
+            if (this.state.bac > 0.04 && this.state.bac < 0.06) {
+                AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
+            }
+        }, 300);
     }
 
     async saveBuzz() {
@@ -305,9 +310,6 @@ class HomeScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
-                // if (this.state.bac > 0.04 && this.state.bac < 0.06) {
-                //     AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
-                // }
                 if (this.state.countdown === false) {
                     this.setState({ countdown: true })
                     setTimeout(() => {
