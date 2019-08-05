@@ -83,7 +83,6 @@ class ProfileScreen extends Component {
                     var minutes = dayHourMin[2];
                     var seconds = dayHourMin[3];
                     if (days + hours + minutes + seconds < 0) {
-                        console.log("break is finished")
                         this.stopBreak()
                     }
                     this.setState({ breaktime: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.` })
