@@ -5,7 +5,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration
+    Vibration,
+    Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
@@ -84,15 +85,10 @@ class ProfileScreen extends Component {
                 }, 100);
             }
         })
-
     }
 
     async takeAbreak() {
-        console.log(this.state.days)
-        console.log(this.state.weeks)
-        console.log(this.state.months)
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
-        console.log(duration)
         var breakDate = new Date();
         breakDate.setDate(breakDate.getDate() + duration);
         Vibration.vibrate();
@@ -119,6 +115,19 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(weightkey)
         await AsyncStorage.removeItem(breakkey)
         this.props.navigation.navigate("Login")
+    }
+
+    cancelBreakAlert() {
+        Vibration.vibrate();
+        Alert.alert(
+            'Are you sure?',
+            'Click Yes to cancel break, No to continue break',
+            [
+                { text: 'Yes', onPress: () => this.stopBreak() },
+                { text: 'No' },
+            ],
+            { cancelable: false },
+        );
     }
 
     render() {
@@ -214,7 +223,7 @@ class ProfileScreen extends Component {
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break for:</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{this.state.breaktime}</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
-                                <TouchableOpacity style={styles.button} onPress={() => this.stopBreak()}>
+                                <TouchableOpacity style={styles.button} onPress={() => this.cancelBreakAlert()}>
                                     <Text style={styles.buttonText}>Cancel Break</Text>
                                 </TouchableOpacity>
                             </View>}

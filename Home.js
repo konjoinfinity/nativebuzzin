@@ -5,7 +5,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration
+    Vibration,
+    Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
@@ -445,6 +446,19 @@ class HomeScreen extends Component {
         await AsyncStorage.removeItem(breakdatekey)
     }
 
+    cancelBreakAlert() {
+        Vibration.vibrate();
+        Alert.alert(
+            'Are you sure?',
+            'Click Yes to cancel break, No to continue break',
+            [
+                { text: 'Yes', onPress: () => this.stopBreak() },
+                { text: 'No' },
+            ],
+            { cancelable: false },
+        );
+    }
+
     // Add animations? Could be good to have intro animations for extra icing
     // Snap to abv variable slider, instead of snap, vibrate on set values (4,5,6,7,8%)
     // Picture gallery of common drinks to add, abv/oz selectors could be confusing
@@ -852,7 +866,7 @@ class HomeScreen extends Component {
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break for:</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{this.state.breaktime}</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.stopBreak()}>
+                            <TouchableOpacity style={styles.button} onPress={() => this.cancelBreakAlert()}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
                         </View>}
