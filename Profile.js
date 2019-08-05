@@ -89,14 +89,16 @@ class ProfileScreen extends Component {
 
     async takeAbreak() {
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
-        var breakDate = new Date();
-        breakDate.setDate(breakDate.getDate() + duration);
-        Vibration.vibrate();
-        this.setState({ break: true, breakdate: breakDate })
-        await AsyncStorage.setItem(breakkey, JSON.stringify(true))
-        await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
-        this.componentDidMount();
-        this.setState({ days: 0, weeks: 0, months: 0 })
+        if (duration !== 0) {
+            var breakDate = new Date();
+            breakDate.setDate(breakDate.getDate() + duration);
+            Vibration.vibrate();
+            this.setState({ break: true, breakdate: breakDate })
+            await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+            await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
+            this.componentDidMount();
+            this.setState({ days: 0, weeks: 0, months: 0 })
+        }
     }
 
     async stopBreak() {
