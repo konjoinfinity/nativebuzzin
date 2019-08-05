@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
+import NumericInput from 'react-native-numeric-input'
 
 const oldkey = "oldbuzzes"
 const namekey = "name"
@@ -28,7 +29,10 @@ class ProfileScreen extends Component {
             alctype: "",
             break: "",
             breakdate: "",
-            breaktime: ""
+            breaktime: "",
+            days: 0,
+            weeks: 0,
+            months: 0
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -83,7 +87,12 @@ class ProfileScreen extends Component {
 
     }
 
-    async takeAbreak(duration) {
+    async takeAbreak() {
+        console.log(this.state.days)
+        console.log(this.state.weeks)
+        console.log(this.state.months)
+        var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
+        console.log(duration)
         var breakDate = new Date();
         breakDate.setDate(breakDate.getDate() + duration);
         Vibration.vibrate();
@@ -91,6 +100,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.setItem(breakkey, JSON.stringify(true))
         await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
         this.componentDidMount();
+        this.setState({ days: 0, weeks: 0, months: 0 })
     }
 
     async stopBreak() {
@@ -117,14 +127,12 @@ class ProfileScreen extends Component {
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}</Text>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
+                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
+                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}</Text>
+                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        {this.state.break === false &&
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Take a Break</Text>}
-                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                        {/* <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                             <View style={{ flexDirection: "column" }}>
                                 {this.state.break === false &&
                                     <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak(7)}>
@@ -145,7 +153,62 @@ class ProfileScreen extends Component {
                                         <Text style={styles.buttonText}>1 Month</Text>
                                     </TouchableOpacity>}
                             </View>
-                        </View>
+                        </View> */}
+                        {this.state.break === false &&
+                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Days</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={31}
+                                        value={this.state.days}
+                                        onChange={(days) => this.setState({ days })}
+                                        totalWidth={150}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
+                                <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Weeks</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={52}
+                                        value={this.state.weeks}
+                                        onChange={(weeks) => this.setState({ weeks })}
+                                        totalWidth={150}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
+                            </View>}
+                        {this.state.break === false &&
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Months</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={12}
+                                        value={this.state.months}
+                                        onChange={(months) => this.setState({ months })}
+                                        totalWidth={150}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
+                            </View>}
+                        {this.state.break === false &&
+                            <TouchableOpacity style={styles.button} onPress={() => this.takeAbreak()}>
+                                <Text style={styles.buttonText}>Take a Break</Text>
+                            </TouchableOpacity>}
                         {this.state.break === true &&
                             <View>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break for:</Text>

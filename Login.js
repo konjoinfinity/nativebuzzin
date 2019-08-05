@@ -41,7 +41,6 @@ class LoginScreen extends React.Component {
     }
 
     switchGender() {
-        // Keyboard.dismiss();
         Vibration.vibrate();
         if (this.state.gender === "Male") {
             this.setState({ gender: "Female" })
@@ -74,9 +73,8 @@ class LoginScreen extends React.Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <View onStartShouldSetResponderCapture={(e) => {
-                    Keyboard.dismiss()
-                }} style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                <View onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }}
+                    style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                     <Text style={styles.header}>Login</Text>
                     <View style={styles.inputContainer}>
                         <TextInput
