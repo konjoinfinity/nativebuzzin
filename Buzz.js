@@ -75,7 +75,7 @@ class BuzzScreen extends Component {
                         var minutes = dayHourMin[2];
                         var seconds = dayHourMin[3];
                         this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
-                    }, 500);
+                    }, 200);
                 } else {
                     this.setState({ oldbuzzes: null })
                 }
@@ -117,7 +117,7 @@ class BuzzScreen extends Component {
                         var minutes = dayHourMin[2];
                         var seconds = dayHourMin[3];
                         this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
-                    }, 500);
+                    }, 200);
                 } else {
                     this.setState({ oldbuzzes: null })
                 }
@@ -227,10 +227,11 @@ class BuzzScreen extends Component {
                     <RefreshControl
                         refreshing={this.state.refreshing}
                         onRefresh={this.onRefresh} />} ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
-                    </View>
+                    {this.state.buzzes !== null &&
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
+                            <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
+                        </View>}
                     {this.state.buzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
@@ -250,7 +251,8 @@ class BuzzScreen extends Component {
                     {this.state.oldbuzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 🥃</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  🗑</Text></TouchableOpacity>
+                            {this.state.showHideBuzzes === true && (
+                                this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  🗑</Text></TouchableOpacity>))}
                         </View>}
                     {this.state.oldbuzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
@@ -260,13 +262,13 @@ class BuzzScreen extends Component {
                         this.state.oldbuzzes !== null && (
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Button onPress={() => this.showHideBuzzes()}
-                                    title="Show Buzzes" />
+                                    title="Show Old Buzzes" />
                             </View>))}
                     {this.state.showHideBuzzes === true && (
                         this.state.oldbuzzes !== null && (
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Button onPress={() => this.showHideBuzzes()}
-                                    title="Hide Buzzes" />
+                                    title="Hide Old Buzzes" />
                             </View>))}
                     {this.state.showHideBuzzes === true && (
                         this.state.oldbuzzes !== null && (
