@@ -97,6 +97,8 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null) {
                 if (result !== "[]") {
+                    console.log(result)
+                    console.log("Wrote buzzes to state")
                     this.setState({ buzzes: JSON.parse(result) })
                 }
             }
@@ -539,7 +541,7 @@ class HomeScreen extends Component {
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
+                {/* <NavigationEvents onWillFocus={() => this.componentDidMount()} /> */}
                 <ScrollView
                     refreshControl={
                         <RefreshControl
