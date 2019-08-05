@@ -64,6 +64,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
+        console.log("fired")
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
@@ -95,10 +96,17 @@ class HomeScreen extends Component {
             this.setState({ weight: JSON.parse(result) })
         })
         await AsyncStorage.getItem(key, (error, result) => {
+            console.log(this.state.buzzes)
             if (result !== null) {
                 if (result !== "[]") {
+                    console.log(result)
+                    console.log("wrote buzzes to state")
                     this.setState({ buzzes: JSON.parse(result) })
+                } else {
+                    this.setState({ buzzes: [] })
                 }
+            } else {
+                this.setState({ buzzes: [] })
             }
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
@@ -274,6 +282,9 @@ class HomeScreen extends Component {
                 this.checkBac();
             }
         }, 100);
+        setTimeout(() => {
+            this.saveBuzz();
+        }, 200);
     }
 
     async saveBuzz() {
@@ -302,9 +313,6 @@ class HomeScreen extends Component {
                         this.countdownBac();
                     }, 1000);
                 }
-                setTimeout(() => {
-                    this.saveBuzz();
-                }, 200);
             } else {
                 this.setState({ countdown: false })
                 clearInterval(this.state.timer)

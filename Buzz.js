@@ -148,6 +148,8 @@ class BuzzScreen extends Component {
     async deleteBuzz(id) {
         Vibration.vibrate();
         var filtered = this.state.buzzes.filter(buzz => buzz !== this.state.buzzes[id]);
+        console.log(filtered)
+        console.log(JSON.stringify(filtered))
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => {
             if (filtered.length === 0) {
                 this.setState({ buzzes: null })
@@ -204,11 +206,9 @@ class BuzzScreen extends Component {
             }
             )
             )
-        console.log(this.state.oldbuzzes)
         let oldbuzzes;
         this.state.oldbuzzes !== null &&
             (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
-                // conditional to check if more than one array, if so continue double map, otherwise only map once?
                 return buzz.map((oldbuzz, id) => {
                     return (
                         <View key={id}>
