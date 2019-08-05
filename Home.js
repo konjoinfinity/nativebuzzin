@@ -44,7 +44,8 @@ class HomeScreen extends Component {
             timer: "",
             break: "",
             breakdate: "",
-            breaktime: ""
+            breaktime: "",
+            focus: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -59,7 +60,6 @@ class HomeScreen extends Component {
         this.handleOz = this.handleOz.bind(this);
         this.handleDrinkType = this.handleDrinkType.bind(this);
         this.handleStepChange = this.handleStepChange.bind(this);
-        // this.navRender = this.navRender.bind(this);
         this.countdownBac = this.countdownBac.bind(this);
     };
 
@@ -122,48 +122,10 @@ class HomeScreen extends Component {
                 this.props.start();
             }, 1000);
         }
+        setTimeout(() => {
+            this.setState({ focus: true })
+        }, 1000);
     }
-
-    // async navRender() {
-    //     console.log("Fired twice")
-    //     await AsyncStorage.getItem(key, (error, result) => {
-    //         if (result !== null) {
-    //             this.setState({ buzzes: JSON.parse(result) })
-    //         } else {
-    //             this.setState({ buzzes: [], bac: 0.0 })
-    //         }
-    //     })
-    //     await AsyncStorage.getItem(oldkey, (error, result) => {
-    //         if (result !== null) {
-    //             console.log("Wrote oldbuzzes to state")
-    //             this.setState({ oldbuzzes: JSON.parse(result) })
-    //         }
-    //     })
-    //     await AsyncStorage.getItem(breakkey, (error, result) => {
-    //         if (result !== null) {
-    //             this.setState({ break: JSON.parse(result) })
-    //         }
-    //     })
-    //     await AsyncStorage.getItem(breakdatekey, (error, result) => {
-    //         if (result !== null) {
-    //             this.setState({ breakdate: JSON.parse(result) })
-    //             setTimeout(() => {
-    //                 var date1 = Date.parse(this.state.breakdate)
-    //                 var currentDate = new Date();
-    //                 var date2 = currentDate.getTime();
-    //                 var dayHourMin = this.getDayHourMin(date2, date1);
-    //                 var days = dayHourMin[0];
-    //                 var hours = dayHourMin[1];
-    //                 var minutes = dayHourMin[2];
-    //                 var seconds = dayHourMin[3];
-    //                 this.setState({ breaktime: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.` })
-    //             }, 100);
-    //         }
-    //     })
-    //     setTimeout(() => {
-    //         this.checkBac();
-    //     }, 200);
-    // }
 
     componentWillUnmount() {
         this.props.copilotEvents.off('stop');
@@ -349,13 +311,9 @@ class HomeScreen extends Component {
                     this.saveBuzz();
                 }, 200);
             } else {
-                // Was this the issue?
                 this.setState({ countdown: false })
                 clearInterval(this.state.timer)
                 setTimeout(() => this.setState({ timer: "" }), 300);
-                // setTimeout(() => {
-                //     this.countdownBac();
-                // }, 300);
                 setTimeout(() => {
                     this.moveToOld();
                 }, 1000);
@@ -364,9 +322,6 @@ class HomeScreen extends Component {
             this.setState({ bac: 0.0, countdown: false })
             clearInterval(this.state.timer)
             setTimeout(() => this.setState({ timer: "" }), 300);
-            // setTimeout(() => {
-            //     this.countdownBac();
-            // }, 1000);
         }
     }
 
@@ -380,9 +335,8 @@ class HomeScreen extends Component {
             setTimeout(() => this.setState({ timer: "" }), 300);
         }
     }
-    // ***********************
+
     async moveToOld() {
-        // Does this fire twice because of the timer? If so cancel the time on componentdidunmount?
         var oldbuzzarray = this.state.oldbuzzes;
         console.log(oldbuzzarray)
         var newbuzzarray = this.state.buzzes;
@@ -396,8 +350,19 @@ class HomeScreen extends Component {
                 this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
             }, 200);
         })
+        await AsyncStorage.getItem(oldkey, (error, result) => {
+            if (result !== null) {
+                if (result !== "[]") {
+                    console.log(result)
+                    console.log("Wrote oldbuzzes to state")
+                    setTimeout(() => {
+                        this.setState({ oldbuzzes: JSON.parse(result) })
+                    }, 500);
+                }
+            }
+        })
+
     }
-    // **********************
 
     async clearDrinks() {
         Vibration.vibrate();
@@ -541,7 +506,7 @@ class HomeScreen extends Component {
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
-                {/* <NavigationEvents onWillFocus={() => this.componentDidMount()} /> */}
+                {this.state.focus === true && <NavigationEvents onWillFocus={() => this.componentDidMount()} />}
                 <ScrollView
                     refreshControl={
                         <RefreshControl
