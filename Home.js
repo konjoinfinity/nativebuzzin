@@ -127,6 +127,7 @@ class HomeScreen extends Component {
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
             setTimeout(() => {
                 this.props.start();
+                this.props.navigation.setParams({ login: false });
             }, 1000);
         }
         setTimeout(() => {
@@ -272,6 +273,7 @@ class HomeScreen extends Component {
                 this.checkBac();
             }
         }, 100);
+        // this might be causing issues in copilot
         setTimeout(() => {
             this.saveBuzz();
         }, 200);

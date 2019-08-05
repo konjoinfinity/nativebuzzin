@@ -72,6 +72,11 @@ class LoginScreen extends React.Component {
         }
     }
 
+    handleCancel() {
+        Vibration.vibrate();
+        this.setModalVisible(!this.state.modalVisible);
+    }
+
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -95,7 +100,7 @@ class LoginScreen extends React.Component {
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                     <TouchableOpacity style={styles.disagreeButton}
                                         onPress={() => {
-                                            this.setModalVisible(!this.state.modalVisible);
+                                            this.handleCancel()
                                         }}>
                                         <Text style={styles.buttonText}>Disagree</Text>
                                     </TouchableOpacity>
