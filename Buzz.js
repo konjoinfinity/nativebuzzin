@@ -6,7 +6,6 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    RefreshControl,
     Button
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -22,7 +21,6 @@ class BuzzScreen extends Component {
         super(props);
         this.state = {
             buzzes: null,
-            refreshing: false,
             oldbuzzes: null,
             timesince: null,
             showHideBuzzes: false
@@ -30,7 +28,6 @@ class BuzzScreen extends Component {
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
         this.deleteBuzz = this.deleteBuzz.bind(this);
         this.getBuzzes = this.getBuzzes.bind(this);
-        this.onRefresh = this.onRefresh.bind(this);
         this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
         this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
         this.getOldBuzzes = this.getOldBuzzes.bind(this);
@@ -127,15 +124,6 @@ class BuzzScreen extends Component {
         })
     }
 
-    onRefresh() {
-        this.setState({ refreshing: true });
-        this.getBuzzes();
-        this.getOldBuzzes();
-        setTimeout(() => {
-            this.setState({ refreshing: false });
-        }, 200);
-    }
-
     async deleteBuzzes() {
         Vibration.vibrate();
         await AsyncStorage.removeItem(key, () => {
@@ -223,10 +211,7 @@ class BuzzScreen extends Component {
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
-                <ScrollView refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.refreshing}
-                        onRefresh={this.onRefresh} />} ref={(ref) => { this.scrolltop = ref }}>
+                <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     {this.state.buzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
