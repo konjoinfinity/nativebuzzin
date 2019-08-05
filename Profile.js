@@ -33,7 +33,8 @@ class ProfileScreen extends Component {
             breaktime: "",
             days: 0,
             weeks: 0,
-            months: 0
+            months: 0,
+            minutes: 0
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -81,6 +82,10 @@ class ProfileScreen extends Component {
                     var hours = dayHourMin[1];
                     var minutes = dayHourMin[2];
                     var seconds = dayHourMin[3];
+                    if (days + hours + minutes + seconds < 0) {
+                        console.log("break is finished")
+                        this.stopBreak()
+                    }
                     this.setState({ breaktime: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.` })
                 }, 100);
             }
@@ -88,17 +93,19 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
-        var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
-        if (duration !== 0) {
-            var breakDate = new Date();
-            breakDate.setDate(breakDate.getDate() + duration);
-            Vibration.vibrate();
-            this.setState({ break: true, breakdate: breakDate })
-            await AsyncStorage.setItem(breakkey, JSON.stringify(true))
-            await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
-            this.componentDidMount();
-            this.setState({ days: 0, weeks: 0, months: 0 })
-        }
+        // var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
+        // if (duration !== 0) {
+        var breakDate = new Date();
+        // breakDate.setDate(breakDate.getDate() + duration);
+        var minutes = this.state.minutes * 60 * 1000;
+        breakDate.setTime(breakDate.getTime() + minutes);
+        Vibration.vibrate();
+        this.setState({ break: true, breakdate: breakDate })
+        await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+        await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
+        this.componentDidMount();
+        this.setState({ days: 0, weeks: 0, months: 0, minutes: 0 })
+        // }
     }
 
     async stopBreak() {
@@ -143,28 +150,6 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        {/* <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                            <View style={{ flexDirection: "column" }}>
-                                {this.state.break === false &&
-                                    <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak(7)}>
-                                        <Text style={styles.buttonText}>1 Week</Text>
-                                    </TouchableOpacity>}
-                                {this.state.break === false &&
-                                    <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak(21)}>
-                                        <Text style={styles.buttonText}>3 Weeks</Text>
-                                    </TouchableOpacity>}
-                            </View>
-                            <View style={{ flexDirection: "column" }}>
-                                {this.state.break === false &&
-                                    <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak(14)}>
-                                        <Text style={styles.buttonText}>2 Weeks</Text>
-                                    </TouchableOpacity>}
-                                {this.state.break === false &&
-                                    <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak(30)}>
-                                        <Text style={styles.buttonText}>1 Month</Text>
-                                    </TouchableOpacity>}
-                            </View>
-                        </View> */}
                         {this.state.break === false &&
                             <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                 <View>
@@ -207,6 +192,21 @@ class ProfileScreen extends Component {
                                         maxValue={12}
                                         value={this.state.months}
                                         onChange={(months) => this.setState({ months })}
+                                        totalWidth={150}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
+                                <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Minutes</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={60}
+                                        value={this.state.minutes}
+                                        onChange={(minutes) => this.setState({ minutes })}
                                         totalWidth={150}
                                         step={1}
                                         rounded
