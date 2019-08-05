@@ -97,8 +97,6 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null) {
                 if (result !== "[]") {
-                    console.log(result)
-                    console.log("Wrote buzzes to state")
                     this.setState({ buzzes: JSON.parse(result) })
                 }
             }
@@ -106,8 +104,6 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
                 if (result !== "[]") {
-                    console.log(result)
-                    console.log("Wrote oldbuzzes to state")
                     this.setState({ oldbuzzes: JSON.parse(result) })
                 }
             }
@@ -277,7 +273,6 @@ class HomeScreen extends Component {
             if (this.state.buzzes.length >= 1) {
                 this.checkBac();
             }
-            console.log(this.state.buzzes)
         }, 100);
     }
 
@@ -338,12 +333,8 @@ class HomeScreen extends Component {
 
     async moveToOld() {
         var oldbuzzarray = this.state.oldbuzzes;
-        console.log(oldbuzzarray)
         var newbuzzarray = this.state.buzzes;
-        console.log(newbuzzarray)
         oldbuzzarray.push(newbuzzarray);
-        console.log(oldbuzzarray)
-        console.log(JSON.stringify(oldbuzzarray))
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
@@ -353,8 +344,6 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
                 if (result !== "[]") {
-                    console.log(result)
-                    console.log("Wrote oldbuzzes to state")
                     setTimeout(() => {
                         this.setState({ oldbuzzes: JSON.parse(result) })
                     }, 500);
@@ -433,7 +422,7 @@ class HomeScreen extends Component {
             if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.01 }) }
+            if (number === 0) { this.setState({ abv: 0.30 }) }
             if (number === 1) { this.setState({ abv: 0.40 }) }
             if (number === 2) { this.setState({ abv: 0.50 }) }
         }
@@ -459,9 +448,6 @@ class HomeScreen extends Component {
     // Consider removing the third value from the oz selector, keep it simple (single, double)
 
     render() {
-        console.log(this.state.timer)
-        console.log(this.state.buzzes)
-        console.log(this.state.oldbuzzes)
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {
