@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Vibration,
     KeyboardAvoidingView,
-    Alert
+    Alert,
+    Keyboard
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
@@ -40,6 +41,7 @@ class LoginScreen extends React.Component {
     }
 
     switchGender() {
+        // Keyboard.dismiss();
         Vibration.vibrate();
         if (this.state.gender === "Male") {
             this.setState({ gender: "Female" })
@@ -72,7 +74,9 @@ class LoginScreen extends React.Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                <View onStartShouldSetResponderCapture={(e) => {
+                    Keyboard.dismiss()
+                }} style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                     <Text style={styles.header}>Login</Text>
                     <View style={styles.inputContainer}>
                         <TextInput
@@ -84,7 +88,8 @@ class LoginScreen extends React.Component {
                             returnKeyType={"default"}
                             blurOnSubmit={true}
                             onChangeText={this.handleNameChange}
-                            value={this.state.name} />
+                            value={this.state.name}
+                            onSubmitEditing={() => Keyboard.dismiss()} />
                     </View>
                     <View style={{ paddingTop: 20 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
