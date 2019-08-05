@@ -61,6 +61,7 @@ class HomeScreen extends Component {
         this.handleDrinkType = this.handleDrinkType.bind(this);
         this.handleStepChange = this.handleStepChange.bind(this);
         this.countdownBac = this.countdownBac.bind(this);
+        this.stopBreak = this.stopBreak.bind(this);
     };
 
     async componentDidMount() {
@@ -453,6 +454,13 @@ class HomeScreen extends Component {
         }
     }
 
+    async stopBreak() {
+        Vibration.vibrate();
+        this.setState({ break: false })
+        await AsyncStorage.setItem(breakkey, JSON.stringify(false))
+        await AsyncStorage.removeItem(breakdatekey)
+    }
+
     // Add animations? Could be good to have intro animations for extra icing
     // Snap to abv variable slider, instead of snap, vibrate on set values (4,5,6,7,8%)
     // Picture gallery of common drinks to add, abv/oz selectors could be confusing
@@ -622,7 +630,6 @@ class HomeScreen extends Component {
                             <TouchableOpacity onPress={() => this.checkBac()} style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  🤮</Text></TouchableOpacity>)}
                     </View>
-                    {/* Add conditional here to hide the action card if break === true */}
                     {(this.state.break === "" || this.state.break === false) &&
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
@@ -862,9 +869,12 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.break === true &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{this.state.breaktime}</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break for:</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{this.state.breaktime}</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
+                            <TouchableOpacity style={styles.button} onPress={() => this.stopBreak()}>
+                                <Text style={styles.buttonText}>Cancel Break</Text>
+                            </TouchableOpacity>
                         </View>}
                 </ScrollView>
             </View>

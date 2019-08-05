@@ -148,11 +148,11 @@ class ProfileScreen extends Component {
                         </View>
                         {this.state.break === true &&
                             <View>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break for:</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{this.state.breaktime}</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
                                 <TouchableOpacity style={styles.button} onPress={() => this.stopBreak()}>
-                                    <Text style={styles.buttonText}>Stop Break</Text>
+                                    <Text style={styles.buttonText}>Cancel Break</Text>
                                 </TouchableOpacity>
                             </View>}
                     </View>
