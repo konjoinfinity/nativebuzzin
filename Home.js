@@ -138,20 +138,20 @@ class HomeScreen extends Component {
     }
 
     handleStepChange = (step) => {
-        if (step.order === 1 || step.order === 2 || step.order === 6) {
+        if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
             setTimeout(() => {
                 this.addDrink()
             }, 1000);
             setTimeout(() => {
                 this.addDrink()
             }, 2000);
-            if (step.order === 1 || step.order === 2) {
+            if (step.order === 1 || step.order === 2 || step.order === 3) {
                 setTimeout(() => {
                     this.clearDrinks()
                 }, 3000);
             }
         }
-        if (step.order === 3) {
+        if (step.order === 4) {
             setTimeout(() => {
                 this.setState({ alctype: "Wine" })
             }, 1000);
@@ -162,7 +162,7 @@ class HomeScreen extends Component {
                 this.setState({ alctype: "Beer" })
             }, 3000);
         }
-        if (step.order === 4) {
+        if (step.order === 5) {
             setTimeout(() => {
                 this.setState({ abv: 0.06 })
             }, 1000);
@@ -179,7 +179,7 @@ class HomeScreen extends Component {
                 this.setState({ abv: 0.05 })
             }, 5000);
         }
-        if (step.order === 5) {
+        if (step.order === 6) {
             setTimeout(() => {
                 this.setState({ oz: 16 })
             }, 1000);
@@ -190,7 +190,7 @@ class HomeScreen extends Component {
                 this.setState({ oz: 12 })
             }, 3000);
         }
-        if (step.order === 7) {
+        if (step.order === 8) {
             setTimeout(() => {
                 this.undoLastDrink()
             }, 1000);
@@ -431,7 +431,7 @@ class HomeScreen extends Component {
             if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.01 }) }
+            if (number === 0) { this.setState({ abv: 0.30 }) }
             if (number === 1) { this.setState({ abv: 0.40 }) }
             if (number === 2) { this.setState({ abv: 0.50 }) }
         }
@@ -508,9 +508,13 @@ class HomeScreen extends Component {
                             refreshing={this.state.refreshing}
                             onRefresh={this.onRefresh} />}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <CopilotStep text="These tick marks show the optimal buzz range." order={3} name="ticks">
+                            <CopilotView>
+                                <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
+                            </CopilotView>
+                        </CopilotStep>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
-                                <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
                                 <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                     {
                                         name: '1',
@@ -621,7 +625,7 @@ class HomeScreen extends Component {
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                 {this.state.alctype === "Beer" &&
-                                    <CopilotStep text="Press each icon to change drink type." order={3} name="drink">
+                                    <CopilotStep text="Press each icon to change drink type." order={4} name="drink">
                                         <CopilotView>
                                             <MultiSwitch choiceSize={75}
                                                 activeItemStyle={activeStyle}
@@ -657,7 +661,7 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: 30 }}>🍷</Text>
                                         <Text style={{ fontSize: 30 }}>🥃</Text>
                                     </MultiSwitch>}
-                                <CopilotStep text="Press to undo last drink." order={7} name="clear">
+                                <CopilotStep text="Press to undo last drink." order={8} name="clear">
                                     <CopilotView>
                                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                                             <TouchableOpacity
@@ -675,7 +679,7 @@ class HomeScreen extends Component {
                                     <View style={{ paddingBottom: 15 }}>
                                         <View style={styles.multiSwitchViews}>
                                             {this.state.alctype === "Beer" &&
-                                                <CopilotStep text="Press each percent to change drink ABV." order={4} name="abv">
+                                                <CopilotStep text="Press each percent to change drink ABV." order={5} name="abv">
                                                     <CopilotView>
                                                         {this.state.abv === 0.05 &&
                                                             <MultiSwitch choiceSize={45}
@@ -774,7 +778,7 @@ class HomeScreen extends Component {
                                     </View>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Beer" &&
-                                            <CopilotStep text="Press each number to change drink size." order={5} name="oz">
+                                            <CopilotStep text="Press each number to change drink size." order={6} name="oz">
                                                 <CopilotView>
                                                     {this.state.oz === 12 &&
                                                         <MultiSwitch choiceSize={50}
@@ -840,7 +844,7 @@ class HomeScreen extends Component {
                                     </View>
                                 </View>
                                 {this.state.alctype === "Beer" &&
-                                    <CopilotStep text="Press to add drink with selected options." order={6} name="add">
+                                    <CopilotStep text="Press to add drink with selected options." order={7} name="add">
                                         <CopilotView>
                                             <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton} ref={(touchable) => this._touchable = touchable}>
                                                 <Text style={{ fontSize: 40, color: "white" }}>+🍺</Text></TouchableOpacity>
