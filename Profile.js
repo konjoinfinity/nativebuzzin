@@ -33,8 +33,7 @@ class ProfileScreen extends Component {
             breaktime: "",
             days: 0,
             weeks: 0,
-            months: 0,
-            minutes: 0
+            months: 0
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -92,19 +91,17 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
-        // var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
-        // if (duration !== 0) {
-        var breakDate = new Date();
-        // breakDate.setDate(breakDate.getDate() + duration);
-        var minutes = this.state.minutes * 60 * 1000;
-        breakDate.setTime(breakDate.getTime() + minutes);
-        Vibration.vibrate();
-        this.setState({ break: true, breakdate: breakDate })
-        await AsyncStorage.setItem(breakkey, JSON.stringify(true))
-        await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
-        this.componentDidMount();
-        this.setState({ days: 0, weeks: 0, months: 0, minutes: 0 })
-        // }
+        var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
+        if (duration !== 0) {
+            var breakDate = new Date();
+            breakDate.setDate(breakDate.getDate() + duration);
+            Vibration.vibrate();
+            this.setState({ break: true, breakdate: breakDate })
+            await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+            await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
+            this.componentDidMount();
+            this.setState({ days: 0, weeks: 0, months: 0 })
+        }
     }
 
     async stopBreak() {
@@ -199,24 +196,9 @@ class ProfileScreen extends Component {
                                         rightButtonBackgroundColor='#00897b'
                                         leftButtonBackgroundColor='#00897b' />
                                 </View>
-                                <View>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Minutes</Text>
-                                    <NumericInput
-                                        minValue={0}
-                                        maxValue={60}
-                                        value={this.state.minutes}
-                                        onChange={(minutes) => this.setState({ minutes })}
-                                        totalWidth={150}
-                                        step={1}
-                                        rounded
-                                        textColor='#103900'
-                                        iconStyle={{ color: 'white' }}
-                                        rightButtonBackgroundColor='#00897b'
-                                        leftButtonBackgroundColor='#00897b' />
-                                </View>
                             </View>}
                         {this.state.break === false &&
-                            <TouchableOpacity style={styles.button} onPress={() => this.takeAbreak()}>
+                            <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak()}>
                                 <Text style={styles.buttonText}>Take a Break</Text>
                             </TouchableOpacity>}
                         {this.state.break === true &&
@@ -224,7 +206,7 @@ class ProfileScreen extends Component {
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break for:</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{this.state.breaktime}</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
-                                <TouchableOpacity style={styles.button} onPress={() => this.cancelBreakAlert()}>
+                                <TouchableOpacity style={styles.breakbutton} onPress={() => this.cancelBreakAlert()}>
                                     <Text style={styles.buttonText}>Cancel Break</Text>
                                 </TouchableOpacity>
                             </View>}
@@ -249,8 +231,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#00897b",
         padding: 15,
         marginTop: 10,
-        marginRight: 90,
-        marginLeft: 90,
+        marginRight: 60,
+        marginLeft: 60,
         marginBottom: 10,
         borderRadius: 15
     },
