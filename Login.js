@@ -8,16 +8,12 @@ import {
     Vibration,
     KeyboardAvoidingView,
     Alert,
-    Keyboard
+    Keyboard,
+    Modal,
+    ScrollView
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
-
-const options = [
-    'Cancel',
-    <Text style={{ color: '#94BFE2', fontSize: 25 }}>Male</Text>,
-    <Text style={{ color: '#F398BE', fontSize: 25 }}>Female</Text>
-]
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -25,7 +21,8 @@ class LoginScreen extends React.Component {
         this.state = {
             name: "",
             gender: "Male",
-            weight: 150
+            weight: 150,
+            modalVisible: false
         };
         this.handleLogin = this.handleLogin.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -34,6 +31,10 @@ class LoginScreen extends React.Component {
 
     componentDidMount() {
         Vibration.vibrate();
+    }
+
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
     }
 
     handleNameChange(name) {
@@ -51,6 +52,7 @@ class LoginScreen extends React.Component {
     }
 
     async handleLogin() {
+        this.setModalVisible(!this.state.modalVisible);
         const namekey = "name"
         const genderkey = "gender"
         const weightkey = "weight"
@@ -75,6 +77,37 @@ class LoginScreen extends React.Component {
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }}
                     style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                        }}><ScrollView>
+                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10 }}>
+                                <Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Welcome to Buzzin'!</Text>
+                                <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>Legal Disclaimer and User Agreement</Text>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 10 }}>Buzzin' will not be held liable for any decisions made based on the information provided.
+                                The Blood Alcohol Content (BAC) calculations are not 100% accurate and are aimed to give our users a general ballpark estimate based on their approximate weight and gender.
+                                Users are liable for all data they input, as it is stored on their personal local device.  No user data is stored externally, Buzzin' does not store inputted user data externally.
+                                By pressing agree, the user forfeits their rights to hold Buzzin' or LifeSystems LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
+                                This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                                    <TouchableOpacity style={styles.disagreeButton}
+                                        onPress={() => {
+                                            this.setModalVisible(!this.state.modalVisible);
+                                        }}>
+                                        <Text style={styles.buttonText}>Disagree</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.button}
+                                        onPress={() => {
+                                            this.handleLogin()
+                                        }}>
+                                        <Text style={styles.buttonText}>Agree</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </ScrollView></Modal>
                     <Text style={styles.header}>Login</Text>
                     <View style={styles.inputContainer}>
                         <TextInput
@@ -113,12 +146,12 @@ class LoginScreen extends React.Component {
                     <View style={{ paddingTop: 20 }}>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={this.handleLogin}>
+                            onPress={() => this.setModalVisible(true)}>
                             <Text style={styles.buttonText}>Login</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-            </KeyboardAvoidingView >
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -150,6 +183,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#80cbc4",
         backgroundColor: "#80cbc4",
+        padding: 15,
+        margin: 5,
+        borderRadius: 15
+    },
+    disagreeButton: {
+        borderWidth: 1,
+        borderColor: "#AE0000",
+        backgroundColor: "#AE0000",
         padding: 15,
         margin: 5,
         borderRadius: 15
