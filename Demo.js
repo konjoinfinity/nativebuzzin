@@ -312,17 +312,20 @@ class DemoScreen extends Component {
                 <Modal animationType="slide"
                     transparent={false}
                     visible={this.state.modalVisible}>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 30 }}>
-                        <Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Warning!</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>Your BAC is now above the legal drinking limit in most states.
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.
                         Please consider one of the following:</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>Drinking a glass of water.</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>Taking a break from drinking for at least an hour.</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>Calling a friend, Uber, or Lyft to come pick you up.</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>If you continue drinking:</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>Your decision making abilities could be impaired.</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>You should NOT drive an automobilie or operate heavy machinery.</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>You could have a hangover tomorrow morning</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>Drinking a glass of water.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>Taking a break from drinking for at least an hour.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>Calling a friend, Uber, or Lyft to come pick you up.</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>If you continue drinking:</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>Your decision making abilities could be impaired.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You should NOT drive an automobilie or operate heavy machinery.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You could have a hangover tomorrow morning.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You might do something you regret.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You could injure yourself or others.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You could end up in legal trouble or jail.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.okButton}
                                 onPress={() => { this.handleModal() }}>
