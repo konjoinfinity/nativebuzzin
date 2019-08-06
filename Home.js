@@ -63,6 +63,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
+        console.log("fired")
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
@@ -125,9 +126,11 @@ class HomeScreen extends Component {
             setTimeout(() => {
                 this.props.start();
                 this.props.navigation.setParams({ login: false });
-                this.setState({ focus: true })
             }, 1000);
         }
+        setTimeout(() => {
+            this.setState({ focus: true })
+        }, 1050);
     }
 
     componentWillUnmount() {

@@ -27,10 +27,8 @@ class BuzzScreen extends Component {
         }
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
         this.deleteBuzz = this.deleteBuzz.bind(this);
-        this.getBuzzes = this.getBuzzes.bind(this);
         this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
         this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
-        this.getOldBuzzes = this.getOldBuzzes.bind(this);
         this.showHideBuzzes = this.showHideBuzzes.bind(this);
     };
 
@@ -63,48 +61,6 @@ class BuzzScreen extends Component {
                 if (result !== "[]") {
                     this.setState({ oldbuzzes: JSON.parse(result) })
                     setTimeout(() => {
-                        var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
-                        var currentDate = new Date();
-                        var date2 = currentDate.getTime();
-                        var dayHourMin = this.getDayHourMin(date1, date2);
-                        var days = dayHourMin[0];
-                        var hours = dayHourMin[1];
-                        var minutes = dayHourMin[2];
-                        var seconds = dayHourMin[3];
-                        this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
-                    }, 200);
-                } else {
-                    this.setState({ oldbuzzes: null })
-                }
-            } else {
-                this.setState({ oldbuzzes: null })
-            }
-        })
-    }
-
-    async getBuzzes() {
-        Vibration.vibrate();
-        await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null) {
-                if (result !== "[]") {
-                    this.setState({ buzzes: JSON.parse(result) })
-                } else {
-                    this.setState({ buzzes: null })
-                }
-            } else {
-                this.setState({ buzzes: null })
-            }
-        })
-    }
-
-    async getOldBuzzes() {
-        Vibration.vibrate();
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null) {
-                if (result !== "[]") {
-                    this.setState({ oldbuzzes: JSON.parse(result) })
-                    setTimeout(() => {
-                        console.log(this.state.oldbuzzes)
                         var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
                         var currentDate = new Date();
                         var date2 = currentDate.getTime();
@@ -167,13 +123,15 @@ class BuzzScreen extends Component {
     showHideBuzzes() {
         this.setState(prevState => ({
             showHideBuzzes: !prevState.showHideBuzzes
-        }));
-        Vibration.vibrate();
-        setTimeout(() => {
+        }), () => setTimeout(() => {
             if (this.state.showHideBuzzes === true) {
                 this.scrolltop.scrollToEnd({ animated: true });
+            } else {
+                this.scrolltop.scrollTo({ y: 0, animated: true });
             }
-        }, 300)
+        }, 200));
+        Vibration.vibrate();
+
     }
 
     render() {
