@@ -338,32 +338,46 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
     }
 
-    // 
+    // checkBac is the main function which continually checks the users bac if the countdown is running
+    // first checks to see if the length of buzzes is greater than or equal to one, then runs the single duration
+    // method/function passing in the first drink's dateCreated in the buzz array, the value is assigned to variable duration  
     async checkBac() {
         if (this.state.buzzes.length >= 1) {
             var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
+            // Next, the varBAC function is called passing in the users weight, gender, duration variable, and the current buzzes state
+            // The return is assigned to the variable totalBac. 
             var totalBac = this.varGetBAC(
                 this.state.weight,
                 this.state.gender,
                 duration,
                 this.state.buzzes
             )
+            // A conditional is then assessed, if totalBac is greater than 0, the value of
+            // bac is rounded to 6 decmimal places.  Then this.state.bac is set to totalBac.
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
+                // A second conditional is then assessed, and if
+                // the countdown is not running, this.state. countdown is then set to true and countdownBac method is then triggered.
                 if (this.state.countdown === false) {
                     this.setState({ countdown: true }, () => this.countdownBac())
                 }
+                // If totalBac is less than 0, countdown is set to false, and the countdown timer is cleared.  Then this.state.timer is cleared,
+                // with a moveToOld method callback.  This moves all buzzes to the oldbuzz device storage. 
             } else {
                 this.setState({ countdown: false }, () => clearInterval(this.state.timer))
                 setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
             }
+            // If length of buzzes is equal to 0, countdown is set to false and the and the countdown timer is cleared.
+            // Lastly, this.state.timer is cleared.
         } else if (this.state.buzzes.length === 0) {
             this.setState({ bac: 0.0, countdown: false }, () => clearInterval(this.state.timer))
             setTimeout(() => this.setState({ timer: "" }), 200);
         }
     }
 
+    // The countdownBac method starts the setInterval (countdown), to continually check the users BAC every half second (500 ms)
+    // if this.state.timer is set to false, the countdown is cleared  
     countdownBac() {
         let bacTimer;
         if (this.state.countdown === true) {
@@ -375,6 +389,10 @@ class HomeScreen extends Component {
         }
     }
 
+    // The moveToOld method takes the current states of buzzes and the current state of oldbuzzes, assigns them to oldbuzzarray and
+    // newbuzzarray respectively.  The expired buzzes (newbuzzarray) is then pushed into the oldbuzz array.  The oldbuzzarray is then
+    // written to device storage.  Current buzzes are deleted from device storage and this.state is set to buzzes: [], bac: 0.0, 
+    // oldbuzzes: []. this.state.oldbuzzes is then set to oldbuzz device storage.
     async moveToOld() {
         var oldbuzzarray = this.state.oldbuzzes;
         var newbuzzarray = this.state.buzzes;
