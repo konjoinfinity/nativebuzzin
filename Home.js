@@ -288,23 +288,15 @@ class HomeScreen extends Component {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
                 if (this.state.countdown === false) {
-                    this.setState({ countdown: true })
-                    setTimeout(() => {
-                        this.countdownBac();
-                    }, 1000);
+                    this.setState({ countdown: true }, () => this.countdownBac())
                 }
             } else {
-                this.setState({ countdown: false })
-                clearInterval(this.state.timer)
-                setTimeout(() => this.setState({ timer: "" }), 300);
-                setTimeout(() => {
-                    this.moveToOld();
-                }, 1000);
+                this.setState({ countdown: false }, () => clearInterval(this.state.timer))
+                setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
             }
         } else if (this.state.buzzes.length === 0) {
-            this.setState({ bac: 0.0, countdown: false })
-            clearInterval(this.state.timer)
-            setTimeout(() => this.setState({ timer: "" }), 300);
+            this.setState({ bac: 0.0, countdown: false }, () => clearInterval(this.state.timer))
+            setTimeout(() => this.setState({ timer: "" }), 200);
         }
     }
 
@@ -315,7 +307,7 @@ class HomeScreen extends Component {
             this.setState({ timer: bacTimer })
         } else if (this.state.countdown === false) {
             clearInterval(this.state.timer)
-            setTimeout(() => this.setState({ timer: "" }), 300);
+            setTimeout(() => this.setState({ timer: "" }), 200);
         }
     }
 
@@ -324,21 +316,16 @@ class HomeScreen extends Component {
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push(newbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
-        await AsyncStorage.removeItem(key, () => {
-            setTimeout(() => {
-                this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
-            }, 100);
-        })
+        await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
                 if (result !== "[]") {
                     setTimeout(() => {
                         this.setState({ oldbuzzes: JSON.parse(result) })
-                    }, 300);
+                    }, 200);
                 }
             }
         })
-
     }
 
     async clearDrinks() {
@@ -410,7 +397,7 @@ class HomeScreen extends Component {
             if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.30 }) }
+            if (number === 0) { this.setState({ abv: 0.01 }) }
             if (number === 1) { this.setState({ abv: 0.40 }) }
             if (number === 2) { this.setState({ abv: 0.50 }) }
         }
