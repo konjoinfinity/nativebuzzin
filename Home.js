@@ -110,29 +110,24 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
                 if (result !== "[]") {
-                    this.setState({ oldbuzzes: JSON.parse(result) })
+                    this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
                 }
                 else {
-                    this.setState({ oldbuzzes: [] })
+                    this.setState({ oldbuzzes: [] }, () => this.checkBac())
                 }
             } else {
-                this.setState({ oldbuzzes: [] })
+                this.setState({ oldbuzzes: [] }, () => this.checkBac())
             }
         })
-        setTimeout(() => {
-            this.checkBac();
-        }, 200);
         const login = this.props.navigation.getParam('login');
         if (login === true) {
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
             setTimeout(() => {
                 this.props.start();
                 this.props.navigation.setParams({ login: false });
+                this.setState({ focus: true })
             }, 1000);
         }
-        setTimeout(() => {
-            this.setState({ focus: true })
-        }, 1000);
     }
 
     componentWillUnmount() {
@@ -267,26 +262,17 @@ class HomeScreen extends Component {
     addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
-        this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }))
-        setTimeout(() => {
-            if (this.state.buzzes.length >= 1) {
-                this.checkBac();
-            }
-        }, 100);
-        // this might be causing issues in copilot
+        this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
-        }, 200);
-        setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
                 AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
             }
-        }, 300);
+        }, 200);
     }
 
     async saveBuzz() {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
-        await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.oldbuzzes))
     }
 
     async checkBac() {
@@ -341,14 +327,14 @@ class HomeScreen extends Component {
         await AsyncStorage.removeItem(key, () => {
             setTimeout(() => {
                 this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] })
-            }, 200);
+            }, 100);
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null) {
                 if (result !== "[]") {
                     setTimeout(() => {
                         this.setState({ oldbuzzes: JSON.parse(result) })
-                    }, 500);
+                    }, 300);
                 }
             }
         })
