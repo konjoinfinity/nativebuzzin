@@ -119,6 +119,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(genderkey)
         await AsyncStorage.removeItem(weightkey)
         await AsyncStorage.removeItem(breakkey)
+        await AsyncStorage.removeItem(breakdatekey)
         this.props.navigation.navigate("Login")
     }
 
@@ -149,7 +150,7 @@ class ProfileScreen extends Component {
                         {this.state.break === false &&
                             <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                 <View>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Days</Text>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Days</Text>
                                     <NumericInput
                                         minValue={0}
                                         maxValue={31}
@@ -164,7 +165,7 @@ class ProfileScreen extends Component {
                                         leftButtonBackgroundColor='#00897b' />
                                 </View>
                                 <View>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Weeks</Text>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Weeks</Text>
                                     <NumericInput
                                         minValue={0}
                                         maxValue={52}
@@ -182,7 +183,7 @@ class ProfileScreen extends Component {
                         {this.state.break === false &&
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                 <View>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Months</Text>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Months</Text>
                                     <NumericInput
                                         minValue={0}
                                         maxValue={12}
