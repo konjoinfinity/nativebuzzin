@@ -233,7 +233,8 @@ class HomeScreen extends Component {
         }
     }
 
-    // 
+    // The getDayHourMin passes in two timestamps (dates) and calculates the duration between the two
+    // returns the values in and array of [days, hours, minutes, seconds] 
     getDayHourMin(date1, date2) {
         var dateDiff = date2 - date1;
         dateDiff = dateDiff / 1000;
@@ -246,6 +247,9 @@ class HomeScreen extends Component {
         return [days, hours, minutes, seconds];
     }
 
+    // The singleDuration method takes a timestamp argument of the first drink in the current buzz array
+    // It calculates the duration between that timestamp and the a current timestamp (when the function is run)
+    // The duration is calculated and the value is returned in hours, (this utlilizes the getDayHourMin method)
     singleDuration(initialbuzz) {
         var date1 = Date.parse(initialbuzz)
         var duration;
@@ -267,6 +271,11 @@ class HomeScreen extends Component {
         return duration;
     }
 
+    // varGetBAC (VariableGetBAC) This method is the most important part of the app paried with the two methods (getDayHourMin & singleDuration)
+    // It takes weight (user weight), gender (user gender), hours (duration elapsed since the first drink was added),
+    // and buzz (this.state.buzz - buzz array) as parameters.  Distribution is different depending on the user gender.
+    // The method then loops through the current buzz array and calculates the total bac based on each variable drink
+    // type, abv, and ounce size.  Returns the total bac 
     varGetBAC(weight, gender, hours, buzz) {
         var distribution;
         var drinkTotal;
@@ -288,13 +297,21 @@ class HomeScreen extends Component {
             if (buzz[i].drinkType === "Liquor") {
                 drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
             }
+            // Once each iteration of the loop is finished the single drink is pushed into the array
             totalArray.push(drinkTotal)
         }
+        // After the loop is completed, all values are added together
         totalAlc = totalArray.reduce((a, b) => a + b, 0)
+        // The total BAC is calculated based on the total of all values, weight, distribution, and hours (duration elapsed)
         var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
         return bac;
     }
 
+    // The addDrink method creates a new drink object {drinkType (Beer, Wine, Liquor), dateCreated (Current Timestamp),
+    // oz (number of ounces), and abv (alcoholic content)}  The drink object is added to the buzz array
+    // The checkBac method is called as the callback to the setstate function, saveBuzz is then called to write the 
+    // new current buzz state to device storage. Dropdown conditionals are triggered if bac is 0.04-0.08, a full
+    // screen modal is triggered if the bac is above 0.08     
     addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
@@ -316,10 +333,12 @@ class HomeScreen extends Component {
         }, 200);
     }
 
+    // saveBuzz writes the current state of buzzes to device storage (asyncstorage)  
     async saveBuzz() {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
     }
 
+    // 
     async checkBac() {
         if (this.state.buzzes.length >= 1) {
             var duration = this.singleDuration(this.state.buzzes[0].dateCreated);
