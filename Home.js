@@ -1,3 +1,4 @@
+// imports to be used within the homescreen
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -17,6 +18,7 @@ import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
 
+// constant keys used for asyncstorage and Views for Copilot (Intro walkthrough)
 const namekey = "name"
 const genderkey = "gender"
 const weightkey = "weight"
@@ -24,9 +26,10 @@ const key = "buzzes"
 const oldkey = "oldbuzzes"
 const breakkey = "break"
 const breakdatekey = "breakdate"
-
 const CopilotView = walkthroughable(View);
 
+// Main HomeScreen component, this.state is a temporary local storage for the app within HomeScreen
+// Used to access, manipulate, and render data 
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -48,6 +51,8 @@ class HomeScreen extends Component {
             focus: false,
             modalVisible: false
         }
+        // Bind statements are used to ensure data is changed in state by a function/method defined below
+        // Binding respective state changes above 
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
         this.checkBac = this.checkBac.bind(this);
@@ -64,15 +69,20 @@ class HomeScreen extends Component {
         this.stopBreak = this.stopBreak.bind(this);
     };
 
+    // componentDidMount runs when HomeScreen completes loading 
+    // This function/method is also run when navigating to the HomeScreen
     async componentDidMount() {
+        // All AsyncStorage methods are reading data from device storage and writing the values to the HomeScreen state  
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
             }
         })
+        // All AsyncStorage methods are reading data from device storage and writing the values to the HomeScreen state 
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
                 this.setState({ breakdate: JSON.parse(result) })
+                // Checking the current break time using the timestamp and setting the breaktime state
                 setTimeout(() => {
                     var date1 = Date.parse(this.state.breakdate)
                     var currentDate = new Date();
@@ -89,15 +99,19 @@ class HomeScreen extends Component {
                 }, 100);
             }
         })
+        // All AsyncStorage methods are reading data from device storage and writing the values to the HomeScreen state 
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
         })
+        // All AsyncStorage methods are reading data from device storage and writing the values to the HomeScreen state 
         await AsyncStorage.getItem(genderkey, (error, result) => {
             this.setState({ gender: JSON.parse(result) })
         })
+        // All AsyncStorage methods are reading data from device storage and writing the values to the HomeScreen state 
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
+        // All AsyncStorage methods are reading data from device storage and writing the values to the HomeScreen state 
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ buzzes: JSON.parse(result) })
@@ -105,6 +119,7 @@ class HomeScreen extends Component {
                 this.setState({ buzzes: [] })
             }
         })
+        // All AsyncStorage methods are reading data from device storage and writing the values to the HomeScreen state 
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
@@ -113,6 +128,8 @@ class HomeScreen extends Component {
                 this.setState({ oldbuzzes: [] }, () => this.checkBac())
             }
         })
+        // Checks to see if the 'login' param is set to true (passed from the login screen), then starts the copilot walkthrough
+        // Then sets the param to false, copilot only renders once upon initial login
         const login = this.props.navigation.getParam('login');
         if (login === true) {
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
@@ -121,26 +138,35 @@ class HomeScreen extends Component {
                 this.props.navigation.setParams({ login: false });
             }, 1000);
         }
+        // this.state.focus is a conditional so that the HomeScreen will fire componentDidMount when navigating to it
+        // to ensure a fresh copy of the data from the local device
         setTimeout(() => {
             this.setState({ focus: true })
         }, 1050);
     }
 
+    // componentWillUnmount runs when the HomeScreen is navigated away from
+    // copilot events are turned off to prevent errors, the current timer (used to auto calculate the bac) is stopped
     componentWillUnmount() {
         this.props.copilotEvents.off('stop');
         clearInterval(this.state.timer)
     }
 
+    // This method/function makes the conditional modal visible
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
 
+    // This method/function hides the conditional modal
     handleModal() {
         Vibration.vibrate();
         this.setModalVisible(!this.state.modalVisible);
     }
 
+    // handleStepChange defines the copilot steps (intro walkthrough), what happens when each step/order is triggered
+    // This method programatically demos the app for the users when they initially login
     handleStepChange = (step) => {
+        // Adds and clears drinks every second
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
             setTimeout(() => {
                 this.addDrink()
@@ -154,6 +180,7 @@ class HomeScreen extends Component {
                 }, 3000);
             }
         }
+        // Runs through the different alcohol types every second
         if (step.order === 4) {
             setTimeout(() => {
                 this.setState({ alctype: "Wine" })
@@ -165,6 +192,7 @@ class HomeScreen extends Component {
                 this.setState({ alctype: "Beer" })
             }, 3000);
         }
+        // Selects the different ABV values every second
         if (step.order === 5) {
             setTimeout(() => {
                 this.setState({ abv: 0.06 })
@@ -182,6 +210,7 @@ class HomeScreen extends Component {
                 this.setState({ abv: 0.05 })
             }, 5000);
         }
+        // Selects the different ounce size values every second
         if (step.order === 6) {
             setTimeout(() => {
                 this.setState({ oz: 16 })
@@ -193,6 +222,7 @@ class HomeScreen extends Component {
                 this.setState({ oz: 12 })
             }, 3000);
         }
+        // Demos the undo button, clears all drinks
         if (step.order === 8) {
             setTimeout(() => {
                 this.undoLastDrink()
@@ -203,6 +233,7 @@ class HomeScreen extends Component {
         }
     }
 
+    // 
     getDayHourMin(date1, date2) {
         var dateDiff = date2 - date1;
         dateDiff = dateDiff / 1000;
