@@ -5,7 +5,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Vibration
+    Vibration,
+    Modal
 } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -26,7 +27,8 @@ class DemoScreen extends Component {
             oz: 12,
             abv: 0.05,
             countdown: false,
-            timer: ""
+            timer: "",
+            modalVisible: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -45,6 +47,15 @@ class DemoScreen extends Component {
         setTimeout(() => {
             this.checkBac();
         }, 200);
+    }
+
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
+    }
+
+    handleModal() {
+        Vibration.vibrate();
+        this.setModalVisible(!this.state.modalVisible);
     }
 
     getDayHourMin(date1, date2) {
@@ -115,6 +126,15 @@ class DemoScreen extends Component {
         setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
                 AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
+            }
+            if (this.state.bac > 0.06 && this.state.bac < 0.07) {
+                AlertHelper.show("warn", "Slow Down", "You might want to take a break or drink some water.");
+            }
+            if (this.state.bac > 0.07 && this.state.bac < 0.08) {
+                AlertHelper.show("error", "Drunk", "Please drink some water or take a break from drinking.");
+            }
+            if (this.state.bac > 0.08) {
+                this.setModalVisible(true)
             }
         }, 200);
     }
@@ -289,6 +309,28 @@ class DemoScreen extends Component {
 
         return (
             <View>
+                <Modal animationType="slide"
+                    transparent={false}
+                    visible={this.state.modalVisible}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 30 }}>
+                        <Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Warning!</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>Your BAC is now above the legal drinking limit in most states.
+                        Please consider one of the following:</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>Drinking a glass of water.</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>Taking a break from drinking for at least an hour.</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>Calling a friend, Uber, or Lyft to come pick you up.</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>If you continue drinking:</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>Your decision making abilities could be impaired.</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>You should NOT drive an automobilie or operate heavy machinery.</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 10, fontWeight: "bold" }}>You could have a hangover tomorrow morning</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                            <TouchableOpacity style={styles.okButton}
+                                onPress={() => { this.handleModal() }}>
+                                <Text style={styles.buttonText}>Ok</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
@@ -679,5 +721,13 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         }
-    }
+    },
+    okButton: {
+        borderWidth: 1,
+        borderColor: "#AE0000",
+        backgroundColor: "#AE0000",
+        padding: 15,
+        margin: 5,
+        borderRadius: 15
+    },
 })

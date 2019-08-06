@@ -85,10 +85,8 @@ class LoginScreen extends React.Component {
                     <Modal
                         animationType="slide"
                         transparent={false}
-                        visible={this.state.modalVisible}
-                        onRequestClose={() => {
-                            Alert.alert('Modal has been closed.');
-                        }}><ScrollView>
+                        visible={this.state.modalVisible}>
+                        <ScrollView>
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10 }}>
                                 <Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Welcome to Buzzin'!</Text>
                                 <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>Legal Disclaimer and User Agreement</Text>
