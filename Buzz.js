@@ -46,34 +46,26 @@ class BuzzScreen extends Component {
 
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null) {
-                if (result !== "[]") {
-                    this.setState({ buzzes: JSON.parse(result) })
-                } else {
-                    this.setState({ buzzes: null })
-                }
+            if (result !== null && result !== "[]") {
+                this.setState({ buzzes: JSON.parse(result) })
             } else {
                 this.setState({ buzzes: null })
             }
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null) {
-                if (result !== "[]") {
-                    this.setState({ oldbuzzes: JSON.parse(result) })
-                    setTimeout(() => {
-                        var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
-                        var currentDate = new Date();
-                        var date2 = currentDate.getTime();
-                        var dayHourMin = this.getDayHourMin(date1, date2);
-                        var days = dayHourMin[0];
-                        var hours = dayHourMin[1];
-                        var minutes = dayHourMin[2];
-                        var seconds = dayHourMin[3];
-                        this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
-                    }, 200);
-                } else {
-                    this.setState({ oldbuzzes: null })
-                }
+            if (result !== null && result !== "[]") {
+                this.setState({ oldbuzzes: JSON.parse(result) })
+                setTimeout(() => {
+                    var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
+                    var currentDate = new Date();
+                    var date2 = currentDate.getTime();
+                    var dayHourMin = this.getDayHourMin(date1, date2);
+                    var days = dayHourMin[0];
+                    var hours = dayHourMin[1];
+                    var minutes = dayHourMin[2];
+                    var seconds = dayHourMin[3];
+                    this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
+                }, 200);
             } else {
                 this.setState({ oldbuzzes: null })
             }
@@ -129,9 +121,8 @@ class BuzzScreen extends Component {
             } else {
                 this.scrolltop.scrollTo({ y: 0, animated: true });
             }
-        }, 200));
+        }, 300));
         Vibration.vibrate();
-
     }
 
     render() {
@@ -145,9 +136,7 @@ class BuzzScreen extends Component {
                             <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
                     </View>
                 )
-            }
-            )
-            )
+            }))
         let oldbuzzes;
         this.state.oldbuzzes !== null &&
             (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
@@ -163,9 +152,7 @@ class BuzzScreen extends Component {
                         </View>
                     )
                 })
-            }
-            )
-            )
+            }))
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
@@ -173,7 +160,8 @@ class BuzzScreen extends Component {
                     {this.state.buzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}><Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}>
+                                <Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
                         </View>}
                     {this.state.buzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>

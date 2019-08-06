@@ -99,15 +99,11 @@ class LoginScreen extends React.Component {
                                 This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                     <TouchableOpacity style={styles.disagreeButton}
-                                        onPress={() => {
-                                            this.handleCancel()
-                                        }}>
+                                        onPress={() => { this.handleCancel() }}>
                                         <Text style={styles.buttonText}>Disagree</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.button}
-                                        onPress={() => {
-                                            this.handleLogin()
-                                        }}>
+                                        onPress={() => { this.handleLogin() }}>
                                         <Text style={styles.buttonText}>Agree</Text>
                                     </TouchableOpacity>
                                 </View>
