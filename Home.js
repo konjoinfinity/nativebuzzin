@@ -436,6 +436,8 @@ class HomeScreen extends Component {
         }
     }
 
+    // the checkLastDrink function is used to determine if the last drink in the buzz array was added less than two minutes ago.
+    // Returns true if less than 2 mins, false if more than 2 mins.  This boolean is used to conditionally display the undo button.
     checkLastDrink() {
         var lastDrinkTime = this.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
         if (lastDrinkTime < 0.0333333) {
@@ -445,6 +447,9 @@ class HomeScreen extends Component {
         }
     }
 
+    // The handleOz function handles alcohol ounce size changes to the oz multi selector.  This handles based on this.state.alctype
+    // ("Beer", "Wine", or "Liquor"), based on the number passed in as the parameter from the front end selector, the associated
+    // ounce value is selected and written to this.state.oz
     handleOz(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
@@ -464,6 +469,9 @@ class HomeScreen extends Component {
         }
     }
 
+    // The handleAbv function handles alcohol by volume changes to the abv multi selector.  This handles based on this.state.alctype
+    // ("Beer", "Wine", or "Liquor"), based on the number passed in as the parameter from the front end selector, the associated
+    // abv value is selected and written to this.state.abv
     handleAbv(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
@@ -485,6 +493,9 @@ class HomeScreen extends Component {
         }
     }
 
+    // The handleDrinkType function handles alcohol default value changes to the alctype multi selector.  This handles based on 
+    // the value passed in as the parameter ("Beer", "Wine", or "Liquor")from the front end selector, the associated
+    // abv and ounce values are selected and written to this.state.abv & this.state.oz
     handleDrinkType(value) {
         Vibration.vibrate();
         this.setState({ alctype: value })
@@ -499,6 +510,8 @@ class HomeScreen extends Component {
         }
     }
 
+    // The stopBreak function handles when a user decides to cancel a break from drinking (set in the profile).  this.state.break is
+    // set to false, breakkey is set to false in device storage and breakdatekey is deleted.
     async stopBreak() {
         Vibration.vibrate();
         this.setState({ break: false })
@@ -506,6 +519,9 @@ class HomeScreen extends Component {
         await AsyncStorage.removeItem(breakdatekey)
     }
 
+    // The cancelBreakAlert method triggers when the user decides to cancel a break from drinking.  An alert popup is rendered asking
+    // the user if they are sure they want to cancel the break.  If they choose yes, the stopBreak method is triggered. No closes the
+    // alert popup window, the break continues.
     cancelBreakAlert() {
         Vibration.vibrate();
         Alert.alert(
