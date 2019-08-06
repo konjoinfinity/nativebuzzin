@@ -408,6 +408,8 @@ class HomeScreen extends Component {
         })
     }
 
+    // The clearDrinks method clears buzzes from device storage, sets this.state.buzzes to an empty array, and bac to 0.0
+    // This method is only called programatically from the copilot walkthrough intro, users cannot clear all drinks 
     async clearDrinks() {
         Vibration.vibrate();
         await AsyncStorage.removeItem(key, () => {
@@ -415,6 +417,9 @@ class HomeScreen extends Component {
         })
     }
 
+    // The undoLastDrink method calculates the time elapsed for the last drink added, if less than 2 minutes have passed
+    // the last drink is popped (removed) from the buzzes device storage array.  The new array is written to state and 
+    // device storage.  After the checkBac function is called to recheck the new bac value.    
     async undoLastDrink() {
         var lastDrinkTime = this.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
         if (lastDrinkTime < 0.0333333) {
