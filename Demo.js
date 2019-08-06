@@ -111,17 +111,12 @@ class DemoScreen extends Component {
     addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
-        this.setState(prevState => ({ testbuzzes: [...prevState.testbuzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }))
-        setTimeout(() => {
-            if (this.state.testbuzzes.length >= 1) {
-                this.checkBac();
-            }
-        }, 100);
+        this.setState(prevState => ({ testbuzzes: [...prevState.testbuzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
                 AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
             }
-        }, 300);
+        }, 200);
     }
 
     async checkBac() {
@@ -137,33 +132,24 @@ class DemoScreen extends Component {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
                 if (this.state.countdown === false) {
-                    this.setState({ countdown: true })
-                    setTimeout(() => {
-                        this.countdownBac();
-                    }, 1000);
+                    this.setState({ countdown: true }, () => this.countdownBac())
                 }
             } else {
-                this.setState({ testbuzzes: [], bac: 0.0, countdown: false })
-                setTimeout(() => {
-                    this.countdownBac();
-                }, 1000);
+                this.setState({ testbuzzes: [], bac: 0.0, countdown: false }, () => this.countdownBac())
             }
         } else if (this.state.testbuzzes.length === 0) {
-            this.setState({ bac: 0.0, countdown: false })
-            setTimeout(() => {
-                this.countdownBac();
-            }, 1000);
+            this.setState({ bac: 0.0, countdown: false }, () => this.countdownBac())
         }
     }
 
     countdownBac() {
         let testBacTimer;
         if (this.state.countdown === true) {
-            testBacTimer = setInterval(() => this.checkBac(), 1000);
+            testBacTimer = setInterval(() => this.checkBac(), 500);
             this.setState({ timer: testBacTimer })
         } else if (this.state.countdown === false) {
             clearInterval(this.state.timer)
-            setTimeout(() => this.setState({ timer: "" }), 300);
+            setTimeout(() => this.setState({ timer: "" }), 200);
         }
     }
 
@@ -243,11 +229,8 @@ class DemoScreen extends Component {
             var undobuzz = this.state.testbuzzes;
             if (undobuzz.length >= 1) {
                 undobuzz.pop();
-                this.setState({ testbuzzes: undobuzz })
+                this.setState({ testbuzzes: undobuzz }, () => this.checkBac())
             }
-            setTimeout(() => {
-                this.checkBac();
-            }, 200);
         }
     }
 

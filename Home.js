@@ -63,7 +63,6 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        console.log("fired")
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
