@@ -6,7 +6,8 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    Alert
+    Alert,
+    Modal
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
@@ -44,7 +45,8 @@ class HomeScreen extends Component {
             break: "",
             breakdate: "",
             breaktime: "",
-            focus: false
+            focus: false,
+            modalVisible: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -127,6 +129,15 @@ class HomeScreen extends Component {
     componentWillUnmount() {
         this.props.copilotEvents.off('stop');
         clearInterval(this.state.timer)
+    }
+
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
+    }
+
+    handleModal() {
+        Vibration.vibrate();
+        this.setModalVisible(!this.state.modalVisible);
     }
 
     handleStepChange = (step) => {
@@ -261,6 +272,15 @@ class HomeScreen extends Component {
             this.saveBuzz();
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
                 AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
+            }
+            if (this.state.bac > 0.06 && this.state.bac < 0.07) {
+                AlertHelper.show("warn", "Slow Down", "You might want to take a break or drink some water.");
+            }
+            if (this.state.bac > 0.07 && this.state.bac < 0.08) {
+                AlertHelper.show("error", "Drunk", "Please drink some water or take a break from drinking.");
+            }
+            if (this.state.bac > 0.08) {
+                this.setModalVisible(true)
             }
         }, 200);
     }
@@ -476,6 +496,31 @@ class HomeScreen extends Component {
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
+                <Modal animationType="slide"
+                    transparent={false}
+                    visible={this.state.modalVisible}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.
+                        Please consider one of the following:</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>Drinking a glass of water.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>Taking a break from drinking for at least an hour.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>Calling a friend, Uber, or Lyft to come pick you up.</Text>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>If you continue drinking:</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>Your decision making abilities could be impaired.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You should NOT drive an automobilie or operate heavy machinery.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You could have a hangover tomorrow morning.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You might do something you regret.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You could injure yourself or others.</Text>
+                        <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You could end up in legal trouble or jail.</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                            <TouchableOpacity style={styles.okButton}
+                                onPress={() => { this.handleModal() }}>
+                                <Text style={styles.buttonText}>Ok</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => this.componentDidMount()} />}
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
@@ -953,5 +998,13 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         }
+    },
+    okButton: {
+        borderWidth: 1,
+        borderColor: "#AE0000",
+        backgroundColor: "#AE0000",
+        padding: 15,
+        margin: 5,
+        borderRadius: 15
     }
 })
