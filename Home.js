@@ -97,25 +97,17 @@ class HomeScreen extends Component {
             this.setState({ weight: JSON.parse(result) })
         })
         await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null) {
-                if (result !== "[]") {
-                    this.setState({ buzzes: JSON.parse(result) })
-                } else {
-                    this.setState({ buzzes: [] })
-                }
+            if (result !== null && result !== "[]") {
+                this.setState({ buzzes: JSON.parse(result) })
             } else {
                 this.setState({ buzzes: [] })
             }
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null) {
-                if (result !== "[]") {
-                    this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
-                }
-                else {
-                    this.setState({ oldbuzzes: [] }, () => this.checkBac())
-                }
-            } else {
+            if (result !== null && result !== "[]") {
+                this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
+            }
+            else {
                 this.setState({ oldbuzzes: [] }, () => this.checkBac())
             }
         })
@@ -320,12 +312,10 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null) {
-                if (result !== "[]") {
-                    setTimeout(() => {
-                        this.setState({ oldbuzzes: JSON.parse(result) })
-                    }, 200);
-                }
+            if (result !== null && result !== "[]") {
+                setTimeout(() => {
+                    this.setState({ oldbuzzes: JSON.parse(result) })
+                }, 200);
             }
         })
     }
