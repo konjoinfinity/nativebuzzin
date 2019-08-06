@@ -540,7 +540,10 @@ class HomeScreen extends Component {
     // Picture gallery of common drinks to add, abv/oz selectors could be confusing
     // Consider removing the third value from the oz selector, keep it simple (single, double)
 
+    // The render function redners or calculates all data below this point
     render() {
+        // Conditional assignment of variables based on this.state.bac sets the gaugeColor (color used for the bac readout and gauge)
+        // and bacPercentage (used to calculate the position of the gauge needle)
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {
@@ -580,9 +583,13 @@ class HomeScreen extends Component {
             gaugeColor = "#000000"
             bacPercentage = 100
         }
+
+        // data, activeStyle, and beerActive are array values used by the multi selectors for either the values or style colors
         let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
         let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+
+        // The return function redners all data below this point to be displayed by the users device or simulator
         return (
             <View>
                 <Modal animationType="slide"
