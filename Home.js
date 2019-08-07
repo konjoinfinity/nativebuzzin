@@ -592,9 +592,13 @@ class HomeScreen extends Component {
         // The return function redners all data below this point to be displayed by the users device or simulator
         return (
             <View>
+                {/* The first Modal (yellow warning) is triggered when the users bac is greater than 0.08 but less than 0.10, the 
+                 second modal (red danger) is triggered when the users bac is above 0.10 */}
                 <Modal animationType="slide"
                     transparent={false}
+                    // Boolean whether or not the modal is visible based on this.state.modalVisible
                     visible={this.state.modalVisible}>
+                    {/* Styles can be either inline like the below */}
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.
@@ -611,22 +615,31 @@ class HomeScreen extends Component {
                         <Text style={{ fontSize: 18, textAlign: "center", padding: 3 }}>You could end up in legal trouble or jail.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.okButton}
+                                // When the user pressed the Ok button, the handleModal method is triggered hiding the modal
                                 onPress={() => { this.handleModal() }}>
+                                {/* Styles can also be defined as a constant and exported */}
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
+                {/* When this.state.focus is true, componentDidMount triggers so the screen has a fresh copy of data to render.
+                Before adding this conditional, this was triggering the function a second time making duplicated entries in the 
+                device storage.  It now triggers once on initial app startup and once each time when navigating to the HomeScreen */}
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => this.componentDidMount()} />}
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        {/* All CopilotStep and CopilotView tags are part of the initial walkthrough, the order based on the number.*/}
                         <CopilotStep text="These tick marks show the optimal buzz range." order={3} name="ticks">
                             <CopilotView>
+                                {/* Target tick marks above the gauage */}
                                 <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
                             </CopilotView>
                         </CopilotStep>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
+                                {/* The BAC gauge, we pass in bacPercentage which is usually a number between 0 (bac - 0.0) and 100 (bac - 0.10) all
+                                values higher than 0.10 max out the gauge.  The labels array are all the colors shown on the gauge. */}
                                 <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                     {
                                         name: '1',
