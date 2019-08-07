@@ -153,21 +153,11 @@ class HomeScreen extends Component {
         clearInterval(this.state.timer)
     }
 
-<<<<<<< HEAD
-    // This method/function makes the conditional modal visible
-    setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
-    }
-
-    // This method/function hides the conditional modal
-    handleModal() {
-=======
     setModal1Visible(visible) {
         this.setState({ modal1Visible: visible });
     }
 
     handleModal1() {
->>>>>>> master
         Vibration.vibrate();
         this.setModal1Visible(!this.state.modal1Visible);
     }
@@ -617,19 +607,10 @@ class HomeScreen extends Component {
                  second modal (red danger) is triggered when the users bac is above 0.10 */}
                 <Modal animationType="slide"
                     transparent={false}
-<<<<<<< HEAD
-                    // Boolean whether or not the modal is visible based on this.state.modalVisible
-                    visible={this.state.modalVisible}>
-                    {/* Styles can be either inline like the below */}
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.
-=======
                     visible={this.state.modal1Visible}>
                     <View style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
                         <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.
->>>>>>> master
                         Please consider one of the following:</Text>
                         <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Drinking a glass of water.</Text>
                         <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Taking a break from drinking for at least an hour.</Text>
@@ -638,12 +619,6 @@ class HomeScreen extends Component {
                         <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Your decision making abilities could be impaired.  You should NOT drive an automobilie or operate heavy machinery.  You could have a hangover tomorrow morning.  You might do something you regret.  You could injure yourself or others.  You could end up in legal trouble or jail.</Text>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-<<<<<<< HEAD
-                            <TouchableOpacity style={styles.okButton}
-                                // When the user pressed the Ok button, the handleModal method is triggered hiding the modal
-                                onPress={() => { this.handleModal() }}>
-                                {/* Styles can also be defined as a constant and exported */}
-=======
                             <TouchableOpacity style={styles.warnOkButton}
                                 onPress={() => { this.handleModal1() }}>
                                 <Text style={styles.buttonText}>Ok</Text>
@@ -667,7 +642,6 @@ class HomeScreen extends Component {
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton}
                                 onPress={() => { this.handleModal2() }}>
->>>>>>> master
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
