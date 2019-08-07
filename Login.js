@@ -34,7 +34,12 @@ class LoginScreen extends React.Component {
     }
 
     setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
+        if (this.state.name !== "") {
+            this.setState({ modalVisible: visible });
+        } else {
+            Vibration.vibrate();
+            Alert.alert("Please Enter Name")
+        }
     }
 
     handleNameChange(name) {
@@ -55,21 +60,11 @@ class LoginScreen extends React.Component {
         const namekey = "name"
         const genderkey = "gender"
         const weightkey = "weight"
-        if (this.state.name !== "") {
-            if (this.state.gender !== "") {
-                await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
-                await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
-                await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
-                this.setModalVisible(!this.state.modalVisible);
-                this.props.navigation.navigate("Home", { login: true });
-            } else {
-                Vibration.vibrate();
-                Alert.alert("Please Select Gender")
-            }
-        } else {
-            Vibration.vibrate();
-            Alert.alert("Please Enter Name")
-        }
+        await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
+        await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
+        await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
+        this.setModalVisible(!this.state.modalVisible);
+        this.props.navigation.navigate("Home", { login: true });
     }
 
     handleCancel() {
