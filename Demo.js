@@ -1,3 +1,4 @@
+// imports to be used within the DemoScreen
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -15,6 +16,7 @@ import RNSpeedometer from 'react-native-speedometer'
 import { NavigationEvents } from "react-navigation";
 import { AlertHelper } from './AlertHelper';
 
+// Main ProfileScreen component
 class DemoScreen extends Component {
     constructor(props) {
         super(props);
@@ -644,8 +646,10 @@ class DemoScreen extends Component {
     }
 }
 
+// Noraml export of DemoScreen for use throughout the App
 export default DemoScreen;
 
+// Styles are defined
 const styles = StyleSheet.create({
     button: {
         borderWidth: 1,

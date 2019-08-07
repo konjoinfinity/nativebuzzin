@@ -1,3 +1,4 @@
+// imports to be used within the ProfileScreen
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -12,6 +13,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
 
+// constant keys used for asyncstorage
 const oldkey = "oldbuzzes"
 const namekey = "name"
 const genderkey = "gender"
@@ -20,6 +22,7 @@ const key = "buzzes"
 const breakkey = "break"
 const breakdatekey = "breakdate"
 
+// Main ProfileScreen component
 class ProfileScreen extends Component {
     constructor(props) {
         super(props);
@@ -244,8 +247,10 @@ class ProfileScreen extends Component {
     }
 }
 
+// Noraml export of ProfileScreen for use throughout the App
 export default ProfileScreen;
 
+// Styles are defined
 const styles = StyleSheet.create({
     breakbutton: {
         borderWidth: 1,

@@ -1,3 +1,4 @@
+// imports to be used within the BuzzScreen
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -13,9 +14,11 @@ import moment from "moment";
 import _ from 'lodash'
 import { NavigationEvents } from "react-navigation";
 
+// constant keys used for asyncstorage
 const key = "buzzes"
 const oldkey = "oldbuzzes"
 
+// Main ProfileScreen component
 class BuzzScreen extends Component {
     constructor(props) {
         super(props);
@@ -212,9 +215,10 @@ class BuzzScreen extends Component {
         );
     }
 }
-
+// Noraml export of BuzzScreen for use throughout the App
 export default BuzzScreen;
 
+// Styles are defined
 const styles = StyleSheet.create({
     button: {
         borderWidth: 1,
