@@ -44,6 +44,8 @@ class ProfileScreen extends Component {
         this.stopBreak = this.stopBreak.bind(this);
     };
 
+    // The getDayHourMin passes in two timestamps (dates) and calculates the duration between the two
+    // returns the values in and array of [days, hours, minutes, seconds] 
     getDayHourMin(date1, date2) {
         var dateDiff = date2 - date1;
         dateDiff = dateDiff / 1000;
@@ -56,6 +58,8 @@ class ProfileScreen extends Component {
         return [days, hours, minutes, seconds];
     }
 
+    // When the screen loads componentDidMount requests the data from device storage (name, gender, weight, break, breakdate).
+    // All these values are written to this.state
     async componentDidMount() {
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
@@ -76,6 +80,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
                 this.setState({ breakdate: JSON.parse(result) })
+                // Checking the current break time using the timestamp and setting the breaktime state
                 setTimeout(() => {
                     var date1 = Date.parse(this.state.breakdate)
                     var currentDate = new Date();
@@ -94,24 +99,34 @@ class ProfileScreen extends Component {
         })
     }
 
+    // The takeAbreak function calculates the duration the user entered (hours, days, weeks, months) and assigns it to the 
+    // duration and hours variables respectively
     async takeAbreak() {
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
         var hours = this.state.hours * 60 * 60 * 1000
         var breakDate = new Date();
         if (duration !== 0) {
+            // The future date stamp is set based on the duration
             breakDate.setDate(breakDate.getDate() + duration);
         }
         if (hours !== 0) {
+            // The future timestamp is set based on the number of hours
             breakDate.setTime(breakDate.getTime() + hours);
         }
         Vibration.vibrate();
+        // Once the breakDate has been set, break is set to true, and breakdate is written to state
         this.setState({ break: true, breakdate: breakDate })
+        // The breakkey and breakdate are both saved to device storage
         await AsyncStorage.setItem(breakkey, JSON.stringify(true))
         await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
+        // componentDidMount is triggered to refresh the data
         this.componentDidMount();
+        // Lastly state durations are zeroed out to ensure values are not represented in the Numeric inputs
         this.setState({ hours: 0, days: 0, weeks: 0, months: 0 })
     }
 
+    // the stopBreak function cancels the break that the user is currently on, sets the state (break and breaktime) to their initial
+    // values and also resets the device storage to their initial values as well.
     async stopBreak() {
         Vibration.vibrate();
         this.setState({ break: false, breaktime: "" })
@@ -119,6 +134,8 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(breakdatekey)
     }
 
+    // The LogOut function deletes all user values (buzzes, oldbuzzes, name, gender, weight, break, and breakdate) stored in device 
+    // storage and navigates back to the login screen.
     async LogOut() {
         Vibration.vibrate();
         await AsyncStorage.removeItem(oldkey)
@@ -131,6 +148,8 @@ class ProfileScreen extends Component {
         this.props.navigation.navigate("Login")
     }
 
+    // When the cancel break button is pressed, an alert popup asks the user if they are sure they want to cancel the break
+    // Yes cancels, No closes the alert popup without any action
     cancelBreakAlert() {
         Vibration.vibrate();
         Alert.alert(
@@ -147,9 +166,11 @@ class ProfileScreen extends Component {
     render() {
         return (
             <View>
+                {/* When navigating to this screen after initial mount, componentDidMount is triggered to ensure a fresh copy of data */}
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        {/* Displays the user name, gender and weight */}
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}</Text>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
@@ -158,6 +179,7 @@ class ProfileScreen extends Component {
                         {this.state.break === false &&
                             <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                 <View>
+                                    {/* Numeric input for hours, changes the state of hours each time the number changes */}
                                     <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Hours</Text>
                                     <NumericInput
                                         minValue={0}
@@ -173,6 +195,7 @@ class ProfileScreen extends Component {
                                         leftButtonBackgroundColor='#00897b' />
                                 </View>
                                 <View>
+                                    {/* Numeric input for days, changes the state of days each time the number changes */}
                                     <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Days</Text>
                                     <NumericInput
                                         minValue={0}
@@ -192,6 +215,7 @@ class ProfileScreen extends Component {
                         {this.state.break === false &&
                             <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                 <View>
+                                    {/* Numeric input for weeks, changes the state of weeks each time the number changes */}
                                     <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Weeks</Text>
                                     <NumericInput
                                         minValue={0}
@@ -207,6 +231,7 @@ class ProfileScreen extends Component {
                                         leftButtonBackgroundColor='#00897b' />
                                 </View>
                                 <View>
+                                    {/* Numeric input for months, changes the state of months each time the number changes */}
                                     <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Months</Text>
                                     <NumericInput
                                         minValue={0}
@@ -222,21 +247,27 @@ class ProfileScreen extends Component {
                                         leftButtonBackgroundColor='#00897b' />
                                 </View>
                             </View>}
+                        {/* Take a break button triggers the takeAbreak function based on the inputted values, conditional for at least 
+                            one value to be present to execute */}
                         {this.state.break === false &&
                             <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak()}>
                                 <Text style={styles.buttonText}>Take a Break</Text>
                             </TouchableOpacity>}
+                        {/* When the user is on a break (this.state.break is set to true), the break card view is rendered instead. */}
                         {this.state.break === true &&
                             <View>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break for:</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{this.state.breaktime}</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
+                                {/* The Cancel Break button triggers cancelBreakAlert when pressed, which asks the user if they are sure they want 
+                                to cancel the break from drinking*/}
                                 <TouchableOpacity style={styles.breakbutton} onPress={() => this.cancelBreakAlert()}>
                                     <Text style={styles.buttonText}>Cancel Break</Text>
                                 </TouchableOpacity>
                             </View>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                        {/* The logout button triggers the logOut method and clears all user data.  Then the app navigates to the login screen */}
                         <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}>
                             <Text style={styles.buttonText}>Logout ➡️🚪</Text>
                         </TouchableOpacity>
