@@ -603,11 +603,12 @@ class HomeScreen extends Component {
         // The return function redners all data below this point to be displayed by the users device or simulator
         return (
             <View>
-                {/* The first Modal (yellow warning) is triggered when the users bac is greater than 0.08 but less than 0.10, the 
-                 second modal (red danger) is triggered when the users bac is above 0.10 */}
+                {/* The first Modal (yellow warning) is triggered when the users bac is greater than 0.08 but less than 0.10 */}
                 <Modal animationType="slide"
                     transparent={false}
+                    // Boolean whether or not modal1 is visible based on this.state.modal1Visible
                     visible={this.state.modal1Visible}>
+                    {/* Styles can be either inline like the below */}
                     <View style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
                         <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.
@@ -620,14 +621,18 @@ class HomeScreen extends Component {
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.warnOkButton}
+                                // When user presses the Ok button, modal1 is hidden
                                 onPress={() => { this.handleModal1() }}>
+                                {/* Styles can also be defined as a constant and exported */}
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
+                {/* The second modal (red danger) is triggered when the users bac is above 0.10 */}
                 <Modal animationType="slide"
                     transparent={false}
+                    // Boolean whether or not modal2 is visible based on this.state.modal2Visible
                     visible={this.state.modal2Visible}>
                     <View style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>Danger!</Text>
@@ -641,6 +646,7 @@ class HomeScreen extends Component {
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton}
+                                // When user presses the Ok button, modal2 is hidden
                                 onPress={() => { this.handleModal2() }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
