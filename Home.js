@@ -153,19 +153,23 @@ class HomeScreen extends Component {
         clearInterval(this.state.timer)
     }
 
+    // setModal1Visible makes modal1 visible or invisible, sets the state to boolean
     setModal1Visible(visible) {
         this.setState({ modal1Visible: visible });
     }
 
+    // handleModal1 hides modal1 when user presses the Ok button
     handleModal1() {
         Vibration.vibrate();
         this.setModal1Visible(!this.state.modal1Visible);
     }
 
+    // setModal2Visible makes modal1 visible or invisible, sets the state to boolean
     setModal2Visible(visible) {
         this.setState({ modal2Visible: visible });
     }
 
+    // handleModal2 hides modal1 when user presses the Ok button
     handleModal2() {
         Vibration.vibrate();
         this.setModal2Visible(!this.state.modal2Visible);
@@ -318,8 +322,9 @@ class HomeScreen extends Component {
     // The addDrink method creates a new drink object {drinkType (Beer, Wine, Liquor), dateCreated (Current Timestamp),
     // oz (number of ounces), and abv (alcoholic content)}  The drink object is added to the buzz array
     // The checkBac method is called as the callback to the setstate function, saveBuzz is then called to write the 
-    // new current buzz state to device storage. Dropdown conditionals are triggered if bac is 0.04-0.08, a full
-    // screen modal is triggered if the bac is above 0.08     
+    // new current buzz state to device storage. Dropdown conditionals are triggered if bac is 0.04-0.08. A full
+    // screen modal is triggered if the bac is above 0.08 (yellow warning) and when the bac is above 0.10 a (red danger) modal is
+    // triggered.     
     addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
