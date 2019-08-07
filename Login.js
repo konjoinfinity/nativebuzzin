@@ -89,13 +89,16 @@ class LoginScreen extends React.Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
+                {/* When the user finishes typing in their name, the keyboad is then hidden by pressing anywhere on the screen */}
                 <View onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }}
                     style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    {/* When the user clicks Login, the modal is shown */}
                     <Modal
                         animationType="slide"
                         transparent={false}
                         visible={this.state.modalVisible}>
                         <ScrollView>
+                            {/* Leagl Disclaimer and User Terms */}
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10 }}>
                                 <Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Welcome to Buzzin'!</Text>
                                 <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>Legal Disclaimer and User Agreement</Text>
@@ -106,10 +109,12 @@ class LoginScreen extends React.Component {
                                 This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                     <TouchableOpacity style={styles.disagreeButton}
+                                        // This function closes the modal but stays on the LoginScreen
                                         onPress={() => { this.handleCancel() }}>
                                         <Text style={styles.buttonText}>Disagree</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.button}
+                                        // This function closes the modal and navigates to the HomeScreen
                                         onPress={() => { this.handleLogin() }}>
                                         <Text style={styles.buttonText}>Agree</Text>
                                     </TouchableOpacity>
@@ -118,6 +123,8 @@ class LoginScreen extends React.Component {
                         </ScrollView></Modal>
                     <Text style={styles.header}>Login</Text>
                     <View style={styles.inputContainer}>
+                        {/* Input for user name, updates this.state.name for each charater entered, keyboard is automatically rendered
+                        (autofocus) */}
                         <TextInput
                             style={styles.textInput}
                             placeholder="Name"
@@ -131,12 +138,14 @@ class LoginScreen extends React.Component {
                             onSubmitEditing={() => Keyboard.dismiss()} />
                     </View>
                     <View style={{ paddingTop: 20 }}>
+                        {/* Switch gender button, switches to opposite gender when pressed.  Displays current gender below */}
                         <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
                         <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                         </View>
                     </View>
                     <View style={{ paddingTop: 20, alignItems: "center" }}>
+                        {/* Numeric weight input displayed in pounds, +/- increment of 5 pounds, updates state based when change is made */}
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                         <NumericInput
                             minValue={50}
@@ -152,6 +161,7 @@ class LoginScreen extends React.Component {
                             leftButtonBackgroundColor='#00897b' />
                     </View>
                     <View style={{ paddingTop: 20 }}>
+                        {/* Login button, triggers the modal when pressed */}
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => this.setModalVisible(true)}>
@@ -163,8 +173,10 @@ class LoginScreen extends React.Component {
         );
     }
 }
+// Normal export for Login Screen to be used elsewhere in the App
 export default LoginScreen;
 
+// Styles are defined
 const styles = StyleSheet.create({
     container: {
         flex: 1
