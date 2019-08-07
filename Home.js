@@ -550,11 +550,14 @@ class HomeScreen extends Component {
             { cancelable: false },
         );
     }
+    // *** These are notes - disregard ***
 
     // Add animations? Could be good to have intro animations for extra icing
     // Snap to abv variable slider, instead of snap, vibrate on set values (4,5,6,7,8%)
     // Picture gallery of common drinks to add, abv/oz selectors could be confusing
     // Consider removing the third value from the oz selector, keep it simple (single, double)
+
+    // *** These are notes - disregard ***
 
     // The render function redners or calculates all data below this point
     render() {

@@ -337,6 +337,8 @@ class DemoScreen extends Component {
     }
 
     render() {
+        // Conditional assignment of variables based on this.state.bac sets the gaugeColor (color used for the bac readout and gauge)
+        // and bacPercentage (used to calculate the position of the gauge needle)
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {
@@ -376,14 +378,17 @@ class DemoScreen extends Component {
             gaugeColor = "#000000"
             bacPercentage = 100
         }
+        // data, activeStyle, and beerActive are array values used by the multi selectors for either the values or style colors
         let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
         let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
         return (
             <View>
+                {/* The first Modal (yellow warning) is triggered when the users bac is greater than 0.08 but less than 0.10 */}
                 <Modal animationType="slide"
                     transparent={false}
+                    // Boolean whether or not modal1 is visible based on this.state.modal1Visible
                     visible={this.state.modal1Visible}>
                     <View style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
@@ -397,14 +402,17 @@ class DemoScreen extends Component {
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.warnOkButton}
+                                // When user presses the Ok button, modal1 is hidden
                                 onPress={() => { this.handleModal1() }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
+                {/* The second modal (red danger) is triggered when the users bac is above 0.10 */}
                 <Modal animationType="slide"
                     transparent={false}
+                    // Boolean whether or not modal2 is visible based on this.state.modal2Visible
                     visible={this.state.modal2Visible}>
                     <View style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>Danger!</Text>
@@ -418,17 +426,21 @@ class DemoScreen extends Component {
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton}
+                                // When user presses the Ok button, modal2 is hidden
                                 onPress={() => { this.handleModal2() }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
+                {/* When navigating back to this screen, the component gets a fresh copy of data to render */}
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
                         <View style={{ alignSelf: "center" }}>
+                            {/* The BAC gauge, we pass in bacPercentage which is usually a number between 0 (bac - 0.0) and 100 (bac - 0.10) all
+                                values higher than 0.10 max out the gauge.  The labels array are all the colors shown on the gauge. */}
                             <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                 {
                                     name: '1',
@@ -492,6 +504,8 @@ class DemoScreen extends Component {
                                 }
                             ]} />
                         </View>
+                        {/* This conditional and all the ones below render the BAC readout based on the current calculated BAC level.
+                        Emojis, different background colors, and text colors are also rendered based on the current bac. */}
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <TouchableOpacity style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "teal" }}>0.0  😶</Text></TouchableOpacity>)}
@@ -531,6 +545,8 @@ class DemoScreen extends Component {
                     </View>
                     <View style={styles.cardView}>
                         <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
+                            {/* Based on this.state.alctype, a different multiswitch is rendered with the selected default alctype selected */}
+                            {/* This MultiSwitch tag displays the current alcohol type and changes it based on the user selection */}
                             {this.state.alctype === "Beer" &&
                                 <MultiSwitch choiceSize={75}
                                     activeItemStyle={activeStyle}
@@ -542,6 +558,7 @@ class DemoScreen extends Component {
                                     <Text style={{ fontSize: 30 }}>🍷</Text>
                                     <Text style={{ fontSize: 30 }}>🥃</Text>
                                 </MultiSwitch>}
+                            {/* Based on this.state.alctype, a different multiswitch is rendered with the selected default alctype selected */}
                             {this.state.alctype === "Wine" &&
                                 <MultiSwitch choiceSize={75}
                                     activeItemStyle={activeStyle}
@@ -553,6 +570,7 @@ class DemoScreen extends Component {
                                     <Text style={{ fontSize: 30 }}>🍷</Text>
                                     <Text style={{ fontSize: 30 }}>🥃</Text>
                                 </MultiSwitch>}
+                            {/* Based on this.state.alctype, a different multiswitch is rendered with the selected default alctype selected */}
                             {this.state.alctype === "Liquor" &&
                                 <MultiSwitch choiceSize={75}
                                     activeItemStyle={activeStyle}
@@ -564,16 +582,20 @@ class DemoScreen extends Component {
                                     <Text style={{ fontSize: 30 }}>🍷</Text>
                                     <Text style={{ fontSize: 30 }}>🥃</Text>
                                 </MultiSwitch>}
+                            {/* Conditionally renders the undo button if the last drink added is less than 2 minutes old */}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true ?
                                 <TouchableOpacity
                                     style={styles.headerButton}
+                                    // When pressed, the last drink is removed from the testbuzz array
                                     onPress={() => this.undoLastDrink()}>
                                     <View>
                                         <Text style={{ fontSize: 30 }}>↩️</Text>
                                     </View>
                                 </TouchableOpacity> :
+                                // Conditionally renders the trash button if the last drink added is more than 2 minutes old
                                 <TouchableOpacity
                                     style={styles.headerButton}
+                                    // When pressed, all drinks are removed from the testbuzz array
                                     onPress={() => this.clearDrinks()}>
                                     <View>
                                         <Text style={{ fontSize: 30 }}>🗑</Text>
@@ -584,6 +606,7 @@ class DemoScreen extends Component {
                             <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
                                 <View style={{ paddingBottom: 15 }}>
                                     <View style={styles.multiSwitchViews}>
+                                        {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                         {this.state.alctype === "Beer" &&
                                             <MultiSwitch choiceSize={45}
                                                 activeItemStyle={beerActive}
@@ -599,6 +622,7 @@ class DemoScreen extends Component {
                                             </MultiSwitch>}
                                     </View>
                                     <View style={styles.multiSwitchViews}>
+                                        {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                         {this.state.alctype === "Wine" &&
                                             <MultiSwitch choiceSize={50}
                                                 activeItemStyle={activeStyle}
@@ -612,6 +636,7 @@ class DemoScreen extends Component {
                                             </MultiSwitch>}
                                     </View>
                                     <View style={styles.multiSwitchViews}>
+                                        {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                         {this.state.alctype === "Liquor" &&
                                             <MultiSwitch choiceSize={50}
                                                 activeItemStyle={activeStyle}
@@ -626,6 +651,7 @@ class DemoScreen extends Component {
                                     </View>
                                 </View>
                                 <View style={styles.multiSwitchViews}>
+                                    {/* Based on this.state.oz, a different multiswitch is rendered with the selected ounce size */}
                                     {this.state.alctype === "Beer" &&
                                         <MultiSwitch choiceSize={50}
                                             activeItemStyle={activeStyle}
@@ -639,6 +665,7 @@ class DemoScreen extends Component {
                                         </MultiSwitch>}
                                 </View>
                                 <View style={styles.multiSwitchViews}>
+                                    {/* Based on this.state.oz, a different multiswitch is rendered with the selected ounce size */}
                                     {this.state.alctype === "Wine" &&
                                         <MultiSwitch choiceSize={50}
                                             activeItemStyle={activeStyle}
@@ -652,6 +679,7 @@ class DemoScreen extends Component {
                                         </MultiSwitch>}
                                 </View>
                                 <View style={styles.multiSwitchViews}>
+                                    {/* Based on this.state.oz, a different multiswitch is rendered with the selected ounce size */}
                                     {this.state.alctype === "Liquor" &&
                                         <MultiSwitch choiceSize={50}
                                             activeItemStyle={activeStyle}
@@ -665,18 +693,25 @@ class DemoScreen extends Component {
                                         </MultiSwitch>}
                                 </View>
                             </View>
+                            {/* Add drink button with alcohol type icons shown for selected type, tiggers addDrink function and adds selected drink type,
+                                drink ounces, and drink abv to the buzz array */}
                             {this.state.alctype === "Beer" &&
                                 <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🍺</Text></TouchableOpacity>}
+                            {/* Add drink button with alcohol type icons shown for selected type, tiggers addDrink function and adds selected drink type,
+                                drink ounces, and drink abv to the buzz array */}
                             {this.state.alctype === "Wine" &&
                                 <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🍷</Text></TouchableOpacity>}
+                            {/* Add drink button with alcohol type icons shown for selected type, tiggers addDrink function and adds selected drink type,
+                                drink ounces, and drink abv to the buzz array */}
                             {this.state.alctype === "Liquor" &&
                                 <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                     <Text style={{ fontSize: 40, color: "white" }}>+🥃</Text></TouchableOpacity>}
                         </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        {/* Switch gender button, switches to opposite gender when pressed.  Displays current gender below, changes can be made to demo */}
                         <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
                         <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
@@ -684,6 +719,7 @@ class DemoScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 20 }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
+                        {/* Numeric weight input displayed in pounds, +/- increment of 5 pounds, updates state based when change is made. changes can be made to demo */}
                         <NumericInput
                             minValue={50}
                             maxValue={500}
