@@ -111,7 +111,7 @@ class ProfileScreen extends Component {
 
     async stopBreak() {
         Vibration.vibrate();
-        this.setState({ break: false })
+        this.setState({ break: false, breaktime: "" })
         await AsyncStorage.setItem(breakkey, JSON.stringify(false))
         await AsyncStorage.removeItem(breakdatekey)
     }
