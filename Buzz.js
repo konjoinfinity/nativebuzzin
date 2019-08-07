@@ -28,6 +28,8 @@ class BuzzScreen extends Component {
             timesince: null,
             showHideBuzzes: false
         }
+        // Bind statements are used to ensure data is changed in state by a function/method defined below
+        // Binding respective state changes above 
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
         this.deleteBuzz = this.deleteBuzz.bind(this);
         this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);

@@ -39,6 +39,8 @@ class ProfileScreen extends Component {
             weeks: 0,
             months: 0,
         }
+        // Bind statements are used to ensure data is changed in state by a function/method defined below
+        // Binding respective state changes above 
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
         this.stopBreak = this.stopBreak.bind(this);

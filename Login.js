@@ -26,6 +26,8 @@ class LoginScreen extends React.Component {
             weight: 150,
             modalVisible: false
         };
+        // Bind statements are used to ensure data is changed in state by a function/method defined below
+        // Binding respective state changes above 
         this.handleLogin = this.handleLogin.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.switchGender = this.switchGender.bind(this);

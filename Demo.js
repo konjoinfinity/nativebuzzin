@@ -33,6 +33,8 @@ class DemoScreen extends Component {
             modal1Visible: false,
             modal2Visible: false
         }
+        // Bind statements are used to ensure data is changed in state by a function/method defined below
+        // Binding respective state changes above 
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
         this.checkBac = this.checkBac.bind(this);
@@ -46,30 +48,37 @@ class DemoScreen extends Component {
         this.countdownBac = this.countdownBac.bind(this);
     };
 
+    // When the DemoScreen is first rendered, the checkBac function is triggered getting the most up to date BAC reading
     async componentDidMount() {
         setTimeout(() => {
             this.checkBac();
         }, 200);
     }
 
+    // setModal1Visible makes modal1 visible or invisible, sets the state to boolean
     setModal1Visible(visible) {
         this.setState({ modal1Visible: visible });
     }
 
+    // handleModal1 hides modal1 when user presses the Ok button
     handleModal1() {
         Vibration.vibrate();
         this.setModal1Visible(!this.state.modal1Visible);
     }
 
+    // setModal2Visible makes modal1 visible or invisible, sets the state to boolean
     setModal2Visible(visible) {
         this.setState({ modal2Visible: visible });
     }
 
+    // handleModal2 hides modal1 when user presses the Ok button
     handleModal2() {
         Vibration.vibrate();
         this.setModal2Visible(!this.state.modal2Visible);
     }
 
+    // The getDayHourMin passes in two timestamps (dates) and calculates the duration between the two
+    // returns the values in and array of [days, hours, minutes, seconds]
     getDayHourMin(date1, date2) {
         var dateDiff = date2 - date1;
         dateDiff = dateDiff / 1000;
@@ -82,6 +91,9 @@ class DemoScreen extends Component {
         return [days, hours, minutes, seconds];
     }
 
+    // The singleDuration method takes a timestamp argument of the first drink in the current buzz array
+    // It calculates the duration between that timestamp and the a current timestamp (when the function is run)
+    // The duration is calculated and the value is returned in hours, (this utlilizes the getDayHourMin method)
     singleDuration(initialbuzz) {
         var date1 = Date.parse(initialbuzz)
         var duration;
@@ -103,6 +115,11 @@ class DemoScreen extends Component {
         return duration;
     }
 
+    // varGetBAC (VariableGetBAC) This method is the most important part of the app paried with the two methods (getDayHourMin & singleDuration)
+    // It takes weight (user weight), gender (user gender), hours (duration elapsed since the first drink was added),
+    // and buzz (this.state.buzz - buzz array) as parameters.  Distribution is different depending on the user gender.
+    // The method then loops through the current buzz array and calculates the total bac based on each variable drink
+    // type, abv, and ounce size.  Returns the total bac 
     varGetBAC(weight, gender, hours, buzz) {
         var distribution;
         var drinkTotal;
@@ -124,13 +141,22 @@ class DemoScreen extends Component {
             if (buzz[i].drinkType === "Liquor") {
                 drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
             }
+            // Once each iteration of the loop is finished the single drink is pushed into the array
             totalArray.push(drinkTotal)
         }
+        // After the loop is completed, all values are added together
         totalAlc = totalArray.reduce((a, b) => a + b, 0)
+        // The total BAC is calculated based on the total of all values, weight, distribution, and hours (duration elapsed)
         var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
         return bac;
     }
 
+    // The addDrink method creates a new drink object {drinkType (Beer, Wine, Liquor), dateCreated (Current Timestamp),
+    // oz (number of ounces), and abv (alcoholic content)}  The drink object is added to the buzz array
+    // The checkBac method is called as the callback to the setstate function, saveBuzz is then called to write the 
+    // new current buzz state to device storage. Dropdown conditionals are triggered if bac is 0.04-0.08. A full
+    // screen modal is triggered if the bac is above 0.08 (yellow warning) and when the bac is above 0.10 a (red danger) modal is
+    // triggered. 
     addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
@@ -154,29 +180,44 @@ class DemoScreen extends Component {
         }, 200);
     }
 
+    // checkBac is the main function which continually checks the users bac if the countdown is running
+    // first checks to see if the length of testbuzzes is greater than or equal to one, then runs the single duration
+    // method/function passing in the first drink's dateCreated in the testbuzz array, the value is assigned to variable duration
     async checkBac() {
         if (this.state.testbuzzes.length >= 1) {
             var duration = this.singleDuration(this.state.testbuzzes[0].dateCreated);
+            // Next, the varBAC function is called passing in the users weight, gender, duration variable, and the current testbuzzes state
+            // The return is assigned to the variable totalBac.
             var totalBac = this.varGetBAC(
                 this.state.weight,
                 this.state.gender,
                 duration,
                 this.state.testbuzzes
             )
+            // A conditional is then assessed, if totalBac is greater than 0, the value of
+            // bac is rounded to 6 decmimal places.  Then this.state.bac is set to totalBac.
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
+                // A second conditional is then assessed, and if
+                // the countdown is not running, this.state.countdown is then set to true and countdownBac method is then triggered.
                 if (this.state.countdown === false) {
                     this.setState({ countdown: true }, () => this.countdownBac())
                 }
+                // If totalBac is less than 0, countdown is set to false, bac is set to 0.0, and testbuzzes is set to an empty array.
+                // Then countdownBac method is then triggered.
             } else {
                 this.setState({ testbuzzes: [], bac: 0.0, countdown: false }, () => this.countdownBac())
             }
+            // If this.state.testbuzzes.length is equal to 0, countdown is set to false and bac is set to 0.0.
+            // Then countdownBac method is then triggered.
         } else if (this.state.testbuzzes.length === 0) {
             this.setState({ bac: 0.0, countdown: false }, () => this.countdownBac())
         }
     }
 
+    // The countdownBac method starts the setInterval (countdown), to continually check the users BAC every half second (500 ms)
+    // if this.state.timer is set to false, the countdown is cleared  
     countdownBac() {
         let testBacTimer;
         if (this.state.countdown === true) {
@@ -188,11 +229,16 @@ class DemoScreen extends Component {
         }
     }
 
+    // The clearDrinks method clears testbuzzes from device storage, sets this.state.testbuzzes to an empty array, and bac to 0.0
+    // This method is called by clicking on the trashcan button on the drink action card.
     async clearDrinks() {
         Vibration.vibrate();
         this.setState({ testbuzzes: [], bac: 0.0 })
     }
 
+    // The handleOz function handles alcohol ounce size changes to the oz multi selector.  This handles based on this.state.alctype
+    // ("Beer", "Wine", or "Liquor"), based on the number passed in as the parameter from the front end selector, the associated
+    // ounce value is selected and written to this.state.oz
     handleOz(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
@@ -212,6 +258,9 @@ class DemoScreen extends Component {
         }
     }
 
+    // The handleAbv function handles alcohol by volume changes to the abv multi selector.  This handles based on this.state.alctype
+    // ("Beer", "Wine", or "Liquor"), based on the number passed in as the parameter from the front end selector, the associated
+    // abv value is selected and written to this.state.abv
     handleAbv(number) {
         Vibration.vibrate();
         if (this.state.alctype === "Beer") {
@@ -233,6 +282,9 @@ class DemoScreen extends Component {
         }
     }
 
+    // The handleDrinkType function handles alcohol default value changes to the alctype multi selector.  This handles based on 
+    // the value passed in as the parameter ("Beer", "Wine", or "Liquor")from the front end selector, the associated
+    // abv and ounce values are selected and written to this.state.abv & this.state.oz
     handleDrinkType(value) {
         Vibration.vibrate();
         this.setState({ alctype: value })
@@ -247,6 +299,7 @@ class DemoScreen extends Component {
         }
     }
 
+    // This function switches the gender when the switch gender button it pressed, the opposite gender is written to state
     switchGender() {
         Vibration.vibrate();
         if (this.state.gender === "Male") {
@@ -257,6 +310,9 @@ class DemoScreen extends Component {
         }
     }
 
+    // The undoLastDrink method calculates the time elapsed for the last drink added, if less than 2 minutes have passed
+    // the last drink is popped (removed) from the testbuzzes state array.  The new array is written to state 
+    // After the checkBac function is called to recheck the new bac value. 
     async undoLastDrink() {
         var lastDrinkTime = this.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
         if (lastDrinkTime < 0.0333333) {
@@ -269,6 +325,8 @@ class DemoScreen extends Component {
         }
     }
 
+    // the checkLastDrink function is used to determine if the last drink in the testbuzz array was added less than two minutes ago.
+    // Returns true if less than 2 mins, false if more than 2 mins.  This boolean is used to conditionally display the undo button.
     checkLastDrink() {
         var lastDrinkTime = this.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
         if (lastDrinkTime < 0.0333333) {
