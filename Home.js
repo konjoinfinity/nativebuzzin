@@ -891,7 +891,7 @@ class HomeScreen extends Component {
                                 {this.state.alctype === "Beer" &&
                                     <CopilotStep text="Press to add drink with selected options." order={7} name="add">
                                         <CopilotView>
-                                            <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton} ref={(touchable) => this._touchable = touchable}>
+                                            <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                                 <Text style={{ fontSize: 40, color: "white" }}>+🍺</Text></TouchableOpacity>
                                         </CopilotView>
                                     </CopilotStep>}
