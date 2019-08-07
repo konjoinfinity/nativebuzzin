@@ -150,6 +150,21 @@ class ProfileScreen extends Component {
                         {this.state.break === false &&
                             <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                 <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Hours</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={24}
+                                        value={this.state.hours}
+                                        onChange={(hours) => this.setState({ hours })}
+                                        totalWidth={150}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
+                                <View>
                                     <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Days</Text>
                                     <NumericInput
                                         minValue={0}
@@ -164,6 +179,10 @@ class ProfileScreen extends Component {
                                         rightButtonBackgroundColor='#00897b'
                                         leftButtonBackgroundColor='#00897b' />
                                 </View>
+
+                            </View>}
+                        {this.state.break === false &&
+                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                 <View>
                                     <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Weeks</Text>
                                     <NumericInput
@@ -179,9 +198,6 @@ class ProfileScreen extends Component {
                                         rightButtonBackgroundColor='#00897b'
                                         leftButtonBackgroundColor='#00897b' />
                                 </View>
-                            </View>}
-                        {this.state.break === false &&
-                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                 <View>
                                     <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Months</Text>
                                     <NumericInput
