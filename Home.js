@@ -704,6 +704,8 @@ class HomeScreen extends Component {
                                 ]} />
                             </CopilotView>
                         </CopilotStep>
+                        {/* This conditional and all the ones below render the BAC readout based on the current calculated BAC level.
+                        Emojis, different background colors, and text colors are also rendered based on the current bac. */}
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <CopilotStep text="This readout automatically calculates your current BAC." order={2} name="bac">
                                 <CopilotView>
@@ -745,12 +747,16 @@ class HomeScreen extends Component {
                             <TouchableOpacity style={[styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: 30, textAlign: "center", color: "white" }}>{this.state.bac}  🤮</Text></TouchableOpacity>)}
                     </View>
+                    {/* This conditional checks to see if there is an active break, if so this entire drink action view is hidden and the break
+                    card view is show instead. */}
                     {(this.state.break === "" || this.state.break === false) &&
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
+                                {/* Based on this.state.alctype, a different multiswitch is rendered with the selected default alctype selected */}
                                 {this.state.alctype === "Beer" &&
                                     <CopilotStep text="Press each icon to change drink type." order={4} name="drink">
                                         <CopilotView>
+                                            {/* This MultiSwitch tag displays the current alcohol type and changes it based on the user selection */}
                                             <MultiSwitch choiceSize={75}
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
@@ -763,6 +769,7 @@ class HomeScreen extends Component {
                                             </MultiSwitch>
                                         </CopilotView>
                                     </CopilotStep>}
+                                {/* Based on this.state.alctype, a different multiswitch is rendered with the selected default alctype selected */}
                                 {this.state.alctype === "Wine" &&
                                     <MultiSwitch choiceSize={75}
                                         activeItemStyle={activeStyle}
@@ -774,6 +781,7 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: 30 }}>🍷</Text>
                                         <Text style={{ fontSize: 30 }}>🥃</Text>
                                     </MultiSwitch>}
+                                {/* Based on this.state.alctype, a different multiswitch is rendered with the selected default alctype selected */}
                                 {this.state.alctype === "Liquor" &&
                                     <MultiSwitch choiceSize={75}
                                         activeItemStyle={activeStyle}
@@ -787,9 +795,11 @@ class HomeScreen extends Component {
                                     </MultiSwitch>}
                                 <CopilotStep text="Press to undo last drink." order={8} name="clear">
                                     <CopilotView>
+                                        {/* Conditionally renders the undo button if the last drink added is less than 2 minutes old */}
                                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                                             <TouchableOpacity
                                                 style={styles.headerButton}
+                                                // When pressed, the last drink is removed from the buzz array
                                                 onPress={() => this.undoLastDrink()}>
                                                 <View>
                                                     <Text style={{ fontSize: 30 }}>↩️</Text>
@@ -802,9 +812,12 @@ class HomeScreen extends Component {
                                 <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
                                     <View style={{ paddingBottom: 15 }}>
                                         <View style={styles.multiSwitchViews}>
+                                            {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                             {this.state.alctype === "Beer" &&
                                                 <CopilotStep text="Press each percent to change drink ABV." order={5} name="abv">
                                                     <CopilotView>
+                                                        {/* To programatically show the changing of the abv in the copilot intro walkthrough, all multiswitch 
+                                                        versions for beer have to be shown with the selected beer abv */}
                                                         {this.state.abv === 0.05 &&
                                                             <MultiSwitch choiceSize={45}
                                                                 activeItemStyle={beerActive}
@@ -818,6 +831,7 @@ class HomeScreen extends Component {
                                                                 <Text style={{ fontSize: 18 }}>7%</Text>
                                                                 <Text style={{ fontSize: 18 }}>8%</Text>
                                                             </MultiSwitch>}
+                                                        {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                                         {this.state.abv === 0.06 &&
                                                             <MultiSwitch choiceSize={45}
                                                                 activeItemStyle={beerActive}
@@ -831,6 +845,7 @@ class HomeScreen extends Component {
                                                                 <Text style={{ fontSize: 18 }}>7%</Text>
                                                                 <Text style={{ fontSize: 18 }}>8%</Text>
                                                             </MultiSwitch>}
+                                                        {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                                         {this.state.abv === 0.07 &&
                                                             <MultiSwitch choiceSize={45}
                                                                 activeItemStyle={beerActive}
@@ -844,6 +859,7 @@ class HomeScreen extends Component {
                                                                 <Text style={{ fontSize: 18 }}>7%</Text>
                                                                 <Text style={{ fontSize: 18 }}>8%</Text>
                                                             </MultiSwitch>}
+                                                        {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                                         {this.state.abv === 0.08 &&
                                                             <MultiSwitch choiceSize={45}
                                                                 activeItemStyle={beerActive}
@@ -857,6 +873,7 @@ class HomeScreen extends Component {
                                                                 <Text style={{ fontSize: 18 }}>7%</Text>
                                                                 <Text style={{ fontSize: 18 }}>8%</Text>
                                                             </MultiSwitch>}
+                                                        {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                                         {this.state.abv === 0.04 &&
                                                             <MultiSwitch choiceSize={45}
                                                                 activeItemStyle={beerActive}
@@ -874,6 +891,7 @@ class HomeScreen extends Component {
                                                 </CopilotStep>}
                                         </View>
                                         <View style={styles.multiSwitchViews}>
+                                            {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                             {this.state.alctype === "Wine" &&
                                                 <MultiSwitch choiceSize={50}
                                                     activeItemStyle={activeStyle}
@@ -887,6 +905,7 @@ class HomeScreen extends Component {
                                                 </MultiSwitch>}
                                         </View>
                                         <View style={styles.multiSwitchViews}>
+                                            {/* Based on this.state.abv, a different multiswitch is rendered with the selected abv */}
                                             {this.state.alctype === "Liquor" &&
                                                 <MultiSwitch choiceSize={50}
                                                     activeItemStyle={activeStyle}
@@ -901,9 +920,12 @@ class HomeScreen extends Component {
                                         </View>
                                     </View>
                                     <View style={styles.multiSwitchViews}>
+                                        {/* To programatically show the changing of the ounce size in the copilot intro walkthrough, all multiswitch 
+                                        versions for beer have to be shown with the selected beer oz */}
                                         {this.state.alctype === "Beer" &&
                                             <CopilotStep text="Press each number to change drink size." order={6} name="oz">
                                                 <CopilotView>
+                                                    {/* Based on this.state.oz, a different multiswitch is rendered with the selected ounce size */}
                                                     {this.state.oz === 12 &&
                                                         <MultiSwitch choiceSize={50}
                                                             activeItemStyle={activeStyle}
@@ -915,6 +937,7 @@ class HomeScreen extends Component {
                                                             <Text style={{ fontSize: 20 }}>16oz</Text>
                                                             <Text style={{ fontSize: 20 }}>20oz</Text>
                                                         </MultiSwitch>}
+                                                    {/* Based on this.state.oz, a different multiswitch is rendered with the selected ounce size */}
                                                     {this.state.oz === 16 &&
                                                         <MultiSwitch choiceSize={50}
                                                             activeItemStyle={activeStyle}
@@ -926,6 +949,7 @@ class HomeScreen extends Component {
                                                             <Text style={{ fontSize: 20 }}>16oz</Text>
                                                             <Text style={{ fontSize: 20 }}>20oz</Text>
                                                         </MultiSwitch>}
+                                                    {/* Based on this.state.oz, a different multiswitch is rendered with the selected ounce size */}
                                                     {this.state.oz === 20 &&
                                                         <MultiSwitch choiceSize={50}
                                                             activeItemStyle={activeStyle}
@@ -941,6 +965,7 @@ class HomeScreen extends Component {
                                             </CopilotStep>}
                                     </View>
                                     <View style={styles.multiSwitchViews}>
+                                        {/* Based on this.state.oz, a different multiswitch is rendered with the selected ounce size */}
                                         {this.state.alctype === "Wine" &&
                                             <MultiSwitch choiceSize={50}
                                                 activeItemStyle={activeStyle}
@@ -954,6 +979,7 @@ class HomeScreen extends Component {
                                             </MultiSwitch>}
                                     </View>
                                     <View style={styles.multiSwitchViews}>
+                                        {/* Based on this.state.oz, a different multiswitch is rendered with the selected ounce size */}
                                         {this.state.alctype === "Liquor" &&
                                             <MultiSwitch choiceSize={50}
                                                 activeItemStyle={activeStyle}
@@ -970,7 +996,7 @@ class HomeScreen extends Component {
                                 {this.state.alctype === "Beer" &&
                                     <CopilotStep text="Press to add drink with selected options." order={7} name="add">
                                         <CopilotView>
-                                            <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton} ref={(touchable) => this._touchable = touchable}>
+                                            <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                                 <Text style={{ fontSize: 40, color: "white" }}>+🍺</Text></TouchableOpacity>
                                         </CopilotView>
                                     </CopilotStep>}
