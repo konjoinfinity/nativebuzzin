@@ -993,6 +993,8 @@ class HomeScreen extends Component {
                                             </MultiSwitch>}
                                     </View>
                                 </View>
+                                {/* Add drink button with alcohol type icons shown for selected type, tiggers addDrink function and adds selected drink type,
+                                drink ounces, and drink abv to the buzz array */}
                                 {this.state.alctype === "Beer" &&
                                     <CopilotStep text="Press to add drink with selected options." order={7} name="add">
                                         <CopilotView>
@@ -1000,14 +1002,21 @@ class HomeScreen extends Component {
                                                 <Text style={{ fontSize: 40, color: "white" }}>+🍺</Text></TouchableOpacity>
                                         </CopilotView>
                                     </CopilotStep>}
+                                {/* Add drink button with alcohol type icons shown for selected type , tiggers addDrink function and adds selected drink type,
+                                drink ounces, and drink abv to the buzz array */}
                                 {this.state.alctype === "Wine" &&
                                     <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                         <Text style={{ fontSize: 40, color: "white" }}>+🍷</Text></TouchableOpacity>}
+                                {/* Add drink button with alcohol type icons shown for selected type , tiggers addDrink function and adds selected drink type,
+                                drink ounces, and drink abv to the buzz array */}
                                 {this.state.alctype === "Liquor" &&
                                     <TouchableOpacity onPress={() => this.addDrink()} style={styles.addButton}>
                                         <Text style={{ fontSize: 40, color: "white" }}>+🥃</Text></TouchableOpacity>}
                             </View>
                         </View>}
+                    {/* If the user is on a break, this card view is shown instead of the drink action card.  It displays the current calculated 
+                        remaining break time and a cancel break button.  If the cancel break button is pressed, the break is cleared (from state and 
+                        device storage) and the drink action card will be rendered.*/}
                     {this.state.break === true &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break for:</Text>
@@ -1022,9 +1031,10 @@ class HomeScreen extends Component {
         );
     }
 }
-
+// The HomeScreen has to be exported as below to utilize the copliot intro walkthrough, copilot acts as a wrapper around HomeScreen
 export default copilot()(HomeScreen);
 
+// All the defined styles for the HomeScreen
 const styles = StyleSheet.create({
     button: {
         borderWidth: 1,
