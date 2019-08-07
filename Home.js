@@ -520,7 +520,7 @@ class HomeScreen extends Component {
                         <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Taking a break from drinking for at least an hour.</Text>
                         <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Calling a friend, Uber, or Lyft to come pick you up.</Text>
                         <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>If you continue drinking:</Text>
-                        <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Your decision making abilities could be impaired.  You should NOT drive an automobilie or operate heavy machinery.  You could have a hangover tomorrow morning.  You might do something you regret.  You could injure yourself or others.  You could end up in legal trouble or jail.</Text>
+                        <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Your decision making abilities could be impaired.  You should NOT drive an automobile or operate heavy machinery.  You could have a hangover tomorrow morning.  You might do something you regret.  You could injure yourself or others.  You could end up in legal trouble or jail.</Text>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.warnOkButton}
@@ -541,7 +541,7 @@ class HomeScreen extends Component {
                         <Text style={{ fontSize: 16, textAlign: "center", padding: 8, color: "white" }}>Take a break from drinking for at least two hours.</Text>
                         <Text style={{ fontSize: 16, textAlign: "center", padding: 8, color: "white" }}>Call a friend, Uber, or Lyft to pick you up.</Text>
                         <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>If you continue drinking:</Text>
-                        <Text style={{ fontSize: 16, textAlign: "center", padding: 8, color: "white" }}>Your decision making abilities will be impaired.  Do NOT drive an automobilie or operate heavy machinery.  You will have a hangover tomorrow morning.  You will likely do something you regret.  You will likely injure yourself or others.  You will likely end up in legal trouble or jail.</Text>
+                        <Text style={{ fontSize: 16, textAlign: "center", padding: 8, color: "white" }}>Your decision making abilities will be impaired.  Do NOT drive an automobile or operate heavy machinery.  You will have a hangover tomorrow morning.  You will likely do something you regret.  You will likely injure yourself or others.  You will likely end up in legal trouble or jail.</Text>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton}
