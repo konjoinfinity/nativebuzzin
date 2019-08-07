@@ -37,6 +37,8 @@ class BuzzScreen extends Component {
         this.showHideBuzzes = this.showHideBuzzes.bind(this);
     };
 
+    // The getDayHourMin passes in two timestamps (dates) and calculates the duration between the two
+    // returns the values in and array of [days, hours, minutes, seconds] 
     getDayHourMin(date1, date2) {
         var dateDiff = date2 - date1;
         dateDiff = dateDiff / 1000;
@@ -49,6 +51,7 @@ class BuzzScreen extends Component {
         return [days, hours, minutes, seconds];
     }
 
+    // Requests data from device storage for buzzes and oldbuzzes, writes them to state.
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null && result !== "[]") {
@@ -60,6 +63,8 @@ class BuzzScreen extends Component {
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) })
+                // Checking the current break time using the timestamp and setting the breaktime state, because oldbuzzes are arrays 
+                // within an array, the syntax is oldbuzzes[0][0].dateCreated
                 setTimeout(() => {
                     var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
                     var currentDate = new Date();
@@ -77,6 +82,7 @@ class BuzzScreen extends Component {
         })
     }
 
+    // Deletes all buzzes from state and device storage
     async deleteBuzzes() {
         Vibration.vibrate();
         await AsyncStorage.removeItem(key, () => {
@@ -84,9 +90,12 @@ class BuzzScreen extends Component {
         })
     }
 
+    // Deletes single (selected buzz) from state and device storage
     async deleteBuzz(id) {
         Vibration.vibrate();
+        // Using the filter method we put all buzzes that do not equal the buzz selected into an array
         var filtered = this.state.buzzes.filter(buzz => buzz !== this.state.buzzes[id]);
+        // We then write the filtered array to state and to device storage
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => {
             if (filtered.length === 0) {
                 this.setState({ buzzes: null })
@@ -96,6 +105,7 @@ class BuzzScreen extends Component {
         })
     }
 
+    // Deletes all oldbuzzes from state and device storage
     async deleteOldBuzzes() {
         Vibration.vibrate();
         await AsyncStorage.removeItem(oldkey, () => {
@@ -103,11 +113,15 @@ class BuzzScreen extends Component {
         })
     }
 
+    // Deletes single (selected oldbuzz) from state and device storage, we pass in the oldbuzz array (id) and sub array (obid) 
     async deleteOldBuzz(id, obid) {
         var newArray = this.state.oldbuzzes;
         Vibration.vibrate();
+        // Using the filter method we put all oldbuzzes that do not equal the oldbuzz selected into an array
+        // We use the this.state.oldbuzzes[obid][id] syntax to correctly filter a single oldbuzz from the arrays within the array
         var filtered = this.state.oldbuzzes[obid].filter(buzz => buzz !== this.state.oldbuzzes[obid][id])
         newArray[obid] = filtered;
+        // We then write the filtered array to state and to device storage
         await AsyncStorage.setItem(oldkey, JSON.stringify(newArray), () => {
             if (newArray.length === 0) {
                 this.setState({ oldbuzzes: null })
@@ -117,13 +131,16 @@ class BuzzScreen extends Component {
         })
     }
 
+    // When triggered the oldbuzzes are shown or hidden, the opposite boolean state is written to state when triggered.
     showHideBuzzes() {
         this.setState(prevState => ({
             showHideBuzzes: !prevState.showHideBuzzes
         }), () => setTimeout(() => {
             if (this.state.showHideBuzzes === true) {
+                // Animation to scroll the view to the end is triggered after the state is changed to true
                 this.scrolltop.scrollToEnd({ animated: true });
             } else {
+                // Animation to scroll the view to the top is triggered after the state is changed to false
                 this.scrolltop.scrollTo({ y: 0, animated: true });
             }
         }, 300));
@@ -131,9 +148,12 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        // Defining buzzes variable and if this.state.buzzes is present, we map the array
         let buzzes;
         this.state.buzzes &&
+            // The map function translates all data in the buzz array into the return function
             (buzzes = this.state.buzzes.map((buzz, id) => {
+                // We display/render the buzz number of ounces, drink type icon, drink abv, and the dateCreated timestamp converted to localtime 
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <View style={{ flexDirection: "column" }}>
@@ -142,11 +162,15 @@ class BuzzScreen extends Component {
                     </View>
                 )
             }))
+        // Defining oldbuzzes variable and if this.state.olduzzes is present, we map the array
         let oldbuzzes;
         this.state.oldbuzzes !== null &&
+            // The map function translates all data in the oldbuzz array into the return function
             (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
                 return buzz.map((oldbuzz, id) => {
                     return (
+                        // We display/render the oldbuzz number of ounces, drink type icon, drink abv, and the dateCreated timestamp converted to localtime 
+                        // Because the oldbuzzes are stored in arrays inside of an array, we have to map twice to get the Session Date, id, and obid
                         <View key={id}>
                             {id === 0 && <Text style={{ fontSize: 20, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
@@ -160,18 +184,24 @@ class BuzzScreen extends Component {
             }))
         return (
             <View>
+                {/* When this screen is loaded after the first time, a fresh copy of data is requested and written to state */}
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
+                {/* The scroll view is given a reference to scroll to end or to the top from within another function (show/hide oldbuzzes) */}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
+                    {/* When this.state.buzzes is not null, the current buzz card is rendered with a Delete all buzzes button */}
                     {this.state.buzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
+                            {/* This button triggers the deleteBuzzes function deleting all buzzes in the current buzz array */}
                             <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}>
                                 <Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
                         </View>}
+                    {/* When this.state.buzzes is null, the time since card view is rendered */}
                     {this.state.buzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
+                            {/* When this.state.timesince is present, the time since the users last drink is rendered */}
                             {this.state.timesince !== null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>}
                             {this.state.timesince !== null &&
@@ -181,31 +211,40 @@ class BuzzScreen extends Component {
                             {this.state.timesince === null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
+                    {/* Mapped buzzes are displayed here */}
                     {this.state.buzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             {buzzes}</View>}
+                    {/* When this.state.oldbuzzes does not equal null, the oldbuzz title card is shown */}
                     {this.state.oldbuzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 🥃</Text>
+                            {/* When this.state.showHideBuzzes is equal to true, the delete all old buzzes button is rendered.  When 
+                            pressed, it deletes all oldbuzzes */}
                             {this.state.showHideBuzzes === true && (
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  🗑</Text></TouchableOpacity>))}
                         </View>}
+                    {/* When this.state.showHideBuzzes is equal to null, the no old buzzes card is rendered */}
                     {this.state.oldbuzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                         </View>}
+                    {/* Whne this.state.showHideBuzzes is equal to false and this.state.showHideBuzzes is not equal to null
+                        a button is rendered.  When pressed, it shows all the old buzzes */}
                     {this.state.showHideBuzzes === false && (
                         this.state.oldbuzzes !== null && (
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Button onPress={() => this.showHideBuzzes()}
                                     title="Show Old Buzzes" />
                             </View>))}
+                    {/* When the oldbuzzes are rendered, the hide old buzzes button is rendered.  When pressed, it hides the oldbuzzes */}
                     {this.state.showHideBuzzes === true && (
                         this.state.oldbuzzes !== null && (
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Button onPress={() => this.showHideBuzzes()}
                                     title="Hide Old Buzzes" />
                             </View>))}
+                    {/* Mapped oldbuzzes are displayed here when this.state.showHideBuzzes is equal to true */}
                     {this.state.showHideBuzzes === true && (
                         this.state.oldbuzzes !== null && (
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
