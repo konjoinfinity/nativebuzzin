@@ -31,9 +31,10 @@ class ProfileScreen extends Component {
             break: "",
             breakdate: "",
             breaktime: "",
+            hours: 0,
             days: 0,
             weeks: 0,
-            months: 0
+            months: 0,
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -92,21 +93,25 @@ class ProfileScreen extends Component {
 
     async takeAbreak() {
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
+        var hours = this.state.hours * 60 * 60 * 1000
+        var breakDate = new Date();
         if (duration !== 0) {
-            var breakDate = new Date();
             breakDate.setDate(breakDate.getDate() + duration);
-            Vibration.vibrate();
-            this.setState({ break: true, breakdate: breakDate })
-            await AsyncStorage.setItem(breakkey, JSON.stringify(true))
-            await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
-            this.componentDidMount();
-            this.setState({ days: 0, weeks: 0, months: 0 })
         }
+        if (hours !== 0) {
+            breakDate.setTime(breakDate.getTime() + hours);
+        }
+        Vibration.vibrate();
+        this.setState({ break: true, breakdate: breakDate })
+        await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+        await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
+        this.componentDidMount();
+        this.setState({ hours: 0, days: 0, weeks: 0, months: 0 })
     }
 
     async stopBreak() {
         Vibration.vibrate();
-        this.setState({ break: false })
+        this.setState({ break: false, breaktime: "" })
         await AsyncStorage.setItem(breakkey, JSON.stringify(false))
         await AsyncStorage.removeItem(breakdatekey)
     }
