@@ -1,3 +1,4 @@
+// imports for usage within Routes, for Routes we import all other screens in the app to define navigation, styles, etc.
 import React from 'react';
 import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
 import ProfileScreen from "./Profile"
@@ -8,8 +9,10 @@ import HomeScreen from "./Home"
 import { Vibration, View, Text } from "react-native"
 import DemoScreen from './Demo';
 
+// We define the AppStack, screens accessible after login here
 const AppStack = createStackNavigator({
     MyTab: {
+        // Places all screens defined in a TabNavigator bar at the bottom of the app screen
         screen: createBottomTabNavigator(
             {
                 Home: HomeScreen,
@@ -18,6 +21,7 @@ const AppStack = createStackNavigator({
                 Demo: DemoScreen
             },
             {
+                // We define all navigation options for the tabs, icons, styles, selection styling, vibration, etc.
                 defaultNavigationOptions: ({ navigation }) => ({
                     tabBarIcon: ({ horizontal, tintColor }) => {
                         const { routeName } = navigation.state;
@@ -42,6 +46,7 @@ const AppStack = createStackNavigator({
                 }
             }
         ),
+        // We define the static header bar with App title and style
         navigationOptions: {
             title: `Buzzin'`,
             headerStyle: {
@@ -55,6 +60,7 @@ const AppStack = createStackNavigator({
     }
 })
 
+// The Auth Stack is defined here, only one route - Login we use the same static header
 const AuthStack = createStackNavigator({
     Login: LoginScreen,
 },
@@ -71,6 +77,8 @@ const AuthStack = createStackNavigator({
         }
     });
 
+// We export the AppContainer wrapped around a switch navigator, this loads the AuthLoad screen first (to determine if a user is 
+// logged in or not which returns either "App" or "Auth".  Base on the return, the app navigated to either the AppStack or AuthStack)    
 export default createAppContainer(createSwitchNavigator(
     {
         AuthLoad: AuthLoadScreen,
