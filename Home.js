@@ -1,4 +1,4 @@
-// imports to be used within the homescreen
+// imports to be used within the HomeScreen
 import React, { Component } from 'react';
 import {
     StyleSheet,

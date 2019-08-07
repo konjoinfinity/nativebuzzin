@@ -1,3 +1,4 @@
+// imports to be used within the LoginScreen
 import React from "react";
 import {
     StyleSheet,
@@ -15,6 +16,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 
+// Main LoginScreen component
 class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -29,18 +31,29 @@ class LoginScreen extends React.Component {
         this.switchGender = this.switchGender.bind(this);
     }
 
+    // Screen Vibrates on when render is complete
     componentDidMount() {
         Vibration.vibrate();
     }
 
+    // Modal function to display/hide the Legal Disclaimer and Terms of Use
     setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
+        // Conditionals to ensure name is not blank
+        if (this.state.name !== "") {
+            this.setState({ modalVisible: visible });
+        } else {
+            // Popup is displayed if name field is blank and login button is pressed
+            Vibration.vibrate();
+            Alert.alert("Please Enter Name")
+        }
     }
 
+    // When this function is called it updates the state of name with the text the user types in
     handleNameChange(name) {
         this.setState({ name });
     }
 
+    // This function switches the gender when the switch gender button it pressed, the opposite gender is written to state
     switchGender() {
         Vibration.vibrate();
         if (this.state.gender === "Male") {
@@ -51,27 +64,23 @@ class LoginScreen extends React.Component {
         }
     }
 
+    // The handleLogin function is triggered when the user clicks the Agree button on the modal
     async handleLogin() {
+        // Device storage keys are defined here, (name, gender, and weight)
         const namekey = "name"
         const genderkey = "gender"
         const weightkey = "weight"
-        if (this.state.name !== "") {
-            if (this.state.gender !== "") {
-                await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
-                await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
-                await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
-                this.setModalVisible(!this.state.modalVisible);
-                this.props.navigation.navigate("Home", { login: true });
-            } else {
-                Vibration.vibrate();
-                Alert.alert("Please Select Gender")
-            }
-        } else {
-            Vibration.vibrate();
-            Alert.alert("Please Enter Name")
-        }
+        // Values from state (name, gender, and weight are written to device storage)
+        await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
+        await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
+        await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
+        // Modal is closed
+        this.setModalVisible(!this.state.modalVisible);
+        // Naviagtes to the HomeScreen with the login parameter set to true (triggers the copilot intro walkthrough)
+        this.props.navigation.navigate("Home", { login: true });
     }
 
+    // When the user presses Disagree, the modal is hidden and the login screen is displayed again
     handleCancel() {
         Vibration.vibrate();
         this.setModalVisible(!this.state.modalVisible);
