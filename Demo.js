@@ -20,7 +20,7 @@ class DemoScreen extends Component {
         super(props);
         this.state = {
             gender: "Male",
-            weight: 180,
+            weight: 195,
             bac: 0.0,
             testbuzzes: [],
             alctype: "Beer",
@@ -248,10 +248,10 @@ class DemoScreen extends Component {
     switchGender() {
         Vibration.vibrate();
         if (this.state.gender === "Male") {
-            this.setState({ gender: "Female" })
+            this.setState({ gender: "Female", weight: 165 })
         }
         if (this.state.gender === "Female") {
-            this.setState({ gender: "Male" })
+            this.setState({ gender: "Male", weight: 195 })
         }
     }
 
@@ -627,6 +627,7 @@ class DemoScreen extends Component {
                         <NumericInput
                             minValue={50}
                             maxValue={500}
+                            initValue={this.state.weight}
                             value={this.state.weight}
                             onChange={(weight) => this.setState({ weight })}
                             totalWidth={325}
