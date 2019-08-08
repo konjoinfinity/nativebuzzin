@@ -321,7 +321,7 @@ class DemoScreen extends Component {
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
         return (
-            <View>
+            <View style={{ backgroundColor: "#1de9b6" }}>
                 <Modal animationType="slide"
                     transparent={false}
                     visible={this.state.modal1Visible}>
