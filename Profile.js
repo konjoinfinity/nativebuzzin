@@ -93,13 +93,15 @@ class ProfileScreen extends Component {
 
     async takeAbreak() {
         // Add a conditional to check for parameter (manual/auto break)
+        console.log(this.state.breakdate.toString())
         var breakDate;
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
         var hours = this.state.hours * 60 * 60 * 1000
         if (this.state.break === true) {
-            breakDate = this.state.breakdate
+            breakDate = new Date(this.state.breakdate);
         } else if (this.state.break === false) {
             breakDate = new Date();
+            console.log(breakDate)
         }
         if (duration !== 0) {
             breakDate.setDate(breakDate.getDate() + duration);
@@ -164,6 +166,7 @@ class ProfileScreen extends Component {
                                 <NumericInput
                                     minValue={0}
                                     maxValue={24}
+                                    initValue={this.state.hours}
                                     value={this.state.hours}
                                     onChange={(hours) => this.setState({ hours })}
                                     totalWidth={150}
@@ -179,6 +182,7 @@ class ProfileScreen extends Component {
                                 <NumericInput
                                     minValue={0}
                                     maxValue={31}
+                                    initValue={this.state.days}
                                     value={this.state.days}
                                     onChange={(days) => this.setState({ days })}
                                     totalWidth={150}
@@ -196,6 +200,7 @@ class ProfileScreen extends Component {
                                 <NumericInput
                                     minValue={0}
                                     maxValue={52}
+                                    initValue={this.state.weeks}
                                     value={this.state.weeks}
                                     onChange={(weeks) => this.setState({ weeks })}
                                     totalWidth={150}
@@ -211,6 +216,7 @@ class ProfileScreen extends Component {
                                 <NumericInput
                                     minValue={0}
                                     maxValue={12}
+                                    initValue={this.state.months}
                                     value={this.state.months}
                                     onChange={(months) => this.setState({ months })}
                                     totalWidth={150}
