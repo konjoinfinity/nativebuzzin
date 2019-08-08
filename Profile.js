@@ -92,9 +92,15 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
+        // Add a conditional to check for parameter (manual/auto break)
+        var breakDate;
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
         var hours = this.state.hours * 60 * 60 * 1000
-        var breakDate = new Date();
+        if (this.state.break === true) {
+            breakDate = this.state.breakdate
+        } else if (this.state.break === false) {
+            breakDate = new Date();
+        }
         if (duration !== 0) {
             breakDate.setDate(breakDate.getDate() + duration);
         }
@@ -152,76 +158,77 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        {this.state.break === false &&
-                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                                <View>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Hours</Text>
-                                    <NumericInput
-                                        minValue={0}
-                                        maxValue={24}
-                                        value={this.state.hours}
-                                        onChange={(hours) => this.setState({ hours })}
-                                        totalWidth={150}
-                                        step={1}
-                                        rounded
-                                        textColor='#103900'
-                                        iconStyle={{ color: 'white' }}
-                                        rightButtonBackgroundColor='#00897b'
-                                        leftButtonBackgroundColor='#00897b' />
-                                </View>
-                                <View>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Days</Text>
-                                    <NumericInput
-                                        minValue={0}
-                                        maxValue={31}
-                                        value={this.state.days}
-                                        onChange={(days) => this.setState({ days })}
-                                        totalWidth={150}
-                                        step={1}
-                                        rounded
-                                        textColor='#103900'
-                                        iconStyle={{ color: 'white' }}
-                                        rightButtonBackgroundColor='#00897b'
-                                        leftButtonBackgroundColor='#00897b' />
-                                </View>
-
-                            </View>}
-                        {this.state.break === false &&
-                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                                <View>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Weeks</Text>
-                                    <NumericInput
-                                        minValue={0}
-                                        maxValue={52}
-                                        value={this.state.weeks}
-                                        onChange={(weeks) => this.setState({ weeks })}
-                                        totalWidth={150}
-                                        step={1}
-                                        rounded
-                                        textColor='#103900'
-                                        iconStyle={{ color: 'white' }}
-                                        rightButtonBackgroundColor='#00897b'
-                                        leftButtonBackgroundColor='#00897b' />
-                                </View>
-                                <View>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Months</Text>
-                                    <NumericInput
-                                        minValue={0}
-                                        maxValue={12}
-                                        value={this.state.months}
-                                        onChange={(months) => this.setState({ months })}
-                                        totalWidth={150}
-                                        step={1}
-                                        rounded
-                                        textColor='#103900'
-                                        iconStyle={{ color: 'white' }}
-                                        rightButtonBackgroundColor='#00897b'
-                                        leftButtonBackgroundColor='#00897b' />
-                                </View>
-                            </View>}
+                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                            <View>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Hours</Text>
+                                <NumericInput
+                                    minValue={0}
+                                    maxValue={24}
+                                    value={this.state.hours}
+                                    onChange={(hours) => this.setState({ hours })}
+                                    totalWidth={150}
+                                    step={1}
+                                    rounded
+                                    textColor='#103900'
+                                    iconStyle={{ color: 'white' }}
+                                    rightButtonBackgroundColor='#00897b'
+                                    leftButtonBackgroundColor='#00897b' />
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Days</Text>
+                                <NumericInput
+                                    minValue={0}
+                                    maxValue={31}
+                                    value={this.state.days}
+                                    onChange={(days) => this.setState({ days })}
+                                    totalWidth={150}
+                                    step={1}
+                                    rounded
+                                    textColor='#103900'
+                                    iconStyle={{ color: 'white' }}
+                                    rightButtonBackgroundColor='#00897b'
+                                    leftButtonBackgroundColor='#00897b' />
+                            </View>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                            <View>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Weeks</Text>
+                                <NumericInput
+                                    minValue={0}
+                                    maxValue={52}
+                                    value={this.state.weeks}
+                                    onChange={(weeks) => this.setState({ weeks })}
+                                    totalWidth={150}
+                                    step={1}
+                                    rounded
+                                    textColor='#103900'
+                                    iconStyle={{ color: 'white' }}
+                                    rightButtonBackgroundColor='#00897b'
+                                    leftButtonBackgroundColor='#00897b' />
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Months</Text>
+                                <NumericInput
+                                    minValue={0}
+                                    maxValue={12}
+                                    value={this.state.months}
+                                    onChange={(months) => this.setState({ months })}
+                                    totalWidth={150}
+                                    step={1}
+                                    rounded
+                                    textColor='#103900'
+                                    iconStyle={{ color: 'white' }}
+                                    rightButtonBackgroundColor='#00897b'
+                                    leftButtonBackgroundColor='#00897b' />
+                            </View>
+                        </View>
                         {this.state.break === false &&
                             <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak()}>
                                 <Text style={styles.buttonText}>Take a Break</Text>
+                            </TouchableOpacity>}
+                        {this.state.break === true &&
+                            <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak()}>
+                                <Text style={styles.buttonText}>Add to Break</Text>
                             </TouchableOpacity>}
                         {this.state.break === true &&
                             <View>
