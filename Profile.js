@@ -37,7 +37,7 @@ class ProfileScreen extends Component {
             days: 0,
             weeks: 0,
             months: 0,
-            autobreak: true
+            autobreak: ""
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -58,6 +58,9 @@ class ProfileScreen extends Component {
     }
 
     async componentDidMount() {
+        await AsyncStorage.getItem(autobreakkey, (error, result) => {
+            this.setState({ autobreak: JSON.parse(result) })
+        })
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
         })
@@ -96,7 +99,6 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
-        console.log(this.state.breakdate.toString())
         var breakDate;
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
         var hours = this.state.hours * 60 * 60 * 1000
@@ -104,7 +106,6 @@ class ProfileScreen extends Component {
             breakDate = new Date(this.state.breakdate);
         } else if (this.state.break === false) {
             breakDate = new Date();
-            console.log(breakDate)
         }
         if (duration !== 0) {
             breakDate.setDate(breakDate.getDate() + duration);
@@ -136,6 +137,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(weightkey)
         await AsyncStorage.removeItem(breakkey)
         await AsyncStorage.removeItem(breakdatekey)
+        await AsyncStorage.removeItem(autobreakkey)
         this.props.navigation.navigate("Login")
     }
 
@@ -158,14 +160,11 @@ class ProfileScreen extends Component {
     }
 
     async saveAutoBreak() {
-        console.log(this.state.autobreak)
         if (this.state.autobreak === true) {
             await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
         } else if (this.state.autobreak === false) {
             await AsyncStorage.setItem(autobreakkey, JSON.stringify(false))
         }
-        var autobreakvalue = await AsyncStorage.getItem(autobreakkey)
-        console.log(JSON.parse(autobreakvalue))
     }
 
     render() {
@@ -175,10 +174,7 @@ class ProfileScreen extends Component {
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}</Text>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
-                    </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}   -   {this.state.weight} lbs.</Text>
                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Auto Break</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />

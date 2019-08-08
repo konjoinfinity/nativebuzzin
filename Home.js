@@ -24,6 +24,7 @@ const key = "buzzes"
 const oldkey = "oldbuzzes"
 const breakkey = "break"
 const breakdatekey = "breakdate"
+const autobreakkey = "autobreak"
 
 const CopilotView = walkthroughable(View);
 
@@ -45,6 +46,7 @@ class HomeScreen extends Component {
             break: "",
             breakdate: "",
             breaktime: "",
+            autobreak: "",
             focus: false,
             modal1Visible: false,
             modal2Visible: false
@@ -66,6 +68,9 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
+        await AsyncStorage.getItem(autobreakkey, (error, result) => {
+            this.setState({ autobreak: JSON.parse(result) })
+        })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
@@ -351,12 +356,14 @@ class HomeScreen extends Component {
                 }, 200);
             }
         })
-        var autoBreakDate = new Date();
-        autoBreakDate.setDate(autoBreakDate.getDate() + 1);
-        this.setState({ break: true, breakdate: autoBreakDate })
-        await AsyncStorage.setItem(breakkey, JSON.stringify(true))
-        await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate))
-        this.componentDidMount();
+        if (this.state.autobreak === true) {
+            var autoBreakDate = new Date();
+            autoBreakDate.setDate(autoBreakDate.getDate() + 1);
+            this.setState({ break: true, breakdate: autoBreakDate })
+            await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+            await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate))
+            this.componentDidMount();
+        }
     }
 
     async clearDrinks() {
@@ -425,7 +432,7 @@ class HomeScreen extends Component {
             if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.30 }) }
+            if (number === 0) { this.setState({ abv: 0.01 }) }
             if (number === 1) { this.setState({ abv: 0.40 }) }
             if (number === 2) { this.setState({ abv: 0.50 }) }
         }
