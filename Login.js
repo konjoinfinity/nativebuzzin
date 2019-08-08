@@ -21,7 +21,7 @@ class LoginScreen extends React.Component {
         this.state = {
             name: "",
             gender: "Male",
-            weight: 150,
+            weight: 195,
             modalVisible: false
         };
         this.handleLogin = this.handleLogin.bind(this);
@@ -49,10 +49,10 @@ class LoginScreen extends React.Component {
     switchGender() {
         Vibration.vibrate();
         if (this.state.gender === "Male") {
-            this.setState({ gender: "Female" })
+            this.setState({ gender: "Female", weight: 165 })
         }
         if (this.state.gender === "Female") {
-            this.setState({ gender: "Male" })
+            this.setState({ gender: "Male", weight: 195 })
         }
     }
 
@@ -127,6 +127,7 @@ class LoginScreen extends React.Component {
                         <NumericInput
                             minValue={50}
                             maxValue={500}
+                            initValue={this.state.weight}
                             value={this.state.weight}
                             onChange={(weight) => this.setState({ weight })}
                             totalWidth={325}
