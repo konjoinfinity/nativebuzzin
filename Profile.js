@@ -155,7 +155,6 @@ class ProfileScreen extends Component {
     }
 
     handleAutoBreak() {
-        // Vibration.vibrate();
         this.setState(prevState => ({ autobreak: !prevState.autobreak }), () => this.saveAutoBreak())
     }
 
