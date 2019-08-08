@@ -351,6 +351,12 @@ class HomeScreen extends Component {
                 }, 200);
             }
         })
+        var autoBreakDate = new Date();
+        autoBreakDate.setDate(autoBreakDate.getDate() + 1);
+        this.setState({ break: true, breakdate: autoBreakDate })
+        await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+        await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate))
+        this.componentDidMount();
     }
 
     async clearDrinks() {
@@ -419,7 +425,7 @@ class HomeScreen extends Component {
             if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.30 }) }
+            if (number === 0) { this.setState({ abv: 0.01 }) }
             if (number === 1) { this.setState({ abv: 0.40 }) }
             if (number === 2) { this.setState({ abv: 0.50 }) }
         }
@@ -458,11 +464,6 @@ class HomeScreen extends Component {
             { cancelable: false },
         );
     }
-
-    // Add animations? Could be good to have intro animations for extra icing
-    // Snap to abv variable slider, instead of snap, vibrate on set values (4,5,6,7,8%)
-    // Picture gallery of common drinks to add, abv/oz selectors could be confusing
-    // Consider removing the third value from the oz selector, keep it simple (single, double)
 
     render() {
         var gaugeColor;

@@ -92,7 +92,6 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
-        // Add a conditional to check for parameter (manual/auto break)
         console.log(this.state.breakdate.toString())
         var breakDate;
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
