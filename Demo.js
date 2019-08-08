@@ -22,7 +22,7 @@ class DemoScreen extends Component {
         super(props);
         this.state = {
             gender: "Male",
-            weight: 180,
+            weight: 195,
             bac: 0.0,
             testbuzzes: [],
             alctype: "Beer",
@@ -303,10 +303,10 @@ class DemoScreen extends Component {
     switchGender() {
         Vibration.vibrate();
         if (this.state.gender === "Male") {
-            this.setState({ gender: "Female" })
+            this.setState({ gender: "Female", weight: 165 })
         }
         if (this.state.gender === "Female") {
-            this.setState({ gender: "Male" })
+            this.setState({ gender: "Male", weight: 195 })
         }
     }
 
@@ -384,7 +384,7 @@ class DemoScreen extends Component {
         let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
         return (
-            <View>
+            <View style={{ backgroundColor: "#1de9b6" }}>
                 {/* The first Modal (yellow warning) is triggered when the users bac is greater than 0.08 but less than 0.10 */}
                 <Modal animationType="slide"
                     transparent={false}
@@ -437,7 +437,7 @@ class DemoScreen extends Component {
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
+                        <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>DEMO                 |                          |                 DEMO</Text>
                         <View style={{ alignSelf: "center" }}>
                             {/* The BAC gauge, we pass in bacPercentage which is usually a number between 0 (bac - 0.0) and 100 (bac - 0.10) all
                                 values higher than 0.10 max out the gauge.  The labels array are all the colors shown on the gauge. */}
@@ -723,6 +723,7 @@ class DemoScreen extends Component {
                         <NumericInput
                             minValue={50}
                             maxValue={500}
+                            initValue={this.state.weight}
                             value={this.state.weight}
                             onChange={(weight) => this.setState({ weight })}
                             totalWidth={325}

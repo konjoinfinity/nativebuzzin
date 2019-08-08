@@ -23,7 +23,7 @@ class LoginScreen extends React.Component {
         this.state = {
             name: "",
             gender: "Male",
-            weight: 150,
+            weight: 195,
             modalVisible: false
         };
         // Bind statements are used to ensure data is changed in state by a function/method defined below
@@ -59,10 +59,10 @@ class LoginScreen extends React.Component {
     switchGender() {
         Vibration.vibrate();
         if (this.state.gender === "Male") {
-            this.setState({ gender: "Female" })
+            this.setState({ gender: "Female", weight: 165 })
         }
         if (this.state.gender === "Female") {
-            this.setState({ gender: "Male" })
+            this.setState({ gender: "Male", weight: 195 })
         }
     }
 
@@ -76,6 +76,7 @@ class LoginScreen extends React.Component {
         await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
         await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
         await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
+        await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
         // Modal is closed
         this.setModalVisible(!this.state.modalVisible);
         // Naviagtes to the HomeScreen with the login parameter set to true (triggers the copilot intro walkthrough)
@@ -152,6 +153,7 @@ class LoginScreen extends React.Component {
                         <NumericInput
                             minValue={50}
                             maxValue={500}
+                            initValue={this.state.weight}
                             value={this.state.weight}
                             onChange={(weight) => this.setState({ weight })}
                             totalWidth={325}

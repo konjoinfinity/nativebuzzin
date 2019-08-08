@@ -26,6 +26,8 @@ const key = "buzzes"
 const oldkey = "oldbuzzes"
 const breakkey = "break"
 const breakdatekey = "breakdate"
+const autobreakkey = "autobreak"
+
 const CopilotView = walkthroughable(View);
 
 // Main HomeScreen component, this.state is a temporary local storage for the app within HomeScreen
@@ -48,6 +50,7 @@ class HomeScreen extends Component {
             break: "",
             breakdate: "",
             breaktime: "",
+            autobreak: "",
             focus: false,
             modal1Visible: false,
             modal2Visible: false
@@ -74,6 +77,9 @@ class HomeScreen extends Component {
     // This function/method is also run when navigating to the HomeScreen
     async componentDidMount() {
         // All AsyncStorage methods are reading data from device storage and writing the values to the HomeScreen state  
+        await AsyncStorage.getItem(autobreakkey, (error, result) => {
+            this.setState({ autobreak: JSON.parse(result) })
+        })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
@@ -422,6 +428,14 @@ class HomeScreen extends Component {
                 }, 200);
             }
         })
+        if (this.state.autobreak === true) {
+            var autoBreakDate = new Date();
+            autoBreakDate.setDate(autoBreakDate.getDate() + 1);
+            this.setState({ break: true, breakdate: autoBreakDate })
+            await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+            await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate))
+            this.componentDidMount();
+        }
     }
 
     // The clearDrinks method clears buzzes from device storage, sets this.state.buzzes to an empty array, and bac to 0.0
