@@ -6,7 +6,8 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    Alert
+    Alert,
+    Switch
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
@@ -35,6 +36,7 @@ class ProfileScreen extends Component {
             days: 0,
             weeks: 0,
             months: 0,
+            autobreak: true
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -157,6 +159,12 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}</Text>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.weight} lbs.</Text>
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                        <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Auto Break</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                            <Switch value={this.state.autobreak} onChange={() => this.setState(prevState => ({ autobreak: !prevState.autobreak }))} />
+                        </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
