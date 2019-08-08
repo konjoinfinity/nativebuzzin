@@ -20,6 +20,7 @@ const weightkey = "weight"
 const key = "buzzes"
 const breakkey = "break"
 const breakdatekey = "breakdate"
+const autobreakkey = "autobreak"
 
 class ProfileScreen extends Component {
     constructor(props) {
@@ -41,6 +42,7 @@ class ProfileScreen extends Component {
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
         this.stopBreak = this.stopBreak.bind(this);
+        this.handleAutoBreak = this.handleAutoBreak.bind(this);
     };
 
     getDayHourMin(date1, date2) {
@@ -150,6 +152,22 @@ class ProfileScreen extends Component {
         );
     }
 
+    handleAutoBreak() {
+        // Vibration.vibrate();
+        this.setState(prevState => ({ autobreak: !prevState.autobreak }), () => this.saveAutoBreak())
+    }
+
+    async saveAutoBreak() {
+        console.log(this.state.autobreak)
+        if (this.state.autobreak === true) {
+            await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
+        } else if (this.state.autobreak === false) {
+            await AsyncStorage.setItem(autobreakkey, JSON.stringify(false))
+        }
+        var autobreakvalue = await AsyncStorage.getItem(autobreakkey)
+        console.log(JSON.parse(autobreakvalue))
+    }
+
     render() {
         return (
             <View>
@@ -163,7 +181,7 @@ class ProfileScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Auto Break</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <Switch value={this.state.autobreak} onChange={() => this.setState(prevState => ({ autobreak: !prevState.autobreak }))} />
+                            <Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
                         </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
