@@ -367,7 +367,7 @@ class DemoScreen extends Component {
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
+                        <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>DEMO                 |                          |                 DEMO</Text>
                         <View style={{ alignSelf: "center" }}>
                             <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                 {

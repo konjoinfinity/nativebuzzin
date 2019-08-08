@@ -173,13 +173,10 @@ class ProfileScreen extends Component {
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}   -   {this.state.weight} lbs.</Text>
-                        <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Auto Break</Text>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
-                        </View>
+                        <Text style={{ fontSize: 25, textAlign: "center" }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}   -   {this.state.weight} lbs.</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                        <Text style={{ fontSize: 18, textAlign: "center" }}>Custom Break</Text>
                         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                             <View>
                                 <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Hours</Text>
@@ -265,6 +262,11 @@ class ProfileScreen extends Component {
                                     <Text style={styles.buttonText}>Cancel Break</Text>
                                 </TouchableOpacity>
                             </View>}
+                        <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 5 }}>___________________________________________</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                            <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Auto Break</Text>
+                            <Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
+                        </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}>
@@ -284,10 +286,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#00897b",
         backgroundColor: "#00897b",
-        padding: 15,
-        marginTop: 10,
-        marginRight: 60,
-        marginLeft: 60,
+        padding: 10,
+        marginTop: 15,
+        marginRight: 90,
+        marginLeft: 90,
         marginBottom: 10,
         borderRadius: 15
     },
@@ -295,13 +297,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#00897b",
         backgroundColor: "#00897b",
-        padding: 15,
-        margin: 10,
+        padding: 10,
+        marginTop: 10,
+        marginRight: 70,
+        marginLeft: 70,
+        marginBottom: 10,
         borderRadius: 15
     },
     buttonText: {
         color: "#FFFFFF",
-        fontSize: 22,
+        fontSize: 18,
         textAlign: "center"
     }
 })
