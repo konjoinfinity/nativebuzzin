@@ -7,7 +7,9 @@ import {
     TouchableOpacity,
     Vibration,
     Alert,
-    Switch
+    Switch,
+    Dimensions,
+    PixelRatio
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
@@ -167,6 +169,12 @@ class ProfileScreen extends Component {
     }
 
     render() {
+        var numberInputSize;
+        if (Dimensions.get('window').width * PixelRatio.get() < 750) {
+            numberInputSize = 125
+        } else {
+            numberInputSize = 150
+        }
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
@@ -186,7 +194,7 @@ class ProfileScreen extends Component {
                                     initValue={this.state.hours}
                                     value={this.state.hours}
                                     onChange={(hours) => this.setState({ hours })}
-                                    totalWidth={150}
+                                    totalWidth={numberInputSize}
                                     step={1}
                                     rounded
                                     textColor='#103900'
@@ -202,7 +210,7 @@ class ProfileScreen extends Component {
                                     initValue={this.state.days}
                                     value={this.state.days}
                                     onChange={(days) => this.setState({ days })}
-                                    totalWidth={150}
+                                    totalWidth={numberInputSize}
                                     step={1}
                                     rounded
                                     textColor='#103900'
@@ -220,7 +228,7 @@ class ProfileScreen extends Component {
                                     initValue={this.state.weeks}
                                     value={this.state.weeks}
                                     onChange={(weeks) => this.setState({ weeks })}
-                                    totalWidth={150}
+                                    totalWidth={numberInputSize}
                                     step={1}
                                     rounded
                                     textColor='#103900'
@@ -236,7 +244,7 @@ class ProfileScreen extends Component {
                                     initValue={this.state.months}
                                     value={this.state.months}
                                     onChange={(months) => this.setState({ months })}
-                                    totalWidth={150}
+                                    totalWidth={numberInputSize}
                                     step={1}
                                     rounded
                                     textColor='#103900'
