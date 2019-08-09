@@ -10,7 +10,8 @@ import {
     Alert,
     Keyboard,
     Modal,
-    ScrollView
+    ScrollView,
+    Platform
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
@@ -77,7 +78,7 @@ class LoginScreen extends React.Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <KeyboardAvoidingView style={styles.container} behavior={(Platform.OS === 'ios') ? "padding" : null}>
                 <ScrollView>
                     <View onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }}
                         style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>

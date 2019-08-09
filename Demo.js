@@ -356,6 +356,19 @@ class DemoScreen extends Component {
             abvLiquorSize = 50
             addButtonText = 40
             addButtonSize = false
+        } else {
+            gaugeSize = 350
+            bacTextSize = 30
+            alcTypeSize = 75
+            alcTypeText = 30
+            abvText = 18
+            abvSize = 45
+            abvWineText = 20
+            abvWineSize = 50
+            abvLiquorText = 20
+            abvLiquorSize = 50
+            addButtonText = 40
+            addButtonSize = false
         }
         var gaugeColor;
         var bacPercentage;
