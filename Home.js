@@ -7,7 +7,9 @@ import {
     TouchableOpacity,
     Vibration,
     Alert,
-    Modal
+    Modal,
+    Dimensions,
+    PixelRatio
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
@@ -69,6 +71,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
+        console.log(Dimensions.get('window').width * PixelRatio.get(), Dimensions.get('window').height * PixelRatio.get())
         console.log("Device Model:", DeviceInfo.getModel())
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             if (result !== null) {
