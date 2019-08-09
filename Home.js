@@ -9,7 +9,8 @@ import {
     Alert,
     Modal,
     Dimensions,
-    PixelRatio
+    PixelRatio,
+    Platform
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
@@ -1021,7 +1022,7 @@ class HomeScreen extends Component {
     }
 }
 
-export default copilot()(HomeScreen);
+export default copilot((Platform.OS === 'ios') ? { androidStatusBarVisible: false } : { androidStatusBarVisible: true })(HomeScreen);
 
 const styles = StyleSheet.create({
     button: {
