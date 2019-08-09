@@ -604,7 +604,7 @@ class HomeScreen extends Component {
                 <Modal animationType="slide"
                     transparent={false}
                     visible={this.state.modal1Visible}>
-                    <View style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
+                    <ScrollView style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
                         <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.
                         Please consider one of the following:</Text>
@@ -620,12 +620,12 @@ class HomeScreen extends Component {
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </ScrollView>
                 </Modal>
                 <Modal animationType="slide"
                     transparent={false}
                     visible={this.state.modal2Visible}>
-                    <View style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
+                    <ScrollView style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>Danger!</Text>
                         <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>Your BAC is well above the legal drinking limit.
                         Please do one of the following:</Text>
@@ -641,7 +641,7 @@ class HomeScreen extends Component {
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </ScrollView>
                 </Modal>
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => this.componentDidMount()} />}
                 <ScrollView>
