@@ -16,6 +16,7 @@
     "react": "16.8.6",
     "react-native": "0.60.3",
     "react-native-copilot": "^2.4.4",
+    "react-native-device-info": "^2.3.2",
     "react-native-dropdownalert": "^4.1.0",
     "react-native-gesture-handler": "^1.3.0",
     "react-native-multi-switch": "^1.2.0",

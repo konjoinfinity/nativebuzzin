@@ -16,6 +16,7 @@ import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
 import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
+import DeviceInfo from 'react-native-device-info';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -68,6 +69,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
+        console.log("Device Model:", DeviceInfo.getModel())
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ autobreak: JSON.parse(result) })
