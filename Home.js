@@ -69,9 +69,9 @@ class HomeScreen extends Component {
 
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
-            // if (result !== null) {
-            this.setState({ autobreak: JSON.parse(result) })
-            // }
+            if (result !== null) {
+                this.setState({ autobreak: JSON.parse(result) })
+            }
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -363,9 +363,7 @@ class HomeScreen extends Component {
             autoBreakDate.setDate(autoBreakDate.getDate() + 1);
             this.setState({ break: true, breakdate: autoBreakDate })
             await AsyncStorage.setItem(breakkey, JSON.stringify(true))
-            await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate))
-            this.componentDidMount();
-            // ???
+            await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate), () => this.componentDidMount())
         }
     }
 
