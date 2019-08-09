@@ -69,9 +69,9 @@ class HomeScreen extends Component {
 
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
-            if (result !== null) {
-                this.setState({ autobreak: JSON.parse(result) })
-            }
+            // if (result !== null) {
+            this.setState({ autobreak: JSON.parse(result) })
+            // }
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -365,6 +365,7 @@ class HomeScreen extends Component {
             await AsyncStorage.setItem(breakkey, JSON.stringify(true))
             await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate))
             this.componentDidMount();
+            // ???
         }
     }
 
@@ -434,7 +435,7 @@ class HomeScreen extends Component {
             if (number === 2) { this.setState({ abv: 0.13 }) }
         }
         if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.30 }) }
+            if (number === 0) { this.setState({ abv: 0.005 }) }
             if (number === 1) { this.setState({ abv: 0.40 }) }
             if (number === 2) { this.setState({ abv: 0.50 }) }
         }
