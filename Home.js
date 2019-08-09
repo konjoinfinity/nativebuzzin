@@ -479,6 +479,14 @@ class HomeScreen extends Component {
     }
 
     render() {
+        var gaugeSize;
+        if (Dimensions.get('window').width * PixelRatio.get() < 750) {
+            gaugeSize = 295
+        } else if (Dimensions.get('window').width * PixelRatio.get() >= 750 && Dimensions.get('window').width * PixelRatio.get() < 828) {
+            gaugeSize = 350
+        } else if (Dimensions.get('window').width * PixelRatio.get() >= 828) {
+            gaugeSize = 390
+        }
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {
@@ -575,7 +583,7 @@ class HomeScreen extends Component {
                         </CopilotStep>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
-                                <RNSpeedometer value={bacPercentage} size={350} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
+                                <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
                                     {
                                         name: '1',
                                         labelColor: '#e0f2f1',
