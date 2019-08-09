@@ -69,7 +69,9 @@ class HomeScreen extends Component {
 
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
-            this.setState({ autobreak: JSON.parse(result) })
+            if (result !== null) {
+                this.setState({ autobreak: JSON.parse(result) })
+            }
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
