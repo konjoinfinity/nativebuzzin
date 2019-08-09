@@ -616,27 +616,29 @@ class DemoScreen extends Component {
                                     <Text style={{ fontSize: 40, color: "white" }}>+🥃</Text></TouchableOpacity>}
                         </View>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <View style={styles.cardView}>
                         <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
                         <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                         </View>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 20 }}>
+                    <View style={styles.cardView}>
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
-                        <NumericInput
-                            minValue={50}
-                            maxValue={500}
-                            initValue={this.state.weight}
-                            value={this.state.weight}
-                            onChange={(weight) => this.setState({ weight })}
-                            totalWidth={325}
-                            step={5}
-                            rounded
-                            textColor='#103900'
-                            iconStyle={{ color: 'white' }}
-                            rightButtonBackgroundColor='#00897b'
-                            leftButtonBackgroundColor='#00897b' />
+                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                            <NumericInput
+                                minValue={50}
+                                maxValue={500}
+                                initValue={this.state.weight}
+                                value={this.state.weight}
+                                onChange={(weight) => this.setState({ weight })}
+                                totalWidth={325}
+                                step={5}
+                                rounded
+                                textColor='#103900'
+                                iconStyle={{ color: 'white' }}
+                                rightButtonBackgroundColor='#00897b'
+                                leftButtonBackgroundColor='#00897b' />
+                        </View>
                     </View>
                     <View style={{ paddingTop: 20 }}></View>
                 </ScrollView>
@@ -728,7 +730,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginRight: 10,
         marginLeft: 10,
-        marginBottom: 15,
+        marginBottom: 10,
         padding: 10
     },
     multiSwitchViews: {
