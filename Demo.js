@@ -358,14 +358,14 @@ class DemoScreen extends Component {
             addButtonSize = false
         } else {
             gaugeSize = 350
-            bacTextSize = 30
-            alcTypeSize = 75
-            alcTypeText = 30
+            bacTextSize = 28
+            alcTypeSize = 65
+            alcTypeText = 28
             abvText = 18
             abvSize = 45
-            abvWineText = 20
-            abvWineSize = 50
-            abvLiquorText = 20
+            abvWineText = 18
+            abvWineSize = 45
+            abvLiquorText = 18
             abvLiquorSize = 50
             addButtonText = 40
             addButtonSize = false
