@@ -32,7 +32,6 @@ target 'buzzin' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
-  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
   target 'buzzinTests' do
     inherit! :search_paths

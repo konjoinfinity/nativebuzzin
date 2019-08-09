@@ -18,7 +18,6 @@ import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
 import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
-import DeviceInfo from 'react-native-device-info';
 
 const namekey = "name"
 const genderkey = "gender"
@@ -72,7 +71,6 @@ class HomeScreen extends Component {
 
     async componentDidMount() {
         console.log(Dimensions.get('window').width * PixelRatio.get(), Dimensions.get('window').height * PixelRatio.get())
-        console.log("Device Model:", DeviceInfo.getModel())
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ autobreak: JSON.parse(result) })
@@ -293,7 +291,7 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.saveBuzz();
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
-                AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone!");
+                AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone! Please drink some water.");
             }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) {
                 AlertHelper.show("warn", "Slow Down", "You might want to take a break or drink some water.");
