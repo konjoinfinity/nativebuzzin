@@ -34,6 +34,7 @@ class LoginScreen extends React.Component {
     }
 
     setModalVisible(visible) {
+        Vibration.vibrate();
         if (this.state.name !== "") {
             this.setState({ modalVisible: visible });
         } else {
