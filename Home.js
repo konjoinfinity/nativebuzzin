@@ -72,6 +72,9 @@ class HomeScreen extends Component {
 
     async componentDidMount() {
         console.log(Dimensions.get('window').width * PixelRatio.get(), Dimensions.get('window').height * PixelRatio.get())
+        console.log(Platform.OS)
+        console.log(Platform)
+        console.log(Platform.Version)
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ autobreak: JSON.parse(result) })
@@ -784,8 +787,7 @@ class HomeScreen extends Component {
                                                 active={0}>
                                                 <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                                 <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                                {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
-                                                <Text style={{ fontSize: alcTypeText }}>🥃</Text>
+                                                <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                             </MultiSwitch>
                                         </CopilotView>
                                     </CopilotStep>}
@@ -798,8 +800,7 @@ class HomeScreen extends Component {
                                         active={1}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                        {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
-                                        <Text style={{ fontSize: alcTypeText }}>🥃</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                     </MultiSwitch>}
                                 {this.state.alctype === "Liquor" &&
                                     <MultiSwitch choiceSize={alcTypeSize}
@@ -810,8 +811,7 @@ class HomeScreen extends Component {
                                         active={2}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                        {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
-                                        <Text style={{ fontSize: alcTypeText }}>🥃</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                     </MultiSwitch>}
                                 <CopilotStep text="Press to undo last drink." order={8} name="clear">
                                     <CopilotView>
@@ -1007,8 +1007,7 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: addButtonText, color: "white" }}>+🍷</Text></TouchableOpacity>}
                                 {this.state.alctype === "Liquor" &&
                                     <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                        <Text style={{ fontSize: addButtonText, color: "white" }}>+🥃</Text></TouchableOpacity>}
-                                {/* {Platform.OS === 'ios' ? "+🥃" : "+🍸"} */}
+                                        <Text style={{ fontSize: addButtonText, color: "white" }}>{Platform.OS === 'android' && Platform.Version < 24 ? "+🍸" : "+🥃"}</Text></TouchableOpacity>}
                             </View>
                         </View>}
                     {this.state.break === true &&
