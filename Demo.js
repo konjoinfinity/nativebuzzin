@@ -577,8 +577,7 @@ class DemoScreen extends Component {
                                     active={0}>
                                     <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                     <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                    {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
-                                    <Text style={{ fontSize: alcTypeText }}>🥃</Text>
+                                    <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                 </MultiSwitch>}
                             {this.state.alctype === "Wine" &&
                                 <MultiSwitch choiceSize={alcTypeSize}
@@ -589,8 +588,7 @@ class DemoScreen extends Component {
                                     active={1}>
                                     <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                     <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                    {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
-                                    <Text style={{ fontSize: alcTypeText }}>🥃</Text>
+                                    <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                 </MultiSwitch>}
                             {this.state.alctype === "Liquor" &&
                                 <MultiSwitch choiceSize={alcTypeSize}
@@ -601,8 +599,7 @@ class DemoScreen extends Component {
                                     active={2}>
                                     <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                     <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                    {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
-                                    <Text style={{ fontSize: alcTypeText }}>🥃</Text>
+                                    <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                 </MultiSwitch>}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true ?
                                 <TouchableOpacity
@@ -713,8 +710,7 @@ class DemoScreen extends Component {
                                     <Text style={{ fontSize: addButtonText, color: "white" }}>+🍷</Text></TouchableOpacity>}
                             {this.state.alctype === "Liquor" &&
                                 <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+🥃</Text></TouchableOpacity>}
-                            {/* {Platform.OS === 'ios' ? "+🥃" : "+🍸"} */}
+                                    <Text style={{ fontSize: addButtonText, color: "white" }}>{Platform.OS === 'android' && Platform.Version < 24 ? "+🍸" : "+🥃"}</Text></TouchableOpacity>}
                         </View>
                     </View>
                     <View style={styles.cardView}>

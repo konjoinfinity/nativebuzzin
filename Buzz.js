@@ -133,8 +133,7 @@ class BuzzScreen extends Component {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <View style={{ flexDirection: "column" }}>
-                            <Text style={{ fontSize: 20, paddingBottom: 10 }}>{buzz.oz}oz  {buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(buzz.abv * 100)}% ABV</Text>
-                            {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
+                            <Text style={{ fontSize: 20, paddingBottom: 10 }}>{buzz.oz}oz  {buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}  {Math.round(buzz.abv * 100)}% ABV</Text>
                             <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
                     </View>
                 )
@@ -148,8 +147,7 @@ class BuzzScreen extends Component {
                             {id === 0 && <Text style={{ fontSize: 20, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                                 <View style={{ flexDirection: "column" }}>
-                                    <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>🥃</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
-                                    {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
+                                    <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
                                     <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteOldBuzz(id, obid)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
                             </View>
                         </View>
@@ -162,8 +160,7 @@ class BuzzScreen extends Component {
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     {this.state.buzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 🥃</Text>
-                            {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
+                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 {Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                             <TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}>
                                 <Text style={styles.buttonText}>Delete All Buzzes  🗑</Text></TouchableOpacity>
                         </View>}
@@ -185,8 +182,7 @@ class BuzzScreen extends Component {
                             {buzzes}</View>}
                     {this.state.oldbuzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 🥃</Text>
-                            {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
+                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 {Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                             {this.state.showHideBuzzes === true && (
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  🗑</Text></TouchableOpacity>))}
                         </View>}
