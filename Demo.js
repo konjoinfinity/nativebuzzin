@@ -613,7 +613,7 @@ class DemoScreen extends Component {
                                     style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
                                     onPress={() => this.clearDrinks()}>
                                     <View>
-                                        <Text style={{ fontSize: alcTypeText }}>🗑</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text>
                                     </View>
                                 </TouchableOpacity>}
                         </View>
