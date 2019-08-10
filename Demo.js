@@ -8,7 +8,8 @@ import {
     Vibration,
     Modal,
     Dimensions,
-    PixelRatio
+    PixelRatio,
+    Platform
 } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -576,6 +577,7 @@ class DemoScreen extends Component {
                                     active={0}>
                                     <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                     <Text style={{ fontSize: alcTypeText }}>🍷</Text>
+                                    {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
                                     <Text style={{ fontSize: alcTypeText }}>🥃</Text>
                                 </MultiSwitch>}
                             {this.state.alctype === "Wine" &&
@@ -587,6 +589,7 @@ class DemoScreen extends Component {
                                     active={1}>
                                     <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                     <Text style={{ fontSize: alcTypeText }}>🍷</Text>
+                                    {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
                                     <Text style={{ fontSize: alcTypeText }}>🥃</Text>
                                 </MultiSwitch>}
                             {this.state.alctype === "Liquor" &&
@@ -598,6 +601,7 @@ class DemoScreen extends Component {
                                     active={2}>
                                     <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                     <Text style={{ fontSize: alcTypeText }}>🍷</Text>
+                                    {/* {Platform.OS === 'ios' ? "🥃" : "🍸"} */}
                                     <Text style={{ fontSize: alcTypeText }}>🥃</Text>
                                 </MultiSwitch>}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true ?
@@ -710,6 +714,7 @@ class DemoScreen extends Component {
                             {this.state.alctype === "Liquor" &&
                                 <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
                                     <Text style={{ fontSize: addButtonText, color: "white" }}>+🥃</Text></TouchableOpacity>}
+                            {/* {Platform.OS === 'ios' ? "+🥃" : "+🍸"} */}
                         </View>
                     </View>
                     <View style={styles.cardView}>
