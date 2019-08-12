@@ -204,7 +204,6 @@ class BuzzScreen extends Component {
         var weekColor;
         var weekText;
         var textColor
-        console.log(sevenArray.length)
         if (sevenArray.length <= 5) {
             weekColor = "#96c060"
             weekText = "Zero to 5 - Minimum Recommended (Healthy)"

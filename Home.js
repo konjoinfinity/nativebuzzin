@@ -75,10 +75,6 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        console.log(Dimensions.get('window').width * PixelRatio.get(), Dimensions.get('window').height * PixelRatio.get())
-        console.log(Platform.OS)
-        console.log(Platform)
-        console.log(Platform.Version)
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ autobreak: JSON.parse(result) })
@@ -117,13 +113,14 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
-        // await AsyncStorage.getItem(key, (error, result) => {
-        //     if (result !== null && result !== "[]") {
-        //         this.setState({ buzzes: JSON.parse(result) })
-        //     } else {
-        //         this.setState({ buzzes: [] })
-        //     }
-        // })
+        // To seed data, comment out just this function and add data to the buzz array
+        await AsyncStorage.getItem(key, (error, result) => {
+            if (result !== null && result !== "[]") {
+                this.setState({ buzzes: JSON.parse(result) })
+            } else {
+                this.setState({ buzzes: [] })
+            }
+        })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
