@@ -52,7 +52,10 @@ class HomeScreen extends Component {
             autobreak: "",
             focus: false,
             modal1Visible: false,
-            modal2Visible: false
+            modal2Visible: false,
+            flashwarning: "#AE0000",
+            flashtext: "",
+            flashtimer: ""
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -68,6 +71,7 @@ class HomeScreen extends Component {
         this.handleStepChange = this.handleStepChange.bind(this);
         this.countdownBac = this.countdownBac.bind(this);
         this.stopBreak = this.stopBreak.bind(this);
+        this.flashWarning = this.flashWarning.bind(this);
     };
 
     async componentDidMount() {
@@ -294,6 +298,7 @@ class HomeScreen extends Component {
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
+            this.flashWarning();
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
                 AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone! Please drink some water.");
             }
@@ -339,6 +344,33 @@ class HomeScreen extends Component {
             this.setState({ bac: 0.0, countdown: false }, () => clearInterval(this.state.timer))
             setTimeout(() => this.setState({ timer: "" }), 200);
         }
+    }
+
+    flashWarning() {
+        var flashTimer;
+        if (this.state.bac > 0.06) {
+            this.setState({ flashtext: true })
+        } else if (this.state.bac < 0.06) {
+            this.setState({ flashtext: false })
+        }
+        setTimeout(() => {
+            if (this.state.flashtext === true) {
+                flashTimer = setInterval(() => {
+                    if (this.state.flashwarning === "#00bfa5") {
+                        this.setState({ flashwarning: "#AE0000" })
+                    } else if (this.state.flashwarning === "#AE0000") {
+                        this.setState({ flashwarning: "#00bfa5" })
+                    }
+                }, 800);
+                this.setState({ flashtimer: flashTimer })
+            }
+            if (this.state.flashtext === false) {
+                if (this.state.flashtimer !== "") {
+                    clearInterval(this.state.flashtimer)
+                    this.setState({ flashtimer: "", flashtext: "" })
+                }
+            }
+        }, 200);
     }
 
     countdownBac() {
@@ -663,7 +695,11 @@ class HomeScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="These tick marks show the optimal buzz range." order={3} name="ticks">
                             <CopilotView>
-                                <Text style={{ textAlign: "center", color: "#00bfa5", fontWeight: "bold" }}>|                          |</Text>
+                                {/* {addButtonSize === true ? */}
+                                {this.state.bac > 0.06 ?
+                                    <Text style={{ fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}><Text>WARNING        </Text><Text>|        STOP       |</Text><Text>       DRINKING</Text></Text>
+                                    :
+                                    <Text style={{ fontWeight: "bold", textAlign: "center", color: "#00bfa5" }}>|                          |</Text>}
                             </CopilotView>
                         </CopilotStep>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
