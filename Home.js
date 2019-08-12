@@ -117,13 +117,13 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(weightkey, (error, result) => {
             this.setState({ weight: JSON.parse(result) })
         })
-        await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null && result !== "[]") {
-                this.setState({ buzzes: JSON.parse(result) })
-            } else {
-                this.setState({ buzzes: [] })
-            }
-        })
+        // await AsyncStorage.getItem(key, (error, result) => {
+        //     if (result !== null && result !== "[]") {
+        //         this.setState({ buzzes: JSON.parse(result) })
+        //     } else {
+        //         this.setState({ buzzes: [] })
+        //     }
+        // })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
@@ -142,6 +142,7 @@ class HomeScreen extends Component {
         }
         setTimeout(() => {
             this.setState({ focus: true })
+            this.checkBac()
         }, 1050);
     }
 
