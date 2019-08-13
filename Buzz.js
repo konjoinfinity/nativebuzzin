@@ -31,10 +31,10 @@ class BuzzScreen extends Component {
             reversebuzzes: null,
             reverseoldbuzzes: null
         }
-        this.deleteBuzzes = this.deleteBuzzes.bind(this);
-        this.deleteBuzz = this.deleteBuzz.bind(this);
-        this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
-        this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
+        // this.deleteBuzzes = this.deleteBuzzes.bind(this);
+        // this.deleteBuzz = this.deleteBuzz.bind(this);
+        // this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
+        // this.deleteOldBuzz = this.deleteOldBuzz.bind(this);
         this.showHideBuzzes = this.showHideBuzzes.bind(this);
         this.showHideOldBuzzes = this.showHideOldBuzzes.bind(this);
     };
@@ -159,7 +159,7 @@ class BuzzScreen extends Component {
             showHideBuzzes: !prevState.showHideBuzzes
         }), () => setTimeout(() => {
             if (this.state.showHideBuzzes === true) {
-                this.scrolltop.scrollToEnd({ animated: true });
+                this.scrolltop.scrollTo({ y: 200, animated: true })
             } else {
                 this.scrolltop.scrollTo({ y: 0, animated: true });
             }
@@ -172,7 +172,7 @@ class BuzzScreen extends Component {
             showHideOldBuzzes: !prevState.showHideOldBuzzes
         }), () => setTimeout(() => {
             if (this.state.showHideOldBuzzes === true) {
-                this.scrolltop.scrollToEnd({ animated: true });
+                this.scrolltop.scrollTo({ y: 400, animated: true })
             } else {
                 this.scrolltop.scrollTo({ y: 0, animated: true });
             }
