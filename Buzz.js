@@ -29,7 +29,7 @@ class BuzzScreen extends Component {
             timesince: null,
             showHideBuzzes: false,
             showHideOldBuzzes: false,
-
+            reversebuzzes: null
         }
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
         this.deleteBuzz = this.deleteBuzz.bind(this);
@@ -75,6 +75,7 @@ class BuzzScreen extends Component {
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null && result !== "[]") {
+                // Reverse could be done here
                 this.setState({ buzzes: JSON.parse(result) })
             } else {
                 this.setState({ buzzes: null })
@@ -98,6 +99,8 @@ class BuzzScreen extends Component {
                 this.setState({ oldbuzzes: null })
             }
         })
+        this.setState({ reversebuzzes: this.state.buzzes.reverse() }, () =>
+            console.log(this.state.reversebuzzes))
     }
 
     async deleteBuzzes() {
@@ -167,14 +170,9 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        var buzzReversed;
-        if (this.state.buzzes) {
-            buzzReversed = this.state.buzzes.reverse()
-            console.log(buzzReversed)
-        }
         let buzzes;
-        this.state.buzzes &&
-            (buzzes = buzzReversed.map((buzz, id) => {
+        this.state.reversebuzzes !== null &&
+            (buzzes = this.state.reversebuzzes.map((buzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <View style={{ flexDirection: "column" }}>
@@ -211,7 +209,6 @@ class BuzzScreen extends Component {
                     }
                 })
             }))
-        console.log(this.state.oldbuzzes)
         var weekColor;
         var weekText;
         var textColor;
