@@ -186,9 +186,10 @@ class BuzzScreen extends Component {
             (buzzes = this.state.reversebuzzes.map((buzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                        <TouchableOpacity style={styles.headerButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
-                            <Text style={{ fontSize: 20, paddingBottom: 10 }}>{buzz.oz}oz  {buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}  {Math.round(buzz.abv * 100)}% ABV</Text>
-                            <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteBuzz(id)}><Text style={styles.buttonText}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>
+                            <Text style={{ fontSize: 20, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
+                            <Text style={{ fontSize: 15, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
                     </View>
                 )
             }))
@@ -200,9 +201,10 @@ class BuzzScreen extends Component {
                         <View key={id}>
                             {id === 0 && <Text style={{ fontSize: 20, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
+                                <TouchableOpacity style={styles.headerButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
                                 <View style={{ flexDirection: "column" }}>
-                                    <Text style={{ fontSize: 20, paddingBottom: 10 }}>{oldbuzz.oz}oz  {oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
-                                    <Text style={{ fontSize: 15, paddingBottom: 10 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View><TouchableOpacity style={styles.headerButton} onPress={() => this.deleteOldBuzz(id, obid)}><Text style={styles.buttonText}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>
+                                    <Text style={{ fontSize: 20, padding: 5 }}>{oldbuzz.oz}oz  -  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
+                                    <Text style={{ fontSize: 15, padding: 5 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
                             </View>
                         </View>
                     )
@@ -219,24 +221,14 @@ class BuzzScreen extends Component {
                 })
             }))
         var weekColor;
-        var weekText;
-        var textColor;
         if (sevenArray.length <= 5) {
             weekColor = "#96c060"
-            weekText = "Zero to 5 - Minimum Recommended (Healthy)"
-            textColor = "#ffffff"
         } else if (sevenArray.length > 5 && sevenArray.length <= 10) {
             weekColor = "#ffeb00"
-            weekText = "6 to 10 - Median Recommended"
-            textColor = "#000000"
         } else if (sevenArray.length > 10 && sevenArray.length <= 14) {
             weekColor = "#e98f00"
-            weekText = "11 to 14 - Max Recommended (Potentially Unhealthy)"
-            textColor = "#000000"
         } else if (sevenArray.length > 14) {
             weekColor = "#AE0000"
-            weekText = "More than 14 - Not Recommended (Unhealthy)"
-            textColor = "#ffffff"
         }
         const data = [sevenArray.length]
         const Labels = ({ x, y, bandwidth, data }) => (
@@ -265,47 +257,36 @@ class BuzzScreen extends Component {
                             contentInset={{ top: 10, bottom: 10, left: 25, right: 25 }}
                             spacing={2}
                             gridMin={0}
-                            gridMax={data[0] + 3}
-                        >
+                            gridMax={data[0] + 3}>
                             <XAxis
                                 style={{ marginTop: 10 }}
                                 data={data}
                                 scale={scale.scaleBand}
-                                formatLabel={() => ""}
-                            />
+                                formatLabel={() => ""} />
                             <Grid direction={Grid.Direction.HORIZONTAL} />
                             <Labels />
                         </BarChart>
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 5 }}>Total Drinks Last Week</Text>
                     </View>
                     {this.state.buzzes !== null &&
-                        <View style={{ flexDirection: "row", backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10, justifyContent: "space-evenly" }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
-                            {/* {this.state.showHideBuzzes === true && (
+                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 10 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
+                                {/* {this.state.showHideBuzzes === true && (
                                 // Remove Delete All Buzzes
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}>
                                     <Text style={styles.buttonText}>Delete All Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
-                            {this.state.showHideBuzzes === false && (
-                                this.state.buzzes !== null && (
-                                    <TouchableOpacity style={{
-                                        borderWidth: 1,
-                                        borderColor: "#00897b",
-                                        backgroundColor: "#00897b",
-                                        padding: 10,
-                                        borderRadius: 15
-                                    }} onPress={() => this.showHideBuzzes()}>
-                                        <Text style={styles.buttonText}>Show</Text></TouchableOpacity>
-                                ))}
-                            {this.state.showHideBuzzes === true && (
-                                this.state.buzzes !== null && (
-                                    <TouchableOpacity style={{
-                                        borderWidth: 1,
-                                        borderColor: "#00897b",
-                                        backgroundColor: "#00897b",
-                                        padding: 10,
-                                        borderRadius: 15
-                                    }} onPress={() => this.showHideBuzzes()}>
-                                        <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>))}
+                                {this.state.showHideBuzzes === false && (
+                                    this.state.buzzes !== null && (
+                                        <TouchableOpacity style={styles.button} onPress={() => this.showHideBuzzes()}>
+                                            <Text style={styles.buttonText}>Show</Text></TouchableOpacity>
+                                    ))}
+                                {this.state.showHideBuzzes === true && (
+                                    this.state.buzzes !== null && (
+                                        <TouchableOpacity style={styles.button} onPress={() => this.showHideBuzzes()}>
+                                            <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>))}
+                            </View>
+                            {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
                         </View>}
                     {this.state.buzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
@@ -320,47 +301,28 @@ class BuzzScreen extends Component {
                             {this.state.timesince === null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
-                    {this.state.showHideBuzzes === true && (
-                        this.state.buzzes !== null && (
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                {buzzes}</View>))}
                     {this.state.oldbuzzes !== null &&
-                        <View style={{ flexDirection: "row", backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10, justifyContent: "space-evenly" }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
-                            {/* {this.state.showHideOldBuzzes === true && (
+                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 10 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
+                                {/* {this.state.showHideOldBuzzes === true && (
                                 // Remove Delete All Buzzes
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
-                            {this.state.showHideOldBuzzes === false && (
-                                this.state.oldbuzzes !== null && (
-                                    <TouchableOpacity style={{
-                                        borderWidth: 1,
-                                        borderColor: "#00897b",
-                                        backgroundColor: "#00897b",
-                                        padding: 10,
-                                        borderRadius: 15
-                                    }} onPress={() => this.showHideOldBuzzes()}>
-                                        <Text style={styles.buttonText}>Show</Text></TouchableOpacity>))}
-                            {this.state.showHideOldBuzzes === true && (
-                                this.state.oldbuzzes !== null && (
-                                    <TouchableOpacity style={{
-                                        borderWidth: 1,
-                                        borderColor: "#00897b",
-                                        backgroundColor: "#00897b",
-                                        padding: 10,
-                                        borderRadius: 15
-                                    }} onPress={() => this.showHideOldBuzzes()}>
-                                        <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>))}
+                                {this.state.showHideOldBuzzes === false && (
+                                    this.state.oldbuzzes !== null && (
+                                        <TouchableOpacity style={styles.button} onPress={() => this.showHideOldBuzzes()}>
+                                            <Text style={styles.buttonText}>Show</Text></TouchableOpacity>))}
+                                {this.state.showHideOldBuzzes === true && (
+                                    this.state.oldbuzzes !== null && (
+                                        <TouchableOpacity style={styles.button} onPress={() => this.showHideOldBuzzes()}>
+                                            <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>))}
+                            </View>
+                            {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                         </View>}
                     {this.state.oldbuzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                         </View>}
-                    {this.state.showHideOldBuzzes === true && (
-                        this.state.oldbuzzes !== null && (
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                {oldbuzzes}
-                            </View>
-                        ))}
                 </ScrollView>
             </View>
         );
@@ -374,8 +336,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#00897b",
         backgroundColor: "#00897b",
-        padding: 15,
-        margin: 5,
+        padding: 10,
         borderRadius: 15
     },
     buttonText: {
@@ -384,13 +345,13 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     headerButton: {
-        height: 35,
-        width: 35,
+        height: 45,
+        width: 45,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgba(250, 250, 250, 0.7)',
         borderRadius: 50,
-        margin: 10,
+        margin: 5,
         shadowColor: 'black',
         shadowOpacity: 0.5,
         shadowOffset: {
