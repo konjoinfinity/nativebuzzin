@@ -770,7 +770,7 @@ class HomeScreen extends Component {
                             <CopilotStep text="This readout automatically calculates your current BAC." order={2} name="bac">
                                 <CopilotView>
                                     <TouchableOpacity style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
-                                        <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "teal" }}>0.0  😶</Text></TouchableOpacity>
+                                        <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "teal" }}>  0.0  </Text></TouchableOpacity>
                                 </CopilotView>
                             </CopilotStep>)}
                         {this.state.bac > 0.00 && this.state.bac < 0.01 && (
