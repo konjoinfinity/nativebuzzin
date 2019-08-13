@@ -13,6 +13,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
 import { NavigationEvents } from "react-navigation";
+import { BarChart, Grid, XAxis } from 'react-native-svg-charts'
+import { Text as TextSVG } from "react-native-svg";
+import * as scale from 'd3-scale'
 
 const key = "buzzes"
 const oldkey = "oldbuzzes"
@@ -164,9 +167,14 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        var buzzReversed;
+        if (this.state.buzzes) {
+            buzzReversed = this.state.buzzes.reverse()
+            console.log(buzzReversed)
+        }
         let buzzes;
         this.state.buzzes &&
-            (buzzes = this.state.buzzes.map((buzz, id) => {
+            (buzzes = buzzReversed.map((buzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <View style={{ flexDirection: "column" }}>
@@ -177,6 +185,8 @@ class BuzzScreen extends Component {
             }))
         let oldbuzzes;
         this.state.oldbuzzes !== null &&
+            // var oldReversed = this.state.oldbuzzes.reverse()
+            // console.log(oldReversed)
             (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
                 return buzz.map((oldbuzz, id) => {
                     return (
@@ -204,7 +214,7 @@ class BuzzScreen extends Component {
         console.log(this.state.oldbuzzes)
         var weekColor;
         var weekText;
-        var textColor
+        var textColor;
         if (sevenArray.length <= 5) {
             weekColor = "#96c060"
             weekText = "Zero to 5 - Minimum Recommended (Healthy)"
@@ -222,10 +232,46 @@ class BuzzScreen extends Component {
             weekText = "More than 14 - Not Recommended (Unhealthy)"
             textColor = "#ffffff"
         }
+        const data = [sevenArray.length]
+        const Labels = ({ x, y, bandwidth, data }) => (
+            data.map((value, index) => (
+                <TextSVG
+                    key={index}
+                    x={x(index) + (bandwidth / 2)}
+                    y={y(value) - 10}
+                    fontSize={20}
+                    fill={'black'}
+                    alignmentBaseline={'middle'}
+                    textAnchor={'middle'}>
+                    {value}
+                </TextSVG>
+            ))
+        )
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
+                    <View style={{ flexDirection: 'column', height: 250, paddingVertical: 16, backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <BarChart
+                            style={{ flex: 1, padding: 10 }}
+                            data={data}
+                            svg={{ fill: weekColor }}
+                            contentInset={{ top: 10, bottom: 10, left: 20, right: 20 }}
+                            spacing={2}
+                            gridMin={0}
+                            gridMax={20}
+                        >
+                            <XAxis
+                                style={{ marginTop: 10 }}
+                                data={data}
+                                scale={scale.scaleBand}
+                                formatLabel={() => ""}
+                            />
+                            <Grid direction={Grid.Direction.HORIZONTAL} />
+                            <Labels />
+                        </BarChart>
+                        <Text style={{ fontSize: 20, textAlign: "center", padding: 5 }}>Total Drinks Last Week</Text>
+                    </View>
                     {this.state.buzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 {Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
@@ -233,6 +279,18 @@ class BuzzScreen extends Component {
                                 // Remove Delete All Buzzes
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}>
                                     <Text style={styles.buttonText}>Delete All Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))}
+                            {this.state.showHideBuzzes === false && (
+                                this.state.buzzes !== null && (
+                                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                                        <Button onPress={() => this.showHideBuzzes()}
+                                            title="Show Buzzes" />
+                                    </View>))}
+                            {this.state.showHideBuzzes === true && (
+                                this.state.buzzes !== null && (
+                                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                                        <Button onPress={() => this.showHideBuzzes()}
+                                            title="Hide Buzzes" />
+                                    </View>))}
                         </View>}
                     {this.state.buzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
@@ -247,52 +305,33 @@ class BuzzScreen extends Component {
                             {this.state.timesince === null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
-                    {this.state.showHideBuzzes === false && (
-                        this.state.oldbuzzes !== null && (
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Button onPress={() => this.showHideBuzzes()}
-                                    title="Show Buzzes" />
-                            </View>))}
                     {this.state.showHideBuzzes === true && (
-                        this.state.oldbuzzes !== null && (
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Button onPress={() => this.showHideBuzzes()}
-                                    title="Hide Buzzes" />
-                            </View>))}
-                    {this.state.showHideBuzzes === true && (
-                        this.state.oldbuzzes !== null && (
+                        this.state.buzzes !== null && (
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                                 {buzzes}</View>))}
-                    {this.state.oldbuzzes !== null &&
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Total - Last 7 Days</Text>
-                            <View style={{ backgroundColor: weekColor, borderRadius: 15 }}>
-                                <Text style={{ fontSize: 25, textAlign: "center", padding: 10, color: textColor }}>{sevenArray.length}</Text>
-                                <Text style={{ fontSize: 25, textAlign: "center", padding: 10, color: textColor }}>{weekText}</Text></View>
-                        </View>}
                     {this.state.oldbuzzes !== null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 {Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                             {this.state.showHideOldBuzzes === true && (
                                 // Remove Delete All Buzzes
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))}
+                            {this.state.showHideOldBuzzes === false && (
+                                this.state.oldbuzzes !== null && (
+                                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                                        <Button onPress={() => this.showHideOldBuzzes()}
+                                            title="Show Old Buzzes" />
+                                    </View>))}
+                            {this.state.showHideOldBuzzes === true && (
+                                this.state.oldbuzzes !== null && (
+                                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                                        <Button onPress={() => this.showHideOldBuzzes()}
+                                            title="Hide Old Buzzes" />
+                                    </View>))}
                         </View>}
                     {this.state.oldbuzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                         </View>}
-                    {this.state.showHideOldBuzzes === false && (
-                        this.state.oldbuzzes !== null && (
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Button onPress={() => this.showHideOldBuzzes()}
-                                    title="Show Old Buzzes" />
-                            </View>))}
-                    {this.state.showHideOldBuzzes === true && (
-                        this.state.oldbuzzes !== null && (
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Button onPress={() => this.showHideOldBuzzes()}
-                                    title="Hide Old Buzzes" />
-                            </View>))}
                     {this.state.showHideOldBuzzes === true && (
                         this.state.oldbuzzes !== null && (
                             <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
