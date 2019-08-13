@@ -114,45 +114,45 @@ class BuzzScreen extends Component {
         return newArray;
     }
 
-    async deleteBuzzes() {
-        Vibration.vibrate();
-        await AsyncStorage.removeItem(key, () => {
-            this.setState({ buzzes: null })
-        })
-    }
+    // async deleteBuzzes() {
+    //     Vibration.vibrate();
+    //     await AsyncStorage.removeItem(key, () => {
+    //         this.setState({ buzzes: null })
+    //     })
+    // }
 
-    async deleteBuzz(id) {
-        Vibration.vibrate();
-        var filtered = this.state.buzzes.filter(buzz => buzz !== this.state.buzzes[id]);
-        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => {
-            if (filtered.length === 0) {
-                this.setState({ buzzes: null })
-            } else {
-                this.setState({ buzzes: filtered })
-            }
-        })
-    }
+    // async deleteBuzz(id) {
+    //     Vibration.vibrate();
+    //     var filtered = this.state.buzzes.filter(buzz => buzz !== this.state.buzzes[id]);
+    //     await AsyncStorage.setItem(key, JSON.stringify(filtered), () => {
+    //         if (filtered.length === 0) {
+    //             this.setState({ buzzes: null })
+    //         } else {
+    //             this.setState({ buzzes: filtered })
+    //         }
+    //     })
+    // }
 
-    async deleteOldBuzzes() {
-        Vibration.vibrate();
-        await AsyncStorage.removeItem(oldkey, () => {
-            this.setState({ oldbuzzes: null })
-        })
-    }
+    // async deleteOldBuzzes() {
+    //     Vibration.vibrate();
+    //     await AsyncStorage.removeItem(oldkey, () => {
+    //         this.setState({ oldbuzzes: null })
+    //     })
+    // }
 
-    async deleteOldBuzz(id, obid) {
-        var newArray = this.state.oldbuzzes;
-        Vibration.vibrate();
-        var filtered = this.state.oldbuzzes[obid].filter(buzz => buzz !== this.state.oldbuzzes[obid][id])
-        newArray[obid] = filtered;
-        await AsyncStorage.setItem(oldkey, JSON.stringify(newArray), () => {
-            if (newArray.length === 0) {
-                this.setState({ oldbuzzes: null })
-            } else {
-                this.setState({ oldbuzzes: newArray })
-            }
-        })
-    }
+    // async deleteOldBuzz(id, obid) {
+    //     var newArray = this.state.oldbuzzes;
+    //     Vibration.vibrate();
+    //     var filtered = this.state.oldbuzzes[obid].filter(buzz => buzz !== this.state.oldbuzzes[obid][id])
+    //     newArray[obid] = filtered;
+    //     await AsyncStorage.setItem(oldkey, JSON.stringify(newArray), () => {
+    //         if (newArray.length === 0) {
+    //             this.setState({ oldbuzzes: null })
+    //         } else {
+    //             this.setState({ oldbuzzes: newArray })
+    //         }
+    //     })
+    // }
 
     showHideBuzzes() {
         this.setState(prevState => ({
