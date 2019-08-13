@@ -29,7 +29,8 @@ class BuzzScreen extends Component {
             timesince: null,
             showHideBuzzes: false,
             showHideOldBuzzes: false,
-            reversebuzzes: null
+            reversebuzzes: null,
+            reverseoldbuzzes: null
         }
         this.deleteBuzzes = this.deleteBuzzes.bind(this);
         this.deleteBuzz = this.deleteBuzz.bind(this);
@@ -98,6 +99,20 @@ class BuzzScreen extends Component {
                 this.setState({ oldbuzzes: null })
             }
         })
+        if (this.state.buzzes !== null && this.state.buzzes !== "[]") {
+            this.setState({ reversebuzzes: this.reverseArray(this.state.buzzes) }, () => console.log(this.state.reversebuzzes))
+        }
+        if (this.state.oldbuzzes !== null && this.state.oldbuzzes !== "[]") {
+            this.setState({ reverseoldbuzzes: this.reverseArray(this.state.oldbuzzes) }, () => console.log(this.state.reverseoldbuzzes))
+        }
+    }
+
+    reverseArray(arr) {
+        var newArray = [];
+        for (var i = arr.length - 1; i >= 0; i--) {
+            newArray.push(arr[i]);
+        }
+        return newArray;
     }
 
     async deleteBuzzes() {
@@ -168,8 +183,8 @@ class BuzzScreen extends Component {
 
     render() {
         let buzzes;
-        this.state.buzzes !== null &&
-            (buzzes = this.state.buzzes._reverse().map((buzz, id) => {
+        this.state.reversebuzzes !== null &&
+            (buzzes = this.state.reversebuzzes.map((buzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <View style={{ flexDirection: "column" }}>
@@ -179,8 +194,8 @@ class BuzzScreen extends Component {
                 )
             }))
         let oldbuzzes;
-        this.state.oldbuzzes !== null &&
-            (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
+        this.state.reverseoldbuzzes !== null &&
+            (oldbuzzes = this.state.reverseoldbuzzes.map((buzz, obid) => {
                 return buzz.map((oldbuzz, id) => {
                     return (
                         <View key={id}>
@@ -239,19 +254,20 @@ class BuzzScreen extends Component {
                 </TextSVG>
             ))
         )
+        console.log(this.state.oldbuzzes)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ flexDirection: 'column', height: 250, paddingVertical: 16, backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <View style={{ flexDirection: 'column', height: 250, paddingVertical: 16, backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 35, paddingRight: 35 }}>
                         <BarChart
                             style={{ flex: 1, padding: 10 }}
                             data={data}
                             svg={{ fill: weekColor }}
-                            contentInset={{ top: 10, bottom: 10, left: 20, right: 20 }}
+                            contentInset={{ top: 10, bottom: 10, left: 25, right: 25 }}
                             spacing={2}
                             gridMin={0}
-                            gridMax={20}
+                            gridMax={data[0] + 3}
                         >
                             <XAxis
                                 style={{ marginTop: 10 }}
