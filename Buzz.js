@@ -201,6 +201,7 @@ class BuzzScreen extends Component {
                     }
                 })
             }))
+        console.log(this.state.oldbuzzes)
         var weekColor;
         var weekText;
         var textColor
@@ -229,6 +230,7 @@ class BuzzScreen extends Component {
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz 🍺 🍷 {Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                             {this.state.showHideBuzzes === true && (
+                                // Remove Delete All Buzzes
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteBuzzes()}>
                                     <Text style={styles.buttonText}>Delete All Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))}
                         </View>}
@@ -272,6 +274,7 @@ class BuzzScreen extends Component {
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Old Buzzes 🍺 🍷 {Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                             {this.state.showHideOldBuzzes === true && (
+                                // Remove Delete All Buzzes
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))}
                         </View>}
                     {this.state.oldbuzzes === null &&
