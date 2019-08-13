@@ -6,7 +6,6 @@ import {
     Text,
     TouchableOpacity,
     Vibration,
-    Button,
     Platform
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
