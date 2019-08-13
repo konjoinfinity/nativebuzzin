@@ -75,7 +75,6 @@ class BuzzScreen extends Component {
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null && result !== "[]") {
-                // Reverse could be done here
                 this.setState({ buzzes: JSON.parse(result) })
             } else {
                 this.setState({ buzzes: null })
@@ -99,8 +98,6 @@ class BuzzScreen extends Component {
                 this.setState({ oldbuzzes: null })
             }
         })
-        this.setState({ reversebuzzes: this.state.buzzes.reverse() }, () =>
-            console.log(this.state.reversebuzzes))
     }
 
     async deleteBuzzes() {
@@ -171,8 +168,8 @@ class BuzzScreen extends Component {
 
     render() {
         let buzzes;
-        this.state.reversebuzzes !== null &&
-            (buzzes = this.state.reversebuzzes.map((buzz, id) => {
+        this.state.buzzes !== null &&
+            (buzzes = this.state.buzzes._reverse().map((buzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <View style={{ flexDirection: "column" }}>
@@ -183,8 +180,6 @@ class BuzzScreen extends Component {
             }))
         let oldbuzzes;
         this.state.oldbuzzes !== null &&
-            // var oldReversed = this.state.oldbuzzes.reverse()
-            // console.log(oldReversed)
             (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
                 return buzz.map((oldbuzz, id) => {
                     return (
