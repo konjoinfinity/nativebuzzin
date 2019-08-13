@@ -99,10 +99,10 @@ class BuzzScreen extends Component {
             }
         })
         if (this.state.buzzes !== null && this.state.buzzes !== "[]") {
-            this.setState({ reversebuzzes: this.reverseArray(this.state.buzzes) }, () => console.log(this.state.reversebuzzes))
+            this.setState({ reversebuzzes: this.reverseArray(this.state.buzzes) })
         }
         if (this.state.oldbuzzes !== null && this.state.oldbuzzes !== "[]") {
-            this.setState({ reverseoldbuzzes: this.reverseArray(this.state.oldbuzzes) }, () => console.log(this.state.reverseoldbuzzes))
+            this.setState({ reverseoldbuzzes: this.reverseArray(this.state.oldbuzzes) })
         }
     }
 
@@ -185,7 +185,7 @@ class BuzzScreen extends Component {
         this.state.reversebuzzes !== null &&
             (buzzes = this.state.reversebuzzes.map((buzz, id) => {
                 return (
-                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                    <View style={{ flexDirection: "row", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <TouchableOpacity style={styles.headerButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
                             <Text style={{ fontSize: 20, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
@@ -270,7 +270,7 @@ class BuzzScreen extends Component {
                     </View>
                     {this.state.buzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 10 }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
                                 {/* {this.state.showHideBuzzes === true && (
                                 // Remove Delete All Buzzes
@@ -303,8 +303,8 @@ class BuzzScreen extends Component {
                         </View>}
                     {this.state.oldbuzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 10 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Old Buzzes   </Text>
                                 {/* {this.state.showHideOldBuzzes === true && (
                                 // Remove Delete All Buzzes
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.button} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
