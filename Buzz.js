@@ -27,9 +27,7 @@ class BuzzScreen extends Component {
             oldbuzzes: null,
             timesince: null,
             showHideBuzzes: false,
-            showHideOldBuzzes: false,
-            reversebuzzes: null,
-            reverseoldbuzzes: null
+            showHideOldBuzzes: false
         }
         // this.deleteBuzzes = this.deleteBuzzes.bind(this);
         // this.deleteBuzz = this.deleteBuzz.bind(this);
@@ -98,12 +96,6 @@ class BuzzScreen extends Component {
                 this.setState({ oldbuzzes: null })
             }
         })
-        if (this.state.buzzes !== null && this.state.buzzes !== "[]") {
-            this.setState({ reversebuzzes: this.reverseArray(this.state.buzzes) })
-        }
-        if (this.state.oldbuzzes !== null && this.state.oldbuzzes !== "[]") {
-            this.setState({ reverseoldbuzzes: this.reverseArray(this.state.oldbuzzes) })
-        }
     }
 
     reverseArray(arr) {
@@ -182,8 +174,8 @@ class BuzzScreen extends Component {
 
     render() {
         let buzzes;
-        this.state.reversebuzzes !== null &&
-            (buzzes = this.state.reversebuzzes.map((buzz, id) => {
+        this.state.buzzes !== null &&
+            (buzzes = this.reverseArray(this.state.buzzes).map((buzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <TouchableOpacity style={styles.headerButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
@@ -194,8 +186,8 @@ class BuzzScreen extends Component {
                 )
             }))
         let oldbuzzes;
-        this.state.reverseoldbuzzes !== null &&
-            (oldbuzzes = this.state.reverseoldbuzzes.map((buzz, obid) => {
+        this.state.oldbuzzes !== null &&
+            (oldbuzzes = this.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
                 return this.reverseArray(buzz).map((oldbuzz, id) => {
                     return (
                         <View key={id}>
