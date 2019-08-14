@@ -164,6 +164,7 @@ class HomeScreen extends Component {
     componentWillUnmount() {
         this.props.copilotEvents.off('stop');
         clearInterval(this.state.timer)
+        clearInterval(this.state.flashtimer)
     }
 
     setModal1Visible(visible) {
@@ -371,14 +372,16 @@ class HomeScreen extends Component {
         }
         setTimeout(() => {
             if (this.state.flashtext === true) {
-                flashTimer = setInterval(() => {
-                    if (this.state.flashwarning === "#00bfa5") {
-                        this.setState({ flashwarning: "#AE0000" })
-                    } else if (this.state.flashwarning === "#AE0000") {
-                        this.setState({ flashwarning: "#00bfa5" })
-                    }
-                }, 800);
-                this.setState({ flashtimer: flashTimer })
+                if (this.state.flashtimer === "") {
+                    flashTimer = setInterval(() => {
+                        if (this.state.flashwarning === "#00bfa5") {
+                            this.setState({ flashwarning: "#AE0000" })
+                        } else if (this.state.flashwarning === "#AE0000") {
+                            this.setState({ flashwarning: "#00bfa5" })
+                        }
+                    }, 800);
+                    this.setState({ flashtimer: flashTimer })
+                }
             }
             if (this.state.flashtext === false) {
                 if (this.state.flashtimer !== "") {
@@ -732,7 +735,7 @@ class HomeScreen extends Component {
                             <CopilotView>
                                 {/* {addButtonSize === true ? */}
                                 {this.state.bac > 0.06 ?
-                                    <Text style={{ fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}><Text>WARNING        </Text><Text>|        STOP       |</Text><Text>       DRINKING</Text></Text>
+                                    <Text style={{ fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>WARNING              STOP              DRINKING</Text>
                                     :
                                     <Text style={{ fontWeight: "bold", textAlign: "center", color: "#00bfa5" }}>|                          |</Text>}
                             </CopilotView>
@@ -844,7 +847,7 @@ class HomeScreen extends Component {
                             <TouchableOpacity style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{this.state.bac}  🤮</Text></TouchableOpacity>)}
                     </View>
-                    {(this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" &&
+                    {(this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 &&
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                 {this.state.alctype === "Beer" &&
@@ -1098,6 +1101,13 @@ class HomeScreen extends Component {
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelHhAlert()}>
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>
                             </TouchableOpacity>
+                        </View>}
+                    {this.state.bac > 0.10 &&
+                        <View style={styles.cardView}>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, drink some water and</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>take a break.</Text>
                         </View>}
                 </ScrollView>
             </View>
