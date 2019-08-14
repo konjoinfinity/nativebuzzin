@@ -19,6 +19,7 @@ import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
 import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
+import moment from "moment";
 
 const namekey = "name"
 const genderkey = "gender"
@@ -141,6 +142,17 @@ class HomeScreen extends Component {
             this.setState({ focus: true })
             this.checkBac()
         }, 1050);
+        var happyHour = new Date()
+        console.log(happyHour)
+        happyHour = moment(happyHour).local();
+        console.log(happyHour)
+        happyHour = happyHour.hours();
+        console.log(happyHour)
+        if (happyHour >= 17 && happyHour <= 5) {
+            console.log("It's happy hour, enjoy!")
+        } else {
+            console.log("Happy hour isn't until 5pm")
+        }
     }
 
     componentWillUnmount() {

@@ -39,7 +39,8 @@ class ProfileScreen extends Component {
             days: 0,
             weeks: 0,
             months: 0,
-            autobreak: ""
+            autobreak: "",
+            happyhour: true
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -160,6 +161,10 @@ class ProfileScreen extends Component {
         this.setState(prevState => ({ autobreak: !prevState.autobreak }), () => this.saveAutoBreak())
     }
 
+    handleHappyHour() {
+        this.setState(prevState => ({ happyhour: !prevState.happyhour }))
+    }
+
     async saveAutoBreak() {
         if (this.state.autobreak === true) {
             await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
@@ -271,9 +276,19 @@ class ProfileScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                         <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 5 }}>___________________________________________</Text>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Auto Break</Text>
-                            <Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                            <View>
+                                <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Auto Break</Text>
+                            </View>
+                            <View>
+                                <Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
+                            </View>
+                            <View>
+                                <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Happy Hour</Text>
+                            </View>
+                            <View>
+                                <Switch value={this.state.happyhour} onChange={() => this.handleHappyHour()} />
+                            </View>
                         </View>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
