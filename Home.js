@@ -148,19 +148,17 @@ class HomeScreen extends Component {
             this.setState({ focus: true })
             this.checkBac()
         }, 1050);
-        setTimeout(() => {
-            if (this.state.happyhour === true) {
-                var happyHour = new Date()
-                happyHour = moment(happyHour).local();
-                happyHour = happyHour.hours();
-                console.log(happyHour)
-                if (happyHour >= 17) {
-                    this.setState({ happyhourtime: happyHour })
-                } else {
-                    this.setState({ happyhourtime: "" })
-                }
+        if (this.state.happyhour === true) {
+            var happyHour = new Date()
+            happyHour = moment(happyHour).local();
+            happyHour = happyHour.hours();
+            console.log(happyHour)
+            if (happyHour >= 7) {
+                this.setState({ happyhourtime: happyHour })
+            } else {
+                this.setState({ happyhourtime: "" })
             }
-        }, 200);
+        }
     }
 
     componentWillUnmount() {
@@ -524,6 +522,25 @@ class HomeScreen extends Component {
             'Click Yes to cancel break, No to continue break',
             [
                 { text: 'Yes', onPress: () => this.stopBreak() },
+                { text: 'No' },
+            ],
+            { cancelable: false },
+        );
+    }
+
+    async stopHh() {
+        Vibration.vibrate();
+        this.setState({ happyhour: false, happyhourtime: "" })
+        await AsyncStorage.setItem(happyhourkey, JSON.stringify(false))
+    }
+
+    cancelHhAlert() {
+        Vibration.vibrate();
+        Alert.alert(
+            'Are you sure?',
+            'Click Yes to cancel Happy Hour, No to continue Happy Hour',
+            [
+                { text: 'Yes', onPress: () => this.stopHh() },
                 { text: 'No' },
             ],
             { cancelable: false },
@@ -1071,6 +1088,15 @@ class HomeScreen extends Component {
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelBreakAlert()}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
+                            </TouchableOpacity>
+                        </View>}
+                    {this.state.happyhour === true && this.state.happyhourtime !== "" &&
+                        <View style={styles.cardView}>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Happy Hour at 5pm</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
+                            <TouchableOpacity style={styles.button} onPress={() => this.cancelHhAlert()}>
+                                <Text style={styles.buttonText}>Cancel Happy Hour</Text>
                             </TouchableOpacity>
                         </View>}
                 </ScrollView>
