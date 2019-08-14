@@ -204,8 +204,8 @@ class BuzzScreen extends Component {
             }))
         var sevenArray = []
         this.state.oldbuzzes !== null &&
-            (this.state.oldbuzzes.map((buzz, obid) => {
-                return buzz.map((oldbuzz, id) => {
+            (this.state.oldbuzzes.map((buzz) => {
+                return buzz.map((oldbuzz) => {
                     var drinkTime = this.singleDuration(oldbuzz.dateCreated);
                     if (drinkTime < 168) {
                         sevenArray.push(oldbuzz)
