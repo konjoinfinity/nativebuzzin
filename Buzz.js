@@ -196,7 +196,7 @@ class BuzzScreen extends Component {
         let oldbuzzes;
         this.state.reverseoldbuzzes !== null &&
             (oldbuzzes = this.state.reverseoldbuzzes.map((buzz, obid) => {
-                return buzz.map((oldbuzz, id) => {
+                return this.reverseArray(buzz).map((oldbuzz, id) => {
                     return (
                         <View key={id}>
                             {id === 0 && <Text style={{ fontSize: 20, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
