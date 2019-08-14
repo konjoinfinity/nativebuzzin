@@ -63,10 +63,12 @@ class LoginScreen extends React.Component {
         const genderkey = "gender"
         const weightkey = "weight"
         const autobreakkey = "autobreak"
+        const happyhourkey = "happyhour"
         await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
         await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
         await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
-        await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
+        await AsyncStorage.setItem(autobreakkey, JSON.stringify(false))
+        await AsyncStorage.setItem(happyhourkey, JSON.stringify(false))
         this.setModalVisible(!this.state.modalVisible);
         this.props.navigation.navigate("Home", { login: true });
     }

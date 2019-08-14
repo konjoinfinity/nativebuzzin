@@ -14,6 +14,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
+import moment from "moment";
 
 const oldkey = "oldbuzzes"
 const namekey = "name"
@@ -23,6 +24,7 @@ const key = "buzzes"
 const breakkey = "break"
 const breakdatekey = "breakdate"
 const autobreakkey = "autobreak"
+const happyhourkey = "happyhour"
 
 class ProfileScreen extends Component {
     constructor(props) {
@@ -40,7 +42,7 @@ class ProfileScreen extends Component {
             weeks: 0,
             months: 0,
             autobreak: "",
-            happyhour: true
+            happyhour: ""
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -63,6 +65,9 @@ class ProfileScreen extends Component {
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             this.setState({ autobreak: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(happyhourkey, (error, result) => {
+            this.setState({ happyhour: JSON.parse(result) })
         })
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
@@ -99,6 +104,17 @@ class ProfileScreen extends Component {
                 }, 100);
             }
         })
+        var happyHour = new Date()
+        console.log(happyHour)
+        happyHour = moment(happyHour).local();
+        console.log(happyHour)
+        happyHour = happyHour.hours();
+        console.log(happyHour)
+        if (happyHour >= 17 && happyHour <= 5) {
+            console.log("It's happy hour, enjoy!")
+        } else {
+            console.log("Happy hour isn't until 5pm")
+        }
     }
 
     async takeAbreak() {
@@ -141,6 +157,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(breakkey)
         await AsyncStorage.removeItem(breakdatekey)
         await AsyncStorage.removeItem(autobreakkey)
+        await AsyncStorage.removeItem(happyhourkey)
         this.props.navigation.navigate("Login")
     }
 
