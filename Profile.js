@@ -107,12 +107,8 @@ class ProfileScreen extends Component {
         var happyHour = new Date()
         happyHour = moment(happyHour).local();
         happyHour = happyHour.hours();
+        console.log(happyHour)
         this.setState({ happyhourtime: happyHour })
-        if (this.state.happyHour >= 17 && this.state.happyHour <= 5) {
-            console.log("It's happy hour, enjoy!")
-        } else {
-            console.log("Happy hour isn't until 5pm")
-        }
     }
 
     async takeAbreak() {
@@ -303,7 +299,7 @@ class ProfileScreen extends Component {
                             </View>}
                         {this.state.happyhour === true &&
                             <View>
-                                {(this.state.happyHour >= 17 && this.state.happyHour <= 5) ?
+                                {this.state.happyhourtime >= 17 ?
                                     <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>It's Happy Hour, enjoy!</Text> :
                                     <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Happy Hour isn't until 5pm</Text>}
                             </View>

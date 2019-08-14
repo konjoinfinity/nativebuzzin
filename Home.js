@@ -19,6 +19,7 @@ import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
 import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
+import moment from "moment";
 
 const namekey = "name"
 const genderkey = "gender"
@@ -28,6 +29,7 @@ const oldkey = "oldbuzzes"
 const breakkey = "break"
 const breakdatekey = "breakdate"
 const autobreakkey = "autobreak"
+const happyhourkey = "happyhour"
 
 const CopilotView = walkthroughable(View);
 
@@ -55,7 +57,9 @@ class HomeScreen extends Component {
             modal2Visible: false,
             flashwarning: "#AE0000",
             flashtext: "",
-            flashtimer: ""
+            flashtimer: "",
+            happyhour: "",
+            happyhourtime: ""
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -79,6 +83,9 @@ class HomeScreen extends Component {
             if (result !== null) {
                 this.setState({ autobreak: JSON.parse(result) })
             }
+        })
+        await AsyncStorage.getItem(happyhourkey, (error, result) => {
+            this.setState({ happyhour: JSON.parse(result) })
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -141,6 +148,19 @@ class HomeScreen extends Component {
             this.setState({ focus: true })
             this.checkBac()
         }, 1050);
+        setTimeout(() => {
+            if (this.state.happyhour === true) {
+                var happyHour = new Date()
+                happyHour = moment(happyHour).local();
+                happyHour = happyHour.hours();
+                console.log(happyHour)
+                if (happyHour >= 17) {
+                    this.setState({ happyhourtime: happyHour })
+                } else {
+                    this.setState({ happyhourtime: "" })
+                }
+            }
+        }, 200);
     }
 
     componentWillUnmount() {
@@ -807,7 +827,7 @@ class HomeScreen extends Component {
                             <TouchableOpacity style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{this.state.bac}  🤮</Text></TouchableOpacity>)}
                     </View>
-                    {(this.state.break === "" || this.state.break === false) &&
+                    {(this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" &&
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                 {this.state.alctype === "Beer" &&
