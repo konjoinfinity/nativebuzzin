@@ -1106,8 +1106,17 @@ class HomeScreen extends Component {
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, drink some water and</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>take a break.</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text>
+                            {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
+                                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                    <TouchableOpacity
+                                        style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
+                                        onPress={() => this.undoLastDrink()}>
+                                        <View>
+                                            <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>}
                         </View>}
                 </ScrollView>
             </View>

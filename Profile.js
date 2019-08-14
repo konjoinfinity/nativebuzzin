@@ -107,7 +107,6 @@ class ProfileScreen extends Component {
         var happyHour = new Date()
         happyHour = moment(happyHour).local();
         happyHour = happyHour.hours();
-        console.log(happyHour)
         this.setState({ happyhourtime: happyHour })
     }
 
