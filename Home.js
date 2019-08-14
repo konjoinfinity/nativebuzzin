@@ -158,6 +158,8 @@ class HomeScreen extends Component {
             } else {
                 this.setState({ happyhourtime: "" })
             }
+        } else if (this.state.happyhour === false) {
+            this.setState({ happyhourtime: "" })
         }
     }
 

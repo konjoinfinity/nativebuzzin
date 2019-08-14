@@ -142,7 +142,7 @@ class ProfileScreen extends Component {
 
     async LogOut() {
         Vibration.vibrate();
-        await AsyncStorage.removeItem(oldkey)
+        // await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.removeItem(namekey)
         await AsyncStorage.removeItem(key)
         await AsyncStorage.removeItem(genderkey)
