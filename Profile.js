@@ -179,7 +179,7 @@ class ProfileScreen extends Component {
     }
 
     handleHappyHour() {
-        this.setState(prevState => ({ happyhour: !prevState.happyhour }))
+        this.setState(prevState => ({ happyhour: !prevState.happyhour }), () => this.saveHappyHour())
     }
 
     async saveAutoBreak() {
@@ -187,6 +187,14 @@ class ProfileScreen extends Component {
             await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
         } else if (this.state.autobreak === false) {
             await AsyncStorage.setItem(autobreakkey, JSON.stringify(false))
+        }
+    }
+
+    async saveHappyHour() {
+        if (this.state.happyhour === true) {
+            await AsyncStorage.setItem(happyhourkey, JSON.stringify(true))
+        } else if (this.state.happyhour === false) {
+            await AsyncStorage.setItem(happyhourkey, JSON.stringify(false))
         }
     }
 
