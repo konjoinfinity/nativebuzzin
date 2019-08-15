@@ -575,8 +575,21 @@ class HomeScreen extends Component {
         var abvLiquorSize;
         var addButtonText;
         var addButtonSize;
-        if (Dimensions.get('window').width * PixelRatio.get() < 770) {
+        if (Dimensions.get('window').width * PixelRatio.get() < 750) {
             gaugeSize = 295
+            bacTextSize = 20
+            alcTypeSize = 50
+            alcTypeText = 20
+            abvText = 15
+            abvSize = 40
+            abvWineText = 15
+            abvWineSize = 40
+            abvLiquorText = 15
+            abvLiquorSize = 40
+            addButtonText = 30
+            addButtonSize = true
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 768) {
+            gaugeSize = 300
             bacTextSize = 20
             alcTypeSize = 50
             alcTypeText = 20
@@ -601,6 +614,8 @@ class HomeScreen extends Component {
             abvLiquorSize = 50
             addButtonText = 40
             addButtonSize = false
+
+                || Dimensions.get('window').width * PixelRatio.get() === 768
         } else if (Dimensions.get('window').width * PixelRatio.get() === 828) {
             gaugeSize = 390
             bacTextSize = 30
