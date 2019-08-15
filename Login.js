@@ -64,6 +64,7 @@ class LoginScreen extends React.Component {
         const weightkey = "weight"
         const autobreakkey = "autobreak"
         const happyhourkey = "happyhour"
+        const autobreakminkey = "autobreakmin"
         await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
         await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
         await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
