@@ -219,7 +219,7 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: 18, textAlign: "center" }}>Custom Break</Text>
                         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                             <View>
-                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Hours</Text>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Hours</Text>
                                 <NumericInput
                                     minValue={0}
                                     maxValue={24}
@@ -235,7 +235,7 @@ class ProfileScreen extends Component {
                                     leftButtonBackgroundColor='#00897b' />
                             </View>
                             <View>
-                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Days</Text>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Days</Text>
                                 <NumericInput
                                     minValue={0}
                                     maxValue={31}
@@ -253,7 +253,7 @@ class ProfileScreen extends Component {
                         </View>
                         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                             <View>
-                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Weeks</Text>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Weeks</Text>
                                 <NumericInput
                                     minValue={0}
                                     maxValue={52}
@@ -269,7 +269,7 @@ class ProfileScreen extends Component {
                                     leftButtonBackgroundColor='#00897b' />
                             </View>
                             <View>
-                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5, fontWeight: "bold" }}>Months</Text>
+                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Months</Text>
                                 <NumericInput
                                     minValue={0}
                                     maxValue={12}
