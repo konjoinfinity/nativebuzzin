@@ -208,10 +208,10 @@ class ProfileScreen extends Component {
                         <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                                <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Auto Break</Text><Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break</Text><Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
                             </View>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                                <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleHappyHour()} />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleHappyHour()} />
                             </View>
                         </View>
                     </View>

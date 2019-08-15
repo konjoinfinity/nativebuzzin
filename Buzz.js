@@ -233,7 +233,7 @@ class BuzzScreen extends Component {
                         <Text style={{ fontSize: 20, textAlign: "center", padding: 5 }}>Total Drinks Last Week</Text>
                     </View>
                     {this.state.buzzes !== null &&
-                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
                                 {/* {this.state.showHideBuzzes === true && (
@@ -253,7 +253,7 @@ class BuzzScreen extends Component {
                             {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
                         </View>}
                     {this.state.buzzes === null &&
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
                             {this.state.timesince !== null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}
@@ -261,7 +261,7 @@ class BuzzScreen extends Component {
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
                     {this.state.oldbuzzes !== null &&
-                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Old Buzzes   </Text>
                                 {/* {this.state.showHideOldBuzzes === true && (
@@ -279,7 +279,7 @@ class BuzzScreen extends Component {
                             {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                         </View>}
                     {this.state.oldbuzzes === null &&
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                         </View>}
                 </ScrollView>
