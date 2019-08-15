@@ -69,6 +69,7 @@ class LoginScreen extends React.Component {
         await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))
         await AsyncStorage.setItem(autobreakkey, JSON.stringify(false))
         await AsyncStorage.setItem(happyhourkey, JSON.stringify(false))
+        await AsyncStorage.setItem(autobreakminkey, JSON.stringify(false))
         this.setModalVisible(!this.state.modalVisible);
         this.props.navigation.navigate("Home", { login: true });
     }

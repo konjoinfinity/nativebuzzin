@@ -30,6 +30,7 @@ const breakkey = "break"
 const breakdatekey = "breakdate"
 const autobreakkey = "autobreak"
 const happyhourkey = "happyhour"
+const autobreakminkey = "autobreakmin"
 
 const CopilotView = walkthroughable(View);
 
@@ -59,7 +60,8 @@ class HomeScreen extends Component {
             flashtext: "",
             flashtimer: "",
             happyhour: "",
-            happyhourtime: ""
+            happyhourtime: "",
+            autobreakminbac: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.varGetBAC = this.varGetBAC.bind(this);
@@ -311,7 +313,7 @@ class HomeScreen extends Component {
         return bac;
     }
 
-    addDrink() {
+    async addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
@@ -332,6 +334,9 @@ class HomeScreen extends Component {
             }
             if (this.state.bac > 0.10) {
                 this.setModal2Visible(true)
+            }
+            if (this.state.bac > 0.06) {
+                await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true))
             }
         }, 200);
     }
@@ -406,6 +411,8 @@ class HomeScreen extends Component {
     }
 
     async moveToOld() {
+        var autobreakcheck;
+        await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
         var oldbuzzarray = this.state.oldbuzzes;
         var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push(newbuzzarray);
@@ -418,12 +425,13 @@ class HomeScreen extends Component {
                 }, 200);
             }
         })
-        if (this.state.autobreak === true) {
+        if (this.state.autobreak === true && autobreakcheck === true) {
             var autoBreakDate = new Date();
             autoBreakDate.setDate(autoBreakDate.getDate() + 1);
             this.setState({ break: true, breakdate: autoBreakDate })
             await AsyncStorage.setItem(breakkey, JSON.stringify(true))
             await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate), () => this.componentDidMount())
+            await AsyncStorage.setItem(autobreakminkey, JSON.stringify(false))
         }
     }
 
