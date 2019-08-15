@@ -88,7 +88,7 @@ class BuzzScreen extends Component {
                     var hours = dayHourMin[1];
                     var minutes = dayHourMin[2];
                     var seconds = dayHourMin[3];
-                    this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds since your last drink.` })
+                    this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds` })
                 }, 200);
             } else {
                 this.setState({ oldbuzzes: null })
@@ -255,13 +255,8 @@ class BuzzScreen extends Component {
                     {this.state.buzzes === null &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 30, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>Congrats, keep up the good work!</Text>
                             {this.state.timesince !== null &&
-                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: </Text>}
-                            {this.state.timesince !== null &&
-                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10, fontWeight: "bold" }}>{this.state.timesince}</Text>}
-                            {this.state.timesince !== null &&
-                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>since your last drink.</Text>}
+                                <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}
                             {this.state.timesince === null &&
                                 <Text style={{ fontSize: 20, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
