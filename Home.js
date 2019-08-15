@@ -163,6 +163,8 @@ class HomeScreen extends Component {
         } else if (this.state.happyhour === false) {
             this.setState({ happyhourtime: "" })
         }
+        var screenSize = Dimensions.get('window').width * PixelRatio.get()
+        console.log(screenSize)
     }
 
     componentWillUnmount() {
@@ -573,7 +575,7 @@ class HomeScreen extends Component {
         var abvLiquorSize;
         var addButtonText;
         var addButtonSize;
-        if (Dimensions.get('window').width * PixelRatio.get() < 750) {
+        if (Dimensions.get('window').width * PixelRatio.get() < 770) {
             gaugeSize = 295
             bacTextSize = 20
             alcTypeSize = 50
