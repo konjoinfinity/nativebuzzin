@@ -614,8 +614,6 @@ class HomeScreen extends Component {
             abvLiquorSize = 50
             addButtonText = 40
             addButtonSize = false
-
-                || Dimensions.get('window').width * PixelRatio.get() === 768
         } else if (Dimensions.get('window').width * PixelRatio.get() === 828) {
             gaugeSize = 390
             bacTextSize = 30
