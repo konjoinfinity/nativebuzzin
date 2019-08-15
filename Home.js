@@ -156,7 +156,7 @@ class HomeScreen extends Component {
             happyHour = moment(happyHour).local();
             happyHour = happyHour.hours();
             console.log(happyHour)
-            if (happyHour >= 9) {
+            if (happyHour >= 17) {
                 this.setState({ happyhourtime: happyHour })
             } else {
                 this.setState({ happyhourtime: "" })
@@ -1104,7 +1104,7 @@ class HomeScreen extends Component {
                                 <Text style={styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
                         </View>}
-                    {this.state.happyhour === true && this.state.happyhourtime !== "" &&
+                    {this.state.break === false && this.state.happyhour === true && this.state.happyhourtime !== "" &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Happy Hour at 5pm</Text>
