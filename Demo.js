@@ -280,7 +280,6 @@ class DemoScreen extends Component {
     }
 
     render() {
-        // Update render sizes for different screens
         var gaugeSize;
         var bacTextSize;
         var alcTypeSize;
@@ -355,7 +354,7 @@ class DemoScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() === 828 || Dimensions.get('window').width * PixelRatio.get() === 1242 && Dimensions.get('window').height * PixelRatio.get() === 2688) {
-            console.log("828")
+            console.log("828 or 1242 x 2688")
             gaugeSize = 390
             bacTextSize = 35
             alcTypeSize = 90
@@ -369,6 +368,36 @@ class DemoScreen extends Component {
             addButtonText = 45
             addButtonSize = false
             multiSwitchMargin = 15
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2712 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2621) {
+            console.log("1440 x 2712/2792/2621")
+            gaugeSize = 380
+            bacTextSize = 30
+            alcTypeSize = 80
+            alcTypeText = 35
+            abvText = 20
+            abvSize = 50
+            abvWineText = 22
+            abvWineSize = 55
+            abvLiquorText = 20
+            abvLiquorSize = 55
+            addButtonText = 40
+            addButtonSize = false
+            multiSwitchMargin = 8
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 1080 && Dimensions.get('window').height * PixelRatio.get() === 2028) {
+            console.log("1080 x 2028")
+            gaugeSize = 365
+            bacTextSize = 30
+            alcTypeSize = 75
+            alcTypeText = 30
+            abvText = 18
+            abvSize = 45
+            abvWineText = 20
+            abvWineSize = 50
+            abvLiquorText = 20
+            abvLiquorSize = 50
+            addButtonText = 40
+            addButtonSize = false
+            multiSwitchMargin = 6
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1125) {
             console.log("1125")
             gaugeSize = 350
@@ -399,8 +428,8 @@ class DemoScreen extends Component {
             addButtonText = 40
             addButtonSize = false
             multiSwitchMargin = 8
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440) {
-            console.log("1242")
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() !== 2712) {
+            console.log("1440")
             gaugeSize = 390
             bacTextSize = 25
             alcTypeSize = 70
@@ -409,7 +438,7 @@ class DemoScreen extends Component {
             abvSize = 45
             abvWineText = 18
             abvWineSize = 45
-            abvLiquorText = 18
+            abvLiquorText = 15
             abvLiquorSize = 45
             addButtonText = 30
             addButtonSize = true

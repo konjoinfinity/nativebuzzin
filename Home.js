@@ -564,8 +564,6 @@ class HomeScreen extends Component {
     }
 
     render() {
-        // Update render sizes for different screens (bigger)
-        // adjust margins, padding, spacing between elements, 
         var gaugeSize;
         var bacTextSize;
         var alcTypeSize;
@@ -654,8 +652,8 @@ class HomeScreen extends Component {
             addButtonText = 45
             addButtonSize = false
             multiSwitchMargin = 15
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2712 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792) {
-            console.log("1440 x 2712/2792")
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2712 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2621) {
+            console.log("1440 x 2712/2792/2621")
             gaugeSize = 380
             bacTextSize = 30
             alcTypeSize = 80
