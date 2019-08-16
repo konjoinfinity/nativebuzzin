@@ -280,6 +280,7 @@ class DemoScreen extends Component {
     }
 
     render() {
+        // Update render sizes for different screens
         var gaugeSize;
         var bacTextSize;
         var alcTypeSize;

@@ -11,7 +11,9 @@ import {
     Keyboard,
     Modal,
     ScrollView,
-    Platform
+    Platform,
+    Dimensions,
+    PixelRatio
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
@@ -81,6 +83,13 @@ class LoginScreen extends React.Component {
     }
 
     render() {
+        // Update render sizes for different screens
+        var numberInputSize;
+        if (Dimensions.get('window').width * PixelRatio.get() < 750) {
+            numberInputSize = 175
+        } else {
+            numberInputSize = 290
+        }
         return (
             <KeyboardAvoidingView style={styles.container} behavior={(Platform.OS === 'ios') ? "padding" : null}>
                 <ScrollView>
@@ -139,7 +148,7 @@ class LoginScreen extends React.Component {
                                 initValue={this.state.weight}
                                 value={this.state.weight}
                                 onChange={(weight) => this.setState({ weight })}
-                                totalWidth={290}
+                                totalWidth={numberInputSize}
                                 step={5}
                                 rounded
                                 textColor='#103900'

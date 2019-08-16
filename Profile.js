@@ -192,6 +192,7 @@ class ProfileScreen extends Component {
     }
 
     render() {
+        // Update render sizes for different screens
         var numberInputSize;
         if (Dimensions.get('window').width * PixelRatio.get() < 750) {
             numberInputSize = 125
