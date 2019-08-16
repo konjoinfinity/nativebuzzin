@@ -640,7 +640,7 @@ class HomeScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() === 828 || Dimensions.get('window').width * PixelRatio.get() === 1242 && Dimensions.get('window').height * PixelRatio.get() === 2688) {
-            console.log("828")
+            console.log("828 or 1242 x 2688")
             gaugeSize = 390
             bacTextSize = 35
             alcTypeSize = 90
@@ -654,8 +654,8 @@ class HomeScreen extends Component {
             addButtonText = 45
             addButtonSize = false
             multiSwitchMargin = 15
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2712) {
-            console.log("1440 x 2712")
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2712 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792) {
+            console.log("1440 x 2712/2792")
             gaugeSize = 380
             bacTextSize = 30
             alcTypeSize = 80

@@ -5,7 +5,7 @@ import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
-import { Vibration, View, Text } from "react-native"
+import { Vibration, View, Text, Dimensions, PixelRatio } from "react-native"
 import DemoScreen from './Demo';
 
 const AppStack = createStackNavigator({
@@ -49,7 +49,8 @@ const AppStack = createStackNavigator({
             },
             headerTitleStyle: {
                 color: "#ffffff",
-                fontSize: 25
+                fontSize: 25,
+                paddingTop: Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 ? 25 : 0
             }
         }
     }
