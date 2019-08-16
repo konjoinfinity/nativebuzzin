@@ -155,7 +155,7 @@ class HomeScreen extends Component {
             var happyHour = new Date()
             happyHour = moment(happyHour).local();
             happyHour = happyHour.hours();
-            if (happyHour <= 17) {
+            if (happyHour < 17) {
                 this.setState({ happyhourtime: happyHour })
             } else {
                 this.setState({ happyhourtime: "" })
