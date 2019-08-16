@@ -593,7 +593,7 @@ class HomeScreen extends Component {
             addButtonText = 30
             addButtonSize = true
             multiSwitchMargin = 0
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 768) {
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 768 || Dimensions.get('window').width * PixelRatio.get() === 1080) {
             console.log("768")
             gaugeSize = 300
             bacTextSize = 20
