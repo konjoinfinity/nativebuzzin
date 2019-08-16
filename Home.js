@@ -578,6 +578,7 @@ class HomeScreen extends Component {
         var abvLiquorSize;
         var addButtonText;
         var addButtonSize;
+        var multiSwitchMargin;
         if (Dimensions.get('window').width * PixelRatio.get() <= 600) {
             console.log("less than 600")
             gaugeSize = 250
