@@ -53,7 +53,7 @@ const AppStack = createStackNavigator({
             }
         }
     }
-})
+}, { headerLayoutPreset: 'center' })
 
 const AuthStack = createStackNavigator({
     Login: LoginScreen,
