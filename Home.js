@@ -165,6 +165,7 @@ class HomeScreen extends Component {
         }
         var screenWidth = Dimensions.get('window').width * PixelRatio.get()
         var screenHeight = Dimensions.get('window').height * PixelRatio.get()
+        // replace all use of these with the variables below
         console.log(screenWidth + " x " + screenHeight)
     }
 
