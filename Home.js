@@ -578,7 +578,22 @@ class HomeScreen extends Component {
         var abvLiquorSize;
         var addButtonText;
         var addButtonSize;
-        if (Dimensions.get('window').width * PixelRatio.get() < 750) {
+        if (Dimensions.get('window').width * PixelRatio.get() <= 600) {
+            console.log("less than 600")
+            gaugeSize = 250
+            bacTextSize = 15
+            alcTypeSize = 38
+            alcTypeText = 15
+            abvText = 12
+            abvSize = 38
+            abvWineText = 12
+            abvWineSize = 38
+            abvLiquorText = 12
+            abvLiquorSize = 38
+            addButtonText = 25
+            addButtonSize = true
+            multiSwitchMargin = 0
+        } else if (Dimensions.get('window').width * PixelRatio.get() > 600 && Dimensions.get('window').width * PixelRatio.get() < 750) {
             console.log("less than 750")
             gaugeSize = 295
             bacTextSize = 20
@@ -593,7 +608,7 @@ class HomeScreen extends Component {
             addButtonText = 30
             addButtonSize = true
             multiSwitchMargin = 0
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 768 || Dimensions.get('window').width * PixelRatio.get() === 1080) {
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 768 || Dimensions.get('window').width * PixelRatio.get() === 1080 && Dimensions.get('window').height * PixelRatio.get() === 1776) {
             console.log("768")
             gaugeSize = 300
             bacTextSize = 20
