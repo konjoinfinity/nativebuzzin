@@ -580,6 +580,7 @@ class HomeScreen extends Component {
         var addButtonSize;
         var multiSwitchMargin;
         if (Dimensions.get('window').width * PixelRatio.get() < 750) {
+            console.log("less than 750")
             gaugeSize = 295
             bacTextSize = 20
             alcTypeSize = 50
@@ -594,6 +595,7 @@ class HomeScreen extends Component {
             addButtonSize = true
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() === 768) {
+            console.log("768")
             gaugeSize = 300
             bacTextSize = 20
             alcTypeSize = 50
@@ -608,6 +610,7 @@ class HomeScreen extends Component {
             addButtonSize = true
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() >= 750 && Dimensions.get('window').width * PixelRatio.get() < 828) {
+            console.log("greater or equal to 750 & less than 828")
             gaugeSize = 350
             bacTextSize = 30
             alcTypeSize = 75
@@ -622,6 +625,7 @@ class HomeScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() === 828) {
+            console.log("828")
             gaugeSize = 390
             bacTextSize = 35
             alcTypeSize = 75
@@ -632,10 +636,11 @@ class HomeScreen extends Component {
             abvWineSize = 50
             abvLiquorText = 20
             abvLiquorSize = 50
-            addButtonText = 40
+            addButtonText = 45
             addButtonSize = false
-            multiSwitchMargin = 8
+            multiSwitchMargin = 10
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1125) {
+            console.log("1125")
             gaugeSize = 350
             bacTextSize = 30
             alcTypeSize = 75
@@ -648,8 +653,9 @@ class HomeScreen extends Component {
             abvLiquorSize = 50
             addButtonText = 40
             addButtonSize = false
-            multiSwitchMargin = 0
-        } else if (Dimensions.get('window').width * PixelRatio.get() > 1125) {
+            multiSwitchMargin = 8
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 1242 && Dimensions.get('window').height * PixelRatio.get() === 2688) {
+            console.log("1242 x 2688")
             gaugeSize = 390
             bacTextSize = 30
             alcTypeSize = 75
@@ -662,8 +668,24 @@ class HomeScreen extends Component {
             abvLiquorSize = 50
             addButtonText = 40
             addButtonSize = false
-            multiSwitchMargin = 0
+            multiSwitchMargin = 8
+        } else if (Dimensions.get('window').width * PixelRatio.get() > 1125) {
+            console.log("greater than 1125")
+            gaugeSize = 390
+            bacTextSize = 30
+            alcTypeSize = 75
+            alcTypeText = 30
+            abvText = 18
+            abvSize = 45
+            abvWineText = 20
+            abvWineSize = 50
+            abvLiquorText = 20
+            abvLiquorSize = 50
+            addButtonText = 40
+            addButtonSize = false
+            multiSwitchMargin = 8
         } else {
+            console.log("else")
             gaugeSize = 350
             bacTextSize = 28
             alcTypeSize = 65
@@ -892,7 +914,7 @@ class HomeScreen extends Component {
                                             <MultiSwitch choiceSize={alcTypeSize}
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                 onActivate={(number) => { this.handleDrinkType(data[number].value) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: alcTypeText }}>🍺</Text>
@@ -905,7 +927,7 @@ class HomeScreen extends Component {
                                     <MultiSwitch choiceSize={alcTypeSize}
                                         activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
-                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                         onActivate={(number) => { this.handleDrinkType(data[number].value) }}
                                         active={1}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
@@ -916,7 +938,7 @@ class HomeScreen extends Component {
                                     <MultiSwitch choiceSize={alcTypeSize}
                                         activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
-                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                         onActivate={(number) => { this.handleDrinkType(data[number].value) }}
                                         active={2}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
@@ -947,7 +969,7 @@ class HomeScreen extends Component {
                                                             <MultiSwitch choiceSize={abvSize}
                                                                 activeItemStyle={beerActive}
                                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                                 onActivate={(number) => { this.handleAbv(number) }}
                                                                 active={1}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
@@ -960,7 +982,7 @@ class HomeScreen extends Component {
                                                             <MultiSwitch choiceSize={abvSize}
                                                                 activeItemStyle={beerActive}
                                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                                 onActivate={(number) => { this.handleAbv(number) }}
                                                                 active={2}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
@@ -973,7 +995,7 @@ class HomeScreen extends Component {
                                                             <MultiSwitch choiceSize={abvSize}
                                                                 activeItemStyle={beerActive}
                                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                                 onActivate={(number) => { this.handleAbv(number) }}
                                                                 active={3}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
@@ -986,7 +1008,7 @@ class HomeScreen extends Component {
                                                             <MultiSwitch choiceSize={abvSize}
                                                                 activeItemStyle={beerActive}
                                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                                 onActivate={(number) => { this.handleAbv(number) }}
                                                                 active={4}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
@@ -999,7 +1021,7 @@ class HomeScreen extends Component {
                                                             <MultiSwitch choiceSize={abvSize}
                                                                 activeItemStyle={beerActive}
                                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                                 onActivate={(number) => { this.handleAbv(number) }}
                                                                 active={0}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
@@ -1016,7 +1038,7 @@ class HomeScreen extends Component {
                                                 <MultiSwitch choiceSize={abvWineSize}
                                                     activeItemStyle={activeStyle}
                                                     layout={{ vertical: 0, horizontal: -1 }}
-                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                     onActivate={(number) => { this.handleAbv(number) }}
                                                     active={1}>
                                                     <Text style={{ fontSize: abvWineText }}>11%</Text>
@@ -1029,7 +1051,7 @@ class HomeScreen extends Component {
                                                 <MultiSwitch choiceSize={abvLiquorSize}
                                                     activeItemStyle={activeStyle}
                                                     layout={{ vertical: 0, horizontal: -1 }}
-                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                     onActivate={(number) => { this.handleAbv(number) }}
                                                     active={1}>
                                                     <Text style={{ fontSize: abvLiquorText }}>30%</Text>
@@ -1046,7 +1068,7 @@ class HomeScreen extends Component {
                                                         <MultiSwitch choiceSize={abvLiquorSize}
                                                             activeItemStyle={activeStyle}
                                                             layout={{ vertical: 0, horizontal: -1 }}
-                                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                             onActivate={(number) => { this.handleOz(number) }}
                                                             active={0}>
                                                             <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
@@ -1057,7 +1079,7 @@ class HomeScreen extends Component {
                                                         <MultiSwitch choiceSize={abvLiquorSize}
                                                             activeItemStyle={activeStyle}
                                                             layout={{ vertical: 0, horizontal: -1 }}
-                                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                             onActivate={(number) => { this.handleOz(number) }}
                                                             active={1}>
                                                             <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
@@ -1068,7 +1090,7 @@ class HomeScreen extends Component {
                                                         <MultiSwitch choiceSize={abvLiquorSize}
                                                             activeItemStyle={activeStyle}
                                                             layout={{ vertical: 0, horizontal: -1 }}
-                                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                             onActivate={(number) => { this.handleOz(number) }}
                                                             active={2}>
                                                             <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
@@ -1083,7 +1105,7 @@ class HomeScreen extends Component {
                                             <MultiSwitch choiceSize={abvLiquorSize}
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                 onActivate={(number) => { this.handleOz(number) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>5oz</Text>
@@ -1096,7 +1118,7 @@ class HomeScreen extends Component {
                                             <MultiSwitch choiceSize={abvLiquorSize}
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { margin: multiSwitchMargin }]))}
+                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                 onActivate={(number) => { this.handleOz(number) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>1.5oz</Text>
