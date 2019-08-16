@@ -294,7 +294,7 @@ class DemoScreen extends Component {
         var addButtonSize;
         var multiSwitchMargin;
         if (Dimensions.get('window').width * PixelRatio.get() <= 600) {
-            console.log("less than 600")
+            // console.log("less than 600")
             gaugeSize = 250
             bacTextSize = 15
             alcTypeSize = 38
@@ -309,7 +309,7 @@ class DemoScreen extends Component {
             addButtonSize = true
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() > 600 && Dimensions.get('window').width * PixelRatio.get() < 750) {
-            console.log("less than 750")
+            // console.log("less than 750")
             gaugeSize = 295
             bacTextSize = 20
             alcTypeSize = 50
@@ -324,7 +324,7 @@ class DemoScreen extends Component {
             addButtonSize = true
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() === 768 || Dimensions.get('window').width * PixelRatio.get() === 1080 && Dimensions.get('window').height * PixelRatio.get() === 1776) {
-            console.log("768")
+            // console.log("768")
             gaugeSize = 300
             bacTextSize = 20
             alcTypeSize = 50
@@ -339,7 +339,7 @@ class DemoScreen extends Component {
             addButtonSize = true
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() >= 750 && Dimensions.get('window').width * PixelRatio.get() < 828) {
-            console.log("greater or equal to 750 & less than 828")
+            // console.log("greater or equal to 750 & less than 828")
             gaugeSize = 350
             bacTextSize = 30
             alcTypeSize = 75
@@ -354,7 +354,7 @@ class DemoScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() === 828 || Dimensions.get('window').width * PixelRatio.get() === 1242 && Dimensions.get('window').height * PixelRatio.get() === 2688) {
-            console.log("828 or 1242 x 2688")
+            // console.log("828 or 1242 x 2688")
             gaugeSize = 390
             bacTextSize = 35
             alcTypeSize = 90
@@ -369,7 +369,7 @@ class DemoScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 15
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2712 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2621) {
-            console.log("1440 x 2712/2792/2621")
+            // console.log("1440 x 2712/2792/2621")
             gaugeSize = 380
             bacTextSize = 30
             alcTypeSize = 80
@@ -384,7 +384,7 @@ class DemoScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 8
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1080 && Dimensions.get('window').height * PixelRatio.get() === 2028) {
-            console.log("1080 x 2028")
+            // console.log("1080 x 2028")
             gaugeSize = 365
             bacTextSize = 30
             alcTypeSize = 75
@@ -399,7 +399,7 @@ class DemoScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 6
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1125) {
-            console.log("1125")
+            // console.log("1125")
             gaugeSize = 350
             bacTextSize = 30
             alcTypeSize = 80
@@ -414,7 +414,7 @@ class DemoScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 12
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1242) {
-            console.log("1242")
+            // console.log("1242")
             gaugeSize = 390
             bacTextSize = 30
             alcTypeSize = 75
@@ -429,7 +429,7 @@ class DemoScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 8
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() !== 2712) {
-            console.log("1440")
+            // console.log("1440")
             gaugeSize = 390
             bacTextSize = 25
             alcTypeSize = 70
@@ -444,7 +444,7 @@ class DemoScreen extends Component {
             addButtonSize = true
             multiSwitchMargin = 0
         } else if (Dimensions.get('window').width * PixelRatio.get() > 1125) {
-            console.log("greater than 1125")
+            // console.log("greater than 1125")
             gaugeSize = 390
             bacTextSize = 25
             alcTypeSize = 75
@@ -459,7 +459,7 @@ class DemoScreen extends Component {
             addButtonSize = false
             multiSwitchMargin = 0
         } else {
-            console.log("else")
+            // console.log("else")
             gaugeSize = 350
             bacTextSize = 28
             alcTypeSize = 65
