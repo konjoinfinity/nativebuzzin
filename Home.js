@@ -724,7 +724,7 @@ class HomeScreen extends Component {
             abvSize = 45
             abvWineText = 18
             abvWineSize = 45
-            abvLiquorText = 18
+            abvLiquorText = 15
             abvLiquorSize = 45
             addButtonText = 30
             addButtonSize = true
