@@ -654,6 +654,20 @@ class HomeScreen extends Component {
             addButtonText = 45
             addButtonSize = false
             multiSwitchMargin = 15
+        } else if (Dimensions.get('window').width * PixelRatio.get() === 1080 && Dimensions.get('window').height * PixelRatio.get() === 2028) {
+            gaugeSize = 365
+            bacTextSize = 30
+            alcTypeSize = 75
+            alcTypeText = 30
+            abvText = 18
+            abvSize = 45
+            abvWineText = 20
+            abvWineSize = 50
+            abvLiquorText = 20
+            abvLiquorSize = 50
+            addButtonText = 40
+            addButtonSize = false
+            multiSwitchMargin = 6
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1125) {
             console.log("1125")
             gaugeSize = 350
