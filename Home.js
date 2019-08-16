@@ -643,17 +643,17 @@ class HomeScreen extends Component {
             console.log("828")
             gaugeSize = 390
             bacTextSize = 35
-            alcTypeSize = 75
-            alcTypeText = 30
-            abvText = 18
-            abvSize = 45
-            abvWineText = 20
-            abvWineSize = 50
-            abvLiquorText = 20
-            abvLiquorSize = 50
+            alcTypeSize = 90
+            alcTypeText = 40
+            abvText = 20
+            abvSize = 50
+            abvWineText = 25
+            abvWineSize = 60
+            abvLiquorText = 25
+            abvLiquorSize = 60
             addButtonText = 45
             addButtonSize = false
-            multiSwitchMargin = 10
+            multiSwitchMargin = 15
         } else if (Dimensions.get('window').width * PixelRatio.get() === 1125) {
             console.log("1125")
             gaugeSize = 350
