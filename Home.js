@@ -34,6 +34,206 @@ const autobreakminkey = "autobreakmin"
 
 const CopilotView = walkthroughable(View);
 
+var screenWidth = Dimensions.get('window').width * PixelRatio.get()
+var screenHeight = Dimensions.get('window').height * PixelRatio.get()
+console.log(screenWidth + " x " + screenHeight)
+
+var gaugeSize;
+var bacTextSize;
+var alcTypeSize;
+var alcTypeText;
+var abvText;
+var abvSize;
+var abvWineText;
+var abvWineSize;
+var abvLiquorText;
+var abvLiquorSize;
+var addButtonText;
+var addButtonSize;
+var multiSwitchMargin;
+
+if (screenWidth <= 600) {
+    console.log("less than 600")
+    gaugeSize = 250
+    bacTextSize = 15
+    alcTypeSize = 38
+    alcTypeText = 15
+    abvText = 12
+    abvSize = 38
+    abvWineText = 12
+    abvWineSize = 38
+    abvLiquorText = 12
+    abvLiquorSize = 38
+    addButtonText = 25
+    addButtonSize = true
+    multiSwitchMargin = 0
+} else if (screenWidth > 600 && screenWidth < 750) {
+    console.log("greater than 600 & less than 750")
+    gaugeSize = 295
+    bacTextSize = 20
+    alcTypeSize = 50
+    alcTypeText = 20
+    abvText = 15
+    abvSize = 40
+    abvWineText = 15
+    abvWineSize = 40
+    abvLiquorText = 15
+    abvLiquorSize = 40
+    addButtonText = 30
+    addButtonSize = true
+    multiSwitchMargin = 0
+} else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
+    console.log("768 or equal to 1080 x 1776")
+    gaugeSize = 300
+    bacTextSize = 20
+    alcTypeSize = 50
+    alcTypeText = 20
+    abvText = 15
+    abvSize = 40
+    abvWineText = 15
+    abvWineSize = 40
+    abvLiquorText = 15
+    abvLiquorSize = 40
+    addButtonText = 30
+    addButtonSize = true
+    multiSwitchMargin = 0
+} else if (screenWidth >= 750 && screenWidth < 828) {
+    console.log("greater or equal to 750 & less than 828")
+    gaugeSize = 350
+    bacTextSize = 30
+    alcTypeSize = 75
+    alcTypeText = 30
+    abvText = 18
+    abvSize = 45
+    abvWineText = 20
+    abvWineSize = 50
+    abvLiquorText = 20
+    abvLiquorSize = 50
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 0
+} else if (screenWidth === 828 || screenWidth === 1242 && screenHeight === 2688) {
+    console.log("828 or 1242 x 2688")
+    gaugeSize = 390
+    bacTextSize = 35
+    alcTypeSize = 90
+    alcTypeText = 40
+    abvText = 20
+    abvSize = 50
+    abvWineText = 25
+    abvWineSize = 60
+    abvLiquorText = 25
+    abvLiquorSize = 60
+    addButtonText = 45
+    addButtonSize = false
+    multiSwitchMargin = 15
+} else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621) {
+    console.log("1440 x 2712/2792/2621")
+    gaugeSize = 380
+    bacTextSize = 30
+    alcTypeSize = 80
+    alcTypeText = 35
+    abvText = 20
+    abvSize = 50
+    abvWineText = 22
+    abvWineSize = 55
+    abvLiquorText = 20
+    abvLiquorSize = 55
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 8
+} else if (screenWidth === 1080 && screenHeight === 2028) {
+    console.log("1080 x 2028")
+    gaugeSize = 365
+    bacTextSize = 30
+    alcTypeSize = 75
+    alcTypeText = 30
+    abvText = 18
+    abvSize = 45
+    abvWineText = 20
+    abvWineSize = 50
+    abvLiquorText = 20
+    abvLiquorSize = 50
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 6
+} else if (screenWidth === 1125) {
+    console.log("1125")
+    gaugeSize = 350
+    bacTextSize = 30
+    alcTypeSize = 80
+    alcTypeText = 35
+    abvText = 18
+    abvSize = 40
+    abvWineText = 20
+    abvWineSize = 50
+    abvLiquorText = 20
+    abvLiquorSize = 50
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 12
+} else if (screenWidth === 1242) {
+    console.log("1242")
+    gaugeSize = 390
+    bacTextSize = 30
+    alcTypeSize = 75
+    alcTypeText = 30
+    abvText = 18
+    abvSize = 45
+    abvWineText = 20
+    abvWineSize = 50
+    abvLiquorText = 20
+    abvLiquorSize = 50
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 8
+} else if (screenWidth === 1440 && screenHeight !== 2712) {
+    console.log("1440")
+    gaugeSize = 390
+    bacTextSize = 25
+    alcTypeSize = 70
+    alcTypeText = 25
+    abvText = 18
+    abvSize = 45
+    abvWineText = 18
+    abvWineSize = 45
+    abvLiquorText = 15
+    abvLiquorSize = 45
+    addButtonText = 30
+    addButtonSize = true
+    multiSwitchMargin = 0
+} else if (screenWidth > 1125) {
+    console.log("greater than 1125")
+    gaugeSize = 390
+    bacTextSize = 25
+    alcTypeSize = 75
+    alcTypeText = 30
+    abvText = 18
+    abvSize = 45
+    abvWineText = 20
+    abvWineSize = 50
+    abvLiquorText = 20
+    abvLiquorSize = 50
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 0
+} else {
+    console.log("else")
+    gaugeSize = 350
+    bacTextSize = 28
+    alcTypeSize = 65
+    alcTypeText = 28
+    abvText = 18
+    abvSize = 45
+    abvWineText = 18
+    abvWineSize = 45
+    abvLiquorText = 18
+    abvLiquorSize = 50
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 0
+}
+
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -163,10 +363,10 @@ class HomeScreen extends Component {
         } else if (this.state.happyhour === false) {
             this.setState({ happyhourtime: "" })
         }
-        var screenWidth = Dimensions.get('window').width * PixelRatio.get()
-        var screenHeight = Dimensions.get('window').height * PixelRatio.get()
-        // replace all use of these with the variables below
-        console.log(screenWidth + " x " + screenHeight)
+        // var screenWidth = Dimensions.get('window').width * PixelRatio.get()
+        // var screenHeight = Dimensions.get('window').height * PixelRatio.get()
+        // // replace all use of these with the variables below
+        // console.log(screenWidth + " x " + screenHeight)
     }
 
     componentWillUnmount() {
@@ -565,200 +765,6 @@ class HomeScreen extends Component {
     }
 
     render() {
-        var gaugeSize;
-        var bacTextSize;
-        var alcTypeSize;
-        var alcTypeText;
-        var abvText;
-        var abvSize;
-        var abvWineText;
-        var abvWineSize;
-        var abvLiquorText;
-        var abvLiquorSize;
-        var addButtonText;
-        var addButtonSize;
-        var multiSwitchMargin;
-        if (Dimensions.get('window').width * PixelRatio.get() <= 600) {
-            // console.log("less than 600")
-            gaugeSize = 250
-            bacTextSize = 15
-            alcTypeSize = 38
-            alcTypeText = 15
-            abvText = 12
-            abvSize = 38
-            abvWineText = 12
-            abvWineSize = 38
-            abvLiquorText = 12
-            abvLiquorSize = 38
-            addButtonText = 25
-            addButtonSize = true
-            multiSwitchMargin = 0
-        } else if (Dimensions.get('window').width * PixelRatio.get() > 600 && Dimensions.get('window').width * PixelRatio.get() < 750) {
-            // console.log("less than 750")
-            gaugeSize = 295
-            bacTextSize = 20
-            alcTypeSize = 50
-            alcTypeText = 20
-            abvText = 15
-            abvSize = 40
-            abvWineText = 15
-            abvWineSize = 40
-            abvLiquorText = 15
-            abvLiquorSize = 40
-            addButtonText = 30
-            addButtonSize = true
-            multiSwitchMargin = 0
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 768 || Dimensions.get('window').width * PixelRatio.get() === 1080 && Dimensions.get('window').height * PixelRatio.get() === 1776) {
-            // console.log("768")
-            gaugeSize = 300
-            bacTextSize = 20
-            alcTypeSize = 50
-            alcTypeText = 20
-            abvText = 15
-            abvSize = 40
-            abvWineText = 15
-            abvWineSize = 40
-            abvLiquorText = 15
-            abvLiquorSize = 40
-            addButtonText = 30
-            addButtonSize = true
-            multiSwitchMargin = 0
-        } else if (Dimensions.get('window').width * PixelRatio.get() >= 750 && Dimensions.get('window').width * PixelRatio.get() < 828) {
-            // console.log("greater or equal to 750 & less than 828")
-            gaugeSize = 350
-            bacTextSize = 30
-            alcTypeSize = 75
-            alcTypeText = 30
-            abvText = 18
-            abvSize = 45
-            abvWineText = 20
-            abvWineSize = 50
-            abvLiquorText = 20
-            abvLiquorSize = 50
-            addButtonText = 40
-            addButtonSize = false
-            multiSwitchMargin = 0
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 828 || Dimensions.get('window').width * PixelRatio.get() === 1242 && Dimensions.get('window').height * PixelRatio.get() === 2688) {
-            // console.log("828 or 1242 x 2688")
-            gaugeSize = 390
-            bacTextSize = 35
-            alcTypeSize = 90
-            alcTypeText = 40
-            abvText = 20
-            abvSize = 50
-            abvWineText = 25
-            abvWineSize = 60
-            abvLiquorText = 25
-            abvLiquorSize = 60
-            addButtonText = 45
-            addButtonSize = false
-            multiSwitchMargin = 15
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2712 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 || Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2621) {
-            // console.log("1440 x 2712/2792/2621")
-            gaugeSize = 380
-            bacTextSize = 30
-            alcTypeSize = 80
-            alcTypeText = 35
-            abvText = 20
-            abvSize = 50
-            abvWineText = 22
-            abvWineSize = 55
-            abvLiquorText = 20
-            abvLiquorSize = 55
-            addButtonText = 40
-            addButtonSize = false
-            multiSwitchMargin = 8
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 1080 && Dimensions.get('window').height * PixelRatio.get() === 2028) {
-            // console.log("1080 x 2028")
-            gaugeSize = 365
-            bacTextSize = 30
-            alcTypeSize = 75
-            alcTypeText = 30
-            abvText = 18
-            abvSize = 45
-            abvWineText = 20
-            abvWineSize = 50
-            abvLiquorText = 20
-            abvLiquorSize = 50
-            addButtonText = 40
-            addButtonSize = false
-            multiSwitchMargin = 6
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 1125) {
-            // console.log("1125")
-            gaugeSize = 350
-            bacTextSize = 30
-            alcTypeSize = 80
-            alcTypeText = 35
-            abvText = 18
-            abvSize = 40
-            abvWineText = 20
-            abvWineSize = 50
-            abvLiquorText = 20
-            abvLiquorSize = 50
-            addButtonText = 40
-            addButtonSize = false
-            multiSwitchMargin = 12
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 1242) {
-            // console.log("1242")
-            gaugeSize = 390
-            bacTextSize = 30
-            alcTypeSize = 75
-            alcTypeText = 30
-            abvText = 18
-            abvSize = 45
-            abvWineText = 20
-            abvWineSize = 50
-            abvLiquorText = 20
-            abvLiquorSize = 50
-            addButtonText = 40
-            addButtonSize = false
-            multiSwitchMargin = 8
-        } else if (Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() !== 2712) {
-            // console.log("1440")
-            gaugeSize = 390
-            bacTextSize = 25
-            alcTypeSize = 70
-            alcTypeText = 25
-            abvText = 18
-            abvSize = 45
-            abvWineText = 18
-            abvWineSize = 45
-            abvLiquorText = 15
-            abvLiquorSize = 45
-            addButtonText = 30
-            addButtonSize = true
-            multiSwitchMargin = 0
-        } else if (Dimensions.get('window').width * PixelRatio.get() > 1125) {
-            // console.log("greater than 1125")
-            gaugeSize = 390
-            bacTextSize = 25
-            alcTypeSize = 75
-            alcTypeText = 30
-            abvText = 18
-            abvSize = 45
-            abvWineText = 20
-            abvWineSize = 50
-            abvLiquorText = 20
-            abvLiquorSize = 50
-            addButtonText = 40
-            addButtonSize = false
-            multiSwitchMargin = 0
-        } else {
-            // console.log("else")
-            gaugeSize = 350
-            bacTextSize = 28
-            alcTypeSize = 65
-            alcTypeText = 28
-            abvText = 18
-            abvSize = 45
-            abvWineText = 18
-            abvWineSize = 45
-            abvLiquorText = 18
-            abvLiquorSize = 50
-            addButtonText = 40
-            addButtonSize = false
-            multiSwitchMargin = 0
-        }
         var gaugeColor;
         var bacPercentage;
         if (this.state.bac === 0 || this.state.bac === undefined) {
