@@ -270,7 +270,6 @@ class HomeScreen extends Component {
             timer: "",
             break: "",
             breakdate: "",
-            breaktime: "",
             autobreak: "",
             focus: false,
             modal1Visible: false,
@@ -329,7 +328,6 @@ class HomeScreen extends Component {
                     if (days + hours + minutes + seconds < 0) {
                         this.stopBreak()
                     }
-                    this.setState({ breaktime: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds.` })
                 }, 100);
             }
         })
