@@ -690,86 +690,127 @@ class DemoScreen extends Component {
                             <TouchableOpacity style={[addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{this.state.bac}  {Platform.OS === 'android' && Platform.Version < 24 ? "😵" : "🤮"}</Text></TouchableOpacity><Text style={{ fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>)}
                     </View>
-                    <View style={styles.cardView}>
-                        <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
-                            {this.state.alctype === "Beer" &&
-                                <MultiSwitch choiceSize={alcTypeSize}
-                                    activeItemStyle={activeStyle}
-                                    layout={{ vertical: 0, horizontal: -1 }}
-                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                    onActivate={(number) => { this.handleDrinkType(data[number].value) }}
-                                    active={0}>
-                                    <Text style={{ fontSize: alcTypeText }}>🍺</Text>
-                                    <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                    <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
-                                </MultiSwitch>}
-                            {this.state.alctype === "Wine" &&
-                                <MultiSwitch choiceSize={alcTypeSize}
-                                    activeItemStyle={activeStyle}
-                                    layout={{ vertical: 0, horizontal: -1 }}
-                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                    onActivate={(number) => { this.handleDrinkType(data[number].value) }}
-                                    active={1}>
-                                    <Text style={{ fontSize: alcTypeText }}>🍺</Text>
-                                    <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                    <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
-                                </MultiSwitch>}
-                            {this.state.alctype === "Liquor" &&
-                                <MultiSwitch choiceSize={alcTypeSize}
-                                    activeItemStyle={activeStyle}
-                                    layout={{ vertical: 0, horizontal: -1 }}
-                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                    onActivate={(number) => { this.handleDrinkType(data[number].value) }}
-                                    active={2}>
-                                    <Text style={{ fontSize: alcTypeText }}>🍺</Text>
-                                    <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                    <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
-                                </MultiSwitch>}
-                            {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true ?
-                                <TouchableOpacity
-                                    style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
-                                    onPress={() => this.undoLastDrink()}>
-                                    <View>
-                                        <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                    {this.state.bac < 0.10 &&
+                        <View style={styles.cardView}>
+                            <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
+                                {this.state.alctype === "Beer" &&
+                                    <MultiSwitch choiceSize={alcTypeSize}
+                                        activeItemStyle={activeStyle}
+                                        layout={{ vertical: 0, horizontal: -1 }}
+                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                        onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                        active={0}>
+                                        <Text style={{ fontSize: alcTypeText }}>🍺</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>🍷</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
+                                    </MultiSwitch>}
+                                {this.state.alctype === "Wine" &&
+                                    <MultiSwitch choiceSize={alcTypeSize}
+                                        activeItemStyle={activeStyle}
+                                        layout={{ vertical: 0, horizontal: -1 }}
+                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                        onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                        active={1}>
+                                        <Text style={{ fontSize: alcTypeText }}>🍺</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>🍷</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
+                                    </MultiSwitch>}
+                                {this.state.alctype === "Liquor" &&
+                                    <MultiSwitch choiceSize={alcTypeSize}
+                                        activeItemStyle={activeStyle}
+                                        layout={{ vertical: 0, horizontal: -1 }}
+                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                        onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                        active={2}>
+                                        <Text style={{ fontSize: alcTypeText }}>🍺</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>🍷</Text>
+                                        <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
+                                    </MultiSwitch>}
+                                {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true ?
+                                    <TouchableOpacity
+                                        style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
+                                        onPress={() => this.undoLastDrink()}>
+                                        <View>
+                                            <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                                        </View>
+                                    </TouchableOpacity> :
+                                    <TouchableOpacity
+                                        style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
+                                        onPress={() => this.clearDrinks()}>
+                                        <View>
+                                            <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text>
+                                        </View>
+                                    </TouchableOpacity>}
+                            </View>
+                            <View style={{ flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
+                                    <View style={{ paddingBottom: 15 }}>
+                                        <View style={styles.multiSwitchViews}>
+                                            {this.state.alctype === "Beer" &&
+                                                <MultiSwitch choiceSize={abvSize}
+                                                    activeItemStyle={beerActive}
+                                                    layout={{ vertical: 0, horizontal: -1 }}
+                                                    containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                    onActivate={(number) => { this.handleAbv(number) }}
+                                                    active={1}>
+                                                    <Text style={{ fontSize: abvText }}>4%</Text>
+                                                    <Text style={{ fontSize: abvText }}>5%</Text>
+                                                    <Text style={{ fontSize: abvText }}>6%</Text>
+                                                    <Text style={{ fontSize: abvText }}>7%</Text>
+                                                    <Text style={{ fontSize: abvText }}>8%</Text>
+                                                </MultiSwitch>}
+                                        </View>
+                                        <View style={styles.multiSwitchViews}>
+                                            {this.state.alctype === "Wine" &&
+                                                <MultiSwitch choiceSize={abvWineSize}
+                                                    activeItemStyle={activeStyle}
+                                                    layout={{ vertical: 0, horizontal: -1 }}
+                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                    onActivate={(number) => { this.handleAbv(number) }}
+                                                    active={1}>
+                                                    <Text style={{ fontSize: abvWineText }}>11%</Text>
+                                                    <Text style={{ fontSize: abvWineText }}>12%</Text>
+                                                    <Text style={{ fontSize: abvWineText }}>13%</Text>
+                                                </MultiSwitch>}
+                                        </View>
+                                        <View style={styles.multiSwitchViews}>
+                                            {this.state.alctype === "Liquor" &&
+                                                <MultiSwitch choiceSize={abvLiquorSize}
+                                                    activeItemStyle={activeStyle}
+                                                    layout={{ vertical: 0, horizontal: -1 }}
+                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                    onActivate={(number) => { this.handleAbv(number) }}
+                                                    active={1}>
+                                                    <Text style={{ fontSize: abvLiquorText }}>30%</Text>
+                                                    <Text style={{ fontSize: abvLiquorText }}>40%</Text>
+                                                    <Text style={{ fontSize: abvLiquorText }}>50%</Text>
+                                                </MultiSwitch>}
+                                        </View>
                                     </View>
-                                </TouchableOpacity> :
-                                <TouchableOpacity
-                                    style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
-                                    onPress={() => this.clearDrinks()}>
-                                    <View>
-                                        <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text>
-                                    </View>
-                                </TouchableOpacity>}
-                        </View>
-                        <View style={{ flex: 1, flexDirection: "row" }}>
-                            <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
-                                <View style={{ paddingBottom: 15 }}>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Beer" &&
-                                            <MultiSwitch choiceSize={abvSize}
-                                                activeItemStyle={beerActive}
+                                            <MultiSwitch choiceSize={abvLiquorSize}
+                                                activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
-                                                containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleAbv(number) }}
-                                                active={1}>
-                                                <Text style={{ fontSize: abvText }}>4%</Text>
-                                                <Text style={{ fontSize: abvText }}>5%</Text>
-                                                <Text style={{ fontSize: abvText }}>6%</Text>
-                                                <Text style={{ fontSize: abvText }}>7%</Text>
-                                                <Text style={{ fontSize: abvText }}>8%</Text>
+                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                onActivate={(number) => { this.handleOz(number) }}
+                                                active={0}>
+                                                <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>16oz</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>20oz</Text>
                                             </MultiSwitch>}
                                     </View>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Wine" &&
-                                            <MultiSwitch choiceSize={abvWineSize}
+                                            <MultiSwitch choiceSize={abvLiquorSize}
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleAbv(number) }}
-                                                active={1}>
-                                                <Text style={{ fontSize: abvWineText }}>11%</Text>
-                                                <Text style={{ fontSize: abvWineText }}>12%</Text>
-                                                <Text style={{ fontSize: abvWineText }}>13%</Text>
+                                                onActivate={(number) => { this.handleOz(number) }}
+                                                active={0}>
+                                                <Text style={{ fontSize: abvLiquorText }}>5oz</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>8oz</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
                                             </MultiSwitch>}
                                     </View>
                                     <View style={styles.multiSwitchViews}>
@@ -778,65 +819,41 @@ class DemoScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleAbv(number) }}
-                                                active={1}>
-                                                <Text style={{ fontSize: abvLiquorText }}>30%</Text>
-                                                <Text style={{ fontSize: abvLiquorText }}>40%</Text>
-                                                <Text style={{ fontSize: abvLiquorText }}>50%</Text>
+                                                onActivate={(number) => { this.handleOz(number) }}
+                                                active={0}>
+                                                <Text style={{ fontSize: abvLiquorText }}>1.5oz</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>3oz</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>6oz</Text>
                                             </MultiSwitch>}
                                     </View>
                                 </View>
-                                <View style={styles.multiSwitchViews}>
-                                    {this.state.alctype === "Beer" &&
-                                        <MultiSwitch choiceSize={abvLiquorSize}
-                                            activeItemStyle={activeStyle}
-                                            layout={{ vertical: 0, horizontal: -1 }}
-                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                            onActivate={(number) => { this.handleOz(number) }}
-                                            active={0}>
-                                            <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
-                                            <Text style={{ fontSize: abvLiquorText }}>16oz</Text>
-                                            <Text style={{ fontSize: abvLiquorText }}>20oz</Text>
-                                        </MultiSwitch>}
-                                </View>
-                                <View style={styles.multiSwitchViews}>
-                                    {this.state.alctype === "Wine" &&
-                                        <MultiSwitch choiceSize={abvLiquorSize}
-                                            activeItemStyle={activeStyle}
-                                            layout={{ vertical: 0, horizontal: -1 }}
-                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                            onActivate={(number) => { this.handleOz(number) }}
-                                            active={0}>
-                                            <Text style={{ fontSize: abvLiquorText }}>5oz</Text>
-                                            <Text style={{ fontSize: abvLiquorText }}>8oz</Text>
-                                            <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
-                                        </MultiSwitch>}
-                                </View>
-                                <View style={styles.multiSwitchViews}>
-                                    {this.state.alctype === "Liquor" &&
-                                        <MultiSwitch choiceSize={abvLiquorSize}
-                                            activeItemStyle={activeStyle}
-                                            layout={{ vertical: 0, horizontal: -1 }}
-                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                            onActivate={(number) => { this.handleOz(number) }}
-                                            active={0}>
-                                            <Text style={{ fontSize: abvLiquorText }}>1.5oz</Text>
-                                            <Text style={{ fontSize: abvLiquorText }}>3oz</Text>
-                                            <Text style={{ fontSize: abvLiquorText }}>6oz</Text>
-                                        </MultiSwitch>}
-                                </View>
+                                {this.state.alctype === "Beer" &&
+                                    <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                        <Text style={{ fontSize: addButtonText, color: "white" }}>+🍺</Text></TouchableOpacity>}
+                                {this.state.alctype === "Wine" &&
+                                    <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                        <Text style={{ fontSize: addButtonText, color: "white" }}>+🍷</Text></TouchableOpacity>}
+                                {this.state.alctype === "Liquor" &&
+                                    <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                        <Text style={{ fontSize: addButtonText, color: "white" }}>{Platform.OS === 'android' && Platform.Version < 24 ? "+🍸" : "+🥃"}</Text></TouchableOpacity>}
                             </View>
-                            {this.state.alctype === "Beer" &&
-                                <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+🍺</Text></TouchableOpacity>}
-                            {this.state.alctype === "Wine" &&
-                                <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+🍷</Text></TouchableOpacity>}
-                            {this.state.alctype === "Liquor" &&
-                                <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                    <Text style={{ fontSize: addButtonText, color: "white" }}>{Platform.OS === 'android' && Platform.Version < 24 ? "+🍸" : "+🥃"}</Text></TouchableOpacity>}
-                        </View>
-                    </View>
+                        </View>}
+                    {this.state.bac > 0.10 &&
+                        <View style={styles.cardView}>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text>
+                            {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true &&
+                                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                    <TouchableOpacity
+                                        style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
+                                        onPress={() => this.undoLastDrink()}>
+                                        <View>
+                                            <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>}
+                        </View>}
                     <View style={styles.cardView}>
                         <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
                         <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
