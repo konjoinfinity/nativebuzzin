@@ -52,34 +52,19 @@ var addButtonText;
 var addButtonSize;
 var multiSwitchMargin;
 
-if (screenWidth === 480 && screenHeight === 854 || screenWidth === 480 && screenHeight === 800) {
-    console.log("480x854")
-    gaugeSize = 440
-    bacTextSize = 30
-    alcTypeSize = 75
-    alcTypeText = 35
-    abvText = 25
-    abvSize = 60
-    abvWineText = 25
-    abvWineSize = 70
-    abvLiquorText = 25
-    abvLiquorSize = 70
-    addButtonText = 40
-    addButtonSize = false
-    multiSwitchMargin = 4
-} else if (screenWidth <= 600) {
+if (screenWidth <= 600) {
     console.log("less than 600")
-    gaugeSize = 250
-    bacTextSize = 15
+    gaugeSize = 230
+    bacTextSize = 13
     alcTypeSize = 38
-    alcTypeText = 15
-    abvText = 12
+    alcTypeText = 13
+    abvText = 11
     abvSize = 38
-    abvWineText = 12
+    abvWineText = 11
     abvWineSize = 38
-    abvLiquorText = 12
+    abvLiquorText = 11
     abvLiquorSize = 38
-    addButtonText = 25
+    addButtonText = 20
     addButtonSize = true
     multiSwitchMargin = 0
 } else if (screenWidth === 720 && screenHeight === 1280) {
