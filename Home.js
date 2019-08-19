@@ -1225,8 +1225,8 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.break === true &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break for:</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{this.state.breaktime}</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('MMMM Do YYYY, h:mm a')}</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelBreakAlert()}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
