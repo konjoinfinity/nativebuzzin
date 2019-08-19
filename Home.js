@@ -249,6 +249,10 @@ if (screenWidth <= 600) {
     multiSwitchMargin = 0
 }
 
+let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
+let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
+let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -819,9 +823,6 @@ class HomeScreen extends Component {
             gaugeColor = "#000000"
             bacPercentage = 100
         }
-        let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
-        let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
-        let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
         return (
             <View>
                 <Modal animationType="slide"
