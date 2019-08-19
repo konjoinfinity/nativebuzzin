@@ -36,9 +36,9 @@ var addButtonText;
 var addButtonSize;
 var multiSwitchMargin;
 
-if (screenWidth === 480 && screenHeight === 854) {
-    console.log("480x854")
-    gaugeSize = 450
+if (screenWidth === 480 && screenHeight === 854 || screenWidth === 480 && screenHeight === 800) {
+    console.log("480x854/800")
+    gaugeSize = 440
     bacTextSize = 30
     alcTypeSize = 75
     alcTypeText = 35
@@ -50,7 +50,7 @@ if (screenWidth === 480 && screenHeight === 854) {
     abvLiquorSize = 70
     addButtonText = 40
     addButtonSize = false
-    multiSwitchMargin = 8
+    multiSwitchMargin = 4
 } else if (screenWidth <= 600) {
     console.log("less than 600")
     gaugeSize = 250
@@ -64,6 +64,21 @@ if (screenWidth === 480 && screenHeight === 854) {
     abvLiquorText = 12
     abvLiquorSize = 38
     addButtonText = 25
+    addButtonSize = true
+    multiSwitchMargin = 0
+} else if (screenWidth === 720 && screenHeight === 1280) {
+    console.log("720x1280")
+    gaugeSize = 320
+    bacTextSize = 20
+    alcTypeSize = 60
+    alcTypeText = 25
+    abvText = 18
+    abvSize = 40
+    abvWineText = 18
+    abvWineSize = 50
+    abvLiquorText = 18
+    abvLiquorSize = 50
+    addButtonText = 30
     addButtonSize = true
     multiSwitchMargin = 0
 } else if (screenWidth > 600 && screenWidth < 750) {
