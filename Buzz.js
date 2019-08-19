@@ -221,7 +221,9 @@ class BuzzScreen extends Component {
                             contentInset={{ top: 10, bottom: 10, left: 25, right: 25 }}
                             spacing={2}
                             gridMin={0}
-                            gridMax={data[0] + 3}>
+                            gridMax={data[0] + 3}
+                            animate={true}
+                            animationDuration={800}>
                             <XAxis
                                 style={{ marginTop: 10 }}
                                 data={data}

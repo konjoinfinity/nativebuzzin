@@ -324,13 +324,13 @@ class HomeScreen extends Component {
             this.setState({ weight: JSON.parse(result) })
         })
         // To seed data, comment out just this function and add data to the buzz array
-        await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null && result !== "[]") {
-                this.setState({ buzzes: JSON.parse(result) })
-            } else {
-                this.setState({ buzzes: [] })
-            }
-        })
+        // await AsyncStorage.getItem(key, (error, result) => {
+        //     if (result !== null && result !== "[]") {
+        //         this.setState({ buzzes: JSON.parse(result) })
+        //     } else {
+        //         this.setState({ buzzes: [] })
+        //     }
+        // })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
