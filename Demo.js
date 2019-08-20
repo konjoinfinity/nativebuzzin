@@ -201,6 +201,21 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 8
+} else if (screenWidth === 1440 && screenHeight === 2768) {
+    console.log("1440x2768")
+    gaugeSize = 335
+    bacTextSize = 25
+    alcTypeSize = 70
+    alcTypeText = 30
+    abvText = 15
+    abvSize = 40
+    abvWineText = 15
+    abvWineSize = 40
+    abvLiquorText = 15
+    abvLiquorSize = 40
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 5
 } else if (screenWidth === 1440 && screenHeight !== 2712) {
     console.log("1440")
     gaugeSize = 390
