@@ -38,6 +38,20 @@ var screenWidth = Dimensions.get('window').width * PixelRatio.get()
 var screenHeight = Dimensions.get('window').height * PixelRatio.get()
 console.log(screenWidth + " x " + screenHeight)
 
+if (PixelRatio.get() === 1) {
+    console.log("mdpi")
+} else if (PixelRatio.get() === 1.5) {
+    console.log("hdpi");
+} else if (PixelRatio.get() === 2) {
+    console.log("xhdpi");
+} else if (PixelRatio.get() === 3) {
+    console.log("xxhdpi");
+} else if (PixelRatio.get() === 3.5) {
+    console.log("xxxhdpi");
+} else if (PixelRatio.get() === 4) {
+    console.log("xxxhdpi");
+}
+
 var gaugeSize;
 var bacTextSize;
 var alcTypeSize;
@@ -97,7 +111,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 30
     addButtonSize = true
     multiSwitchMargin = 0
-} else if (screenWidth > 600 && screenWidth < 750) {
+} else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
     console.log("greater than 600 & less than 750")
     gaugeSize = 295
     bacTextSize = 20

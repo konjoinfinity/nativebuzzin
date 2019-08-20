@@ -81,7 +81,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 30
     addButtonSize = true
     multiSwitchMargin = 0
-} else if (screenWidth > 600 && screenWidth < 750) {
+} else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
     console.log("greater than 600 & less than 750")
     gaugeSize = 295
     bacTextSize = 20
