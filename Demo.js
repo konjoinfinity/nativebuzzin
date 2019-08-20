@@ -135,25 +135,9 @@ class DemoScreen extends Component {
         this.setState({ oz: Functions.setOz(number, alcohol) })
     }
 
-    handleAbv(number) {
+    handleAbv(number, alcohol) {
         Vibration.vibrate();
-        if (this.state.alctype === "Beer") {
-            if (number === 0) { this.setState({ abv: 0.04 }) }
-            if (number === 1) { this.setState({ abv: 0.05 }) }
-            if (number === 2) { this.setState({ abv: 0.06 }) }
-            if (number === 3) { this.setState({ abv: 0.07 }) }
-            if (number === 4) { this.setState({ abv: 0.08 }) }
-        }
-        if (this.state.alctype === "Wine") {
-            if (number === 0) { this.setState({ abv: 0.11 }) }
-            if (number === 1) { this.setState({ abv: 0.12 }) }
-            if (number === 2) { this.setState({ abv: 0.13 }) }
-        }
-        if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ abv: 0.30 }) }
-            if (number === 1) { this.setState({ abv: 0.40 }) }
-            if (number === 2) { this.setState({ abv: 0.50 }) }
-        }
+        this.setState({ abv: Functions.setAbv(number, alcohol) })
     }
 
     handleDrinkType(value) {
@@ -454,7 +438,7 @@ class DemoScreen extends Component {
                                                     activeItemStyle={beerActive}
                                                     layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.handleAbv(number) }}
+                                                    onActivate={(number) => { this.handleAbv(number, this.state.alctype) }}
                                                     active={1}>
                                                     <Text style={{ fontSize: abvText }}>4%</Text>
                                                     <Text style={{ fontSize: abvText }}>5%</Text>
@@ -469,7 +453,7 @@ class DemoScreen extends Component {
                                                     activeItemStyle={activeStyle}
                                                     layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.handleAbv(number) }}
+                                                    onActivate={(number) => { this.handleAbv(number, this.state.alctype) }}
                                                     active={1}>
                                                     <Text style={{ fontSize: abvWineText }}>11%</Text>
                                                     <Text style={{ fontSize: abvWineText }}>12%</Text>
@@ -482,7 +466,7 @@ class DemoScreen extends Component {
                                                     activeItemStyle={activeStyle}
                                                     layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.handleAbv(number) }}
+                                                    onActivate={(number) => { this.handleAbv(number, this.state.alctype) }}
                                                     active={1}>
                                                     <Text style={{ fontSize: abvLiquorText }}>30%</Text>
                                                     <Text style={{ fontSize: abvLiquorText }}>40%</Text>
