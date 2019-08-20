@@ -231,6 +231,21 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 8
+} else if (screenWidth === 1440 && screenHeight === 2896) {
+    console.log("1440x2896")
+    gaugeSize = 455
+    bacTextSize = 40
+    alcTypeSize = 80
+    alcTypeText = 45
+    abvText = 25
+    abvSize = 60
+    abvWineText = 30
+    abvWineSize = 80
+    abvLiquorText = 30
+    abvLiquorSize = 80
+    addButtonText = 45
+    addButtonSize = false
+    multiSwitchMargin = 20
 } else if (screenWidth === 1440 && screenHeight === 2768) {
     console.log("1440x2768")
     gaugeSize = 335
@@ -261,7 +276,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 30
     addButtonSize = true
     multiSwitchMargin = 0
-} else if (screenWidth > 1125) {
+} else if (screenWidth > 1125 || screenWidth === 1440 && screenHeight === 2896) {
     console.log("greater than 1125")
     gaugeSize = 390
     bacTextSize = 25
