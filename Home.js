@@ -459,45 +459,9 @@ class HomeScreen extends Component {
     }
 
     render() {
-        var gaugeColor;
-        var bacPercentage;
-        if (this.state.bac === 0 || this.state.bac === undefined) {
-            gaugeColor = "#ffffff"
-            bacPercentage = 0
-        } else if (this.state.bac > 0.00 && this.state.bac < 0.01) {
-            gaugeColor = "#b5d3a0"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.01 && this.state.bac < 0.02) {
-            gaugeColor = "#96c060"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.02 && this.state.bac < 0.03) {
-            gaugeColor = "#9fc635"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.03 && this.state.bac < 0.04) {
-            gaugeColor = "#d3e50e"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.04 && this.state.bac < 0.05) {
-            gaugeColor = "#ffeb00"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.05 && this.state.bac < 0.06) {
-            gaugeColor = "#f9bf00"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.06 && this.state.bac < 0.07) {
-            gaugeColor = "#e98f00"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.07 && this.state.bac < 0.08) {
-            gaugeColor = "#d05900"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.08 && this.state.bac < 0.09) {
-            gaugeColor = "#AE0000"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac > 0.09 && this.state.bac < 0.10) {
-            gaugeColor = "#571405"
-            bacPercentage = this.state.bac * 1000
-        } else if (this.state.bac >= 0.10) {
-            gaugeColor = "#000000"
-            bacPercentage = 100
-        }
+        var returnValues = Functions.setColorPercent(this.state.bac)
+        var gaugeColor = returnValues[0]
+        var bacPercentage = returnValues[1]
         return (
             <View>
                 <Modal animationType="slide"

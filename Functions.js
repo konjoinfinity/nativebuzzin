@@ -99,4 +99,32 @@ export class Functions {
             if (number === 2) { return 0.50 }
         }
     }
+
+    static setColorPercent(bac) {
+        if (bac === 0 || bac === undefined) {
+            return ["#ffffff", 0]
+        } else if (bac > 0.00 && bac < 0.01) {
+            return ["#b5d3a0", bac * 1000]
+        } else if (bac > 0.01 && bac < 0.02) {
+            return ["#96c060", bac * 1000]
+        } else if (bac > 0.02 && bac < 0.03) {
+            return ["#9fc635", bac * 1000]
+        } else if (bac > 0.03 && bac < 0.04) {
+            return ["#d3e50e", bac * 1000]
+        } else if (bac > 0.04 && bac < 0.05) {
+            return ["#ffeb00", bac * 1000]
+        } else if (bac > 0.05 && bac < 0.06) {
+            return ["#f9bf00", bac * 1000]
+        } else if (bac > 0.06 && bac < 0.07) {
+            return ["#e98f00", bac * 1000]
+        } else if (bac > 0.07 && bac < 0.08) {
+            return ["#d05900", bac * 1000]
+        } else if (bac > 0.08 && bac < 0.09) {
+            return ["#AE0000", bac * 1000]
+        } else if (bac > 0.09 && bac < 0.10) {
+            return ["#571405", bac * 1000]
+        } else if (bac >= 0.10) {
+            return ["#000000", 100]
+        }
+    }
 }
