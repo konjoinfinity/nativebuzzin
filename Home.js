@@ -211,20 +211,14 @@ class HomeScreen extends Component {
         }
         if (step.order === 5) {
             setTimeout(() => {
-                this.setState({ abv: 0.06 })
+                this.setState({ abv: 0.08 })
             }, 1000);
             setTimeout(() => {
-                this.setState({ abv: 0.07 })
+                this.setState({ abv: 0.04 })
             }, 2000);
             setTimeout(() => {
-                this.setState({ abv: 0.08 })
-            }, 3000);
-            setTimeout(() => {
-                this.setState({ abv: 0.04 })
-            }, 4000);
-            setTimeout(() => {
                 this.setState({ abv: 0.05 })
-            }, 5000);
+            }, 3000);
         }
         if (step.order === 6) {
             setTimeout(() => {
