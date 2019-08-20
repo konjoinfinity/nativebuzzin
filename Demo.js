@@ -141,8 +141,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 45
     addButtonSize = false
     multiSwitchMargin = 15
-} else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621) {
-    console.log("1440 x 2712/2792/2621")
+} else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
+    console.log("1440 x 2712/2792/2621/2416")
     gaugeSize = 380
     bacTextSize = 30
     alcTypeSize = 80
