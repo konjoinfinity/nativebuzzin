@@ -232,7 +232,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonSize = false
     multiSwitchMargin = 8
 } else if (screenWidth === 1440 && screenHeight === 2896 || screenWidth === 1440 && screenHeight === 2816) {
-    console.log("1440x2896")
+    console.log("1440x2896/2816")
     gaugeSize = 455
     bacTextSize = 40
     alcTypeSize = 80
