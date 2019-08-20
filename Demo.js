@@ -36,7 +36,22 @@ var addButtonText;
 var addButtonSize;
 var multiSwitchMargin;
 
-if (screenWidth <= 600) {
+if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
+    console.log("480x854/800")
+    gaugeSize = 440
+    bacTextSize = 30
+    alcTypeSize = 75
+    alcTypeText = 35
+    abvText = 25
+    abvSize = 60
+    abvWineText = 25
+    abvWineSize = 70
+    abvLiquorText = 25
+    abvLiquorSize = 70
+    addButtonText = 40
+    addButtonSize = false
+    multiSwitchMargin = 4
+} else if (screenWidth <= 600) {
     console.log("less than 600")
     gaugeSize = 230
     bacTextSize = 13
