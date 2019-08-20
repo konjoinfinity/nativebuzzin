@@ -1,3 +1,4 @@
+
 export class Functions {
 
     static getDayHourMin(date1, date2) {
@@ -59,5 +60,43 @@ export class Functions {
         totalAlc = totalArray.reduce((a, b) => a + b, 0)
         var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
         return bac;
+    }
+
+    static setOz(number, alcohol) {
+        if (alcohol === "Beer") {
+            if (number === 0) { return 12 }
+            if (number === 1) { return 16 }
+            if (number === 2) { return 20 }
+        }
+        if (alcohol === "Wine") {
+            if (number === 0) { return 5 }
+            if (number === 1) { return 8 }
+            if (number === 2) { return 12 }
+        }
+        if (alcohol === "Liquor") {
+            if (number === 0) { return 1.5 }
+            if (number === 1) { return 3 }
+            if (number === 2) { return 6 }
+        }
+    }
+
+    static setAbv(number, alcohol) {
+        if (alcohol === "Beer") {
+            if (number === 0) { return 0.04 }
+            if (number === 1) { return 0.05 }
+            if (number === 2) { return 0.06 }
+            if (number === 3) { return 0.07 }
+            if (number === 4) { return 0.08 }
+        }
+        if (alcohol === "Wine") {
+            if (number === 0) { return 0.11 }
+            if (number === 1) { return 0.12 }
+            if (number === 2) { return 0.13 }
+        }
+        if (alcohol === "Liquor") {
+            if (number === 0) { return 0.30 }
+            if (number === 1) { return 0.40 }
+            if (number === 2) { return 0.50 }
+        }
     }
 }

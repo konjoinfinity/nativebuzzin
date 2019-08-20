@@ -130,23 +130,9 @@ class DemoScreen extends Component {
         this.setState({ testbuzzes: [], bac: 0.0 })
     }
 
-    handleOz(number) {
+    handleOz(number, alcohol) {
         Vibration.vibrate();
-        if (this.state.alctype === "Beer") {
-            if (number === 0) { this.setState({ oz: 12 }) }
-            if (number === 1) { this.setState({ oz: 16 }) }
-            if (number === 2) { this.setState({ oz: 20 }) }
-        }
-        if (this.state.alctype === "Wine") {
-            if (number === 0) { this.setState({ oz: 5 }) }
-            if (number === 1) { this.setState({ oz: 8 }) }
-            if (number === 2) { this.setState({ oz: 12 }) }
-        }
-        if (this.state.alctype === "Liquor") {
-            if (number === 0) { this.setState({ oz: 1.5 }) }
-            if (number === 1) { this.setState({ oz: 3 }) }
-            if (number === 2) { this.setState({ oz: 6 }) }
-        }
+        this.setState({ oz: Functions.setOz(number, alcohol) })
     }
 
     handleAbv(number) {
@@ -510,7 +496,7 @@ class DemoScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleOz(number) }}
+                                                onActivate={(number) => { this.handleOz(number, this.state.alctype) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>16oz</Text>
@@ -523,7 +509,7 @@ class DemoScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleOz(number) }}
+                                                onActivate={(number) => { this.handleOz(number, this.state.alctype) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>5oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>8oz</Text>
@@ -536,7 +522,7 @@ class DemoScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleOz(number) }}
+                                                onActivate={(number) => { this.handleOz(number, this.state.alctype) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>1.5oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>3oz</Text>
