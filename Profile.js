@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
+import { Functions } from "./Functions";
 
 const oldkey = "oldbuzzes"
 const namekey = "name"
@@ -50,18 +51,6 @@ class ProfileScreen extends Component {
         this.handleAutoBreak = this.handleAutoBreak.bind(this);
     };
 
-    getDayHourMin(date1, date2) {
-        var dateDiff = date2 - date1;
-        dateDiff = dateDiff / 1000;
-        var seconds = Math.floor(dateDiff % 60);
-        dateDiff = dateDiff / 60;
-        var minutes = Math.floor(dateDiff % 60);
-        dateDiff = dateDiff / 60;
-        var hours = Math.floor(dateDiff % 24);
-        var days = Math.floor(dateDiff / 24);
-        return [days, hours, minutes, seconds];
-    }
-
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             this.setState({ autobreak: JSON.parse(result) })
@@ -92,7 +81,7 @@ class ProfileScreen extends Component {
                     var date1 = Date.parse(this.state.breakdate)
                     var currentDate = new Date();
                     var date2 = currentDate.getTime();
-                    var dayHourMin = this.getDayHourMin(date2, date1);
+                    var dayHourMin = Functions.getDayHourMin(date2, date1);
                     var days = dayHourMin[0];
                     var hours = dayHourMin[1];
                     var minutes = dayHourMin[2];
