@@ -32,6 +32,10 @@ var addButtonText;
 var addButtonSize;
 var multiSwitchMargin;
 
+let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
+let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
+let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     console.log("480x854/800")
     gaugeSize = 440
@@ -274,4 +278,4 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     multiSwitchMargin = 0
 }
 
-export { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin }
+export { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, data, activeStyle, beerActive }

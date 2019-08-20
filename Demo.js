@@ -15,11 +15,7 @@ import NumericInput from 'react-native-numeric-input'
 import RNSpeedometer from 'react-native-speedometer'
 import { NavigationEvents } from "react-navigation";
 import { AlertHelper } from './AlertHelper';
-import { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin } from "./ScreenSize";
-
-let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
-let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
-let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+import { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, data, activeStyle, beerActive } from "./ScreenSize";
 
 class DemoScreen extends Component {
     constructor(props) {

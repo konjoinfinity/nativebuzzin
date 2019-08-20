@@ -18,7 +18,7 @@ import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
 import moment from "moment";
-import { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin } from "./ScreenSize";
+import { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, data, activeStyle, beerActive } from "./ScreenSize";
 
 const namekey = "name"
 const genderkey = "gender"
@@ -32,10 +32,6 @@ const happyhourkey = "happyhour"
 const autobreakminkey = "autobreakmin"
 
 const CopilotView = walkthroughable(View);
-
-let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
-let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
-let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
 class HomeScreen extends Component {
     constructor(props) {
