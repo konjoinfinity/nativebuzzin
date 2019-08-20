@@ -15,6 +15,7 @@ import { NavigationEvents } from "react-navigation";
 import { BarChart, Grid, XAxis } from 'react-native-svg-charts'
 import { Text as TextSVG } from "react-native-svg";
 import * as scale from 'd3-scale'
+import { Functions } from "./Functions";
 
 const key = "buzzes"
 const oldkey = "oldbuzzes"
@@ -35,39 +36,6 @@ class BuzzScreen extends Component {
         this.showHideOldBuzzes = this.showHideOldBuzzes.bind(this);
     };
 
-    getDayHourMin(date1, date2) {
-        var dateDiff = date2 - date1;
-        dateDiff = dateDiff / 1000;
-        var seconds = Math.floor(dateDiff % 60);
-        dateDiff = dateDiff / 60;
-        var minutes = Math.floor(dateDiff % 60);
-        dateDiff = dateDiff / 60;
-        var hours = Math.floor(dateDiff % 24);
-        var days = Math.floor(dateDiff / 24);
-        return [days, hours, minutes, seconds];
-    }
-
-    singleDuration(initialbuzz) {
-        var date1 = Date.parse(initialbuzz)
-        var duration;
-        var currentDate = new Date();
-        var date2 = currentDate.getTime();
-        var dayHourMin = this.getDayHourMin(date1, date2);
-        var days = dayHourMin[0];
-        var hours = dayHourMin[1];
-        var minutes = dayHourMin[2];
-        var seconds = dayHourMin[3];
-        if (days >= 1) {
-            hours = hours + days * 24;
-        }
-        if (hours == 0) {
-            duration = minutes / 60 + seconds / 3600;
-        } else {
-            duration = hours + minutes / 60 + seconds / 3600;
-        }
-        return duration;
-    }
-
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
             if (result !== null && result !== "[]") {
@@ -83,7 +51,7 @@ class BuzzScreen extends Component {
                     var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
                     var currentDate = new Date();
                     var date2 = currentDate.getTime();
-                    var dayHourMin = this.getDayHourMin(date1, date2);
+                    var dayHourMin = Functions.getDayHourMin(date1, date2);
                     var days = dayHourMin[0];
                     var hours = dayHourMin[1];
                     var minutes = dayHourMin[2];
@@ -178,7 +146,7 @@ class BuzzScreen extends Component {
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
-                    var drinkTime = this.singleDuration(oldbuzz.dateCreated);
+                    var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
                     if (drinkTime < 168) {
                         sevenArray.push(oldbuzz)
                     }
