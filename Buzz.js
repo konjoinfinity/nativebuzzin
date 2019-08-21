@@ -196,7 +196,7 @@ class BuzzScreen extends Component {
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ flexDirection: 'row', height: 250, paddingVertical: 16, backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 25, paddingRight: 25 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: "space-evenly", height: 250, paddingVertical: 16, backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 25, paddingRight: 25 }}>
                         <View style={{ flexDirection: 'column', paddingRight: 10 }}>
                             <BarChart
                                 style={{ flex: 1, padding: 10 }}
