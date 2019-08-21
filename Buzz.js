@@ -239,16 +239,15 @@ class BuzzScreen extends Component {
                                 {/* {this.state.showHideBuzzes === true && (
                                 // Remove Delete All Buzzes
                                 this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.buzzbutton} onPress={() => this.deleteBuzzes()}>
-                                    <Text style={styles.buzzbuttonText}>Delete All Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
+                                    <Text style={styles.buttonText}>Delete All Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
                                 {this.state.showHideBuzzes === false && (
                                     this.state.buzzes !== null && (
                                         <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
-                                            <Text style={styles.buzzbuttonText}>Show</Text></TouchableOpacity>
-                                    ))}
+                                            <Text style={styles.buttonText}>Show</Text></TouchableOpacity>))}
                                 {this.state.showHideBuzzes === true && (
                                     this.state.buzzes !== null && (
                                         <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
-                                            <Text style={styles.buzzbuttonText}>Hide</Text></TouchableOpacity>))}
+                                            <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>))}
                             </View>
                             {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
                         </View>}
@@ -266,15 +265,15 @@ class BuzzScreen extends Component {
                                 <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Old Buzzes   </Text>
                                 {/* {this.state.showHideOldBuzzes === true && (
                                 // Remove Delete All Buzzes
-                                this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.buzzbutton} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buzzbuttonText}>Delete All Old Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
+                                this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.buzzbutton} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
                                 {this.state.showHideOldBuzzes === false && (
                                     this.state.oldbuzzes !== null && (
                                         <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideOldBuzzes()}>
-                                            <Text style={styles.buzzbuttonText}>Show</Text></TouchableOpacity>))}
+                                            <Text style={styles.buttonText}>Show</Text></TouchableOpacity>))}
                                 {this.state.showHideOldBuzzes === true && (
                                     this.state.oldbuzzes !== null && (
                                         <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideOldBuzzes()}>
-                                            <Text style={styles.buzzbuttonText}>Hide</Text></TouchableOpacity>))}
+                                            <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>))}
                             </View>
                             {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                         </View>}
