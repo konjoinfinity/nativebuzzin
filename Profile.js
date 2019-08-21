@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     ScrollView,
     View,
     Text,
@@ -17,6 +16,7 @@ import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
 import { namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey } from "./Variables";
+import styles from "./Styles"
 
 class ProfileScreen extends Component {
     constructor(props) {
@@ -266,20 +266,20 @@ class ProfileScreen extends Component {
                             </View>
                         </View>
                         {this.state.break === false &&
-                            <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak()}>
-                                <Text style={styles.buttonText}>Take a Break</Text>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.takeAbreak()}>
+                                <Text style={styles.profilebuttonText}>Take a Break</Text>
                             </TouchableOpacity>}
                         {this.state.break === true &&
-                            <TouchableOpacity style={styles.breakbutton} onPress={() => this.takeAbreak()}>
-                                <Text style={styles.buttonText}>Add to Break</Text>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.takeAbreak()}>
+                                <Text style={styles.profilebuttonText}>Add to Break</Text>
                             </TouchableOpacity>}
                         {this.state.break === true &&
                             <View>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{moment(this.state.breakdate).format('MMMM Do YYYY, h:mm a')}</Text>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
-                                <TouchableOpacity style={styles.breakbutton} onPress={() => this.cancelBreakAlert()}>
-                                    <Text style={styles.buttonText}>Cancel Break</Text>
+                                <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
+                                    <Text style={styles.profilebuttonText}>Cancel Break</Text>
                                 </TouchableOpacity>
                             </View>}
                         {/* {this.state.happyhour === true &&
@@ -290,8 +290,8 @@ class ProfileScreen extends Component {
                             </View>} */}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.LogOut()}>
-                            <Text style={styles.buttonText}>Logout ➡️🚪</Text>
+                        <TouchableOpacity style={styles.profilebutton} onPress={() => this.LogOut()}>
+                            <Text style={styles.profilebuttonText}>Logout ➡️🚪</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -301,33 +301,3 @@ class ProfileScreen extends Component {
 }
 
 export default ProfileScreen;
-
-const styles = StyleSheet.create({
-    breakbutton: {
-        borderWidth: 1,
-        borderColor: "#00897b",
-        backgroundColor: "#00897b",
-        padding: 10,
-        marginTop: 15,
-        marginRight: 90,
-        marginLeft: 90,
-        marginBottom: 10,
-        borderRadius: 15
-    },
-    button: {
-        borderWidth: 1,
-        borderColor: "#00897b",
-        backgroundColor: "#00897b",
-        padding: 10,
-        marginTop: 10,
-        marginRight: 70,
-        marginLeft: 70,
-        marginBottom: 10,
-        borderRadius: 15
-    },
-    buttonText: {
-        color: "#FFFFFF",
-        fontSize: 18,
-        textAlign: "center"
-    }
-})
