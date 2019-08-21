@@ -152,18 +152,37 @@ class BuzzScreen extends Component {
                     }
                 })
             }))
-        var weekColor;
-        if (sevenArray.length <= 5) {
-            weekColor = "#96c060"
-        } else if (sevenArray.length > 5 && sevenArray.length <= 10) {
-            weekColor = "#ffeb00"
-        } else if (sevenArray.length > 10 && sevenArray.length <= 14) {
-            weekColor = "#e98f00"
-        } else if (sevenArray.length > 14) {
-            weekColor = "#AE0000"
-        }
-        const data = [sevenArray.length]
-        const Labels = ({ x, y, bandwidth, data }) => (
+        var thirtyArray = []
+        this.state.oldbuzzes !== null &&
+            (this.state.oldbuzzes.map((buzz) => {
+                return buzz.map((oldbuzz) => {
+                    var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
+                    if (drinkTime < 720) {
+                        thirtyArray.push(oldbuzz)
+                    }
+                })
+            }))
+        var weekColor = Functions.sevenColor(sevenArray.length)
+        var monthColor = Functions.thirtyColor(sevenArray.length)
+
+        var sevenData = [sevenArray.length]
+        var thirtyData = [thirtyArray.length]
+
+        const SevenLabels = ({ x, y, bandwidth, data }) => (
+            data.map((value, index) => (
+                <TextSVG
+                    key={index}
+                    x={x(index) + (bandwidth / 2)}
+                    y={y(value) - 10}
+                    fontSize={20}
+                    fill={'black'}
+                    alignmentBaseline={'middle'}
+                    textAnchor={'middle'}>
+                    {value}
+                </TextSVG>
+            ))
+        )
+        const ThirtyLabels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
                 <TextSVG
                     key={index}
@@ -181,26 +200,49 @@ class BuzzScreen extends Component {
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ flexDirection: 'column', height: 250, paddingVertical: 16, backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 35, paddingRight: 35 }}>
-                        <BarChart
-                            style={{ flex: 1, padding: 10 }}
-                            data={data}
-                            svg={{ fill: weekColor }}
-                            contentInset={{ top: 10, bottom: 10, left: 25, right: 25 }}
-                            spacing={2}
-                            gridMin={0}
-                            gridMax={data[0] + 3}
-                            animate={true}
-                            animationDuration={1500}>
-                            <XAxis
-                                style={{ marginTop: 10 }}
-                                data={data}
-                                scale={scale.scaleBand}
-                                formatLabel={() => ""} />
-                            <Grid direction={Grid.Direction.HORIZONTAL} />
-                            <Labels />
-                        </BarChart>
-                        <Text style={{ fontSize: 20, textAlign: "center", padding: 5 }}>Total Drinks Last Week</Text>
+                    <View style={{ flexDirection: 'row', height: 250, paddingVertical: 16, backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 25, paddingRight: 25 }}>
+                        <View style={{ flexDirection: 'column', paddingRight: 10 }}>
+                            <BarChart
+                                style={{ flex: 1, padding: 10 }}
+                                data={sevenData}
+                                svg={{ fill: weekColor }}
+                                contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                spacing={2}
+                                gridMin={0}
+                                gridMax={sevenData[0] + 3}
+                                animate={true}
+                                animationDuration={1500}>
+                                <XAxis
+                                    style={{ marginTop: 10 }}
+                                    data={sevenData}
+                                    scale={scale.scaleBand}
+                                    formatLabel={() => ""} />
+                                <Grid direction={Grid.Direction.HORIZONTAL} />
+                                <SevenLabels />
+                            </BarChart>
+                            <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Total Last Week</Text>
+                        </View>
+                        <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
+                            <BarChart
+                                style={{ flex: 1, padding: 10 }}
+                                data={thirtyData}
+                                svg={{ fill: monthColor }}
+                                contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                spacing={2}
+                                gridMin={0}
+                                gridMax={thirtyData[0] + 10}
+                                animate={true}
+                                animationDuration={1800}>
+                                <XAxis
+                                    style={{ marginTop: 10 }}
+                                    data={thirtyData}
+                                    scale={scale.scaleBand}
+                                    formatLabel={() => ""} />
+                                <Grid direction={Grid.Direction.HORIZONTAL} />
+                                <ThirtyLabels />
+                            </BarChart>
+                            <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Total Last Month</Text>
+                        </View>
                     </View>
                     {this.state.buzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>

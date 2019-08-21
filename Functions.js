@@ -127,4 +127,28 @@ export class Functions {
             return ["#000000", 100]
         }
     }
+
+    static sevenColor(drinks) {
+        if (drinks <= 5) {
+            return "#96c060"
+        } else if (drinks > 5 && drinks <= 10) {
+            return "#ffeb00"
+        } else if (drinks > 10 && drinks <= 14) {
+            return "#e98f00"
+        } else if (drinks > 14) {
+            return "#AE0000"
+        }
+    }
+
+    static thirtyColor(drinks) {
+        if (drinks <= 20) {
+            return "#96c060"
+        } else if (drinks > 20 && drinks <= 40) {
+            return "#ffeb00"
+        } else if (drinks > 40 && drinks <= 56) {
+            return "#e98f00"
+        } else if (drinks > 56) {
+            return "#AE0000"
+        }
+    }
 }
