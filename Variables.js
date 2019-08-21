@@ -1,4 +1,5 @@
-import { Dimensions, PixelRatio } from 'react-native';
+import React, { Component } from 'react';
+import { Dimensions, PixelRatio, View, Text } from 'react-native';
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get()
 var screenHeight = Dimensions.get('window').height * PixelRatio.get()
@@ -61,6 +62,30 @@ const breakdatekey = "breakdate"
 const autobreakkey = "autobreak"
 const happyhourkey = "happyhour"
 const autobreakminkey = "autobreakmin"
+
+const warnText = (<View>
+    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
+    <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.
+Please consider one of the following:</Text>
+    <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Drinking a glass of water.</Text>
+    <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Taking a break from drinking for at least an hour.</Text>
+    <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Calling a friend, Uber, or Lyft to come pick you up.</Text>
+    <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>If you continue drinking:</Text>
+    <Text style={{ fontSize: 16, textAlign: "center", padding: 8 }}>Your decision making abilities could be impaired.  You should NOT drive an automobile or operate heavy machinery.  You could have a hangover tomorrow morning.  You might do something you regret.  You could injure yourself or others.  You could end up in legal trouble or jail.</Text>
+    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
+</View>)
+
+const dangerText = (<View>
+    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>Danger!</Text>
+    <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>Your BAC is well above the legal drinking limit.
+    Please do one of the following:</Text>
+    <Text style={{ fontSize: 16, textAlign: "center", padding: 8, color: "white" }}>Drink only water from now on.</Text>
+    <Text style={{ fontSize: 16, textAlign: "center", padding: 8, color: "white" }}>Take a break from drinking for at least two hours.</Text>
+    <Text style={{ fontSize: 16, textAlign: "center", padding: 8, color: "white" }}>Call a friend, Uber, or Lyft to pick you up.</Text>
+    <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>If you continue drinking:</Text>
+    <Text style={{ fontSize: 16, textAlign: "center", padding: 8, color: "white" }}>Your decision making abilities will be impaired.  Do NOT drive an automobile or operate heavy machinery.  You will have a hangover tomorrow morning.  You will likely do something you regret.  You will likely injure yourself or others.  You will likely end up in legal trouble or jail.</Text>
+    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
+</View>)
 
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     // console.log("480x854/800")
@@ -331,5 +356,7 @@ export {
     autobreakkey,
     happyhourkey,
     autobreakminkey,
-    gaugeLabels
+    gaugeLabels,
+    warnText,
+    dangerText
 }
