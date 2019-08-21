@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    StyleSheet,
     Text,
     View,
     TextInput,
@@ -18,6 +17,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import { namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey } from "./Variables";
+import styles from "./Styles"
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -86,7 +86,7 @@ class LoginScreen extends React.Component {
             numberInputSize = 290
         }
         return (
-            <KeyboardAvoidingView style={styles.container} behavior={(Platform.OS === 'ios') ? "padding" : null}>
+            <KeyboardAvoidingView style={styles.logincontainer} behavior={(Platform.OS === 'ios') ? "padding" : null}>
                 <ScrollView>
                     <View onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }}
                         style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
@@ -104,21 +104,21 @@ class LoginScreen extends React.Component {
                                     By pressing agree, the user forfeits their rights to hold Buzzin' or LifeSystems LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
                                 This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text>
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                                        <TouchableOpacity style={styles.disagreeButton}
+                                        <TouchableOpacity style={styles.logindisagreeButton}
                                             onPress={() => { this.handleCancel() }}>
-                                            <Text style={styles.buttonText}>Disagree</Text>
+                                            <Text style={styles.loginbuttonText}>Disagree</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={styles.button}
+                                        <TouchableOpacity style={styles.loginbutton}
                                             onPress={() => { this.handleLogin() }}>
-                                            <Text style={styles.buttonText}>Agree</Text>
+                                            <Text style={styles.loginbuttonText}>Agree</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </ScrollView></Modal>
-                        <Text style={styles.header}>Login</Text>
-                        <View style={styles.inputContainer}>
+                        <Text style={styles.loginheader}>Login</Text>
+                        <View style={styles.logininputContainer}>
                             <TextInput
-                                style={styles.textInput}
+                                style={styles.logintextInput}
                                 placeholder="Name"
                                 autoFocus={true}
                                 name="name"
@@ -130,7 +130,7 @@ class LoginScreen extends React.Component {
                                 onSubmitEditing={() => Keyboard.dismiss()} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
-                            <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.loginbutton} onPress={() => this.switchGender()}><Text style={styles.loginbuttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
                             <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                             </View>
@@ -153,9 +153,9 @@ class LoginScreen extends React.Component {
                         </View>
                         <View style={{ paddingTop: 20 }}>
                             <TouchableOpacity
-                                style={styles.button}
+                                style={styles.loginbutton}
                                 onPress={() => this.setModalVisible(true)}>
-                                <Text style={styles.buttonText}>Login</Text>
+                                <Text style={styles.loginbuttonText}>Login</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -165,56 +165,3 @@ class LoginScreen extends React.Component {
     }
 }
 export default LoginScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    header: {
-        fontSize: 30,
-        textAlign: "center",
-        margin: 10
-    },
-    inputContainer: {
-        paddingTop: 15
-    },
-    textInput: {
-        borderColor: "#CCCCCC",
-        borderWidth: 1,
-        height: 50,
-        fontSize: 25,
-        paddingLeft: 20,
-        paddingRight: 20,
-        borderRadius: 15,
-        textAlign: "center"
-    },
-    loginButton: {
-        borderWidth: 1,
-        borderColor: "#80cbc4",
-        backgroundColor: "#80cbc4",
-        padding: 15,
-        margin: 5,
-        borderRadius: 15
-    },
-    disagreeButton: {
-        borderWidth: 1,
-        borderColor: "#AE0000",
-        backgroundColor: "#AE0000",
-        padding: 15,
-        margin: 5,
-        borderRadius: 15
-    },
-    buttonText: {
-        color: "#FFFFFF",
-        fontSize: 20,
-        textAlign: "center"
-    },
-    button: {
-        borderWidth: 1,
-        borderColor: "#00897b",
-        backgroundColor: "#00897b",
-        padding: 15,
-        margin: 5,
-        borderRadius: 15
-    }
-});
