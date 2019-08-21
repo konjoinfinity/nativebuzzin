@@ -49,14 +49,6 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         textAlign: "center"
     },
-    loginloginButton: {
-        borderWidth: 1,
-        borderColor: "#80cbc4",
-        backgroundColor: "#80cbc4",
-        padding: 15,
-        margin: 5,
-        borderRadius: 15
-    },
     logindisagreeButton: {
         borderWidth: 1,
         borderColor: "#AE0000",
