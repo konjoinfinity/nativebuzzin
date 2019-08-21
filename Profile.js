@@ -16,16 +16,7 @@ import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
-
-const oldkey = "oldbuzzes"
-const namekey = "name"
-const genderkey = "gender"
-const weightkey = "weight"
-const key = "buzzes"
-const breakkey = "break"
-const breakdatekey = "breakdate"
-const autobreakkey = "autobreak"
-const happyhourkey = "happyhour"
+import { namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey } from "./Variables";
 
 class ProfileScreen extends Component {
     constructor(props) {

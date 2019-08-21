@@ -17,6 +17,7 @@ import {
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
+import { namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey } from "./Variables";
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -61,12 +62,6 @@ class LoginScreen extends React.Component {
     }
 
     async handleLogin() {
-        const namekey = "name"
-        const genderkey = "gender"
-        const weightkey = "weight"
-        const autobreakkey = "autobreak"
-        const happyhourkey = "happyhour"
-        const autobreakminkey = "autobreakmin"
         await AsyncStorage.setItem(namekey, JSON.stringify(this.state.name))
         await AsyncStorage.setItem(genderkey, JSON.stringify(this.state.gender))
         await AsyncStorage.setItem(weightkey, JSON.stringify(this.state.weight))

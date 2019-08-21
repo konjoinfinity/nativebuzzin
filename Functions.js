@@ -1,4 +1,3 @@
-
 export class Functions {
 
     static getDayHourMin(date1, date2) {

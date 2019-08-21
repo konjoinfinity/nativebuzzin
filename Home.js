@@ -18,19 +18,8 @@ import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
 import moment from "moment";
-import { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, data, activeStyle, beerActive } from "./ScreenSize";
+import { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey } from "./Variables";
 import { Functions } from "./Functions";
-
-const namekey = "name"
-const genderkey = "gender"
-const weightkey = "weight"
-const key = "buzzes"
-const oldkey = "oldbuzzes"
-const breakkey = "break"
-const breakdatekey = "breakdate"
-const autobreakkey = "autobreak"
-const happyhourkey = "happyhour"
-const autobreakminkey = "autobreakmin"
 
 const CopilotView = walkthroughable(View);
 
@@ -635,7 +624,7 @@ class HomeScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                                onActivate={(number) => { this.handleDrinkType(alcValues[number].value) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                                 <Text style={{ fontSize: alcTypeText }}>🍷</Text>
@@ -648,7 +637,7 @@ class HomeScreen extends Component {
                                         activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                        onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                        onActivate={(number) => { this.handleDrinkType(alcValues[number].value) }}
                                         active={1}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>
@@ -659,7 +648,7 @@ class HomeScreen extends Component {
                                         activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                        onActivate={(number) => { this.handleDrinkType(data[number].value) }}
+                                        onActivate={(number) => { this.handleDrinkType(alcValues[number].value) }}
                                         active={2}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>

@@ -16,9 +16,7 @@ import { BarChart, Grid, XAxis } from 'react-native-svg-charts'
 import { Text as TextSVG } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
-
-const key = "buzzes"
-const oldkey = "oldbuzzes"
+import { key, oldkey } from "./Variables";
 
 class BuzzScreen extends Component {
     constructor(props) {

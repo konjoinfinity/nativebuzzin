@@ -32,9 +32,20 @@ var addButtonText;
 var addButtonSize;
 var multiSwitchMargin;
 
-let data = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
+let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
 let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
 let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+
+const namekey = "name"
+const genderkey = "gender"
+const weightkey = "weight"
+const key = "buzzes"
+const oldkey = "oldbuzzes"
+const breakkey = "break"
+const breakdatekey = "breakdate"
+const autobreakkey = "autobreak"
+const happyhourkey = "happyhour"
+const autobreakminkey = "autobreakmin"
 
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     console.log("480x854/800")
@@ -278,4 +289,31 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     multiSwitchMargin = 0
 }
 
-export { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, data, activeStyle, beerActive }
+export {
+    gaugeSize,
+    bacTextSize,
+    alcTypeSize,
+    alcTypeText,
+    abvText,
+    abvSize,
+    abvWineText,
+    abvWineSize,
+    abvLiquorText,
+    abvLiquorSize,
+    addButtonText,
+    addButtonSize,
+    multiSwitchMargin,
+    alcValues,
+    activeStyle,
+    beerActive,
+    namekey,
+    genderkey,
+    weightkey,
+    key,
+    oldkey,
+    breakkey,
+    breakdatekey,
+    autobreakkey,
+    happyhourkey,
+    autobreakminkey
+}
