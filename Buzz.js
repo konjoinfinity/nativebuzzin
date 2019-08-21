@@ -164,10 +164,8 @@ class BuzzScreen extends Component {
             }))
         var weekColor = Functions.sevenColor(sevenArray.length)
         var monthColor = Functions.thirtyColor(sevenArray.length)
-
         var sevenData = [sevenArray.length]
         var thirtyData = [thirtyArray.length]
-
         const SevenLabels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
                 <TextSVG
