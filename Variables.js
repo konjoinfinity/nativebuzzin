@@ -2,21 +2,21 @@ import { Dimensions, PixelRatio } from 'react-native';
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get()
 var screenHeight = Dimensions.get('window').height * PixelRatio.get()
-console.log(screenWidth + " x " + screenHeight)
+// console.log(screenWidth + " x " + screenHeight)
 
-if (PixelRatio.get() === 1) {
-    console.log("mdpi")
-} else if (PixelRatio.get() === 1.5) {
-    console.log("hdpi");
-} else if (PixelRatio.get() === 2) {
-    console.log("xhdpi");
-} else if (PixelRatio.get() === 3) {
-    console.log("xxhdpi");
-} else if (PixelRatio.get() === 3.5) {
-    console.log("xxxhdpi");
-} else if (PixelRatio.get() === 4) {
-    console.log("xxxhdpi");
-}
+// if (PixelRatio.get() === 1) {
+//     console.log("mdpi")
+// } else if (PixelRatio.get() === 1.5) {
+//     console.log("hdpi");
+// } else if (PixelRatio.get() === 2) {
+//     console.log("xhdpi");
+// } else if (PixelRatio.get() === 3) {
+//     console.log("xxhdpi");
+// } else if (PixelRatio.get() === 3.5) {
+//     console.log("xxxhdpi");
+// } else if (PixelRatio.get() === 4) {
+//     console.log("xxxhdpi");
+// }
 
 var gaugeSize;
 var bacTextSize;
