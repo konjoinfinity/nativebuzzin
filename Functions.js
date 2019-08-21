@@ -151,11 +151,11 @@ export class Functions {
         }
     }
 
-    static reverseArray(arr) {
-        var newArray = [];
-        for (var i = arr.length - 1; i >= 0; i--) {
-            newArray.push(arr[i]);
+    static reverseArray(array) {
+        var reversedArray = [];
+        for (var i = array.length - 1; i >= 0; i--) {
+            reversedArray.push(array[i]);
         }
-        return newArray;
+        return reversedArray;
     }
 }
