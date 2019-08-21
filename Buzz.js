@@ -62,14 +62,6 @@ class BuzzScreen extends Component {
         })
     }
 
-    reverseArray(arr) {
-        var newArray = [];
-        for (var i = arr.length - 1; i >= 0; i--) {
-            newArray.push(arr[i]);
-        }
-        return newArray;
-    }
-
     // async deleteBuzzes() {
     //     Vibration.vibrate();
     //     await AsyncStorage.removeItem(key, () => {
@@ -113,7 +105,7 @@ class BuzzScreen extends Component {
     render() {
         let buzzes;
         this.state.buzzes !== null &&
-            (buzzes = this.reverseArray(this.state.buzzes).map((buzz, id) => {
+            (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
                         <TouchableOpacity style={styles.headerButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
@@ -125,8 +117,8 @@ class BuzzScreen extends Component {
             }))
         let oldbuzzes;
         this.state.oldbuzzes !== null &&
-            (oldbuzzes = this.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
-                return this.reverseArray(buzz).map((oldbuzz, id) => {
+            (oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
+                return Functions.reverseArray(buzz).map((oldbuzz, id) => {
                     return (
                         <View key={id}>
                             {id === 0 && <Text style={{ fontSize: 20, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
@@ -161,7 +153,7 @@ class BuzzScreen extends Component {
                 })
             }))
         var weekColor = Functions.sevenColor(sevenArray.length)
-        var monthColor = Functions.thirtyColor(sevenArray.length)
+        var monthColor = Functions.thirtyColor(thirtyArray.length)
         var sevenData = [sevenArray.length]
         var thirtyData = [thirtyArray.length]
         const SevenLabels = ({ x, y, bandwidth, data }) => (
