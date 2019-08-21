@@ -14,7 +14,11 @@ import NumericInput from 'react-native-numeric-input'
 import RNSpeedometer from 'react-native-speedometer'
 import { NavigationEvents } from "react-navigation";
 import { AlertHelper } from './AlertHelper';
-import { gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive } from "./Variables";
+import {
+    gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
+    abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive,
+    gaugeLabels
+} from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
 
@@ -241,68 +245,7 @@ class DemoScreen extends Component {
                             :
                             <Text style={{ fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#AE0000" }}>DEMO                </Text><Text style={{ color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#AE0000" }}>                DEMO</Text></Text>}
                         <View style={{ alignSelf: "center" }}>
-                            <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={[
-                                {
-                                    name: '1',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#ffffff',
-                                },
-                                {
-                                    name: '2',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#b5d3a0',
-                                },
-                                {
-                                    name: '3',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#96c060',
-                                },
-                                {
-                                    name: '4',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#9fc635',
-                                },
-                                {
-                                    name: '5',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#d3e50e',
-                                },
-                                {
-                                    name: '6',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#ffeb00',
-                                },
-                                {
-                                    name: '7',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#f9bf00',
-                                },
-                                {
-                                    name: '8',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#e98f00',
-                                },
-                                {
-                                    name: '9',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#d05900',
-                                },
-                                {
-                                    name: '10',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#AE0000',
-                                },
-                                {
-                                    name: '11',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#571405',
-                                },
-                                {
-                                    name: '12',
-                                    labelColor: '#e0f2f1',
-                                    activeBarColor: '#000000',
-                                }
-                            ]} />
+                            <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (<View style={{ flexDirection: "row", justifyContent: "space-around" }}><Text style={{ fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}>{this.state.gender} </Text>
                             <TouchableOpacity style={[addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
