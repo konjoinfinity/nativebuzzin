@@ -176,16 +176,44 @@ class ProfileScreen extends Component {
     changeThreshold(increment) {
         if (increment === "up") {
             if (this.state.threshold < 0.10) {
-                var increase = (this.state.threshold * 10 + 0.01 * 10) / 10
-                console.log(increase)
-                this.setState({ threshold: increase })
+                if (this.state.threshold === 0.06) {
+                    this.setState({ threshold: 0.07 })
+                } else if (this.state.threshold === 0.07) {
+                    this.setState({ threshold: 0.08 })
+                } else if (this.state.threshold === 0.08) {
+                    this.setState({ threshold: 0.09 })
+                } else if (this.state.threshold === 0.09) {
+                    this.setState({ threshold: 0.10 })
+                } else if (this.state.threshold === 0.02) {
+                    this.setState({ threshold: 0.03 })
+                } else if (this.state.threshold === 0.03) {
+                    this.setState({ threshold: 0.04 })
+                } else if (this.state.threshold === 0.04) {
+                    this.setState({ threshold: 0.05 })
+                } else if (this.state.threshold === 0.05) {
+                    this.setState({ threshold: 0.06 })
+                }
             }
         }
         if (increment === "down") {
-            if (this.state.threshold > 0.01) {
-                var decrease = (this.state.threshold * 10 - 0.01 * 10) / 10
-                console.log(decrease)
-                this.setState({ threshold: decrease })
+            if (this.state.threshold > 0.02) {
+                if (this.state.threshold === 0.06) {
+                    this.setState({ threshold: 0.05 })
+                } else if (this.state.threshold === 0.05) {
+                    this.setState({ threshold: 0.04 })
+                } else if (this.state.threshold === 0.04) {
+                    this.setState({ threshold: 0.03 })
+                } else if (this.state.threshold === 0.03) {
+                    this.setState({ threshold: 0.02 })
+                } else if (this.state.threshold === 0.10) {
+                    this.setState({ threshold: 0.09 })
+                } else if (this.state.threshold === 0.09) {
+                    this.setState({ threshold: 0.08 })
+                } else if (this.state.threshold === 0.08) {
+                    this.setState({ threshold: 0.07 })
+                } else if (this.state.threshold === 0.07) {
+                    this.setState({ threshold: 0.06 })
+                }
             }
         }
     }
