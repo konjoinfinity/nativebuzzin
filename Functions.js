@@ -40,7 +40,6 @@ export class Functions {
         var breakdate = moment(date2)
         var intervals = ['months', 'weeks', 'days', 'hours']
         var durations = [];
-
         for (var i = 0; i < intervals.length; i++) {
             var diff = breakdate.diff(currentdate, intervals[i]);
             currentdate.add(diff, intervals[i]);

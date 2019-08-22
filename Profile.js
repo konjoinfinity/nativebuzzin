@@ -119,7 +119,6 @@ class ProfileScreen extends Component {
         this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0 })
         await AsyncStorage.setItem(breakkey, JSON.stringify(false))
         await AsyncStorage.removeItem(breakdatekey)
-        await AsyncStorage.removeItem(breakdurationskey)
     }
 
     async LogOut() {
