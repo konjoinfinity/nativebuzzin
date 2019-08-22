@@ -53,8 +53,7 @@ class HomeScreen extends Component {
             flashtext: "",
             flashtimer: "",
             happyhour: "",
-            happyhourtime: "",
-            autobreakminbac: false
+            happyhourtime: ""
         }
         this.addDrink = this.addDrink.bind(this);
         this.checkBac = this.checkBac.bind(this);
@@ -71,7 +70,6 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        await AsyncStorage.setItem(autobreakminkey, JSON.stringify(false))
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ autobreak: JSON.parse(result) })
@@ -152,6 +150,8 @@ class HomeScreen extends Component {
         } else if (this.state.happyhour === false) {
             this.setState({ happyhourtime: "" })
         }
+        await AsyncStorage.getItem(autobreakminkey, (error, result) => { console.log(result) })
+        console.log(this.state.autobreak)
     }
 
     componentWillUnmount() {
@@ -264,6 +264,7 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         if (this.state.bac > 0.06) {
             await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true))
+            await AsyncStorage.getItem(autobreakminkey, (error, result) => { console.log(result) })
         }
     }
 
