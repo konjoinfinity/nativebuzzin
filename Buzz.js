@@ -193,7 +193,7 @@ class BuzzScreen extends Component {
                             <BarChart
                                 style={{ flex: 1, padding: 10 }}
                                 data={sevenData}
-                                svg={{ fill: weekColor, fillOpacity: 0.6 }}
+                                svg={{ fill: weekColor, fillOpacity: 0.8 }}
                                 contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
                                 spacing={2}
                                 gridMin={0}
