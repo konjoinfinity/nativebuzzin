@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export class Functions {
 
     static getDayHourMin(date1, date2) {
@@ -32,6 +34,20 @@ export class Functions {
         }
         return duration;
     }
+
+    static breakDiff(date1, date2) {
+        var currentdate = moment(date1)
+        var breakdate = moment(date2)
+        var intervals = ['months', 'weeks', 'days', 'hours']
+        var durations = [];
+
+        for (var i = 0; i < intervals.length; i++) {
+            var diff = breakdate.diff(currentdate, intervals[i]);
+            currentdate.add(diff, intervals[i]);
+            durations.push(diff);
+        }
+        return durations;
+    };
 
     static varGetBAC(weight, gender, hours, buzz) {
         var distribution;

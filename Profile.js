@@ -15,10 +15,7 @@ import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
-import {
-    namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-    breakdurationskey
-} from "./Variables";
+import { namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey } from "./Variables";
 import styles from "./Styles"
 
 class ProfileScreen extends Component {
@@ -48,12 +45,6 @@ class ProfileScreen extends Component {
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             this.setState({ autobreak: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(breakdurationskey, (error, result) => {
-            if (result !== null) {
-                durations = JSON.parse(result)
-                this.setState({ hours: durations[0], days: durations[1], weeks: durations[2], months: durations[3] })
-            }
         })
         await AsyncStorage.getItem(happyhourkey, (error, result) => {
             this.setState({ happyhour: JSON.parse(result) })
@@ -89,6 +80,10 @@ class ProfileScreen extends Component {
                     if (days + hours + minutes + seconds < 0) {
                         this.stopBreak()
                     }
+                    var currentDate = new Date()
+                    var breakDate = Date.parse(this.state.breakdate)
+                    var durations = Functions.breakDiff(currentDate, breakDate)
+                    this.setState({ hours: durations[3], days: durations[2], weeks: durations[1], months: durations[0] })
                 }, 100);
             }
         })
@@ -99,27 +94,21 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
-        // Update the function to read new values everytime they are changed
-        var breakDate = new Date();
-        var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
-        var hours = this.state.hours * 60 * 60 * 1000
-        // if (this.state.break === true) {
-        //     breakDate = new Date(this.state.breakdate);
-        // } else if (this.state.break === false) {
-        //     breakDate = new Date();
-        // }
-        if (duration !== 0) {
-            breakDate.setDate(breakDate.getDate() + duration);
+        if (this.state.hours !== 0 || this.state.days !== 0 || this.state.weeks !== 0 || this.state.months !== 0) {
+            var breakDate = new Date();
+            var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
+            var hours = this.state.hours * 60 * 60 * 1000
+            if (duration !== 0) {
+                breakDate.setDate(breakDate.getDate() + duration);
+            }
+            if (hours !== 0) {
+                breakDate.setTime(breakDate.getTime() + hours);
+            }
+            Vibration.vibrate();
+            this.setState({ break: true, breakdate: breakDate })
+            await AsyncStorage.setItem(breakkey, JSON.stringify(true))
+            await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
         }
-        if (hours !== 0) {
-            breakDate.setTime(breakDate.getTime() + hours);
-        }
-        Vibration.vibrate();
-        this.setState({ break: true, breakdate: breakDate })
-        await AsyncStorage.setItem(breakkey, JSON.stringify(true))
-        await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
-        await AsyncStorage.setItem(breakdurationskey, JSON.stringify([this.state.hours, this.state.days, this.state.weeks, this.state.months]))
-        // this.componentDidMount();
         if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) {
             this.stopBreak()
         }
@@ -279,14 +268,6 @@ class ProfileScreen extends Component {
                                     leftButtonBackgroundColor='#00897b' />
                             </View>
                         </View>
-                        {/* {this.state.break === false &&
-                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.takeAbreak()}>
-                                <Text style={styles.profilebuttonText}>Take a Break</Text>
-                            </TouchableOpacity>}
-                        {this.state.break === true &&
-                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.takeAbreak()}>
-                                <Text style={styles.profilebuttonText}>Add to Break</Text>
-                            </TouchableOpacity>} */}
                         {this.state.break === true &&
                             <View>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
@@ -296,12 +277,6 @@ class ProfileScreen extends Component {
                                     <Text style={styles.profilebuttonText}>Cancel Break</Text>
                                 </TouchableOpacity>
                             </View>}
-                        {/* {this.state.happyhour === true &&
-                            <View>
-                                {this.state.happyhourtime >= 17 ?
-                                    <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>It's Happy Hour, enjoy!</Text> :
-                                    <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Happy Hour isn't until 5pm</Text>}
-                            </View>} */}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <TouchableOpacity style={styles.profilebutton} onPress={() => this.LogOut()}>
