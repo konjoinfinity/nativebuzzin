@@ -62,6 +62,7 @@ const breakdatekey = "breakdate"
 const autobreakkey = "autobreak"
 const happyhourkey = "happyhour"
 const autobreakminkey = "autobreakmin"
+const breakdurationskey = "breakdurations"
 
 const warnText = (<View>
     <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
@@ -356,6 +357,7 @@ export {
     autobreakkey,
     happyhourkey,
     autobreakminkey,
+    breakdurationskey,
     gaugeLabels,
     warnText,
     dangerText
