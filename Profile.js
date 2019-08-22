@@ -15,7 +15,10 @@ import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
-import { namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey } from "./Variables";
+import {
+    namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
+    autobreakthresholdkey
+} from "./Variables";
 import styles from "./Styles"
 
 class ProfileScreen extends Component {
@@ -35,7 +38,7 @@ class ProfileScreen extends Component {
             months: 0,
             autobreak: "",
             happyhour: "",
-            threshold: 0.06
+            threshold: ""
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -49,6 +52,9 @@ class ProfileScreen extends Component {
         })
         await AsyncStorage.getItem(happyhourkey, (error, result) => {
             this.setState({ happyhour: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(autobreakthresholdkey, (error, result) => {
+            this.setState({ threshold: JSON.parse(result) })
         })
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
@@ -177,45 +183,49 @@ class ProfileScreen extends Component {
         if (increment === "up") {
             if (this.state.threshold < 0.10) {
                 if (this.state.threshold === 0.06) {
-                    this.setState({ threshold: 0.07 })
+                    this.setState({ threshold: 0.07 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.07) {
-                    this.setState({ threshold: 0.08 })
+                    this.setState({ threshold: 0.08 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.08) {
-                    this.setState({ threshold: 0.09 })
+                    this.setState({ threshold: 0.09 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.09) {
-                    this.setState({ threshold: 0.10 })
+                    this.setState({ threshold: 0.10 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.02) {
-                    this.setState({ threshold: 0.03 })
+                    this.setState({ threshold: 0.03 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.03) {
-                    this.setState({ threshold: 0.04 })
+                    this.setState({ threshold: 0.04 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.04) {
-                    this.setState({ threshold: 0.05 })
+                    this.setState({ threshold: 0.05 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.05) {
-                    this.setState({ threshold: 0.06 })
+                    this.setState({ threshold: 0.06 }, () => this.saveThreshold())
                 }
             }
         }
         if (increment === "down") {
             if (this.state.threshold > 0.02) {
                 if (this.state.threshold === 0.06) {
-                    this.setState({ threshold: 0.05 })
+                    this.setState({ threshold: 0.05 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.05) {
-                    this.setState({ threshold: 0.04 })
+                    this.setState({ threshold: 0.04 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.04) {
-                    this.setState({ threshold: 0.03 })
+                    this.setState({ threshold: 0.03 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.03) {
-                    this.setState({ threshold: 0.02 })
+                    this.setState({ threshold: 0.02 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.10) {
-                    this.setState({ threshold: 0.09 })
+                    this.setState({ threshold: 0.09 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.09) {
-                    this.setState({ threshold: 0.08 })
+                    this.setState({ threshold: 0.08 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.08) {
-                    this.setState({ threshold: 0.07 })
+                    this.setState({ threshold: 0.07 }, () => this.saveThreshold())
                 } else if (this.state.threshold === 0.07) {
-                    this.setState({ threshold: 0.06 })
+                    this.setState({ threshold: 0.06 }, () => this.saveThreshold())
                 }
             }
         }
+    }
+
+    async saveThreshold() {
+        await AsyncStorage.setItem(autobreakthresholdkey, JSON.stringify(this.state.threshold))
     }
 
     render() {
@@ -254,7 +264,7 @@ class ProfileScreen extends Component {
                                             </View>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                            <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
+                                            <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
                                         <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("up")}>
                                             <View>
                                                 <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
