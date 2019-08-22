@@ -90,6 +90,7 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
+        // Update the function to read new values everytime they are changed
         var breakDate;
         var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
         var hours = this.state.hours * 60 * 60 * 1000
@@ -108,8 +109,10 @@ class ProfileScreen extends Component {
         this.setState({ break: true, breakdate: breakDate })
         await AsyncStorage.setItem(breakkey, JSON.stringify(true))
         await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
-        this.componentDidMount();
-        this.setState({ hours: 0, days: 0, weeks: 0, months: 0 })
+        // this.componentDidMount();
+        if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) {
+            this.stopBreak()
+        }
     }
 
     async stopBreak() {
@@ -205,7 +208,7 @@ class ProfileScreen extends Component {
                                     maxValue={24}
                                     initValue={this.state.hours}
                                     value={this.state.hours}
-                                    onChange={(hours) => this.setState({ hours })}
+                                    onChange={(hours) => this.setState({ hours }, () => this.takeAbreak())}
                                     totalWidth={numberInputSize}
                                     step={1}
                                     rounded
@@ -221,7 +224,7 @@ class ProfileScreen extends Component {
                                     maxValue={31}
                                     initValue={this.state.days}
                                     value={this.state.days}
-                                    onChange={(days) => this.setState({ days })}
+                                    onChange={(days) => this.setState({ days }, () => this.takeAbreak())}
                                     totalWidth={numberInputSize}
                                     step={1}
                                     rounded
@@ -239,7 +242,7 @@ class ProfileScreen extends Component {
                                     maxValue={52}
                                     initValue={this.state.weeks}
                                     value={this.state.weeks}
-                                    onChange={(weeks) => this.setState({ weeks })}
+                                    onChange={(weeks) => this.setState({ weeks }, () => this.takeAbreak())}
                                     totalWidth={numberInputSize}
                                     step={1}
                                     rounded
@@ -255,7 +258,7 @@ class ProfileScreen extends Component {
                                     maxValue={12}
                                     initValue={this.state.months}
                                     value={this.state.months}
-                                    onChange={(months) => this.setState({ months })}
+                                    onChange={(months) => this.setState({ months }, () => this.takeAbreak())}
                                     totalWidth={numberInputSize}
                                     step={1}
                                     rounded
@@ -265,14 +268,14 @@ class ProfileScreen extends Component {
                                     leftButtonBackgroundColor='#00897b' />
                             </View>
                         </View>
-                        {this.state.break === false &&
+                        {/* {this.state.break === false &&
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.takeAbreak()}>
                                 <Text style={styles.profilebuttonText}>Take a Break</Text>
                             </TouchableOpacity>}
                         {this.state.break === true &&
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.takeAbreak()}>
                                 <Text style={styles.profilebuttonText}>Add to Break</Text>
-                            </TouchableOpacity>}
+                            </TouchableOpacity>} */}
                         {this.state.break === true &&
                             <View>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
