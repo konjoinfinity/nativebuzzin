@@ -34,7 +34,8 @@ class ProfileScreen extends Component {
             weeks: 0,
             months: 0,
             autobreak: "",
-            happyhour: ""
+            happyhour: "",
+            threshold: 0.06
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -172,6 +173,23 @@ class ProfileScreen extends Component {
         }
     }
 
+    changeThreshold(increment) {
+        if (increment === "up") {
+            if (this.state.threshold < 0.10) {
+                var increase = (this.state.threshold * 10 + 0.01 * 10) / 10
+                console.log(increase)
+                this.setState({ threshold: increase })
+            }
+        }
+        if (increment === "down") {
+            if (this.state.threshold > 0.01) {
+                var decrease = (this.state.threshold * 10 - 0.01 * 10) / 10
+                console.log(decrease)
+                this.setState({ threshold: decrease })
+            }
+        }
+    }
+
     render() {
         // Update render sizes for different screens
         var numberInputSize;
@@ -196,6 +214,27 @@ class ProfileScreen extends Component {
                                 <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleHappyHour()} />
                             </View>
                         </View>
+                        {this.state.autobreak === true &&
+                            <View>
+                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
+                                <View>
+                                    <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}> Auto Break BAC Threshold</Text>
+                                    <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                        <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("down")}>
+                                            <View>
+                                                <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
+                                            <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold}</Text></TouchableOpacity>
+                                        <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("up")}>
+                                            <View>
+                                                <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <Text style={{ fontSize: 18, textAlign: "center" }}>Custom Break</Text>
