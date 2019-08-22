@@ -254,7 +254,7 @@ class ProfileScreen extends Component {
                                             </View>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                            <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold}</Text></TouchableOpacity>
+                                            <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
                                         <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("up")}>
                                             <View>
                                                 <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
