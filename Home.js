@@ -150,8 +150,6 @@ class HomeScreen extends Component {
         } else if (this.state.happyhour === false) {
             this.setState({ happyhourtime: "" })
         }
-        await AsyncStorage.getItem(autobreakminkey, (error, result) => { console.log(result) })
-        console.log(this.state.autobreak)
     }
 
     componentWillUnmount() {
@@ -264,7 +262,6 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         if (this.state.bac > 0.06) {
             await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true))
-            await AsyncStorage.getItem(autobreakminkey, (error, result) => { console.log(result) })
         }
     }
 
