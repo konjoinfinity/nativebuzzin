@@ -68,6 +68,9 @@ class ProfileScreen extends Component {
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
+                if (JSON.parse(result) === false) {
+                    this.setState({ hours: 0, days: 0, weeks: 0, months: 0 })
+                }
             } else {
                 this.setState({ break: false })
             }
@@ -139,6 +142,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(breakdatekey)
         await AsyncStorage.removeItem(autobreakkey)
         await AsyncStorage.removeItem(happyhourkey)
+        await AsyncStorage.removeItem(autobreakthresholdkey)
         this.props.navigation.navigate("Login")
     }
 
@@ -257,7 +261,7 @@ class ProfileScreen extends Component {
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
                                 <View>
                                     <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}> Auto Break BAC Threshold</Text>
-                                    <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                    <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
                                         <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("down")}>
                                             <View>
                                                 <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>

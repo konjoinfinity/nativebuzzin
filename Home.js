@@ -21,7 +21,7 @@ import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
-    gaugeLabels, warnText, dangerText
+    gaugeLabels, warnText, dangerText, autobreakthresholdkey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -53,7 +53,8 @@ class HomeScreen extends Component {
             flashtext: "",
             flashtimer: "",
             happyhour: "",
-            happyhourtime: ""
+            happyhourtime: "",
+            threshold: ""
         }
         this.addDrink = this.addDrink.bind(this);
         this.checkBac = this.checkBac.bind(this);
@@ -100,6 +101,9 @@ class HomeScreen extends Component {
                     }
                 }, 100);
             }
+        })
+        await AsyncStorage.getItem(autobreakthresholdkey, (error, result) => {
+            this.setState({ threshold: JSON.parse(result) })
         })
         await AsyncStorage.getItem(namekey, (error, result) => {
             this.setState({ name: JSON.parse(result) })
@@ -260,7 +264,7 @@ class HomeScreen extends Component {
 
     async saveBuzz() {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
-        if (this.state.bac > 0.06) {
+        if (this.state.bac > this.state.threshold) {
             await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true))
         }
     }
