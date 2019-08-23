@@ -834,7 +834,7 @@ class HomeScreen extends Component {
                     {this.state.showcutoff === true &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have been cut off. You have had too many drinks or your BAC is too high. Until then, stop drinking and have some water.</Text>
-                            {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
+                            {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                     <TouchableOpacity
                                         style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
@@ -843,7 +843,9 @@ class HomeScreen extends Component {
                                             <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                         </View>
                                     </TouchableOpacity>
-                                </View>}
+                                </View> : <TouchableOpacity style={styles.button} onPress={() => this.setState({ showcutoff: false })}>
+                                    <Text style={styles.buttonText}>Cancel Cut Off</Text>
+                                </TouchableOpacity>}
                         </View>}
                 </ScrollView>
             </View>
