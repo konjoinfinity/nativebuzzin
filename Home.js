@@ -280,8 +280,10 @@ class HomeScreen extends Component {
         if (this.state.bac > this.state.threshold) {
             await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true))
         }
-        if (this.state.cutoff === true && this.state.bac > this.state.cutoffbac || this.state.buzzes.length >= this.state.drinks) {
-            this.setState({ showcutoff: true })
+        if (this.state.cutoff === true) {
+            if (this.state.bac > this.state.cutoffbac || this.state.buzzes.length >= this.state.drinks) {
+                this.setState({ showcutoff: true })
+            }
         }
     }
 

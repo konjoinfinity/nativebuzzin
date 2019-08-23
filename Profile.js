@@ -17,7 +17,7 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey
+    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -41,7 +41,8 @@ class ProfileScreen extends Component {
             threshold: "",
             cutoff: "",
             drinks: 0,
-            cutoffbac: ""
+            cutoffbac: "",
+            cancelbreaks: ""
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -52,6 +53,9 @@ class ProfileScreen extends Component {
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             this.setState({ autobreak: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(cancelbreakskey, (error, result) => {
+            this.setState({ cancelbreaks: JSON.parse(result) })
         })
         await AsyncStorage.getItem(cutoffbackey, (error, result) => {
             this.setState({ cutoffbac: JSON.parse(result) })
@@ -138,9 +142,10 @@ class ProfileScreen extends Component {
 
     async stopBreak() {
         Vibration.vibrate();
-        this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0 })
+        this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
         await AsyncStorage.setItem(breakkey, JSON.stringify(false))
         await AsyncStorage.removeItem(breakdatekey)
+        await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(this.state.cancelbreaks))
     }
 
     async LogOut() {
@@ -158,6 +163,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(autobreakthresholdkey)
         await AsyncStorage.removeItem(drinkskey)
         await AsyncStorage.removeItem(cutoffbackey)
+        // await AsyncStorage.removeItem(cancelbreakskey)
         this.props.navigation.navigate("Login")
     }
 
@@ -400,6 +406,8 @@ class ProfileScreen extends Component {
                                     </View>
                                 </View>
                             </View>}
+                        <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
+                        <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <Text style={{ fontSize: 18, textAlign: "center" }}>Custom Break</Text>

@@ -66,6 +66,7 @@ const autobreakthresholdkey = "autobreakthreshold"
 const cutoffkey = "cutoff"
 const cutoffbackey = "cutoffbac"
 const drinkskey = "drinks"
+const cancelbreakskey = "cancelbreaks"
 
 const warnText = (<View>
     <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
@@ -366,5 +367,6 @@ export {
     dangerText,
     cutoffkey,
     drinkskey,
-    cutoffbackey
+    cutoffbackey,
+    cancelbreakskey
 }
