@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey,
-    cutoffkey, drinkskey, cutoffbackey, cancelbreakskey
+    cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -76,6 +76,7 @@ class LoginScreen extends React.Component {
         await AsyncStorage.setItem(autobreakthresholdkey, JSON.stringify(0.08))
         await AsyncStorage.setItem(drinkskey, JSON.stringify(8))
         await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(0))
+        await AsyncStorage.setItem(showcutoffkey, JSON.stringify(false))
         this.setModalVisible(!this.state.modalVisible);
         this.props.navigation.navigate("Home", { login: true });
     }

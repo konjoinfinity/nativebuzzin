@@ -21,7 +21,7 @@ import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
-    gaugeLabels, warnText, dangerText, autobreakthresholdkey, cutoffbackey, cutoffkey, drinkskey, cancelbreakskey
+    gaugeLabels, warnText, dangerText, autobreakthresholdkey, cutoffbackey, cutoffkey, drinkskey, cancelbreakskey, showcutoffkey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -87,6 +87,9 @@ class HomeScreen extends Component {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
             }
+        })
+        await AsyncStorage.getItem(showcutoffkey, (error, result) => {
+            this.setState({ showcutoff: JSON.parse(result) })
         })
         await AsyncStorage.getItem(cutoffbackey, (error, result) => {
             this.setState({ cutoffbac: JSON.parse(result) })
@@ -283,6 +286,7 @@ class HomeScreen extends Component {
         if (this.state.cutoff === true) {
             if (this.state.bac > this.state.cutoffbac || this.state.buzzes.length >= this.state.drinks) {
                 this.setState({ showcutoff: true })
+                await AsyncStorage.setItem(showcutoffkey, JSON.stringify(true))
             }
         }
     }
@@ -374,6 +378,11 @@ class HomeScreen extends Component {
             await AsyncStorage.setItem(breakkey, JSON.stringify(true))
             await AsyncStorage.setItem(breakdatekey, JSON.stringify(autoBreakDate), () => this.componentDidMount())
             await AsyncStorage.setItem(autobreakminkey, JSON.stringify(false))
+        }
+        if (this.state.showcutoff === true) {
+            this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
+            await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
+            await AsyncStorage.setItem(showcutoffkey, JSON.stringify(false))
         }
     }
 
@@ -482,6 +491,7 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
         await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(cancelbreaks + 1))
+        await AsyncStorage.setItem(showcutoffkey, JSON.stringify(false))
     }
 
     cancelCutOffAlert() {

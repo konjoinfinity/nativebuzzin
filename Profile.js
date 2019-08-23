@@ -17,7 +17,7 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey
+    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -164,6 +164,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(drinkskey)
         await AsyncStorage.removeItem(cutoffbackey)
         await AsyncStorage.removeItem(cancelbreakskey)
+        await AsyncStorage.removeItem(showcutoffkey)
         this.props.navigation.navigate("Login")
     }
 
