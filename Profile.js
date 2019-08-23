@@ -17,7 +17,7 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-    autobreakthresholdkey
+    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -38,7 +38,10 @@ class ProfileScreen extends Component {
             months: 0,
             autobreak: "",
             happyhour: "",
-            threshold: ""
+            threshold: "",
+            cutoff: "",
+            drinks: 0,
+            cutoffbac: ""
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -49,6 +52,15 @@ class ProfileScreen extends Component {
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             this.setState({ autobreak: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(cutoffbackey, (error, result) => {
+            this.setState({ cutoffbac: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(cutoffkey, (error, result) => {
+            this.setState({ cutoff: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(drinkskey, (error, result) => {
+            this.setState({ drinks: JSON.parse(result) })
         })
         await AsyncStorage.getItem(happyhourkey, (error, result) => {
             this.setState({ happyhour: JSON.parse(result) })
@@ -142,7 +154,10 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(breakdatekey)
         await AsyncStorage.removeItem(autobreakkey)
         await AsyncStorage.removeItem(happyhourkey)
+        await AsyncStorage.removeItem(cutoffkey)
         await AsyncStorage.removeItem(autobreakthresholdkey)
+        await AsyncStorage.removeItem(drinkskey)
+        await AsyncStorage.removeItem(cutoffbackey)
         this.props.navigation.navigate("Login")
     }
 
@@ -167,6 +182,10 @@ class ProfileScreen extends Component {
         this.setState(prevState => ({ happyhour: !prevState.happyhour }), () => this.saveHappyHour())
     }
 
+    handleCutOff() {
+        this.setState(prevState => ({ cutoff: !prevState.cutoff }), () => this.saveCutOff())
+    }
+
     async saveAutoBreak() {
         if (this.state.autobreak === true) {
             await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
@@ -180,6 +199,14 @@ class ProfileScreen extends Component {
             await AsyncStorage.setItem(happyhourkey, JSON.stringify(true))
         } else if (this.state.happyhour === false) {
             await AsyncStorage.setItem(happyhourkey, JSON.stringify(false))
+        }
+    }
+
+    async saveCutOff() {
+        if (this.state.cutoff === true) {
+            await AsyncStorage.setItem(cutoffkey, JSON.stringify(true))
+        } else if (this.state.cutoff === false) {
+            await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
         }
     }
 
@@ -228,8 +255,61 @@ class ProfileScreen extends Component {
         }
     }
 
+    changeCutOff(increment) {
+        if (increment === "up") {
+            if (this.state.cutoffbac < 0.10) {
+                if (this.state.cutoffbac === 0.06) {
+                    this.setState({ cutoffbac: 0.07 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.07) {
+                    this.setState({ cutoffbac: 0.08 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.08) {
+                    this.setState({ cutoffbac: 0.09 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.09) {
+                    this.setState({ cutoffbac: 0.10 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.02) {
+                    this.setState({ cutoffbac: 0.03 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.03) {
+                    this.setState({ cutoffbac: 0.04 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.04) {
+                    this.setState({ cutoffbac: 0.05 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.05) {
+                    this.setState({ cutoffbac: 0.06 }, () => this.saveCutOffBac())
+                }
+            }
+        }
+        if (increment === "down") {
+            if (this.state.cutoffbac > 0.02) {
+                if (this.state.cutoffbac === 0.06) {
+                    this.setState({ cutoffbac: 0.05 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.05) {
+                    this.setState({ cutoffbac: 0.04 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.04) {
+                    this.setState({ cutoffbac: 0.03 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.03) {
+                    this.setState({ cutoffbac: 0.02 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.10) {
+                    this.setState({ cutoffbac: 0.09 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.09) {
+                    this.setState({ cutoffbac: 0.08 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.08) {
+                    this.setState({ cutoffbac: 0.07 }, () => this.saveCutOffBac())
+                } else if (this.state.cutoffbac === 0.07) {
+                    this.setState({ cutoffbac: 0.06 }, () => this.saveCutOffBac())
+                }
+            }
+        }
+    }
+
     async saveThreshold() {
         await AsyncStorage.setItem(autobreakthresholdkey, JSON.stringify(this.state.threshold))
+    }
+
+    async saveCutOffBac() {
+        await AsyncStorage.setItem(cutoffbackey, JSON.stringify(this.state.cutoffbac))
+    }
+
+    async handleDrinks() {
+        await AsyncStorage.setItem(drinkskey, JSON.stringify(this.state.drinks))
     }
 
     render() {
@@ -248,7 +328,7 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
                         <Text style={{ fontSize: 25, textAlign: "center" }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}   -   {this.state.weight} lbs.</Text>
                         <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <View style={{ flexDirection: "row", justifyContent: "center", paddingBottom: 5 }}>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                 <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break</Text><Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
                             </View>
@@ -260,7 +340,7 @@ class ProfileScreen extends Component {
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
                                 <View>
-                                    <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}> Auto Break BAC Threshold</Text>
+                                    <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
                                     <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
                                         <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("down")}>
                                             <View>
@@ -274,6 +354,49 @@ class ProfileScreen extends Component {
                                                 <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
                                             </View>
                                         </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
+                            </View>}
+                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Cut Off</Text><Switch value={this.state.cutoff} onChange={() => this.handleCutOff()} />
+                        </View>
+                        {this.state.cutoff === true &&
+                            <View>
+                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
+                                <View>
+                                    <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>BAC Cut Off</Text>
+                                    <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
+                                        <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeCutOff("down")}>
+                                            <View>
+                                                <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
+                                            <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.cutoffbac && this.state.cutoffbac.toFixed(2)}</Text></TouchableOpacity>
+                                        <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeCutOff("up")}>
+                                            <View>
+                                                <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <View>
+                                    <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Total Drinks Cut Off</Text>
+                                    <View style={{ alignSelf: "center" }}>
+                                        <NumericInput
+                                            minValue={1}
+                                            maxValue={15}
+                                            initValue={this.state.drinks}
+                                            value={this.state.drinks}
+                                            onChange={(drinks) => this.setState({ drinks }, () => this.handleDrinks())}
+                                            totalWidth={numberInputSize}
+                                            step={1}
+                                            rounded
+                                            textColor='#103900'
+                                            iconStyle={{ color: 'white' }}
+                                            rightButtonBackgroundColor='#00897b'
+                                            leftButtonBackgroundColor='#00897b' />
                                     </View>
                                 </View>
                             </View>}

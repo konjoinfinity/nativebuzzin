@@ -21,7 +21,7 @@ import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
-    gaugeLabels, warnText, dangerText, autobreakthresholdkey
+    gaugeLabels, warnText, dangerText, autobreakthresholdkey, cutoffbackey, cutoffkey, drinkskey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -54,7 +54,11 @@ class HomeScreen extends Component {
             flashtimer: "",
             happyhour: "",
             happyhourtime: "",
-            threshold: ""
+            threshold: "",
+            cutoff: "",
+            cutoffbac: "",
+            drinks: "",
+            showcutoff: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.checkBac = this.checkBac.bind(this);
@@ -83,6 +87,15 @@ class HomeScreen extends Component {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
             }
+        })
+        await AsyncStorage.getItem(cutoffbackey, (error, result) => {
+            this.setState({ cutoffbac: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(cutoffkey, (error, result) => {
+            this.setState({ cutoff: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(drinkskey, (error, result) => {
+            this.setState({ drinks: JSON.parse(result) })
         })
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
@@ -266,6 +279,9 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         if (this.state.bac > this.state.threshold) {
             await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true))
+        }
+        if (this.state.cutoff === true && this.state.bac > this.state.cutoffbac || this.state.buzzes.length >= this.state.drinks) {
+            this.setState({ showcutoff: true })
         }
     }
 
@@ -545,7 +561,7 @@ class HomeScreen extends Component {
                             <TouchableOpacity style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{this.state.bac}  {Platform.OS === 'android' && Platform.Version < 24 ? "😵" : "🤮"}</Text></TouchableOpacity>)}
                     </View>
-                    {(this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 &&
+                    {(this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showcutoff === false &&
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                 {this.state.alctype === "Beer" &&
@@ -809,6 +825,20 @@ class HomeScreen extends Component {
                                     <TouchableOpacity
                                         style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
                                         onPress={() => this.undoLastDrink()}>
+                                        <View>
+                                            <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>}
+                        </View>}
+                    {this.state.showcutoff === true &&
+                        <View style={styles.cardView}>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have been cut off. You have had too many drinks or your BAC is too high. Until then, stop drinking and have some water.</Text>
+                            {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
+                                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                    <TouchableOpacity
+                                        style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
+                                        onPress={() => { this.undoLastDrink(), this.setState({ showcutoff: false }) }}>
                                         <View>
                                             <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                         </View>

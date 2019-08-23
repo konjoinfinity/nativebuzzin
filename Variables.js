@@ -63,6 +63,9 @@ const autobreakkey = "autobreak"
 const happyhourkey = "happyhour"
 const autobreakminkey = "autobreakmin"
 const autobreakthresholdkey = "autobreakthreshold"
+const cutoffkey = "cutoff"
+const cutoffbackey = "cutoffbac"
+const drinkskey = "drinks"
 
 const warnText = (<View>
     <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
@@ -360,5 +363,8 @@ export {
     autobreakthresholdkey,
     gaugeLabels,
     warnText,
-    dangerText
+    dangerText,
+    cutoffkey,
+    drinkskey,
+    cutoffbackey
 }
