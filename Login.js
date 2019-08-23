@@ -72,9 +72,9 @@ class LoginScreen extends React.Component {
         await AsyncStorage.setItem(happyhourkey, JSON.stringify(false))
         await AsyncStorage.setItem(autobreakminkey, JSON.stringify(false))
         await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
-        await AsyncStorage.setItem(cutoffbackey, JSON.stringify(0.06))
-        await AsyncStorage.setItem(autobreakthresholdkey, JSON.stringify(0.06))
-        await AsyncStorage.setItem(drinkskey, JSON.stringify(4))
+        await AsyncStorage.setItem(cutoffbackey, JSON.stringify(0.08))
+        await AsyncStorage.setItem(autobreakthresholdkey, JSON.stringify(0.08))
+        await AsyncStorage.setItem(drinkskey, JSON.stringify(8))
         await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(0))
         this.setModalVisible(!this.state.modalVisible);
         this.props.navigation.navigate("Home", { login: true });

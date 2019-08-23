@@ -21,7 +21,7 @@ import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
-    gaugeLabels, warnText, dangerText, autobreakthresholdkey, cutoffbackey, cutoffkey, drinkskey
+    gaugeLabels, warnText, dangerText, autobreakthresholdkey, cutoffbackey, cutoffkey, drinkskey, cancelbreakskey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -438,6 +438,8 @@ class HomeScreen extends Component {
         this.setState({ break: false })
         await AsyncStorage.setItem(breakkey, JSON.stringify(false))
         await AsyncStorage.removeItem(breakdatekey)
+        var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
+        await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(cancelbreaks + 1))
     }
 
     cancelBreakAlert() {
@@ -457,6 +459,8 @@ class HomeScreen extends Component {
         Vibration.vibrate();
         this.setState({ happyhour: false, happyhourtime: "" })
         await AsyncStorage.setItem(happyhourkey, JSON.stringify(false))
+        var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
+        await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(cancelbreaks + 1))
     }
 
     cancelHhAlert() {
@@ -476,6 +480,8 @@ class HomeScreen extends Component {
         Vibration.vibrate();
         this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
         await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
+        var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
+        await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(cancelbreaks + 1))
     }
 
     cancelCutOffAlert() {

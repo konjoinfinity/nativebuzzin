@@ -163,7 +163,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(autobreakthresholdkey)
         await AsyncStorage.removeItem(drinkskey)
         await AsyncStorage.removeItem(cutoffbackey)
-        // await AsyncStorage.removeItem(cancelbreakskey)
+        await AsyncStorage.removeItem(cancelbreakskey)
         this.props.navigation.navigate("Login")
     }
 
@@ -342,6 +342,7 @@ class ProfileScreen extends Component {
                                 <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleHappyHour()} />
                             </View>
                         </View>
+                        {/* {this.state.happyhour === true && <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour is at 5pm</Text>} */}
                         {this.state.autobreak === true &&
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
@@ -489,7 +490,7 @@ class ProfileScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10 }}>
                         <TouchableOpacity style={styles.profilebutton} onPress={() => this.LogOut()}>
                             <Text style={styles.profilebuttonText}>Logout ➡️🚪</Text>
                         </TouchableOpacity>

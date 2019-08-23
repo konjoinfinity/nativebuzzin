@@ -108,8 +108,7 @@ export class Functions {
             if (number === 2) { return 0.13 }
         }
         if (alcohol === "Liquor") {
-            // Change back to normal amount after testing is completed
-            if (number === 0) { return 0.01 }
+            if (number === 0) { return 0.30 }
             if (number === 1) { return 0.40 }
             if (number === 2) { return 0.50 }
         }
