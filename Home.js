@@ -470,6 +470,25 @@ class HomeScreen extends Component {
         );
     }
 
+    async stopCutOff() {
+        Vibration.vibrate();
+        this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
+        await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
+    }
+
+    cancelCutOffAlert() {
+        Vibration.vibrate();
+        Alert.alert(
+            'Are you sure?',
+            'Click Yes to cancel Cut Off, No to continue Cut Off',
+            [
+                { text: 'Yes', onPress: () => this.stopCutOff() },
+                { text: 'No' },
+            ],
+            { cancelable: false },
+        );
+    }
+
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0]
@@ -843,7 +862,7 @@ class HomeScreen extends Component {
                                             <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                         </View>
                                     </TouchableOpacity>
-                                </View> : <TouchableOpacity style={styles.button} onPress={() => this.setState({ showcutoff: false })}>
+                                </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelCutOffAlert()}>
                                     <Text style={styles.buttonText}>Cancel Cut Off</Text>
                                 </TouchableOpacity>}
                         </View>}
