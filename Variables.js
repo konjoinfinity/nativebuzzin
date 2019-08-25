@@ -68,6 +68,7 @@ const cutoffbackey = "cutoffbac"
 const drinkskey = "drinks"
 const cancelbreakskey = "cancelbreaks"
 const showcutoffkey = "showcutoff"
+const custombreakkey = "custombreak"
 
 const warnText = (<View>
     <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
@@ -370,5 +371,6 @@ export {
     drinkskey,
     cutoffbackey,
     cancelbreakskey,
-    showcutoffkey
+    showcutoffkey,
+    custombreakkey
 }

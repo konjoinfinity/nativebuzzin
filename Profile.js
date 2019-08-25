@@ -17,7 +17,7 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey
+    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -42,7 +42,8 @@ class ProfileScreen extends Component {
             cutoff: "",
             drinks: 0,
             cutoffbac: "",
-            cancelbreaks: ""
+            cancelbreaks: "",
+            custombreak: ""
         }
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
@@ -53,6 +54,9 @@ class ProfileScreen extends Component {
     async componentDidMount() {
         await AsyncStorage.getItem(autobreakkey, (error, result) => {
             this.setState({ autobreak: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(custombreakkey, (error, result) => {
+            this.setState({ custombreak: JSON.parse(result) })
         })
         await AsyncStorage.getItem(cancelbreakskey, (error, result) => {
             this.setState({ cancelbreaks: JSON.parse(result) })
@@ -165,6 +169,7 @@ class ProfileScreen extends Component {
         await AsyncStorage.removeItem(cutoffbackey)
         await AsyncStorage.removeItem(cancelbreakskey)
         await AsyncStorage.removeItem(showcutoffkey)
+        await AsyncStorage.removeItem(custombreakkey)
         this.props.navigation.navigate("Login")
     }
 
@@ -193,6 +198,10 @@ class ProfileScreen extends Component {
         this.setState(prevState => ({ cutoff: !prevState.cutoff }), () => this.saveCutOff())
     }
 
+    handleCustomBreak() {
+        this.setState(prevState => ({ custombreak: !prevState.custombreak }), () => this.saveCustomBreak())
+    }
+
     async saveAutoBreak() {
         if (this.state.autobreak === true) {
             await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
@@ -214,6 +223,14 @@ class ProfileScreen extends Component {
             await AsyncStorage.setItem(cutoffkey, JSON.stringify(true))
         } else if (this.state.cutoff === false) {
             await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
+        }
+    }
+
+    async saveCustomBreak() {
+        if (this.state.custombreak === true) {
+            await AsyncStorage.setItem(custombreakkey, JSON.stringify(true))
+        } else if (this.state.custombreak === false) {
+            await AsyncStorage.setItem(custombreakkey, JSON.stringify(false))
         }
     }
 
@@ -343,154 +360,160 @@ class ProfileScreen extends Component {
                                 <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleHappyHour()} />
                             </View>
                         </View>
-                        {/* {this.state.happyhour === true && <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour is at 5pm</Text>} */}
-                        {this.state.autobreak === true &&
-                            <View>
-                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <View>
-                                    <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
-                                    <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
-                                        <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("down")}>
-                                            <View>
-                                                <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                            <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
-                                        <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("up")}>
-                                            <View>
-                                                <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                            </View>}
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Cut Off</Text><Switch value={this.state.cutoff} onChange={() => this.handleCutOff()} />
+                        <View style={{ flexDirection: "row", justifyContent: "center", paddingBottom: 5 }}>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Cut Off</Text><Switch value={this.state.cutoff} onChange={() => this.handleCutOff()} />
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Custom Break</Text><Switch value={this.state.custombreak} onChange={() => this.handleCustomBreak()} />
+                            </View>
                         </View>
-                        {this.state.cutoff === true &&
-                            <View>
-                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <View>
-                                    <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>BAC Cut Off</Text>
-                                    <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
-                                        <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeCutOff("down")}>
-                                            <View>
-                                                <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                            <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.cutoffbac && this.state.cutoffbac.toFixed(2)}</Text></TouchableOpacity>
-                                        <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeCutOff("up")}>
-                                            <View>
-                                                <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                                <View>
-                                    <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Total Drinks Cut Off</Text>
-                                    <View style={{ alignSelf: "center" }}>
-                                        <NumericInput
-                                            minValue={1}
-                                            maxValue={15}
-                                            initValue={this.state.drinks}
-                                            value={this.state.drinks}
-                                            onChange={(drinks) => this.setState({ drinks }, () => this.handleDrinks())}
-                                            totalWidth={numberInputSize}
-                                            step={1}
-                                            rounded
-                                            textColor='#103900'
-                                            iconStyle={{ color: 'white' }}
-                                            rightButtonBackgroundColor='#00897b'
-                                            leftButtonBackgroundColor='#00897b' />
-                                    </View>
-                                </View>
-                            </View>}
                         <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
                         <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
                     </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 18, textAlign: "center" }}>Custom Break</Text>
-                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                    {this.state.autobreak === true &&
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                             <View>
-                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Hours</Text>
-                                <NumericInput
-                                    minValue={0}
-                                    maxValue={24}
-                                    initValue={this.state.hours}
-                                    value={this.state.hours}
-                                    onChange={(hours) => this.setState({ hours }, () => this.takeAbreak())}
-                                    totalWidth={numberInputSize}
-                                    step={1}
-                                    rounded
-                                    textColor='#103900'
-                                    iconStyle={{ color: 'white' }}
-                                    rightButtonBackgroundColor='#00897b'
-                                    leftButtonBackgroundColor='#00897b' />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("down")}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
+                                        <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("up")}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>}
+                    {this.state.happyhour === true &&
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break unti Happy Hour at 5pm.</Text>
+                        </View>}
+                    {this.state.cutoff === true &&
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                            <View>
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>BAC Cut Off</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeCutOff("down")}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
+                                        <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.cutoffbac && this.state.cutoffbac.toFixed(2)}</Text></TouchableOpacity>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeCutOff("up")}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                             <View>
-                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Days</Text>
-                                <NumericInput
-                                    minValue={0}
-                                    maxValue={31}
-                                    initValue={this.state.days}
-                                    value={this.state.days}
-                                    onChange={(days) => this.setState({ days }, () => this.takeAbreak())}
-                                    totalWidth={numberInputSize}
-                                    step={1}
-                                    rounded
-                                    textColor='#103900'
-                                    iconStyle={{ color: 'white' }}
-                                    rightButtonBackgroundColor='#00897b'
-                                    leftButtonBackgroundColor='#00897b' />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Total Drinks Cut Off</Text>
+                                <View style={{ alignSelf: "center" }}>
+                                    <NumericInput
+                                        minValue={1}
+                                        maxValue={15}
+                                        initValue={this.state.drinks}
+                                        value={this.state.drinks}
+                                        onChange={(drinks) => this.setState({ drinks }, () => this.handleDrinks())}
+                                        totalWidth={numberInputSize}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
                             </View>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                            <View>
-                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Weeks</Text>
-                                <NumericInput
-                                    minValue={0}
-                                    maxValue={52}
-                                    initValue={this.state.weeks}
-                                    value={this.state.weeks}
-                                    onChange={(weeks) => this.setState({ weeks }, () => this.takeAbreak())}
-                                    totalWidth={numberInputSize}
-                                    step={1}
-                                    rounded
-                                    textColor='#103900'
-                                    iconStyle={{ color: 'white' }}
-                                    rightButtonBackgroundColor='#00897b'
-                                    leftButtonBackgroundColor='#00897b' />
+                        </View>}
+                    {this.state.custombreak === true &&
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                            <Text style={{ fontSize: 18, textAlign: "center" }}>Custom Break</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Hours</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={24}
+                                        initValue={this.state.hours}
+                                        value={this.state.hours}
+                                        onChange={(hours) => this.setState({ hours }, () => this.takeAbreak())}
+                                        totalWidth={numberInputSize}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
+                                <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Days</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={31}
+                                        initValue={this.state.days}
+                                        value={this.state.days}
+                                        onChange={(days) => this.setState({ days }, () => this.takeAbreak())}
+                                        totalWidth={numberInputSize}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
                             </View>
-                            <View>
-                                <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Months</Text>
-                                <NumericInput
-                                    minValue={0}
-                                    maxValue={12}
-                                    initValue={this.state.months}
-                                    value={this.state.months}
-                                    onChange={(months) => this.setState({ months }, () => this.takeAbreak())}
-                                    totalWidth={numberInputSize}
-                                    step={1}
-                                    rounded
-                                    textColor='#103900'
-                                    iconStyle={{ color: 'white' }}
-                                    rightButtonBackgroundColor='#00897b'
-                                    leftButtonBackgroundColor='#00897b' />
+                            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Weeks</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={52}
+                                        initValue={this.state.weeks}
+                                        value={this.state.weeks}
+                                        onChange={(weeks) => this.setState({ weeks }, () => this.takeAbreak())}
+                                        totalWidth={numberInputSize}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
+                                <View>
+                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Months</Text>
+                                    <NumericInput
+                                        minValue={0}
+                                        maxValue={12}
+                                        initValue={this.state.months}
+                                        value={this.state.months}
+                                        onChange={(months) => this.setState({ months }, () => this.takeAbreak())}
+                                        totalWidth={numberInputSize}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
                             </View>
-                        </View>
-                        {this.state.break === true &&
-                            <View>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
-                                <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
-                                    <Text style={styles.profilebuttonText}>Cancel Break</Text>
-                                </TouchableOpacity>
-                            </View>}
-                    </View>
+                            {this.state.break === true &&
+                                <View>
+                                    <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
+                                    <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
+                                    <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
+                                    <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
+                                        <Text style={styles.profilebuttonText}>Cancel Break</Text>
+                                    </TouchableOpacity>
+                                </View>}
+                        </View>}
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10 }}>
                         <TouchableOpacity style={styles.profilebutton} onPress={() => this.LogOut()}>
                             <Text style={styles.profilebuttonText}>Logout ➡️🚪</Text>
