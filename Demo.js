@@ -128,16 +128,6 @@ class DemoScreen extends Component {
         this.setState({ testbuzzes: [], bac: 0.0 })
     }
 
-    handleOz(number, alcohol) {
-        Vibration.vibrate();
-        this.setState({ oz: Functions.setOz(number, alcohol) })
-    }
-
-    handleAbv(number, alcohol) {
-        Vibration.vibrate();
-        this.setState({ abv: Functions.setAbv(number, alcohol) })
-    }
-
     handleDrinkType(value) {
         Vibration.vibrate();
         this.setState({ alctype: value })
@@ -349,7 +339,7 @@ class DemoScreen extends Component {
                                                     activeItemStyle={beerActive}
                                                     layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.handleAbv(number, this.state.alctype) }}
+                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
                                                     active={1}>
                                                     <Text style={{ fontSize: abvText }}>4%</Text>
                                                     <Text style={{ fontSize: abvText }}>5%</Text>
@@ -364,7 +354,7 @@ class DemoScreen extends Component {
                                                     activeItemStyle={activeStyle}
                                                     layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.handleAbv(number, this.state.alctype) }}
+                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
                                                     active={1}>
                                                     <Text style={{ fontSize: abvWineText }}>11%</Text>
                                                     <Text style={{ fontSize: abvWineText }}>12%</Text>
@@ -377,7 +367,7 @@ class DemoScreen extends Component {
                                                     activeItemStyle={activeStyle}
                                                     layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.handleAbv(number, this.state.alctype) }}
+                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
                                                     active={1}>
                                                     <Text style={{ fontSize: abvLiquorText }}>30%</Text>
                                                     <Text style={{ fontSize: abvLiquorText }}>40%</Text>
@@ -391,7 +381,7 @@ class DemoScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleOz(number, this.state.alctype) }}
+                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>16oz</Text>
@@ -404,7 +394,7 @@ class DemoScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleOz(number, this.state.alctype) }}
+                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>5oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>8oz</Text>
@@ -417,7 +407,7 @@ class DemoScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleOz(number, this.state.alctype) }}
+                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>1.5oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>3oz</Text>
