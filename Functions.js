@@ -1,3 +1,4 @@
+import { Vibration } from 'react-native';
 import moment from "moment";
 
 export class Functions {
@@ -77,6 +78,7 @@ export class Functions {
     }
 
     static setOz(number, alcohol) {
+        Vibration.vibrate();
         if (alcohol === "Beer") {
             if (number === 0) { return 12 }
             if (number === 1) { return 16 }
@@ -96,6 +98,7 @@ export class Functions {
 
     static setAbv(number, alcohol) {
         if (alcohol === "Beer") {
+            Vibration.vibrate();
             if (number === 0) { return 0.04 }
             if (number === 1) { return 0.05 }
             if (number === 2) { return 0.06 }
@@ -108,7 +111,7 @@ export class Functions {
             if (number === 2) { return 0.13 }
         }
         if (alcohol === "Liquor") {
-            if (number === 0) { return 0.01 }
+            if (number === 0) { return 0.30 }
             if (number === 1) { return 0.40 }
             if (number === 2) { return 0.50 }
         }
