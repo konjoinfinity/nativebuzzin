@@ -209,7 +209,7 @@ class DemoScreen extends Component {
         var gaugeColor = returnValues[0]
         var bacPercentage = returnValues[1]
         let testbuzzes;
-        this.state.testbuzzes !== null &&
+        (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
             (testbuzzes = Functions.reverseArray(this.state.testbuzzes).map((buzz, id) => {
                 return (
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
@@ -460,18 +460,19 @@ class DemoScreen extends Component {
                                     </TouchableOpacity>
                                 </View>}
                         </View>}
-                    <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
-                            <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
-                            {this.state.showHideBuzzes === false && (
-                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
-                                    <Text style={styles.buttonText}>Show</Text></TouchableOpacity>)}
-                            {this.state.showHideBuzzes === true && (
-                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
-                                    <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>)}
-                        </View>
-                        {this.state.showHideBuzzes === true && <View>{testbuzzes}</View>}
-                    </View>
+                    {(this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
+                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
+                                <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
+                                {this.state.showHideBuzzes === false && (
+                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
+                                        <Text style={styles.buttonText}>Show</Text></TouchableOpacity>)}
+                                {this.state.showHideBuzzes === true && (
+                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
+                                        <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>)}
+                            </View>
+                            {this.state.showHideBuzzes === true && <View>{testbuzzes}</View>}
+                        </View>}
                     <View style={styles.cardView}>
                         <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
                         <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
