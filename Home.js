@@ -483,10 +483,7 @@ class HomeScreen extends Component {
     async stopCutOff() {
         Vibration.vibrate();
         this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
-        // await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
-        // await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(cancelbreaks + 1))
-        // await AsyncStorage.setItem(showcutoffkey, JSON.stringify(false))
         await AsyncStorage.multiSet([[cutoffkey, JSON.stringify(false)], [showcutoffkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
