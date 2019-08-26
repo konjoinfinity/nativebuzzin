@@ -393,7 +393,7 @@ class ProfileScreen extends Component {
                         </View>}
                     {this.state.happyhour === true &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break unti Happy Hour at 5pm.</Text>
+                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break until Happy Hour at 5pm.</Text>
                         </View>}
                     {this.state.cutoff === true &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
