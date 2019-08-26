@@ -48,7 +48,6 @@ class ProfileScreen extends Component {
         this.LogOut = this.LogOut.bind(this);
         this.takeAbreak = this.takeAbreak.bind(this);
         this.stopBreak = this.stopBreak.bind(this);
-        this.handleAutoBreak = this.handleAutoBreak.bind(this);
     };
 
     async componentDidMount() {
@@ -186,51 +185,15 @@ class ProfileScreen extends Component {
         );
     }
 
-    handleAutoBreak() {
-        this.setState(prevState => ({ autobreak: !prevState.autobreak }), () => this.saveAutoBreak())
+    handleSwitches(statename, keyvalue) {
+        this.setState(prevState => ({ [statename]: !prevState[statename] }), () => this.saveSwitches(this.state[statename], keyvalue))
     }
 
-    handleHappyHour() {
-        this.setState(prevState => ({ happyhour: !prevState.happyhour }), () => this.saveHappyHour())
-    }
-
-    handleCutOff() {
-        this.setState(prevState => ({ cutoff: !prevState.cutoff }), () => this.saveCutOff())
-    }
-
-    handleCustomBreak() {
-        this.setState(prevState => ({ custombreak: !prevState.custombreak }), () => this.saveCustomBreak())
-    }
-
-    async saveAutoBreak() {
-        if (this.state.autobreak === true) {
-            await AsyncStorage.setItem(autobreakkey, JSON.stringify(true))
-        } else if (this.state.autobreak === false) {
-            await AsyncStorage.setItem(autobreakkey, JSON.stringify(false))
-        }
-    }
-
-    async saveHappyHour() {
-        if (this.state.happyhour === true) {
-            await AsyncStorage.setItem(happyhourkey, JSON.stringify(true))
-        } else if (this.state.happyhour === false) {
-            await AsyncStorage.setItem(happyhourkey, JSON.stringify(false))
-        }
-    }
-
-    async saveCutOff() {
-        if (this.state.cutoff === true) {
-            await AsyncStorage.setItem(cutoffkey, JSON.stringify(true))
-        } else if (this.state.cutoff === false) {
-            await AsyncStorage.setItem(cutoffkey, JSON.stringify(false))
-        }
-    }
-
-    async saveCustomBreak() {
-        if (this.state.custombreak === true) {
-            await AsyncStorage.setItem(custombreakkey, JSON.stringify(true))
-        } else if (this.state.custombreak === false) {
-            await AsyncStorage.setItem(custombreakkey, JSON.stringify(false))
+    async saveSwitches(statevalue, keyvalue) {
+        if (statevalue === true) {
+            await AsyncStorage.setItem(keyvalue, JSON.stringify(true))
+        } else if (statevalue === false) {
+            await AsyncStorage.setItem(keyvalue, JSON.stringify(false))
         }
     }
 
@@ -354,18 +317,18 @@ class ProfileScreen extends Component {
                         <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center", paddingBottom: 5 }}>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break</Text><Switch value={this.state.autobreak} onChange={() => this.handleAutoBreak()} />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break</Text><Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey)} />
                             </View>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleHappyHour()} />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey)} />
                             </View>
                         </View>
                         <View style={{ flexDirection: "row", justifyContent: "center", paddingBottom: 5 }}>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Cut Off</Text><Switch value={this.state.cutoff} onChange={() => this.handleCutOff()} />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Cut Off</Text><Switch value={this.state.cutoff} onChange={() => this.handleSwitches("cutoff", cutoffkey)} />
                             </View>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Custom Break</Text><Switch value={this.state.custombreak} onChange={() => this.handleCustomBreak()} />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Custom Break</Text><Switch value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey)} />
                             </View>
                         </View>
                         <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
