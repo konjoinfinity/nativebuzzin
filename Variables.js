@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Dimensions, PixelRatio, View, Text } from 'react-native';
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get()
