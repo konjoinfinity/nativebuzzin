@@ -21,6 +21,7 @@ import {
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
+import moment from "moment";
 
 class DemoScreen extends Component {
     constructor(props) {
@@ -36,7 +37,8 @@ class DemoScreen extends Component {
             countdown: false,
             timer: "",
             modal1Visible: false,
-            modal2Visible: false
+            modal2Visible: false,
+            showHideBuzzes: false
         }
         this.addDrink = this.addDrink.bind(this);
         this.checkBac = this.checkBac.bind(this);
@@ -189,10 +191,35 @@ class DemoScreen extends Component {
         }
     }
 
+    showHideBuzzes() {
+        this.setState(prevState => ({
+            showHideBuzzes: !prevState.showHideBuzzes
+        }), () => setTimeout(() => {
+            if (this.state.showHideBuzzes === true) {
+                this.scrolltop.scrollTo({ y: 550, animated: true })
+            } else {
+                this.scrolltop.scrollTo({ y: 0, animated: true });
+            }
+        }, 300));
+        Vibration.vibrate();
+    }
+
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0]
         var bacPercentage = returnValues[1]
+        let testbuzzes;
+        this.state.testbuzzes !== null &&
+            (testbuzzes = Functions.reverseArray(this.state.testbuzzes).map((buzz, id) => {
+                return (
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                        <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
+                        <View style={{ flexDirection: "column" }}>
+                            <Text style={{ fontSize: 20, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
+                            <Text style={{ fontSize: 15, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                    </View>
+                )
+            }))
         return (
             <View style={{ backgroundColor: "#ff8a80" }}>
                 <Modal animationType="slide"
@@ -222,7 +249,7 @@ class DemoScreen extends Component {
                     </ScrollView>
                 </Modal>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
-                <ScrollView>
+                <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         {addButtonSize === true ?
                             <Text style={{ fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#AE0000" }}>DEMO        </Text><Text style={{ color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#AE0000" }}>        DEMO</Text></Text>
@@ -433,14 +460,24 @@ class DemoScreen extends Component {
                                     </TouchableOpacity>
                                 </View>}
                         </View>}
+                    <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
+                            <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
+                            {this.state.showHideBuzzes === false && (
+                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
+                                    <Text style={styles.buttonText}>Show</Text></TouchableOpacity>)}
+                            {this.state.showHideBuzzes === true && (
+                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
+                                    <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>)}
+                        </View>
+                        {this.state.showHideBuzzes === true && <View>{testbuzzes}</View>}
+                    </View>
                     <View style={styles.cardView}>
                         <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
                         <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
                             <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                         </View>
-                    </View>
-                    <View style={styles.cardView}>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
+                        <Text style={{ fontSize: 25, textAlign: "center", padding: 20 }}>Enter Weight - lbs.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <NumericInput
                                 minValue={50}
