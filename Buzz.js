@@ -28,10 +28,6 @@ class BuzzScreen extends Component {
             showHideBuzzes: false,
             showHideOldBuzzes: false
         }
-        // this.deleteBuzzes = this.deleteBuzzes.bind(this);
-        // this.deleteOldBuzzes = this.deleteOldBuzzes.bind(this);
-        this.showHideBuzzes = this.showHideBuzzes.bind(this);
-        this.showHideOldBuzzes = this.showHideOldBuzzes.bind(this);
     };
 
     async componentDidMount() {

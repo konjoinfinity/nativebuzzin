@@ -31,9 +31,7 @@ class LoginScreen extends React.Component {
             weight: 195,
             modalVisible: false
         };
-        this.handleLogin = this.handleLogin.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.switchGender = this.switchGender.bind(this);
+        // this.handleNameChange = this.handleNameChange.bind(this);
     }
 
     componentDidMount() {
@@ -50,9 +48,9 @@ class LoginScreen extends React.Component {
         }
     }
 
-    handleNameChange(name) {
-        this.setState({ name });
-    }
+    // handleNameChange(name) {
+    //     this.setState({ name });
+    // }
 
     switchGender() {
         Vibration.vibrate();
@@ -123,7 +121,7 @@ class LoginScreen extends React.Component {
                                 id="name"
                                 returnKeyType={"default"}
                                 blurOnSubmit={true}
-                                onChangeText={this.handleNameChange}
+                                onChangeText={(name) => this.setState({ name })}
                                 value={this.state.name}
                                 onSubmitEditing={() => Keyboard.dismiss()} />
                         </View>
