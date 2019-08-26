@@ -403,20 +403,6 @@ class HomeScreen extends Component {
         }
     }
 
-    handleDrinkType(value) {
-        Vibration.vibrate();
-        this.setState({ alctype: value })
-        if (value === "Beer") {
-            this.setState({ abv: 0.05, oz: 12 })
-        }
-        if (value === "Wine") {
-            this.setState({ abv: 0.12, oz: 5 })
-        }
-        if (value === "Liquor") {
-            this.setState({ abv: 0.40, oz: 1.5 })
-        }
-    }
-
     async stopBreak() {
         Vibration.vibrate();
         this.setState({ break: false })
@@ -579,7 +565,7 @@ class HomeScreen extends Component {
                                                 activeItemStyle={activeStyle}
                                                 layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.handleDrinkType(alcValues[number].value) }}
+                                                onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }}
                                                 active={0}>
                                                 <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                                 <Text style={{ fontSize: alcTypeText }}>🍷</Text>
@@ -592,7 +578,7 @@ class HomeScreen extends Component {
                                         activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                        onActivate={(number) => { this.handleDrinkType(alcValues[number].value) }}
+                                        onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }}
                                         active={1}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>
@@ -603,7 +589,7 @@ class HomeScreen extends Component {
                                         activeItemStyle={activeStyle}
                                         layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                        onActivate={(number) => { this.handleDrinkType(alcValues[number].value) }}
+                                        onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }}
                                         active={2}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>
