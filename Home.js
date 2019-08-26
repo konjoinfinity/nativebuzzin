@@ -60,18 +60,6 @@ class HomeScreen extends Component {
             drinks: "",
             showcutoff: false
         }
-        this.addDrink = this.addDrink.bind(this);
-        this.checkBac = this.checkBac.bind(this);
-        this.saveBuzz = this.saveBuzz.bind(this);
-        this.clearDrinks = this.clearDrinks.bind(this);
-        this.moveToOld = this.moveToOld.bind(this);
-        this.handleAbv = this.handleAbv.bind(this);
-        this.handleOz = this.handleOz.bind(this);
-        this.handleDrinkType = this.handleDrinkType.bind(this);
-        this.handleStepChange = this.handleStepChange.bind(this);
-        this.countdownBac = this.countdownBac.bind(this);
-        this.stopBreak = this.stopBreak.bind(this);
-        this.flashWarning = this.flashWarning.bind(this);
     };
 
     async componentDidMount() {
