@@ -45,9 +45,6 @@ class ProfileScreen extends Component {
             cancelbreaks: "",
             custombreak: ""
         }
-        this.LogOut = this.LogOut.bind(this);
-        this.takeAbreak = this.takeAbreak.bind(this);
-        this.stopBreak = this.stopBreak.bind(this);
     };
 
     async componentDidMount() {
