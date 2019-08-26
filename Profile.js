@@ -197,106 +197,53 @@ class ProfileScreen extends Component {
         }
     }
 
-    changeThreshold(increment) {
+    changeBac(increment, statename, keyvalue) {
         if (increment === "up") {
-            if (this.state.threshold < 0.10) {
-                if (this.state.threshold === 0.06) {
-                    this.setState({ threshold: 0.07 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.07) {
-                    this.setState({ threshold: 0.08 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.08) {
-                    this.setState({ threshold: 0.09 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.09) {
-                    this.setState({ threshold: 0.10 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.02) {
-                    this.setState({ threshold: 0.03 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.03) {
-                    this.setState({ threshold: 0.04 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.04) {
-                    this.setState({ threshold: 0.05 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.05) {
-                    this.setState({ threshold: 0.06 }, () => this.saveThreshold())
+            if (this.state[statename] < 0.10) {
+                if (this.state[statename] === 0.06) {
+                    this.setState({ [statename]: 0.07 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.07) {
+                    this.setState({ [statename]: 0.08 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.08) {
+                    this.setState({ [statename]: 0.09 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.09) {
+                    this.setState({ [statename]: 0.10 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.02) {
+                    this.setState({ [statename]: 0.03 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.03) {
+                    this.setState({ [statename]: 0.04 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.04) {
+                    this.setState({ [statename]: 0.05 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.05) {
+                    this.setState({ [statename]: 0.06 }, () => this.saveValues(statename, keyvalue))
                 }
             }
         }
         if (increment === "down") {
-            if (this.state.threshold > 0.02) {
-                if (this.state.threshold === 0.06) {
-                    this.setState({ threshold: 0.05 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.05) {
-                    this.setState({ threshold: 0.04 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.04) {
-                    this.setState({ threshold: 0.03 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.03) {
-                    this.setState({ threshold: 0.02 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.10) {
-                    this.setState({ threshold: 0.09 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.09) {
-                    this.setState({ threshold: 0.08 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.08) {
-                    this.setState({ threshold: 0.07 }, () => this.saveThreshold())
-                } else if (this.state.threshold === 0.07) {
-                    this.setState({ threshold: 0.06 }, () => this.saveThreshold())
+            if (this.state[statename] > 0.02) {
+                if (this.state[statename] === 0.06) {
+                    this.setState({ [statename]: 0.05 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.05) {
+                    this.setState({ [statename]: 0.04 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.04) {
+                    this.setState({ [statename]: 0.03 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.03) {
+                    this.setState({ [statename]: 0.02 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.10) {
+                    this.setState({ [statename]: 0.09 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.09) {
+                    this.setState({ [statename]: 0.08 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.08) {
+                    this.setState({ [statename]: 0.07 }, () => this.saveValues(statename, keyvalue))
+                } else if (this.state[statename] === 0.07) {
+                    this.setState({ [statename]: 0.06 }, () => this.saveValues(statename, keyvalue))
                 }
             }
         }
     }
 
-    changeCutOff(increment) {
-        if (increment === "up") {
-            if (this.state.cutoffbac < 0.10) {
-                if (this.state.cutoffbac === 0.06) {
-                    this.setState({ cutoffbac: 0.07 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.07) {
-                    this.setState({ cutoffbac: 0.08 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.08) {
-                    this.setState({ cutoffbac: 0.09 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.09) {
-                    this.setState({ cutoffbac: 0.10 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.02) {
-                    this.setState({ cutoffbac: 0.03 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.03) {
-                    this.setState({ cutoffbac: 0.04 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.04) {
-                    this.setState({ cutoffbac: 0.05 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.05) {
-                    this.setState({ cutoffbac: 0.06 }, () => this.saveCutOffBac())
-                }
-            }
-        }
-        if (increment === "down") {
-            if (this.state.cutoffbac > 0.02) {
-                if (this.state.cutoffbac === 0.06) {
-                    this.setState({ cutoffbac: 0.05 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.05) {
-                    this.setState({ cutoffbac: 0.04 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.04) {
-                    this.setState({ cutoffbac: 0.03 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.03) {
-                    this.setState({ cutoffbac: 0.02 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.10) {
-                    this.setState({ cutoffbac: 0.09 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.09) {
-                    this.setState({ cutoffbac: 0.08 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.08) {
-                    this.setState({ cutoffbac: 0.07 }, () => this.saveCutOffBac())
-                } else if (this.state.cutoffbac === 0.07) {
-                    this.setState({ cutoffbac: 0.06 }, () => this.saveCutOffBac())
-                }
-            }
-        }
-    }
-
-    async saveThreshold() {
-        await AsyncStorage.setItem(autobreakthresholdkey, JSON.stringify(this.state.threshold))
-    }
-
-    async saveCutOffBac() {
-        await AsyncStorage.setItem(cutoffbackey, JSON.stringify(this.state.cutoffbac))
-    }
-
-    async handleDrinks() {
-        await AsyncStorage.setItem(drinkskey, JSON.stringify(this.state.drinks))
+    async saveValues(statename, keyvalue) {
+        await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
     }
 
     render() {
@@ -339,14 +286,14 @@ class ProfileScreen extends Component {
                             <View>
                                 <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("down")}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
                                         <View>
                                             <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>
                                         </View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                         <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeThreshold("up")}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
                                         <View>
                                             <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
                                         </View>
@@ -363,14 +310,14 @@ class ProfileScreen extends Component {
                             <View>
                                 <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>BAC Cut Off</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeCutOff("down")}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "cutoffbac", cutoffbackey)}>
                                         <View>
                                             <Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text>
                                         </View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                         <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.cutoffbac && this.state.cutoffbac.toFixed(2)}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeCutOff("up")}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "cutoffbac", cutoffbackey)}>
                                         <View>
                                             <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
                                         </View>
@@ -385,7 +332,7 @@ class ProfileScreen extends Component {
                                         maxValue={15}
                                         initValue={this.state.drinks}
                                         value={this.state.drinks}
-                                        onChange={(drinks) => this.setState({ drinks }, () => this.handleDrinks())}
+                                        onChange={(drinks) => this.setState({ drinks }, () => this.saveValues("drinks", drinkskey))}
                                         totalWidth={numberInputSize}
                                         step={1}
                                         rounded
