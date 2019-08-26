@@ -135,8 +135,7 @@ class ProfileScreen extends Component {
             }
             Vibration.vibrate();
             this.setState({ break: true, breakdate: breakDate })
-            await AsyncStorage.setItem(breakkey, JSON.stringify(true))
-            await AsyncStorage.setItem(breakdatekey, JSON.stringify(breakDate))
+            await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
         if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) {
             this.stopBreak()
@@ -146,29 +145,15 @@ class ProfileScreen extends Component {
     async stopBreak() {
         Vibration.vibrate();
         this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
-        await AsyncStorage.setItem(breakkey, JSON.stringify(false))
+        // await AsyncStorage.setItem(breakkey, JSON.stringify(false))
         await AsyncStorage.removeItem(breakdatekey)
-        await AsyncStorage.setItem(cancelbreakskey, JSON.stringify(this.state.cancelbreaks))
+        await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
     }
 
     async LogOut() {
         Vibration.vibrate();
         // await AsyncStorage.removeItem(oldkey)
-        await AsyncStorage.removeItem(namekey)
-        await AsyncStorage.removeItem(key)
-        await AsyncStorage.removeItem(genderkey)
-        await AsyncStorage.removeItem(weightkey)
-        await AsyncStorage.removeItem(breakkey)
-        await AsyncStorage.removeItem(breakdatekey)
-        await AsyncStorage.removeItem(autobreakkey)
-        await AsyncStorage.removeItem(happyhourkey)
-        await AsyncStorage.removeItem(cutoffkey)
-        await AsyncStorage.removeItem(autobreakthresholdkey)
-        await AsyncStorage.removeItem(drinkskey)
-        await AsyncStorage.removeItem(cutoffbackey)
-        await AsyncStorage.removeItem(cancelbreakskey)
-        await AsyncStorage.removeItem(showcutoffkey)
-        await AsyncStorage.removeItem(custombreakkey)
+        await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey, cutoffkey, autobreakthresholdkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey])
         this.props.navigation.navigate("Login")
     }
 
