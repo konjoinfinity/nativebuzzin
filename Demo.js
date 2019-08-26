@@ -40,14 +40,6 @@ class DemoScreen extends Component {
             modal2Visible: false,
             showHideBuzzes: false
         }
-        this.addDrink = this.addDrink.bind(this);
-        this.checkBac = this.checkBac.bind(this);
-        this.clearDrinks = this.clearDrinks.bind(this);
-        this.handleAbv = this.handleAbv.bind(this);
-        this.handleOz = this.handleOz.bind(this);
-        this.handleDrinkType = this.handleDrinkType.bind(this);
-        this.switchGender = this.switchGender.bind(this);
-        this.countdownBac = this.countdownBac.bind(this);
     };
 
     async componentDidMount() {
