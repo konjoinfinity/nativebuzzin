@@ -31,7 +31,6 @@ class LoginScreen extends React.Component {
             weight: 195,
             modalVisible: false
         };
-        // this.handleNameChange = this.handleNameChange.bind(this);
     }
 
     componentDidMount() {
@@ -47,10 +46,6 @@ class LoginScreen extends React.Component {
             Alert.alert("Please Enter Name")
         }
     }
-
-    // handleNameChange(name) {
-    //     this.setState({ name });
-    // }
 
     switchGender() {
         Vibration.vibrate();
