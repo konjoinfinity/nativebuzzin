@@ -48,39 +48,8 @@ class ProfileScreen extends Component {
     };
 
     async componentDidMount() {
-        await AsyncStorage.getItem(autobreakkey, (error, result) => {
-            this.setState({ autobreak: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(custombreakkey, (error, result) => {
-            this.setState({ custombreak: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(cancelbreakskey, (error, result) => {
-            this.setState({ cancelbreaks: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(cutoffbackey, (error, result) => {
-            this.setState({ cutoffbac: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(cutoffkey, (error, result) => {
-            this.setState({ cutoff: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(drinkskey, (error, result) => {
-            this.setState({ drinks: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(happyhourkey, (error, result) => {
-            this.setState({ happyhour: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(autobreakthresholdkey, (error, result) => {
-            this.setState({ threshold: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(namekey, (error, result) => {
-            this.setState({ name: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(genderkey, (error, result) => {
-            this.setState({ gender: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(weightkey, (error, result) => {
-            this.setState({ weight: JSON.parse(result) })
-        })
+        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, cutoffbackey, cutoffkey, drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey])
+        this.setState({ autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]), cutoffbac: JSON.parse(values[3][1]), cutoff: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]), happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]), gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]) })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
