@@ -1,8 +1,7 @@
 import React from 'react';
 import { Dimensions, PixelRatio, View, Text } from 'react-native';
 
-var screenWidth = Dimensions.get('window').width * PixelRatio.get()
-var screenHeight = Dimensions.get('window').height * PixelRatio.get()
+var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
 // console.log(screenWidth + " x " + screenHeight)
 
 // if (PixelRatio.get() === 1) {
