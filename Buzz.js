@@ -96,7 +96,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        let buzzes;
+        let buzzes, oldbuzzes;
         this.state.buzzes !== null &&
             (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
                 return (
@@ -108,7 +108,6 @@ class BuzzScreen extends Component {
                     </View>
                 )
             }))
-        let oldbuzzes;
         this.state.oldbuzzes !== null &&
             (oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
                 return Functions.reverseArray(buzz).map((oldbuzz, id) => {
