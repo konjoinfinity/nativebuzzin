@@ -16,15 +16,10 @@ export class Functions {
     }
 
     static singleDuration(initialbuzz) {
-        var date1 = Date.parse(initialbuzz)
-        var duration;
-        var currentDate = new Date();
+        var date1 = Date.parse(initialbuzz), duration, currentDate = new Date();
         var date2 = currentDate.getTime();
         var dayHourMin = this.getDayHourMin(date1, date2);
-        var days = dayHourMin[0];
-        var hours = dayHourMin[1];
-        var minutes = dayHourMin[2];
-        var seconds = dayHourMin[3];
+        var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
         if (days >= 1) {
             hours = hours + days * 24;
         }
@@ -37,10 +32,7 @@ export class Functions {
     }
 
     static breakDiff(date1, date2) {
-        var currentdate = moment(date1)
-        var breakdate = moment(date2)
-        var intervals = ['months', 'weeks', 'days', 'hours']
-        var durations = [];
+        var currentdate = moment(date1), breakdate = moment(date2), intervals = ['months', 'weeks', 'days', 'hours'], durations = [];
         for (var i = 0; i < intervals.length; i++) {
             var diff = breakdate.diff(currentdate, intervals[i]);
             currentdate.add(diff, intervals[i]);
@@ -50,10 +42,7 @@ export class Functions {
     };
 
     static varGetBAC(weight, gender, hours, buzz) {
-        var distribution;
-        var drinkTotal;
-        var totalAlc;
-        var totalArray = [];
+        var distribution, drinkTotal, totalAlc, totalArray = [];
         if (gender === "Female") {
             distribution = 0.66;
         }

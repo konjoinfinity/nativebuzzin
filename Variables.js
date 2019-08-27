@@ -19,23 +19,9 @@ var screenHeight = Dimensions.get('window').height * PixelRatio.get()
 //     console.log("xxxhdpi");
 // }
 
-var gaugeSize;
-var bacTextSize;
-var alcTypeSize;
-var alcTypeText;
-var abvText;
-var abvSize;
-var abvWineText;
-var abvWineSize;
-var abvLiquorText;
-var abvLiquorSize;
-var addButtonText;
-var addButtonSize;
-var multiSwitchMargin;
+var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin;
 
-let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }];
-let activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }]
-let beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }], activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }], beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
 const gaugeLabels = [
     { name: '1', labelColor: '#e0f2f1', activeBarColor: '#ffffff' },
@@ -52,23 +38,7 @@ const gaugeLabels = [
     { name: '12', labelColor: '#e0f2f1', activeBarColor: '#000000' }
 ]
 
-const namekey = "name"
-const genderkey = "gender"
-const weightkey = "weight"
-const key = "buzzes"
-const oldkey = "oldbuzzes"
-const breakkey = "break"
-const breakdatekey = "breakdate"
-const autobreakkey = "autobreak"
-const happyhourkey = "happyhour"
-const autobreakminkey = "autobreakmin"
-const autobreakthresholdkey = "autobreakthreshold"
-const cutoffkey = "cutoff"
-const cutoffbackey = "cutoffbac"
-const drinkskey = "drinks"
-const cancelbreakskey = "cancelbreaks"
-const showcutoffkey = "showcutoff"
-const custombreakkey = "custombreak"
+const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break", breakdatekey = "breakdate", autobreakkey = "autobreak", happyhourkey = "happyhour", autobreakminkey = "autobreakmin", autobreakthresholdkey = "autobreakthreshold", cutoffkey = "cutoff", cutoffbackey = "cutoffbac", drinkskey = "drinks", cancelbreakskey = "cancelbreaks", showcutoffkey = "showcutoff", custombreakkey = "custombreak";
 
 const warnText = (<View>
     <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
