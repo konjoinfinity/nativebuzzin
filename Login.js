@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey,
-    cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey
+    cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, loginText
 } from "./Variables";
 import styles from "./Styles"
 
@@ -87,13 +87,7 @@ class LoginScreen extends React.Component {
                             visible={this.state.modalVisible}>
                             <ScrollView>
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10 }}>
-                                    <Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Welcome to Buzzin'!</Text>
-                                    <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>Legal Disclaimer and User Agreement</Text>
-                                    <Text style={{ fontSize: 15, textAlign: "center", padding: 10 }}>Buzzin' will not be held liable for any decisions made based on the information provided.
-                                    The Blood Alcohol Content (BAC) calculations are not 100% accurate and are aimed to give our users a general ballpark estimate based on their approximate weight and gender.
-                                    Users are liable for all data they input, as it is stored on their personal local device.  No user data is stored externally, Buzzin' does not store inputted user data externally.
-                                    By pressing agree, the user forfeits their rights to hold Buzzin' or LifeSystems LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
-                                This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text>
+                                    {loginText}
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                         <TouchableOpacity style={styles.logindisagreeButton}
                                             onPress={() => { this.handleCancel() }}>
