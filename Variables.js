@@ -47,7 +47,6 @@ const warnText = (<View>
     <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>• Take a break from drinking.</Text>
     <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>• Drink water.</Text>
     <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>• Call a friend, Uber, or Lyft to pick you up.</Text>
-
 </View>)
 
 const dangerText = (<View>
