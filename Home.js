@@ -109,10 +109,7 @@ class HomeScreen extends Component {
                     var currentDate = new Date();
                     var date2 = currentDate.getTime();
                     var dayHourMin = Functions.getDayHourMin(date2, date1);
-                    var days = dayHourMin[0];
-                    var hours = dayHourMin[1];
-                    var minutes = dayHourMin[2];
-                    var seconds = dayHourMin[3];
+                    var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
                     if (days + hours + minutes + seconds < 0) {
                         if (this.state.autobreak === true) {
                             var stopBreak5pm = new Date()
@@ -355,10 +352,8 @@ class HomeScreen extends Component {
     }
 
     async moveToOld() {
-        var autobreakcheck;
+        var autobreakcheck, oldbuzzarray = this.state.oldbuzzes, newbuzzarray = this.state.buzzes;
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
-        var oldbuzzarray = this.state.oldbuzzes;
-        var newbuzzarray = this.state.buzzes;
         oldbuzzarray.push(newbuzzarray);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
@@ -476,8 +471,7 @@ class HomeScreen extends Component {
 
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
-        var gaugeColor = returnValues[0]
-        var bacPercentage = returnValues[1]
+        var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
             <View>
                 <Modal animationType="slide"
