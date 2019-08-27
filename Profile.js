@@ -104,7 +104,19 @@ class ProfileScreen extends Component {
                     var minutes = dayHourMin[2];
                     var seconds = dayHourMin[3];
                     if (days + hours + minutes + seconds < 0) {
-                        this.stopBreak()
+                        console.log(this.state.autobreak)
+                        if (this.state.autobreak === true) {
+                            var stopBreak5pm = new Date()
+                            stopBreak5pm = moment(stopBreak5pm).local();
+                            stopBreak5pm = stopBreak5pm.hours();
+                            console.log(stopBreak5pm)
+                            if (stopBreak5pm >= 10) {
+                                this.stopBreak()
+                            }
+                        } else if (this.state.autobreak === false) {
+                            console.log(this.state.autobreak)
+                            this.stopBreak()
+                        }
                     }
                     var currentDate = new Date()
                     var breakDate = Date.parse(this.state.breakdate)
