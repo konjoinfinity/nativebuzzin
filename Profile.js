@@ -99,10 +99,7 @@ class ProfileScreen extends Component {
                     var currentDate = new Date();
                     var date2 = currentDate.getTime();
                     var dayHourMin = Functions.getDayHourMin(date2, date1);
-                    var days = dayHourMin[0];
-                    var hours = dayHourMin[1];
-                    var minutes = dayHourMin[2];
-                    var seconds = dayHourMin[3];
+                    var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
                     if (days + hours + minutes + seconds < 0) {
                         if (this.state.autobreak === true) {
                             var stopBreak5pm = new Date()
@@ -130,9 +127,7 @@ class ProfileScreen extends Component {
 
     async takeAbreak() {
         if (this.state.hours !== 0 || this.state.days !== 0 || this.state.weeks !== 0 || this.state.months !== 0) {
-            var breakDate = new Date();
-            var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30)
-            var hours = this.state.hours * 60 * 60 * 1000
+            var breakDate = new Date(), duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
             if (duration !== 0) {
                 breakDate.setDate(breakDate.getDate() + duration);
             }
