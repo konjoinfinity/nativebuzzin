@@ -68,55 +68,38 @@ export class Functions {
 
     static setOz(number, alcohol) {
         Vibration.vibrate();
-        if (alcohol === "Beer") {
-            if (number === 0) { return 12 }
-            if (number === 1) { return 16 }
-            if (number === 2) { return 20 }
-        }
-        if (alcohol === "Wine") {
-            if (number === 0) { return 5 }
-            if (number === 1) { return 8 }
-            if (number === 2) { return 12 }
-        }
-        if (alcohol === "Liquor") {
-            if (number === 0) { return 1.5 }
-            if (number === 1) { return 3 }
-            if (number === 2) { return 6 }
-        }
+        if (alcohol === "Beer" && number === 0) { return 12 }
+        if (alcohol === "Beer" && number === 1) { return 16 }
+        if (alcohol === "Beer" && number === 2) { return 20 }
+        if (alcohol === "Wine" && number === 0) { return 5 }
+        if (alcohol === "Wine" && number === 1) { return 8 }
+        if (alcohol === "Wine" && number === 2) { return 12 }
+        if (alcohol === "Liquor" && number === 0) { return 1.5 }
+        if (alcohol === "Liquor" && number === 1) { return 3 }
+        if (alcohol === "Liquor" && number === 2) { return 6 }
+
     }
 
     static setAbv(number, alcohol) {
-        if (alcohol === "Beer") {
-            Vibration.vibrate();
-            if (number === 0) { return 0.04 }
-            if (number === 1) { return 0.05 }
-            if (number === 2) { return 0.06 }
-            if (number === 3) { return 0.07 }
-            if (number === 4) { return 0.08 }
-        }
-        if (alcohol === "Wine") {
-            if (number === 0) { return 0.11 }
-            if (number === 1) { return 0.12 }
-            if (number === 2) { return 0.13 }
-        }
-        if (alcohol === "Liquor") {
-            if (number === 0) { return 0.30 }
-            if (number === 1) { return 0.40 }
-            if (number === 2) { return 0.50 }
-        }
+        Vibration.vibrate();
+        if (alcohol === "Beer" && number === 0) { return 0.04 }
+        if (alcohol === "Beer" && number === 1) { return 0.05 }
+        if (alcohol === "Beer" && number === 2) { return 0.06 }
+        if (alcohol === "Beer" && number === 3) { return 0.07 }
+        if (alcohol === "Beer" && number === 4) { return 0.08 }
+        if (alcohol === "Wine" && number === 0) { return 0.11 }
+        if (alcohol === "Wine" && number === 1) { return 0.12 }
+        if (alcohol === "Wine" && number === 2) { return 0.13 }
+        if (alcohol === "Liquor" && number === 0) { return 0.30 }
+        if (alcohol === "Liquor" && number === 1) { return 0.40 }
+        if (alcohol === "Liquor" && number === 2) { return 0.50 }
     }
 
     static setAlcType(value) {
         Vibration.vibrate();
-        if (value === "Beer") {
-            return [0.05, 12]
-        }
-        if (value === "Wine") {
-            return [0.12, 5]
-        }
-        if (value === "Liquor") {
-            return [0.40, 1.5]
-        }
+        if (value === "Beer") { return [0.05, 12] }
+        if (value === "Wine") { return [0.12, 5] }
+        if (value === "Liquor") { return [0.40, 1.5] }
     }
 
     static setColorPercent(bac) {
