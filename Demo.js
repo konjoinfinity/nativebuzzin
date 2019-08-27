@@ -174,9 +174,7 @@ class DemoScreen extends Component {
 
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
-        var gaugeColor = returnValues[0]
-        var bacPercentage = returnValues[1]
-        let testbuzzes;
+        var gaugeColor = returnValues[0], bacPercentage = returnValues[1], testbuzzes;
         (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
             (testbuzzes = Functions.reverseArray(this.state.testbuzzes).map((buzz, id) => {
                 return (
