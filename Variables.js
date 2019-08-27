@@ -52,7 +52,6 @@ const warnText = (<View>
 const dangerText = (<View>
     <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Danger!</Text>
     <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is well above the legal drinking limit.</Text>
-    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Please:</Text>
     <Text style={{ fontSize: 25, textAlign: "center", padding: 8, fontWeight: "bold" }}>• STOP DRINKING!</Text>
     <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>• Drink water!</Text>
     <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>• Call a friend, Uber, or Lyft to pick you up.</Text>
