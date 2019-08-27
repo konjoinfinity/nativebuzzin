@@ -378,6 +378,17 @@ class HomeScreen extends Component {
         }
     }
 
+    cancelAlert(typealert) {
+        Vibration.vibrate();
+        Alert.alert('Are you sure?', typealert === "hh" ? 'Click Yes to cancel Happy Hour, No to continue Happy Hour' : typealert === "co" ? 'Click Yes to cancel Cut Off, No to continue Cut Off' : 'Click Yes to cancel break, No to continue break',
+            [
+                { text: 'Yes', onPress: () => typealert === "hh" ? this.stopHh() : typealert === "co" ? this.stopCutOff() : this.stopBreak() },
+                { text: 'No' },
+            ],
+            { cancelable: false },
+        );
+    }
+
     async stopBreak() {
         Vibration.vibrate();
         this.setState({ break: false })
@@ -386,35 +397,11 @@ class HomeScreen extends Component {
         await AsyncStorage.multiSet([[breakkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
-    cancelBreakAlert() {
-        Vibration.vibrate();
-        Alert.alert(
-            'Are you sure?',
-            'Click Yes to cancel break, No to continue break',
-            [
-                { text: 'Yes', onPress: () => this.stopBreak() },
-                { text: 'No' },
-            ],
-            { cancelable: false },
-        );
-    }
-
     async stopHh() {
         Vibration.vibrate();
         this.setState({ happyhour: false, happyhourtime: "" })
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
         await AsyncStorage.multiSet([[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
-    }
-
-    cancelAlert(typealert) {
-        Vibration.vibrate();
-        Alert.alert('Are you sure?', typealert === "hh" ? 'Click Yes to cancel Happy Hour, No to continue Happy Hour' : 'Click Yes to cancel Cut Off, No to continue Cut Off',
-            [
-                { text: 'Yes', onPress: () => typealert === "hh" ? this.stopHh() : this.stopCutOff() },
-                { text: 'No' },
-            ],
-            { cancelable: false },
-        );
     }
 
     async stopCutOff() {
@@ -758,7 +745,7 @@ class HomeScreen extends Component {
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY')}, 5:00 pm</Text> :
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>}
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.cancelBreakAlert()}>
+                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("br")}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
                         </View>}
