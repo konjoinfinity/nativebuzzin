@@ -114,18 +114,15 @@ class HomeScreen extends Component {
                     var minutes = dayHourMin[2];
                     var seconds = dayHourMin[3];
                     if (days + hours + minutes + seconds < 0) {
-                        console.log(this.state.autobreak)
                         if (this.state.autobreak === true) {
                             var stopBreak5pm = new Date()
                             stopBreak5pm = moment(stopBreak5pm).local();
                             stopBreak5pm = stopBreak5pm.hours();
-                            console.log(stopBreak5pm)
-                            if (stopBreak5pm >= 10) {
-                                this.stopBreak("after 5pm")
+                            if (stopBreak5pm >= 17) {
+                                this.stopBreak()
                             }
                         } else if (this.state.autobreak === false) {
-                            console.log(this.state.autobreak)
-                            this.stopBreak("not autobreak")
+                            this.stopBreak()
                         }
                     }
                 }, 100);
@@ -374,8 +371,7 @@ class HomeScreen extends Component {
         })
         if (this.state.autobreak === true && autobreakcheck === true) {
             var autoBreakDate = new Date();
-            var autoBreakDate = moment(autoBreakDate).add(1, 'm').toDate();
-            // autoBreakDate.setDate(autoBreakDate.getDate() + 1);
+            autoBreakDate.setDate(autoBreakDate.getDate() + 1);
             this.setState({ break: true, breakdate: autoBreakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(autoBreakDate)], [autobreakminkey, JSON.stringify(false)]], () => this.componentDidMount())
         }
@@ -417,9 +413,7 @@ class HomeScreen extends Component {
         }
     }
 
-    async stopBreak(text) {
-        // add check for manual cancel/automatic
-        console.log(text)
+    async stopBreak() {
         Vibration.vibrate();
         this.setState({ break: false })
         await AsyncStorage.removeItem(breakdatekey)
@@ -433,7 +427,7 @@ class HomeScreen extends Component {
             'Are you sure?',
             'Click Yes to cancel break, No to continue break',
             [
-                { text: 'Yes', onPress: () => this.stopBreak("Manual Trigger") },
+                { text: 'Yes', onPress: () => this.stopBreak() },
                 { text: 'No' },
             ],
             { cancelable: false },
@@ -481,8 +475,6 @@ class HomeScreen extends Component {
     }
 
     render() {
-        console.log(this.state.autobreak)
-        console.log(this.state.break)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0]
         var bacPercentage = returnValues[1]
