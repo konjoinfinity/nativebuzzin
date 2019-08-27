@@ -89,6 +89,18 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(drinkskey, (error, result) => {
             this.setState({ drinks: JSON.parse(result) })
         })
+        await AsyncStorage.getItem(autobreakthresholdkey, (error, result) => {
+            this.setState({ threshold: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(namekey, (error, result) => {
+            this.setState({ name: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(genderkey, (error, result) => {
+            this.setState({ gender: JSON.parse(result) })
+        })
+        await AsyncStorage.getItem(weightkey, (error, result) => {
+            this.setState({ weight: JSON.parse(result) })
+        })
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
                 this.setState({ breakdate: JSON.parse(result) })
@@ -102,22 +114,20 @@ class HomeScreen extends Component {
                     var minutes = dayHourMin[2];
                     var seconds = dayHourMin[3];
                     if (days + hours + minutes + seconds < 0) {
-                        this.stopBreak()
+                        if (this.state.autobreak === true) {
+                            var stopBreak5pm = new Date()
+                            stopBreak5pm = moment(stopBreak5pm).local();
+                            stopBreak5pm = stopBreak5pm.hours();
+                            console.log(stopBreak5pm)
+                            if (stopBreak5pm >= 17) {
+                                this.stopBreak()
+                            }
+                        } else {
+                            this.stopBreak()
+                        }
                     }
                 }, 100);
             }
-        })
-        await AsyncStorage.getItem(autobreakthresholdkey, (error, result) => {
-            this.setState({ threshold: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(namekey, (error, result) => {
-            this.setState({ name: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(genderkey, (error, result) => {
-            this.setState({ gender: JSON.parse(result) })
-        })
-        await AsyncStorage.getItem(weightkey, (error, result) => {
-            this.setState({ weight: JSON.parse(result) })
         })
         // To seed data, comment out just this function and add data to the buzz array
         await AsyncStorage.getItem(key, (error, result) => {
@@ -362,7 +372,8 @@ class HomeScreen extends Component {
         })
         if (this.state.autobreak === true && autobreakcheck === true) {
             var autoBreakDate = new Date();
-            autoBreakDate.setDate(autoBreakDate.getDate() + 1);
+            var autoBreakDate = moment(autoBreakDate).add(1, 'm').toDate();
+            // autoBreakDate.setDate(autoBreakDate.getDate() + 1);
             this.setState({ break: true, breakdate: autoBreakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(autoBreakDate)], [autobreakminkey, JSON.stringify(false)]], () => this.componentDidMount())
         }
@@ -405,6 +416,7 @@ class HomeScreen extends Component {
     }
 
     async stopBreak() {
+        // add check for manual cancel/automatic
         Vibration.vibrate();
         this.setState({ break: false })
         await AsyncStorage.removeItem(breakdatekey)
