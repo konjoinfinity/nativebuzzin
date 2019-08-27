@@ -805,7 +805,9 @@ class HomeScreen extends Component {
                     {this.state.break === true &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
+                            {this.state.autobreak === true ?
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY')}, 5:00 pm</Text> :
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>}
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelBreakAlert()}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
