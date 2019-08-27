@@ -46,10 +46,7 @@ class BuzzScreen extends Component {
                     var currentDate = new Date();
                     var date2 = currentDate.getTime();
                     var dayHourMin = Functions.getDayHourMin(date1, date2);
-                    var days = dayHourMin[0];
-                    var hours = dayHourMin[1];
-                    var minutes = dayHourMin[2];
-                    var seconds = dayHourMin[3];
+                    var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
                     this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds` })
                 }, 200);
             } else {
@@ -128,7 +125,7 @@ class BuzzScreen extends Component {
                     )
                 })
             }))
-        var sevenArray = []
+        var sevenArray = [], thirtyArray = []
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
@@ -138,7 +135,6 @@ class BuzzScreen extends Component {
                     }
                 })
             }))
-        var thirtyArray = []
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
@@ -148,10 +144,8 @@ class BuzzScreen extends Component {
                     }
                 })
             }))
-        var weekColor = Functions.sevenColor(sevenArray.length)
-        var monthColor = Functions.thirtyColor(thirtyArray.length)
-        var sevenData = [sevenArray.length]
-        var thirtyData = [thirtyArray.length]
+        var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)
+        var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
         const SevenLabels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
                 <TextSVG
