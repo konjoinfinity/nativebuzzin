@@ -49,12 +49,8 @@ class LoginScreen extends React.Component {
 
     switchGender() {
         Vibration.vibrate();
-        if (this.state.gender === "Male") {
-            this.setState({ gender: "Female", weight: 165 })
-        }
-        if (this.state.gender === "Female") {
-            this.setState({ gender: "Male", weight: 195 })
-        }
+        if (this.state.gender === "Male") { this.setState({ gender: "Female", weight: 165 }) }
+        if (this.state.gender === "Female") { this.setState({ gender: "Male", weight: 195 }) }
     }
 
     async handleLogin() {

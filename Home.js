@@ -406,13 +406,11 @@ class HomeScreen extends Component {
         await AsyncStorage.multiSet([[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
-    cancelHhAlert() {
+    cancelAlert(typealert) {
         Vibration.vibrate();
-        Alert.alert(
-            'Are you sure?',
-            'Click Yes to cancel Happy Hour, No to continue Happy Hour',
+        Alert.alert('Are you sure?', typealert === "hh" ? 'Click Yes to cancel Happy Hour, No to continue Happy Hour' : 'Click Yes to cancel Cut Off, No to continue Cut Off',
             [
-                { text: 'Yes', onPress: () => this.stopHh() },
+                { text: 'Yes', onPress: () => typealert === "hh" ? this.stopHh() : this.stopCutOff() },
                 { text: 'No' },
             ],
             { cancelable: false },
@@ -424,19 +422,6 @@ class HomeScreen extends Component {
         this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
         await AsyncStorage.multiSet([[cutoffkey, JSON.stringify(false)], [showcutoffkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
-    }
-
-    cancelCutOffAlert() {
-        Vibration.vibrate();
-        Alert.alert(
-            'Are you sure?',
-            'Click Yes to cancel Cut Off, No to continue Cut Off',
-            [
-                { text: 'Yes', onPress: () => this.stopCutOff() },
-                { text: 'No' },
-            ],
-            { cancelable: false },
-        );
     }
 
     render() {
@@ -781,7 +766,7 @@ class HomeScreen extends Component {
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Happy Hour at 5pm</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.cancelHhAlert()}>
+                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("hh")}>
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>
                             </TouchableOpacity>
                         </View>}
@@ -811,7 +796,7 @@ class HomeScreen extends Component {
                                             <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                         </View>
                                     </TouchableOpacity>
-                                </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelCutOffAlert()}>
+                                </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("co")}>
                                     <Text style={styles.buttonText}>Cancel Cut Off</Text>
                                 </TouchableOpacity>}
                         </View>}
