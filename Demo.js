@@ -17,7 +17,7 @@ import { AlertHelper } from './AlertHelper';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive,
-    gaugeLabels, warnText, dangerText
+    gaugeLabels, warnText, dangerText, abovePoint10
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -414,9 +414,7 @@ class DemoScreen extends Component {
                         </View>}
                     {this.state.bac > 0.10 &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text>
+                            {abovePoint10}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true &&
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                     <TouchableOpacity

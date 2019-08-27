@@ -94,6 +94,12 @@ const dangerText = (<View>
     <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold", color: "white" }}>YOU are liable for all decisions made from now on, you have been advised and warned.</Text>
 </View>)
 
+const abovePoint10 = (<View>
+    <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+    <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
+    <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text>
+</View>)
+
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     // console.log("480x854/800")
     gaugeSize = 440
@@ -372,5 +378,6 @@ export {
     cutoffbackey,
     cancelbreakskey,
     showcutoffkey,
-    custombreakkey
+    custombreakkey,
+    abovePoint10
 }
