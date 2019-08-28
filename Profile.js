@@ -158,44 +158,12 @@ class ProfileScreen extends Component {
     changeBac(increment, statename, keyvalue) {
         if (increment === "up") {
             if (this.state[statename] < 0.10) {
-                if (this.state[statename] === 0.06) {
-                    this.setState({ [statename]: 0.07 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.07) {
-                    this.setState({ [statename]: 0.08 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.08) {
-                    this.setState({ [statename]: 0.09 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.09) {
-                    this.setState({ [statename]: 0.10 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.02) {
-                    this.setState({ [statename]: 0.03 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.03) {
-                    this.setState({ [statename]: 0.04 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.04) {
-                    this.setState({ [statename]: 0.05 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.05) {
-                    this.setState({ [statename]: 0.06 }, () => this.saveValues(statename, keyvalue))
-                }
+                this.setState({ [statename]: Math.round((this.state[statename] + 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
             }
         }
         if (increment === "down") {
             if (this.state[statename] > 0.02) {
-                if (this.state[statename] === 0.06) {
-                    this.setState({ [statename]: 0.05 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.05) {
-                    this.setState({ [statename]: 0.04 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.04) {
-                    this.setState({ [statename]: 0.03 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.03) {
-                    this.setState({ [statename]: 0.02 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.10) {
-                    this.setState({ [statename]: 0.09 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.09) {
-                    this.setState({ [statename]: 0.08 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.08) {
-                    this.setState({ [statename]: 0.07 }, () => this.saveValues(statename, keyvalue))
-                } else if (this.state[statename] === 0.07) {
-                    this.setState({ [statename]: 0.06 }, () => this.saveValues(statename, keyvalue))
-                }
+                this.setState({ [statename]: Math.round((this.state[statename] - 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
             }
         }
     }
