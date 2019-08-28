@@ -32,11 +32,7 @@ class BuzzScreen extends Component {
 
     async componentDidMount() {
         await AsyncStorage.getItem(key, (error, result) => {
-            if (result !== null && result !== "[]") {
-                this.setState({ buzzes: JSON.parse(result) })
-            } else {
-                this.setState({ buzzes: null })
-            }
+            result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
@@ -56,9 +52,7 @@ class BuzzScreen extends Component {
     }
 
     showHideBuzzes() {
-        this.setState(prevState => ({
-            showHideBuzzes: !prevState.showHideBuzzes
-        }), () => setTimeout(() => {
+        this.setState(prevState => ({ showHideBuzzes: !prevState.showHideBuzzes }), () => setTimeout(() => {
             this.state.showHideBuzzes === true ?
                 this.scrolltop.scrollTo({ y: 200, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 300));
@@ -66,9 +60,7 @@ class BuzzScreen extends Component {
     }
 
     showHideOldBuzzes() {
-        this.setState(prevState => ({
-            showHideOldBuzzes: !prevState.showHideOldBuzzes
-        }), () => setTimeout(() => {
+        this.setState(prevState => ({ showHideOldBuzzes: !prevState.showHideOldBuzzes }), () => setTimeout(() => {
             this.state.showHideOldBuzzes === true ?
                 this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 300));
