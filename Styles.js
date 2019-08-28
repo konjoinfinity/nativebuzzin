@@ -248,6 +248,20 @@ const styles = StyleSheet.create({
             height: 2,
         }
     },
+    selectedPlusMinusButton: {
+        height: 45,
+        width: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "#1de9b6",
+        borderRadius: 50,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        }
+    },
     multiSwitch: {
         backgroundColor: 'white',
         borderRadius: 20,

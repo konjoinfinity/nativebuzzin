@@ -81,7 +81,7 @@ class ProfileScreen extends Component {
                             var stopBreak5pm = new Date()
                             stopBreak5pm = moment(stopBreak5pm).local();
                             stopBreak5pm = stopBreak5pm.hours();
-                            if (stopBreak5pm >= this.state.hhhour) {
+                            if (stopBreak5pm >= 17) {
                                 this.stopBreak()
                             }
                         } else if (this.state.autobreak === false) {
@@ -95,10 +95,6 @@ class ProfileScreen extends Component {
                 }, 100);
             }
         })
-        var happyHour = new Date()
-        happyHour = moment(happyHour).local();
-        happyHour = happyHour.hours();
-        this.setState({ happyhourtime: happyHour })
     }
 
     async takeAbreak() {
@@ -258,21 +254,33 @@ class ProfileScreen extends Component {
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
                                 <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break until Happy Hour.</Text>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Set Happy Hour (PM)</Text>
-                                <View style={{ alignSelf: "center" }}>
-                                    <NumericInput
-                                        minValue={16}
-                                        maxValue={20}
-                                        initValue={this.state.hhhour}
-                                        value={this.state.hhhour}
-                                        onChange={(hhhour) => this.setState({ hhhour }, () => this.saveValues("hhhour", hhhourkey))}
-                                        totalWidth={numberInputSize}
-                                        step={1}
-                                        rounded
-                                        textColor='#103900'
-                                        iconStyle={{ color: 'white' }}
-                                        rightButtonBackgroundColor='#00897b'
-                                        leftButtonBackgroundColor='#00897b' />
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Set Happy Hour</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
+                                    <TouchableOpacity style={this.state.hhhour === 16 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 16 }, () => this.saveValues("hhhour", hhhourkey))}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>4PM</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={this.state.hhhour === 17 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 17 }, () => this.saveValues("hhhour", hhhourkey))}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>5PM</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={this.state.hhhour === 18 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 18 }, () => this.saveValues("hhhour", hhhourkey))}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>6PM</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={this.state.hhhour === 19 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 19 }, () => this.saveValues("hhhour", hhhourkey))}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>7PM</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={this.state.hhhour === 20 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 20 }, () => this.saveValues("hhhour", hhhourkey))}>
+                                        <View>
+                                            <Text style={{ fontSize: 18, color: "#ffffff" }}>8PM</Text>
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
                             </View>}
                     </View>

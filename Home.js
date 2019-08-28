@@ -92,7 +92,7 @@ class HomeScreen extends Component {
                             var stopBreak5pm = new Date()
                             stopBreak5pm = moment(stopBreak5pm).local();
                             stopBreak5pm = stopBreak5pm.hours();
-                            if (stopBreak5pm >= this.state.hhhour) {
+                            if (stopBreak5pm >= 17) {
                                 this.stopBreak("break")
                             }
                         } else if (this.state.autobreak === false) {
@@ -134,7 +134,7 @@ class HomeScreen extends Component {
             var happyHour = new Date()
             happyHour = moment(happyHour).local();
             happyHour = happyHour.hours();
-            if (happyHour < 17) {
+            if (happyHour < this.state.hhhour) {
                 this.setState({ happyhourtime: happyHour })
             } else {
                 this.setState({ happyhourtime: "" })
