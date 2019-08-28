@@ -43,7 +43,7 @@ const AppStack = createStackNavigator({
             }
         ),
         navigationOptions: {
-            title: `Buzzin'`,
+            title: `Buzzin`,
             headerStyle: {
                 backgroundColor: '#80cbc4'
             },
@@ -62,7 +62,7 @@ const AuthStack = createStackNavigator({
     {
         initialRouteName: 'Login',
         defaultNavigationOptions: {
-            title: `Buzzin'`, headerStyle: {
+            title: `Buzzin`, headerStyle: {
                 backgroundColor: '#80cbc4'
             },
             headerTitleStyle: {
