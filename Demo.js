@@ -36,8 +36,8 @@ class DemoScreen extends Component {
             abv: 0.05,
             countdown: false,
             timer: "",
-            modal1Visible: false,
-            modal2Visible: false,
+            modal1: false,
+            modal2: false,
             showHideBuzzes: false
         }
     };
@@ -48,22 +48,9 @@ class DemoScreen extends Component {
         }, 200);
     }
 
-    setModal1Visible(visible) {
-        this.setState({ modal1Visible: visible });
-    }
-
-    handleModal1() {
+    handleModal(number) {
         Vibration.vibrate();
-        this.setModal1Visible(!this.state.modal1Visible);
-    }
-
-    setModal2Visible(visible) {
-        this.setState({ modal2Visible: visible });
-    }
-
-    handleModal2() {
-        Vibration.vibrate();
-        this.setModal2Visible(!this.state.modal2Visible);
+        this.setState({ [number]: !this.state[number] });
     }
 
     addDrink() {
@@ -81,10 +68,10 @@ class DemoScreen extends Component {
                 AlertHelper.show("error", "Drunk", "Please drink some water or take a break from drinking.");
             }
             if (this.state.bac > 0.08 && this.state.bac < 0.10) {
-                this.setModal1Visible(true)
+                this.handleModal("modal1")
             }
             if (this.state.bac > 0.10) {
-                this.setModal2Visible(true)
+                this.handleModal("modal2")
             }
         }, 200);
     }
@@ -92,12 +79,7 @@ class DemoScreen extends Component {
     async checkBac() {
         if (this.state.testbuzzes.length >= 1) {
             var duration = Functions.singleDuration(this.state.testbuzzes[0].dateCreated);
-            var totalBac = Functions.varGetBAC(
-                this.state.weight,
-                this.state.gender,
-                duration,
-                this.state.testbuzzes
-            )
+            var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.testbuzzes)
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
@@ -130,8 +112,7 @@ class DemoScreen extends Component {
 
     switchGender() {
         Vibration.vibrate();
-        if (this.state.gender === "Male") { this.setState({ gender: "Female", weight: 165 }) }
-        if (this.state.gender === "Female") { this.setState({ gender: "Male", weight: 195 }) }
+        this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
     async undoLastDrink() {
@@ -186,12 +167,12 @@ class DemoScreen extends Component {
             <View style={{ backgroundColor: "#ff8a80" }}>
                 <Modal animationType="slide"
                     transparent={false}
-                    visible={this.state.modal1Visible}>
+                    visible={this.state.modal1}>
                     <ScrollView style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         {warnText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.warnOkButton}
-                                onPress={() => { this.handleModal1() }}>
+                                onPress={() => { this.handleModal("modal1") }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
@@ -199,12 +180,12 @@ class DemoScreen extends Component {
                 </Modal>
                 <Modal animationType="slide"
                     transparent={false}
-                    visible={this.state.modal2Visible}>
+                    visible={this.state.modal2}>
                     <ScrollView style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         {dangerText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton}
-                                onPress={() => { this.handleModal2() }}>
+                                onPress={() => { this.handleModal("modal2") }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>

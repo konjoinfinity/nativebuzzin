@@ -161,11 +161,7 @@ class ProfileScreen extends Component {
 
     render() {
         var numberInputSize;
-        if (Dimensions.get('window').width * PixelRatio.get() < 750) {
-            numberInputSize = 125
-        } else {
-            numberInputSize = 150
-        }
+        Dimensions.get('window').width * PixelRatio.get() < 750 ? numberInputSize = 125 : numberInputSize = 150
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />

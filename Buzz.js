@@ -59,11 +59,8 @@ class BuzzScreen extends Component {
         this.setState(prevState => ({
             showHideBuzzes: !prevState.showHideBuzzes
         }), () => setTimeout(() => {
-            if (this.state.showHideBuzzes === true) {
-                this.scrolltop.scrollTo({ y: 200, animated: true })
-            } else {
-                this.scrolltop.scrollTo({ y: 0, animated: true });
-            }
+            this.state.showHideBuzzes === true ?
+                this.scrolltop.scrollTo({ y: 200, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 300));
         Vibration.vibrate();
     }
@@ -72,11 +69,8 @@ class BuzzScreen extends Component {
         this.setState(prevState => ({
             showHideOldBuzzes: !prevState.showHideOldBuzzes
         }), () => setTimeout(() => {
-            if (this.state.showHideOldBuzzes === true) {
-                this.scrolltop.scrollTo({ y: 400, animated: true })
-            } else {
-                this.scrolltop.scrollTo({ y: 0, animated: true });
-            }
+            this.state.showHideOldBuzzes === true ?
+                this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 300));
         Vibration.vibrate();
     }

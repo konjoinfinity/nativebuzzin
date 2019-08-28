@@ -49,8 +49,7 @@ class LoginScreen extends React.Component {
 
     switchGender() {
         Vibration.vibrate();
-        if (this.state.gender === "Male") { this.setState({ gender: "Female", weight: 165 }) }
-        if (this.state.gender === "Female") { this.setState({ gender: "Male", weight: 195 }) }
+        this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
     async handleLogin() {
@@ -70,11 +69,7 @@ class LoginScreen extends React.Component {
 
     render() {
         var numberInputSize;
-        if (Dimensions.get('window').width * PixelRatio.get() < 750) {
-            numberInputSize = 175
-        } else {
-            numberInputSize = 290
-        }
+        Dimensions.get('window').width * PixelRatio.get() < 750 ? numberInputSize = 125 : numberInputSize = 150
         return (
             <KeyboardAvoidingView style={styles.logincontainer} behavior={(Platform.OS === 'ios') ? "padding" : null}>
                 <ScrollView>

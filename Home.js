@@ -48,8 +48,8 @@ class HomeScreen extends Component {
             breakdate: "",
             autobreak: "",
             focus: false,
-            modal1Visible: false,
-            modal2Visible: false,
+            modal1: false,
+            modal2: false,
             flashwarning: "#AE0000",
             flashtext: "",
             flashtimer: "",
@@ -148,22 +148,9 @@ class HomeScreen extends Component {
         clearInterval(this.state.flashtimer)
     }
 
-    setModal1Visible(visible) {
-        this.setState({ modal1Visible: visible });
-    }
-
-    handleModal1() {
+    handleModal(number) {
         Vibration.vibrate();
-        this.setModal1Visible(!this.state.modal1Visible);
-    }
-
-    setModal2Visible(visible) {
-        this.setState({ modal2Visible: visible });
-    }
-
-    handleModal2() {
-        Vibration.vibrate();
-        this.setModal2Visible(!this.state.modal2Visible);
+        this.setState({ [number]: !this.state[number] });
     }
 
     handleStepChange = (step) => {
@@ -240,10 +227,10 @@ class HomeScreen extends Component {
                 AlertHelper.show("error", "Drunk", "Please drink some water or take a break from drinking.");
             }
             if (this.state.bac > 0.08 && this.state.bac < 0.10) {
-                this.setModal1Visible(true)
+                this.handleModal("modal1")
             }
             if (this.state.bac > 0.10) {
-                this.setModal2Visible(true)
+                this.handleModal("modal2")
             }
         }, 200);
     }
@@ -264,12 +251,7 @@ class HomeScreen extends Component {
     async checkBac() {
         if (this.state.buzzes.length >= 1) {
             var duration = Functions.singleDuration(this.state.buzzes[0].dateCreated);
-            var totalBac = Functions.varGetBAC(
-                this.state.weight,
-                this.state.gender,
-                duration,
-                this.state.buzzes
-            )
+            var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.buzzes)
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
@@ -416,12 +398,12 @@ class HomeScreen extends Component {
             <View>
                 <Modal animationType="slide"
                     transparent={false}
-                    visible={this.state.modal1Visible}>
+                    visible={this.state.modal1}>
                     <ScrollView style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         {warnText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.warnOkButton}
-                                onPress={() => { this.handleModal1() }}>
+                                onPress={() => { this.handleModal("modal1") }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
@@ -429,12 +411,12 @@ class HomeScreen extends Component {
                 </Modal>
                 <Modal animationType="slide"
                     transparent={false}
-                    visible={this.state.modal2Visible}>
+                    visible={this.state.modal2}>
                     <ScrollView style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         {dangerText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton}
-                                onPress={() => { this.handleModal2() }}>
+                                onPress={() => { this.handleModal("modal2") }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
