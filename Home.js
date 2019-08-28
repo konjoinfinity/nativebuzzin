@@ -64,8 +64,14 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        var values = await AsyncStorage.multiGet([autobreakkey, cancelbreakskey, cutoffbackey, cutoffkey, drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey])
-        this.setState({ autobreak: JSON.parse(values[0][1]), cancelbreaks: JSON.parse(values[1][1]), cutoffbac: JSON.parse(values[2][1]), cutoff: JSON.parse(values[3][1]), drinks: JSON.parse(values[4][1]), happyhour: JSON.parse(values[5][1]), threshold: JSON.parse(values[6][1]), name: JSON.parse(values[7][1]), gender: JSON.parse(values[8][1]), weight: JSON.parse(values[9][1]) })
+        var values = await AsyncStorage.multiGet([autobreakkey, cancelbreakskey, cutoffbackey, cutoffkey, drinkskey, happyhourkey,
+            autobreakthresholdkey, namekey, genderkey, weightkey])
+        this.setState({
+            autobreak: JSON.parse(values[0][1]), cancelbreaks: JSON.parse(values[1][1]), cutoffbac: JSON.parse(values[2][1]),
+            cutoff: JSON.parse(values[3][1]), drinks: JSON.parse(values[4][1]), happyhour: JSON.parse(values[5][1]),
+            threshold: JSON.parse(values[6][1]), name: JSON.parse(values[7][1]), gender: JSON.parse(values[8][1]),
+            weight: JSON.parse(values[9][1])
+        })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
@@ -338,7 +344,8 @@ class HomeScreen extends Component {
             var autoBreakDate = new Date();
             autoBreakDate.setDate(autoBreakDate.getDate() + 1);
             this.setState({ break: true, breakdate: autoBreakDate })
-            await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(autoBreakDate)], [autobreakminkey, JSON.stringify(false)]], () => this.componentDidMount())
+            await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(autoBreakDate)],
+            [autobreakminkey, JSON.stringify(false)]], () => this.componentDidMount())
         }
         if (this.state.showcutoff === true) {
             this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
@@ -380,7 +387,8 @@ class HomeScreen extends Component {
 
     cancelAlert(typealert) {
         Vibration.vibrate();
-        Alert.alert('Are you sure?', typealert === "hh" ? 'Click Yes to cancel Happy Hour, No to continue Happy Hour' : typealert === "co" ? 'Click Yes to cancel Cut Off, No to continue Cut Off' : 'Click Yes to cancel break, No to continue break',
+        Alert.alert('Are you sure?', typealert === "hh" ? 'Click Yes to cancel Happy Hour, No to continue Happy Hour' :
+            typealert === "co" ? 'Click Yes to cancel Cut Off, No to continue Cut Off' : 'Click Yes to cancel break, No to continue break',
             [
                 { text: 'Yes', onPress: () => typealert === "hh" ? this.stopHh() : typealert === "co" ? this.stopCutOff() : this.stopBreak() },
                 { text: 'No' },
@@ -408,7 +416,8 @@ class HomeScreen extends Component {
         Vibration.vibrate();
         this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
-        await AsyncStorage.multiSet([[cutoffkey, JSON.stringify(false)], [showcutoffkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
+        await AsyncStorage.multiSet([[cutoffkey, JSON.stringify(false)], [showcutoffkey, JSON.stringify(false)],
+        [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
     render() {

@@ -48,8 +48,14 @@ class ProfileScreen extends Component {
     };
 
     async componentDidMount() {
-        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, cutoffbackey, cutoffkey, drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey])
-        this.setState({ autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]), cutoffbac: JSON.parse(values[3][1]), cutoff: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]), happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]), gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]) })
+        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, cutoffbackey, cutoffkey, drinkskey,
+            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey])
+        this.setState({
+            autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
+            cutoffbac: JSON.parse(values[3][1]), cutoff: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
+            happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
+            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1])
+        })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
@@ -122,7 +128,8 @@ class ProfileScreen extends Component {
     async LogOut() {
         Vibration.vibrate();
         // await AsyncStorage.removeItem(oldkey)
-        await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey, cutoffkey, autobreakthresholdkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey])
+        await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
+            cutoffkey, autobreakthresholdkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey])
         this.props.navigation.navigate("Login")
     }
 

@@ -18,9 +18,12 @@ var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeigh
 //     console.log("xxxhdpi");
 // }
 
-var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin;
+var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
+    addButtonText, addButtonSize, multiSwitchMargin;
 
-let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }], activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }], beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }],
+    activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }],
+    beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
 const gaugeLabels = [
     { name: '1', labelColor: '#e0f2f1', activeBarColor: '#ffffff' },
@@ -37,7 +40,10 @@ const gaugeLabels = [
     { name: '12', labelColor: '#e0f2f1', activeBarColor: '#000000' }
 ]
 
-const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break", breakdatekey = "breakdate", autobreakkey = "autobreak", happyhourkey = "happyhour", autobreakminkey = "autobreakmin", autobreakthresholdkey = "autobreakthreshold", cutoffkey = "cutoff", cutoffbackey = "cutoffbac", drinkskey = "drinks", cancelbreakskey = "cancelbreaks", showcutoffkey = "showcutoff", custombreakkey = "custombreak";
+const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break",
+    breakdatekey = "breakdate", autobreakkey = "autobreak", happyhourkey = "happyhour", autobreakminkey = "autobreakmin",
+    autobreakthresholdkey = "autobreakthreshold", cutoffkey = "cutoff", cutoffbackey = "cutoffbac", drinkskey = "drinks",
+    cancelbreakskey = "cancelbreaks", showcutoffkey = "showcutoff", custombreakkey = "custombreak";
 
 const warnText = (<View>
     <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>

@@ -54,7 +54,11 @@ class LoginScreen extends React.Component {
     }
 
     async handleLogin() {
-        await AsyncStorage.multiSet([[namekey, JSON.stringify(this.state.name)], [genderkey, JSON.stringify(this.state.gender)], [weightkey, JSON.stringify(this.state.weight)], [autobreakkey, JSON.stringify(false)], [happyhourkey, JSON.stringify(false)], [autobreakminkey, JSON.stringify(false)], [cutoffkey, JSON.stringify(false)], [cutoffbackey, JSON.stringify(0.08)], [autobreakthresholdkey, JSON.stringify(0.08)], [drinkskey, JSON.stringify(8)], [cancelbreakskey, JSON.stringify(0)], [showcutoffkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)]])
+        await AsyncStorage.multiSet([[namekey, JSON.stringify(this.state.name)], [genderkey, JSON.stringify(this.state.gender)],
+        [weightkey, JSON.stringify(this.state.weight)], [autobreakkey, JSON.stringify(false)], [happyhourkey, JSON.stringify(false)],
+        [autobreakminkey, JSON.stringify(false)], [cutoffkey, JSON.stringify(false)], [cutoffbackey, JSON.stringify(0.08)],
+        [autobreakthresholdkey, JSON.stringify(0.08)], [drinkskey, JSON.stringify(8)], [cancelbreakskey, JSON.stringify(0)],
+        [showcutoffkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)]])
         this.setModalVisible(!this.state.modalVisible);
         this.props.navigation.navigate("Home", { login: true });
     }
