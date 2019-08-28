@@ -753,7 +753,7 @@ class HomeScreen extends Component {
                     {(this.state.break === "" || this.state.break === false) && this.state.happyhour === true && this.state.happyhourtime !== "" &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Happy Hour at 5pm</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("hh")}>
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>
                             </TouchableOpacity>

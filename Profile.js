@@ -252,7 +252,7 @@ class ProfileScreen extends Component {
                         {this.state.happyhour === true &&
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break until Happy Hour.</Text>
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break until Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
                                 <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Set Happy Hour</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                     <TouchableOpacity style={this.state.hhhour === 16 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 16 }, () => this.saveValues("hhhour", hhhourkey))}>
