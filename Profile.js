@@ -17,7 +17,7 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey
+    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, hhhourkey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -43,18 +43,19 @@ class ProfileScreen extends Component {
             drinks: 0,
             cutoffbac: "",
             cancelbreaks: "",
-            custombreak: ""
+            custombreak: "",
+            hhhour: ""
         }
     };
 
     async componentDidMount() {
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, cutoffbackey, cutoffkey, drinkskey,
-            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey])
+            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
             cutoffbac: JSON.parse(values[3][1]), cutoff: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1])
+            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -80,7 +81,7 @@ class ProfileScreen extends Component {
                             var stopBreak5pm = new Date()
                             stopBreak5pm = moment(stopBreak5pm).local();
                             stopBreak5pm = stopBreak5pm.hours();
-                            if (stopBreak5pm >= 17) {
+                            if (stopBreak5pm >= this.state.hhhour) {
                                 this.stopBreak()
                             }
                         } else if (this.state.autobreak === false) {
@@ -256,7 +257,23 @@ class ProfileScreen extends Component {
                         {this.state.happyhour === true &&
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break until Happy Hour at 5pm.</Text>
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break until Happy Hour.</Text>
+                                <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Set Happy Hour (PM)</Text>
+                                <View style={{ alignSelf: "center" }}>
+                                    <NumericInput
+                                        minValue={16}
+                                        maxValue={20}
+                                        initValue={this.state.hhhour}
+                                        value={this.state.hhhour}
+                                        onChange={(hhhour) => this.setState({ hhhour }, () => this.saveValues("hhhour", hhhourkey))}
+                                        totalWidth={numberInputSize}
+                                        step={1}
+                                        rounded
+                                        textColor='#103900'
+                                        iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b'
+                                        leftButtonBackgroundColor='#00897b' />
+                                </View>
                             </View>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>

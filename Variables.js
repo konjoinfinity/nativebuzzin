@@ -43,7 +43,7 @@ const gaugeLabels = [
 const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break",
     breakdatekey = "breakdate", autobreakkey = "autobreak", happyhourkey = "happyhour", autobreakminkey = "autobreakmin",
     autobreakthresholdkey = "autobreakthreshold", cutoffkey = "cutoff", cutoffbackey = "cutoffbac", drinkskey = "drinks",
-    cancelbreakskey = "cancelbreaks", showcutoffkey = "showcutoff", custombreakkey = "custombreak";
+    cancelbreakskey = "cancelbreaks", showcutoffkey = "showcutoff", custombreakkey = "custombreak", hhhourkey = "hhhour";
 
 const warnText = (<View>
     <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
@@ -358,5 +358,6 @@ export {
     showcutoffkey,
     custombreakkey,
     abovePoint10,
-    loginText
+    loginText,
+    hhhourkey
 }

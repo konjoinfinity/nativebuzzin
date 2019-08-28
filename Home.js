@@ -22,7 +22,7 @@ import {
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, cutoffbackey, cutoffkey, drinkskey, cancelbreakskey,
-    showcutoffkey, abovePoint10, custombreakkey
+    showcutoffkey, abovePoint10, custombreakkey, hhhourkey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -59,18 +59,19 @@ class HomeScreen extends Component {
             cutoff: "",
             cutoffbac: "",
             drinks: "",
-            showcutoff: false
+            showcutoff: false,
+            hhhour: ""
         }
     };
 
     async componentDidMount() {
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, cutoffbackey, cutoffkey, drinkskey,
-            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey])
+            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
             cutoffbac: JSON.parse(values[3][1]), cutoff: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1])
+            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -91,7 +92,7 @@ class HomeScreen extends Component {
                             var stopBreak5pm = new Date()
                             stopBreak5pm = moment(stopBreak5pm).local();
                             stopBreak5pm = stopBreak5pm.hours();
-                            if (stopBreak5pm >= 17) {
+                            if (stopBreak5pm >= this.state.hhhour) {
                                 this.stopBreak("break")
                             }
                         } else if (this.state.autobreak === false) {

@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey,
-    cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, loginText
+    cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, loginText, hhhourkey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -58,7 +58,7 @@ class LoginScreen extends React.Component {
         [weightkey, JSON.stringify(this.state.weight)], [autobreakkey, JSON.stringify(false)], [happyhourkey, JSON.stringify(false)],
         [autobreakminkey, JSON.stringify(false)], [cutoffkey, JSON.stringify(false)], [cutoffbackey, JSON.stringify(0.08)],
         [autobreakthresholdkey, JSON.stringify(0.08)], [drinkskey, JSON.stringify(8)], [cancelbreakskey, JSON.stringify(0)],
-        [showcutoffkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)]])
+        [showcutoffkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)]])
         this.setModalVisible(!this.state.modalVisible);
         this.props.navigation.navigate("Home", { login: true });
     }
