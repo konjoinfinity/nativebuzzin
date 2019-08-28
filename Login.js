@@ -69,7 +69,6 @@ class LoginScreen extends React.Component {
     }
 
     render() {
-        // Update render sizes for different screens
         var numberInputSize;
         if (Dimensions.get('window').width * PixelRatio.get() < 750) {
             numberInputSize = 175

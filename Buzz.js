@@ -55,20 +55,6 @@ class BuzzScreen extends Component {
         })
     }
 
-    // async deleteBuzzes() {
-    //     Vibration.vibrate();
-    //     await AsyncStorage.removeItem(key, () => {
-    //         this.setState({ buzzes: null })
-    //     })
-    // }
-
-    // async deleteOldBuzzes() {
-    //     Vibration.vibrate();
-    //     await AsyncStorage.removeItem(oldkey, () => {
-    //         this.setState({ oldbuzzes: null })
-    //     })
-    // }
-
     showHideBuzzes() {
         this.setState(prevState => ({
             showHideBuzzes: !prevState.showHideBuzzes
@@ -225,10 +211,6 @@ class BuzzScreen extends Component {
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
                                 <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
-                                {/* {this.state.showHideBuzzes === true && (
-                                // Remove Delete All Buzzes
-                                this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.buzzbutton} onPress={() => this.deleteBuzzes()}>
-                                    <Text style={styles.buttonText}>Delete All Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
                                 {this.state.showHideBuzzes === false && (
                                     this.state.buzzes !== null && (
                                         <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
@@ -251,10 +233,7 @@ class BuzzScreen extends Component {
                     {this.state.oldbuzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
-                                <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Old Buzzes   </Text>
-                                {/* {this.state.showHideOldBuzzes === true && (
-                                // Remove Delete All Buzzes
-                                this.state.oldbuzzes !== null && (<TouchableOpacity style={styles.buzzbutton} onPress={() => this.deleteOldBuzzes()}><Text style={styles.buttonText}>Delete All Old Buzzes  {Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>))} */}
+                                <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
                                 {this.state.showHideOldBuzzes === false && (
                                     this.state.oldbuzzes !== null && (
                                         <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideOldBuzzes()}>

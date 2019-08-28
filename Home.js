@@ -450,7 +450,6 @@ class HomeScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="These tick marks show the optimal buzz range." order={3} name="ticks">
                             <CopilotView>
-                                {/* {addButtonSize === true ? */}
                                 {this.state.bac > 0.06 ?
                                     <Text style={{ fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>WARNING              STOP              DRINKING</Text>
                                     :
@@ -460,7 +459,6 @@ class HomeScreen extends Component {
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
                                 <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
-                                {/* halfCircleStyle={{ opacity: 0.85 }} consider adding opacity to gauge to appear softer on the eyes*/}
                             </CopilotView>
                         </CopilotStep>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
