@@ -89,9 +89,7 @@ class HomeScreen extends Component {
                     var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
                     if (days + hours + minutes + seconds < 0) {
                         if (this.state.autobreak === true) {
-                            var stopBreak5pm = new Date()
-                            stopBreak5pm = moment(stopBreak5pm).local();
-                            stopBreak5pm = stopBreak5pm.hours();
+                            var stopBreak5pm = moment(new Date()).local().hours()
                             if (stopBreak5pm >= 17) {
                                 this.stopBreak("break")
                             }
