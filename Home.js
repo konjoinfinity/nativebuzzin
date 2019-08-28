@@ -129,9 +129,7 @@ class HomeScreen extends Component {
             this.checkBac()
         }, 1050);
         if (this.state.happyhour === true) {
-            var happyHour = new Date()
-            happyHour = moment(happyHour).local();
-            happyHour = happyHour.hours();
+            var happyHour = moment(new Date()).local().hours()
             if (happyHour < this.state.hhhour) {
                 this.setState({ happyhourtime: happyHour })
             } else {
