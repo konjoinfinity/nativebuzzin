@@ -86,8 +86,7 @@ class ProfileScreen extends Component {
                             this.stopBreak()
                         }
                     }
-                    var currentDate = new Date()
-                    var breakDate = Date.parse(this.state.breakdate)
+                    var currentDate = new Date(), breakDate = Date.parse(this.state.breakdate)
                     var durations = Functions.breakDiff(currentDate, breakDate)
                     this.setState({ hours: durations[3], days: durations[2], weeks: durations[1], months: durations[0] })
                 }, 100);

@@ -350,9 +350,6 @@ class HomeScreen extends Component {
             this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
             await AsyncStorage.multiSet([[cutoffkey, JSON.stringify(false)], [showcutoffkey, JSON.stringify(false)]])
         }
-        setTimeout(() => {
-            this.props.navigation.navigate("Buzz");
-        }, 500);
     }
 
     async clearDrinks() {
