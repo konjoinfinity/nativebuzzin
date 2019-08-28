@@ -148,11 +148,7 @@ class ProfileScreen extends Component {
     }
 
     async saveSwitches(statevalue, keyvalue) {
-        if (statevalue === true) {
-            await AsyncStorage.setItem(keyvalue, JSON.stringify(true))
-        } else if (statevalue === false) {
-            await AsyncStorage.setItem(keyvalue, JSON.stringify(false))
-        }
+        await AsyncStorage.setItem(keyvalue, JSON.stringify(statevalue))
     }
 
     changeBac(increment, statename, keyvalue) {
