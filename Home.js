@@ -410,29 +410,6 @@ class HomeScreen extends Component {
                 [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
-    // async stopBreak() {
-    //     Vibration.vibrate();
-    //     this.setState({ break: false })
-    //     await AsyncStorage.removeItem(breakdatekey)
-    //     var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
-    //     await AsyncStorage.multiSet([[breakkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
-    // }
-
-    // async stopHh() {
-    //     Vibration.vibrate();
-    //     this.setState({ happyhour: false, happyhourtime: "" })
-    //     var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
-    //     await AsyncStorage.multiSet([[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
-    // }
-
-    // async stopCutOff() {
-    //     Vibration.vibrate();
-    //     this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
-    //     var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
-    //     await AsyncStorage.multiSet([[cutoffkey, JSON.stringify(false)], [showcutoffkey, JSON.stringify(false)],
-    //     [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
-    // }
-
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
