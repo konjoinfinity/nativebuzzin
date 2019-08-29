@@ -1,5 +1,7 @@
 import { StyleSheet, Platform } from "react-native"
 
+var amount = Platform.OS === 'android' ? 10 : 0
+
 const styles = StyleSheet.create({
     buzzbutton: {
         borderWidth: 1,
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         },
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     logincontainer: {
         flex: 1
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
         },
         shadowColor: "#000000",
         shadowRadius: 3,
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     smallbac: {
         borderRadius: 15,
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
         },
         shadowColor: "#000000",
         shadowRadius: 3,
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     optimalbac: {
         borderRadius: 15,
@@ -169,7 +171,7 @@ const styles = StyleSheet.create({
         },
         shadowColor: "#000000",
         shadowRadius: 3,
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     smalloptimalbac: {
         borderRadius: 15,
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
         },
         shadowColor: "#000000",
         shadowRadius: 3,
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     addButton: {
         borderRadius: 50,
@@ -207,7 +209,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     smallAddButton: {
         borderRadius: 50,
@@ -225,7 +227,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     smallUndoButton: {
         height: 50,
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         },
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     plusMinusButtons: {
         height: 45,
@@ -255,7 +257,7 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         },
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     selectedPlusMinusButton: {
         height: 45,
@@ -270,7 +272,7 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         },
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     multiSwitch: {
         backgroundColor: 'white',
@@ -296,7 +298,7 @@ const styles = StyleSheet.create({
         },
         shadowColor: "#000000",
         shadowRadius: 3,
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     undoButton: {
         height: 50,
@@ -312,7 +314,7 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         },
-        elevation: Platform.OS === 'android' ? 10 : 0
+        elevation: amount
     },
     dangerOkButton: {
         borderWidth: 1,
