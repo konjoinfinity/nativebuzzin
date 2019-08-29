@@ -83,7 +83,7 @@ class LoginScreen extends React.Component {
                                             <Text style={styles.loginbuttonText}>Disagree</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={styles.loginbutton}
-                                            onPress={() => { this.handleModal() }}>
+                                            onPress={() => { this.handleLogin() }}>
                                             <Text style={styles.loginbuttonText}>Agree</Text>
                                         </TouchableOpacity>
                                     </View>
