@@ -143,9 +143,7 @@ class HomeScreen extends Component {
         this.setState({ [number]: !this.state[number] });
     }
 
-    // Can this be refactored?
     handleStepChange = (step) => {
-        console.log(step)
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
             setTimeout(() => {
                 this.addDrink()
