@@ -145,6 +145,7 @@ class HomeScreen extends Component {
 
     // Can this be refactored?
     handleStepChange = (step) => {
+        console.log(step)
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
             setTimeout(() => {
                 this.addDrink()
@@ -304,6 +305,8 @@ class HomeScreen extends Component {
         if (this.state.autobreak === true && autobreakcheck === true) {
             var autoBreakDate = new Date();
             autoBreakDate.setDate(autoBreakDate.getDate() + 1);
+            autoBreakDate.setHours(autoBreakDate.getHours() + Math.round(autoBreakDate.getMinutes() / 60))
+            autoBreakDate.setMinutes(0, 0, 0)
             this.setState({ break: true, breakdate: autoBreakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(autoBreakDate)],
             [autobreakminkey, JSON.stringify(false)]], () => this.componentDidMount())
