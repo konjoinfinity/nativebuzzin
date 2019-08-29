@@ -29,7 +29,7 @@ class LoginScreen extends React.Component {
             name: "",
             gender: "Male",
             weight: 195,
-            modalVisible: false
+            modal: false
         };
     }
 
@@ -37,10 +37,10 @@ class LoginScreen extends React.Component {
         Vibration.vibrate();
     }
 
-    setModalVisible(visible) {
+    handleModal() {
         Vibration.vibrate();
         if (this.state.name !== "") {
-            this.setState({ modalVisible: visible });
+            this.setState({ modal: !this.state.modal });
         } else {
             Vibration.vibrate();
             Alert.alert("Please Enter Name")
@@ -58,13 +58,8 @@ class LoginScreen extends React.Component {
         [autobreakminkey, JSON.stringify(false)], [cutoffkey, JSON.stringify(false)], [cutoffbackey, JSON.stringify(0.08)],
         [autobreakthresholdkey, JSON.stringify(0.08)], [drinkskey, JSON.stringify(8)], [cancelbreakskey, JSON.stringify(0)],
         [showcutoffkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)]])
-        this.setModalVisible(!this.state.modalVisible);
+        this.handleModal();
         this.props.navigation.navigate("Home", { login: true });
-    }
-
-    handleCancel() {
-        Vibration.vibrate();
-        this.setModalVisible(!this.state.modalVisible);
     }
 
     render() {
@@ -78,17 +73,17 @@ class LoginScreen extends React.Component {
                         <Modal
                             animationType="slide"
                             transparent={false}
-                            visible={this.state.modalVisible}>
+                            visible={this.state.modal}>
                             <ScrollView>
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10 }}>
                                     {loginText}
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                         <TouchableOpacity style={styles.logindisagreeButton}
-                                            onPress={() => { this.handleCancel() }}>
+                                            onPress={() => { this.handleModal() }}>
                                             <Text style={styles.loginbuttonText}>Disagree</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={styles.loginbutton}
-                                            onPress={() => { this.handleLogin() }}>
+                                            onPress={() => { this.handleModal() }}>
                                             <Text style={styles.loginbuttonText}>Agree</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -133,7 +128,7 @@ class LoginScreen extends React.Component {
                         <View style={{ paddingTop: 20 }}>
                             <TouchableOpacity
                                 style={styles.loginbutton}
-                                onPress={() => this.setModalVisible(true)}>
+                                onPress={() => this.handleModal()}>
                                 <Text style={styles.loginbuttonText}>Login</Text>
                             </TouchableOpacity>
                         </View>
