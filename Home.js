@@ -143,6 +143,7 @@ class HomeScreen extends Component {
         this.setState({ [number]: !this.state[number] });
     }
 
+    // Can this be refactored?
     handleStepChange = (step) => {
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
             setTimeout(() => {
@@ -245,6 +246,10 @@ class HomeScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
+                if (totalBac < 0.06 && this.state.flashtext === true) {
+                    clearInterval(this.state.flashtimer)
+                    this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
+                }
                 if (this.state.countdown === false) {
                     this.setState({ countdown: true }, () => this.countdownBac())
                 }
@@ -259,32 +264,17 @@ class HomeScreen extends Component {
     }
 
     flashWarning() {
-        var flashTimer;
         if (this.state.bac > 0.06) {
             this.setState({ flashtext: true })
-        } else if (this.state.bac < 0.06) {
-            this.setState({ flashtext: false })
-        }
-        setTimeout(() => {
-            if (this.state.flashtext === true) {
+            setTimeout(() => {
                 if (this.state.flashtimer === "") {
-                    flashTimer = setInterval(() => {
-                        if (this.state.flashwarning === "#00bfa5") {
-                            this.setState({ flashwarning: "#AE0000" })
-                        } else if (this.state.flashwarning === "#AE0000") {
-                            this.setState({ flashwarning: "#00bfa5" })
-                        }
+                    var flashTimer = setInterval(() => {
+                        this.setState(this.state.flashwarning === "#00bfa5" ? { flashwarning: "#AE0000" } : { flashwarning: "#00bfa5" })
                     }, 800);
                     this.setState({ flashtimer: flashTimer })
                 }
-            }
-            if (this.state.flashtext === false) {
-                if (this.state.flashtimer !== "") {
-                    clearInterval(this.state.flashtimer)
-                    this.setState({ flashtimer: "", flashtext: "" })
-                }
-            }
-        }, 200);
+            }, 200);
+        }
     }
 
     countdownBac() {
