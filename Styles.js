@@ -1,7 +1,7 @@
 import { StyleSheet, Platform } from "react-native"
 
 var amount = Platform.OS === 'android' ? 10 : 0
-var undoTrash = Platform.OS === 'android' ? 50 : 0
+var undoTrash = Platform.OS === 'android' ? 40 : 0
 
 const styles = StyleSheet.create({
     buzzbutton: {
