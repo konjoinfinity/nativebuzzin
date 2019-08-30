@@ -74,9 +74,7 @@ class HomeScreen extends Component {
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
-            if (result !== null) {
-                this.setState({ break: JSON.parse(result) })
-            }
+            if (result !== null) { this.setState({ break: JSON.parse(result) }) }
         })
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
@@ -93,9 +91,7 @@ class HomeScreen extends Component {
                             if (stopBreak5pm >= 17) {
                                 this.stopBreak("break")
                             }
-                        } else if (this.state.autobreak === false) {
-                            this.stopBreak("break")
-                        }
+                        } else if (this.state.autobreak === false) { this.stopBreak("break") }
                     }
                 }, 100);
             }
@@ -117,19 +113,12 @@ class HomeScreen extends Component {
             }, 1000);
         }
         setTimeout(() => {
-            this.setState({ focus: true })
-            this.checkBac()
+            this.setState({ focus: true }, () => this.checkBac())
         }, 1050);
         if (this.state.happyhour === true) {
             var happyHour = moment(new Date()).local().hours()
-            if (happyHour < this.state.hhhour) {
-                this.setState({ happyhourtime: happyHour })
-            } else {
-                this.setState({ happyhourtime: "" })
-            }
-        } else if (this.state.happyhour === false) {
-            this.setState({ happyhourtime: "" })
-        }
+            happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
+        } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
     }
 
     componentWillUnmount() {
@@ -145,58 +134,30 @@ class HomeScreen extends Component {
 
     handleStepChange = (step) => {
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
-            setTimeout(() => {
-                this.addDrink()
-            }, 1000);
-            setTimeout(() => {
-                this.addDrink()
-            }, 2000);
+            var timerAdd = setInterval(() => this.addDrink(), 1000);
+            setTimeout(() => { clearInterval(timerAdd) }, 2100);
             if (step.order === 1 || step.order === 2 || step.order === 3) {
-                setTimeout(() => {
-                    this.clearDrinks()
-                }, 3000);
+                setTimeout(() => { this.clearDrinks() }, 3000);
             }
         }
         if (step.order === 4) {
-            setTimeout(() => {
-                this.setState({ alctype: "Wine" })
-            }, 1000);
-            setTimeout(() => {
-                this.setState({ alctype: "Liquor" })
-            }, 2000);
-            setTimeout(() => {
-                this.setState({ alctype: "Beer" })
-            }, 3000);
+            setTimeout(() => { this.setState({ alctype: "Wine" }) }, 1000);
+            setTimeout(() => { this.setState({ alctype: "Liquor" }) }, 2000);
+            setTimeout(() => { this.setState({ alctype: "Beer" }) }, 3000);
         }
         if (step.order === 5) {
-            setTimeout(() => {
-                this.setState({ abv: 0.08 })
-            }, 1000);
-            setTimeout(() => {
-                this.setState({ abv: 0.04 })
-            }, 2000);
-            setTimeout(() => {
-                this.setState({ abv: 0.05 })
-            }, 3000);
+            setTimeout(() => { this.setState({ abv: 0.08 }) }, 1000);
+            setTimeout(() => { this.setState({ abv: 0.04 }) }, 2000);
+            setTimeout(() => { this.setState({ abv: 0.05 }) }, 3000);
         }
         if (step.order === 6) {
-            setTimeout(() => {
-                this.setState({ oz: 16 })
-            }, 1000);
-            setTimeout(() => {
-                this.setState({ oz: 20 })
-            }, 2000);
-            setTimeout(() => {
-                this.setState({ oz: 12 })
-            }, 3000);
+            setTimeout(() => { this.setState({ oz: 16 }) }, 1000);
+            setTimeout(() => { this.setState({ oz: 20 }) }, 2000);
+            setTimeout(() => { this.setState({ oz: 12 }) }, 3000);
         }
         if (step.order === 8) {
-            setTimeout(() => {
-                this.undoLastDrink()
-            }, 1000);
-            setTimeout(() => {
-                this.clearDrinks()
-            }, 2000);
+            setTimeout(() => { this.undoLastDrink() }, 1000);
+            setTimeout(() => { this.clearDrinks() }, 2000);
         }
     }
 
@@ -216,20 +177,14 @@ class HomeScreen extends Component {
             if (this.state.bac > 0.07 && this.state.bac < 0.08) {
                 AlertHelper.show("error", "Drunk", "Please drink some water or take a break from drinking.");
             }
-            if (this.state.bac > 0.08 && this.state.bac < 0.10) {
-                this.handleModal("modal1")
-            }
-            if (this.state.bac > 0.10) {
-                this.handleModal("modal2")
-            }
+            if (this.state.bac > 0.08 && this.state.bac < 0.10) { this.handleModal("modal1") }
+            if (this.state.bac > 0.10) { this.handleModal("modal2") }
         }, 200);
     }
 
     async saveBuzz() {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
-        if (this.state.bac > this.state.threshold) {
-            await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true))
-        }
+        if (this.state.bac > this.state.threshold) { await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true)) }
         if (this.state.cutoff === true) {
             if (this.state.bac > this.state.cutoffbac || this.state.buzzes.length >= this.state.drinks) {
                 this.setState({ showcutoff: true })
@@ -246,12 +201,9 @@ class HomeScreen extends Component {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
                 if (totalBac < 0.06 && this.state.flashtext === true) {
-                    clearInterval(this.state.flashtimer)
-                    this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
+                    this.setState({ flashtext: false, flashtimer: "", flashtext: "" }, () => clearInterval(this.state.flashtimer))
                 }
-                if (this.state.countdown === false) {
-                    this.setState({ countdown: true }, () => this.countdownBac())
-                }
+                if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
             } else {
                 this.setState({ countdown: false }, () => clearInterval(this.state.timer))
                 setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
@@ -295,9 +247,7 @@ class HomeScreen extends Component {
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
-                setTimeout(() => {
-                    this.setState({ oldbuzzes: JSON.parse(result) })
-                }, 200);
+                setTimeout(() => { this.setState({ oldbuzzes: JSON.parse(result) }) }, 200);
             }
         })
         if (this.state.autobreak === true && autobreakcheck === true) {
@@ -317,22 +267,15 @@ class HomeScreen extends Component {
 
     async clearDrinks() {
         Vibration.vibrate();
-        await AsyncStorage.removeItem(key, () => {
-            this.setState({ buzzes: [], bac: 0.0 })
-        })
+        await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0 }) })
     }
 
     async undoLastDrink() {
-        var lastDrinkTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
+        var lastDrinkTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated), undobuzz;
         if (lastDrinkTime < 0.0333333) {
             Vibration.vibrate();
-            var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
-                if (result !== null) {
-                    undobuzz = JSON.parse(result)
-                    undobuzz.pop();
-                    this.setState({ buzzes: undobuzz })
-                }
+                if (result !== null) { undobuzz = JSON.parse(result), undobuzz.pop(), this.setState({ buzzes: undobuzz }) }
             })
             await AsyncStorage.setItem(key, JSON.stringify(undobuzz), () => { this.checkBac() })
         }
@@ -340,11 +283,8 @@ class HomeScreen extends Component {
 
     checkLastDrink() {
         var lastDrinkTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
-        if (lastDrinkTime < 0.0333333) {
-            return true
-        } else {
-            return false
-        }
+        if (lastDrinkTime < 0.0333333) { return true }
+        else { return false }
     }
 
     cancelAlert(typealert) {
