@@ -67,12 +67,8 @@ class DemoScreen extends Component {
             if (this.state.bac > 0.07 && this.state.bac < 0.08) {
                 AlertHelper.show("error", "Drunk", "Please drink some water or take a break from drinking.");
             }
-            if (this.state.bac > 0.08 && this.state.bac < 0.10) {
-                this.handleModal("modal1")
-            }
-            if (this.state.bac > 0.10) {
-                this.handleModal("modal2")
-            }
+            if (this.state.bac > 0.08 && this.state.bac < 0.10) { this.handleModal("modal1") }
+            if (this.state.bac > 0.10) { this.handleModal("modal2") }
         }, 200);
     }
 
@@ -83,15 +79,9 @@ class DemoScreen extends Component {
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
-                if (this.state.countdown === false) {
-                    this.setState({ countdown: true }, () => this.countdownBac())
-                }
-            } else {
-                this.setState({ testbuzzes: [], bac: 0.0, countdown: false }, () => this.countdownBac())
-            }
-        } else if (this.state.testbuzzes.length === 0) {
-            this.setState({ bac: 0.0, countdown: false }, () => this.countdownBac())
-        }
+                if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
+            } else { this.setState({ testbuzzes: [], bac: 0.0, countdown: false }, () => this.countdownBac()) }
+        } else if (this.state.testbuzzes.length === 0) { this.setState({ bac: 0.0, countdown: false }, () => this.countdownBac()) }
     }
 
     countdownBac() {
@@ -120,31 +110,20 @@ class DemoScreen extends Component {
         if (lastDrinkTime < 0.0333333) {
             Vibration.vibrate();
             var undobuzz = this.state.testbuzzes;
-            if (undobuzz.length >= 1) {
-                undobuzz.pop();
-                this.setState({ testbuzzes: undobuzz }, () => this.checkBac())
-            }
+            if (undobuzz.length >= 1) { undobuzz.pop(), this.setState({ testbuzzes: undobuzz }, () => this.checkBac()) }
         }
     }
 
     checkLastDrink() {
         var lastDrinkTime = Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
-        if (lastDrinkTime < 0.0333333) {
-            return true
-        } else {
-            return false
-        }
+        if (lastDrinkTime < 0.0333333) { return true }
+        else { return false }
     }
 
     showHideBuzzes() {
-        this.setState(prevState => ({
-            showHideBuzzes: !prevState.showHideBuzzes
-        }), () => setTimeout(() => {
-            if (this.state.showHideBuzzes === true) {
-                this.scrolltop.scrollTo({ y: 550, animated: true })
-            } else {
-                this.scrolltop.scrollTo({ y: 0, animated: true });
-            }
+        this.setState(prevState => ({ showHideBuzzes: !prevState.showHideBuzzes }), () => setTimeout(() => {
+            if (this.state.showHideBuzzes === true) { this.scrolltop.scrollTo({ y: 550, animated: true }) }
+            else { this.scrolltop.scrollTo({ y: 0, animated: true }) }
         }, 300));
         Vibration.vibrate();
     }

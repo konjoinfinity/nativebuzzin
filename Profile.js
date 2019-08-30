@@ -60,12 +60,8 @@ class ProfileScreen extends Component {
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
                 this.setState({ break: JSON.parse(result) })
-                if (JSON.parse(result) === false) {
-                    this.setState({ hours: 0, days: 0, weeks: 0, months: 0 })
-                }
-            } else {
-                this.setState({ break: false })
-            }
+                if (JSON.parse(result) === false) { this.setState({ hours: 0, days: 0, weeks: 0, months: 0 }) }
+            } else { this.setState({ break: false }) }
         })
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
@@ -79,12 +75,8 @@ class ProfileScreen extends Component {
                     if (days + hours + minutes + seconds < 0) {
                         if (this.state.autobreak === true) {
                             var stopBreak5pm = moment(new Date()).local().hours()
-                            if (stopBreak5pm >= 17) {
-                                this.stopBreak()
-                            }
-                        } else if (this.state.autobreak === false) {
-                            this.stopBreak()
-                        }
+                            if (stopBreak5pm >= 17) { this.stopBreak() }
+                        } else if (this.state.autobreak === false) { this.stopBreak() }
                     }
                     var currentDate = new Date(), breakDate = Date.parse(this.state.breakdate)
                     currentDate.setHours(currentDate.getHours() + Math.round(currentDate.getMinutes() / 60))
@@ -102,19 +94,13 @@ class ProfileScreen extends Component {
             breakDate.setHours(breakDate.getHours() + Math.round(breakDate.getMinutes() / 60))
             breakDate.setMinutes(0, 0, 0)
             var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
-            if (duration !== 0) {
-                breakDate.setDate(breakDate.getDate() + duration);
-            }
-            if (hours !== 0) {
-                breakDate.setTime(breakDate.getTime() + hours);
-            }
+            if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
+            if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
             Vibration.vibrate();
             this.setState({ break: true, breakdate: breakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
-        if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) {
-            this.stopBreak()
-        }
+        if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak() }
     }
 
     async stopBreak() {
@@ -135,8 +121,7 @@ class ProfileScreen extends Component {
     cancelBreakAlert() {
         Vibration.vibrate();
         Alert.alert('Are you sure?', 'Click Yes to cancel break, No to continue break',
-            [{ text: 'Yes', onPress: () => this.stopBreak() }, { text: 'No' }], { cancelable: false }
-        );
+            [{ text: 'Yes', onPress: () => this.stopBreak() }, { text: 'No' }], { cancelable: false });
     }
 
     handleSwitches(statename, keyvalue) {

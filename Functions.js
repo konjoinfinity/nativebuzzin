@@ -20,14 +20,9 @@ export class Functions {
         var date2 = currentDate.getTime();
         var dayHourMin = this.getDayHourMin(date1, date2);
         var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
-        if (days >= 1) {
-            hours = hours + days * 24;
-        }
-        if (hours == 0) {
-            duration = minutes / 60 + seconds / 3600;
-        } else {
-            duration = hours + minutes / 60 + seconds / 3600;
-        }
+        if (days >= 1) { hours = hours + days * 24 }
+        if (hours == 0) { duration = minutes / 60 + seconds / 3600 }
+        else { duration = hours + minutes / 60 + seconds / 3600 }
         return duration;
     }
 
@@ -43,22 +38,12 @@ export class Functions {
 
     static varGetBAC(weight, gender, hours, buzz) {
         var distribution, drinkTotal, totalAlc, totalArray = [];
-        if (gender === "Female") {
-            distribution = 0.66;
-        }
-        if (gender === "Male") {
-            distribution = 0.73;
-        }
+        if (gender === "Female") { distribution = 0.66 }
+        if (gender === "Male") { distribution = 0.73 }
         for (var i = 0; i < buzz.length; i++) {
-            if (buzz[i].drinkType === "Beer") {
-                drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
-            }
-            if (buzz[i].drinkType === "Wine") {
-                drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
-            }
-            if (buzz[i].drinkType === "Liquor") {
-                drinkTotal = buzz[i].oz * 1 * buzz[i].abv;
-            }
+            if (buzz[i].drinkType === "Beer") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
+            if (buzz[i].drinkType === "Wine") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
+            if (buzz[i].drinkType === "Liquor") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
             totalArray.push(drinkTotal)
         }
         totalAlc = totalArray.reduce((a, b) => a + b, 0)
@@ -77,7 +62,6 @@ export class Functions {
         if (alcohol === "Liquor" && number === 0) { return 1.5 }
         if (alcohol === "Liquor" && number === 1) { return 3 }
         if (alcohol === "Liquor" && number === 2) { return 6 }
-
     }
 
     static setAbv(number, alcohol) {
@@ -133,9 +117,7 @@ export class Functions {
 
     static reverseArray(array) {
         var reversedArray = [];
-        for (var i = array.length - 1; i >= 0; i--) {
-            reversedArray.push(array[i]);
-        }
+        for (var i = array.length - 1; i >= 0; i--) { reversedArray.push(array[i]) }
         return reversedArray;
     }
 }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Routes from "./Routes";
 import DropdownAlert from 'react-native-dropdownalert';
 import { View, StatusBar } from 'react-native';

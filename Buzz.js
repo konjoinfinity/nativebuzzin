@@ -45,9 +45,7 @@ class BuzzScreen extends Component {
                     var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
                     this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds` })
                 }, 200);
-            } else {
-                this.setState({ oldbuzzes: null })
-            }
+            } else { this.setState({ oldbuzzes: null }) }
         })
     }
 
@@ -101,18 +99,14 @@ class BuzzScreen extends Component {
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
                     var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-                    if (drinkTime < 168) {
-                        sevenArray.push(oldbuzz)
-                    }
+                    if (drinkTime < 168) { sevenArray.push(oldbuzz) }
                 })
             }))
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
                     var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-                    if (drinkTime < 720) {
-                        thirtyArray.push(oldbuzz)
-                    }
+                    if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
                 })
             }))
         var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)

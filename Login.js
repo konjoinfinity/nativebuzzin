@@ -39,12 +39,8 @@ class LoginScreen extends React.Component {
 
     handleModal() {
         Vibration.vibrate();
-        if (this.state.name !== "") {
-            this.setState({ modal: !this.state.modal });
-        } else {
-            Vibration.vibrate();
-            Alert.alert("Please Enter Name")
-        }
+        if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
+        else { Vibration.vibrate(); Alert.alert("Please Enter Name") }
     }
 
     switchGender() {
@@ -58,8 +54,7 @@ class LoginScreen extends React.Component {
         [autobreakminkey, JSON.stringify(false)], [cutoffkey, JSON.stringify(false)], [cutoffbackey, JSON.stringify(0.08)],
         [autobreakthresholdkey, JSON.stringify(0.08)], [drinkskey, JSON.stringify(8)], [cancelbreakskey, JSON.stringify(0)],
         [showcutoffkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)]])
-        this.handleModal();
-        this.props.navigation.navigate("Home", { login: true });
+        this.handleModal(); this.props.navigation.navigate("Home", { login: true });
     }
 
     render() {

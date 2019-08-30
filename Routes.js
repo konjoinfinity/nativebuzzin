@@ -22,31 +22,20 @@ const AppStack = createStackNavigator({
                     tabBarIcon: ({ horizontal, tintColor }) => {
                         const { routeName } = navigation.state;
                         let iconName;
-                        if (routeName === 'Home') {
-                            iconName = `🏠`;
-                        } else if (routeName === 'Buzz') {
-                            iconName = `🍺`
-                        } else if (routeName === 'Profile') {
-                            iconName = `👤`;
-                        } else if (routeName === 'Demo') {
-                            iconName = `📋`;
-                        }
+                        if (routeName === 'Home') { iconName = `🏠` }
+                        else if (routeName === 'Buzz') { iconName = `🍺` }
+                        else if (routeName === 'Profile') { iconName = `👤` }
+                        else if (routeName === 'Demo') { iconName = `📋` }
                         Vibration.vibrate();
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;
                     }
                 }),
-                tabBarOptions: {
-                    activeTintColor: 'gray',
-                    inactiveTintColor: 'gray',
-                    activeBackgroundColor: "#e0f2f1"
-                }
+                tabBarOptions: { activeTintColor: 'gray', inactiveTintColor: 'gray', activeBackgroundColor: "#e0f2f1" }
             }
         ),
         navigationOptions: {
             title: `Buzzin`,
-            headerStyle: {
-                backgroundColor: '#80cbc4'
-            },
+            headerStyle: { backgroundColor: '#80cbc4' },
             headerTitleStyle: {
                 color: "#ffffff",
                 fontSize: 25,
@@ -62,13 +51,8 @@ const AuthStack = createStackNavigator({
     {
         initialRouteName: 'Login',
         defaultNavigationOptions: {
-            title: `Buzzin`, headerStyle: {
-                backgroundColor: '#80cbc4'
-            },
-            headerTitleStyle: {
-                color: "#ffffff",
-                fontSize: 25
-            }
+            title: `Buzzin`, headerStyle: { backgroundColor: '#80cbc4' },
+            headerTitleStyle: { color: "#ffffff", fontSize: 25 }
         }
     });
 
