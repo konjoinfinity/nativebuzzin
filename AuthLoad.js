@@ -10,8 +10,7 @@ class AuthLoadScreen extends React.Component {
 
     async bootstrapAsync() {
         const namekey = "name"
-        const user = await AsyncStorage.getItem(namekey, (error, result) => {
-        })
+        const user = await AsyncStorage.getItem(namekey)
         this.props.navigation.navigate(user ? 'App' : 'Auth');
     };
 
