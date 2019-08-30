@@ -119,7 +119,6 @@ class HomeScreen extends Component {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
-        console.log(styles.undoButton, styles.smallUndoButton, addButtonSize)
     }
 
     componentWillUnmount() {

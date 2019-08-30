@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from "react-native"
 
 var amount = Platform.OS === 'android' ? 10 : 0
+var undoTrash = Platform.OS === 'android' ? 50 : 0
 
 const styles = StyleSheet.create({
     buzzbutton: {
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         },
-        elevation: amount
+        elevation: undoTrash
     },
     plusMinusButtons: {
         height: 45,
@@ -314,7 +315,7 @@ const styles = StyleSheet.create({
             width: 2,
             height: 2,
         },
-        elevation: amount
+        elevation: undoTrash
     },
     dangerOkButton: {
         borderWidth: 1,
