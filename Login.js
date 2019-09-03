@@ -10,15 +10,14 @@ import {
     Keyboard,
     Modal,
     ScrollView,
-    Platform,
-    Dimensions,
-    PixelRatio
+    Platform
 } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import {
-    namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey,
-    cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, loginText, hhhourkey
+    namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText,
+    cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, loginText, hhhourkey, loginButtonText,
+    numberInputSize
 } from "./Variables";
 import styles from "./Styles"
 
@@ -58,8 +57,6 @@ class LoginScreen extends React.Component {
     }
 
     render() {
-        var numberInputSize;
-        Dimensions.get('window').width * PixelRatio.get() < 750 ? numberInputSize = 125 : numberInputSize = 150
         return (
             <KeyboardAvoidingView style={styles.logincontainer} behavior={(Platform.OS === 'ios') ? "padding" : null}>
                 <ScrollView>
@@ -75,11 +72,11 @@ class LoginScreen extends React.Component {
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                         <TouchableOpacity style={styles.logindisagreeButton}
                                             onPress={() => { this.handleModal() }}>
-                                            <Text style={styles.loginbuttonText}>Disagree</Text>
+                                            <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Disagree</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={styles.loginbutton}
                                             onPress={() => { this.handleLogin() }}>
-                                            <Text style={styles.loginbuttonText}>Agree</Text>
+                                            <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Agree</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -87,7 +84,7 @@ class LoginScreen extends React.Component {
                         <Text style={styles.loginheader}>Login</Text>
                         <View style={styles.logininputContainer}>
                             <TextInput
-                                style={styles.logintextInput}
+                                style={[styles.logintextInput, { fontSize: loginButtonText }]}
                                 placeholder="Name"
                                 autoFocus={true}
                                 name="name"
@@ -99,9 +96,9 @@ class LoginScreen extends React.Component {
                                 onSubmitEditing={() => Keyboard.dismiss()} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
-                            <TouchableOpacity style={styles.loginbutton} onPress={() => this.switchGender()}><Text style={styles.loginbuttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.loginbutton} onPress={() => this.switchGender()}><Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Switch Gender ♂♀</Text></TouchableOpacity>
                             <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
+                                <Text style={{ fontSize: loginGenderText, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                             </View>
                         </View>
                         <View style={{ paddingTop: 20, alignItems: "center" }}>
@@ -124,7 +121,7 @@ class LoginScreen extends React.Component {
                             <TouchableOpacity
                                 style={styles.loginbutton}
                                 onPress={() => this.handleModal()}>
-                                <Text style={styles.loginbuttonText}>Login</Text>
+                                <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Login</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

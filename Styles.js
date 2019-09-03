@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
         borderColor: "#CCCCCC",
         borderWidth: 1,
         height: 50,
-        fontSize: 25,
         paddingLeft: 20,
         paddingRight: 20,
         borderRadius: 15,
@@ -63,7 +62,6 @@ const styles = StyleSheet.create({
     },
     loginbuttonText: {
         color: "#FFFFFF",
-        fontSize: 20,
         textAlign: "center"
     },
     loginbutton: {
