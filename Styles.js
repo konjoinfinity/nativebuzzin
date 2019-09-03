@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     buzzbuttonText: {
         color: "#FFFFFF",
-        fontSize: 22,
+        fontSize: 18,
         textAlign: "center"
     },
     buzzheaderButton: {
