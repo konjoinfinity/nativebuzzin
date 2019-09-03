@@ -50,9 +50,10 @@ const AuthStack = createStackNavigator({
 },
     {
         initialRouteName: 'Login',
+        headerLayoutPreset: 'center',
         defaultNavigationOptions: {
             title: `Buzzin`, headerStyle: { backgroundColor: '#80cbc4' },
-            headerTitleStyle: { color: "#ffffff", fontSize: 25 }
+            headerTitleStyle: { color: "#ffffff", fontSize: 25, textAlign: "center" }
         }
     });
 

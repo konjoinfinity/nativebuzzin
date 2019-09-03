@@ -17,7 +17,7 @@ import NumericInput from 'react-native-numeric-input'
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText,
     cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, loginText, hhhourkey, loginButtonText,
-    numberInputSize
+    numberInputSize, loginTitle
 } from "./Variables";
 import styles from "./Styles"
 
@@ -81,7 +81,7 @@ class LoginScreen extends React.Component {
                                     </View>
                                 </View>
                             </ScrollView></Modal>
-                        <Text style={styles.loginheader}>Login</Text>
+                        <Text style={[styles.loginheader, { fontSize: loginTitle }]}>Login</Text>
                         <View style={styles.logininputContainer}>
                             <TextInput
                                 style={[styles.logintextInput, { fontSize: loginButtonText }]}
@@ -102,7 +102,7 @@ class LoginScreen extends React.Component {
                             </View>
                         </View>
                         <View style={{ paddingTop: 20, alignItems: "center" }}>
-                            <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
+                            <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                             <NumericInput
                                 minValue={50}
                                 maxValue={500}

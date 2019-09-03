@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     loginheader: {
-        fontSize: 30,
         textAlign: "center",
         margin: 10
     },
