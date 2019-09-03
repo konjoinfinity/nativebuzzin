@@ -201,7 +201,8 @@ class HomeScreen extends Component {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
                 if (totalBac < 0.06 && this.state.flashtext === true) {
-                    this.setState({ flashtext: false, flashtimer: "", flashtext: "" }, () => clearInterval(this.state.flashtimer))
+                    clearInterval(this.state.flashtimer)
+                    this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
                 }
                 if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
             } else {
@@ -268,6 +269,8 @@ class HomeScreen extends Component {
     async clearDrinks() {
         Vibration.vibrate();
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0 }) })
+        clearInterval(this.state.flashtimer)
+        this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
     }
 
     async undoLastDrink() {
