@@ -188,10 +188,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 0
-    loginButtonText = 22 // 20-25
-    loginGenderText = 22 // 20-25
-    numberInputSize = 200 // numberInputSize = 150
-    loginTitle = 20
+    loginButtonText = 22
+    loginGenderText = 22
+    numberInputSize = 220
+    loginTitle = 26
 } else if (screenWidth === 828 || screenWidth === 1242 && screenHeight === 2688) {
     console.log("828 or 1242 x 2688")
     gaugeSize = 390
@@ -207,10 +207,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 45
     addButtonSize = false
     multiSwitchMargin = 15
-    loginButtonText = 25 // 20-25
-    loginGenderText = 26 // 20-25
-    numberInputSize = 270 // numberInputSize = 150
-    loginTitle = 20
+    loginButtonText = 25
+    loginGenderText = 26
+    numberInputSize = 270
+    loginTitle = 30
 } else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
     console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
     gaugeSize = 380
@@ -264,10 +264,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 12
-    loginButtonText = 25 // 20-25
-    loginGenderText = 26 // 20-25
-    numberInputSize = 260 // numberInputSize = 150
-    loginTitle = 20
+    loginButtonText = 25
+    loginGenderText = 26
+    numberInputSize = 260
+    loginTitle = 30
 } else if (screenWidth === 1242) {
     console.log("1242")
     gaugeSize = 390
@@ -283,10 +283,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 8
-    loginButtonText = 24 // 20-25
-    loginGenderText = 24 // 20-25
-    numberInputSize = 230 // numberInputSize = 150
-    loginTitle = 20
+    loginButtonText = 24
+    loginGenderText = 24
+    numberInputSize = 250
+    loginTitle = 30
 } else if (screenWidth === 1440 && screenHeight === 2896 || screenWidth === 1440 && screenHeight === 2816) {
     console.log("1440x2896/2816")
     gaugeSize = 455
@@ -359,10 +359,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 0
-    loginButtonText = 15 // 20-25
-    loginGenderText = 15 // 20-25
-    numberInputSize = 135 // numberInputSize = 150
-    loginTitle = 20
+    loginButtonText = 25
+    loginGenderText = 26
+    numberInputSize = 260
+    loginTitle = 30
 } else {
     console.log("other size")
     gaugeSize = 350
