@@ -17,7 +17,8 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, hhhourkey
+    autobreakthresholdkey, cutoffkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, hhhourkey,
+    loginButtonText, loginTitle
 } from "./Variables";
 import styles from "./Styles"
 
@@ -152,24 +153,25 @@ class ProfileScreen extends Component {
     render() {
         var numberInputSize;
         Dimensions.get('window').width * PixelRatio.get() < 750 ? numberInputSize = 125 : numberInputSize = 150
+
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <Text style={{ fontSize: 25, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
-                        <Text style={{ fontSize: 25, textAlign: "center" }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}   -   {this.state.weight} lbs.</Text>
+                        <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
+                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.gender === "Male" ? "♂" : "♀"} {this.state.gender}   -   {this.state.weight} lbs.</Text>
                         <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                        <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
+                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break</Text><Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey)} />
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>Auto Break</Text><Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey)} />
                         </View>
                         {this.state.autobreak === true &&
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
+                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
                                     <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
                                         <View>
@@ -177,7 +179,7 @@ class ProfileScreen extends Component {
                                         </View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                        <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
                                     <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
                                         <View>
                                             <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
@@ -188,13 +190,12 @@ class ProfileScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey)} />
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>Happy Hour</Text><Switch value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey)} />
                         </View>
                         {this.state.happyhour === true &&
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>You are on a daily break until Happy Hour.</Text>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Set Happy Hour</Text>
+                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>Set Happy Hour (Daily Break)</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                     <TouchableOpacity style={this.state.hhhour === 16 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 16 }, () => this.saveValues("hhhour", hhhourkey))}>
                                         <View>
@@ -226,12 +227,12 @@ class ProfileScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Cut Off</Text><Switch value={this.state.cutoff} onChange={() => this.handleSwitches("cutoff", cutoffkey)} />
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>Cut Off</Text><Switch value={this.state.cutoff} onChange={() => this.handleSwitches("cutoff", cutoffkey)} />
                         </View>
                         {this.state.cutoff === true &&
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>BAC Cut Off</Text>
+                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>BAC Cut Off</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
                                     <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "cutoffbac", cutoffbackey)}>
                                         <View>
@@ -239,14 +240,14 @@ class ProfileScreen extends Component {
                                         </View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                        <Text style={{ fontSize: 20, textAlign: "center" }}>{this.state.cutoffbac && this.state.cutoffbac.toFixed(2)}</Text></TouchableOpacity>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.cutoffbac && this.state.cutoffbac.toFixed(2)}</Text></TouchableOpacity>
                                     <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "cutoffbac", cutoffbackey)}>
                                         <View>
                                             <Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                                <Text style={{ fontSize: 16, textAlign: "center", padding: 10 }}>Total Drinks Cut Off</Text>
+                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>Total Drinks Cut Off</Text>
                                 <View style={{ alignSelf: "center" }}>
                                     <NumericInput
                                         minValue={1}
@@ -266,12 +267,12 @@ class ProfileScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <Text style={{ fontSize: 16, textAlign: "center", padding: 5 }}>Custom Break</Text><Switch value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey)} />
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>Custom Break</Text><Switch value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey)} />
                         </View>
                         {this.state.custombreak === true &&
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: 18, textAlign: "center" }}>Custom Break</Text>
+                                <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>Custom Break</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                     <View>
                                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Hours</Text>
@@ -342,9 +343,9 @@ class ProfileScreen extends Component {
                                 </View>
                                 {this.state.break === true &&
                                     <View>
-                                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
-                                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
-                                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
                                         <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
                                             <Text style={styles.profilebuttonText}>Cancel Break</Text>
                                         </TouchableOpacity>
