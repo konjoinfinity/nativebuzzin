@@ -163,7 +163,7 @@ class BuzzScreen extends Component {
                                 <Grid direction={Grid.Direction.HORIZONTAL} />
                                 <SevenLabels />
                             </BarChart>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>Total Last Week</Text>
+                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Week</Text>
                         </View>
                         <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
                             <BarChart
@@ -184,7 +184,7 @@ class BuzzScreen extends Component {
                                 <Grid direction={Grid.Direction.HORIZONTAL} />
                                 <ThirtyLabels />
                             </BarChart>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
+                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
                         </View>
                     </View>
                     {this.state.buzzes !== null &&
