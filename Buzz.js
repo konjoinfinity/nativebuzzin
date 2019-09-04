@@ -100,7 +100,7 @@ class BuzzScreen extends Component {
                     )
                 })
             }))
-        var sevenArray = [], thirtyArray = [], lastFourWeeks = [[], [], [], []]
+        var sevenArray = [], thirtyArray = [], lastEightWeeks = [[], [], [], [], [], [], [], []]
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
@@ -119,15 +119,20 @@ class BuzzScreen extends Component {
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
                     var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-                    if (drinkTime < 168) { lastFourWeeks[0].push(oldbuzz) }
-                    if (drinkTime >= 168 && drinkTime < 336) { lastFourWeeks[1].push(oldbuzz) }
-                    if (drinkTime >= 336 && drinkTime < 504) { lastFourWeeks[2].push(oldbuzz) }
-                    if (drinkTime >= 504 && drinkTime < 720) { lastFourWeeks[3].push(oldbuzz) }
+                    if (drinkTime < 168) { lastEightWeeks[0].push(oldbuzz) }
+                    if (drinkTime >= 168 && drinkTime < 336) { lastEightWeeks[1].push(oldbuzz) }
+                    if (drinkTime >= 336 && drinkTime < 504) { lastEightWeeks[2].push(oldbuzz) }
+                    if (drinkTime >= 504 && drinkTime < 720) { lastEightWeeks[3].push(oldbuzz) }
+                    if (drinkTime >= 720 && drinkTime < 888) { lastEightWeeks[4].push(oldbuzz) }
+                    if (drinkTime >= 888 && drinkTime < 1056) { lastEightWeeks[5].push(oldbuzz) }
+                    if (drinkTime >= 1056 && drinkTime < 1224) { lastEightWeeks[6].push(oldbuzz) }
+                    if (drinkTime >= 1224 && drinkTime < 1392) { lastEightWeeks[7].push(oldbuzz) }
                 })
             }))
         var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
-        var FourWeeksData = [lastFourWeeks[0].length, lastFourWeeks[1].length, lastFourWeeks[2].length, lastFourWeeks[3].length]
+        var eightWeeksData = [lastEightWeeks[0].length, lastEightWeeks[1].length, lastEightWeeks[2].length, lastEightWeeks[3].length,
+        lastEightWeeks[4].length, lastEightWeeks[5].length, lastEightWeeks[6].length, lastEightWeeks[7].length]
         const SevenLabels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
                 <TextSVG
@@ -156,7 +161,7 @@ class BuzzScreen extends Component {
                 </TextSVG>
             ))
         )
-        const FourWeeksLabels = ({ x, y, data }) => (
+        const EightWeeksLabels = ({ x, y, data }) => (
             data.map((value, index) => (
                 <TextSVG
                     key={index}
@@ -220,34 +225,39 @@ class BuzzScreen extends Component {
                                     <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
                                         <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2 }} onPress={() => this.chartShowHide()}>
-                                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>→</Text></TouchableOpacity></View>
+                                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>→</Text></TouchableOpacity></View>
                                 </View>
                             </View>
                         </View>}
                     {this.state.chartShowHide === true &&
                         <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, paddingVertical: 16, margin: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 25, paddingRight: 25 }}>
-                            <LineChart
-                                style={{ height: 200 }}
-                                data={FourWeeksData}
-                                svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
-                                contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                animate={true}
-                                animationDuration={2000}
-                                gridMax={Math.max(...FourWeeksData) + 6}
-                                spacing={2}>
-                                <Grid direction={Grid.Direction.HORIZONTAL} />
-                                <FourWeeksLabels />
-                            </LineChart>
-                            <XAxis
-                                style={{ marginHorizontal: -5, height: 20 }}
-                                data={FourWeeksData}
-                                formatLabel={(index) => "Week " + (index + 1)}
-                                contentInset={{ left: 24, right: 24 }}
-                                svg={{ fontSize: 12 }} />
+                            <ScrollView horizontal={true} style={{ paddingTop: 10 }}>
+                                <LineChart
+                                    style={{ height: 200, width: 1000 }}
+                                    data={eightWeeksData}
+                                    svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
+                                    contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                    animate={true}
+                                    animationDuration={2000}
+                                    gridMax={Math.max(...eightWeeksData) + 6}
+                                    gridMin={0}
+                                    horizontal={true}>
+                                    <XAxis
+                                        style={{ height: 30, width: 1000 }}
+                                        data={eightWeeksData}
+                                        formatLabel={(index) => "Week " + (index + 1)}
+                                        contentInset={{ left: 24, right: 24 }}
+                                        svg={{ fontSize: 12 }}
+                                        belowChart={true}
+                                        ticks={4} />
+                                    <Grid direction={Grid.Direction.HORIZONTAL} />
+                                    <EightWeeksLabels />
+                                </LineChart>
+                            </ScrollView>
                             <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
                                 <Text style={{ fontSize: abvText, textAlign: "center", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last 4 Weeks</Text>
                                 <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, margin: 2 }} onPress={() => this.chartShowHide()}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>→</Text></TouchableOpacity></View>
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>→</Text></TouchableOpacity></View>
                         </View>}
                     {this.state.buzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
