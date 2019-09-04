@@ -68,6 +68,7 @@ class BuzzScreen extends Component {
 
     chartShowHide() {
         this.setState(prevState => ({ chartShowHide: !prevState.chartShowHide }))
+        Vibration.vibrate();
     }
 
     render() {
