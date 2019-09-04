@@ -255,7 +255,7 @@ class BuzzScreen extends Component {
                                 </LineChart>
                             </ScrollView>
                             <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
-                                <Text style={{ fontSize: abvText, textAlign: "center", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last 4 Weeks</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "center", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last Eight Weeks</Text>
                                 <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, margin: 2 }} onPress={() => this.chartShowHide()}>
                                     <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>→</Text></TouchableOpacity></View>
                         </View>}
