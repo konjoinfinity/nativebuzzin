@@ -233,7 +233,7 @@ class BuzzScreen extends Component {
                                 contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
                                 animate={true}
                                 animationDuration={2000}
-                                gridMax={34}
+                                gridMax={(FourWeeksData[0] + FourWeeksData[1] + FourWeeksData[2] + FourWeeksData[3] / 4) + 2}
                                 spacing={2}>
                                 <Grid direction={Grid.Direction.HORIZONTAL} />
                                 <FourWeeksLabels />
