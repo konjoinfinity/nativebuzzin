@@ -231,10 +231,10 @@ class BuzzScreen extends Component {
                                 formatLabel={(index) => eightWeeksData[index]}
                                 contentInset={{ left: 10, right: 10 }}
                                 svg={{ fontSize: 14 }} />
-                            <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 8 }}>
-                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Last 8 Weeks</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
+                                <Text style={{ fontSize: abvText, textAlign: "center", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last 8 Weeks</Text>
                                 <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, margin: 2 }} onPress={() => this.chartShowHide()}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingTop: 4 }}>→</Text></TouchableOpacity></View>
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>→</Text></TouchableOpacity></View>
                         </View>}
                     {this.state.buzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
