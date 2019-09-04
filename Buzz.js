@@ -242,7 +242,6 @@ class BuzzScreen extends Component {
                                 style={{ marginHorizontal: -5, height: 20 }}
                                 data={FourWeeksData}
                                 formatLabel={(index) => "Week " + (index + 1)}
-                                // formatLabel={(index) => FourWeeksData[index]}
                                 contentInset={{ left: 24, right: 24 }}
                                 svg={{ fontSize: 12 }} />
                             <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
