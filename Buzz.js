@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
 import { NavigationEvents } from "react-navigation";
-import { BarChart, Grid, XAxis } from 'react-native-svg-charts'
+import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
 import { Text as TextSVG } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
@@ -94,7 +94,7 @@ class BuzzScreen extends Component {
                     )
                 })
             }))
-        var sevenArray = [], thirtyArray = []
+        var sevenArray = [], thirtyArray = [], lastEightWeeks = [[], [], [], [], [], [], [], []]
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
@@ -109,8 +109,24 @@ class BuzzScreen extends Component {
                     if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
                 })
             }))
+        this.state.oldbuzzes !== null &&
+            (this.state.oldbuzzes.map((buzz) => {
+                return buzz.map((oldbuzz) => {
+                    var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
+                    if (drinkTime < 168) { lastEightWeeks[0].push(oldbuzz) }
+                    if (drinkTime >= 168 && drinkTime < 336) { lastEightWeeks[1].push(oldbuzz) }
+                    if (drinkTime >= 336 && drinkTime < 504) { lastEightWeeks[2].push(oldbuzz) }
+                    if (drinkTime >= 504 && drinkTime < 720) { lastEightWeeks[3].push(oldbuzz) }
+                    if (drinkTime >= 720 && drinkTime < 888) { lastEightWeeks[4].push(oldbuzz) }
+                    if (drinkTime >= 888 && drinkTime < 1056) { lastEightWeeks[5].push(oldbuzz) }
+                    if (drinkTime >= 1056 && drinkTime < 1224) { lastEightWeeks[6].push(oldbuzz) }
+                    if (drinkTime >= 1224 && drinkTime < 1392) { lastEightWeeks[7].push(oldbuzz) }
+                })
+            }))
         var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
+        var eightWeeksData = [lastEightWeeks[0].length, lastEightWeeks[1].length, lastEightWeeks[2].length, lastEightWeeks[3].length,
+        lastEightWeeks[4].length, lastEightWeeks[5].length, lastEightWeeks[6].length, lastEightWeeks[7].length]
         const SevenLabels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
                 <TextSVG
@@ -186,6 +202,24 @@ class BuzzScreen extends Component {
                             </BarChart>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
                         </View>
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Last 8 Weeks</Text>
+                        <LineChart
+                            style={{ height: 200 }}
+                            data={eightWeeksData}
+                            svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
+                            contentInset={{ top: 20, bottom: 20 }}
+                            animate={true}
+                            animationDuration={2000}>
+                            <Grid />
+                        </LineChart>
+                        <XAxis
+                            style={{ marginHorizontal: -5, height: 15 }}
+                            data={eightWeeksData}
+                            formatLabel={(index) => eightWeeksData[index]}
+                            contentInset={{ left: 10, right: 10 }}
+                            svg={{ fontSize: 10 }} />
                     </View>
                     {this.state.buzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
