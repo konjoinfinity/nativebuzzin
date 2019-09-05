@@ -26,8 +26,10 @@ class BuzzScreen extends Component {
             oldbuzzes: null,
             timesince: null,
             showHideBuzzes: false,
-            showHideOldBuzzes: false
+            showHideOldBuzzes: false,
+            sidescrollx: 0
         }
+        this.handleScroll = this.handleScroll.bind(this);
     };
 
     async componentDidMount() {
@@ -57,15 +59,22 @@ class BuzzScreen extends Component {
         Vibration.vibrate();
     }
 
+    handleScroll(event) {
+        if (event.nativeEvent.contentOffset.x > 329 || event.nativeEvent.contentOffset.x < 1) {
+            this.setState({ sidescrollx: event.nativeEvent.contentOffset.x })
+        }
+    }
+
     sideScroll() {
-        this.sidescroll.scrollTo({ x: 0 })
         setTimeout(() => {
             // x value will have to be variable according to screen sizes
-            this.sidescroll.scrollTo({ x: 330 })
+            if (this.state.sidescrollx >= 330) { this.sidescroll.scrollTo({ x: 0 }) }
+            else if (this.state.sidescrollx < 330) { this.sidescroll.scrollTo({ x: 330 }) }
         }, 5000);
     }
 
     render() {
+        console.log(this.state.sidescrollx)
         let buzzes, oldbuzzes;
         this.state.buzzes !== null &&
             (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
@@ -128,7 +137,7 @@ class BuzzScreen extends Component {
                 <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }}>
+                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={this.handleScroll} scrollEventThrottle={16}>
                             <View>
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
