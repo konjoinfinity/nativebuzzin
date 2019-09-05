@@ -365,8 +365,8 @@ class HomeScreen extends Component {
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
                             <CopilotStep text="This readout automatically calculates your current BAC." order={2} name="bac">
                                 <CopilotView>
-                                    <TouchableOpacity style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
-                                        <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "teal" }}>0.0</Text></TouchableOpacity>
+                                    <View style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
+                                        <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "teal" }}>0.0</Text></View>
                                 </CopilotView>
                             </CopilotStep>)}
                         {this.state.bac > 0.00 && this.state.bac < 0.01 && (

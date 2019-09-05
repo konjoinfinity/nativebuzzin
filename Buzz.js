@@ -68,13 +68,11 @@ class BuzzScreen extends Component {
     sideScroll() {
         setTimeout(() => {
             // x value will have to be variable according to screen sizes
-            if (this.state.sidescrollx >= 330) { this.sidescroll.scrollTo({ x: 0 }) }
-            else if (this.state.sidescrollx < 330) { this.sidescroll.scrollTo({ x: 330 }) }
+            this.state.sidescrollx >= 330 ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: 330 })
         }, 5000);
     }
 
     render() {
-        console.log(this.state.sidescrollx)
         let buzzes, oldbuzzes;
         this.state.buzzes !== null &&
             (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
