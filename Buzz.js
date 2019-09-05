@@ -37,7 +37,6 @@ class BuzzScreen extends Component {
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
-                console.log(result)
                 this.setState({ oldbuzzes: JSON.parse(result) })
                 setTimeout(() => {
                     var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
@@ -73,7 +72,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(this.state.oldbuzzes)
         let buzzes, oldbuzzes;
         this.state.buzzes !== null &&
             (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
