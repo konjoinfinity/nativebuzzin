@@ -26,8 +26,7 @@ class BuzzScreen extends Component {
             oldbuzzes: null,
             timesince: null,
             showHideBuzzes: false,
-            showHideOldBuzzes: false,
-            chartShowHide: false
+            showHideOldBuzzes: false
         }
     };
 
@@ -66,9 +65,10 @@ class BuzzScreen extends Component {
         Vibration.vibrate();
     }
 
-    chartShowHide() {
-        this.setState(prevState => ({ chartShowHide: !prevState.chartShowHide }))
-        Vibration.vibrate();
+    sideScroll() {
+        setTimeout(() => {
+            this.sidescroll.scrollTo({ x: 330 })
+        }, 5000);
     }
 
     render() {
@@ -144,61 +144,57 @@ class BuzzScreen extends Component {
                     textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
+                <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    {this.state.chartShowHide === false &&
-                        <View>
-                            <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly", height: 250, paddingVertical: 16, margin: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 25, paddingRight: 25 }}>
-                                <View style={{ flexDirection: 'column', paddingRight: 10 }}>
-                                    <BarChart
-                                        style={{ flex: 1, padding: 10 }}
-                                        data={sevenData}
-                                        svg={{ fill: weekColor, fillOpacity: 0.8 }}
-                                        contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                        spacing={2}
-                                        gridMin={0}
-                                        gridMax={sevenData[0] + 3}
-                                        animate={true}
-                                        animationDuration={1500}>
-                                        <XAxis
-                                            style={{ marginTop: 10 }}
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }}>
+                            <View>
+                                <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
+                                    <View style={{ flexDirection: 'column', padding: 10 }}>
+                                        <BarChart
+                                            style={{ flex: 1, padding: 10, height: 200, width: 150 }}
                                             data={sevenData}
-                                            scale={scale.scaleBand}
-                                            formatLabel={() => ""} />
-                                        <Grid direction={Grid.Direction.HORIZONTAL} />
-                                        <Labels />
-                                    </BarChart>
-                                    <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Week</Text>
-                                </View>
-                                <View style={{ flexDirection: 'column', paddingLeft: 10 }}>
-                                    <BarChart
-                                        style={{ flex: 1, padding: 10 }}
-                                        data={thirtyData}
-                                        svg={{ fill: monthColor, fillOpacity: 0.8 }}
-                                        contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                        spacing={2}
-                                        gridMin={0}
-                                        gridMax={thirtyData[0] + 10}
-                                        animate={true}
-                                        animationDuration={1800}>
-                                        <XAxis
-                                            style={{ marginTop: 10 }}
+                                            svg={{ fill: weekColor, fillOpacity: 0.8 }}
+                                            contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            spacing={2}
+                                            gridMin={0}
+                                            gridMax={sevenData[0] + 3}
+                                            animate={true}
+                                            animationDuration={1500}>
+                                            <XAxis
+                                                style={{ marginTop: 10 }}
+                                                data={sevenData}
+                                                scale={scale.scaleBand}
+                                                formatLabel={() => ""} />
+                                            <Grid direction={Grid.Direction.HORIZONTAL} />
+                                            <Labels />
+                                        </BarChart>
+                                        <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Week</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
+                                        <BarChart
+                                            style={{ flex: 1, padding: 10, height: 200, width: 150 }}
                                             data={thirtyData}
-                                            scale={scale.scaleBand}
-                                            formatLabel={() => ""} />
-                                        <Grid direction={Grid.Direction.HORIZONTAL} />
-                                        <Labels />
-                                    </BarChart>
-                                    <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                            svg={{ fill: monthColor, fillOpacity: 0.8 }}
+                                            contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            spacing={2}
+                                            gridMin={0}
+                                            gridMax={thirtyData[0] + 10}
+                                            animate={true}
+                                            animationDuration={1800}>
+                                            <XAxis
+                                                style={{ marginTop: 10 }}
+                                                data={thirtyData}
+                                                scale={scale.scaleBand}
+                                                formatLabel={() => ""} />
+                                            <Grid direction={Grid.Direction.HORIZONTAL} />
+                                            <Labels />
+                                        </BarChart>
                                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
-                                        <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2 }} onPress={() => this.chartShowHide()}>
-                                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>→</Text></TouchableOpacity></View>
+                                    </View>
                                 </View>
                             </View>
-                        </View>}
-                    {this.state.chartShowHide === true &&
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, paddingVertical: 16, margin: 10, paddingTop: 10, paddingBottom: 10, paddingLeft: 25, paddingRight: 25 }}>
-                            <ScrollView horizontal={true} style={{ paddingTop: 10 }}>
+                            <View style={{ flexDirection: 'column', padding: 10 }}>
                                 <LineChart
                                     style={{ height: 200, width: 1000 }}
                                     data={eightWeeksData}
@@ -220,12 +216,10 @@ class BuzzScreen extends Component {
                                     <Grid direction={Grid.Direction.HORIZONTAL} />
                                     <EightWeeksLabels />
                                 </LineChart>
-                            </ScrollView>
-                            <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 5 }}>
-                                <Text style={{ fontSize: abvText, textAlign: "center", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last Eight Weeks</Text>
-                                <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, margin: 2 }} onPress={() => this.chartShowHide()}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>→</Text></TouchableOpacity></View>
-                        </View>}
+                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last Eight Weeks</Text>
+                            </View>
+                        </ScrollView>
+                    </View>
                     {this.state.buzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
