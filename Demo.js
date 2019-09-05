@@ -253,14 +253,15 @@ class DemoScreen extends Component {
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>
                                         <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                     </MultiSwitch>}
-                                {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true ?
+                                {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true &&
                                     <TouchableOpacity
                                         style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
                                         onPress={() => this.undoLastDrink()}>
                                         <View>
                                             <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                         </View>
-                                    </TouchableOpacity> :
+                                    </TouchableOpacity>}
+                                {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === false &&
                                     <TouchableOpacity
                                         style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
                                         onPress={() => this.clearDrinks()}>
