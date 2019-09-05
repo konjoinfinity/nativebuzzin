@@ -58,6 +58,7 @@ class BuzzScreen extends Component {
     }
 
     sideScroll() {
+        this.sidescroll.scrollTo({ x: 0 })
         setTimeout(() => {
             // x value will have to be variable according to screen sizes
             this.sidescroll.scrollTo({ x: 330 })
@@ -183,7 +184,7 @@ class BuzzScreen extends Component {
                                     svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
                                     contentInset={{ top: 15, bottom: 10, left: 10, right: 10 }}
                                     animate={true}
-                                    animationDuration={2000}
+                                    animationDuration={8000}
                                     gridMax={Math.max(...eightWeeksData) + 6}
                                     gridMin={0}
                                     horizontal={true}>
