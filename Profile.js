@@ -181,10 +181,10 @@ class ProfileScreen extends Component {
                                 <Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
                             {this.state.autobreak === false &&
                                 <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
-                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center" }}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                             {this.state.autobreak === true &&
                                 <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setautobreak")}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                         </View>
                         {this.state.autobreak === true && this.state.setautobreak === true &&
                             <View>
@@ -213,10 +213,10 @@ class ProfileScreen extends Component {
                                 <Switch value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
                             {this.state.happyhour === false &&
                                 <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
-                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center" }}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                             {this.state.happyhour === true &&
                                 <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("sethappyhour")}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                         </View>
                         {this.state.happyhour === true && this.state.sethappyhour &&
                             <View>
@@ -258,10 +258,10 @@ class ProfileScreen extends Component {
                                 <Switch value={this.state.cutoff} onChange={() => this.handleSwitches("cutoff", cutoffkey, "setcutoff")} /></View>
                             {this.state.cutoff === false &&
                                 <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
-                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center" }}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                             {this.state.cutoff === true &&
                                 <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setcutoff")}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                         </View>
                         {this.state.cutoff === true && this.state.setcutoff === true &&
                             <View>
@@ -306,10 +306,10 @@ class ProfileScreen extends Component {
                                 <Switch value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey, "setcustombreak")} /></View>
                             {this.state.custombreak === false &&
                                 <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
-                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center" }}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                             {this.state.custombreak === true &&
                                 <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setcustombreak")}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                         </View>
                         {this.state.custombreak === true && this.state.setcustombreak === true &&
                             <View>

@@ -102,7 +102,9 @@ class BuzzScreen extends Component {
                     )
                 })
             }))
-        var sevenArray = [], thirtyArray = [], lastEightWeeks = [[], [], [], [], [], [], [], []]
+        var sevenArray = [], thirtyArray = []
+        // create new array based on number of weeks
+        var lastEightWeeks = [[], [], [], [], [], [], [], []]
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
@@ -122,6 +124,8 @@ class BuzzScreen extends Component {
                 return buzz.map((oldbuzz) => {
                     var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
                     if (drinkTime < 168) { lastEightWeeks[0].push(oldbuzz) }
+                    // Change 8 to number of weeks we want to render in the historical chart
+                    // less than oldbuzzes[oldbuzzes.length - 1] loops until greater than array length 
                     for (var i = 1; i < 8; i++) {
                         var low = 168 * i, high = 168 * (i + 1)
                         if (drinkTime >= low && drinkTime < high) { lastEightWeeks[i].push(oldbuzz) }
@@ -132,48 +136,14 @@ class BuzzScreen extends Component {
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
         var eightWeeksData = [lastEightWeeks[0].length, lastEightWeeks[1].length, lastEightWeeks[2].length, lastEightWeeks[3].length,
         lastEightWeeks[4].length, lastEightWeeks[5].length, lastEightWeeks[6].length, lastEightWeeks[7].length]
-        const SevenLabels = ({ x, y, bandwidth, data }) => (
+        const Labels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
-                <TextSVG
-                    key={index}
-                    x={x(index) + (bandwidth / 2)}
-                    y={y(value) - 10}
-                    fontSize={20}
-                    fill={'black'}
-                    alignmentBaseline={'middle'}
-                    textAnchor={'middle'}>
-                    {value}
-                </TextSVG>
-            ))
-        )
-        const ThirtyLabels = ({ x, y, bandwidth, data }) => (
-            data.map((value, index) => (
-                <TextSVG
-                    key={index}
-                    x={x(index) + (bandwidth / 2)}
-                    y={y(value) - 10}
-                    fontSize={20}
-                    fill={'black'}
-                    alignmentBaseline={'middle'}
-                    textAnchor={'middle'}>
-                    {value}
-                </TextSVG>
-            ))
-        )
+                <TextSVG key={index} x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
+                    alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>)))
         const EightWeeksLabels = ({ x, y, data }) => (
             data.map((value, index) => (
-                <TextSVG
-                    key={index}
-                    x={x(index)}
-                    y={y(value) - 20}
-                    fontSize={18}
-                    fill={'black'}
-                    alignmentBaseline={'middle'}
-                    textAnchor={'middle'}>
-                    {value}
-                </TextSVG>
-            ))
-        )
+                <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
+                    textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
@@ -198,7 +168,7 @@ class BuzzScreen extends Component {
                                             scale={scale.scaleBand}
                                             formatLabel={() => ""} />
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
-                                        <SevenLabels />
+                                        <Labels />
                                     </BarChart>
                                     <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Week</Text>
                                 </View>
@@ -219,7 +189,7 @@ class BuzzScreen extends Component {
                                             scale={scale.scaleBand}
                                             formatLabel={() => ""} />
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
-                                        <ThirtyLabels />
+                                        <Labels />
                                     </BarChart>
                                     <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
