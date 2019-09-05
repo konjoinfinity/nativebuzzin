@@ -175,7 +175,7 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                             <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Auto Break</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
@@ -207,7 +207,7 @@ class ProfileScreen extends Component {
                             </View>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                             <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Happy Hour</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
@@ -252,7 +252,7 @@ class ProfileScreen extends Component {
                             </View>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                             <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Cut Off</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.cutoff} onChange={() => this.handleSwitches("cutoff", cutoffkey, "setcutoff")} /></View>
@@ -300,7 +300,7 @@ class ProfileScreen extends Component {
                             </View>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                             <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Custom Break</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey, "setcustombreak")} /></View>
