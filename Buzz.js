@@ -37,6 +37,7 @@ class BuzzScreen extends Component {
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
+                console.log(result)
                 this.setState({ oldbuzzes: JSON.parse(result) })
                 setTimeout(() => {
                     var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
@@ -72,6 +73,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log(this.state.oldbuzzes)
         let buzzes, oldbuzzes;
         this.state.buzzes !== null &&
             (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
@@ -120,13 +122,10 @@ class BuzzScreen extends Component {
                 return buzz.map((oldbuzz) => {
                     var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
                     if (drinkTime < 168) { lastEightWeeks[0].push(oldbuzz) }
-                    if (drinkTime >= 168 && drinkTime < 336) { lastEightWeeks[1].push(oldbuzz) }
-                    if (drinkTime >= 336 && drinkTime < 504) { lastEightWeeks[2].push(oldbuzz) }
-                    if (drinkTime >= 504 && drinkTime < 720) { lastEightWeeks[3].push(oldbuzz) }
-                    if (drinkTime >= 720 && drinkTime < 888) { lastEightWeeks[4].push(oldbuzz) }
-                    if (drinkTime >= 888 && drinkTime < 1056) { lastEightWeeks[5].push(oldbuzz) }
-                    if (drinkTime >= 1056 && drinkTime < 1224) { lastEightWeeks[6].push(oldbuzz) }
-                    if (drinkTime >= 1224 && drinkTime < 1392) { lastEightWeeks[7].push(oldbuzz) }
+                    for (var i = 1; i < 8; i++) {
+                        var low = 168 * i, high = 168 * (i + 1)
+                        if (drinkTime >= low && drinkTime < high) { lastEightWeeks[i].push(oldbuzz) }
+                    }
                 })
             }))
         var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)
