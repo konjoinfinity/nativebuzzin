@@ -100,21 +100,8 @@ class BuzzScreen extends Component {
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
                     var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-                    if (drinkTime < 168) { sevenArray.push(oldbuzz) }
-                })
-            }))
-        this.state.oldbuzzes !== null &&
-            (this.state.oldbuzzes.map((buzz) => {
-                return buzz.map((oldbuzz) => {
-                    var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
+                    if (drinkTime < 168) { lastEightWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
                     if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
-                })
-            }))
-        this.state.oldbuzzes !== null &&
-            (this.state.oldbuzzes.map((buzz) => {
-                return buzz.map((oldbuzz) => {
-                    var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-                    if (drinkTime < 168) { lastEightWeeks[0].push(oldbuzz) }
                     // Change 8 to number of weeks we want to render in the historical chart
                     // less than oldbuzzes[oldbuzzes.length - 1] loops until greater than array length 
                     for (var i = 1; i < 8; i++) {
