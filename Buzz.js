@@ -67,6 +67,7 @@ class BuzzScreen extends Component {
 
     sideScroll() {
         setTimeout(() => {
+            // x value will have to be variable according to screen sizes
             this.sidescroll.scrollTo({ x: 330 })
         }, 5000);
     }
@@ -152,6 +153,7 @@ class BuzzScreen extends Component {
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
                                         <BarChart
+                                            // width will have to be variable according to screen sizes
                                             style={{ flex: 1, padding: 10, height: 200, width: 150 }}
                                             data={sevenData}
                                             svg={{ fill: weekColor, fillOpacity: 0.8 }}
@@ -173,6 +175,7 @@ class BuzzScreen extends Component {
                                     </View>
                                     <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
                                         <BarChart
+                                            // width will have to be variable according to screen sizes
                                             style={{ flex: 1, padding: 10, height: 200, width: 150 }}
                                             data={thirtyData}
                                             svg={{ fill: monthColor, fillOpacity: 0.8 }}
