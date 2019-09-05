@@ -216,7 +216,7 @@ class BuzzScreen extends Component {
                                     <Grid direction={Grid.Direction.HORIZONTAL} />
                                     <EightWeeksLabels />
                                 </LineChart>
-                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last Eight Weeks</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last Eight Weeks (Total)</Text>
                             </View>
                         </ScrollView>
                     </View>
