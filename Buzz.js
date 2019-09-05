@@ -181,7 +181,7 @@ class BuzzScreen extends Component {
                                     style={{ height: 200, width: 1000 }}
                                     data={eightWeeksData}
                                     svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
-                                    contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                    contentInset={{ top: 15, bottom: 10, left: 10, right: 10 }}
                                     animate={true}
                                     animationDuration={2000}
                                     gridMax={Math.max(...eightWeeksData) + 6}
