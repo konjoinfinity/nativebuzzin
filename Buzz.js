@@ -12,7 +12,7 @@ import moment from "moment";
 import _ from 'lodash'
 import { NavigationEvents } from "react-navigation";
 import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
-import { Text as TextSVG, Line } from "react-native-svg";
+import { Text as TextSVG } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import { key, oldkey, loginTitle, loginButtonText, abvText } from "./Variables";
