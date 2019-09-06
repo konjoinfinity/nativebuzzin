@@ -202,7 +202,6 @@ class BuzzScreen extends Component {
                                         belowChart={true}
                                         ticks={4} />
                                     <Grid direction={Grid.Direction.HORIZONTAL} />
-                                    <Line x1="0" y1="85" x2="1000" y2="85" stroke="red" strokeWidth="2" />
                                     <WeeksLabels />
                                 </LineChart>
                                 <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
