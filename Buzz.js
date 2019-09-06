@@ -60,7 +60,7 @@ class BuzzScreen extends Component {
     }
 
     handleScroll(event) {
-        if (event.nativeEvent.contentOffset.x > 329 || event.nativeEvent.contentOffset.x < 1) {
+        if (event.nativeEvent.contentOffset.x === 330 || event.nativeEvent.contentOffset.x === 0) {
             this.setState({ sidescrollx: event.nativeEvent.contentOffset.x })
         }
     }
@@ -68,7 +68,7 @@ class BuzzScreen extends Component {
     sideScroll() {
         setTimeout(() => {
             // x value will have to be variable according to screen sizes
-            this.state.sidescrollx >= 330 ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: 330 })
+            this.state.sidescrollx === 330 ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: 330 })
         }, 5000);
     }
 
