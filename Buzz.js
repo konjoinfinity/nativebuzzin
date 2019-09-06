@@ -29,7 +29,6 @@ class BuzzScreen extends Component {
             showHideOldBuzzes: false,
             sidescrollx: 0
         }
-        this.handleScroll = this.handleScroll.bind(this);
     };
 
     async componentDidMount() {
@@ -57,12 +56,6 @@ class BuzzScreen extends Component {
                 this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 300));
         Vibration.vibrate();
-    }
-
-    handleScroll(event) {
-        if (event.nativeEvent.contentOffset.x === 330 || event.nativeEvent.contentOffset.x === 0) {
-            this.setState({ sidescrollx: event.nativeEvent.contentOffset.x })
-        }
     }
 
     sideScroll() {
@@ -103,6 +96,7 @@ class BuzzScreen extends Component {
             }))
         var sevenArray = [], thirtyArray = []
         // create new array based on number of weeks
+        // There might be a cleaner way to do this, pushing each array in reverse into lastEightWeeks after looping
         var lastEightWeeks = [[], [], [], [], [], [], [], []]
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
@@ -111,7 +105,7 @@ class BuzzScreen extends Component {
                     if (drinkTime < 168) { lastEightWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
                     if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
                     // Change 8 to number of weeks we want to render in the historical chart
-                    // less than oldbuzzes[oldbuzzes.length - 1] loops until greater than array length 
+                    // less than oldbuzzes[oldbuzzes.length - 1] loops until greater than array length (number of sessions not weeks)
                     for (var i = 1; i < 8; i++) {
                         var low = 168 * i, high = 168 * (i + 1)
                         if (drinkTime >= low && drinkTime < high) { lastEightWeeks[i].push(oldbuzz) }
@@ -135,7 +129,11 @@ class BuzzScreen extends Component {
                 <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={this.handleScroll} scrollEventThrottle={16}>
+                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={(event) => {
+                            if (event.nativeEvent.contentOffset.x === 330 || event.nativeEvent.contentOffset.x === 0) {
+                                this.setState({ sidescrollx: event.nativeEvent.contentOffset.x })
+                            }
+                        }} scrollEventThrottle={16}>
                             <View>
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
