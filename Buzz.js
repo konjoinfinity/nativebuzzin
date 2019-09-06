@@ -66,6 +66,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        this.state.oldbuzzes !== null && console.log(this.state.oldbuzzes)
         let buzzes, oldbuzzes;
         this.state.buzzes !== null &&
             (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
@@ -94,33 +95,33 @@ class BuzzScreen extends Component {
                     )
                 })
             }))
-        var sevenArray = [], thirtyArray = []
-        // create new array based on number of weeks
-        // There might be a cleaner way to do this, pushing each array in reverse into lastEightWeeks after looping
-        var lastEightWeeks = [[], [], [], [], [], [], [], []]
+        var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = []
+        var numOfArrays = this.state.oldbuzzes !== null && Math.ceil(Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) / 168)
+        for (i = 1; i <= numOfArrays; i++) {
+            this.state.oldbuzzes !== null && lastWeeks.push([])
+        }
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
                     var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-                    if (drinkTime < 168) { lastEightWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
+                    if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
                     if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
-                    // Change 8 to number of weeks we want to render in the historical chart
-                    // less than oldbuzzes[oldbuzzes.length - 1] loops until greater than array length (number of sessions not weeks)
-                    for (var i = 1; i < 8; i++) {
+                    for (var i = 1; i < numOfArrays; i++) {
                         var low = 168 * i, high = 168 * (i + 1)
-                        if (drinkTime >= low && drinkTime < high) { lastEightWeeks[i].push(oldbuzz) }
+                        if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
                     }
                 })
             }))
+        for (i = 0; i < numOfArrays; i++) {
+            this.state.oldbuzzes !== null && weeksData.push(lastWeeks[i].length)
+        }
         var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
-        var eightWeeksData = [lastEightWeeks[0].length, lastEightWeeks[1].length, lastEightWeeks[2].length, lastEightWeeks[3].length,
-        lastEightWeeks[4].length, lastEightWeeks[5].length, lastEightWeeks[6].length, lastEightWeeks[7].length]
         const Labels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
                 <TextSVG key={index} x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                     alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>)))
-        const EightWeeksLabels = ({ x, y, data }) => (
+        const WeeksLabels = ({ x, y, data }) => (
             data.map((value, index) => (
                 <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                     textAnchor={'middle'}>{value}</TextSVG>)))
@@ -185,24 +186,24 @@ class BuzzScreen extends Component {
                             <View style={{ flexDirection: 'column', padding: 10 }}>
                                 <LineChart
                                     style={{ height: 200, width: 1000 }}
-                                    data={eightWeeksData}
+                                    data={weeksData}
                                     svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
                                     contentInset={{ top: 20, bottom: 10, left: 10, right: 10 }}
                                     animate={true}
                                     animationDuration={8000}
-                                    gridMax={Math.max(...eightWeeksData) + 6}
+                                    gridMax={Math.max(...weeksData) + 6}
                                     gridMin={0}
                                     horizontal={true}>
                                     <XAxis
                                         style={{ height: 30, width: 1000 }}
-                                        data={eightWeeksData}
+                                        data={weeksData}
                                         formatLabel={(index) => "Week " + (index + 1)}
                                         contentInset={{ left: 24, right: 24 }}
                                         svg={{ fontSize: 12 }}
                                         belowChart={true}
                                         ticks={4} />
                                     <Grid direction={Grid.Direction.HORIZONTAL} />
-                                    <EightWeeksLabels />
+                                    <WeeksLabels />
                                 </LineChart>
                                 <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Last Eight Weeks (Totals)</Text>
                             </View>
