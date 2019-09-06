@@ -187,7 +187,7 @@ class BuzzScreen extends Component {
                                     style={{ height: 200, width: 1000 }}
                                     data={weeksData}
                                     svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
-                                    contentInset={{ top: 20, bottom: 10, left: 10, right: 10 }}
+                                    contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
                                     animate={true}
                                     animationDuration={8000}
                                     gridMax={Math.max(...weeksData) + 6}
@@ -196,8 +196,8 @@ class BuzzScreen extends Component {
                                     <XAxis
                                         style={{ height: 30, width: 1000 }}
                                         data={weeksData}
-                                        formatLabel={(index) => "Week " + (index + 1)}
-                                        contentInset={{ left: 24, right: 24 }}
+                                        formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
+                                        contentInset={{ left: 30, right: 40 }}
                                         svg={{ fontSize: 12 }}
                                         belowChart={true}
                                         ticks={4} />
