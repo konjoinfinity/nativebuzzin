@@ -15,7 +15,7 @@ import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
 import { Text as TextSVG } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
-import { key, oldkey, loginTitle, loginButtonText, abvText } from "./Variables";
+import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey } from "./Variables";
 import styles from "./Styles"
 
 class BuzzScreen extends Component {
@@ -27,7 +27,8 @@ class BuzzScreen extends Component {
             timesince: null,
             showHideBuzzes: false,
             showHideOldBuzzes: false,
-            sidescrollx: 0
+            sidescrollx: 0,
+            gender: ""
         }
     };
 
@@ -48,6 +49,7 @@ class BuzzScreen extends Component {
                 }, 200);
             } else { this.setState({ oldbuzzes: null }) }
         })
+        await AsyncStorage.getItem(genderkey, (error, result) => { this.setState({ gender: JSON.parse(result) }) })
     }
 
     showHideBuzzes(statename) {
@@ -94,7 +96,8 @@ class BuzzScreen extends Component {
                     )
                 })
             }))
-        var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = []
+        var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = []
+        var maxrecgender = this.state.gender === "Male" ? 14 : 7
         var numOfArrays = this.state.oldbuzzes !== null && Math.ceil(Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) / 168)
         for (i = 1; i <= numOfArrays; i++) {
             this.state.oldbuzzes !== null && lastWeeks.push([])
@@ -113,6 +116,7 @@ class BuzzScreen extends Component {
             }))
         for (i = 0; i < numOfArrays; i++) {
             this.state.oldbuzzes !== null && weeksData.push(lastWeeks[i].length)
+            this.state.oldbuzzes !== null && maxrecdata.push(maxrecgender)
         }
         var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
@@ -124,6 +128,10 @@ class BuzzScreen extends Component {
             data.map((value, index) => (
                 <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                     textAnchor={'middle'}>{value}</TextSVG>)))
+        const MaxRecLabels = ({ x, y, data }) => (
+            data.map((value, index) => (
+                <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
+                    textAnchor={'middle'}>{"Max Recommended"}</TextSVG>)))
         return (
             <View>
                 <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
@@ -204,6 +212,18 @@ class BuzzScreen extends Component {
                                     <Grid direction={Grid.Direction.HORIZONTAL} />
                                     <WeeksLabels />
                                 </LineChart>
+                                <LineChart
+                                    style={{ position: "absolute", height: 200, width: 1000 }}
+                                    data={maxrecdata}
+                                    svg={{ stroke: "#AE0000", strokeWidth: 4, strokeOpacity: 0.8 }}
+                                    contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
+                                    animate={true}
+                                    animationDuration={8000}
+                                    gridMax={Math.max(...weeksData) + 6}
+                                    gridMin={0}
+                                    horizontal={true}>
+                                    <MaxRecLabels />
+                                    </LineChart>
                                 <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
                             </View>
                         </ScrollView>
