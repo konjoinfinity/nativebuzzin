@@ -1,3 +1,0 @@
-{ drinkType: "Beer", dateCreated: "2019-09-08T15:06:20.747Z", oz: 16, abv: 0.07 }, { drinkType: "Wine", dateCreated: "2019-09-08T15:16:20.747Z", oz: 5, abv: 0.12 }, { drinkType: "Beer", dateCreated: "2019-09-08T15:26:20.747Z", oz: 12, abv: 0.06 }, { drinkType: "Liquor", dateCreated: "2019-09-08T15:36:20.747Z", oz: 1.5, abv: 0.4 }
-
-{ drinkType: "Beer", dateCreated: "2019-08-30T15:06:20.747Z", oz: 16, abv: 0.07 }, { drinkType: "Wine", dateCreated: "2019-08-30T15:16:20.747Z", oz: 5, abv: 0.12 }, { drinkType: "Beer", dateCreated: "2019-08-30T15:26:20.747Z", oz: 12, abv: 0.06 }, { drinkType: "Liquor", dateCreated: "2019-08-30T15:36:20.747Z", oz: 1.5, abv: 0.4 }
