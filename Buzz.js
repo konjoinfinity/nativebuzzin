@@ -15,7 +15,7 @@ import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
 import { Text as TextSVG } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
-import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth } from "./Variables";
+import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt } from "./Variables";
 import styles from "./Styles"
 
 class BuzzScreen extends Component {
@@ -37,6 +37,7 @@ class BuzzScreen extends Component {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
+            console.log(result)
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) })
                 setTimeout(() => {
@@ -62,8 +63,7 @@ class BuzzScreen extends Component {
 
     sideScroll() {
         setTimeout(() => {
-            // x value will have to be variable according to screen sizes
-            this.state.sidescrollx === 330 ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: 330 })
+            this.state.sidescrollx === scrollToAmt ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
         }, 3000);
     }
 
@@ -145,7 +145,6 @@ class BuzzScreen extends Component {
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
                                         <BarChart
-                                            // width will have to be variable according to screen sizes
                                             style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }}
                                             data={sevenData}
                                             svg={{ fill: weekColor, fillOpacity: 0.8 }}
@@ -167,7 +166,6 @@ class BuzzScreen extends Component {
                                     </View>
                                     <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
                                         <BarChart
-                                            // width will have to be variable according to screen sizes
                                             style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }}
                                             data={thirtyData}
                                             svg={{ fill: monthColor, fillOpacity: 0.8 }}
