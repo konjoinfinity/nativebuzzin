@@ -136,7 +136,7 @@ class BuzzScreen extends Component {
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={(event) => {
-                            if (event.nativeEvent.contentOffset.x === 330 || event.nativeEvent.contentOffset.x === 0) {
+                            if (event.nativeEvent.contentOffset.x === scrollToAmt || event.nativeEvent.contentOffset.x === 0) {
                                 this.setState({ sidescrollx: event.nativeEvent.contentOffset.x })
                             }
                         }} scrollEventThrottle={16}>
