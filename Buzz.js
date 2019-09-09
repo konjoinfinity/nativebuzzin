@@ -15,7 +15,7 @@ import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
 import { Text as TextSVG } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
-import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey } from "./Variables";
+import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth } from "./Variables";
 import styles from "./Styles"
 
 class BuzzScreen extends Component {
@@ -129,7 +129,7 @@ class BuzzScreen extends Component {
                 <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                     textAnchor={'middle'}>{value}</TextSVG>)))
         const MaxRecLabel = ({ x, y }) => (
-            <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 10} fontSize={16} fill={'black'} alignmentBaseline={'right'}
+            <TextSVG key={0} x={x(0)} y={Math.max(...weeksData) >= maxrecgender ? y(maxrecgender) - 10 : y(maxrecgender) + 15} fontSize={16} fill={'black'} alignmentBaseline={'right'}
                 textAnchor={'right'} fillOpacity={0.5}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
         return (
             <View>
@@ -146,7 +146,7 @@ class BuzzScreen extends Component {
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
                                         <BarChart
                                             // width will have to be variable according to screen sizes
-                                            style={{ flex: 1, padding: 10, height: 200, width: 150 }}
+                                            style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }}
                                             data={sevenData}
                                             svg={{ fill: weekColor, fillOpacity: 0.8 }}
                                             contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -168,7 +168,7 @@ class BuzzScreen extends Component {
                                     <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
                                         <BarChart
                                             // width will have to be variable according to screen sizes
-                                            style={{ flex: 1, padding: 10, height: 200, width: 150 }}
+                                            style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }}
                                             data={thirtyData}
                                             svg={{ fill: monthColor, fillOpacity: 0.8 }}
                                             contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -211,7 +211,6 @@ class BuzzScreen extends Component {
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
-                                        // conditional for Math.max(...weeksData) above a certain amount 
                                         style={{ position: "absolute", height: 200, width: 1000 }}
                                         data={maxrecdata}
                                         svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3 }}
