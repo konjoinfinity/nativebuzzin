@@ -129,7 +129,7 @@ class BuzzScreen extends Component {
                 <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                     textAnchor={'middle'}>{value}</TextSVG>)))
         const MaxRecLabel = ({ x, y }) => (
-            <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 20} fontSize={18} fill={'black'} alignmentBaseline={'right'}
+            <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 20} fontSize={16} fill={'black'} alignmentBaseline={'right'}
                 textAnchor={'right'}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
         return (
             <View>
@@ -212,7 +212,7 @@ class BuzzScreen extends Component {
                                 <LineChart
                                     style={{ position: "absolute", height: 200, width: 1000 }}
                                     data={maxrecdata}
-                                    svg={{ stroke: "#AE0000", strokeWidth: 4, strokeOpacity: 0.5 }}
+                                    svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.5 }}
                                     contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
                                     gridMax={Math.max(...weeksData) + 6}
                                     gridMin={0}
