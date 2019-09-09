@@ -126,10 +126,10 @@ class BuzzScreen extends Component {
                     alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>)))
         const WeeksLabels = ({ x, y, data }) => (
             data.map((value, index) => (
-                <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
-                    textAnchor={'middle'}>{value}</TextSVG>)))
+                    <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
+                        textAnchor={'middle'}>{value}</TextSVG>)))
         const MaxRecLabel = ({ x, y }) => (
-            <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 10} fontSize={18} fill={'black'} alignmentBaseline={'right'}
+            <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 20} fontSize={18} fill={'black'} alignmentBaseline={'right'}
                 textAnchor={'right'}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
         return (
             <View>
