@@ -126,8 +126,8 @@ class BuzzScreen extends Component {
                     alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>)))
         const WeeksLabels = ({ x, y, data }) => (
             data.map((value, index) => (
-                    <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
-                        textAnchor={'middle'}>{value}</TextSVG>)))
+                <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
+                    textAnchor={'middle'}>{value}</TextSVG>)))
         const MaxRecLabel = ({ x, y }) => (
             <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 20} fontSize={18} fill={'black'} alignmentBaseline={'right'}
                 textAnchor={'right'}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
@@ -195,8 +195,6 @@ class BuzzScreen extends Component {
                                     data={weeksData}
                                     svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
                                     contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
-                                    animate={true}
-                                    animationDuration={8000}
                                     gridMax={Math.max(...weeksData) + 6}
                                     gridMin={0}
                                     horizontal={true}>
@@ -216,8 +214,6 @@ class BuzzScreen extends Component {
                                     data={maxrecdata}
                                     svg={{ stroke: "#AE0000", strokeWidth: 4, strokeOpacity: 0.5 }}
                                     contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
-                                    animate={true}
-                                    animationDuration={8000}
                                     gridMax={Math.max(...weeksData) + 6}
                                     gridMin={0}
                                     horizontal={true}>
