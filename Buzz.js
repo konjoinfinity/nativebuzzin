@@ -195,7 +195,7 @@ class BuzzScreen extends Component {
                                         style={{ height: 200, width: 1000 }}
                                         data={weeksData}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
-                                        contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
+                                        contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
                                         gridMax={Math.max(...weeksData) + 6}
                                         gridMin={0}
                                         horizontal={true}>
@@ -211,10 +211,11 @@ class BuzzScreen extends Component {
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
+                                        // conditional for Math.max(...weeksData) above a certain amount 
                                         style={{ position: "absolute", height: 200, width: 1000 }}
                                         data={maxrecdata}
                                         svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3 }}
-                                        contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
+                                        contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
                                         gridMax={Math.max(...weeksData) + 6}
                                         gridMin={0}
                                         horizontal={true}>
