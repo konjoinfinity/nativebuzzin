@@ -99,7 +99,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     numberInputSize = 280
     loginTitle = 32
     barChartWidth = 120
-    scrollToAmt = 330
+    scrollToAmt = 280
 } else if (screenWidth <= 600) {
     console.log("less than 600")
     gaugeSize = 230
@@ -120,7 +120,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     numberInputSize = 120
     loginTitle = 17
     barChartWidth = 120
-    scrollToAmt = 330
+    scrollToAmt = 280
 } else if (screenWidth === 720 && screenHeight === 1280) {
     console.log("720x1280")
     gaugeSize = 320
@@ -141,7 +141,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     numberInputSize = 200
     loginTitle = 25
     barChartWidth = 120
-    scrollToAmt = 330
+    scrollToAmt = 280
 } else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
     console.log("greater than 600 & less than 750")
     gaugeSize = 295
@@ -162,7 +162,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     numberInputSize = 135
     loginTitle = 25
     barChartWidth = 120
-    scrollToAmt = 330
+    scrollToAmt = 280
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
     console.log("768 or equal to 1080 x 1776")
     gaugeSize = 300
