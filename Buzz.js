@@ -37,7 +37,6 @@ class BuzzScreen extends Component {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
-            console.log(result)
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) })
                 setTimeout(() => {

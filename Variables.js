@@ -225,7 +225,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     numberInputSize = 270
     loginTitle = 30
     barChartWidth = 168
-    scrollToAmt = 330
+    scrollToAmt = 365
 } else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
     console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
     gaugeSize = 380
