@@ -191,7 +191,7 @@ class BuzzScreen extends Component {
                                     <LineChart
                                         style={{ height: 200, width: 1000 }}
                                         data={weeksData}
-                                        svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
+                                        svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
                                         gridMax={Math.max(...weeksData) + 6}
                                         gridMin={0}
@@ -210,7 +210,7 @@ class BuzzScreen extends Component {
                                     <LineChart
                                         style={{ position: "absolute", height: 200, width: 1000 }}
                                         data={maxrecdata}
-                                        svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 4] }}
+                                        svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 4], strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
                                         gridMax={Math.max(...weeksData) + 6}
                                         gridMin={0}
