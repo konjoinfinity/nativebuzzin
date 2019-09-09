@@ -13,9 +13,7 @@ class AuthLoadScreen extends React.Component {
     async bootstrapAsync() {
         // Checks the name from device storage
         const namekey = "name"
-        const user = await AsyncStorage.getItem(namekey, (error, result) => {
-        })
-        // If there is a name, the app loads the App stack (HomeScreen), if not the app loads the Auth stack (LoginScreen)
+        const user = await AsyncStorage.getItem(namekey)
         this.props.navigation.navigate(user ? 'App' : 'Auth');
     };
 
