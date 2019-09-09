@@ -189,38 +189,39 @@ class BuzzScreen extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <View style={{ flexDirection: 'column', padding: 10 }}>
-                                <LineChart
-                                    style={{ height: 200, width: 1000 }}
-                                    data={weeksData}
-                                    svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
-                                    contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
-                                    gridMax={Math.max(...weeksData) + 6}
-                                    gridMin={0}
-                                    horizontal={true}>
-                                    <XAxis
-                                        style={{ height: 30, width: 1000 }}
+                            {weeksData.length > 1 &&
+                                <View style={{ flexDirection: 'column', padding: 10 }}>
+                                    <LineChart
+                                        style={{ height: 200, width: 1000 }}
                                         data={weeksData}
-                                        formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
-                                        contentInset={{ left: 30, right: 40 }}
-                                        svg={{ fontSize: 12 }}
-                                        belowChart={true}
-                                        ticks={4} />
-                                    <Grid direction={Grid.Direction.HORIZONTAL} />
-                                    <WeeksLabels />
-                                </LineChart>
-                                <LineChart
-                                    style={{ position: "absolute", height: 200, width: 1000 }}
-                                    data={maxrecdata}
-                                    svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3 }}
-                                    contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
-                                    gridMax={Math.max(...weeksData) + 6}
-                                    gridMin={0}
-                                    horizontal={true}>
-                                    <MaxRecLabel />
-                                </LineChart>
-                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
-                            </View>
+                                        svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8 }}
+                                        contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
+                                        gridMax={Math.max(...weeksData) + 6}
+                                        gridMin={0}
+                                        horizontal={true}>
+                                        <XAxis
+                                            style={{ height: 30, width: 1000 }}
+                                            data={weeksData}
+                                            formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
+                                            contentInset={{ left: 30, right: 40 }}
+                                            svg={{ fontSize: 12 }}
+                                            belowChart={true}
+                                            ticks={4} />
+                                        <Grid direction={Grid.Direction.HORIZONTAL} />
+                                        <WeeksLabels />
+                                    </LineChart>
+                                    <LineChart
+                                        style={{ position: "absolute", height: 200, width: 1000 }}
+                                        data={maxrecdata}
+                                        svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3 }}
+                                        contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
+                                        gridMax={Math.max(...weeksData) + 6}
+                                        gridMin={0}
+                                        horizontal={true}>
+                                        <MaxRecLabel />
+                                    </LineChart>
+                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
+                                </View>}
                         </ScrollView>
                     </View>
                     {this.state.buzzes !== null &&
