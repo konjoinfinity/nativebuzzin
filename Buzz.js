@@ -64,7 +64,7 @@ class BuzzScreen extends Component {
         setTimeout(() => {
             // x value will have to be variable according to screen sizes
             this.state.sidescrollx === 330 ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: 330 })
-        }, 5000);
+        }, 3000);
     }
 
     render() {
@@ -129,8 +129,8 @@ class BuzzScreen extends Component {
                 <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                     textAnchor={'middle'}>{value}</TextSVG>)))
         const MaxRecLabel = ({ x, y }) => (
-            <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 20} fontSize={16} fill={'black'} alignmentBaseline={'right'}
-                textAnchor={'right'}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
+            <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 10} fontSize={16} fill={'black'} alignmentBaseline={'right'}
+                textAnchor={'right'} fillOpacity={0.5}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
@@ -212,7 +212,7 @@ class BuzzScreen extends Component {
                                 <LineChart
                                     style={{ position: "absolute", height: 200, width: 1000 }}
                                     data={maxrecdata}
-                                    svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.5 }}
+                                    svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3 }}
                                     contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
                                     gridMax={Math.max(...weeksData) + 6}
                                     gridMin={0}
