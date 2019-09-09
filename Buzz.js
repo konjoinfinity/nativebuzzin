@@ -128,10 +128,9 @@ class BuzzScreen extends Component {
             data.map((value, index) => (
                 <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                     textAnchor={'middle'}>{value}</TextSVG>)))
-        const MaxRecLabels = ({ x, y, data }) => (
-            data.map((value, index) => (
-                <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
-                    textAnchor={'middle'}>{"Max Recommended"}</TextSVG>)))
+        const MaxRecLabel = ({ x, y }) => (
+            <TextSVG key={0} x={x(0)} y={y(maxrecgender) - 10} fontSize={18} fill={'black'} alignmentBaseline={'right'}
+                textAnchor={'right'}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
@@ -215,15 +214,15 @@ class BuzzScreen extends Component {
                                 <LineChart
                                     style={{ position: "absolute", height: 200, width: 1000 }}
                                     data={maxrecdata}
-                                    svg={{ stroke: "#AE0000", strokeWidth: 4, strokeOpacity: 0.8 }}
+                                    svg={{ stroke: "#AE0000", strokeWidth: 4, strokeOpacity: 0.5 }}
                                     contentInset={{ top: 20, bottom: 10, left: 20, right: 20 }}
                                     animate={true}
                                     animationDuration={8000}
                                     gridMax={Math.max(...weeksData) + 6}
                                     gridMin={0}
                                     horizontal={true}>
-                                    <MaxRecLabels />
-                                    </LineChart>
+                                    <MaxRecLabel />
+                                </LineChart>
                                 <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
                             </View>
                         </ScrollView>
