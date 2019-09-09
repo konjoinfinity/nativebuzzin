@@ -128,7 +128,7 @@ class BuzzScreen extends Component {
                 <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                     textAnchor={'middle'}>{value}</TextSVG>)))
         const MaxRecLabel = ({ x, y }) => (
-            <TextSVG key={0} x={x(0)} y={Math.max(...weeksData) >= maxrecgender ? y(maxrecgender) - 10 : y(maxrecgender) + 20} fontSize={16} fill={'black'} alignmentBaseline={'right'}
+            <TextSVG key={0} x={x(0) + 35} y={Math.max(...weeksData) >= maxrecgender ? y(maxrecgender) - 10 : y(maxrecgender) + 20} fontSize={16} fill={'black'} alignmentBaseline={'right'}
                 textAnchor={'right'} fillOpacity={0.5}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
         return (
             <View>
