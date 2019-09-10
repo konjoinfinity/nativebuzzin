@@ -121,7 +121,7 @@ class BuzzScreen extends Component {
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
         const Labels = ({ x, y, bandwidth, data }) => (
             data.map((value, index) => (
-                <TextSVG key={index} x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
+                <TextSVG key={index} key={index} x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                     alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>)))
         const WeeksLabels = ({ x, y, data }) => (
             data.map((value, index) => (
