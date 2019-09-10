@@ -19,7 +19,7 @@ import { Functions } from "./Functions";
 import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt } from "./Variables";
 import styles from "./Styles"
 
-// Main ProfileScreen component
+// Main BuzzScreen component
 class BuzzScreen extends Component {
     constructor(props) {
         super(props);
@@ -35,27 +35,34 @@ class BuzzScreen extends Component {
     };
 
     async componentDidMount() {
+        // Getting current buzz data from asyncstorage, writing to state if present otherwise set to null
         await AsyncStorage.getItem(key, (error, result) => {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })
         })
+        // Getting and writing oldbuzz data from asyncstorage to state, if not present set oldbuzzes to null
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) })
                 // Checking the current break time using the timestamp and setting the breaktime state, because oldbuzzes are arrays 
-                // within an array, the syntax is oldbuzzes[0][0].dateCreated
+                // within an array, the syntax is this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated
                 setTimeout(() => {
                     var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
                     var currentDate = new Date();
                     var date2 = currentDate.getTime();
                     var dayHourMin = Functions.getDayHourMin(date1, date2);
                     var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
+                    // Setting time since string to state for conditional rendering
                     this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds` })
                 }, 200);
             } else { this.setState({ oldbuzzes: null }) }
         })
+        // Getting gender data from state, writing result to state for usage later
         await AsyncStorage.getItem(genderkey, (error, result) => { this.setState({ gender: JSON.parse(result) }) })
     }
 
+    // Variable show hide for buzzes and old buzzes.  By passing in the name, we specify either buzzes/oldbuzzes.
+    // prevState sets the [statename] to the opposite true/false.  After a timeout delay has completed the scrollview
+    // autoscrolls to either y position 400 or 0 depending on true/false state.  Lastly vibration for user feedback.
     showHideBuzzes(statename) {
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => {
             this.state[statename] === true ?
@@ -64,6 +71,8 @@ class BuzzScreen extends Component {
         Vibration.vibrate();
     }
 
+    // sideScroll is an autoscroll feature for the horizontal chart scrollview.  It scrolls to left/right to 0 or scrollToAmt (set
+    // by Variables - based on screen size after a 3 second delay)
     sideScroll() {
         setTimeout(() => {
             this.state.sidescrollx === scrollToAmt ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
