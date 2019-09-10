@@ -182,6 +182,12 @@ class HomeScreen extends Component {
         }
     }
 
+    // The addDrink method creates a new drink object {drinkType (Beer, Wine, Liquor), dateCreated (Current Timestamp),
+    // oz (number of ounces), and abv (alcoholic content)}  The drink object is added to the buzz array
+    // The checkBac method is called as the callback to the setstate function, saveBuzz is then called to write the 
+    // new current buzz state to device storage. Dropdown conditionals are triggered if bac is 0.04-0.08. A full
+    // screen modal is triggered if the bac is above 0.08 (yellow warning) and when the bac is above 0.10 a (red danger) modal is
+    // triggered.
     async addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();

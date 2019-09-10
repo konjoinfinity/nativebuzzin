@@ -3,6 +3,8 @@ import moment from "moment";
 
 export class Functions {
 
+    // The getDayHourMin passes in two timestamps (dates) and calculates the duration between the two
+    // returns the values in and array of [days, hours, minutes, seconds]
     static getDayHourMin(date1, date2) {
         var dateDiff = date2 - date1;
         dateDiff = dateDiff / 1000;
@@ -15,6 +17,9 @@ export class Functions {
         return [days, hours, minutes, seconds];
     }
 
+    // The singleDuration method takes a timestamp argument of the first drink in the current buzz array
+    // It calculates the duration between that timestamp and the a current timestamp (when the function is run)
+    // The duration is calculated and the value is returned in hours, (this utlilizes the getDayHourMin method)
     static singleDuration(initialbuzz) {
         var date1 = Date.parse(initialbuzz), duration, currentDate = new Date();
         var date2 = currentDate.getTime();
@@ -36,6 +41,11 @@ export class Functions {
         return durations;
     };
 
+    // varGetBAC (VariableGetBAC) This method is the most important part of the app paried with the two methods (getDayHourMin & singleDuration)
+    // It takes weight (user weight), gender (user gender), hours (duration elapsed since the first drink was added),
+    // and buzz (this.state.buzz - buzz array) as parameters.  Distribution is different depending on the user gender.
+    // The method then loops through the current buzz array and calculates the total bac based on each variable drink
+    // type, abv, and ounce size.  Returns the total bac 
     static varGetBAC(weight, gender, hours, buzz) {
         var distribution, drinkTotal, totalAlc, totalArray = [];
         if (gender === "Female") { distribution = 0.66 }
