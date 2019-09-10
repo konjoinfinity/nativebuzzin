@@ -245,8 +245,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 25
     numberInputSize = 230
     loginTitle = 30
-    barChartWidth = 150
-    scrollToAmt = 330
+    barChartWidth = 168
+    scrollToAmt = 365
 } else if (screenWidth === 1080 && screenHeight === 2028) {
     console.log("1080 x 2028")
     gaugeSize = 365
@@ -266,8 +266,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 25
     numberInputSize = 230
     loginTitle = 30
-    barChartWidth = 150
-    scrollToAmt = 330
+    barChartWidth = 160
+    scrollToAmt = 360
 } else if (screenWidth === 1125) {
     console.log("1125")
     gaugeSize = 350
@@ -329,7 +329,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 26
     numberInputSize = 260
     loginTitle = 32
-    barChartWidth = 150
+    barChartWidth = 165
     scrollToAmt = 360
 } else if (screenWidth === 1440 && screenHeight === 2768) {
     console.log("1440x2768")
@@ -350,7 +350,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 24
     numberInputSize = 230
     loginTitle = 28
-    barChartWidth = 150
+    barChartWidth = 165
     scrollToAmt = 360
 } else if (screenWidth === 1440 && screenHeight !== 2712) {
     console.log("1440")
@@ -371,7 +371,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 24
     numberInputSize = 230
     loginTitle = 28
-    barChartWidth = 150
+    barChartWidth = 165
     scrollToAmt = 360
 } else if (screenWidth > 1125) {
     console.log("greater than 1125")
@@ -392,7 +392,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 26
     numberInputSize = 260
     loginTitle = 30
-    barChartWidth = 150
+    barChartWidth = 165
     scrollToAmt = 360
 } else {
     console.log("other size")
@@ -413,7 +413,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 22
     numberInputSize = 220
     loginTitle = 28
-    barChartWidth = 150
+    barChartWidth = 165
     scrollToAmt = 360
 }
 
