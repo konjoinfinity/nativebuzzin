@@ -97,9 +97,9 @@ class HomeScreen extends Component {
             }
         })
         // To seed data, comment out just this function and add data to the buzz array
-        await AsyncStorage.getItem(key, (error, result) => {
-            result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: [] })
-        })
+        // await AsyncStorage.getItem(key, (error, result) => {
+        //     result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: [] })
+        // })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             result !== null && result !== "[]" ? this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac()) :
                 this.setState({ oldbuzzes: [] }, () => this.checkBac())
@@ -164,7 +164,11 @@ class HomeScreen extends Component {
     async addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
-        this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
+        this.setState(prevState => ({
+            buzzes: [...prevState.buzzes, {
+                drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv
+            }]
+        }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
             this.flashWarning();
