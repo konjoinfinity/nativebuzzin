@@ -140,8 +140,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 18
     numberInputSize = 200
     loginTitle = 25
-    barChartWidth = 120
-    scrollToAmt = 280
+    barChartWidth = 145
+    scrollToAmt = 325
 } else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
     console.log("greater than 600 & less than 750")
     gaugeSize = 295
