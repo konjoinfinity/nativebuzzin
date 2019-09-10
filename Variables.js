@@ -161,8 +161,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 15
     numberInputSize = 135
     loginTitle = 25
-    barChartWidth = 120
-    scrollToAmt = 280
+    barChartWidth = 145
+    scrollToAmt = 325
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
     console.log("768 or equal to 1080 x 1776")
     gaugeSize = 300
@@ -182,9 +182,13 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 16
     numberInputSize = 160
     loginTitle = 22
-    // Will have to make conditional for these
-    barChartWidth = 145
-    scrollToAmt = 325
+    if (screenHeight === 1184) {
+        barChartWidth = 150
+        scrollToAmt = 330
+    } else {
+        barChartWidth = 145
+        scrollToAmt = 325
+    }
 } else if (screenWidth >= 750 && screenWidth < 828) {
     console.log("greater or equal to 750 & less than 828")
     gaugeSize = 350
