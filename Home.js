@@ -164,11 +164,7 @@ class HomeScreen extends Component {
     async addDrink() {
         Vibration.vibrate();
         var drinkDate = new Date();
-        this.setState(prevState => ({
-            buzzes: [...prevState.buzzes, {
-                drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv
-            }]
-        }), () => this.checkBac())
+        this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
             this.flashWarning();
@@ -235,13 +231,8 @@ class HomeScreen extends Component {
 
     countdownBac() {
         let bacTimer;
-        if (this.state.countdown === true) {
-            bacTimer = setInterval(() => this.checkBac(), 500);
-            this.setState({ timer: bacTimer })
-        } else if (this.state.countdown === false) {
-            clearInterval(this.state.timer)
-            setTimeout(() => this.setState({ timer: "" }), 200);
-        }
+        if (this.state.countdown === true) { bacTimer = setInterval(() => this.checkBac(), 500), this.setState({ timer: bacTimer }) }
+        else if (this.state.countdown === false) { clearInterval(this.state.timer), setTimeout(() => this.setState({ timer: "" }), 200) }
     }
 
     async moveToOld() {
@@ -251,9 +242,7 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null && result !== "[]") {
-                setTimeout(() => { this.setState({ oldbuzzes: JSON.parse(result) }) }, 200);
-            }
+            if (result !== null && result !== "[]") { setTimeout(() => { this.setState({ oldbuzzes: JSON.parse(result) }) }, 200) }
         })
         if (this.state.autobreak === true && autobreakcheck === true) {
             var autoBreakDate = new Date();
