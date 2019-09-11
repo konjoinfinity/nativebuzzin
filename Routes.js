@@ -11,21 +11,13 @@ import DemoScreen from './Demo';
 const AppStack = createStackNavigator({
     MyTab: {
         screen: createBottomTabNavigator(
-            {
-                Home: HomeScreen,
-                Buzz: BuzzScreen,
-                Profile: ProfileScreen,
-                Demo: DemoScreen
-            },
+            { Home: HomeScreen, Buzz: BuzzScreen, Profile: ProfileScreen, Demo: DemoScreen },
             {
                 defaultNavigationOptions: ({ navigation }) => ({
                     tabBarIcon: ({ horizontal, tintColor }) => {
                         const { routeName } = navigation.state;
                         let iconName;
-                        if (routeName === 'Home') { iconName = `🏠` }
-                        else if (routeName === 'Buzz') { iconName = `🍺` }
-                        else if (routeName === 'Profile') { iconName = `👤` }
-                        else if (routeName === 'Demo') { iconName = `📋` }
+                        routeName === 'Home' ? iconName = `🏠` : routeName === 'Buzz' ? iconName = `🍺` : routeName === 'Profile' ? iconName = `👤` : iconName = `📋`
                         Vibration.vibrate();
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;
                     }
@@ -44,9 +36,7 @@ const AppStack = createStackNavigator({
     }
 }, { headerLayoutPreset: 'center' })
 
-const AuthStack = createStackNavigator({
-    Login: LoginScreen,
-},
+const AuthStack = createStackNavigator({ Login: LoginScreen },
     {
         initialRouteName: 'Login',
         headerLayoutPreset: 'center',
@@ -57,12 +47,6 @@ const AuthStack = createStackNavigator({
     });
 
 export default createAppContainer(createSwitchNavigator(
-    {
-        AuthLoad: AuthLoadScreen,
-        App: AppStack,
-        Auth: AuthStack,
-    },
-    {
-        initialRouteName: 'AuthLoad',
-    }
+    { AuthLoad: AuthLoadScreen, App: AppStack, Auth: AuthStack },
+    { initialRouteName: 'AuthLoad' }
 ));

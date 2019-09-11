@@ -70,7 +70,7 @@ class ProfileScreen extends Component {
             var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
             if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
             if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
-            Vibration.vibrate(), this.setState({ break: true, breakdate: breakDate })
+            Vibration.vibrate(); this.setState({ break: true, breakdate: breakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
         if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak() }
@@ -102,9 +102,7 @@ class ProfileScreen extends Component {
         if (this.state[setstatename] === false) { this.setState({ [setstatename]: true }) }
     }
 
-    async saveSwitches(statevalue, keyvalue) {
-        await AsyncStorage.setItem(keyvalue, JSON.stringify(statevalue))
-    }
+    async saveSwitches(statevalue, keyvalue) { await AsyncStorage.setItem(keyvalue, JSON.stringify(statevalue)) }
 
     changeBac(increment, statename, keyvalue) {
         if (increment === "up") {
@@ -119,13 +117,9 @@ class ProfileScreen extends Component {
         }
     }
 
-    async saveValues(statename, keyvalue) {
-        await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
-    }
+    async saveValues(statename, keyvalue) { await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename])) }
 
-    showHideSetting(statename) {
-        this.setState(prevState => ({ [statename]: !prevState[statename] }))
-    }
+    showHideSetting(statename) { this.setState(prevState => ({ [statename]: !prevState[statename] })) }
 
     render() {
         var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150

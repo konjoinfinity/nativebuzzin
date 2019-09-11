@@ -24,13 +24,9 @@ class DemoScreen extends Component {
         }
     };
 
-    async componentDidMount() {
-        setTimeout(() => { this.checkBac() }, 200);
-    }
+    async componentDidMount() { setTimeout(() => { this.checkBac() }, 200) }
 
-    handleModal(number) {
-        Vibration.vibrate(); this.setState({ [number]: !this.state[number] });
-    }
+    handleModal(number) { Vibration.vibrate(); this.setState({ [number]: !this.state[number] }) }
 
     addDrink() {
         Vibration.vibrate();
@@ -69,9 +65,7 @@ class DemoScreen extends Component {
         else if (this.state.countdown === false) { clearInterval(this.state.timer); setTimeout(() => this.setState({ timer: "" }), 200) }
     }
 
-    async clearDrinks() {
-        Vibration.vibrate(); this.setState({ testbuzzes: [], bac: 0.0 })
-    }
+    async clearDrinks() { Vibration.vibrate(); this.setState({ testbuzzes: [], bac: 0.0 }) }
 
     switchGender() {
         Vibration.vibrate();

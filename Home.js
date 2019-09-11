@@ -83,13 +83,9 @@ class HomeScreen extends Component {
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
     }
 
-    componentWillUnmount() {
-        this.props.copilotEvents.off('stop'); clearInterval(this.state.timer); clearInterval(this.state.flashtimer)
-    }
+    componentWillUnmount() { this.props.copilotEvents.off('stop'); clearInterval(this.state.timer); clearInterval(this.state.flashtimer) }
 
-    handleModal(number) {
-        Vibration.vibrate(), this.setState({ [number]: !this.state[number] });
-    }
+    handleModal(number) { Vibration.vibrate(), this.setState({ [number]: !this.state[number] }) }
 
     handleStepChange = (step) => {
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
@@ -116,12 +112,10 @@ class HomeScreen extends Component {
     }
 
     async addDrink() {
-        Vibration.vibrate();
-        var drinkDate = new Date();
+        Vibration.vibrate(); var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
-            this.saveBuzz();
-            this.flashWarning();
+            this.saveBuzz(); this.flashWarning();
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
                 AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone! Please drink some water.");
             }
@@ -212,10 +206,8 @@ class HomeScreen extends Component {
     }
 
     async clearDrinks() {
-        Vibration.vibrate();
-        await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0 }) })
-        clearInterval(this.state.flashtimer)
-        this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
+        Vibration.vibrate(); await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0 }) });
+        clearInterval(this.state.flashtimer); this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
     }
 
     async undoLastDrink() {

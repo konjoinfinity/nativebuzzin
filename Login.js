@@ -17,14 +17,11 @@ class LoginScreen extends React.Component {
         };
     }
 
-    componentDidMount() {
-        Vibration.vibrate();
-    }
+    componentDidMount() { Vibration.vibrate() }
 
     handleModal() {
         Vibration.vibrate();
-        if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
-        else { Vibration.vibrate(); Alert.alert("Please Enter Name") }
+        this.state.name !== "" ? this.setState({ modal: !this.state.modal }) : Vibration.vibrate(); Alert.alert("Please Enter Name")
     }
 
     switchGender() {
