@@ -88,9 +88,7 @@ class HomeScreen extends Component {
                     if (days + hours + minutes + seconds < 0) {
                         if (this.state.autobreak === true) {
                             var stopBreak5pm = moment(new Date()).local().hours()
-                            if (stopBreak5pm >= 17) {
-                                this.stopBreak("break")
-                            }
+                            if (stopBreak5pm >= 17) { this.stopBreak("break") }
                         } else if (this.state.autobreak === false) { this.stopBreak("break") }
                     }
                 }, 100);
@@ -107,10 +105,7 @@ class HomeScreen extends Component {
         const login = this.props.navigation.getParam('login');
         if (login === true) {
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
-            setTimeout(() => {
-                this.props.start();
-                this.props.navigation.setParams({ login: false });
-            }, 1000);
+            setTimeout(() => { this.props.start(), this.props.navigation.setParams({ login: false }) }, 1000);
         }
         setTimeout(() => {
             this.setState({ focus: true }, () => this.checkBac())
@@ -122,23 +117,18 @@ class HomeScreen extends Component {
     }
 
     componentWillUnmount() {
-        this.props.copilotEvents.off('stop');
-        clearInterval(this.state.timer)
-        clearInterval(this.state.flashtimer)
+        this.props.copilotEvents.off('stop'), clearInterval(this.state.timer), clearInterval(this.state.flashtimer)
     }
 
     handleModal(number) {
-        Vibration.vibrate();
-        this.setState({ [number]: !this.state[number] });
+        Vibration.vibrate(), this.setState({ [number]: !this.state[number] });
     }
 
     handleStepChange = (step) => {
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
-            var timerAdd = setInterval(() => this.addDrink(), 1000);
+            var timerAdd = setInterval(() => this.addDrink(), 1000)
             setTimeout(() => { clearInterval(timerAdd) }, 2100);
-            if (step.order === 1 || step.order === 2 || step.order === 3) {
-                setTimeout(() => { this.clearDrinks() }, 3000);
-            }
+            if (step.order === 1 || step.order === 2 || step.order === 3) { setTimeout(() => { this.clearDrinks() }, 3000) }
         }
         if (step.order === 4) {
             setTimeout(() => { this.setState({ alctype: "Wine" }) }, 1000);
@@ -155,10 +145,7 @@ class HomeScreen extends Component {
             setTimeout(() => { this.setState({ oz: 20 }) }, 2000);
             setTimeout(() => { this.setState({ oz: 12 }) }, 3000);
         }
-        if (step.order === 8) {
-            setTimeout(() => { this.undoLastDrink() }, 1000);
-            setTimeout(() => { this.clearDrinks() }, 2000);
-        }
+        if (step.order === 8) { setTimeout(() => { this.undoLastDrink() }, 1000), setTimeout(() => { this.clearDrinks() }, 2000) }
     }
 
     async addDrink() {
@@ -187,8 +174,7 @@ class HomeScreen extends Component {
         if (this.state.bac > this.state.threshold) { await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true)) }
         if (this.state.cutoff === true) {
             if (this.state.bac > this.state.cutoffbac || this.state.buzzes.length >= this.state.drinks) {
-                this.setState({ showcutoff: true })
-                await AsyncStorage.setItem(showcutoffkey, JSON.stringify(true))
+                this.setState({ showcutoff: true }), await AsyncStorage.setItem(showcutoffkey, JSON.stringify(true))
             }
         }
     }
@@ -201,8 +187,7 @@ class HomeScreen extends Component {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
                 if (totalBac < 0.06 && this.state.flashtext === true) {
-                    clearInterval(this.state.flashtimer)
-                    this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
+                    clearInterval(this.state.flashtimer), this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
                 }
                 if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
             } else {
@@ -313,27 +298,21 @@ class HomeScreen extends Component {
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
             <View>
-                <Modal animationType="slide"
-                    transparent={false}
-                    visible={this.state.modal1}>
+                <Modal animationType="slide" transparent={false} visible={this.state.modal1}>
                     <ScrollView style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         {warnText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <TouchableOpacity style={styles.warnOkButton}
-                                onPress={() => { this.handleModal("modal1") }}>
+                            <TouchableOpacity style={styles.warnOkButton} onPress={() => { this.handleModal("modal1") }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
                 </Modal>
-                <Modal animationType="slide"
-                    transparent={false}
-                    visible={this.state.modal2}>
+                <Modal animationType="slide" transparent={false} visible={this.state.modal2}>
                     <ScrollView style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
                         {dangerText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <TouchableOpacity style={styles.dangerOkButton}
-                                onPress={() => { this.handleModal("modal2") }}>
+                            <TouchableOpacity style={styles.dangerOkButton} onPress={() => { this.handleModal("modal2") }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity>
                         </View>
@@ -344,10 +323,8 @@ class HomeScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="These tick marks show the optimal buzz range." order={3} name="ticks">
                             <CopilotView>
-                                {this.state.bac > 0.06 ?
-                                    <Text style={{ fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>WARNING              STOP              DRINKING</Text>
-                                    :
-                                    <Text style={{ fontWeight: "bold", textAlign: "center", color: "#00bfa5" }}>|                          |</Text>}
+                                {this.state.bac > 0.06 ? <Text style={{ fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>WARNING              STOP              DRINKING</Text>
+                                    : <Text style={{ fontWeight: "bold", textAlign: "center", color: "#00bfa5" }}>|                          |</Text>}
                             </CopilotView>
                         </CopilotStep>
                         <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
@@ -402,12 +379,9 @@ class HomeScreen extends Component {
                                 {this.state.alctype === "Beer" &&
                                     <CopilotStep text="Press each icon to change drink type." order={4} name="drink">
                                         <CopilotView>
-                                            <MultiSwitch choiceSize={alcTypeSize}
-                                                activeItemStyle={activeStyle}
-                                                layout={{ vertical: 0, horizontal: -1 }}
+                                            <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }}
-                                                active={0}>
+                                                onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={0}>
                                                 <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                                 <Text style={{ fontSize: alcTypeText }}>🍷</Text>
                                                 <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
@@ -415,23 +389,17 @@ class HomeScreen extends Component {
                                         </CopilotView>
                                     </CopilotStep>}
                                 {this.state.alctype === "Wine" &&
-                                    <MultiSwitch choiceSize={alcTypeSize}
-                                        activeItemStyle={activeStyle}
-                                        layout={{ vertical: 0, horizontal: -1 }}
+                                    <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                        onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }}
-                                        active={1}>
+                                        onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={1}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>
                                         <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                     </MultiSwitch>}
                                 {this.state.alctype === "Liquor" &&
-                                    <MultiSwitch choiceSize={alcTypeSize}
-                                        activeItemStyle={activeStyle}
-                                        layout={{ vertical: 0, horizontal: -1 }}
+                                    <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                         containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                        onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }}
-                                        active={2}>
+                                        onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={2}>
                                         <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                         <Text style={{ fontSize: alcTypeText }}>🍷</Text>
                                         <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
@@ -439,9 +407,7 @@ class HomeScreen extends Component {
                                 <CopilotStep text="Press to undo last drink." order={8} name="clear">
                                     <CopilotView>
                                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
-                                            <TouchableOpacity
-                                                style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
-                                                onPress={() => this.undoLastDrink()}>
+                                            <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => this.undoLastDrink()}>
                                                 <View>
                                                     <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                                 </View>
@@ -457,12 +423,9 @@ class HomeScreen extends Component {
                                                 <CopilotStep text="Press each percent to change drink ABV." order={5} name="abv">
                                                     <CopilotView>
                                                         {this.state.abv === 0.05 &&
-                                                            <MultiSwitch choiceSize={abvSize}
-                                                                activeItemStyle={beerActive}
-                                                                layout={{ vertical: 0, horizontal: -1 }}
+                                                            <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }}
                                                                 containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
-                                                                active={1}>
+                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
                                                                 <Text style={{ fontSize: abvText }}>5%</Text>
                                                                 <Text style={{ fontSize: abvText }}>6%</Text>
@@ -470,12 +433,9 @@ class HomeScreen extends Component {
                                                                 <Text style={{ fontSize: abvText }}>8%</Text>
                                                             </MultiSwitch>}
                                                         {this.state.abv === 0.06 &&
-                                                            <MultiSwitch choiceSize={abvSize}
-                                                                activeItemStyle={beerActive}
-                                                                layout={{ vertical: 0, horizontal: -1 }}
+                                                            <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }}
                                                                 containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
-                                                                active={2}>
+                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={2}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
                                                                 <Text style={{ fontSize: abvText }}>5%</Text>
                                                                 <Text style={{ fontSize: abvText }}>6%</Text>
@@ -483,12 +443,9 @@ class HomeScreen extends Component {
                                                                 <Text style={{ fontSize: abvText }}>8%</Text>
                                                             </MultiSwitch>}
                                                         {this.state.abv === 0.07 &&
-                                                            <MultiSwitch choiceSize={abvSize}
-                                                                activeItemStyle={beerActive}
-                                                                layout={{ vertical: 0, horizontal: -1 }}
+                                                            <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }}
                                                                 containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
-                                                                active={3}>
+                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={3}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
                                                                 <Text style={{ fontSize: abvText }}>5%</Text>
                                                                 <Text style={{ fontSize: abvText }}>6%</Text>
@@ -496,12 +453,9 @@ class HomeScreen extends Component {
                                                                 <Text style={{ fontSize: abvText }}>8%</Text>
                                                             </MultiSwitch>}
                                                         {this.state.abv === 0.08 &&
-                                                            <MultiSwitch choiceSize={abvSize}
-                                                                activeItemStyle={beerActive}
-                                                                layout={{ vertical: 0, horizontal: -1 }}
+                                                            <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }}
                                                                 containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
-                                                                active={4}>
+                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={4}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
                                                                 <Text style={{ fontSize: abvText }}>5%</Text>
                                                                 <Text style={{ fontSize: abvText }}>6%</Text>
@@ -509,12 +463,9 @@ class HomeScreen extends Component {
                                                                 <Text style={{ fontSize: abvText }}>8%</Text>
                                                             </MultiSwitch>}
                                                         {this.state.abv === 0.04 &&
-                                                            <MultiSwitch choiceSize={abvSize}
-                                                                activeItemStyle={beerActive}
-                                                                layout={{ vertical: 0, horizontal: -1 }}
+                                                            <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }}
                                                                 containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
-                                                                active={0}>
+                                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={0}>
                                                                 <Text style={{ fontSize: abvText }}>4%</Text>
                                                                 <Text style={{ fontSize: abvText }}>5%</Text>
                                                                 <Text style={{ fontSize: abvText }}>6%</Text>
@@ -526,12 +477,9 @@ class HomeScreen extends Component {
                                         </View>
                                         <View style={styles.multiSwitchViews}>
                                             {this.state.alctype === "Wine" &&
-                                                <MultiSwitch choiceSize={abvWineSize}
-                                                    activeItemStyle={activeStyle}
-                                                    layout={{ vertical: 0, horizontal: -1 }}
+                                                <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
-                                                    active={1}>
+                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
                                                     <Text style={{ fontSize: abvWineText }}>11%</Text>
                                                     <Text style={{ fontSize: abvWineText }}>12%</Text>
                                                     <Text style={{ fontSize: abvWineText }}>13%</Text>
@@ -539,12 +487,9 @@ class HomeScreen extends Component {
                                         </View>
                                         <View style={styles.multiSwitchViews}>
                                             {this.state.alctype === "Liquor" &&
-                                                <MultiSwitch choiceSize={abvLiquorSize}
-                                                    activeItemStyle={activeStyle}
-                                                    layout={{ vertical: 0, horizontal: -1 }}
+                                                <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }}
-                                                    active={1}>
+                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
                                                     <Text style={{ fontSize: abvLiquorText }}>30%</Text>
                                                     <Text style={{ fontSize: abvLiquorText }}>40%</Text>
                                                     <Text style={{ fontSize: abvLiquorText }}>50%</Text>
@@ -556,34 +501,25 @@ class HomeScreen extends Component {
                                             <CopilotStep text="Press each number to change drink size." order={6} name="oz">
                                                 <CopilotView>
                                                     {this.state.oz === 12 &&
-                                                        <MultiSwitch choiceSize={abvLiquorSize}
-                                                            activeItemStyle={activeStyle}
-                                                            layout={{ vertical: 0, horizontal: -1 }}
+                                                        <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                             containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }}
-                                                            active={0}>
+                                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
                                                             <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
                                                             <Text style={{ fontSize: abvLiquorText }}>16oz</Text>
                                                             <Text style={{ fontSize: abvLiquorText }}>20oz</Text>
                                                         </MultiSwitch>}
                                                     {this.state.oz === 16 &&
-                                                        <MultiSwitch choiceSize={abvLiquorSize}
-                                                            activeItemStyle={activeStyle}
-                                                            layout={{ vertical: 0, horizontal: -1 }}
+                                                        <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                             containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }}
-                                                            active={1}>
+                                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={1}>
                                                             <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
                                                             <Text style={{ fontSize: abvLiquorText }}>16oz</Text>
                                                             <Text style={{ fontSize: abvLiquorText }}>20oz</Text>
                                                         </MultiSwitch>}
                                                     {this.state.oz === 20 &&
-                                                        <MultiSwitch choiceSize={abvLiquorSize}
-                                                            activeItemStyle={activeStyle}
-                                                            layout={{ vertical: 0, horizontal: -1 }}
+                                                        <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                             containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }}
-                                                            active={2}>
+                                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={2}>
                                                             <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
                                                             <Text style={{ fontSize: abvLiquorText }}>16oz</Text>
                                                             <Text style={{ fontSize: abvLiquorText }}>20oz</Text>
@@ -593,12 +529,9 @@ class HomeScreen extends Component {
                                     </View>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Wine" &&
-                                            <MultiSwitch choiceSize={abvLiquorSize}
-                                                activeItemStyle={activeStyle}
-                                                layout={{ vertical: 0, horizontal: -1 }}
+                                            <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }}
-                                                active={0}>
+                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>5oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>8oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>12oz</Text>
@@ -606,12 +539,9 @@ class HomeScreen extends Component {
                                     </View>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Liquor" &&
-                                            <MultiSwitch choiceSize={abvLiquorSize}
-                                                activeItemStyle={activeStyle}
-                                                layout={{ vertical: 0, horizontal: -1 }}
+                                            <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }}
-                                                active={0}>
+                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
                                                 <Text style={{ fontSize: abvLiquorText }}>1.5oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>3oz</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>6oz</Text>
@@ -633,17 +563,16 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: addButtonText, color: "white" }}>{Platform.OS === 'android' && Platform.Version < 24 ? "+🍸" : "+🥃"}</Text></TouchableOpacity>}
                             </View>
                         </View>}
-                    {this.state.break === true &&
-                        <View style={styles.cardView}>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
-                            {this.state.autobreak === true ?
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY')}, 5:00 pm</Text> :
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>}
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("br")}>
-                                <Text style={styles.buttonText}>Cancel Break</Text>
-                            </TouchableOpacity>
-                        </View>}
+                    {this.state.break === true && <View style={styles.cardView}>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+                        {this.state.autobreak === true ?
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY')}, 5:00 pm</Text> :
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>}
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("br")}>
+                            <Text style={styles.buttonText}>Cancel Break</Text>
+                        </TouchableOpacity>
+                    </View>}
                     {(this.state.break === "" || this.state.break === false) && this.state.happyhour === true && this.state.happyhourtime !== "" &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
@@ -652,36 +581,30 @@ class HomeScreen extends Component {
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>
                             </TouchableOpacity>
                         </View>}
-                    {this.state.bac > 0.10 &&
-                        <View style={styles.cardView}>
-                            {abovePoint10}
-                            {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
-                                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                    <TouchableOpacity
-                                        style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
-                                        onPress={() => this.undoLastDrink()}>
-                                        <View>
-                                            <Text style={{ fontSize: alcTypeText }}>↩️</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>}
-                        </View>}
-                    {this.state.showcutoff === true &&
-                        <View style={styles.cardView}>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have been cut off. You have had too many drinks or your BAC is too high. Until then, stop drinking and have some water.</Text>
-                            {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
-                                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                    <TouchableOpacity
-                                        style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton}
-                                        onPress={() => { this.undoLastDrink(), this.setState({ showcutoff: false }) }}>
-                                        <View>
-                                            <Text style={{ fontSize: alcTypeText }}>↩️</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("co")}>
-                                    <Text style={styles.buttonText}>Cancel Cut Off</Text>
-                                </TouchableOpacity>}
-                        </View>}
+                    {this.state.bac > 0.10 && <View style={styles.cardView}>
+                        {abovePoint10}
+                        {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
+                            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => this.undoLastDrink()}>
+                                    <View>
+                                        <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>}
+                    </View>}
+                    {this.state.showcutoff === true && <View style={styles.cardView}>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have been cut off. You have had too many drinks or your BAC is too high. Until then, stop drinking and have some water.</Text>
+                        {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
+                            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showcutoff: false }) }}>
+                                    <View>
+                                        <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("co")}>
+                                <Text style={styles.buttonText}>Cancel Cut Off</Text>
+                            </TouchableOpacity>}
+                    </View>}
                 </ScrollView>
             </View>
         );
