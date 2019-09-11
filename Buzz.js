@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    View,
-    Text,
-    TouchableOpacity,
-    Vibration,
-    Platform
-} from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Vibration, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -22,13 +15,7 @@ class BuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buzzes: null,
-            oldbuzzes: null,
-            timesince: null,
-            showHideBuzzes: false,
-            showHideOldBuzzes: false,
-            sidescrollx: 0,
-            gender: ""
+            buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, sidescrollx: 0, gender: ""
         }
     };
 

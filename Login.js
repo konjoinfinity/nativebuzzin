@@ -1,17 +1,5 @@
 import React from "react";
-import {
-    Text,
-    View,
-    TextInput,
-    TouchableOpacity,
-    Vibration,
-    KeyboardAvoidingView,
-    Alert,
-    Keyboard,
-    Modal,
-    ScrollView,
-    Platform
-} from "react-native";
+import { Text, View, TextInput, TouchableOpacity, Vibration, KeyboardAvoidingView, Alert, Keyboard, Modal, ScrollView, Platform } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import {
@@ -25,10 +13,7 @@ class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            gender: "Male",
-            weight: 195,
-            modal: false
+            name: "", gender: "Male", weight: 195, modal: false
         };
     }
 

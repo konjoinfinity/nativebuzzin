@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    View,
-    Text,
-    TouchableOpacity,
-    Vibration,
-    Alert,
-    Modal,
-    Platform
-} from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Vibration, Alert, Modal, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -33,34 +24,10 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            gender: "",
-            weight: "",
-            bac: 0.0,
-            buzzes: [],
-            oldbuzzes: [],
-            alctype: "Beer",
-            oz: 12,
-            abv: 0.05,
-            countdown: false,
-            timer: "",
-            break: "",
-            breakdate: "",
-            autobreak: "",
-            focus: false,
-            modal1: false,
-            modal2: false,
-            flashwarning: "#AE0000",
-            flashtext: "",
-            flashtimer: "",
-            happyhour: "",
-            happyhourtime: "",
-            threshold: "",
-            cutoff: "",
-            cutoffbac: "",
-            drinks: "",
-            showcutoff: false,
-            hhhour: ""
+            name: "", gender: "", weight: "", bac: 0.0, buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
+            timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
+            flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", cutoff: "", cutoffbac: "", drinks: "",
+            showcutoff: false, hhhour: ""
         }
     };
 

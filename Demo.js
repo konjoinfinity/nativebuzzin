@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    View,
-    Text,
-    TouchableOpacity,
-    Vibration,
-    Modal,
-    Platform
-} from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Vibration, Modal, Platform } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import NumericInput from 'react-native-numeric-input'
@@ -27,18 +19,8 @@ class DemoScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gender: "Male",
-            weight: 195,
-            bac: 0.0,
-            testbuzzes: [],
-            alctype: "Beer",
-            oz: 12,
-            abv: 0.05,
-            countdown: false,
-            timer: "",
-            modal1: false,
-            modal2: false,
-            showHideBuzzes: false
+            gender: "Male", weight: 195, bac: 0.0, testbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false, timer: "",
+            modal1: false, modal2: false, showHideBuzzes: false
         }
     };
 

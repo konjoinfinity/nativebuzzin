@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import {
-    ScrollView,
-    View,
-    Text,
-    TouchableOpacity,
-    Vibration,
-    Alert,
-    Switch,
-    Dimensions,
-    PixelRatio
-} from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Vibration, Alert, Switch, Dimensions, PixelRatio } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
@@ -25,30 +15,9 @@ class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            gender: "",
-            weight: "",
-            alctype: "",
-            break: "",
-            breakdate: "",
-            breaktime: "",
-            hours: 0,
-            days: 0,
-            weeks: 0,
-            months: 0,
-            autobreak: "",
-            happyhour: "",
-            threshold: "",
-            cutoff: "",
-            drinks: 0,
-            cutoffbac: "",
-            cancelbreaks: "",
-            custombreak: "",
-            hhhour: "",
-            setautobreak: false,
-            sethappyhour: false,
-            setcutoff: false,
-            setcustombreak: false
+            name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", breaktime: "", hours: 0, days: 0, weeks: 0,
+            months: 0, autobreak: "", happyhour: "", threshold: "", cutoff: "", drinks: 0, cutoffbac: "", cancelbreaks: "",
+            custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setcutoff: false, setcustombreak: false
         }
     };
 
