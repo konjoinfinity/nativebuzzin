@@ -215,6 +215,7 @@ class BuzzScreen extends Component {
                                         gridMax={Math.max(...weeksData) + 6}
                                         gridMin={0}
                                         horizontal={true}>
+                                        <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <MaxRecLabel />
                                     </LineChart>
                                     <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
