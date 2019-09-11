@@ -95,12 +95,9 @@ class BuzzScreen extends Component {
                     )
                 })
             }))
-        var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = []
-        var maxrecgender = this.state.gender === "Male" ? 14 : 7
+        var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = [], maxrecgender = this.state.gender === "Male" ? 14 : 7
         var numOfArrays = this.state.oldbuzzes !== null && Math.ceil(Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) / 168)
-        for (i = 1; i <= numOfArrays; i++) {
-            this.state.oldbuzzes !== null && lastWeeks.push([])
-        }
+        for (i = 1; i <= numOfArrays; i++) { this.state.oldbuzzes !== null && lastWeeks.push([]) }
         this.state.oldbuzzes !== null &&
             (this.state.oldbuzzes.map((buzz) => {
                 return buzz.map((oldbuzz) => {
@@ -119,14 +116,12 @@ class BuzzScreen extends Component {
         }
         var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
-        const Labels = ({ x, y, bandwidth, data }) => (
-            data.map((value, index) => (
-                <TextSVG key={index} key={index} x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
-                    alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>)))
-        const WeeksLabels = ({ x, y, data }) => (
-            data.map((value, index) => (
-                <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
-                    textAnchor={'middle'}>{value}</TextSVG>)))
+        const Labels = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
+            <TextSVG key={index} key={index} x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
+                alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>)))
+        const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
+            <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
+                textAnchor={'middle'}>{value}</TextSVG>)))
         const MaxRecLabel = ({ x, y }) => (
             <TextSVG key={0} x={Platform.OS === 'android' ? x(0) + 115 : x(0) + 35} y={Math.max(...weeksData) >= maxrecgender ? y(maxrecgender) - 10 : y(maxrecgender) + 20} fontSize={16} fill={'black'} alignmentBaseline={Platform.OS === 'android' ? 'middle' : 'right'}
                 textAnchor={Platform.OS === 'android' ? 'middle' : 'right'} fillOpacity={0.5}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
@@ -135,50 +130,24 @@ class BuzzScreen extends Component {
                 <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={(event) => {
-                            if (event.nativeEvent.contentOffset.x === scrollToAmt || event.nativeEvent.contentOffset.x === 0) {
-                                this.setState({ sidescrollx: event.nativeEvent.contentOffset.x })
-                            }
-                        }} scrollEventThrottle={16}>
+                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={(event) => { if (event.nativeEvent.contentOffset.x === scrollToAmt || event.nativeEvent.contentOffset.x === 0) { this.setState({ sidescrollx: event.nativeEvent.contentOffset.x }) } }} scrollEventThrottle={16}>
                             <View>
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
-                                        <BarChart
-                                            style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }}
-                                            data={sevenData}
-                                            svg={{ fill: weekColor, fillOpacity: 0.8 }}
-                                            contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                            spacing={2}
-                                            gridMin={0}
-                                            gridMax={sevenData[0] + 3}
-                                            animate={true}
-                                            animationDuration={1500}>
-                                            <XAxis
-                                                style={{ marginTop: 10 }}
-                                                data={sevenData}
-                                                scale={scale.scaleBand}
-                                                formatLabel={() => ""} />
+                                        <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={sevenData}
+                                            svg={{ fill: weekColor, fillOpacity: 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            spacing={2} gridMin={0} gridMax={sevenData[0] + 3} animate={true} animationDuration={1500}>
+                                            <XAxis style={{ marginTop: 10 }} data={sevenData} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
                                             <Labels />
                                         </BarChart>
                                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Week</Text>
                                     </View>
                                     <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
-                                        <BarChart
-                                            style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }}
-                                            data={thirtyData}
-                                            svg={{ fill: monthColor, fillOpacity: 0.8 }}
-                                            contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                            spacing={2}
-                                            gridMin={0}
-                                            gridMax={thirtyData[0] + 10}
-                                            animate={true}
-                                            animationDuration={1800}>
-                                            <XAxis
-                                                style={{ marginTop: 10 }}
-                                                data={thirtyData}
-                                                scale={scale.scaleBand}
-                                                formatLabel={() => ""} />
+                                        <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={thirtyData}
+                                            svg={{ fill: monthColor, fillOpacity: 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            spacing={2} gridMin={0} gridMax={thirtyData[0] + 10} animate={true} animationDuration={1800}>
+                                            <XAxis style={{ marginTop: 10 }} data={thirtyData} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
                                             <Labels />
                                         </BarChart>
@@ -186,55 +155,37 @@ class BuzzScreen extends Component {
                                     </View>
                                 </View>
                             </View>
-                            {weeksData.length > 1 &&
-                                <View style={{ flexDirection: 'column', padding: 10 }}>
-                                    <LineChart
-                                        style={{ height: 200, width: 1000 }}
-                                        data={weeksData}
-                                        svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
-                                        contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
-                                        gridMax={Math.max(...weeksData) + 6}
-                                        numberOfTicks={8}
-                                        gridMin={0}
-                                        horizontal={true}>
-                                        <XAxis
-                                            style={{ height: 30, width: 1000 }}
-                                            data={weeksData}
-                                            formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
-                                            contentInset={{ left: 30, right: 40 }}
-                                            svg={{ fontSize: 12 }}
-                                            belowChart={true}
-                                            ticks={4} />
-                                        <Grid direction={Grid.Direction.HORIZONTAL} />
-                                        <WeeksLabels />
-                                    </LineChart>
-                                    <LineChart
-                                        style={{ position: "absolute", height: 200, width: 1000, left: 10, top: 10 }}
-                                        data={maxrecdata}
-                                        svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
-                                        contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
-                                        gridMax={Math.max(...weeksData) + 6}
-                                        numberOfTicks={8}
-                                        gridMin={0}
-                                        horizontal={true}>
-                                        <MaxRecLabel />
-                                    </LineChart>
-                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
-                                </View>}
+                            {weeksData.length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>
+                                <LineChart style={{ height: 200, width: 1000 }} data={weeksData} gridMax={Math.max(...weeksData) + 6}
+                                    svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
+                                    contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
+                                    <XAxis style={{ height: 30, width: 1000 }} data={weeksData} contentInset={{ left: 30, right: 40 }}
+                                        formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
+                                        svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
+                                    <Grid direction={Grid.Direction.HORIZONTAL} />
+                                    <WeeksLabels />
+                                </LineChart>
+                                <LineChart
+                                    style={{ position: "absolute", height: 200, width: 1000, left: 10, top: 10 }} gridMin={0}
+                                    data={maxrecdata} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8}
+                                    svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
+                                    gridMax={Math.max(...weeksData) + 6} horizontal={true}>
+                                    <MaxRecLabel />
+                                </LineChart>
+                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
+                            </View>}
                         </ScrollView>
                     </View>
                     {this.state.buzzes !== null &&
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
                                 <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Current Buzz</Text>
-                                {this.state.showHideBuzzes === false && (
-                                    this.state.buzzes !== null && (
-                                        <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
-                                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Show</Text></TouchableOpacity>))}
-                                {this.state.showHideBuzzes === true && (
-                                    this.state.buzzes !== null && (
-                                        <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
-                                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Hide</Text></TouchableOpacity>))}
+                                {this.state.showHideBuzzes === false && (this.state.buzzes !== null && (
+                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
+                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Show</Text></TouchableOpacity>))}
+                                {this.state.showHideBuzzes === true && (this.state.buzzes !== null && (
+                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
+                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Hide</Text></TouchableOpacity>))}
                             </View>
                             {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
                         </View>}
@@ -250,14 +201,12 @@ class BuzzScreen extends Component {
                         <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
                                 <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
-                                {this.state.showHideOldBuzzes === false && (
-                                    this.state.oldbuzzes !== null && (
-                                        <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
-                                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Show</Text></TouchableOpacity>))}
-                                {this.state.showHideOldBuzzes === true && (
-                                    this.state.oldbuzzes !== null && (
-                                        <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
-                                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Hide</Text></TouchableOpacity>))}
+                                {this.state.showHideOldBuzzes === false && (this.state.oldbuzzes !== null && (
+                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
+                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Show</Text></TouchableOpacity>))}
+                                {this.state.showHideOldBuzzes === true && (this.state.oldbuzzes !== null && (
+                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
+                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Hide</Text></TouchableOpacity>))}
                             </View>
                             {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                         </View>}
