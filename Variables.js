@@ -27,18 +27,12 @@ let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }],
     beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
 const gaugeLabels = [
-    { name: '1', labelColor: '#e0f2f1', activeBarColor: '#ffffff' },
-    { name: '2', labelColor: '#e0f2f1', activeBarColor: '#b5d3a0' },
-    { name: '3', labelColor: '#e0f2f1', activeBarColor: '#96c060' },
-    { name: '4', labelColor: '#e0f2f1', activeBarColor: '#9fc635' },
-    { name: '5', labelColor: '#e0f2f1', activeBarColor: '#d3e50e' },
-    { name: '6', labelColor: '#e0f2f1', activeBarColor: '#ffeb00' },
-    { name: '7', labelColor: '#e0f2f1', activeBarColor: '#f9bf00' },
-    { name: '8', labelColor: '#e0f2f1', activeBarColor: '#e98f00' },
-    { name: '9', labelColor: '#e0f2f1', activeBarColor: '#d05900' },
-    { name: '10', labelColor: '#e0f2f1', activeBarColor: '#AE0000' },
-    { name: '11', labelColor: '#e0f2f1', activeBarColor: '#571405' },
-    { name: '12', labelColor: '#e0f2f1', activeBarColor: '#000000' }
+    { name: '1', labelColor: '#e0f2f1', activeBarColor: '#ffffff' }, { name: '2', labelColor: '#e0f2f1', activeBarColor: '#b5d3a0' },
+    { name: '3', labelColor: '#e0f2f1', activeBarColor: '#96c060' }, { name: '4', labelColor: '#e0f2f1', activeBarColor: '#9fc635' },
+    { name: '5', labelColor: '#e0f2f1', activeBarColor: '#d3e50e' }, { name: '6', labelColor: '#e0f2f1', activeBarColor: '#ffeb00' },
+    { name: '7', labelColor: '#e0f2f1', activeBarColor: '#f9bf00' }, { name: '8', labelColor: '#e0f2f1', activeBarColor: '#e98f00' },
+    { name: '9', labelColor: '#e0f2f1', activeBarColor: '#d05900' }, { name: '10', labelColor: '#e0f2f1', activeBarColor: '#AE0000' },
+    { name: '11', labelColor: '#e0f2f1', activeBarColor: '#571405' }, { name: '12', labelColor: '#e0f2f1', activeBarColor: '#000000' }
 ]
 
 const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break",

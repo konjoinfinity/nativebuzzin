@@ -105,7 +105,7 @@ class HomeScreen extends Component {
         const login = this.props.navigation.getParam('login');
         if (login === true) {
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
-            setTimeout(() => { this.props.start(), this.props.navigation.setParams({ login: false }) }, 1000);
+            setTimeout(() => { this.props.start(); this.props.navigation.setParams({ login: false }) }, 1000);
         }
         setTimeout(() => {
             this.setState({ focus: true }, () => this.checkBac())
@@ -117,7 +117,7 @@ class HomeScreen extends Component {
     }
 
     componentWillUnmount() {
-        this.props.copilotEvents.off('stop'), clearInterval(this.state.timer), clearInterval(this.state.flashtimer)
+        this.props.copilotEvents.off('stop'); clearInterval(this.state.timer); clearInterval(this.state.flashtimer)
     }
 
     handleModal(number) {
@@ -145,7 +145,7 @@ class HomeScreen extends Component {
             setTimeout(() => { this.setState({ oz: 20 }) }, 2000);
             setTimeout(() => { this.setState({ oz: 12 }) }, 3000);
         }
-        if (step.order === 8) { setTimeout(() => { this.undoLastDrink() }, 1000), setTimeout(() => { this.clearDrinks() }, 2000) }
+        if (step.order === 8) { setTimeout(() => { this.undoLastDrink() }, 1000); setTimeout(() => { this.clearDrinks() }, 2000) }
     }
 
     async addDrink() {
@@ -216,8 +216,8 @@ class HomeScreen extends Component {
 
     countdownBac() {
         let bacTimer;
-        if (this.state.countdown === true) { bacTimer = setInterval(() => this.checkBac(), 500), this.setState({ timer: bacTimer }) }
-        else if (this.state.countdown === false) { clearInterval(this.state.timer), setTimeout(() => this.setState({ timer: "" }), 200) }
+        if (this.state.countdown === true) { bacTimer = setInterval(() => this.checkBac(), 500); this.setState({ timer: bacTimer }) }
+        else if (this.state.countdown === false) { clearInterval(this.state.timer); setTimeout(() => this.setState({ timer: "" }), 200) }
     }
 
     async moveToOld() {

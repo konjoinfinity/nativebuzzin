@@ -37,7 +37,7 @@ export class Functions {
     };
 
     static varGetBAC(weight, gender, hours, buzz) {
-        var distribution, drinkTotal, totalAlc, totalArray = [];
+        var distribution, drinkTotal, totalAlc, totalArray = [], bac
         if (gender === "Female") { distribution = 0.66 }
         if (gender === "Male") { distribution = 0.73 }
         for (var i = 0; i < buzz.length; i++) {
@@ -46,8 +46,8 @@ export class Functions {
             if (buzz[i].drinkType === "Liquor") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
             totalArray.push(drinkTotal)
         }
-        totalAlc = totalArray.reduce((a, b) => a + b, 0)
-        var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
+        totalAlc = totalArray.reduce((a, b) => a + b, 0);
+        bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
         return bac;
     }
 

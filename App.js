@@ -6,10 +6,8 @@ import { AlertHelper } from './AlertHelper';
 
 const App = () => <View style={{ flex: 1 }}>
   <Routes />
-  <DropdownAlert
-    defaultContainer={{ padding: 8, paddingTop: StatusBar.currentHeight, flexDirection: 'row' }}
-    ref={ref => AlertHelper.setDropDown(ref)}
-    onClose={() => AlertHelper.invokeOnClose()} />
+  <DropdownAlert defaultContainer={{ padding: 8, paddingTop: StatusBar.currentHeight, flexDirection: 'row' }}
+    ref={ref => AlertHelper.setDropDown(ref)} onClose={() => AlertHelper.invokeOnClose()} />
 </View>;
 
 export default App;
