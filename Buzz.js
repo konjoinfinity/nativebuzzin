@@ -194,6 +194,7 @@ class BuzzScreen extends Component {
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
                                         gridMax={Math.max(...weeksData) + 6}
+                                        numberOfTicks={8}
                                         gridMin={0}
                                         horizontal={true}>
                                         <XAxis
@@ -213,9 +214,9 @@ class BuzzScreen extends Component {
                                         svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
                                         gridMax={Math.max(...weeksData) + 6}
+                                        numberOfTicks={8}
                                         gridMin={0}
                                         horizontal={true}>
-                                        <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <MaxRecLabel />
                                     </LineChart>
                                     <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
