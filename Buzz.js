@@ -208,7 +208,7 @@ class BuzzScreen extends Component {
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
-                                        style={{ position: "absolute", height: 200, width: 1000 }}
+                                        style={{ position: "absolute", height: 200, width: 1000, left: 10, top: 10 }}
                                         data={maxrecdata}
                                         svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }}
