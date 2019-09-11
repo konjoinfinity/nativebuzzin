@@ -37,8 +37,7 @@ const AppStack = createStackNavigator({
             title: `buzzin`,
             headerStyle: { backgroundColor: '#80cbc4' },
             headerTitleStyle: {
-                color: "#ffffff",
-                fontSize: 25,
+                color: "#ffffff", fontSize: 25,
                 paddingTop: Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 ? 25 : 0
             }
         }
