@@ -63,7 +63,6 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
-        console.log(this.state.hours, this.state.days, this.state.months, this.state.months)
         if (this.state.hours !== 0 || this.state.days !== 0 || this.state.weeks !== 0 || this.state.months !== 0) {
             var breakDate = new Date()
             breakDate.setHours(breakDate.getHours() + Math.round(breakDate.getMinutes() / 60))
@@ -72,7 +71,6 @@ class ProfileScreen extends Component {
             if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
             if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
             Vibration.vibrate(); this.setState({ break: true, breakdate: breakDate })
-            console.log(breakDate)
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
         if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak() }
