@@ -259,15 +259,18 @@ class ProfileScreen extends Component {
                                     <View>
                                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Hours</Text>
                                         <NumericInput minValue={0} maxValue={24} initValue={this.state.hours} value={this.state.hours}
-                                            onChange={(hours) => this.state.days >= 1 && hours === 0 ? this.setState({ hours: 23 }, () => this.takeAbreak()) : this.setState({ hours }, () => this.takeAbreak())} step={1}
+                                            onChange={(hours) => this.state.days >= 1 && hours === 0 ?
+                                                setTimeout(() => { this.setState({ hours: 23, days: this.state.days - 1 }, () => setTimeout(() => { this.takeAbreak() }, 200)) }, 100) :
+                                                this.setState({ hours }, () => this.takeAbreak())} step={1}
                                             totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                            rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b'
-                                            onLimitReached={(isMax, msg) => isMax === false && msg === "Reached Minimum Value!" && this.state.days >= 1 && this.setState({ hours: 23, days: this.state.days - 1 })} />
+                                            rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                                     </View>
                                     <View>
                                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Days</Text>
                                         <NumericInput minValue={0} maxValue={31} initValue={this.state.days} value={this.state.days}
-                                            onChange={(days) => this.setState({ days }, () => this.takeAbreak())} step={1}
+                                            onChange={(days) => this.state.weeks >= 1 && days === 0 ?
+                                                setTimeout(() => { this.setState({ days: 6, weeks: this.state.weeks - 1 }, () => setTimeout(() => { this.takeAbreak() }, 200)) }, 100) :
+                                                this.setState({ days }, () => this.takeAbreak())} step={1}
                                             totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
                                             rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                                     </View>
