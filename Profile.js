@@ -6,8 +6,8 @@ import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
 import {
-    namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, cutoffkey,
-    drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey, hhhourkey, loginButtonText, abvText
+    namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
+    drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText
 } from "./Variables";
 import styles from "./Styles"
 
@@ -16,18 +16,18 @@ class ProfileScreen extends Component {
         super(props);
         this.state = {
             name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", breaktime: "", hours: 0, days: 0, weeks: 0,
-            months: 0, autobreak: "", happyhour: "", threshold: "", cutoff: "", drinks: 0, cutoffbac: "", cancelbreaks: "",
-            custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setcutoff: false, setcustombreak: false
+            months: 0, autobreak: "", happyhour: "", threshold: "", limit: "", drinks: 0, limitbac: "", cancelbreaks: "",
+            custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false
         }
     };
 
     async componentDidMount() {
-        this.setState({ setautobreak: false, sethappyhour: false, setcutoff: false, setcustombreak: false })
-        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, cutoffbackey, cutoffkey,
+        this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false })
+        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
             drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
-            cutoffbac: JSON.parse(values[3][1]), cutoff: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
+            limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
         })
@@ -87,7 +87,7 @@ class ProfileScreen extends Component {
         Vibration.vibrate();
         // await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-            cutoffkey, autobreakthresholdkey, drinkskey, cutoffbackey, cancelbreakskey, showcutoffkey, custombreakkey])
+            limitkey, autobreakthresholdkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey])
         this.props.navigation.navigate("Login")
     }
 
@@ -198,31 +198,31 @@ class ProfileScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Cut Off</Text>
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Set Limit</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch value={this.state.cutoff} onChange={() => this.handleSwitches("cutoff", cutoffkey, "setcutoff")} /></View>
-                            {this.state.cutoff === false &&
+                                <Switch value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
+                            {this.state.limit === false &&
                                 <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
                                     <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
-                            {this.state.cutoff === true &&
-                                <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setcutoff")}>
+                            {this.state.limit === true &&
+                                <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setlimit")}>
                                     <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
                         </View>
-                        {this.state.cutoff === true && this.state.setcutoff === true &&
+                        {this.state.limit === true && this.state.setlimit === true &&
                             <View>
                                 <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>BAC Cut Off</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Set BAC Limit</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "cutoffbac", cutoffbackey)}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
                                         <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.cutoffbac && this.state.cutoffbac.toFixed(2)}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "cutoffbac", cutoffbackey)}>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.limitbac && this.state.limitbac.toFixed(2)}</Text></TouchableOpacity>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
                                         <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
                                     </TouchableOpacity>
                                 </View>
-                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Total Drinks Cut Off</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Total Drink Limit</Text>
                                 <View style={{ alignSelf: "center" }}>
                                     <NumericInput minValue={1} maxValue={15} initValue={this.state.drinks} value={this.state.drinks}
                                         onChange={(drinks) => this.setState({ drinks }, () => this.saveValues("drinks", drinkskey))}

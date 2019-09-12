@@ -12,8 +12,8 @@ import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
-    gaugeLabels, warnText, dangerText, autobreakthresholdkey, cutoffbackey, cutoffkey, drinkskey, cancelbreakskey,
-    showcutoffkey, abovePoint10, custombreakkey, hhhourkey
+    gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
+    showlimitkey, abovePoint10, custombreakkey, hhhourkey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -26,17 +26,17 @@ class HomeScreen extends Component {
         this.state = {
             name: "", gender: "", weight: "", bac: 0.0, buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
-            flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", cutoff: "", cutoffbac: "", drinks: "",
-            showcutoff: false, hhhour: ""
+            flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
+            showlimit: false, hhhour: ""
         }
     };
 
     async componentDidMount() {
-        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, cutoffbackey, cutoffkey, drinkskey,
+        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
-            cutoffbac: JSON.parse(values[3][1]), cutoff: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
+            limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
         })
@@ -133,9 +133,9 @@ class HomeScreen extends Component {
     async saveBuzz() {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         if (this.state.bac > this.state.threshold) { await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true)) }
-        if (this.state.cutoff === true) {
-            if (this.state.bac > this.state.cutoffbac || this.state.buzzes.length >= this.state.drinks) {
-                this.setState({ showcutoff: true }), await AsyncStorage.setItem(showcutoffkey, JSON.stringify(true))
+        if (this.state.limit === true) {
+            if (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) {
+                this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
             }
         }
     }
@@ -199,9 +199,9 @@ class HomeScreen extends Component {
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(autoBreakDate)],
             [autobreakminkey, JSON.stringify(false)]], () => this.componentDidMount())
         }
-        if (this.state.showcutoff === true) {
-            this.setState({ showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
-            await AsyncStorage.multiSet([[cutoffkey, JSON.stringify(false)], [showcutoffkey, JSON.stringify(false)]])
+        if (this.state.showlimit === true) {
+            this.setState({ showlimit: false, limit: false, limitbac: "", drinks: "" })
+            await AsyncStorage.multiSet([[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)]])
         }
     }
 
@@ -230,9 +230,9 @@ class HomeScreen extends Component {
     cancelAlert(typealert) {
         Vibration.vibrate();
         Alert.alert('Are you sure?', typealert === "hh" ? 'Click Yes to cancel Happy Hour, No to continue Happy Hour' :
-            typealert === "co" ? 'Click Yes to cancel Cut Off, No to continue Cut Off' : 'Click Yes to cancel break, No to continue break',
+            typealert === "sl" ? 'Click Yes to cancel Set Limit, No to continue Set Limit' : 'Click Yes to cancel break, No to continue break',
             [
-                { text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "co" ? this.stopModeration("co") : this.stopModeration("break") },
+                { text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : this.stopModeration("break") },
                 { text: 'No' },
             ],
             { cancelable: false },
@@ -242,13 +242,13 @@ class HomeScreen extends Component {
     async stopModeration(stoptype) {
         Vibration.vibrate();
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
-            { showcutoff: false, cutoff: false, cutoffbac: "", drinks: "" })
+            { showlimit: false, limit: false, limitbac: "", drinks: "" })
         if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
         await AsyncStorage.multiSet(stoptype === "break" ? [[breakkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)],
         [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
             stoptype === "hh" ? [[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
-                [[cutoffkey, JSON.stringify(false)], [showcutoffkey, JSON.stringify(false)],
+                [[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)],
                 [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
@@ -332,7 +332,7 @@ class HomeScreen extends Component {
                             <View style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{this.state.bac}  {Platform.OS === 'android' && Platform.Version < 24 ? "😵" : "🤮"}</Text></View>)}
                     </View>
-                    {(this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showcutoff === false &&
+                    {(this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false &&
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                 {this.state.alctype === "Beer" &&
@@ -551,17 +551,17 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>}
-                    {this.state.showcutoff === true && <View style={styles.cardView}>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have been cut off. You have had too many drinks or your BAC is too high. Until then, stop drinking and have some water.</Text>
+                    {this.state.showlimit === true && <View style={styles.cardView}>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have reached your {this.state.bac > this.state.limitbac && "BAC limit"}{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && " and "}{this.state.buzzes.length >= this.state.drinks && "set drink limit"}. Until your BAC is 0.0, stop drinking and have some water.</Text>
                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showcutoff: false }) }}>
+                                <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
                                     <View>
                                         <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                     </View>
                                 </TouchableOpacity>
-                            </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("co")}>
-                                <Text style={styles.buttonText}>Cancel Cut Off</Text>
+                            </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
+                                <Text style={styles.buttonText}>Cancel Set Limit</Text>
                             </TouchableOpacity>}
                     </View>}
                 </ScrollView>
