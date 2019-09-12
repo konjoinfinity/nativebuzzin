@@ -63,7 +63,7 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
-        console.log(this.state.days, this.state.hours)
+        console.log(this.state.hours, this.state.days, this.state.months, this.state.months)
         if (this.state.hours !== 0 || this.state.days !== 0 || this.state.weeks !== 0 || this.state.months !== 0) {
             var breakDate = new Date()
             breakDate.setHours(breakDate.getHours() + Math.round(breakDate.getMinutes() / 60))
@@ -143,34 +143,6 @@ class ProfileScreen extends Component {
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Auto Break</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
-                            {this.state.autobreak === false &&
-                                <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
-                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
-                            {this.state.autobreak === true &&
-                                <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setautobreak")}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
-                        </View>
-                        {this.state.autobreak === true && this.state.setautobreak === true &&
-                            <View>
-                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
-                                        <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
-                                        <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>}
-                    </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                             <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Happy Hour</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
@@ -201,41 +173,6 @@ class ProfileScreen extends Component {
                                     <TouchableOpacity style={this.state.hhhour === 20 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 20 }, () => this.saveValues("hhhour", hhhourkey))}>
                                         <View><Text style={{ fontSize: 18, color: "#ffffff" }}>8PM</Text></View>
                                     </TouchableOpacity>
-                                </View>
-                            </View>}
-                    </View>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Set Limit</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
-                            {this.state.limit === false &&
-                                <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
-                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
-                            {this.state.limit === true &&
-                                <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setlimit")}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
-                        </View>
-                        {this.state.limit === true && this.state.setlimit === true &&
-                            <View>
-                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
-                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Set BAC Limit</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
-                                        <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.limitbac && this.state.limitbac.toFixed(2)}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
-                                        <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
-                                    </TouchableOpacity>
-                                </View>
-                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Total Drink Limit</Text>
-                                <View style={{ alignSelf: "center" }}>
-                                    <NumericInput minValue={1} maxValue={15} initValue={this.state.drinks} value={this.state.drinks}
-                                        onChange={(drinks) => this.setState({ drinks }, () => this.saveValues("drinks", drinkskey))}
-                                        totalWidth={numberInputSize} step={1} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                        rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                                 </View>
                             </View>}
                     </View>
@@ -279,7 +216,9 @@ class ProfileScreen extends Component {
                                     <View>
                                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Weeks</Text>
                                         <NumericInput minValue={0} maxValue={52} initValue={this.state.weeks} value={this.state.weeks}
-                                            onChange={(weeks) => this.setState({ weeks }, () => this.takeAbreak())} step={1}
+                                            onChange={(weeks) => this.state.months >= 1 && weeks === 0 ?
+                                                setTimeout(() => { this.setState({ weeks: 3, months: this.state.months - 1 }, () => setTimeout(() => { this.takeAbreak() }, 200)) }, 100) :
+                                                this.setState({ weeks }, () => this.takeAbreak())} step={1}
                                             totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
                                             rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                                     </View>
@@ -300,6 +239,69 @@ class ProfileScreen extends Component {
                                             <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel Break</Text>
                                         </TouchableOpacity>
                                     </View>}
+                            </View>}
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Set Limit</Text>
+                            <View style={{ marginLeft: 5, marginRight: 5 }}>
+                                <Switch value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
+                            {this.state.limit === false &&
+                                <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
+                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
+                            {this.state.limit === true &&
+                                <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setlimit")}>
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
+                        </View>
+                        {this.state.limit === true && this.state.setlimit === true &&
+                            <View>
+                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Set BAC Limit</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
+                                        <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.limitbac && this.state.limitbac.toFixed(2)}</Text></TouchableOpacity>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
+                                        <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
+                                    </TouchableOpacity>
+                                </View>
+                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Total Drink Limit</Text>
+                                <View style={{ alignSelf: "center" }}>
+                                    <NumericInput minValue={1} maxValue={15} initValue={this.state.drinks} value={this.state.drinks}
+                                        onChange={(drinks) => this.setState({ drinks }, () => this.saveValues("drinks", drinkskey))}
+                                        totalWidth={numberInputSize} step={1} rounded textColor='#103900' iconStyle={{ color: 'white' }}
+                                        rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                                </View>
+                            </View>}
+                    </View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 }}>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 }}>Auto Break</Text>
+                            <View style={{ marginLeft: 5, marginRight: 5 }}>
+                                <Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
+                            {this.state.autobreak === false &&
+                                <TouchableOpacity style={{ backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }}>
+                                    <Text style={{ color: "#e0f2f1", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
+                            {this.state.autobreak === true &&
+                                <TouchableOpacity style={{ backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 }} onPress={() => this.showHideSetting("setautobreak")}>
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center", paddingLeft: 5, paddingRight: 5 }}>⚙︎</Text></TouchableOpacity>}
+                        </View>
+                        {this.state.autobreak === true && this.state.setautobreak === true &&
+                            <View>
+                                <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "center", padding: 5 }}>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
+                                        <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
+                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
+                                        <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
+                                    </TouchableOpacity>
+                                </View>
                             </View>}
                     </View>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10 }}>
