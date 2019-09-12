@@ -78,9 +78,10 @@ class ProfileScreen extends Component {
 
     async stopBreak() {
         Vibration.vibrate();
-        this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
+        this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1, custombreak: false, setcustombreak: false })
         await AsyncStorage.removeItem(breakdatekey)
-        await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
+        await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)],
+        [custombreakkey, JSON.stringify(false)]])
     }
 
     async LogOut() {
@@ -237,7 +238,7 @@ class ProfileScreen extends Component {
                                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel</Text>
                                             </TouchableOpacity>
                                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setcustombreak")}>
-                                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Close</Text>
+                                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>}
