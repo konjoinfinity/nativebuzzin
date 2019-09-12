@@ -63,6 +63,7 @@ class ProfileScreen extends Component {
     }
 
     async takeAbreak() {
+        console.log(this.state.days, this.state.hours)
         if (this.state.hours !== 0 || this.state.days !== 0 || this.state.weeks !== 0 || this.state.months !== 0) {
             var breakDate = new Date()
             breakDate.setHours(breakDate.getHours() + Math.round(breakDate.getMinutes() / 60))
@@ -71,6 +72,7 @@ class ProfileScreen extends Component {
             if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
             if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
             Vibration.vibrate(); this.setState({ break: true, breakdate: breakDate })
+            console.log(breakDate)
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
         if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak() }
@@ -123,8 +125,8 @@ class ProfileScreen extends Component {
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
     }
 
-    showHideSetting(statename) { 
-        this.setState(prevState => ({ [statename]: !prevState[statename] })) 
+    showHideSetting(statename) {
+        this.setState(prevState => ({ [statename]: !prevState[statename] }))
     }
 
     render() {
@@ -257,9 +259,10 @@ class ProfileScreen extends Component {
                                     <View>
                                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Hours</Text>
                                         <NumericInput minValue={0} maxValue={24} initValue={this.state.hours} value={this.state.hours}
-                                            onChange={(hours) => this.setState({ hours }, () => this.takeAbreak())} step={1}
+                                            onChange={(hours) => this.state.days >= 1 && hours === 0 ? this.setState({ hours: 23 }, () => this.takeAbreak()) : this.setState({ hours }, () => this.takeAbreak())} step={1}
                                             totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                            rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                                            rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b'
+                                            onLimitReached={(isMax, msg) => isMax === false && msg === "Reached Minimum Value!" && this.state.days >= 1 && this.setState({ hours: 23, days: this.state.days - 1 })} />
                                     </View>
                                     <View>
                                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Days</Text>
@@ -288,8 +291,8 @@ class ProfileScreen extends Component {
                                 {this.state.break === true &&
                                     <View>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
-                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
-                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}> Keep up the good work!</Text>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
                                         <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
                                             <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel Break</Text>
                                         </TouchableOpacity>
