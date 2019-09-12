@@ -232,9 +232,14 @@ class ProfileScreen extends Component {
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
-                                        <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
-                                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel Break</Text>
-                                        </TouchableOpacity>
+                                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
+                                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel Break</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setcustombreak")}>
+                                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Close</Text>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>}
                             </View>}
                     </View>
