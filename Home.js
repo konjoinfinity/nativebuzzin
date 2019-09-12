@@ -72,7 +72,10 @@ class HomeScreen extends Component {
         const login = this.props.navigation.getParam('login');
         if (login === true) {
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
-            setTimeout(() => { this.props.start(); this.props.navigation.setParams({ login: false }) }, 1000);
+            setTimeout(() => {
+                this.props.start();
+                this.props.navigation.setParams({ login: false });
+            }, 1000);
         }
         setTimeout(() => {
             this.setState({ focus: true }, () => this.checkBac())
@@ -83,9 +86,16 @@ class HomeScreen extends Component {
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
     }
 
-    componentWillUnmount() { this.props.copilotEvents.off('stop'); clearInterval(this.state.timer); clearInterval(this.state.flashtimer) }
+    componentWillUnmount() {
+        this.props.copilotEvents.off('stop');
+        clearInterval(this.state.timer);
+        clearInterval(this.state.flashtimer);
+    }
 
-    handleModal(number) { Vibration.vibrate(), this.setState({ [number]: !this.state[number] }) }
+    handleModal(number) {
+        Vibration.vibrate();
+        this.setState({ [number]: !this.state[number] });
+    }
 
     handleStepChange = (step) => {
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
@@ -108,14 +118,18 @@ class HomeScreen extends Component {
             setTimeout(() => { this.setState({ oz: 20 }) }, 2000);
             setTimeout(() => { this.setState({ oz: 12 }) }, 3000);
         }
-        if (step.order === 8) { setTimeout(() => { this.undoLastDrink() }, 1000); setTimeout(() => { this.clearDrinks() }, 2000) }
+        if (step.order === 8) {
+            setTimeout(() => { this.undoLastDrink() }, 1000)
+            setTimeout(() => { this.clearDrinks() }, 2000)
+        }
     }
 
     async addDrink() {
         Vibration.vibrate(); var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
-            this.saveBuzz(); this.flashWarning();
+            this.saveBuzz();
+            this.flashWarning();
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
                 AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone! Please drink some water.");
             }
@@ -148,7 +162,8 @@ class HomeScreen extends Component {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
                 if (totalBac < 0.06 && this.state.flashtext === true) {
-                    clearInterval(this.state.flashtimer), this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
+                    clearInterval(this.state.flashtimer)
+                    this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
                 }
                 if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
             } else {
@@ -177,8 +192,13 @@ class HomeScreen extends Component {
 
     countdownBac() {
         let bacTimer;
-        if (this.state.countdown === true) { bacTimer = setInterval(() => this.checkBac(), 500); this.setState({ timer: bacTimer }) }
-        else if (this.state.countdown === false) { clearInterval(this.state.timer); setTimeout(() => this.setState({ timer: "" }), 200) }
+        if (this.state.countdown === true) {
+            bacTimer = setInterval(() => this.checkBac(), 500);
+            this.setState({ timer: bacTimer });
+        } else if (this.state.countdown === false) {
+            clearInterval(this.state.timer);
+            setTimeout(() => this.setState({ timer: "" }), 200);
+        }
     }
 
     async moveToOld() {
@@ -206,8 +226,10 @@ class HomeScreen extends Component {
     }
 
     async clearDrinks() {
-        Vibration.vibrate(); await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0 }) });
-        clearInterval(this.state.flashtimer); this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
+        Vibration.vibrate();
+        await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0 }) });
+        clearInterval(this.state.flashtimer);
+        this.setState({ flashtext: false, flashtimer: "", flashtext: "" });
     }
 
     async undoLastDrink() {

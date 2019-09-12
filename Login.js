@@ -17,7 +17,9 @@ class LoginScreen extends React.Component {
         };
     }
 
-    componentDidMount() { Vibration.vibrate() }
+    componentDidMount() {
+        Vibration.vibrate();
+    }
 
     handleModal() {
         Vibration.vibrate();
@@ -40,7 +42,8 @@ class LoginScreen extends React.Component {
         [autobreakminkey, JSON.stringify(false)], [limitkey, JSON.stringify(false)], [limitbackey, JSON.stringify(0.08)],
         [autobreakthresholdkey, JSON.stringify(0.08)], [drinkskey, JSON.stringify(8)], [cancelbreakskey, JSON.stringify(0)],
         [showlimitkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)]])
-        this.handleModal(); this.props.navigation.navigate("Home", { login: true });
+        this.handleModal();
+        this.props.navigation.navigate("Home", { login: true });
     }
 
     render() {

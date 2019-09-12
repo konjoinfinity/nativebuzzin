@@ -11,7 +11,12 @@ import DemoScreen from './Demo';
 const AppStack = createStackNavigator({
     MyTab: {
         screen: createBottomTabNavigator(
-            { Home: HomeScreen, Buzz: BuzzScreen, Profile: ProfileScreen, Demo: DemoScreen },
+            {
+                Home: HomeScreen,
+                Buzz: BuzzScreen,
+                Profile: ProfileScreen,
+                Demo: DemoScreen
+            },
             {
                 defaultNavigationOptions: ({ navigation }) => ({
                     tabBarIcon: ({ horizontal, tintColor }) => {
@@ -47,6 +52,10 @@ const AuthStack = createStackNavigator({ Login: LoginScreen },
     });
 
 export default createAppContainer(createSwitchNavigator(
-    { AuthLoad: AuthLoadScreen, App: AppStack, Auth: AuthStack },
+    { 
+        AuthLoad: AuthLoadScreen, 
+        App: AppStack, 
+        Auth: AuthStack 
+    },
     { initialRouteName: 'AuthLoad' }
 ));

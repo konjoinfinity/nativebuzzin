@@ -102,7 +102,9 @@ class ProfileScreen extends Component {
         if (this.state[setstatename] === false) { this.setState({ [setstatename]: true }) }
     }
 
-    async saveSwitches(statevalue, keyvalue) { await AsyncStorage.setItem(keyvalue, JSON.stringify(statevalue)) }
+    async saveSwitches(statevalue, keyvalue) {
+        await AsyncStorage.setItem(keyvalue, JSON.stringify(statevalue))
+    }
 
     changeBac(increment, statename, keyvalue) {
         if (increment === "up") {
@@ -117,9 +119,13 @@ class ProfileScreen extends Component {
         }
     }
 
-    async saveValues(statename, keyvalue) { await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename])) }
+    async saveValues(statename, keyvalue) {
+        await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
+    }
 
-    showHideSetting(statename) { this.setState(prevState => ({ [statename]: !prevState[statename] })) }
+    showHideSetting(statename) { 
+        this.setState(prevState => ({ [statename]: !prevState[statename] })) 
+    }
 
     render() {
         var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
