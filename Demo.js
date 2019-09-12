@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Vibration, Modal, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Vibration, Modal, Platform, Dimensions, PixelRatio } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import NumericInput from 'react-native-numeric-input'
@@ -109,6 +109,7 @@ class DemoScreen extends Component {
     }
 
     render() {
+        var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 200 : 300
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1], testbuzzes;
         (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
@@ -337,7 +338,7 @@ class DemoScreen extends Component {
                         <Text style={{ fontSize: 25, textAlign: "center", padding: 20 }}>Enter Weight - lbs.</Text>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight}
-                                onChange={(weight) => this.setState({ weight })} totalWidth={325} step={5} rounded textColor='#103900'
+                                onChange={(weight) => this.setState({ weight })} step={5} rounded textColor='#103900' totalWidth={numberInputSize}
                                 iconStyle={{ color: 'white' }} rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                         </View>
                     </View>
