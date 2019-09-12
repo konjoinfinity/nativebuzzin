@@ -234,7 +234,7 @@ class ProfileScreen extends Component {
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
                                         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
-                                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel Break</Text>
+                                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel</Text>
                                             </TouchableOpacity>
                                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setcustombreak")}>
                                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Close</Text>
