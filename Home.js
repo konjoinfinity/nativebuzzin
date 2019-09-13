@@ -99,7 +99,7 @@ class HomeScreen extends Component {
 
     handleStepChange = (step) => {
         if (step.order === 1 || step.order === 2 || step.order === 3 || step.order === 7) {
-            var timerAdd = setInterval(() => this.addDrink(), 1000)
+            var timerAdd = setInterval(() => this.addDrink(), 1000);
             setTimeout(() => { clearInterval(timerAdd) }, 2100);
             if (step.order === 1 || step.order === 2 || step.order === 3) { setTimeout(() => { this.clearDrinks() }, 3000) }
         }
@@ -119,8 +119,8 @@ class HomeScreen extends Component {
             setTimeout(() => { this.setState({ oz: 12 }) }, 3000);
         }
         if (step.order === 8) {
-            setTimeout(() => { this.undoLastDrink() }, 1000)
-            setTimeout(() => { this.clearDrinks() }, 2000)
+            setTimeout(() => { this.undoLastDrink() }, 1000);
+            setTimeout(() => { this.clearDrinks() }, 2000);
         }
     }
 
