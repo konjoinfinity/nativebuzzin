@@ -131,13 +131,13 @@ class HomeScreen extends Component {
             this.saveBuzz();
             this.flashWarning();
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
-                AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone! Please drink some water.");
+                AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.");
             }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) {
-                AlertHelper.show("warn", "Slow Down", "You might want to take a break or drink some water.");
+                AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.");
             }
             if (this.state.bac > 0.07 && this.state.bac < 0.08) {
-                AlertHelper.show("error", "Drunk", "Please drink some water or take a break from drinking.");
+                AlertHelper.show("error", "Drunk", "Stop drinking and drink water.");
             }
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { this.handleModal("modal1") }
             if (this.state.bac > 0.10) { this.handleModal("modal2") }
@@ -305,13 +305,13 @@ class HomeScreen extends Component {
                                     : <Text style={{ fontWeight: "bold", textAlign: "center", color: "#00bfa5" }}>|                          |</Text>}
                             </CopilotView>
                         </CopilotStep>
-                        <CopilotStep text="This gauge displays your BAC." order={1} name="gauge">
+                        <CopilotStep text="This gauge displays your current BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
                                 <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
                             </CopilotView>
                         </CopilotStep>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (
-                            <CopilotStep text="This readout automatically calculates your current BAC." order={2} name="bac">
+                            <CopilotStep text="This readout calculates your current BAC." order={2} name="bac">
                                 <CopilotView>
                                     <View style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                         <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "teal" }}>0.0</Text></View>
@@ -355,7 +355,7 @@ class HomeScreen extends Component {
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                 {this.state.alctype === "Beer" &&
-                                    <CopilotStep text="Press each icon to change drink type." order={4} name="drink">
+                                    <CopilotStep text="Press to change drink type." order={4} name="drink">
                                         <CopilotView>
                                             <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
@@ -398,7 +398,7 @@ class HomeScreen extends Component {
                                     <View style={{ paddingBottom: 15 }}>
                                         <View style={styles.multiSwitchViews}>
                                             {this.state.alctype === "Beer" &&
-                                                <CopilotStep text="Press each percent to change drink ABV." order={5} name="abv">
+                                                <CopilotStep text="Press to change drink ABV." order={5} name="abv">
                                                     <CopilotView>
                                                         {this.state.abv === 0.05 &&
                                                             <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }}
@@ -476,7 +476,7 @@ class HomeScreen extends Component {
                                     </View>
                                     <View style={styles.multiSwitchViews}>
                                         {this.state.alctype === "Beer" &&
-                                            <CopilotStep text="Press each number to change drink size." order={6} name="oz">
+                                            <CopilotStep text="Press to change drink size." order={6} name="oz">
                                                 <CopilotView>
                                                     {this.state.oz === 12 &&
                                                         <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
