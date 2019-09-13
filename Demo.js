@@ -39,13 +39,13 @@ class DemoScreen extends Component {
         this.setState(prevState => ({ testbuzzes: [...prevState.testbuzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) {
-                AlertHelper.show("success", "Optimal Buzz!", "You are in the Optimal Buzz Zone! Please drink some water.");
+                AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.");
             }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) {
-                AlertHelper.show("warn", "Slow Down", "You might want to take a break or drink some water.");
+                AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.");
             }
             if (this.state.bac > 0.07 && this.state.bac < 0.08) {
-                AlertHelper.show("error", "Drunk", "Please drink some water or take a break from drinking.");
+                AlertHelper.show("error", "Drunk", "Stop drinking and drink water.");
             }
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { this.handleModal("modal1") }
             if (this.state.bac > 0.10) { this.handleModal("modal2") }
