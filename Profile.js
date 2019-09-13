@@ -203,7 +203,7 @@ class ProfileScreen extends Component {
                                     </View>
                                     <View>
                                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Days</Text>
-                                        <NumericInput minValue={0} maxValue={31} initValue={this.state.days} value={this.state.days}
+                                        <NumericInput minValue={0} maxValue={7} initValue={this.state.days} value={this.state.days}
                                             onChange={(days) => this.state.weeks >= 1 && days === 0 ?
                                                 setTimeout(() => { this.setState({ days: 6, weeks: this.state.weeks - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
                                                 days === 7 ?
@@ -216,7 +216,7 @@ class ProfileScreen extends Component {
                                 <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                                     <View>
                                         <Text style={{ fontSize: 15, textAlign: "center", padding: 5 }}>Weeks</Text>
-                                        <NumericInput minValue={0} maxValue={52} initValue={this.state.weeks} value={this.state.weeks}
+                                        <NumericInput minValue={0} maxValue={4} initValue={this.state.weeks} value={this.state.weeks}
                                             onChange={(weeks) => this.state.months >= 1 && weeks === 0 ?
                                                 setTimeout(() => { this.setState({ weeks: 3, months: this.state.months - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
                                                 weeks === 4 ?
