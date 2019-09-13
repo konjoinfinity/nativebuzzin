@@ -253,10 +253,7 @@ class HomeScreen extends Component {
         Vibration.vibrate();
         Alert.alert('Are you sure?', typealert === "hh" ? 'Click Yes to cancel Happy Hour, No to continue Happy Hour' :
             typealert === "sl" ? 'Click Yes to cancel Set Limit, No to continue Set Limit' : 'Click Yes to cancel break, No to continue break',
-            [
-                { text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : this.stopModeration("break") },
-                { text: 'No' },
-            ],
+            [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : this.stopModeration("break") }, { text: 'No' }],
             { cancelable: false },
         );
     }
