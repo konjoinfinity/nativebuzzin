@@ -195,7 +195,9 @@ class ProfileScreen extends Component {
                                         <NumericInput minValue={0} maxValue={24} initValue={this.state.hours} value={this.state.hours}
                                             onChange={(hours) => this.state.days >= 1 && hours === 0 ?
                                                 setTimeout(() => { this.setState({ hours: 23, days: this.state.days - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                this.setState({ hours }, () => this.takeAbreak())} step={1}
+                                                hours === 24 ?
+                                                    setTimeout(() => { this.setState({ hours: 0, days: this.state.days + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                    this.setState({ hours }, () => this.takeAbreak())} step={1}
                                             totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
                                             rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                                     </View>
@@ -204,7 +206,9 @@ class ProfileScreen extends Component {
                                         <NumericInput minValue={0} maxValue={31} initValue={this.state.days} value={this.state.days}
                                             onChange={(days) => this.state.weeks >= 1 && days === 0 ?
                                                 setTimeout(() => { this.setState({ days: 6, weeks: this.state.weeks - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                this.setState({ days }, () => this.takeAbreak())} step={1}
+                                                days === 7 ?
+                                                    setTimeout(() => { this.setState({ days: 0, weeks: this.state.weeks + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                    this.setState({ days }, () => this.takeAbreak())} step={1}
                                             totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
                                             rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                                     </View>
@@ -215,7 +219,9 @@ class ProfileScreen extends Component {
                                         <NumericInput minValue={0} maxValue={52} initValue={this.state.weeks} value={this.state.weeks}
                                             onChange={(weeks) => this.state.months >= 1 && weeks === 0 ?
                                                 setTimeout(() => { this.setState({ weeks: 3, months: this.state.months - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                this.setState({ weeks }, () => this.takeAbreak())} step={1}
+                                                weeks === 4 ?
+                                                    setTimeout(() => { this.setState({ weeks: 0, months: this.state.months + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                    this.setState({ weeks }, () => this.takeAbreak())} step={1}
                                             totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
                                             rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                                     </View>
