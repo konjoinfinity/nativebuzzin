@@ -29,7 +29,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" image="logo1.png" translatesAutoresizingMaskIntoConstraints="NO" id="0G9-Ip-eYw">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" image="logoandroid.png" translatesAutoresizingMaskIntoConstraints="NO" id="0G9-Ip-eYw">
                     <rect key="frame" x="0.0" y="94" width="480" height="209"/>
                     <color key="tintColor" white="1" alpha="0.79947024828767121" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
@@ -54,6 +54,6 @@
         </view>
     </objects>
     <resources>
-        <image name="logo1.png" width="367" height="373"/>
+        <image name="logoandroid.png" width="158.5" height="161"/>
     </resources>
 </document>

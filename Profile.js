@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Vibration, Alert, Switch, Dimensions, PixelRatio } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Vibration, Switch, Dimensions, PixelRatio } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
@@ -49,8 +49,8 @@ class ProfileScreen extends Component {
                     if (days + hours + minutes + seconds < 0) {
                         if (this.state.autobreak === true) {
                             var stopBreak5pm = moment(new Date()).local().hours()
-                            if (stopBreak5pm >= 17) { this.stopBreak() }
-                        } else if (this.state.autobreak === false) { this.stopBreak() }
+                            if (stopBreak5pm >= 17) { this.stopBreak("all") }
+                        } else if (this.state.autobreak === false) { this.stopBreak("all") }
                     }
                     var currentDate = new Date(), breakDate = Date.parse(this.state.breakdate)
                     currentDate.setHours(currentDate.getHours() + Math.round(currentDate.getMinutes() / 60))
@@ -73,15 +73,20 @@ class ProfileScreen extends Component {
             Vibration.vibrate(); this.setState({ break: true, breakdate: breakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
-        if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak() }
+        if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak("zero") }
     }
 
-    async stopBreak() {
+    async stopBreak(type) {
         Vibration.vibrate();
-        this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1, custombreak: false, setcustombreak: false })
+        this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
         await AsyncStorage.removeItem(breakdatekey)
-        await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)],
-        [custombreakkey, JSON.stringify(false)]])
+        if (type === "zero") {
+            await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
+        } else {
+            await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)],
+            [custombreakkey, JSON.stringify(false)]])
+            this.setState({ setcustombreak: false, custombreak: false })
+        }
     }
 
     async LogOut() {
@@ -90,12 +95,6 @@ class ProfileScreen extends Component {
         await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
             limitkey, autobreakthresholdkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey])
         this.props.navigation.navigate("Login")
-    }
-
-    cancelBreakAlert() {
-        Vibration.vibrate();
-        Alert.alert('Are you sure?', 'Click Yes to cancel break, No to continue break',
-            [{ text: 'Yes', onPress: () => this.stopBreak() }, { text: 'No' }], { cancelable: false });
     }
 
     handleSwitches(statename, keyvalue, setstatename) {
@@ -234,7 +233,7 @@ class ProfileScreen extends Component {
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
                                         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.cancelBreakAlert()}>
+                                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.stopBreak("all")}>
                                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel</Text>
                                             </TouchableOpacity>
                                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setcustombreak")}>
