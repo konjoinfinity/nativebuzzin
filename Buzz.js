@@ -159,7 +159,7 @@ class BuzzScreen extends Component {
                                     gridMax={Math.max(...weeksData) + 6} horizontal={true}>
                                     <MaxRecLabel />
                                 </LineChart>
-                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}>Weekly Historical (Totals)</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}><Text style={{ color: "#00897b", fontWeight: "bold", fontSize: 30 }}>- </Text>Weekly Totals  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30 }}>- </Text>Max Recommended - {maxrecgender}</Text>
                             </View>}
                         </ScrollView>
                     </View>
