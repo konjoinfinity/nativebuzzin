@@ -83,7 +83,26 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2 }, elevation: undoTrash
     },
     dangerOkButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
-    warnOkButton: { borderWidth: 1, borderColor: "#f9a825", backgroundColor: "#f9a825", padding: 15, margin: 5, borderRadius: 15 }
+    warnOkButton: { borderWidth: 1, borderColor: "#f9a825", backgroundColor: "#f9a825", padding: 15, margin: 5, borderRadius: 15 },
+    profileCards: { backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 },
+    profileCardText: { textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 },
+    profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 },
+    profileSettingTextHidden: { color: "#e0f2f1", textAlign: "center", paddingLeft: 5, paddingRight: 5 },
+    profileSetting: { backgroundColor: "#00897b", borderRadius: 15, padding: 2, marginLeft: 12, marginRight: 12 },
+    profileSettingText: { color: "#FFFFFF", textAlign: "center", paddingLeft: 5, paddingRight: 5 },
+    modal1Card: { backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, marginBottom: 8, padding: 8 },
+    modal2Card: { backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, marginBottom: 8, padding: 8 },
+    profileLine: { textAlign: "center", color: "#bdbdbd", paddingBottom: 10 },
+    proNumericText: { fontSize: 15, textAlign: "center", padding: 5 },
+    buzzCard: { flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 },
+    buzzView: { flexDirection: "row", justifyContent: "space-evenly", margin: 10 },
+    buzzMap: { flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 },
+    scrollCard: { backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 },
+    breakDateText: { fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" },
+    plusMinusView: { flexDirection: "row", justifyContent: "center", padding: 5 },
+    modalTextTitle: { fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" },
+    modalTextBody: { fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" },
+    modalTextAdvice: { fontSize: 18, textAlign: "center", padding: 8 }
 })
 
 export default styles;

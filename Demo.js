@@ -86,8 +86,8 @@ class DemoScreen extends Component {
     }
 
     async undoLastDrink() {
-        var lastDrinkTime = Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
-        if (lastDrinkTime < 0.0333333) {
+        var undoDrinkTime = Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
+        if (undoDrinkTime < 0.0333333) {
             Vibration.vibrate();
             var undobuzz = this.state.testbuzzes;
             if (undobuzz.length >= 1) { undobuzz.pop(), this.setState({ testbuzzes: undobuzz }, () => this.checkBac()) }
@@ -115,7 +115,7 @@ class DemoScreen extends Component {
         (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
             (testbuzzes = Functions.reverseArray(this.state.testbuzzes).map((buzz, id) => {
                 return (
-                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                    <View style={styles.buzzMap} key={id}>
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
                             <Text style={{ fontSize: 20, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
@@ -126,7 +126,7 @@ class DemoScreen extends Component {
         return (
             <View style={{ backgroundColor: "#ff8a80" }}>
                 <Modal animationType="slide" transparent={false} visible={this.state.modal1}>
-                    <ScrollView style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
+                    <ScrollView style={styles.modal1Card}>
                         {warnText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.warnOkButton}
@@ -137,7 +137,7 @@ class DemoScreen extends Component {
                     </ScrollView>
                 </Modal>
                 <Modal animationType="slide" transparent={false} visible={this.state.modal2}>
-                    <ScrollView style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
+                    <ScrollView style={styles.modal2Card}>
                         {dangerText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton}
@@ -149,7 +149,7 @@ class DemoScreen extends Component {
                 </Modal>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <View style={styles.scrollCard}>
                         {addButtonSize === true ? <Text style={{ fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#AE0000" }}>DEMO        </Text><Text style={{ color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#AE0000" }}>        DEMO</Text></Text>
                             : <Text style={{ fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#AE0000" }}>DEMO                </Text><Text style={{ color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#AE0000" }}>                DEMO</Text></Text>}
                         <View style={{ alignSelf: "center" }}>
@@ -318,8 +318,8 @@ class DemoScreen extends Component {
                                 </View>}
                         </View>}
                     {(this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
-                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
+                        <View style={styles.buzzCard}>
+                            <View style={styles.buzzView}>
                                 <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
                                 {this.state.showHideBuzzes === false && (
                                     <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>

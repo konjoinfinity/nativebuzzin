@@ -58,7 +58,7 @@ class BuzzScreen extends Component {
         this.state.buzzes !== null &&
             (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
                 return (
-                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }} key={id}>
+                    <View style={styles.buzzMap} key={id}>
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
                             <Text style={{ fontSize: loginButtonText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
@@ -109,6 +109,7 @@ class BuzzScreen extends Component {
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
+        // Possibly remove this, creates readability issues with data close to max rec amount 
         const MaxRecLabel = ({ x, y }) => (
             <TextSVG key={0} x={Platform.OS === 'android' ? x(0) + 115 : x(0) + 35} y={Math.max(...weeksData) >= maxrecgender ? y(maxrecgender) - 10 : y(maxrecgender) + 20} fontSize={16} fill={'black'} alignmentBaseline={Platform.OS === 'android' ? 'middle' : 'right'}
                 textAnchor={Platform.OS === 'android' ? 'middle' : 'right'} fillOpacity={0.5}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
@@ -116,7 +117,7 @@ class BuzzScreen extends Component {
             <View>
                 <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <View style={styles.scrollCard}>
                         <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={(event) => { if (event.nativeEvent.contentOffset.x === scrollToAmt || event.nativeEvent.contentOffset.x === 0) { this.setState({ sidescrollx: event.nativeEvent.contentOffset.x }) } }} scrollEventThrottle={16}>
                             <View>
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
@@ -168,8 +169,8 @@ class BuzzScreen extends Component {
                         </ScrollView>
                     </View>
                     {this.state.buzzes !== null &&
-                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
+                        <View style={styles.buzzCard}>
+                            <View style={styles.buzzView}>
                                 <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Current Buzz</Text>
                                 {this.state.showHideBuzzes === false && (this.state.buzzes !== null && (
                                     <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
@@ -189,8 +190,8 @@ class BuzzScreen extends Component {
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
                         </View>}
                     {this.state.oldbuzzes !== null &&
-                        <View style={{ flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10 }}>
+                        <View style={styles.buzzCard}>
+                            <View style={styles.buzzView}>
                                 <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
                                 {this.state.showHideOldBuzzes === false && (this.state.oldbuzzes !== null && (
                                     <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>

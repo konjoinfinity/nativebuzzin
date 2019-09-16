@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, PixelRatio, View, Text } from 'react-native';
+import styles from "./Styles"
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
 // console.log(screenWidth + " x " + screenHeight)
@@ -40,18 +41,18 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
     autobreakthresholdkey = "autobreakthreshold", limitkey = "limit", limitbackey = "limitbac", drinkskey = "drinks",
     cancelbreakskey = "cancelbreaks", showlimitkey = "showlimit", custombreakkey = "custombreak", hhhourkey = "hhhour";
 
-const warnText = (<View><Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
-    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.</Text>
-    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Please:</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>Take a break from drinking.</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>Drink water.</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
+const warnText = (<View><Text style={styles.modalTextTitle}>Warning!</Text>
+    <Text style={styles.modalTextBody}>Your BAC is now above the legal drinking limit in most states.</Text>
+    <Text style={styles.modalTextBody}>Please:</Text>
+    <Text style={[styles.modalTextAdvice, { fontWeight: "bold" }]}>Take a break from drinking.</Text>
+    <Text style={styles.modalTextAdvice}>Drink water.</Text>
+    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
 
-const dangerText = (<View><Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Danger!</Text>
-    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is well above the legal drinking limit.</Text>
-    <Text style={{ fontSize: 25, textAlign: "center", padding: 8, fontWeight: "bold" }}>STOP DRINKING!</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>Drink water!</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
+const dangerText = (<View><Text style={styles.modalTextTitle}>Danger!</Text>
+    <Text style={styles.modalTextBody}>Your BAC is well above the legal drinking limit.</Text>
+    <Text style={[styles.modalTextTitle, { fontSize: 25 }]}>STOP DRINKING!</Text>
+    <Text style={styles.modalTextAdvice}>Drink water!</Text>
+    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
 
 const abovePoint10 = (<View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
     <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>

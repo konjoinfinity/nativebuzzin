@@ -277,7 +277,7 @@ class HomeScreen extends Component {
         return (
             <View>
                 <Modal animationType="slide" transparent={false} visible={this.state.modal1}>
-                    <ScrollView style={{ backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
+                    <ScrollView style={styles.modal1Card}>
                         {warnText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.warnOkButton} onPress={() => { this.handleModal("modal1") }}>
@@ -287,7 +287,7 @@ class HomeScreen extends Component {
                     </ScrollView>
                 </Modal>
                 <Modal animationType="slide" transparent={false} visible={this.state.modal2}>
-                    <ScrollView style={{ backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, padding: 8 }}>
+                    <ScrollView style={styles.modal2Card}>
                         {dangerText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton} onPress={() => { this.handleModal("modal2") }}>
@@ -544,8 +544,8 @@ class HomeScreen extends Component {
                     {this.state.break === true && <View style={styles.cardView}>
                         <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                         {this.state.autobreak === true ?
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY')}, 5:00 pm</Text> :
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>}
+                            <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY')}, 5:00 pm</Text> :
+                            <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>}
                         <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
                         <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("br")}>
                             <Text style={styles.buttonText}>Cancel Break</Text>
