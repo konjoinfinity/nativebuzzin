@@ -144,12 +144,11 @@ class ProfileScreen extends Component {
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Happy Hour</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
-                            {this.state.happyhour === false &&
+                            {this.state.happyhour === false ?
                                 <TouchableOpacity style={styles.profileSettingHidden}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>}
-                            {this.state.happyhour === true &&
-                                <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("sethappyhour")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
+                                : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("sethappyhour")}>
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
                         </View>
                         {this.state.happyhour === true && this.state.sethappyhour &&
                             <View>
@@ -179,12 +178,11 @@ class ProfileScreen extends Component {
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Custom Break</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey, "setcustombreak")} /></View>
-                            {this.state.custombreak === false &&
+                            {this.state.custombreak === false ?
                                 <TouchableOpacity style={styles.profileSettingHidden}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>}
-                            {this.state.custombreak === true &&
-                                <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setcustombreak")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
+                                : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setcustombreak")}>
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
                         </View>
                         {this.state.custombreak === true && this.state.setcustombreak === true &&
                             <View>
@@ -254,12 +252,11 @@ class ProfileScreen extends Component {
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Set Limit</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
-                            {this.state.limit === false &&
+                            {this.state.limit === false ?
                                 <TouchableOpacity style={styles.profileSettingHidden}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>}
-                            {this.state.limit === true &&
-                                <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setlimit")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
+                                : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setlimit")}>
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
                         </View>
                         {this.state.limit === true && this.state.setlimit === true &&
                             <View>
@@ -289,12 +286,11 @@ class ProfileScreen extends Component {
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Auto Break</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
-                            {this.state.autobreak === false &&
+                            {this.state.autobreak === false ?
                                 <TouchableOpacity style={styles.profileSettingHidden}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>}
-                            {this.state.autobreak === true &&
-                                <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setautobreak")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
+                                : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setautobreak")}>
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
                         </View>
                         {this.state.autobreak === true && this.state.setautobreak === true &&
                             <View>

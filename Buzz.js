@@ -167,12 +167,9 @@ class BuzzScreen extends Component {
                         <View style={styles.buzzCard}>
                             <View style={styles.buzzView}>
                                 <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Current Buzz</Text>
-                                {this.state.showHideBuzzes === false && (this.state.buzzes !== null && (
+                                {this.state.buzzes !== null && (
                                     <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
-                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Show</Text></TouchableOpacity>))}
-                                {this.state.showHideBuzzes === true && (this.state.buzzes !== null && (
-                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
-                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Hide</Text></TouchableOpacity>))}
+                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>)}
                             </View>
                             {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
                         </View>}
@@ -188,12 +185,9 @@ class BuzzScreen extends Component {
                         <View style={styles.buzzCard}>
                             <View style={styles.buzzView}>
                                 <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
-                                {this.state.showHideOldBuzzes === false && (this.state.oldbuzzes !== null && (
+                                {this.state.oldbuzzes !== null && (
                                     <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
-                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Show</Text></TouchableOpacity>))}
-                                {this.state.showHideOldBuzzes === true && (this.state.oldbuzzes !== null && (
-                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
-                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Hide</Text></TouchableOpacity>))}
+                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideOldBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>)}
                             </View>
                             {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                         </View>}
