@@ -109,10 +109,6 @@ class BuzzScreen extends Component {
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
-        // Possibly remove this, creates readability issues with data close to max rec amount 
-        const MaxRecLabel = ({ x, y }) => (
-            <TextSVG key={0} x={Platform.OS === 'android' ? x(0) + 115 : x(0) + 35} y={Math.max(...weeksData) >= maxrecgender ? y(maxrecgender) - 10 : y(maxrecgender) + 20} fontSize={16} fill={'black'} alignmentBaseline={Platform.OS === 'android' ? 'middle' : 'right'}
-                textAnchor={Platform.OS === 'android' ? 'middle' : 'right'} fillOpacity={0.5}>{`Max Recommended - ${maxrecgender}`}</TextSVG>)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
@@ -161,7 +157,6 @@ class BuzzScreen extends Component {
                                     data={maxrecdata} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8}
                                     svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
                                     gridMax={Math.max(...weeksData) + 6} horizontal={true}>
-                                    <MaxRecLabel />
                                 </LineChart>
                                 <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}><Text style={{ color: "#00897b", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>- </Text>Historical Weekly Totals</Text>
                                 <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.3 }}>- </Text>Max Recommended - {maxrecgender}</Text>
