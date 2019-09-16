@@ -140,7 +140,7 @@ class ProfileScreen extends Component {
                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                        <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Happy Hour</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
@@ -174,7 +174,7 @@ class ProfileScreen extends Component {
                             </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                        <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Custom Break</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey, "setcustombreak")} /></View>
@@ -248,7 +248,7 @@ class ProfileScreen extends Component {
                             </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                        <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Set Limit</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
@@ -282,7 +282,7 @@ class ProfileScreen extends Component {
                             </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                        <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Auto Break</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>

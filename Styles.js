@@ -103,7 +103,9 @@ const styles = StyleSheet.create({
     modalTextTitle: { fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" },
     modalTextBody: { fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" },
     modalTextAdvice: { fontSize: 18, textAlign: "center", padding: 8 },
-    spaceAroundView: { flexDirection: "row", justifyContent: "space-around" }
+    spaceAroundView: { flexDirection: "row", justifyContent: "space-around" },
+    endView: { flexDirection: "row", justifyContent: "flex-end" },
+    buzzInfo: { backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }
 })
 
 export default styles;

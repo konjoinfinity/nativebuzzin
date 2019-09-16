@@ -296,12 +296,8 @@ class DemoScreen extends Component {
                         <View style={styles.buzzCard}>
                             <View style={styles.buzzView}>
                                 <Text style={{ fontSize: 30, textAlign: "center", padding: 10 }}>Current Buzz</Text>
-                                {this.state.showHideBuzzes === false && (
-                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
-                                        <Text style={styles.buttonText}>Show</Text></TouchableOpacity>)}
-                                {this.state.showHideBuzzes === true && (
-                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
-                                        <Text style={styles.buttonText}>Hide</Text></TouchableOpacity>)}
+                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes()}>
+                                    <Text style={styles.buttonText}>{this.state.showHideBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>
                             </View>
                             {this.state.showHideBuzzes === true && <View>{testbuzzes}</View>}
                         </View>}

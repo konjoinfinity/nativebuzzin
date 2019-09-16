@@ -174,7 +174,7 @@ class BuzzScreen extends Component {
                             {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
                         </View>}
                     {this.state.buzzes === null &&
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
+                        <View style={styles.buzzInfo}>
                             <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
                             {this.state.timesince !== null &&
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}
@@ -192,7 +192,7 @@ class BuzzScreen extends Component {
                             {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                         </View>}
                     {this.state.oldbuzzes === null &&
-                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 }}>
+                        <View style={styles.buzzInfo}>
                             <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                         </View>}
                 </ScrollView>
