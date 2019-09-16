@@ -189,7 +189,7 @@ class ProfileScreen extends Component {
                         {this.state.custombreak === true && this.state.setcustombreak === true &&
                             <View>
                                 <Text style={styles.profileLine}>___________________________________________</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                <View style={styles.spaceAroundView}>
                                     <View>
                                         <Text style={styles.proNumericText}>Hours</Text>
                                         <NumericInput minValue={0} maxValue={24} initValue={this.state.hours} value={this.state.hours}
@@ -213,7 +213,7 @@ class ProfileScreen extends Component {
                                             rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
                                     </View>
                                 </View>
-                                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                <View style={styles.spaceAroundView}>
                                     <View>
                                         <Text style={styles.proNumericText}>Weeks</Text>
                                         <NumericInput minValue={0} maxValue={4} initValue={this.state.weeks} value={this.state.weeks}
@@ -238,7 +238,7 @@ class ProfileScreen extends Component {
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
-                                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                                        <View style={styles.spaceAroundView}>
                                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.stopBreak("all")}>
                                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel</Text>
                                             </TouchableOpacity>

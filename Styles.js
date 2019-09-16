@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
     plusMinusView: { flexDirection: "row", justifyContent: "center", padding: 5 },
     modalTextTitle: { fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" },
     modalTextBody: { fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" },
-    modalTextAdvice: { fontSize: 18, textAlign: "center", padding: 8 }
+    modalTextAdvice: { fontSize: 18, textAlign: "center", padding: 8 },
+    spaceAroundView: { flexDirection: "row", justifyContent: "space-around" }
 })
 
 export default styles;
