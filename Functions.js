@@ -1,4 +1,4 @@
-import { Vibration } from 'react-native';
+import { Vibration, Platform } from 'react-native';
 import moment from "moment";
 
 export class Functions {
@@ -133,5 +133,19 @@ export class Functions {
         var reversedArray = [];
         for (var i = array.length - 1; i >= 0; i--) { reversedArray.push(array[i]) }
         return reversedArray;
+    }
+
+    static bacEmotion(bac) {
+        if (bac > 0.00 && bac < 0.01) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😊" : "🙂"] }
+        else if (bac > 0.01 && bac < 0.02) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "☺️" : "😊"] }
+        else if (bac > 0.02 && bac < 0.03) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😀" : "☺️"] }
+        else if (bac > 0.03 && bac < 0.04) { return ["teal", "😃"] }
+        else if (bac > 0.04 && bac < 0.05) { return ["teal", "😄"] }
+        else if (bac > 0.05 && bac < 0.06) { return ["teal", "😆"] }
+        else if (bac > 0.06 && bac < 0.07) { return ["white", "😝"] }
+        else if (bac > 0.07 && bac < 0.08) { return ["white", "😜"] }
+        else if (bac > 0.08 && bac < 0.09) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😋" : "🤪"] }
+        else if (bac > 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😅" : "🥴"] }
+        else if (bac >= 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😵" : "🤮"] }
     }
 }
