@@ -101,7 +101,7 @@ class BuzzScreen extends Component {
             this.state.oldbuzzes !== null && weeksData.push(lastWeeks[i].length)
             this.state.oldbuzzes !== null && maxrecdata.push(maxrecgender)
         }
-        var weekColor = Functions.sevenColor(sevenArray.length), monthColor = Functions.thirtyColor(thirtyArray.length)
+        var weekColor = Functions.barColor(sevenArray.length, "seven", this.state.gender), monthColor = Functions.barColor(thirtyArray.length, "thirty", this.state.gender)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
         const Labels = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <TextSVG key={index} key={index} x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
@@ -141,6 +141,9 @@ class BuzzScreen extends Component {
                                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
                                     </View>
                                 </View>
+                                <View style={{ flexDirection: 'row', justifyContent: "center" }}>
+                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}><Text style={{ color: "#96c060", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>0-5  <Text style={{ color: "#ffeb00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>6-10  <Text style={{ color: "#e98f00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>11-14  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>15+</Text>
+                                </View>
                             </View>
                             {weeksData.length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>
                                 <LineChart style={{ height: 200, width: 1000 }} data={weeksData} gridMax={Math.max(...weeksData) + 6}
@@ -159,7 +162,8 @@ class BuzzScreen extends Component {
                                     gridMax={Math.max(...weeksData) + 6} horizontal={true}>
                                     <MaxRecLabel />
                                 </LineChart>
-                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}><Text style={{ color: "#00897b", fontWeight: "bold", fontSize: 30 }}>- </Text>Weekly Totals  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30 }}>- </Text>Max Recommended - {maxrecgender}</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}><Text style={{ color: "#00897b", fontWeight: "bold", fontSize: 30 }}>- </Text>Weekly Totals</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30 }}>- </Text>Max Recommended - {maxrecgender}</Text>
                             </View>}
                         </ScrollView>
                     </View>
