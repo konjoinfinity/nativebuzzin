@@ -142,7 +142,7 @@ class BuzzScreen extends Component {
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: "center" }}>
-                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}><Text style={{ color: "#96c060", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>0-5  <Text style={{ color: "#ffeb00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>6-10  <Text style={{ color: "#e98f00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>11-14  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>15+</Text>
+                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}><Text style={{ color: "#96c060", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "0-5" : "0-2"}  <Text style={{ color: "#ffeb00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "6-10" : "2-5"}  <Text style={{ color: "#e98f00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "11-14" : "6-7"}  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "15+" : "7+"}</Text>
                                 </View>
                             </View>
                             {weeksData.length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>
@@ -162,7 +162,7 @@ class BuzzScreen extends Component {
                                     gridMax={Math.max(...weeksData) + 6} horizontal={true}>
                                     <MaxRecLabel />
                                 </LineChart>
-                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}><Text style={{ color: "#00897b", fontWeight: "bold", fontSize: 30 }}>- </Text>Weekly Totals</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}><Text style={{ color: "#00897b", fontWeight: "bold", fontSize: 30 }}>- </Text>Historical Weekly Totals</Text>
                                 <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30 }}>- </Text>Max Recommended - {maxrecgender}</Text>
                             </View>}
                         </ScrollView>
