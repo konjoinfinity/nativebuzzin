@@ -125,15 +125,9 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.saveBuzz();
             this.flashWarning();
-            if (this.state.bac > 0.04 && this.state.bac < 0.06) {
-                AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.");
-            }
-            if (this.state.bac > 0.06 && this.state.bac < 0.07) {
-                AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.");
-            }
-            if (this.state.bac > 0.07 && this.state.bac < 0.08) {
-                AlertHelper.show("error", "Drunk", "Stop drinking and drink water.");
-            }
+            if (this.state.bac > 0.04 && this.state.bac < 0.06) { AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
+            if (this.state.bac > 0.06 && this.state.bac < 0.07) { AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
+            if (this.state.bac > 0.07 && this.state.bac < 0.08) { AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { this.handleModal("modal1") }
             if (this.state.bac > 0.10) { this.handleModal("modal2") }
         }, 200);
