@@ -150,6 +150,18 @@ class DemoScreen extends Component {
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={styles.scrollCard}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 20 }}>     Gender - {this.state.gender}     </Text>
+                            <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch ♂♀</Text></TouchableOpacity>
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                            <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Enter Weight - lbs.</Text>
+                            <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight} totalHeight={50}
+                                onChange={(weight) => this.setState({ weight })} step={5} rounded textColor='#103900' totalWidth={150}
+                                iconStyle={{ color: 'white' }} rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                        </View>
+                    </View>
+                    <View style={styles.cardView}>
                         {addButtonSize === true ? <Text style={{ fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#AE0000" }}>DEMO        </Text><Text style={{ color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#AE0000" }}>        DEMO</Text></Text>
                             : <Text style={{ fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#AE0000" }}>DEMO                </Text><Text style={{ color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#AE0000" }}>                DEMO</Text></Text>}
                         <View style={{ alignSelf: "center" }}>
@@ -253,18 +265,6 @@ class DemoScreen extends Component {
                             </View>
                             {this.state.showHideBuzzes === true && <View>{testbuzzes}</View>}
                         </View>}
-                    <View style={styles.cardView}>
-                        <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch Gender ♂♀</Text></TouchableOpacity>
-                        <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
-                            <Text style={{ fontSize: 25, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
-                        </View>
-                        <Text style={{ fontSize: 25, textAlign: "center", padding: 20 }}>Enter Weight - lbs.</Text>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight}
-                                onChange={(weight) => this.setState({ weight })} step={5} rounded textColor='#103900' totalWidth={numberInputSize}
-                                iconStyle={{ color: 'white' }} rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
-                        </View>
-                    </View>
                     <View style={{ paddingTop: 20 }}></View>
                 </ScrollView>
             </View >
