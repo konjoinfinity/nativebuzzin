@@ -109,7 +109,6 @@ class DemoScreen extends Component {
     }
 
     render() {
-        var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 200 : 300
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1], testbuzzes;
         (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
