@@ -81,9 +81,9 @@ export class Functions {
 
     static setAlcType(value) {
         Vibration.vibrate();
-        if (value === "Beer") { return [0.05, 12, 0] }
-        if (value === "Wine") { return [0.12, 5, 1] }
-        if (value === "Liquor") { return [0.40, 1.5, 2] }
+        if (value === "Beer") { return [0.05, 12] }
+        if (value === "Wine") { return [0.12, 5] }
+        if (value === "Liquor") { return [0.40, 1.5] }
     }
 
     static setColorPercent(bac) {
