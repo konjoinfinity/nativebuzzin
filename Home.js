@@ -106,23 +106,16 @@ class HomeScreen extends Component {
         if (step.order === 1 || step.order === 3) {
             var timerAdd = setInterval(() => this.addDrink(), 1000);
             setTimeout(() => { clearInterval(timerAdd) }, 2100);
-            if (step.order === 3) {
-                setTimeout(() => { this.undoLastDrink() }, 3000);
-                setTimeout(() => { this.clearDrinks() }, 4000);
-            } else {
-                setTimeout(() => { this.clearDrinks() }, 3000);
-            }
+            setTimeout(() => { this.clearDrinks() }, 3000);
         }
         if (step.order === 2) {
-            setTimeout(() => { this.aclswitch.setActive(1); this.setState({ alctype: "Wine" }) }, 1000);
-            setTimeout(() => { this.abvwineliqswitch.setActive(0); this.setState({ abv: 0.11 }) }, 1500);
-            setTimeout(() => { this.ozswitch.setActive(1); this.setState({ oz: 8 }) }, 2000);
-            setTimeout(() => { this.aclswitch.setActive(2); this.setState({ alctype: "Liquor" }) }, 2500);
-            setTimeout(() => { this.abvwineliqswitch.setActive(2); this.setState({ abv: 0.50 }) }, 3000);
-            setTimeout(() => { this.ozswitch.setActive(1); this.setState({ oz: 3 }) }, 3500);
-            setTimeout(() => { this.aclswitch.setActive(0); this.setState({ alctype: "Beer" }) }, 4000);
-            setTimeout(() => { this.abvswitch.setActive(1); this.setState({ abv: 0.05 }) }, 4500);
-            setTimeout(() => { this.ozswitch.setActive(0); this.setState({ oz: 12 }) }, 5000);
+            setTimeout(() => { this.alcswitch.setActive(1); this.setState({ alctype: "Wine" }) }, 1000);
+            setTimeout(() => { this.alcswitch.setActive(2); this.setState({ alctype: "Liquor" }) }, 1500);
+            setTimeout(() => { this.alcswitch.setActive(0); this.setState({ alctype: "Beer" }) }, 2000);
+            setTimeout(() => { this.abvswitch.setActive(4); this.setState({ abv: 0.07 }) }, 2500);
+            setTimeout(() => { this.abvswitch.setActive(1); this.setState({ abv: 0.05 }) }, 3000);
+            setTimeout(() => { this.ozswitch.setActive(2); this.setState({ oz: 20 }) }, 3500);
+            setTimeout(() => { this.ozswitch.setActive(0); this.setState({ oz: 12 }) }, 4000);
         }
     }
 
@@ -324,7 +317,7 @@ class HomeScreen extends Component {
                             <CopilotView>
                                 <View style={styles.cardView}>
                                     <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
-                                        <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.aclswitch = ref }}
+                                        <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
                                             containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                             onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={0}>
                                             <Text style={{ fontSize: alcTypeText }}>🍺</Text>
@@ -355,7 +348,7 @@ class HomeScreen extends Component {
                                                 </View>
                                                 <View style={styles.multiSwitchViews}>
                                                     {this.state.alctype !== "Beer" &&
-                                                        <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvwineliqswitch = ref }}
+                                                        <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                             containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                             onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
                                                             <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
