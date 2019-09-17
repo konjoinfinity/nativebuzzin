@@ -84,6 +84,11 @@ class HomeScreen extends Component {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
+
+        // setTimeout(() => {
+        //     this.aclswitch.setActive(1)
+        // }, 2000);
+
     }
 
     componentWillUnmount() {
@@ -104,9 +109,9 @@ class HomeScreen extends Component {
             if (step.order === 1 || step.order === 2) { setTimeout(() => { this.clearDrinks() }, 3000) }
         }
         if (step.order === 3) {
-            setTimeout(() => { this.setState({ alctype: "Wine" }) }, 1000);
-            setTimeout(() => { this.setState({ alctype: "Liquor" }) }, 2000);
-            setTimeout(() => { this.setState({ alctype: "Beer" }) }, 3000);
+            setTimeout(() => { this.aclswitch.setActive(1); this.setState({ alctype: "Wine" }) }, 1000);
+            setTimeout(() => { this.aclswitch.setActive(2); this.setState({ alctype: "Liquor" }) }, 2000);
+            setTimeout(() => { this.aclswitch.setActive(0); this.setState({ alctype: "Beer" }) }, 3000);
         }
         if (step.order === 4) {
             setTimeout(() => { this.setState({ abv: 0.07 }) }, 1000);
@@ -326,30 +331,13 @@ class HomeScreen extends Component {
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                 <CopilotStep text="Press to change drink type." order={3} name="drink">
                                     <CopilotView>
-                                        {this.state.alctype === "Beer" &&
-                                            <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
-                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value), oz: Functions.setAlcType(alcValues[number].value) }) }} active={0}>
-                                                <Text style={{ fontSize: alcTypeText }}>🍺</Text>
-                                                <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                                <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
-                                            </MultiSwitch>}
-                                        {this.state.alctype === "Wine" &&
-                                            <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
-                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value), oz: Functions.setAlcType(alcValues[number].value) }) }} active={1}>
-                                                <Text style={{ fontSize: alcTypeText }}>🍺</Text>
-                                                <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                                <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
-                                            </MultiSwitch>}
-                                        {this.state.alctype === "Liquor" &&
-                                            <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
-                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value), oz: Functions.setAlcType(alcValues[number].value) }) }} active={2}>
-                                                <Text style={{ fontSize: alcTypeText }}>🍺</Text>
-                                                <Text style={{ fontSize: alcTypeText }}>🍷</Text>
-                                                <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
-                                            </MultiSwitch>}
+                                        <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.aclswitch = ref }}
+                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                            onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={Functions.setAlcType(this.state.alctype)[2]}>
+                                            <Text style={{ fontSize: alcTypeText }}>🍺</Text>
+                                            <Text style={{ fontSize: alcTypeText }}>🍷</Text>
+                                            <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
+                                        </MultiSwitch>
                                     </CopilotView>
                                 </CopilotStep>
                                 <CopilotStep text="Press to undo last drink." order={7} name="clear">
