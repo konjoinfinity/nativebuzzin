@@ -243,7 +243,7 @@ class HomeScreen extends Component {
     cancelAlert(typealert) {
         Vibration.vibrate();
         Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
-            typealert === "sl" ? 'Consider continuing your break.' : typealert === "br" ? 'Think about sticking to your break.' : 'Consider keeping up your streak.',
+            typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' : 'Consider keeping up your streak.',
             [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : typealert === "br" ? this.stopModeration("break") : this.stopModeration("ib") }, { text: 'No' }],
             { cancelable: false },
         );
