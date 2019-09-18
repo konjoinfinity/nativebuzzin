@@ -80,17 +80,14 @@ class DemoScreen extends Component {
     }
 
     async undoLastDrink() {
-        var undoDrinkTime = Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
-        if (undoDrinkTime < 0.0333333) {
-            Vibration.vibrate();
-            var undobuzz = this.state.testbuzzes;
+        if (Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated) < 0.0333333) {
+            Vibration.vibrate(); var undobuzz = this.state.testbuzzes;
             if (undobuzz.length >= 1) { undobuzz.pop(), this.setState({ testbuzzes: undobuzz }, () => this.checkBac()) }
         }
     }
 
     checkLastDrink() {
-        var lastDrinkTime = Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
-        if (lastDrinkTime < 0.0333333) { return true }
+        if (Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated) < 0.0333333) { return true }
         else { return false }
     }
 

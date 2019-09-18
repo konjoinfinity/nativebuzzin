@@ -224,19 +224,17 @@ class HomeScreen extends Component {
     }
 
     async undoLastDrink() {
-        var lastDrinkTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated), undobuzz;
-        if (lastDrinkTime < 0.0333333) {
-            Vibration.vibrate();
+        if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < 0.0333333) {
+            Vibration.vibrate(); var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
-                if (result !== null) { undobuzz = JSON.parse(result), undobuzz.pop(), this.setState({ buzzes: undobuzz }) }
+                if (result !== null) { undobuzz = JSON.parse(result); undobuzz.pop(); this.setState({ buzzes: undobuzz }) }
             })
             await AsyncStorage.setItem(key, JSON.stringify(undobuzz), () => { this.checkBac() })
         }
     }
 
     checkLastDrink() {
-        var lastDrinkTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated);
-        if (lastDrinkTime < 0.0333333) { return true }
+        if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < 0.0333333) { return true }
         else { return false }
     }
 
