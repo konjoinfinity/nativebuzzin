@@ -148,4 +148,12 @@ export class Functions {
         else if (bac > 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😅" : "🥴"] }
         else if (bac >= 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😵" : "🤮"] }
     }
+
+    static timeSince(recent) {
+        var date1 = Date.parse(recent)
+        var date2 = new Date().getTime();
+        var dayHourMin = this.getDayHourMin(date1, date2);
+        return [dayHourMin[0], dayHourMin[1], dayHourMin[2], dayHourMin[3]]
+    }
 }
+
