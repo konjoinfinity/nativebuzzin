@@ -32,7 +32,7 @@ class BuzzScreen extends Component {
                     var date2 = currentDate.getTime();
                     var dayHourMin = Functions.getDayHourMin(date1, date2);
                     var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
-                    this.setState({ timesince: `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds` })
+                    this.setState({ timesince: `${days} ${days === 1 ? "day" : "days"}, ${hours} ${hours === 1 ? "hour" : "hours"}, ${minutes} ${minutes === 1 ? "minute" : "minutes"}, and ${seconds} ${seconds === 1 ? "second" : "seconds"}` })
                 }, 200);
             } else { this.setState({ oldbuzzes: null }) }
         })
@@ -119,7 +119,7 @@ class BuzzScreen extends Component {
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
                                         <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={sevenData}
-                                            svg={{ fill: weekColor, fillOpacity: 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            svg={{ fill: weekColor, fillOpacity: weekColor === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
                                             spacing={2} gridMin={0} gridMax={sevenData[0] + 3} animate={true} animationDuration={1500}>
                                             <XAxis style={{ marginTop: 10 }} data={sevenData} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
@@ -129,7 +129,7 @@ class BuzzScreen extends Component {
                                     </View>
                                     <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
                                         <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={thirtyData}
-                                            svg={{ fill: monthColor, fillOpacity: 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            svg={{ fill: monthColor, fillOpacity: monthColor === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
                                             spacing={2} gridMin={0} gridMax={thirtyData[0] + 10} animate={true} animationDuration={1800}>
                                             <XAxis style={{ marginTop: 10 }} data={thirtyData} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
@@ -139,7 +139,7 @@ class BuzzScreen extends Component {
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: "center" }}>
-                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 8 }}><Text style={{ color: "#96c060", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "0-5" : "0-2"}  <Text style={{ color: "#ffeb00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "6-10" : "2-5"}  <Text style={{ color: "#e98f00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "11-14" : "6-7"}  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "15+" : "7+"}</Text>
+                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#96c060", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "0-5" : "0-2"}  <Text style={{ color: "#ffeb00", fontWeight: "bold", fontSize: 30, opacity: 0.5 }}>■ </Text>{this.state.gender === "Male" ? "6-10" : "2-5"}  <Text style={{ color: "#e98f00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "11-14" : "6-7"}  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "15+" : "7+"}</Text>
                                 </View>
                             </View>
                             {weeksData.length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>

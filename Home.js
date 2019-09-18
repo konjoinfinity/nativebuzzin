@@ -27,7 +27,7 @@ class HomeScreen extends Component {
             name: "", gender: "", weight: "", bac: 0.0, buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
-            showlimit: false, hhhour: "", indefbreak: false
+            showlimit: false, hhhour: "", indefbreak: false, timesince: null
         }
     };
 
@@ -66,8 +66,19 @@ class HomeScreen extends Component {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: [] })
         })
         await AsyncStorage.getItem(oldkey, (error, result) => {
-            result !== null && result !== "[]" ? this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac()) :
+            if (result !== null && result !== "[]") {
+                this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
+                setTimeout(() => {
+                    var date1 = Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
+                    var currentDate = new Date();
+                    var date2 = currentDate.getTime();
+                    var dayHourMin = Functions.getDayHourMin(date1, date2);
+                    var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
+                    this.setState({ timesince: `${days} ${days === 1 ? "day" : "days"}, ${hours} ${hours === 1 ? "hour" : "hours"}, ${minutes} ${minutes === 1 ? "minute" : "minutes"}, and ${seconds} ${seconds === 1 ? "second" : "seconds"}` })
+                }, 200);
+            } else {
                 this.setState({ oldbuzzes: [] }, () => this.checkBac())
+            }
         })
         const login = this.props.navigation.getParam('login');
         if (login === true) {
@@ -385,8 +396,9 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.indefbreak === true && (this.state.break === "" || this.state.break === false) && this.state.happyhour === false && this.state.happyhourtime === "" &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>You are taking an indefinite break.</Text>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Hats off to you, keep up the good work! </Text>
+                            <Text style={{ fontSize: 20, textAlign: "center", padding: 5 }}>You are taking an indefinite break.</Text>
+                            {this.state.timesince !== null &&
+                                <Text style={{ fontSize: 20, textAlign: "center", padding: 5 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("ib")}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
