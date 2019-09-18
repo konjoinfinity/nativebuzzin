@@ -47,12 +47,8 @@ class HomeScreen extends Component {
             if (result !== null) {
                 this.setState({ breakdate: JSON.parse(result) })
                 setTimeout(() => {
-                    var date1 = Date.parse(this.state.breakdate)
-                    var currentDate = new Date();
-                    var date2 = currentDate.getTime();
-                    var dayHourMin = Functions.getDayHourMin(date2, date1);
-                    var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
-                    if (days + hours + minutes + seconds < 0) {
+                    var breaktime = Functions.timeSince(this.state.breakdate, "break")
+                    if (breaktime[0] + breaktime[1] + breaktime[2] + breaktime[3] < 0) {
                         if (this.state.autobreak === true) {
                             var stopBreak5pm = moment(new Date()).local().hours()
                             if (stopBreak5pm >= 17) { this.stopBreak("break") }
@@ -69,7 +65,7 @@ class HomeScreen extends Component {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
                 setTimeout(() => {
-                    var durations = Functions.timeSince(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated)
+                    var durations = Functions.timeSince(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                 }, 200);
             } else {
