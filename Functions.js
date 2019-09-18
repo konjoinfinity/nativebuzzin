@@ -149,8 +149,7 @@ export class Functions {
     }
 
     static timeSince(recent, type) {
-        var date1 = Date.parse(recent)
-        var date2 = new Date().getTime();
+        var date1 = Date.parse(recent), date2 = new Date().getTime();
         var dayHourMin = type === "timesince" ? this.getDayHourMin(date1, date2) : this.getDayHourMin(date2, date1)
         return [dayHourMin[0], dayHourMin[1], dayHourMin[2], dayHourMin[3]]
     }
