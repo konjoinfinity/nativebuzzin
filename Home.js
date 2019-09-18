@@ -13,7 +13,7 @@ import {
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
-    showlimitkey, abovePoint10, custombreakkey, hhhourkey
+    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -27,15 +27,15 @@ class HomeScreen extends Component {
             name: "", gender: "", weight: "", bac: 0.0, buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
-            showlimit: false, hhhour: ""
+            showlimit: false, hhhour: "", indefbreak: false
         }
     };
 
     async componentDidMount() {
-        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey, drinkskey,
+        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey])
         this.setState({
-            autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
+            autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
@@ -84,11 +84,6 @@ class HomeScreen extends Component {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
-
-        // setTimeout(() => {
-        //     this.abvswitch.setActive(3)
-        // }, 2000);
-
     }
 
     componentWillUnmount() {
@@ -240,9 +235,9 @@ class HomeScreen extends Component {
 
     cancelAlert(typealert) {
         Vibration.vibrate();
-        Alert.alert('Are you sure?', typealert === "hh" ? 'Click Yes to cancel Happy Hour, No to continue Happy Hour' :
-            typealert === "sl" ? 'Click Yes to cancel Set Limit, No to continue Set Limit' : 'Click Yes to cancel break, No to continue break',
-            [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : this.stopModeration("break") }, { text: 'No' }],
+        Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
+            typealert === "sl" ? 'Consider continuing your break.' : typealert === "br" ? 'Think about sticking to your break.' : 'Consider keeping up your streak.',
+            [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : typealert === "br" ? this.stopModeration("break") : this.stopModeration("ib") }, { text: 'No' }],
             { cancelable: false },
         );
     }
@@ -250,14 +245,14 @@ class HomeScreen extends Component {
     async stopModeration(stoptype) {
         Vibration.vibrate();
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
-            { showlimit: false, limit: false, limitbac: "", drinks: "" })
+            stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } : { indefbreak: false })
         if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
         await AsyncStorage.multiSet(stoptype === "break" ? [[breakkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)],
         [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
             stoptype === "hh" ? [[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
-                [[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)],
-                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
+                stoptype === "sl" ? [[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)],
+                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : [[indefbreakkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
     render() {
@@ -306,7 +301,7 @@ class HomeScreen extends Component {
                             </CopilotView>
                         </CopilotStep>
                     </View>
-                    {(this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false &&
+                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false &&
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView>
                                 <View style={styles.cardView}>
@@ -393,6 +388,14 @@ class HomeScreen extends Component {
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("hh")}>
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>
+                            </TouchableOpacity>
+                        </View>}
+                    {this.state.indefbreak === true && (this.state.break === "" || this.state.break === false) && this.state.happyhour === false && this.state.happyhourtime === "" &&
+                        <View style={styles.cardView}>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>You are taking an indefinite break.</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Hats off to you, keep up the good work! </Text>
+                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("ib")}>
+                                <Text style={styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
                         </View>}
                     {this.state.bac > 0.10 && <View style={styles.cardView}>

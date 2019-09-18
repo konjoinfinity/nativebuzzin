@@ -39,7 +39,8 @@ const gaugeLabels = [
 const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break",
     breakdatekey = "breakdate", autobreakkey = "autobreak", happyhourkey = "happyhour", autobreakminkey = "autobreakmin",
     autobreakthresholdkey = "autobreakthreshold", limitkey = "limit", limitbackey = "limitbac", drinkskey = "drinks",
-    cancelbreakskey = "cancelbreaks", showlimitkey = "showlimit", custombreakkey = "custombreak", hhhourkey = "hhhour";
+    cancelbreakskey = "cancelbreaks", showlimitkey = "showlimit", custombreakkey = "custombreak", hhhourkey = "hhhour",
+    indefbreakkey = "indefbreak";
 
 const warnText = (<View><Text style={styles.modalTextTitle}>Warning!</Text>
     <Text style={styles.modalTextBody}>Your BAC is now above the legal drinking limit in most states.</Text>
@@ -424,5 +425,5 @@ export {
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey, genderkey, weightkey, key, oldkey,
     breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, gaugeLabels, warnText, dangerText,
     limitkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, abovePoint10, loginText, hhhourkey,
-    loginButtonText, loginGenderText, numberInputSize, loginTitle, barChartWidth, scrollToAmt
+    loginButtonText, loginGenderText, numberInputSize, loginTitle, barChartWidth, scrollToAmt, indefbreakkey
 }

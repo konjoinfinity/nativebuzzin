@@ -7,7 +7,7 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
-    drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText
+    drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -17,19 +17,20 @@ class ProfileScreen extends Component {
         this.state = {
             name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", breaktime: "", hours: 0, days: 0, weeks: 0,
             months: 0, autobreak: "", happyhour: "", threshold: "", limit: "", drinks: 0, limitbac: "", cancelbreaks: "",
-            custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false
+            custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, indefbreak: ""
         }
     };
 
     async componentDidMount() {
         this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
-            drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey])
+            drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
+            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
+            indefbreak: JSON.parse(values[12][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -187,50 +188,64 @@ class ProfileScreen extends Component {
                         {this.state.custombreak === true && this.state.setcustombreak === true &&
                             <View>
                                 <Text style={styles.profileLine}>___________________________________________</Text>
-                                <View style={styles.spaceAroundView}>
+                                {this.state.indefbreak === false &&
                                     <View>
-                                        <Text style={styles.proNumericText}>Hours</Text>
-                                        <NumericInput minValue={0} maxValue={24} initValue={this.state.hours} value={this.state.hours}
-                                            onChange={(hours) => this.state.days >= 1 && hours === 0 ?
-                                                setTimeout(() => { this.setState({ hours: 23, days: this.state.days - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                hours === 24 ?
-                                                    setTimeout(() => { this.setState({ hours: 0, days: this.state.days + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                    this.setState({ hours }, () => this.takeAbreak())} step={1}
-                                            totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                            rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
-                                    </View>
+                                        <View style={styles.spaceAroundView}>
+                                            <View>
+                                                <Text style={styles.proNumericText}>Hours</Text>
+                                                <NumericInput minValue={0} maxValue={24} initValue={this.state.hours} value={this.state.hours}
+                                                    onChange={(hours) => this.state.days >= 1 && hours === 0 ?
+                                                        setTimeout(() => { this.setState({ hours: 23, days: this.state.days - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                        hours === 24 ?
+                                                            setTimeout(() => { this.setState({ hours: 0, days: this.state.days + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                            this.setState({ hours }, () => this.takeAbreak())} step={1}
+                                                    totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
+                                                    rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                                            </View>
+                                            <View>
+                                                <Text style={styles.proNumericText}>Days</Text>
+                                                <NumericInput minValue={0} maxValue={7} initValue={this.state.days} value={this.state.days}
+                                                    onChange={(days) => this.state.weeks >= 1 && days === 0 ?
+                                                        setTimeout(() => { this.setState({ days: 6, weeks: this.state.weeks - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                        days === 7 ?
+                                                            setTimeout(() => { this.setState({ days: 0, weeks: this.state.weeks + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                            this.setState({ days }, () => this.takeAbreak())} step={1}
+                                                    totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
+                                                    rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                                            </View>
+                                        </View>
+                                        <View style={styles.spaceAroundView}>
+                                            <View>
+                                                <Text style={styles.proNumericText}>Weeks</Text>
+                                                <NumericInput minValue={0} maxValue={4} initValue={this.state.weeks} value={this.state.weeks}
+                                                    onChange={(weeks) => this.state.months >= 1 && weeks === 0 ?
+                                                        setTimeout(() => { this.setState({ weeks: 3, months: this.state.months - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                        weeks === 4 ?
+                                                            setTimeout(() => { this.setState({ weeks: 0, months: this.state.months + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
+                                                            this.setState({ weeks }, () => this.takeAbreak())} step={1}
+                                                    totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
+                                                    rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                                            </View>
+                                            <View>
+                                                <Text style={styles.proNumericText}>Months</Text>
+                                                <NumericInput minValue={0} maxValue={12} initValue={this.state.months} value={this.state.months}
+                                                    onChange={(months) => this.setState({ months }, () => this.takeAbreak())} step={1}
+                                                    totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
+                                                    rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                                            </View>
+                                        </View>
+                                    </View>}
+                                {this.state.indefbreak === true &&
                                     <View>
-                                        <Text style={styles.proNumericText}>Days</Text>
-                                        <NumericInput minValue={0} maxValue={7} initValue={this.state.days} value={this.state.days}
-                                            onChange={(days) => this.state.weeks >= 1 && days === 0 ?
-                                                setTimeout(() => { this.setState({ days: 6, weeks: this.state.weeks - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                days === 7 ?
-                                                    setTimeout(() => { this.setState({ days: 0, weeks: this.state.weeks + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                    this.setState({ days }, () => this.takeAbreak())} step={1}
-                                            totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                            rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
-                                    </View>
-                                </View>
-                                <View style={styles.spaceAroundView}>
-                                    <View>
-                                        <Text style={styles.proNumericText}>Weeks</Text>
-                                        <NumericInput minValue={0} maxValue={4} initValue={this.state.weeks} value={this.state.weeks}
-                                            onChange={(weeks) => this.state.months >= 1 && weeks === 0 ?
-                                                setTimeout(() => { this.setState({ weeks: 3, months: this.state.months - 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                weeks === 4 ?
-                                                    setTimeout(() => { this.setState({ weeks: 0, months: this.state.months + 1 }, () => setTimeout(() => { this.takeAbreak() }, 50)) }, 25) :
-                                                    this.setState({ weeks }, () => this.takeAbreak())} step={1}
-                                            totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                            rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
-                                    </View>
-                                    <View>
-                                        <Text style={styles.proNumericText}>Months</Text>
-                                        <NumericInput minValue={0} maxValue={12} initValue={this.state.months} value={this.state.months}
-                                            onChange={(months) => this.setState({ months }, () => this.takeAbreak())} step={1}
-                                            totalWidth={numberInputSize} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                            rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
-                                    </View>
-                                </View>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking an indefinite break.</Text>
+                                        <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}> Hats off to you, keep up the good work!</Text>
+                                        <Text style={styles.profileLine}>___________________________________________</Text>
+                                    </View>}
+                                {this.state.break === false &&
+                                    <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 15 }}>
+                                        <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Indefinite Break</Text>
+                                        <View style={{ marginLeft: 5, marginRight: 5 }}>
+                                            <Switch value={this.state.indefbreak} onChange={() => this.handleSwitches("indefbreak", indefbreakkey)} /></View></View>}
                                 {this.state.break === true &&
                                     <View>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
