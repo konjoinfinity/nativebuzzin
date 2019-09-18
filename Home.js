@@ -13,7 +13,7 @@ import {
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
-    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey
+    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -392,9 +392,9 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.indefbreak === true && (this.state.break === "" || this.state.break === false) && this.state.happyhour === false && this.state.happyhourtime === "" &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 20, textAlign: "center", padding: 5 }}>You are taking an indefinite break.</Text>
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking an indefinite break.</Text>
                             {this.state.timesince !== null &&
-                                <Text style={{ fontSize: 20, textAlign: "center", padding: 5 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
+                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("ib")}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
