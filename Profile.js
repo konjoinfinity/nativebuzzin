@@ -108,15 +108,11 @@ class ProfileScreen extends Component {
     }
 
     changeBac(increment, statename, keyvalue) {
-        if (increment === "up") {
-            if (this.state[statename] < 0.10) {
-                this.setState({ [statename]: Math.round((this.state[statename] + 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
-            }
+        if (increment === "up" && this.state[statename] < 0.10) {
+            this.setState({ [statename]: Math.round((this.state[statename] + 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
         }
-        if (increment === "down") {
-            if (this.state[statename] > 0.02) {
-                this.setState({ [statename]: Math.round((this.state[statename] - 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
-            }
+        if (increment === "down" && this.state[statename] > 0.02) {
+            this.setState({ [statename]: Math.round((this.state[statename] - 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
         }
     }
 
