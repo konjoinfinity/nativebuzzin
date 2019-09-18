@@ -228,15 +228,8 @@ class DemoScreen extends Component {
                                     </MultiSwitch>
                                 </View>
                             </View>
-                            {this.state.alctype === "Beer" &&
-                                <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+🍺</Text></TouchableOpacity>}
-                            {this.state.alctype === "Wine" &&
-                                <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+🍷</Text></TouchableOpacity>}
-                            {this.state.alctype === "Liquor" &&
-                                <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                    <Text style={{ fontSize: addButtonText, color: "white" }}>{Platform.OS === 'android' && Platform.Version < 24 ? "+🍸" : "+🥃"}</Text></TouchableOpacity>}
+                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text></TouchableOpacity>
                         </View>
                     </View>}
                     {this.state.bac > 0.10 &&

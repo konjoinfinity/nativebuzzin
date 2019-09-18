@@ -356,19 +356,12 @@ class HomeScreen extends Component {
                                                 </MultiSwitch>
                                             </View>
                                         </View>
-                                        {this.state.alctype === "Beer" &&
-                                            <CopilotStep text="Press to add drink with selected options." order={3} name="add">
-                                                <CopilotView>
-                                                    <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                                        <Text style={{ fontSize: addButtonText, color: "white" }}>+🍺</Text></TouchableOpacity>
-                                                </CopilotView>
-                                            </CopilotStep>}
-                                        {this.state.alctype === "Wine" &&
-                                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                                <Text style={{ fontSize: addButtonText, color: "white" }}>+🍷</Text></TouchableOpacity>}
-                                        {this.state.alctype === "Liquor" &&
-                                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                                <Text style={{ fontSize: addButtonText, color: "white" }}>{Platform.OS === 'android' && Platform.Version < 24 ? "+🍸" : "+🥃"}</Text></TouchableOpacity>}
+                                        <CopilotStep text="Press to add drink with selected options." order={3} name="add">
+                                            <CopilotView>
+                                                <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text></TouchableOpacity>
+                                            </CopilotView>
+                                        </CopilotStep>
                                     </View>
                                 </View></CopilotView>
                         </CopilotStep>}
