@@ -5,7 +5,7 @@ import moment from "moment";
 import _ from 'lodash'
 import { NavigationEvents } from "react-navigation";
 import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
-import { Text as TextSVG, G, Rect, Line } from "react-native-svg";
+import { Text as TextSVG, G, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt } from "./Variables";
@@ -100,18 +100,16 @@ class BuzzScreen extends Component {
         var weekColor = Functions.barColor(sevenArray.length, "seven", this.state.gender), monthColor = Functions.barColor(thirtyArray.length, "thirty", this.state.gender)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
-            <G key={index}>
-                <TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
-                    alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
+            <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
+                alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
                 {this.state.gender === "Male" && value > 10 || this.state.gender === "Female" &&
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 14 : 7)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 14 : 7)}
                         strokeWidth={3} strokeOpacity={this.state.gender === "Male" && value > 14 ? 0.8 : this.state.gender === "Female" && value > 7 ? 0.8 : 0.3}
                         strokeDasharray={[8, 6]} strokeLinecap={"round"}
                         stroke={this.state.gender === "Male" && value > 14 ? "#000000" : this.state.gender === "Female" && value > 7 ? "#000000" : "#AE0000"} />}</G>)))
         const LabelMonth = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
-            <G key={index}>
-                <TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
-                    alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
+            <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
+                alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
                 {this.state.gender === "Male" && value > 45 || this.state.gender === "Female" && value > 17 &&
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 56 : 28)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 56 : 28)}
                         strokeWidth={3} strokeOpacity={this.state.gender === "Male" && value > 56 ? 0.8 : this.state.gender === "Female" && value > 28 ? 0.8 : 0.3}
