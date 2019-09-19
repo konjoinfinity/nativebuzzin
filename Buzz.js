@@ -5,7 +5,7 @@ import moment from "moment";
 import _ from 'lodash'
 import { NavigationEvents } from "react-navigation";
 import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
-import { Text as TextSVG } from "react-native-svg";
+import { Text as TextSVG, G, Rect, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt } from "./Variables";
@@ -99,9 +99,23 @@ class BuzzScreen extends Component {
         }
         var weekColor = Functions.barColor(sevenArray.length, "seven", this.state.gender), monthColor = Functions.barColor(thirtyArray.length, "thirty", this.state.gender)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
-        const Labels = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
-            <TextSVG key={index} key={index} x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
-                alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>)))
+        const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
+            <G key={index}>
+                <TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
+                    alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
+                {this.state.gender === "Male" && value > 10 &&
+                    <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 14 : 7)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 14 : 7)}
+                        strokeWidth={3} strokeOpacity={this.state.gender === "Male" && value > 14 ? 0.8 : this.state.gender === "Female" && value > 7 ? 0.8 : 0.3}
+                        strokeDasharray={[8, 6]} strokeLinecap={"round"}
+                        stroke={this.state.gender === "Male" && value > 14 ? "#000000" : this.state.gender === "Female" && value > 7 ? "#000000" : "#AE0000"} />}</G>)))
+        const LabelMonth = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
+            <G key={index}>
+                <TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
+                    alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
+                <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 56 : 28)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 56 : 28)}
+                    strokeWidth={3} strokeOpacity={this.state.gender === "Male" && value > 56 ? 0.8 : this.state.gender === "Female" && value > 28 ? 0.8 : 0.3}
+                    strokeDasharray={[8, 6]} strokeLinecap={"round"}
+                    stroke={this.state.gender === "Male" && value > 56 ? "#000000" : this.state.gender === "Female" && value > 28 ? "#000000" : "#AE0000"} /></G>)))
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
@@ -119,7 +133,7 @@ class BuzzScreen extends Component {
                                             spacing={2} gridMin={0} gridMax={sevenData[0] + 3} animate={true} animationDuration={1500}>
                                             <XAxis style={{ marginTop: 10 }} data={sevenData} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
-                                            <Labels />
+                                            <LabelWeek />
                                         </BarChart>
                                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Week</Text>
                                     </View>
@@ -129,7 +143,7 @@ class BuzzScreen extends Component {
                                             spacing={2} gridMin={0} gridMax={thirtyData[0] + 10} animate={true} animationDuration={1800}>
                                             <XAxis style={{ marginTop: 10 }} data={thirtyData} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
-                                            <Labels />
+                                            <LabelMonth />
                                         </BarChart>
                                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
                                     </View>
