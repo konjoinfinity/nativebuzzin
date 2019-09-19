@@ -270,12 +270,12 @@ class ProfileScreen extends Component {
                                 <Text style={styles.profileLine}>___________________________________________</Text>
                                 <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Set BAC Limit</Text>
                                 <View style={styles.plusMinusView}>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
+                                    <TouchableOpacity style={[styles.plusMinusButtons, this.state.limitbac === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
                                         <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.limitbac && this.state.limitbac.toFixed(2)}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
+                                    <TouchableOpacity style={[styles.plusMinusButtons, this.state.limitbac === 0.1 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
                                         <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
                                     </TouchableOpacity>
                                 </View>
@@ -284,7 +284,8 @@ class ProfileScreen extends Component {
                                     <NumericInput minValue={1} maxValue={15} initValue={this.state.drinks} value={this.state.drinks}
                                         onChange={(drinks) => this.setState({ drinks }, () => this.saveValues("drinks", drinkskey))}
                                         totalWidth={numberInputSize} step={1} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                        rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                                        rightButtonBackgroundColor={this.state.drinks === 15 ? "#AE0000" : "#00897b"}
+                                        leftButtonBackgroundColor={this.state.drinks === 1 ? "#AE0000" : "#00897b"} />
                                 </View>
                             </View>}
                     </View>
@@ -304,12 +305,12 @@ class ProfileScreen extends Component {
                                 <Text style={styles.profileLine}>___________________________________________</Text>
                                 <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
                                 <View style={styles.plusMinusView}>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
+                                    <TouchableOpacity style={[styles.plusMinusButtons, this.state.threshold === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
                                         <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                         <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
+                                    <TouchableOpacity style={[styles.plusMinusButtons, this.state.threshold === 0.1 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
                                         <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
                                     </TouchableOpacity>
                                 </View>

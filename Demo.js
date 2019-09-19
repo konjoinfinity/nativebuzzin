@@ -148,7 +148,8 @@ class DemoScreen extends Component {
                             <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight} totalHeight={50}
                                 onChange={(weight) => this.setState({ weight })} step={5} rounded textColor='#103900' totalWidth={150}
-                                iconStyle={{ color: 'white' }} rightButtonBackgroundColor='#00897b' leftButtonBackgroundColor='#00897b' />
+                                iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
+                                leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
                     </View>
                     <View style={styles.cardView}>

@@ -82,8 +82,8 @@ class LoginScreen extends React.Component {
                             <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight}
                                 onChange={(weight) => this.setState({ weight })} step={5} totalWidth={numberInputSize}
-                                rounded textColor='#103900' iconStyle={{ color: 'white' }} rightButtonBackgroundColor='#00897b'
-                                leftButtonBackgroundColor='#00897b' />
+                                rounded textColor='#103900' iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
+                                leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
                             <TouchableOpacity style={styles.loginbutton} onPress={() => this.handleModal()}>
