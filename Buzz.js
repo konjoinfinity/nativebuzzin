@@ -102,19 +102,19 @@ class BuzzScreen extends Component {
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
-                {this.state.gender === "Male" && value > 10 || this.state.gender === "Female" &&
+                {(this.state.gender === "Male" && value > 10 || this.state.gender === "Female") &&
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 14 : 7)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 14 : 7)}
                         strokeWidth={3} strokeOpacity={this.state.gender === "Male" && value > 14 ? 0.8 : this.state.gender === "Female" && value > 7 ? 0.8 : 0.3}
                         strokeDasharray={[8, 6]} strokeLinecap={"round"}
-                        stroke={this.state.gender === "Male" && value > 14 ? "#000000" : this.state.gender === "Female" && value > 7 ? "#000000" : "#AE0000"} />}</G>)))
+                        stroke={"#000000"} />}</G>)))
         const LabelMonth = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
-                {this.state.gender === "Male" && value > 45 || this.state.gender === "Female" && value > 17 &&
+                {(this.state.gender === "Male" && value > 45 || this.state.gender === "Female" && value > 17) &&
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 56 : 28)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 56 : 28)}
                         strokeWidth={3} strokeOpacity={this.state.gender === "Male" && value > 56 ? 0.8 : this.state.gender === "Female" && value > 28 ? 0.8 : 0.3}
                         strokeDasharray={[8, 6]} strokeLinecap={"round"}
-                        stroke={this.state.gender === "Male" && value > 56 ? "#000000" : this.state.gender === "Female" && value > 28 ? "#000000" : "#AE0000"} />}</G>)))
+                        stroke={"#000000"} />}</G>)))
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
