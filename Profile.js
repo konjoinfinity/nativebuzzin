@@ -73,12 +73,9 @@ class ProfileScreen extends Component {
         Vibration.vibrate();
         this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
         await AsyncStorage.removeItem(breakdatekey)
-        if (type === "zero") {
-            await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
-        } else {
-            await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)],
-            [custombreakkey, JSON.stringify(false)]])
-            this.setState({ setcustombreak: false, custombreak: false })
+        await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
+        if (type !== "zero") {
+            await AsyncStorage.setItem(custombreakkey, JSON.stringify(false), () => { this.setState({ setcustombreak: false, custombreak: false }) })
         }
     }
 
