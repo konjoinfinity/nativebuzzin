@@ -101,7 +101,7 @@ class BuzzScreen extends Component {
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
                 {(this.state.gender === "Male" && value > 10 || this.state.gender === "Female") &&
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 14 : 7)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 14 : 7)}
-                        strokeWidth={3} strokeOpacity={this.state.gender === "Male" && value > 14 ? 0.8 : this.state.gender === "Female" && value > 7 ? 0.8 : 0.3}
+                        strokeWidth={3} strokeOpacity={0.3}
                         strokeDasharray={[8, 6]} strokeLinecap={"round"}
                         stroke={"#000000"} />}</G>)))
         const LabelMonth = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
@@ -109,7 +109,7 @@ class BuzzScreen extends Component {
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
                 {(this.state.gender === "Male" && value > 45 || this.state.gender === "Female" && value > 17) &&
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 56 : 28)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 56 : 28)}
-                        strokeWidth={3} strokeOpacity={this.state.gender === "Male" && value > 56 ? 0.8 : this.state.gender === "Female" && value > 28 ? 0.8 : 0.3}
+                        strokeWidth={3} strokeOpacity={0.3}
                         strokeDasharray={[8, 6]} strokeLinecap={"round"}
                         stroke={"#000000"} />}</G>)))
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
