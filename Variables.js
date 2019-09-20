@@ -1,21 +1,22 @@
 import React from 'react';
 import { Dimensions, PixelRatio, View, Text } from 'react-native';
+import styles from "./Styles"
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
-console.log(screenWidth + " x " + screenHeight)
+// console.log(screenWidth + " x " + screenHeight)
 
 // if (PixelRatio.get() === 1) {
-//     console.log("mdpi")
+//     // console.log("mdpi")
 // } else if (PixelRatio.get() === 1.5) {
-//     console.log("hdpi");
+//     // console.log("hdpi");
 // } else if (PixelRatio.get() === 2) {
-//     console.log("xhdpi");
+//     // console.log("xhdpi");
 // } else if (PixelRatio.get() === 3) {
-//     console.log("xxhdpi");
+//     // console.log("xxhdpi");
 // } else if (PixelRatio.get() === 3.5) {
-//     console.log("xxxhdpi");
+//     // console.log("xxxhdpi");
 // } else if (PixelRatio.get() === 4) {
-//     console.log("xxxhdpi");
+//     // console.log("xxxhdpi");
 // }
 
 var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
@@ -27,60 +28,47 @@ let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }],
     beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
 const gaugeLabels = [
-    { name: '1', labelColor: '#e0f2f1', activeBarColor: '#ffffff' },
-    { name: '2', labelColor: '#e0f2f1', activeBarColor: '#b5d3a0' },
-    { name: '3', labelColor: '#e0f2f1', activeBarColor: '#96c060' },
-    { name: '4', labelColor: '#e0f2f1', activeBarColor: '#9fc635' },
-    { name: '5', labelColor: '#e0f2f1', activeBarColor: '#d3e50e' },
-    { name: '6', labelColor: '#e0f2f1', activeBarColor: '#ffeb00' },
-    { name: '7', labelColor: '#e0f2f1', activeBarColor: '#f9bf00' },
-    { name: '8', labelColor: '#e0f2f1', activeBarColor: '#e98f00' },
-    { name: '9', labelColor: '#e0f2f1', activeBarColor: '#d05900' },
-    { name: '10', labelColor: '#e0f2f1', activeBarColor: '#AE0000' },
-    { name: '11', labelColor: '#e0f2f1', activeBarColor: '#571405' },
-    { name: '12', labelColor: '#e0f2f1', activeBarColor: '#000000' }
+    { name: '1', labelColor: '#e0f2f1', activeBarColor: '#ffffff' }, { name: '2', labelColor: '#e0f2f1', activeBarColor: '#b5d3a0' },
+    { name: '3', labelColor: '#e0f2f1', activeBarColor: '#96c060' }, { name: '4', labelColor: '#e0f2f1', activeBarColor: '#9fc635' },
+    { name: '5', labelColor: '#e0f2f1', activeBarColor: '#d3e50e' }, { name: '6', labelColor: '#e0f2f1', activeBarColor: '#ffeb00' },
+    { name: '7', labelColor: '#e0f2f1', activeBarColor: '#f9bf00' }, { name: '8', labelColor: '#e0f2f1', activeBarColor: '#e98f00' },
+    { name: '9', labelColor: '#e0f2f1', activeBarColor: '#d05900' }, { name: '10', labelColor: '#e0f2f1', activeBarColor: '#AE0000' },
+    { name: '11', labelColor: '#e0f2f1', activeBarColor: '#571405' }, { name: '12', labelColor: '#e0f2f1', activeBarColor: '#000000' }
 ]
 
 const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break",
     breakdatekey = "breakdate", autobreakkey = "autobreak", happyhourkey = "happyhour", autobreakminkey = "autobreakmin",
-    autobreakthresholdkey = "autobreakthreshold", cutoffkey = "cutoff", cutoffbackey = "cutoffbac", drinkskey = "drinks",
-    cancelbreakskey = "cancelbreaks", showcutoffkey = "showcutoff", custombreakkey = "custombreak", hhhourkey = "hhhour";
+    autobreakthresholdkey = "autobreakthreshold", limitkey = "limit", limitbackey = "limitbac", drinkskey = "drinks",
+    cancelbreakskey = "cancelbreaks", showlimitkey = "showlimit", custombreakkey = "custombreak", hhhourkey = "hhhour",
+    indefbreakkey = "indefbreak";
 
-const warnText = (<View>
-    <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Warning!</Text>
-    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is now above the legal drinking limit in most states.</Text>
-    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Please:</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8, fontWeight: "bold" }}>Take a break from drinking.</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>Drink water.</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>Call a friend, Uber, or Lyft to pick you up.</Text>
-</View>)
+const warnText = (<View><Text style={styles.modalTextTitle}>Warning!</Text>
+    <Text style={styles.modalTextBody}>Your BAC is now above the legal drinking limit in most states.</Text>
+    <Text style={styles.modalTextBody}>Please:</Text>
+    <Text style={[styles.modalTextAdvice, { fontWeight: "bold" }]}>Take a break from drinking.</Text>
+    <Text style={styles.modalTextAdvice}>Drink water.</Text>
+    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
 
-const dangerText = (<View>
-    <Text style={{ fontSize: 22, textAlign: "center", padding: 8, fontWeight: "bold" }}>Danger!</Text>
-    <Text style={{ fontSize: 20, textAlign: "center", padding: 8, fontWeight: "bold" }}>Your BAC is well above the legal drinking limit.</Text>
-    <Text style={{ fontSize: 25, textAlign: "center", padding: 8, fontWeight: "bold" }}>STOP DRINKING!</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>Drink water!</Text>
-    <Text style={{ fontSize: 18, textAlign: "center", padding: 8 }}>Call a friend, Uber, or Lyft to pick you up.</Text>
-</View>)
+const dangerText = (<View><Text style={styles.modalTextTitle}>Danger!</Text>
+    <Text style={styles.modalTextBody}>Your BAC is well above the legal drinking limit.</Text>
+    <Text style={[styles.modalTextTitle, { fontSize: 25 }]}>STOP DRINKING!</Text>
+    <Text style={styles.modalTextAdvice}>Drink water!</Text>
+    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
 
-const abovePoint10 = (<View>
-    <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+const abovePoint10 = (<View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
     <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
-    <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text>
-</View>)
+    <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text></View>)
 
-const loginText = (<View>
-    <Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Welcome to buzzin!</Text>
+const loginText = (<View><Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Welcome to buzzin!</Text>
     <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>Legal Disclaimer and User Agreement</Text>
     <Text style={{ fontSize: 15, textAlign: "center", padding: 10 }}>buzzin will not be held liable for any decisions made based on the information provided.
     The Blood Alcohol Content (BAC) calculations are not 100% accurate and are aimed to give our users a general ballpark estimate based on their approximate weight and gender.
     Users are liable for all data they input, as it is stored on their personal local device.  No user data is stored externally, buzzin does not store inputted user data externally.
     By pressing agree, the user forfeits their rights to hold buzzin or LifeSystems LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
-    This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text>
-</View>)
+    This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text></View>)
 
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
-    console.log("480x854/800")
+    // console.log("480x854/800")
     gaugeSize = 440
     bacTextSize = 30
     alcTypeSize = 75
@@ -98,10 +86,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 25
     numberInputSize = 280
     loginTitle = 32
-    barChartWidth = 120
-    scrollToAmt = 280
+    barChartWidth = 200
+    scrollToAmt = 430
 } else if (screenWidth <= 600) {
-    console.log("less than 600")
+    // console.log("less than 600")
     gaugeSize = 230
     bacTextSize = 13
     alcTypeSize = 38
@@ -122,7 +110,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 120
     scrollToAmt = 280
 } else if (screenWidth === 720 && screenHeight === 1280) {
-    console.log("720x1280")
+    // console.log("720x1280")
     gaugeSize = 320
     bacTextSize = 20
     alcTypeSize = 60
@@ -140,10 +128,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 18
     numberInputSize = 200
     loginTitle = 25
-    barChartWidth = 120
-    scrollToAmt = 280
+    barChartWidth = 145
+    scrollToAmt = 325
 } else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
-    console.log("greater than 600 & less than 750")
+    // console.log("greater than 600 & less than 750")
     gaugeSize = 295
     bacTextSize = 20
     alcTypeSize = 50
@@ -161,10 +149,15 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 15
     numberInputSize = 135
     loginTitle = 25
-    barChartWidth = 120
-    scrollToAmt = 280
+    if (screenHeight === 1136) {
+        barChartWidth = 120
+        scrollToAmt = 280
+    } else {
+        barChartWidth = 145
+        scrollToAmt = 325
+    }
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
-    console.log("768 or equal to 1080 x 1776")
+    // console.log("768 or equal to 1080 x 1776")
     gaugeSize = 300
     bacTextSize = 20
     alcTypeSize = 50
@@ -182,10 +175,15 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 16
     numberInputSize = 160
     loginTitle = 22
-    barChartWidth = 150
-    scrollToAmt = 330
+    if (screenHeight === 1184) {
+        barChartWidth = 150
+        scrollToAmt = 330
+    } else {
+        barChartWidth = 145
+        scrollToAmt = 325
+    }
 } else if (screenWidth >= 750 && screenWidth < 828) {
-    console.log("greater or equal to 750 & less than 828")
+    // console.log("greater or equal to 750 & less than 828")
     gaugeSize = 350
     bacTextSize = 30
     alcTypeSize = 75
@@ -199,14 +197,14 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 0
-    loginButtonText = 22
+    loginButtonText = 20
     loginGenderText = 22
     numberInputSize = 220
     loginTitle = 26
     barChartWidth = 150
     scrollToAmt = 330
 } else if (screenWidth === 828 || screenWidth === 1242 && screenHeight === 2688) {
-    console.log("828 or 1242 x 2688")
+    // console.log("828 or 1242 x 2688")
     gaugeSize = 390
     bacTextSize = 35
     alcTypeSize = 90
@@ -227,7 +225,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 168
     scrollToAmt = 365
 } else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
-    console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
+    // console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
     gaugeSize = 380
     bacTextSize = 30
     alcTypeSize = 80
@@ -245,10 +243,15 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 25
     numberInputSize = 230
     loginTitle = 30
-    barChartWidth = 150
-    scrollToAmt = 330
+    if (screenHeight === 2416) {
+        barChartWidth = 200
+        scrollToAmt = 430
+    } else {
+        barChartWidth = 168
+        scrollToAmt = 365
+    }
 } else if (screenWidth === 1080 && screenHeight === 2028) {
-    console.log("1080 x 2028")
+    // console.log("1080 x 2028")
     gaugeSize = 365
     bacTextSize = 30
     alcTypeSize = 75
@@ -266,10 +269,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 25
     numberInputSize = 230
     loginTitle = 30
-    barChartWidth = 150
-    scrollToAmt = 330
+    barChartWidth = 160
+    scrollToAmt = 360
 } else if (screenWidth === 1125) {
-    console.log("1125")
+    // console.log("1125")
     gaugeSize = 350
     bacTextSize = 30
     alcTypeSize = 80
@@ -290,7 +293,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 150
     scrollToAmt = 330
 } else if (screenWidth === 1242) {
-    console.log("1242")
+    // console.log("1242")
     gaugeSize = 390
     bacTextSize = 30
     alcTypeSize = 75
@@ -311,7 +314,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 165
     scrollToAmt = 360
 } else if (screenWidth === 1440 && screenHeight === 2896 || screenWidth === 1440 && screenHeight === 2816) {
-    console.log("1440x2896/2816")
+    // console.log("1440x2896/2816")
     gaugeSize = 455
     bacTextSize = 40
     alcTypeSize = 80
@@ -329,10 +332,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 26
     numberInputSize = 260
     loginTitle = 32
-    barChartWidth = 150
-    scrollToAmt = 360
+    barChartWidth = 200
+    scrollToAmt = 430
 } else if (screenWidth === 1440 && screenHeight === 2768) {
-    console.log("1440x2768")
+    // console.log("1440x2768")
     gaugeSize = 335
     bacTextSize = 25
     alcTypeSize = 70
@@ -350,10 +353,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 24
     numberInputSize = 230
     loginTitle = 28
-    barChartWidth = 150
-    scrollToAmt = 360
+    barChartWidth = 145
+    scrollToAmt = 325
 } else if (screenWidth === 1440 && screenHeight !== 2712) {
-    console.log("1440")
+    // console.log("1440")
     gaugeSize = 390
     bacTextSize = 25
     alcTypeSize = 70
@@ -371,10 +374,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 24
     numberInputSize = 230
     loginTitle = 28
-    barChartWidth = 150
+    barChartWidth = 165
     scrollToAmt = 360
 } else if (screenWidth > 1125) {
-    console.log("greater than 1125")
+    // console.log("greater than 1125")
     gaugeSize = 390
     bacTextSize = 25
     alcTypeSize = 75
@@ -392,10 +395,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 26
     numberInputSize = 260
     loginTitle = 30
-    barChartWidth = 150
+    barChartWidth = 165
     scrollToAmt = 360
 } else {
-    console.log("other size")
+    // console.log("other size")
     gaugeSize = 350
     bacTextSize = 28
     alcTypeSize = 65
@@ -413,54 +416,14 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 22
     numberInputSize = 220
     loginTitle = 28
-    barChartWidth = 150
+    barChartWidth = 165
     scrollToAmt = 360
 }
 
 export {
-    gaugeSize,
-    bacTextSize,
-    alcTypeSize,
-    alcTypeText,
-    abvText,
-    abvSize,
-    abvWineText,
-    abvWineSize,
-    abvLiquorText,
-    abvLiquorSize,
-    addButtonText,
-    addButtonSize,
-    multiSwitchMargin,
-    alcValues,
-    activeStyle,
-    beerActive,
-    namekey,
-    genderkey,
-    weightkey,
-    key,
-    oldkey,
-    breakkey,
-    breakdatekey,
-    autobreakkey,
-    happyhourkey,
-    autobreakminkey,
-    autobreakthresholdkey,
-    gaugeLabels,
-    warnText,
-    dangerText,
-    cutoffkey,
-    drinkskey,
-    cutoffbackey,
-    cancelbreakskey,
-    showcutoffkey,
-    custombreakkey,
-    abovePoint10,
-    loginText,
-    hhhourkey,
-    loginButtonText,
-    loginGenderText,
-    numberInputSize,
-    loginTitle,
-    barChartWidth,
-    scrollToAmt
+    gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
+    addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey, genderkey, weightkey, key, oldkey,
+    breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, gaugeLabels, warnText, dangerText,
+    limitkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, abovePoint10, loginText, hhhourkey,
+    loginButtonText, loginGenderText, numberInputSize, loginTitle, barChartWidth, scrollToAmt, indefbreakkey
 }

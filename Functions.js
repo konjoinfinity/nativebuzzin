@@ -1,4 +1,4 @@
-import { Vibration } from 'react-native';
+import { Vibration, Platform } from 'react-native';
 import moment from "moment";
 
 export class Functions {
@@ -21,8 +21,7 @@ export class Functions {
     // It calculates the duration between that timestamp and the a current timestamp (when the function is run)
     // The duration is calculated and the value is returned in hours, (this utlilizes the getDayHourMin method)
     static singleDuration(initialbuzz) {
-        var date1 = Date.parse(initialbuzz), duration, currentDate = new Date();
-        var date2 = currentDate.getTime();
+        var date1 = Date.parse(initialbuzz), date2 = new Date().getTime(), duration;
         var dayHourMin = this.getDayHourMin(date1, date2);
         var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
         if (days >= 1) { hours = hours + days * 24 }
@@ -47,7 +46,7 @@ export class Functions {
     // The method then loops through the current buzz array and calculates the total bac based on each variable drink
     // type, abv, and ounce size.  Returns the total bac 
     static varGetBAC(weight, gender, hours, buzz) {
-        var distribution, drinkTotal, totalAlc, totalArray = [];
+        var distribution, drinkTotal, totalAlc, totalArray = [], bac
         if (gender === "Female") { distribution = 0.66 }
         if (gender === "Male") { distribution = 0.73 }
         for (var i = 0; i < buzz.length; i++) {
@@ -56,8 +55,8 @@ export class Functions {
             if (buzz[i].drinkType === "Liquor") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
             totalArray.push(drinkTotal)
         }
-        totalAlc = totalArray.reduce((a, b) => a + b, 0)
-        var bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
+        totalAlc = totalArray.reduce((a, b) => a + b, 0);
+        bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
         return bac;
     }
 
@@ -111,18 +110,32 @@ export class Functions {
         else if (bac >= 0.10) { return ["#000000", 100] }
     }
 
-    static sevenColor(drinks) {
-        if (drinks <= 5) { return "#96c060" }
-        else if (drinks > 5 && drinks <= 10) { return "#ffeb00" }
-        else if (drinks > 10 && drinks <= 14) { return "#e98f00" }
-        else if (drinks > 14) { return "#AE0000" }
-    }
-
-    static thirtyColor(drinks) {
-        if (drinks <= 20) { return "#96c060" }
-        else if (drinks > 20 && drinks <= 40) { return "#ffeb00" }
-        else if (drinks > 40 && drinks <= 56) { return "#e98f00" }
-        else if (drinks > 56) { return "#AE0000" }
+    static barColor(drinks, weekMonth, gender) {
+        if (gender === "Male") {
+            if (weekMonth === "seven") {
+                if (drinks <= 5) { return "#96c060" }
+                else if (drinks > 5 && drinks <= 10) { return "#ffeb00" }
+                else if (drinks > 10 && drinks <= 14) { return "#e98f00" }
+                else if (drinks > 14) { return "#AE0000" }
+            } else {
+                if (drinks <= 20) { return "#96c060" }
+                else if (drinks > 20 && drinks <= 40) { return "#ffeb00" }
+                else if (drinks > 40 && drinks <= 56) { return "#e98f00" }
+                else if (drinks > 56) { return "#AE0000" }
+            }
+        } else {
+            if (weekMonth === "seven") {
+                if (drinks <= 2) { return "#96c060" }
+                else if (drinks > 2 && drinks <= 5) { return "#ffeb00" }
+                else if (drinks > 5 && drinks <= 7) { return "#e98f00" }
+                else if (drinks > 7) { return "#AE0000" }
+            } else {
+                if (drinks <= 10) { return "#96c060" }
+                else if (drinks > 10 && drinks <= 20) { return "#ffeb00" }
+                else if (drinks > 20 && drinks <= 28) { return "#e98f00" }
+                else if (drinks > 28) { return "#AE0000" }
+            }
+        }
     }
 
     static reverseArray(array) {
@@ -130,4 +143,32 @@ export class Functions {
         for (var i = array.length - 1; i >= 0; i--) { reversedArray.push(array[i]) }
         return reversedArray;
     }
+
+    static bacEmotion(bac) {
+        if (bac > 0.00 && bac < 0.01) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😊" : "🙂"] }
+        else if (bac > 0.01 && bac < 0.02) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "☺️" : "😊"] }
+        else if (bac > 0.02 && bac < 0.03) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😀" : "☺️"] }
+        else if (bac > 0.03 && bac < 0.04) { return ["teal", "😃"] }
+        else if (bac > 0.04 && bac < 0.05) { return ["teal", "😄"] }
+        else if (bac > 0.05 && bac < 0.06) { return ["teal", "😆"] }
+        else if (bac > 0.06 && bac < 0.07) { return ["white", "😝"] }
+        else if (bac > 0.07 && bac < 0.08) { return ["white", "😜"] }
+        else if (bac > 0.08 && bac < 0.09) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😋" : "🤪"] }
+        else if (bac > 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😅" : "🥴"] }
+        else if (bac >= 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😵" : "🤮"] }
+    }
+
+    static timeSince(recent, type) {
+        var date1 = Date.parse(recent), date2 = new Date().getTime();
+        var dayHourMin = type === "timesince" ? this.getDayHourMin(date1, date2) : this.getDayHourMin(date2, date1)
+        return [dayHourMin[0], dayHourMin[1], dayHourMin[2], dayHourMin[3]]
+    }
+
+    static zeroDate() {
+        var breakDate = new Date()
+        breakDate.setHours(breakDate.getHours() + Math.round(breakDate.getMinutes() / 60))
+        breakDate.setMinutes(0, 0, 0)
+        return breakDate
+    }
 }
+

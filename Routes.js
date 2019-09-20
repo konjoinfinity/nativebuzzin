@@ -26,10 +26,7 @@ const AppStack = createStackNavigator({
                     tabBarIcon: ({ horizontal, tintColor }) => {
                         const { routeName } = navigation.state;
                         let iconName;
-                        if (routeName === 'Home') { iconName = `🏠` }
-                        else if (routeName === 'Buzz') { iconName = `🍺` }
-                        else if (routeName === 'Profile') { iconName = `👤` }
-                        else if (routeName === 'Demo') { iconName = `📋` }
+                        routeName === 'Home' ? iconName = `🏠` : routeName === 'Buzz' ? iconName = `🍺` : routeName === 'Profile' ? iconName = `👤` : iconName = `📋`
                         Vibration.vibrate();
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>;
                     }
@@ -42,18 +39,21 @@ const AppStack = createStackNavigator({
             title: `buzzin`,
             headerStyle: { backgroundColor: '#80cbc4' },
             headerTitleStyle: {
-                color: "#ffffff",
-                fontSize: 25,
+                color: "#ffffff", fontSize: 25,
                 paddingTop: Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 ? 25 : 0
             }
         }
     }
 }, { headerLayoutPreset: 'center' })
 
+<<<<<<< HEAD
 // The Auth Stack is defined here, only one route - Login we use the same static header
 const AuthStack = createStackNavigator({
     Login: LoginScreen,
 },
+=======
+const AuthStack = createStackNavigator({ Login: LoginScreen },
+>>>>>>> master
     {
         initialRouteName: 'Login',
         headerLayoutPreset: 'center',
@@ -66,12 +66,10 @@ const AuthStack = createStackNavigator({
 // We export the AppContainer wrapped around a switch navigator, this loads the AuthLoad screen first (to determine if a user is 
 // logged in or not which returns either "App" or "Auth".  Base on the return, the app navigated to either the AppStack or AuthStack)    
 export default createAppContainer(createSwitchNavigator(
-    {
-        AuthLoad: AuthLoadScreen,
-        App: AppStack,
-        Auth: AuthStack,
+    { 
+        AuthLoad: AuthLoadScreen, 
+        App: AppStack, 
+        Auth: AuthStack 
     },
-    {
-        initialRouteName: 'AuthLoad',
-    }
+    { initialRouteName: 'AuthLoad' }
 ));

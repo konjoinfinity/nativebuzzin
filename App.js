@@ -8,11 +8,16 @@ import { AlertHelper } from './AlertHelper';
 const App = () => <View style={{ flex: 1 }}>
   {/* Pass in routes for usage across the entire app */}
   <Routes />
+<<<<<<< HEAD
   {/* Pass in DropdownAlert in order for the dropdowns to show above the header nav bar */}
   <DropdownAlert
     defaultContainer={{ padding: 8, paddingTop: StatusBar.currentHeight, flexDirection: 'row' }}
     ref={ref => AlertHelper.setDropDown(ref)}
     onClose={() => AlertHelper.invokeOnClose()} />
+=======
+  <DropdownAlert defaultContainer={{ padding: 8, paddingTop: StatusBar.currentHeight, flexDirection: 'row' }}
+    ref={ref => AlertHelper.setDropDown(ref)} onClose={() => AlertHelper.invokeOnClose()} />
+>>>>>>> master
 </View>;
 
 // Normal export for App
