@@ -39,7 +39,7 @@ class BuzzScreen extends Component {
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => {
             this.state[statename] === true ?
                 this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
-        }, 300));
+        }, 500));
         Vibration.vibrate();
     }
 
@@ -51,48 +51,45 @@ class BuzzScreen extends Component {
 
     render() {
         let buzzes, oldbuzzes;
-        this.state.buzzes !== null &&
-            (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
+        this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
+            return (
+                <View style={styles.buzzMap} key={id}>
+                    <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
+                    <View style={{ flexDirection: "column" }}>
+                        <Text style={{ fontSize: loginButtonText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                </View>
+            )
+        }))
+        this.state.oldbuzzes !== null && (oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
+            return Functions.reverseArray(buzz).map((oldbuzz, id) => {
                 return (
-                    <View style={styles.buzzMap} key={id}>
-                        <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
-                        <View style={{ flexDirection: "column" }}>
-                            <Text style={{ fontSize: loginButtonText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
-                            <Text style={{ fontSize: abvText, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                    <View key={id}>
+                        {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
+                            <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
+                            <View style={{ flexDirection: "column" }}>
+                                <Text style={{ fontSize: loginButtonText, padding: 5 }}>{oldbuzz.oz}oz  -  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
+                                <Text style={{ fontSize: abvText, padding: 5 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                        </View>
                     </View>
                 )
-            }))
-        this.state.oldbuzzes !== null &&
-            (oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
-                return Functions.reverseArray(buzz).map((oldbuzz, id) => {
-                    return (
-                        <View key={id}>
-                            {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
-                                <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}</Text></TouchableOpacity>
-                                <View style={{ flexDirection: "column" }}>
-                                    <Text style={{ fontSize: loginButtonText, padding: 5 }}>{oldbuzz.oz}oz  -  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
-                                    <Text style={{ fontSize: abvText, padding: 5 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
-                            </View>
-                        </View>
-                    )
-                })
-            }))
+            })
+        }))
         var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = [], maxrecgender = this.state.gender === "Male" ? 14 : 7
         var numOfArrays = this.state.oldbuzzes !== null && Math.ceil(Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) / 168)
         for (i = 1; i <= numOfArrays; i++) { this.state.oldbuzzes !== null && lastWeeks.push([]) }
-        this.state.oldbuzzes !== null &&
-            (this.state.oldbuzzes.map((buzz) => {
-                return buzz.map((oldbuzz) => {
-                    var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-                    if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
-                    if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
-                    for (var i = 1; i < numOfArrays; i++) {
-                        var low = 168 * i, high = 168 * (i + 1)
-                        if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
-                    }
-                })
-            }))
+        this.state.oldbuzzes !== null && (this.state.oldbuzzes.map((buzz) => {
+            return buzz.map((oldbuzz) => {
+                var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
+                if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
+                if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
+                for (var i = 1; i < numOfArrays; i++) {
+                    var low = 168 * i, high = 168 * (i + 1)
+                    if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
+                }
+            })
+        }))
         for (i = 0; i < numOfArrays; i++) {
             this.state.oldbuzzes !== null && weeksData.push(lastWeeks[i].length)
             this.state.oldbuzzes !== null && maxrecdata.push(maxrecgender)
@@ -172,38 +169,31 @@ class BuzzScreen extends Component {
                             </View>}
                         </ScrollView>
                     </View>
-                    {this.state.buzzes !== null &&
-                        <View style={styles.buzzCard}>
-                            <View style={styles.buzzView}>
-                                <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Current Buzz</Text>
-                                {this.state.buzzes !== null && (
-                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
-                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>)}
-                            </View>
-                            {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
-                        </View>}
-                    {this.state.buzzes === null &&
-                        <View style={styles.buzzInfo}>
-                            <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
-                            {this.state.timesince !== null &&
-                                <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}
-                            {this.state.timesince === null &&
-                                <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}
-                        </View>}
-                    {this.state.oldbuzzes !== null &&
-                        <View style={styles.buzzCard}>
-                            <View style={styles.buzzView}>
-                                <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
-                                {this.state.oldbuzzes !== null && (
-                                    <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
-                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideOldBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>)}
-                            </View>
-                            {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
-                        </View>}
-                    {this.state.oldbuzzes === null &&
-                        <View style={styles.buzzInfo}>
-                            <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
-                        </View>}
+                    {this.state.buzzes !== null && <View style={styles.buzzCard}>
+                        <View style={styles.buzzView}>
+                            <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Current Buzz</Text>
+                            <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>
+                        </View>
+                        {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
+                    </View>}
+                    {this.state.buzzes === null && <View style={styles.buzzInfo}>
+                        <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
+                        {this.state.timesince !== null && <View>
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text></View>}
+                    </View>}
+                    {this.state.oldbuzzes !== null && <View style={styles.buzzCard}>
+                        <View style={styles.buzzView}>
+                            <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
+                            <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideOldBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>
+                        </View>
+                        {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
+                    </View>}
+                    {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
+                        <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
+                    </View>}
                 </ScrollView>
             </View>
         );
