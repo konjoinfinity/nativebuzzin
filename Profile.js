@@ -49,9 +49,7 @@ class ProfileScreen extends Component {
                             if (stopBreak5pm >= 17) { this.stopBreak("all") }
                         } else if (this.state.autobreak === false) { this.stopBreak("all") }
                     }
-                    var currentDate = new Date(), breakDate = Date.parse(this.state.breakdate)
-                    currentDate.setHours(currentDate.getHours() + Math.round(currentDate.getMinutes() / 60))
-                    currentDate.setMinutes(0, 0, 0)
+                    var breakDate = Date.parse(this.state.breakdate), currentDate = Functions.zeroDate()
                     var durations = Functions.breakDiff(currentDate, breakDate)
                     this.setState({ hours: durations[3], days: durations[2], weeks: durations[1], months: durations[0] })
                 }, 100);
@@ -61,9 +59,7 @@ class ProfileScreen extends Component {
 
     async takeAbreak() {
         if (this.state.hours !== 0 || this.state.days !== 0 || this.state.weeks !== 0 || this.state.months !== 0) {
-            var breakDate = new Date()
-            breakDate.setHours(breakDate.getHours() + Math.round(breakDate.getMinutes() / 60))
-            breakDate.setMinutes(0, 0, 0)
+            var breakDate = Functions.zeroDate()
             var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
             if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
             if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }

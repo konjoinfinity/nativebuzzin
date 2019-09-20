@@ -153,5 +153,12 @@ export class Functions {
         var dayHourMin = type === "timesince" ? this.getDayHourMin(date1, date2) : this.getDayHourMin(date2, date1)
         return [dayHourMin[0], dayHourMin[1], dayHourMin[2], dayHourMin[3]]
     }
+
+    static zeroDate() {
+        var breakDate = new Date()
+        breakDate.setHours(breakDate.getHours() + Math.round(breakDate.getMinutes() / 60))
+        breakDate.setMinutes(0, 0, 0)
+        return breakDate
+    }
 }
 
