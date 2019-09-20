@@ -114,7 +114,8 @@ class HomeScreen extends Component {
     }
 
     async addDrink() {
-        Vibration.vibrate(); var drinkDate = new Date();
+        Vibration.vibrate();
+        var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
@@ -130,10 +131,8 @@ class HomeScreen extends Component {
     async saveBuzz() {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         if (this.state.bac > this.state.threshold) { await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true)) }
-        if (this.state.limit === true) {
-            if (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) {
-                this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
-            }
+        if (this.state.limit === true && this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) {
+            this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
         }
     }
 
@@ -194,30 +193,27 @@ class HomeScreen extends Component {
             if (result !== null && result !== "[]") { setTimeout(() => { this.setState({ oldbuzzes: JSON.parse(result) }) }, 200) }
         })
         if (this.state.autobreak === true && autobreakcheck === true) {
-            var autoBreakDate = new Date();
+            var autoBreakDate = Functions.zeroDate();
             autoBreakDate.setDate(autoBreakDate.getDate() + 1);
-            autoBreakDate.setHours(autoBreakDate.getHours() + Math.round(autoBreakDate.getMinutes() / 60))
-            autoBreakDate.setMinutes(0, 0, 0)
             this.setState({ break: true, breakdate: autoBreakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(autoBreakDate)],
             [autobreakminkey, JSON.stringify(false)]], () => this.componentDidMount())
         }
         if (this.state.showlimit === true) {
-            this.setState({ showlimit: false, limit: false, limitbac: "", drinks: "" })
-            await AsyncStorage.multiSet([[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)]])
+            await AsyncStorage.multiSet([[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)]], () => this.setState({ showlimit: false, limit: false, limitbac: "", drinks: "" }))
         }
     }
 
     async clearDrinks() {
         Vibration.vibrate();
-        await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0 }) });
         clearInterval(this.state.flashtimer);
-        this.setState({ flashtext: false, flashtimer: "", flashtext: "" });
+        await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, flashtext: false, flashtimer: "", flashtext: "" }) });
     }
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < 0.0333333) {
-            Vibration.vibrate(); var undobuzz;
+            Vibration.vibrate();
+            var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
                 if (result !== null) { undobuzz = JSON.parse(result); undobuzz.pop(); this.setState({ buzzes: undobuzz }) }
             })
@@ -288,13 +284,12 @@ class HomeScreen extends Component {
                                 {(this.state.bac === 0 || this.state.bac === undefined) &&
                                     <View style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                         <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "teal" }}>0.0</Text></View>}
-                                {this.state.bac > 0.00 && (
-                                    this.state.bac > 0.04 && this.state.bac < 0.06 ?
-                                        <View style={styles.spaceAroundView}><Text style={{ fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30 }}>Optimal </Text>
-                                            <View style={[addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
-                                                <Text style={{ fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text></View><Text style={{ fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30 }}> Buzz!</Text></View>
-                                        : <View style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
-                                            <Text style={{ fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text></View>)}
+                                {this.state.bac > 0.00 && (this.state.bac > 0.04 && this.state.bac < 0.06 ?
+                                    <View style={styles.spaceAroundView}><Text style={{ fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30 }}>Optimal </Text>
+                                        <View style={[addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
+                                            <Text style={{ fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text></View><Text style={{ fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30 }}> Buzz!</Text></View>
+                                    : <View style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
+                                        <Text style={{ fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text></View>)}
                             </CopilotView>
                         </CopilotStep>
                     </View>

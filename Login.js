@@ -23,9 +23,8 @@ class LoginScreen extends React.Component {
 
     handleModal() {
         Vibration.vibrate();
-        if (this.state.name !== "") {
-            this.setState({ modal: !this.state.modal })
-        } else {
+        if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
+        else {
             Vibration.vibrate();
             Alert.alert("Please Enter Name")
         }
