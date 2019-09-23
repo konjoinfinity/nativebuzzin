@@ -36,19 +36,12 @@ const AppStack = createStackNavigator({
             title: `buzzin`,
             headerStyle: { backgroundColor: '#80cbc4' },
             headerTitleStyle: {
-                color: "#ffffff", fontSize: 25,
+                color: "#ffffff", fontSize: 25, fontWeight: '400',
                 paddingTop: Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 ? 25 : 0
             },
             headerRight: (<View style={{ flexDirection: "row" }}>
-                <TouchableOpacity
-                    style={styles.infoButton}
-                    onPress={() => navigation.push("Info")}>
-                    <View>
-                        <Image source={require('./info.png')}></Image>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            )
+                <TouchableOpacity style={styles.infoButton} onPress={() => navigation.push("Info")}>
+                    <View><Image source={require('./info.png')}></Image></View></TouchableOpacity></View>)
         })
     }, Info: InfoScreen
 }, { headerLayoutPreset: 'center' })
@@ -59,17 +52,10 @@ const AuthStack = createStackNavigator({ Login: LoginScreen },
         headerLayoutPreset: 'center',
         defaultNavigationOptions: ({ navigation }) => ({
             title: `buzzin`, headerStyle: { backgroundColor: '#80cbc4' },
-            headerTitleStyle: { color: "#ffffff", fontSize: 25, textAlign: "center" },
+            headerTitleStyle: { color: "#ffffff", fontSize: 25, textAlign: "center", fontWeight: '400' },
             headerRight: (<View style={{ flexDirection: "row" }}>
-                <TouchableOpacity
-                    style={styles.infoButton}
-                    onPress={() => navigation.push("Info")}>
-                    <View>
-                        <Image source={require('./info.png')}></Image>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            )
+                <TouchableOpacity style={styles.infoButton} onPress={() => navigation.push("Info")}>
+                    <View><Image source={require('./info.png')}></Image></View></TouchableOpacity></View>)
         })
     })
 
