@@ -67,6 +67,10 @@ const styles = StyleSheet.create({
         borderRadius: 50, margin: 10, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 },
         elevation: undoTrash
     },
+    infoButton: {
+        height: 35, width: 35, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 15,
+        borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
+    },
     dangerOkButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
     warnOkButton: { borderWidth: 1, borderColor: "#f9a825", backgroundColor: "#f9a825", padding: 15, margin: 5, borderRadius: 15 },
     profileCards: { backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 },
