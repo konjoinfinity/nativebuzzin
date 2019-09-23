@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native'
-import Header from "./Header"
-
 
 class InfoScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: (<View><Text style={{ color: "#ffffff", fontSize: 25, textAlign: "center", fontWeight: '400' }}>buzzin</Text></View>),
-            headerStyle: {
-                backgroundColor: '#80cbc4',
-            }
+            headerStyle: { backgroundColor: '#80cbc4' }
         };
     }
 

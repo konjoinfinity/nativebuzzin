@@ -41,7 +41,7 @@ const AppStack = createStackNavigator({
             },
             headerRight: (<View style={{ flexDirection: "row" }}>
                 <TouchableOpacity style={styles.infoButton} onPress={() => navigation.push("Info")}>
-                    <View><Image source={require('./info.png')}></Image></View></TouchableOpacity></View>)
+                    <View><Image style={{ width: 25, height: 25 }} source={require('./info.png')}></Image></View></TouchableOpacity></View>)
         })
     }, Info: InfoScreen
 }, { headerLayoutPreset: 'center' })
@@ -55,7 +55,7 @@ const AuthStack = createStackNavigator({ Login: LoginScreen },
             headerTitleStyle: { color: "#ffffff", fontSize: 25, textAlign: "center", fontWeight: '400' },
             headerRight: (<View style={{ flexDirection: "row" }}>
                 <TouchableOpacity style={styles.infoButton} onPress={() => navigation.push("Info")}>
-                    <View><Image source={require('./info.png')}></Image></View></TouchableOpacity></View>)
+                    <View><Image style={{ width: 25, height: 25 }} source={require('./info.png')}></Image></View></TouchableOpacity></View>)
         })
     })
 
