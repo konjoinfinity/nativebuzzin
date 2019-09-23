@@ -77,7 +77,6 @@ class ProfileScreen extends Component {
         if (type !== "zero") {
             await AsyncStorage.setItem(custombreakkey, JSON.stringify(false), () => { this.setState({ setcustombreak: false, custombreak: false }) })
         }
-        console.log(this.state.breakdate)
     }
 
     async LogOut() {
@@ -220,7 +219,6 @@ class ProfileScreen extends Component {
                             </View>}
                             {this.state.indefbreak === true && <View>
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking an indefinite break.</Text>
-                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}> Hats off to you, keep up the good work!</Text>
                                 <Text style={styles.profileLine}>___________________________________________</Text>
                             </View>}
                             {this.state.break === false && <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 15 }}>
