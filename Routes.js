@@ -53,9 +53,9 @@ const AuthStack = createStackNavigator({ Login: LoginScreen },
         defaultNavigationOptions: ({ navigation }) => ({
             title: `buzzin`, headerStyle: { backgroundColor: '#80cbc4' },
             headerTitleStyle: { color: "#ffffff", fontSize: 25, textAlign: "center", fontWeight: '400' },
-            headerRight: (<View style={{ flexDirection: "row" }}>
-                <TouchableOpacity style={styles.infoButton} onPress={() => navigation.push("Info")}>
-                    <View><Image style={{ width: 25, height: 25 }} source={require('./info.png')}></Image></View></TouchableOpacity></View>)
+            // headerRight: (<View style={{ flexDirection: "row" }}>
+            //     <TouchableOpacity style={styles.infoButton} onPress={() => navigation.push("Info")}>
+            //         <View><Image style={{ width: 25, height: 25 }} source={require('./info.png')}></Image></View></TouchableOpacity></View>)
         })
     })
 
