@@ -378,7 +378,7 @@ class HomeScreen extends Component {
                     {this.state.indefbreak === true &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking an indefinite break.</Text>
-                            {this.state.timesince !== null &&
+                            {this.state.timesince !== null && this.state.bac === 0 &&
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("ib")}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
