@@ -15,7 +15,7 @@ class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", breaktime: "", hours: 0, days: 0, weeks: 0,
+            name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", hours: 0, days: 0, weeks: 0,
             months: 0, autobreak: "", happyhour: "", threshold: "", limit: "", drinks: 0, limitbac: "", cancelbreaks: "",
             custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, indefbreak: ""
         }
@@ -71,12 +71,13 @@ class ProfileScreen extends Component {
 
     async stopBreak(type) {
         Vibration.vibrate();
-        this.setState({ break: false, breaktime: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
+        this.setState({ break: false, breakdate: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
         await AsyncStorage.removeItem(breakdatekey)
         await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
         if (type !== "zero") {
             await AsyncStorage.setItem(custombreakkey, JSON.stringify(false), () => { this.setState({ setcustombreak: false, custombreak: false }) })
         }
+        console.log(this.state.breakdate)
     }
 
     async LogOut() {
@@ -87,7 +88,12 @@ class ProfileScreen extends Component {
         this.props.navigation.navigate("Login")
     }
 
-    handleSwitches(statename, keyvalue, setstatename) {
+    async handleSwitches(statename, keyvalue, setstatename) {
+        if (statename === "custombreak" && (this.state.indefbreak === true || this.state.break === true)) {
+            this.setState({ indefbreak: false, break: false, breakdate: "" })
+            await AsyncStorage.multiSet([[indefbreakkey, JSON.stringify(false)], [breakkey, JSON.stringify(false)]])
+            await AsyncStorage.removeItem(breakdatekey)
+        }
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => this.saveSwitches(this.state[statename], keyvalue))
         if (this.state[setstatename] === false) { this.setState({ [setstatename]: true }) }
     }
