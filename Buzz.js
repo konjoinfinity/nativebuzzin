@@ -11,6 +11,9 @@ import { Functions } from "./Functions";
 import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt } from "./Variables";
 import styles from "./Styles"
 
+var values;
+(async () => { values = await Functions.maxRecDrinks() })();
+
 class BuzzScreen extends Component {
     constructor(props) {
         super(props);
@@ -50,6 +53,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log("render")
         let buzzes, oldbuzzes;
         this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
             return (
@@ -76,26 +80,26 @@ class BuzzScreen extends Component {
                 )
             })
         }))
-        var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = [], maxrecgender = this.state.gender === "Male" ? 14 : 7
-        var numOfArrays = this.state.oldbuzzes !== null && Math.ceil(Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) / 168)
-        for (i = 1; i <= numOfArrays; i++) { this.state.oldbuzzes !== null && lastWeeks.push([]) }
-        this.state.oldbuzzes !== null && (this.state.oldbuzzes.map((buzz) => {
-            return buzz.map((oldbuzz) => {
-                var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-                if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
-                if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
-                for (var i = 1; i < numOfArrays; i++) {
-                    var low = 168 * i, high = 168 * (i + 1)
-                    if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
-                }
-            })
-        }))
-        for (i = 0; i < numOfArrays; i++) {
-            this.state.oldbuzzes !== null && weeksData.push(lastWeeks[i].length)
-            this.state.oldbuzzes !== null && maxrecdata.push(maxrecgender)
-        }
-        var weekColor = Functions.barColor(sevenArray.length, "seven", this.state.gender), monthColor = Functions.barColor(thirtyArray.length, "thirty", this.state.gender)
-        var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
+        // var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = [], maxrecgender = this.state.gender === "Male" ? 14 : 7
+        // var numOfArrays = this.state.oldbuzzes !== null && Math.ceil(Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) / 168)
+        // for (i = 1; i <= numOfArrays; i++) { this.state.oldbuzzes !== null && lastWeeks.push([]) }
+        // this.state.oldbuzzes !== null && (this.state.oldbuzzes.map((buzz) => {
+        //     return buzz.map((oldbuzz) => {
+        //         var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
+        //         if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
+        //         if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
+        //         for (var i = 1; i < numOfArrays; i++) {
+        //             var low = 168 * i, high = 168 * (i + 1)
+        //             if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
+        //         }
+        //     })
+        // }))
+        // for (i = 0; i < numOfArrays; i++) {
+        //     this.state.oldbuzzes !== null && weeksData.push(lastWeeks[i].length)
+        //     this.state.oldbuzzes !== null && maxrecdata.push(maxrecgender)
+        // }
+        // var weekColor = Functions.barColor(sevenArray.length, "seven", this.state.gender), monthColor = Functions.barColor(thirtyArray.length, "thirty", this.state.gender)
+        // var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
@@ -125,10 +129,10 @@ class BuzzScreen extends Component {
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
                                         {this.state.oldbuzzes !== null &&
-                                            <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={sevenData}
-                                                svg={{ fill: weekColor, fillOpacity: weekColor === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                                spacing={2} gridMin={0} gridMax={sevenData[0] + 3} animate={true} animationDuration={1500}>
-                                                <XAxis style={{ marginTop: 10 }} data={sevenData} scale={scale.scaleBand} formatLabel={() => ""} />
+                                            <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={values[5]}
+                                                svg={{ fill: values[3], fillOpacity: values[3] === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                                spacing={2} gridMin={0} gridMax={values[5][0] + 3} animate={true} animationDuration={1500}>
+                                                <XAxis style={{ marginTop: 10 }} data={values[5]} scale={scale.scaleBand} formatLabel={() => ""} />
                                                 <Grid direction={Grid.Direction.HORIZONTAL} />
                                                 <LabelWeek />
                                             </BarChart>}
@@ -136,10 +140,10 @@ class BuzzScreen extends Component {
                                     </View>
                                     <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
                                         {this.state.oldbuzzes !== null &&
-                                            <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={thirtyData}
-                                                svg={{ fill: monthColor, fillOpacity: monthColor === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                                spacing={2} gridMin={0} gridMax={thirtyData[0] + 10} animate={true} animationDuration={1800}>
-                                                <XAxis style={{ marginTop: 10 }} data={thirtyData} scale={scale.scaleBand} formatLabel={() => ""} />
+                                            <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={values[6]}
+                                                svg={{ fill: values[4], fillOpacity: values[4] === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                                spacing={2} gridMin={0} gridMax={values[6][0] + 10} animate={true} animationDuration={1800}>
+                                                <XAxis style={{ marginTop: 10 }} data={values[6]} scale={scale.scaleBand} formatLabel={() => ""} />
                                                 <Grid direction={Grid.Direction.HORIZONTAL} />
                                                 <LabelMonth />
                                             </BarChart>}
@@ -150,11 +154,11 @@ class BuzzScreen extends Component {
                                     <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#96c060", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "0-5" : "0-2"}  <Text style={{ color: "#ffeb00", fontWeight: "bold", fontSize: 30, opacity: 0.5 }}>■ </Text>{this.state.gender === "Male" ? "6-10" : "2-5"}  <Text style={{ color: "#e98f00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "11-14" : "6-7"}  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "15+" : "7+"}</Text>
                                 </View>
                             </View>
-                            {this.state.oldbuzzes !== null && weeksData.length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>
-                                <LineChart style={{ height: 200, width: 1000 }} data={weeksData} gridMax={Math.max(...weeksData) + 6}
+                            {this.state.oldbuzzes !== null && values[0].length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>
+                                <LineChart style={{ height: 200, width: 1000 }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                     svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                     contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
-                                    <XAxis style={{ height: 30, width: 1000 }} data={weeksData} contentInset={{ left: 30, right: 40 }}
+                                    <XAxis style={{ height: 30, width: 1000 }} data={values[0]} contentInset={{ left: 30, right: 40 }}
                                         formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
                                         svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
                                     <Grid direction={Grid.Direction.HORIZONTAL} />
@@ -163,12 +167,12 @@ class BuzzScreen extends Component {
                                 {this.state.oldbuzzes !== null &&
                                     <LineChart
                                         style={{ position: "absolute", height: 200, width: 1000, left: 10, top: 10 }} gridMin={0}
-                                        data={maxrecdata} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8}
+                                        data={values[1]} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8}
                                         svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
-                                        gridMax={Math.max(...weeksData) + 6} horizontal={true}>
+                                        gridMax={Math.max(...values[0]) + 6} horizontal={true}>
                                     </LineChart>}
                                 <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: 5 }}><Text style={{ color: "#00897b", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>- </Text>Historical Weekly Totals</Text>
-                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.3 }}>- </Text>Max Recommended - {this.state.oldbuzzes !== null && maxrecgender} ({this.state.gender})</Text>
+                                <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.3 }}>- </Text>Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
                             </View>}
                         </ScrollView>
                     </View>

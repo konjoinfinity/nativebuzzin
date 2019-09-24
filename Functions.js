@@ -1,5 +1,7 @@
 import { Vibration, Platform } from 'react-native';
 import moment from "moment";
+import AsyncStorage from '@react-native-community/async-storage';
+import { oldkey, genderkey } from "./Variables";
 
 export class Functions {
 
@@ -159,6 +161,35 @@ export class Functions {
         breakDate.setHours(breakDate.getHours() + Math.round(breakDate.getMinutes() / 60))
         breakDate.setMinutes(0, 0, 0)
         return breakDate
+    }
+
+    static async maxRecDrinks() {
+        var values, oldbuzzes, gender;
+        values = await AsyncStorage.multiGet([oldkey, genderkey])
+        oldbuzzes = JSON.parse(values[0][1])
+        gender = JSON.parse(values[1][1])
+        var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = [], maxrecgender = gender === "Male" ? 14 : 7
+        var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[0][0].dateCreated) / 168)
+        for (i = 1; i <= numOfArrays; i++) { lastWeeks.push([]) }
+        (oldbuzzes.map((buzz) => {
+            return buzz.map((oldbuzz) => {
+                var drinkTime = this.singleDuration(oldbuzz.dateCreated);
+                if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
+                if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
+                for (var i = 1; i < numOfArrays; i++) {
+                    var low = 168 * i, high = 168 * (i + 1)
+                    if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
+                }
+            })
+        }))
+        for (i = 0; i < numOfArrays; i++) {
+            weeksData.push(lastWeeks[i].length)
+            maxrecdata.push(maxrecgender)
+        }
+        var weekColor = this.barColor(sevenArray.length, "seven", gender)
+        var monthColor = this.barColor(thirtyArray.length, "thirty", gender)
+        var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
+        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData]
     }
 }
 

@@ -32,8 +32,8 @@ class InfoScreen extends Component {
                     <Text style={{ fontSize: 30, textAlign: "center", padding: 15 }}>Contact</Text>
                     <TouchableOpacity style={styles.profilebutton} onPress={() => {
                         (Platform.OS === 'android')
-                            ? Linking.openURL('mailto:info@buzzin.io?cc=?subject=Contact Buzzin&body=yourMessage')
-                            : Linking.openURL('mailto:info@buzzin.io?cc=&subject=Contact Buzzin&body=yourMessage')
+                            ? Linking.openURL('mailto:info@buzzin.io?cc=?subject=Buzzin&body=Message')
+                            : Linking.openURL('mailto:info@buzzin.io?cc=&subject=Buzzin&body=Message')
                     }}><Text style={{ textAlign: "center", color: "#ffffff" }}>Send Email</Text></TouchableOpacity>
                 </View>
             </ScrollView>
