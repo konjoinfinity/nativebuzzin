@@ -49,7 +49,7 @@ class BuzzScreen extends Component {
     sideScroll() {
         setTimeout(() => {
             this.state.sidescrollx === scrollToAmt ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
-        }, 3000);
+        }, 4000);
     }
 
     render() {
@@ -101,7 +101,7 @@ class BuzzScreen extends Component {
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
                                         <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={values[5]}
-                                            svg={{ fill: values[3], fillOpacity: values[3] === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            svg={{ fill: values[3][0], fillOpacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
                                             spacing={2} gridMin={0} gridMax={values[5][0] + 3} animate={true} animationDuration={1500}>
                                             <XAxis style={{ marginTop: 10 }} data={values[5]} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
@@ -111,7 +111,7 @@ class BuzzScreen extends Component {
                                     </View>
                                     <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
                                         <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={values[6]}
-                                            svg={{ fill: values[4], fillOpacity: values[4] === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
                                             spacing={2} gridMin={0} gridMax={values[6][0] + 10} animate={true} animationDuration={1800}>
                                             <XAxis style={{ marginTop: 10 }} data={values[6]} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
@@ -121,7 +121,7 @@ class BuzzScreen extends Component {
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: "center" }}>
-                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#96c060", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "0-5" : "0-2"}  <Text style={{ color: "#ffeb00", fontWeight: "bold", fontSize: 30, opacity: 0.5 }}>■ </Text>{this.state.gender === "Male" ? "6-10" : "2-5"}  <Text style={{ color: "#e98f00", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "11-14" : "6-7"}  <Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 30, opacity: 0.8 }}>■ </Text>{this.state.gender === "Male" ? "15+" : "7+"}</Text>
+                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: values[3][0], fontWeight: "bold", fontSize: 25, opacity: 0.8 }}>■ </Text>{values[3][1]}  <Text style={{ color: values[4][0], fontWeight: "bold", fontSize: 25, opacity: 0.5 }}>■ </Text>{values[4][1]}</Text>
                                 </View>
                             </View>
                             {values[0].length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>

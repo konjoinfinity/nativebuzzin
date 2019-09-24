@@ -105,27 +105,27 @@ export class Functions {
     static barColor(drinks, weekMonth, gender) {
         if (gender === "Male") {
             if (weekMonth === "seven") {
-                if (drinks <= 5) { return "#96c060" }
-                else if (drinks > 5 && drinks <= 10) { return "#ffeb00" }
-                else if (drinks > 10 && drinks <= 14) { return "#e98f00" }
-                else if (drinks > 14) { return "#AE0000" }
+                if (drinks <= 5) { return ["#96c060", "0-5 Low"] }
+                else if (drinks > 5 && drinks <= 10) { return ["#ffeb00", "6-10 Moderate"] }
+                else if (drinks > 10 && drinks <= 14) { return ["#e98f00", "11-14 Max"] }
+                else if (drinks > 14) { return ["#AE0000", "15+ Over Max"] }
             } else {
-                if (drinks <= 20) { return "#96c060" }
-                else if (drinks > 20 && drinks <= 40) { return "#ffeb00" }
-                else if (drinks > 40 && drinks <= 56) { return "#e98f00" }
-                else if (drinks > 56) { return "#AE0000" }
+                if (drinks <= 20) { return ["#96c060", "0-20 Low"] }
+                else if (drinks > 20 && drinks <= 40) { return ["#ffeb00", "21-40 Moderate"] }
+                else if (drinks > 40 && drinks <= 56) { return ["#e98f00", "41-56 Max"] }
+                else if (drinks > 56) { return ["#AE0000", "56+ Over Max"] }
             }
         } else {
             if (weekMonth === "seven") {
-                if (drinks <= 2) { return "#96c060" }
-                else if (drinks > 2 && drinks <= 5) { return "#ffeb00" }
-                else if (drinks > 5 && drinks <= 7) { return "#e98f00" }
-                else if (drinks > 7) { return "#AE0000" }
+                if (drinks <= 2) { return ["#96c060", "0-2 Low"] }
+                else if (drinks > 2 && drinks <= 5) { return ["#ffeb00", "3-5 Moderate"] }
+                else if (drinks > 5 && drinks <= 7) { return ["#e98f00", "6-7 Max"] }
+                else if (drinks > 7) { return ["#AE0000", "8+ Over Max"] }
             } else {
-                if (drinks <= 10) { return "#96c060" }
-                else if (drinks > 10 && drinks <= 20) { return "#ffeb00" }
-                else if (drinks > 20 && drinks <= 28) { return "#e98f00" }
-                else if (drinks > 28) { return "#AE0000" }
+                if (drinks <= 10) { return ["#96c060", "0-10 Low"] }
+                else if (drinks > 10 && drinks <= 20) { return ["#ffeb00", "11-20 Moderate"] }
+                else if (drinks > 20 && drinks <= 28) { return ["#e98f00", "21-28 Max"] }
+                else if (drinks > 28) { return ["#AE0000", "29+ Over Max"] }
             }
         }
     }
