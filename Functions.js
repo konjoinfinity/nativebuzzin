@@ -189,7 +189,9 @@ export class Functions {
         var weekColor = this.barColor(sevenArray.length, "seven", gender)
         var monthColor = this.barColor(thirtyArray.length, "thirty", gender)
         var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
-        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData]
+        var weekly = gender === "Male" ? 14 : 7
+        var monthly = gender === "Male" ? 56 : 28
+        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly]
     }
 }
 
