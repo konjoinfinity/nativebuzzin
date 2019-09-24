@@ -101,8 +101,8 @@ class BuzzScreen extends Component {
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
                                         <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={values[5]}
-                                            svg={{ fill: values[3][0], fillOpacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                            spacing={2} gridMin={0} gridMax={values[5][0] + 3} animate={true} animationDuration={1500}>
+                                            svg={{ fill: values[3][0], fillOpacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={2} gridMin={0}
+                                            contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[5][0] + 3}>
                                             <XAxis style={{ marginTop: 10 }} data={values[5]} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
                                             <LabelWeek />
@@ -111,8 +111,8 @@ class BuzzScreen extends Component {
                                     </View>
                                     <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
                                         <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={values[6]}
-                                            svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                            spacing={2} gridMin={0} gridMax={values[6][0] + 10} animate={true} animationDuration={1800}>
+                                            svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={2} gridMin={0}
+                                            contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[6][0] + 10}>
                                             <XAxis style={{ marginTop: 10 }} data={values[6]} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
                                             <LabelMonth />
@@ -121,7 +121,7 @@ class BuzzScreen extends Component {
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: "center" }}>
-                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: values[3][0], fontWeight: "bold", fontSize: 25, opacity: 0.8 }}>■ </Text>{values[3][1]}  <Text style={{ color: values[4][0], fontWeight: "bold", fontSize: 25, opacity: 0.5 }}>■ </Text>{values[4][1]}</Text>
+                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: values[3][0], fontWeight: "bold", fontSize: 25, opacity: 0.8 }}>■ </Text>{values[3][1]}  <Text style={{ color: values[4][0], fontWeight: "bold", fontSize: 25, opacity: 0.8 }}>■ </Text>{values[4][1]}</Text>
                                 </View>
                             </View>
                             {values[0].length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>
