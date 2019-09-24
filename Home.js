@@ -20,6 +20,9 @@ import styles from "./Styles"
 
 const CopilotView = walkthroughable(View);
 
+var values;
+(async () => { values = await Functions.maxRecDrinks() })();
+
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -249,7 +252,10 @@ class HomeScreen extends Component {
     }
 
     render() {
-        console.log("render")
+        console.log(this.state.limitbac)
+        console.log(this.state.limit)
+        console.log(this.state.setlimit)
+        console.log(this.state.showlimit)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
@@ -280,7 +286,8 @@ class HomeScreen extends Component {
                         <CopilotStep text="This gauge displays your current BAC.  The tick marks show the optimal buzz range.  Check the readout for your current BAC." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
                                 {this.state.bac > 0.06 ? <Text style={{ fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>WARNING              STOP              DRINKING</Text>
-                                    : <Text style={{ fontWeight: "bold", textAlign: "center", color: "#00bfa5" }}>|                          |</Text>}
+                                    : values[5] > 10 ? <Text style={{ fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#AE0000" }}>        BACK</Text></Text>
+                                        : <Text style={{ fontWeight: "bold", textAlign: "center", color: "#00bfa5" }}>|                          |</Text>}
                                 <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
                                 {(this.state.bac === 0 || this.state.bac === undefined) &&
                                     <View style={[addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>

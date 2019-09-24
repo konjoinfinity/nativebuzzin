@@ -94,7 +94,7 @@ class ProfileScreen extends Component {
             await AsyncStorage.removeItem(breakdatekey)
         }
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => this.saveSwitches(this.state[statename], keyvalue))
-        if (this.state[setstatename] === false) { this.setState({ [setstatename]: true }) }
+        this.setState(prevState => ({ [setstatename]: !prevState[setstatename] }))
     }
 
     async saveSwitches(statevalue, keyvalue) {

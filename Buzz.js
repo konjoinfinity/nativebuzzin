@@ -53,7 +53,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log("render")
         let buzzes, oldbuzzes;
         this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
             return (
@@ -80,26 +79,6 @@ class BuzzScreen extends Component {
                 )
             })
         }))
-        // var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = [], maxrecgender = this.state.gender === "Male" ? 14 : 7
-        // var numOfArrays = this.state.oldbuzzes !== null && Math.ceil(Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) / 168)
-        // for (i = 1; i <= numOfArrays; i++) { this.state.oldbuzzes !== null && lastWeeks.push([]) }
-        // this.state.oldbuzzes !== null && (this.state.oldbuzzes.map((buzz) => {
-        //     return buzz.map((oldbuzz) => {
-        //         var drinkTime = Functions.singleDuration(oldbuzz.dateCreated);
-        //         if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
-        //         if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
-        //         for (var i = 1; i < numOfArrays; i++) {
-        //             var low = 168 * i, high = 168 * (i + 1)
-        //             if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
-        //         }
-        //     })
-        // }))
-        // for (i = 0; i < numOfArrays; i++) {
-        //     this.state.oldbuzzes !== null && weeksData.push(lastWeeks[i].length)
-        //     this.state.oldbuzzes !== null && maxrecdata.push(maxrecgender)
-        // }
-        // var weekColor = Functions.barColor(sevenArray.length, "seven", this.state.gender), monthColor = Functions.barColor(thirtyArray.length, "thirty", this.state.gender)
-        // var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
