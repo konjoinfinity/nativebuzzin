@@ -252,7 +252,6 @@ class HomeScreen extends Component {
     }
 
     render() {
-        console.log(values)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
