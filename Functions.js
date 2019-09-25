@@ -198,10 +198,8 @@ export class Functions {
             } else {
                 if (result[2][1] !== null && result[2][1] !== "[]") {
                     buzzes = JSON.parse(result[2][1])
-                    console.log(buzzes)
                     weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = this.barColor(buzzes.length, "seven", gender), monthColor = ["#ffffff", "0 Drinks"], sevenData = [buzzes.length], thirtyData = [0], weekly = 14, monthly = 56
                 } else {
-                    console.log(buzzes)
                     weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56
                 }
             }
