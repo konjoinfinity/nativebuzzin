@@ -197,7 +197,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 0
-    loginButtonText = 20
+    loginButtonText = 22
     loginGenderText = 22
     numberInputSize = 220
     loginTitle = 26
