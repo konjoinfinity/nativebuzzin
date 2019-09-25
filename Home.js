@@ -134,8 +134,10 @@ class HomeScreen extends Component {
     async saveBuzz() {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         if (this.state.bac > this.state.threshold) { await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true)) }
-        if (this.state.limit === true && this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) {
-            this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
+        if (this.state.limit === true) {
+            if (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) {
+                this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
+            }
         }
     }
 
@@ -210,7 +212,8 @@ class HomeScreen extends Component {
     async clearDrinks() {
         Vibration.vibrate();
         clearInterval(this.state.flashtimer);
-        await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, flashtext: false, flashtimer: "", flashtext: "" }) });
+        this.setState({ buzzes: [], bac: 0.0, flashtext: false, flashtimer: "", flashtext: "" })
+        await AsyncStorage.removeItem(key);
     }
 
     async undoLastDrink() {
@@ -252,6 +255,8 @@ class HomeScreen extends Component {
     }
 
     render() {
+        console.log(this.state.showlimit)
+        console.log(this.state.limit)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (

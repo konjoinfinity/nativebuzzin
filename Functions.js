@@ -1,7 +1,7 @@
 import { Vibration, Platform } from 'react-native';
 import moment from "moment";
 import AsyncStorage from '@react-native-community/async-storage';
-import { oldkey, genderkey } from "./Variables";
+import { oldkey, genderkey, key } from "./Variables";
 
 export class Functions {
 
@@ -165,11 +165,13 @@ export class Functions {
 
     static async maxRecDrinks() {
         var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [],
-            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly
-        await AsyncStorage.multiGet([oldkey, genderkey], (error, result) => {
+            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes
+        await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
+            gender = JSON.parse(result[1][1])
             if (result[0][1] !== null && result[1][1] !== null) {
                 oldbuzzes = JSON.parse(result[0][1])
                 gender = JSON.parse(result[1][1])
+                result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
                 var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[0][0].dateCreated) / 168)
                 maxrecgender = gender === "Male" ? 14 : 7
                 for (i = 1; i <= numOfArrays; i++) { lastWeeks.push([]) }
@@ -190,10 +192,19 @@ export class Functions {
                 }
                 weekColor = this.barColor(sevenArray.length, "seven", gender)
                 monthColor = this.barColor(thirtyArray.length, "thirty", gender)
-                sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
+                sevenData = [sevenArray.length + buzzes.length], thirtyData = [thirtyArray.length]
                 weekly = gender === "Male" ? 14 : 7
                 monthly = gender === "Male" ? 56 : 28
-            } else { weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56 }
+            } else {
+                if (result[2][1] !== null && result[2][1] !== "[]") {
+                    buzzes = JSON.parse(result[2][1])
+                    console.log(buzzes)
+                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = this.barColor(buzzes.length, "seven", gender), monthColor = ["#ffffff", "0 Drinks"], sevenData = [buzzes.length], thirtyData = [0], weekly = 14, monthly = 56
+                } else {
+                    console.log(buzzes)
+                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56
+                }
+            }
         })
         return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly]
     }

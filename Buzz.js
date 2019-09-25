@@ -23,6 +23,7 @@ class BuzzScreen extends Component {
     };
 
     async componentDidMount() {
+        values = await Functions.maxRecDrinks()
         await AsyncStorage.getItem(key, (error, result) => {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })
         })
@@ -36,6 +37,7 @@ class BuzzScreen extends Component {
             } else { this.setState({ oldbuzzes: null }) }
         })
         await AsyncStorage.getItem(genderkey, (error, result) => { this.setState({ gender: JSON.parse(result) }) })
+
     }
 
     showHideBuzzes(statename) {
@@ -102,7 +104,7 @@ class BuzzScreen extends Component {
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
                                         <BarChart style={{ flex: 1, padding: 10, height: 200, width: barChartWidth }} data={values[5]}
                                             svg={{ fill: values[3][0], fillOpacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={2} gridMin={0}
-                                            contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[5][0] + 3}>
+                                            contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[5][0] + 3} animate={true} animationDuration={1500}>
                                             <XAxis style={{ marginTop: 10 }} data={values[5]} scale={scale.scaleBand} formatLabel={() => ""} />
                                             <Grid direction={Grid.Direction.HORIZONTAL} />
                                             <LabelWeek />
