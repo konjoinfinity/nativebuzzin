@@ -164,33 +164,37 @@ export class Functions {
     }
 
     static async maxRecDrinks() {
-        var values, oldbuzzes, gender;
-        values = await AsyncStorage.multiGet([oldkey, genderkey])
-        oldbuzzes = JSON.parse(values[0][1])
-        gender = JSON.parse(values[1][1])
-        var sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], maxrecdata = [], maxrecgender = gender === "Male" ? 14 : 7
-        var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[0][0].dateCreated) / 168)
-        for (i = 1; i <= numOfArrays; i++) { lastWeeks.push([]) }
-        (oldbuzzes.map((buzz) => {
-            return buzz.map((oldbuzz) => {
-                var drinkTime = this.singleDuration(oldbuzz.dateCreated);
-                if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
-                if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
-                for (var i = 1; i < numOfArrays; i++) {
-                    var low = 168 * i, high = 168 * (i + 1)
-                    if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
+        var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [],
+            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly
+        await AsyncStorage.multiGet([oldkey, genderkey], (error, result) => {
+            if (result[0][1] !== null && result[1][1] !== null) {
+                oldbuzzes = JSON.parse(result[0][1])
+                gender = JSON.parse(result[1][1])
+                var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[0][0].dateCreated) / 168)
+                maxrecgender = gender === "Male" ? 14 : 7
+                for (i = 1; i <= numOfArrays; i++) { lastWeeks.push([]) }
+                (oldbuzzes.map((buzz) => {
+                    return buzz.map((oldbuzz) => {
+                        var drinkTime = this.singleDuration(oldbuzz.dateCreated);
+                        if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
+                        if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
+                        for (var i = 1; i < numOfArrays; i++) {
+                            var low = 168 * i, high = 168 * (i + 1)
+                            if (drinkTime >= low && drinkTime < high) { lastWeeks[i].push(oldbuzz) }
+                        }
+                    })
+                }))
+                for (i = 0; i < numOfArrays; i++) {
+                    weeksData.push(lastWeeks[i].length)
+                    maxrecdata.push(maxrecgender)
                 }
-            })
-        }))
-        for (i = 0; i < numOfArrays; i++) {
-            weeksData.push(lastWeeks[i].length)
-            maxrecdata.push(maxrecgender)
-        }
-        var weekColor = this.barColor(sevenArray.length, "seven", gender)
-        var monthColor = this.barColor(thirtyArray.length, "thirty", gender)
-        var sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
-        var weekly = gender === "Male" ? 14 : 7
-        var monthly = gender === "Male" ? 56 : 28
+                weekColor = this.barColor(sevenArray.length, "seven", gender)
+                monthColor = this.barColor(thirtyArray.length, "thirty", gender)
+                sevenData = [sevenArray.length], thirtyData = [thirtyArray.length]
+                weekly = gender === "Male" ? 14 : 7
+                monthly = gender === "Male" ? 56 : 28
+            } else { weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56 }
+        })
         return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly]
     }
 }
