@@ -109,7 +109,10 @@ const styles = StyleSheet.create({
     button: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 10, borderRadius: 15 },
     buttonText: { color: "#FFFFFF", fontSize: 22, textAlign: "center" },
     multiSwitch: { backgroundColor: 'white', borderRadius: 20, borderWidth: 1, borderColor: "lightgrey", justifyContent: 'space-between' },
-    cardView: { backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 }
+    cardView: { backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 },
+    infoText: { fontSize: 15, textAlign: "center", padding: 10 },
+    infoTitle: { fontSize: 30, textAlign: "center", padding: 15 },
+    infoList: { fontSize: 15, textAlign: "center", padding: 1 }
 })
 
 export default styles;
