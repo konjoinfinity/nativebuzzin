@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Vibration, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Vibration, Platform, Switch } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -18,7 +18,7 @@ class BuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, sidescrollx: 0, gender: ""
+            buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, sidescrollx: 0, gender: "", chartswitch: false
         }
     };
 
@@ -48,10 +48,9 @@ class BuzzScreen extends Component {
         Vibration.vibrate();
     }
 
-    sideScroll() {
-        setTimeout(() => {
-            this.state.sidescrollx === scrollToAmt ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
-        }, 4000);
+    chartSwitch() {
+        this.setState(prevState => ({ chartswitch: !prevState.chartswitch }))
+        this.state.sidescrollx === scrollToAmt ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
 
     render() {
@@ -95,7 +94,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => { this.componentDidMount(), this.sideScroll() }} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={styles.scrollCard}>
                         <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={(event) => { if (event.nativeEvent.contentOffset.x === scrollToAmt || event.nativeEvent.contentOffset.x === 0) { this.setState({ sidescrollx: event.nativeEvent.contentOffset.x }) } }} scrollEventThrottle={16}>
@@ -123,7 +122,10 @@ class BuzzScreen extends Component {
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: "center" }}>
-                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: values[3][0], fontWeight: "bold", fontSize: 25, opacity: 0.8 }}>■ </Text>{values[3][1]}  <Text style={{ color: values[4][0], fontWeight: "bold", fontSize: 25, opacity: 0.8 }}>■ </Text>{values[4][1]}</Text>
+                                    <Text style={{ fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}>
+                                        <Text style={{ color: values[3][0], fontWeight: "bold", fontSize: 25, opacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }}>■ </Text>
+                                        {values[3][1]}  <Text style={{ color: values[4][0], fontWeight: "bold", fontSize: 25, opacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }}>■ </Text>
+                                        {values[4][1]}</Text>
                                 </View>
                             </View>
                             {values[0].length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>
@@ -147,6 +149,11 @@ class BuzzScreen extends Component {
                             </View>}
                         </ScrollView>
                     </View>
+                    {values[0].length > 1 && <View style={[styles.buzzInfo, { flexDirection: "row", justifyContent: "space-evenly" }]}>
+                        <Text style={{ fontSize: loginButtonText }}>Bar Charts</Text>
+                        <Switch value={this.state.chartswitch} onChange={() => this.chartSwitch()} />
+                        <Text style={{ fontSize: loginButtonText }}>Line Chart</Text>
+                    </View>}
                     {this.state.buzzes !== null && <View style={styles.buzzCard}>
                         <View style={styles.buzzView}>
                             <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>Current Buzz</Text>
