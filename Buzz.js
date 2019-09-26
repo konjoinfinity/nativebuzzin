@@ -18,7 +18,8 @@ class BuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, sidescrollx: 0, gender: "", chartswitch: false
+            buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, sidescrollx: 0,
+            gender: "", chartswitch: false
         }
     };
 
