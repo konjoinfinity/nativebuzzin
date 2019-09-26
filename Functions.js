@@ -190,7 +190,7 @@ export class Functions {
                     weeksData.push(lastWeeks[i].length)
                     maxrecdata.push(maxrecgender)
                 }
-                weekColor = this.barColor(sevenArray.length, "seven", gender)
+                weekColor = this.barColor(sevenArray.length + buzzes.length, "seven", gender)
                 monthColor = this.barColor(thirtyArray.length, "thirty", gender)
                 sevenData = [sevenArray.length + buzzes.length], thirtyData = [thirtyArray.length]
                 weekly = gender === "Male" ? 14 : 7
