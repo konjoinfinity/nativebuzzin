@@ -160,6 +160,9 @@ class ProfileScreen extends Component {
                                     <View><Text style={{ fontSize: 18, color: "#ffffff" }}>8PM</Text></View>
                                 </TouchableOpacity>
                             </View>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("sethappyhour")}>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
+                            </TouchableOpacity>
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
@@ -219,7 +222,9 @@ class ProfileScreen extends Component {
                             </View>}
                             {this.state.indefbreak === true && <View>
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking an indefinite break.</Text>
-                                <Text style={styles.profileLine}>___________________________________________</Text>
+                                <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setcustombreak")}>
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
+                                </TouchableOpacity>
                             </View>}
                             {this.state.break === false && <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 15 }}>
                                 <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Indefinite Break</Text>
@@ -271,6 +276,9 @@ class ProfileScreen extends Component {
                                     rightButtonBackgroundColor={this.state.drinks === 15 ? "#AE0000" : "#00897b"}
                                     leftButtonBackgroundColor={this.state.drinks === 1 ? "#AE0000" : "#00897b"} />
                             </View>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlimit")}>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
+                            </TouchableOpacity>
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
@@ -296,6 +304,9 @@ class ProfileScreen extends Component {
                                     <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
                                 </TouchableOpacity>
                             </View>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setautobreak")}>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
+                            </TouchableOpacity>
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
