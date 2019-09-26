@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     },
     profilebutton: {
         borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, marginTop: 10, marginRight: 70,
-        marginLeft: 70, marginBottom: 10, borderRadius: 15
+        marginLeft: 70, marginBottom: 10, borderRadius: 15, shadowOpacity: 0.35,
+        shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3
     },
     bac: {
         borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginTop: 10, marginBottom: 5,
@@ -72,13 +73,24 @@ const styles = StyleSheet.create({
         borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount,
         padding: 2
     },
+    buzzbutton: {
+        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15, shadowOpacity: 0.35,
+        shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount
+    },
+    profileSetting: {
+        backgroundColor: "#00897b", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12, shadowColor: 'black',
+        shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
+    },
+    button: {
+        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 10, borderRadius: 15,
+        shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
+    },
+    profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
     dangerOkButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
     warnOkButton: { borderWidth: 1, borderColor: "#f9a825", backgroundColor: "#f9a825", padding: 15, margin: 5, borderRadius: 15 },
     profileCards: { backgroundColor: "#e0f2f1", borderRadius: 15, marginLeft: 10, marginRight: 10, marginBottom: 10, padding: 10 },
     profileCardText: { textAlign: "center", padding: 5, marginLeft: 5, marginRight: 5 },
-    profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
     profileSettingTextHidden: { color: "#e0f2f1", textAlign: "center", paddingLeft: 5, paddingRight: 5 },
-    profileSetting: { backgroundColor: "#00897b", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
     profileSettingText: { color: "#FFFFFF", textAlign: "center", paddingLeft: 5, paddingRight: 5 },
     modal1Card: { backgroundColor: "#ffff8d", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, marginBottom: 8, padding: 8 },
     modal2Card: { backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, marginBottom: 8, padding: 8 },
@@ -96,7 +108,6 @@ const styles = StyleSheet.create({
     spaceAroundView: { flexDirection: "row", justifyContent: "space-around" },
     endView: { flexDirection: "row", justifyContent: "flex-end" },
     buzzInfo: { backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 },
-    buzzbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15 },
     buzzbuttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
     logincontainer: { flex: 1 },
     loginheader: { textAlign: "center", margin: 10 },
@@ -106,7 +117,6 @@ const styles = StyleSheet.create({
     loginbuttonText: { color: "#FFFFFF", textAlign: "center" },
     loginbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15 },
     profilebuttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
-    button: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 10, borderRadius: 15 },
     buttonText: { color: "#FFFFFF", fontSize: 22, textAlign: "center" },
     multiSwitch: { backgroundColor: 'white', borderRadius: 20, borderWidth: 1, borderColor: "lightgrey", justifyContent: 'space-between' },
     cardView: { backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 },
