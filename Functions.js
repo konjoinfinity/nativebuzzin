@@ -90,15 +90,15 @@ export class Functions {
     static setColorPercent(bac) {
         if (bac === 0 || bac === undefined) { return ["#ffffff", 0] }
         else if (bac > 0.00 && bac < 0.01) { return ["#b5d3a0", bac * 1000] }
-        else if (bac > 0.01 && bac < 0.02) { return ["#96c060", bac * 1000] }
-        else if (bac > 0.02 && bac < 0.03) { return ["#9fc635", bac * 1000] }
-        else if (bac > 0.03 && bac < 0.04) { return ["#d3e50e", bac * 1000] }
-        else if (bac > 0.04 && bac < 0.05) { return ["#ffeb00", bac * 1000] }
-        else if (bac > 0.05 && bac < 0.06) { return ["#f9bf00", bac * 1000] }
-        else if (bac > 0.06 && bac < 0.07) { return ["#e98f00", bac * 1000] }
-        else if (bac > 0.07 && bac < 0.08) { return ["#d05900", bac * 1000] }
-        else if (bac > 0.08 && bac < 0.09) { return ["#AE0000", bac * 1000] }
-        else if (bac > 0.09 && bac < 0.10) { return ["#571405", bac * 1000] }
+        else if (bac >= 0.01 && bac < 0.02) { return ["#96c060", bac * 1000] }
+        else if (bac >= 0.02 && bac < 0.03) { return ["#9fc635", bac * 1000] }
+        else if (bac >= 0.03 && bac < 0.04) { return ["#d3e50e", bac * 1000] }
+        else if (bac >= 0.04 && bac < 0.05) { return ["#ffeb00", bac * 1000] }
+        else if (bac >= 0.05 && bac < 0.06) { return ["#f9bf00", bac * 1000] }
+        else if (bac >= 0.06 && bac < 0.07) { return ["#e98f00", bac * 1000] }
+        else if (bac >= 0.07 && bac < 0.08) { return ["#d05900", bac * 1000] }
+        else if (bac >= 0.08 && bac < 0.09) { return ["#AE0000", bac * 1000] }
+        else if (bac >= 0.09 && bac < 0.10) { return ["#571405", bac * 1000] }
         else if (bac >= 0.10) { return ["#000000", 100] }
     }
 
@@ -138,15 +138,15 @@ export class Functions {
 
     static bacEmotion(bac) {
         if (bac > 0.00 && bac < 0.01) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😊" : "🙂"] }
-        else if (bac > 0.01 && bac < 0.02) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "☺️" : "😊"] }
-        else if (bac > 0.02 && bac < 0.03) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😀" : "☺️"] }
-        else if (bac > 0.03 && bac < 0.04) { return ["teal", "😃"] }
-        else if (bac > 0.04 && bac < 0.05) { return ["teal", "😄"] }
-        else if (bac > 0.05 && bac < 0.06) { return ["teal", "😆"] }
-        else if (bac > 0.06 && bac < 0.07) { return ["white", "😝"] }
-        else if (bac > 0.07 && bac < 0.08) { return ["white", "😜"] }
-        else if (bac > 0.08 && bac < 0.09) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😋" : "🤪"] }
-        else if (bac > 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😅" : "🥴"] }
+        else if (bac >= 0.01 && bac < 0.02) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "☺️" : "😊"] }
+        else if (bac >= 0.02 && bac < 0.03) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😀" : "☺️"] }
+        else if (bac >= 0.03 && bac < 0.04) { return ["teal", "😃"] }
+        else if (bac >= 0.04 && bac < 0.05) { return ["teal", "😄"] }
+        else if (bac >= 0.05 && bac < 0.06) { return ["teal", "😆"] }
+        else if (bac >= 0.06 && bac < 0.07) { return ["white", "😝"] }
+        else if (bac >= 0.07 && bac < 0.08) { return ["white", "😜"] }
+        else if (bac >= 0.08 && bac < 0.09) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😋" : "🤪"] }
+        else if (bac >= 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😅" : "🥴"] }
         else if (bac >= 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😵" : "🤮"] }
     }
 
@@ -170,7 +170,6 @@ export class Functions {
             gender = JSON.parse(result[1][1])
             if (result[0][1] !== null && result[1][1] !== null) {
                 oldbuzzes = JSON.parse(result[0][1])
-                gender = JSON.parse(result[1][1])
                 result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
                 var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[0][0].dateCreated) / 168)
                 maxrecgender = gender === "Male" ? 14 : 7
