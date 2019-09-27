@@ -225,6 +225,9 @@ class HomeScreen extends Component {
             })
             await AsyncStorage.setItem(key, JSON.stringify(undobuzz), () => { this.checkBac() })
         }
+        if (this.state.showlimit === true && this.state.bac < this.state.limitbac) {
+            this.setState({ showlimit: false })
+        }
     }
 
     checkLastDrink() {
@@ -255,6 +258,7 @@ class HomeScreen extends Component {
     }
 
     render() {
+        console.log(this.state.alctype)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
@@ -402,7 +406,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>}
-                    {this.state.showlimit === true && <View style={styles.cardView}>
+                    {this.state.showlimit === true && this.state.bac > this.state.limitbac && this.state.bac < 0.10 && <View style={styles.cardView}>
                         <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have reached your {this.state.bac > this.state.limitbac && "BAC limit"}{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && " and "}{this.state.buzzes.length >= this.state.drinks && "set drink limit"}. Until your BAC is 0.0, stop drinking and have some water.</Text>
                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>

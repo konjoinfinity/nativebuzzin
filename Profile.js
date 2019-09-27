@@ -102,7 +102,7 @@ class ProfileScreen extends Component {
     }
 
     changeBac(increment, statename, keyvalue) {
-        if (increment === "up" && this.state[statename] < 0.10) {
+        if (increment === "up" && this.state[statename] < 0.08) {
             this.setState({ [statename]: Math.round((this.state[statename] + 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
         }
         if (increment === "down" && this.state[statename] > 0.02) {
@@ -265,16 +265,16 @@ class ProfileScreen extends Component {
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                     <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.limitbac && this.state.limitbac.toFixed(2)}</Text></TouchableOpacity>
-                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.limitbac === 0.1 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.limitbac === 0.08 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
                                     <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
                                 </TouchableOpacity>
                             </View>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Total Drink Limit</Text>
                             <View style={{ alignSelf: "center" }}>
-                                <NumericInput minValue={1} maxValue={15} initValue={this.state.drinks} value={this.state.drinks}
+                                <NumericInput minValue={1} maxValue={8} initValue={this.state.drinks} value={this.state.drinks}
                                     onChange={(drinks) => this.setState({ drinks }, () => this.saveValues("drinks", drinkskey))}
                                     totalWidth={numberInputSize} step={1} rounded textColor='#103900' iconStyle={{ color: 'white' }}
-                                    rightButtonBackgroundColor={this.state.drinks === 15 ? "#AE0000" : "#00897b"}
+                                    rightButtonBackgroundColor={this.state.drinks === 8 ? "#AE0000" : "#00897b"}
                                     leftButtonBackgroundColor={this.state.drinks === 1 ? "#AE0000" : "#00897b"} />
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlimit")}>
