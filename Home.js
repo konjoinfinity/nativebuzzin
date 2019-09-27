@@ -52,10 +52,8 @@ class HomeScreen extends Component {
                 setTimeout(() => {
                     var breaktime = Functions.timeSince(this.state.breakdate, "break")
                     if (breaktime[0] + breaktime[1] + breaktime[2] + breaktime[3] < 0) {
-                        if (this.state.autobreak === true) {
-                            var stopBreak5pm = moment(new Date()).local().hours()
-                            if (stopBreak5pm >= 17) { this.stopBreak("break") }
-                        } else if (this.state.autobreak === false) { this.stopBreak("break") }
+                        // Test to ensure this works
+                        if (this.state.autobreak === false) { this.stopBreak("break") }
                     }
                 }, 100);
             }
@@ -198,10 +196,8 @@ class HomeScreen extends Component {
             if (result !== null && result !== "[]") { setTimeout(() => { this.setState({ oldbuzzes: JSON.parse(result) }) }, 200) }
         })
         if (this.state.autobreak === true && autobreakcheck === true) {
-            var autoBreakDate = Functions.zeroDate();
-            autoBreakDate.setDate(autoBreakDate.getDate() + 1);
-            this.setState({ break: true, breakdate: autoBreakDate })
-            await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(autoBreakDate)],
+            this.setState({ break: true })
+            await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)],
             [autobreakminkey, JSON.stringify(false)]], () => this.componentDidMount())
         }
         if (this.state.showlimit === true) {
@@ -368,11 +364,10 @@ class HomeScreen extends Component {
                                 </View></CopilotView>
                         </CopilotStep>}
                     {this.state.break === true && <View style={styles.cardView}>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                         {this.state.autobreak === true ?
-                            <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY')}, 5:00 pm</Text> :
-                            <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>}
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
+                            <View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break.</Text></View> :
+                            <View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+                                <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text></View>}
                         <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("br")}>
                             <Text style={styles.buttonText}>Cancel Break</Text>
                         </TouchableOpacity>
@@ -387,7 +382,7 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.indefbreak === true &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking an indefinite break.</Text>
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking a break.</Text>
                             {this.state.timesince !== null && this.state.bac === 0 &&
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("ib")}>

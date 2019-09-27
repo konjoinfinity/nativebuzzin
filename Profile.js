@@ -93,6 +93,10 @@ class ProfileScreen extends Component {
             await AsyncStorage.multiSet([[indefbreakkey, JSON.stringify(false)], [breakkey, JSON.stringify(false)]])
             await AsyncStorage.removeItem(breakdatekey)
         }
+        if (statename === "autobreak" && this.state.break === true) {
+            this.setState({ break: false })
+            await AsyncStorage.setItem(breakkey, JSON.stringify(false))
+        }
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => this.saveSwitches(this.state[statename], keyvalue))
         this.setState(prevState => ({ [setstatename]: !prevState[setstatename] }))
     }
@@ -302,7 +306,7 @@ class ProfileScreen extends Component {
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                     <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
-                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.threshold === 0.1 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.threshold === 0.08 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
                                     <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
                                 </TouchableOpacity>
                             </View>
