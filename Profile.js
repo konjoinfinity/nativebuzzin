@@ -248,6 +248,7 @@ class ProfileScreen extends Component {
                     <View style={styles.profileCards}>
                         <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Set Limit</Text>
+                            {/* Add Time cutoff for set limit - last call (text in card) */}
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
                             {this.state.limit === false ? <TouchableOpacity style={styles.profileSettingHidden}>
@@ -284,6 +285,7 @@ class ProfileScreen extends Component {
                     <View style={styles.profileCards}>
                         <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Auto Break</Text>
+                            {/* Auto-break kicks to indefinite break instead of specific date time stamp */}
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
                             {this.state.autobreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
