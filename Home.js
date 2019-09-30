@@ -47,7 +47,10 @@ class HomeScreen extends Component {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
         })
         await AsyncStorage.getItem(limitdatekey, (error, result) => {
-            if (result !== null) { this.setState({ limitdate: Date.parse(JSON.parse(result)) }) }
+            if (result !== null) {
+                this.setState({ limitdate: JSON.parse(result) })
+                if (this.checkLastCall() === true) { this.setState({ showlimit: true }) }
+            } else { this.setState({ showlimit: false, limitdate: "" }) }
         })
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
@@ -87,9 +90,6 @@ class HomeScreen extends Component {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
-        if (this.state.limitdate !== "") {
-            if (this.checkLastCall() === true) { this.setState({ showlimit: true }) }
-        }
     }
 
     componentWillUnmount() {
@@ -249,7 +249,7 @@ class HomeScreen extends Component {
     async stopModeration(stoptype) {
         Vibration.vibrate();
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
-            stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } : { indefbreak: false })
+            stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "", limitdate: "" } : { indefbreak: false })
         if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
         if (stoptype === "sl") { await AsyncStorage.removeItem(limitdatekey) }
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
@@ -261,7 +261,8 @@ class HomeScreen extends Component {
     }
 
     checkLastCall() {
-        if (Functions.singleDuration(this.state.limitdate) < 0) { return true }
+        lastCall = Functions.getDayHourMin(this.state.limitdate, new Date)
+        if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] > 0) { return true }
         else { return false }
     }
 

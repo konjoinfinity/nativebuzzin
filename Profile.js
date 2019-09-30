@@ -109,6 +109,9 @@ class ProfileScreen extends Component {
             await AsyncStorage.removeItem(limitdatekey)
             this.setState({ setlimit: true })
         }
+        if (statename === "limit" && this.state.limit === false) {
+            this.saveValues("limithour", limithourkey)
+        }
         if (statename === "happyhour" && this.state.happyhour === true) {
             this.setState({ sethappyhour: true })
         }
@@ -132,7 +135,7 @@ class ProfileScreen extends Component {
     async saveValues(statename, keyvalue) {
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
         if (statename === "limithour") {
-            if (this.state.limithour === 19 || this.state.limithour === 20 || this.state.limithour === 21 || this.state.limithour === 22 || this.state.limithour === 23) {
+            if (this.state.limithour === 14 || this.state.limithour === 20 || this.state.limithour === 21 || this.state.limithour === 22 || this.state.limithour === 23) {
                 var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
                 await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall))
             } else {
