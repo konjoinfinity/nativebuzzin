@@ -19,20 +19,22 @@ class ProfileScreen extends Component {
             name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", hours: 0, days: 0, weeks: 0,
             months: 0, autobreak: "", happyhour: "", threshold: "", limit: "", drinks: 0, limitbac: "", cancelbreaks: "",
             custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false,
-            indefbreak: "", limithour: ""
+            indefbreak: "", limithour: "", pacer: "", setpacer: false, pacertime: ""
         }
     };
 
     async componentDidMount() {
-        this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false })
+        this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
-            drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey, limithourkey])
+            drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
+            limithourkey, pacerkey, pacertimekey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-            indefbreak: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1])
+            indefbreak: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]), pacer: JSON.parse(values[14][1]),
+            pacertime: JSON.parse(values[15][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -135,7 +137,7 @@ class ProfileScreen extends Component {
     async saveValues(statename, keyvalue) {
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
         if (statename === "limithour") {
-            if (this.state.limithour === 14 || this.state.limithour === 20 || this.state.limithour === 21 || this.state.limithour === 22 || this.state.limithour === 23) {
+            if (this.state.limithour !== 0) {
                 var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
                 await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall))
             } else {
@@ -333,6 +335,40 @@ class ProfileScreen extends Component {
                                 </TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlimit")}>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
+                            </TouchableOpacity>
+                        </View>}
+                    </View>
+                    <View style={styles.profileCards}>
+                        <View style={styles.endView}>
+                            <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Drink Pacer</Text>
+                            <View style={{ marginLeft: 5, marginRight: 5 }}>
+                                <Switch value={this.state.pacer} onChange={() => this.handleSwitches("pacer", pacerkey, "setpacer")} /></View>
+                            {this.state.pacer === false ? <TouchableOpacity style={styles.profileSettingHidden}>
+                                <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
+                                : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setpacer")}>
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
+                        </View>
+                        {this.state.pacer === true && this.state.setpacer && <View>
+                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Drink Pace</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
+                                <TouchableOpacity style={this.state.pacertime === 0.25 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.25 }, () => this.saveValues("pacertime", pacertimekey))}>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>15 Mins</Text></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={this.state.pacertime === 0.5 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.5 }, () => this.saveValues("pacertime", pacertimekey))}>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>30 Mins</Text></View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
+                                <TouchableOpacity style={this.state.pacertime === 0.75 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.75 }, () => this.saveValues("pacertime", pacertimekey))}>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>45 Mins</Text></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={this.state.pacertime === 1 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 1 }, () => this.saveValues("pacertime", pacertimekey))}>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>1 Hour</Text></View>
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setpacer")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
                             </TouchableOpacity>
                         </View>}

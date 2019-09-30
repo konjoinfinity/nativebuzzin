@@ -42,7 +42,8 @@ class LoginScreen extends React.Component {
         [autobreakthresholdkey, JSON.stringify(0.06)], [drinkskey, JSON.stringify(3)], [cancelbreakskey, JSON.stringify(0)],
         [showlimitkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)],
         [indefbreakkey, JSON.stringify(false)], [chartkey, JSON.stringify(false)], [limithourkey, JSON.stringify(23)],
-        [limitdatekey, JSON.stringify(new Date().setHours(23, 0, 0, 0))]])
+        [limitdatekey, JSON.stringify(new Date().setHours(23, 0, 0, 0))], [pacerkey, JSON.stringify(false)],
+        [pacertimekey, JSON.stringify(0.5)]])
         this.handleModal();
         this.props.navigation.navigate("Home", { login: true });
     }

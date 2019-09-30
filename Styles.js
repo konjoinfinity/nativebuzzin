@@ -122,7 +122,9 @@ const styles = StyleSheet.create({
     cardView: { backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 },
     infoText: { fontSize: 15, textAlign: "center", padding: 10 },
     infoTitle: { fontSize: 30, textAlign: "center", padding: 15 },
-    infoList: { fontSize: 15, textAlign: "center", padding: 1 }
+    infoList: { fontSize: 15, textAlign: "center", padding: 1 },
+    pacerbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15 },
+    selectedpacerbutton: { borderWidth: 1, borderColor: "#1de9b6", backgroundColor: "#1de9b6", padding: 15, margin: 5, borderRadius: 15 }
 })
 
 export default styles;
