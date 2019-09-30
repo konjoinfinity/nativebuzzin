@@ -18,7 +18,8 @@ export class Functions {
     }
 
     static singleDuration(initialbuzz) {
-        var date1 = Date.parse(initialbuzz), date2 = new Date().getTime(), duration;
+        var date1 = Date.parse(initialbuzz), duration;
+        var date2 = new Date().getTime()
         var dayHourMin = this.getDayHourMin(date1, date2);
         var days = dayHourMin[0], hours = dayHourMin[1], minutes = dayHourMin[2], seconds = dayHourMin[3];
         if (days >= 1) { hours = hours + days * 24 }

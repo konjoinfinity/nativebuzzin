@@ -90,14 +90,27 @@ class ProfileScreen extends Component {
     }
 
     async handleSwitches(statename, keyvalue, setstatename) {
-        if (statename === "custombreak" && (this.state.indefbreak === true || this.state.break === true)) {
-            this.setState({ indefbreak: false, break: false, breakdate: "" })
-            await AsyncStorage.multiSet([[indefbreakkey, JSON.stringify(false)], [breakkey, JSON.stringify(false)]])
-            await AsyncStorage.removeItem(breakdatekey)
+        if (statename === "custombreak" && this.state.custombreak === true) {
+            this.setState({ setcustombreak: true })
+            if (this.state.indefbreak === true || this.state.break === true) {
+                this.setState({ indefbreak: false, break: false, breakdate: "" })
+                await AsyncStorage.multiSet([[indefbreakkey, JSON.stringify(false)], [breakkey, JSON.stringify(false)]])
+                await AsyncStorage.removeItem(breakdatekey)
+            }
         }
-        if (statename === "autobreak" && this.state.break === true) {
-            this.setState({ break: false })
-            await AsyncStorage.setItem(breakkey, JSON.stringify(false))
+        if (statename === "autobreak" && this.state.autobreak === true) {
+            this.setState({ setautobreak: true })
+            if (this.state.break === true) {
+                this.setState({ break: false })
+                await AsyncStorage.setItem(breakkey, JSON.stringify(false))
+            }
+        }
+        if (statename === "limit" && this.state.limit === true) {
+            await AsyncStorage.removeItem(limitdatekey)
+            this.setState({ setlimit: true })
+        }
+        if (statename === "happyhour" && this.state.happyhour === true) {
+            this.setState({ sethappyhour: true })
         }
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => this.saveSwitches(this.state[statename], keyvalue))
         this.setState(prevState => ({ [setstatename]: !prevState[setstatename] }))
@@ -119,13 +132,14 @@ class ProfileScreen extends Component {
     async saveValues(statename, keyvalue) {
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
         if (statename === "limithour") {
-            if (this.state.limithour === 19 || 20 || 21 || 22 || 23) {
+            if (this.state.limithour === 19 || this.state.limithour === 20 || this.state.limithour === 21 || this.state.limithour === 22 || this.state.limithour === 23) {
                 var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
-                    (async () => { await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall)) })()
+                await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall))
             } else {
-                var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
-                lastCall.setDate(lastCall.getDate() + 1)
-                    (async () => { await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall)) })()
+                var midnight = new Date()
+                midnight.setDate(midnight.getDate() + 1)
+                midnight.setHours(0, 0, 0, 0)
+                await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
             }
         }
     }
@@ -264,7 +278,6 @@ class ProfileScreen extends Component {
                     <View style={styles.profileCards}>
                         <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Set Limit</Text>
-                            {/* Add Time cutoff for set limit - last call (text in card) */}
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
                             {this.state.limit === false ? <TouchableOpacity style={styles.profileSettingHidden}>
@@ -304,22 +317,16 @@ class ProfileScreen extends Component {
                                 <TouchableOpacity style={this.state.limithour === 21 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 21 }, () => this.saveValues("limithour", limithourkey))}>
                                     <View><Text style={{ fontSize: 16, color: "#ffffff" }}>9PM</Text></View>
                                 </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.limithour === 22 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 22 }, () => this.saveValues("limithour", limithourkey))}>
                                     <View><Text style={{ fontSize: 16, color: "#ffffff" }}>10PM</Text></View>
                                 </TouchableOpacity>
-                            </View>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.limithour === 23 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 23 }, () => this.saveValues("limithour", limithourkey))}>
                                     <View><Text style={{ fontSize: 16, color: "#ffffff" }}>11PM</Text></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={this.state.limithour === 0 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 0 }, () => this.saveValues("limithour", limithourkey))}>
                                     <View><Text style={{ fontSize: 16, color: "#ffffff" }}>12AM</Text></View>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={this.state.limithour === 1 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 1 }, () => this.saveValues("limithour", limithourkey))}>
-                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>1AM</Text></View>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={this.state.limithour === 2 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 2 }, () => this.saveValues("limithour", limithourkey))}>
-                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>2AM</Text></View>
                                 </TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlimit")}>
@@ -330,7 +337,6 @@ class ProfileScreen extends Component {
                     <View style={styles.profileCards}>
                         <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Auto Break</Text>
-                            {/* Auto-break kicks to indefinite break instead of specific date time stamp */}
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
                             {this.state.autobreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>

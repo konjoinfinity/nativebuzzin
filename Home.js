@@ -13,7 +13,7 @@ import {
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
-    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limithourkey, limitdatekey
+    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -30,22 +30,24 @@ class HomeScreen extends Component {
             name: "", gender: "", weight: "", bac: 0.0, buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
-            showlimit: false, hhhour: "", indefbreak: false, timesince: null, limithour: "", limitdate: ""
+            showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: ""
         }
     };
 
     async componentDidMount() {
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
-            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, limithourkey, limitdatekey])
+            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, limitdatekey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-            limithour: JSON.parse(values[12][1]), limitdate: JSON.parse(values[13][1])
+            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
+        })
+        await AsyncStorage.getItem(limitdatekey, (error, result) => {
+            if (result !== null) { this.setState({ limitdate: Date.parse(JSON.parse(result)) }) }
         })
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
@@ -85,8 +87,8 @@ class HomeScreen extends Component {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
-        if (this.checkLastCall() === true) {
-            this.setState({ showlimit: true })
+        if (this.state.limitdate !== "") {
+            if (this.checkLastCall() === true) { this.setState({ showlimit: true }) }
         }
     }
 
@@ -258,9 +260,8 @@ class HomeScreen extends Component {
     }
 
     checkLastCall() {
-        var lastCall = Functions.getDayHourMin(new Date(), this.state.limitdate)
-        if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] >= 0) { return false }
-        else { return true }
+        if (Functions.singleDuration(this.state.limitdate) < 0) { return true }
+        else { return false }
     }
 
     render() {
