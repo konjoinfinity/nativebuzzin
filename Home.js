@@ -258,14 +258,12 @@ class HomeScreen extends Component {
     }
 
     checkLastCall() {
-        var lastCall = Functions.getDayHourMin(new Date().setHours(23, 15, 0, 0), this.state.limitdate)
-        console.log(lastCall)
+        var lastCall = Functions.getDayHourMin(new Date(), this.state.limitdate)
         if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] >= 0) { return false }
         else { return true }
     }
 
     render() {
-        console.log(this.state.limitdate)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
