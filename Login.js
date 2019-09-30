@@ -5,7 +5,7 @@ import NumericInput from 'react-native-numeric-input'
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
-    loginTitle, indefbreakkey
+    loginTitle, indefbreakkey, chartkey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -41,7 +41,7 @@ class LoginScreen extends React.Component {
         [autobreakminkey, JSON.stringify(false)], [limitkey, JSON.stringify(false)], [limitbackey, JSON.stringify(0.06)],
         [autobreakthresholdkey, JSON.stringify(0.06)], [drinkskey, JSON.stringify(3)], [cancelbreakskey, JSON.stringify(0)],
         [showlimitkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)],
-        [indefbreakkey, JSON.stringify(false)]])
+        [indefbreakkey, JSON.stringify(false)], [chartkey, JSON.stringify(false)]])
         this.handleModal();
         this.props.navigation.navigate("Home", { login: true });
     }
