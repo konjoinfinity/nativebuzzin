@@ -251,6 +251,7 @@ class HomeScreen extends Component {
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
             stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } : { indefbreak: false })
         if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
+        if (stoptype === "sl") { await AsyncStorage.removeItem(limitdatekey) }
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
         await AsyncStorage.multiSet(stoptype === "break" ? [[breakkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)],
         [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
