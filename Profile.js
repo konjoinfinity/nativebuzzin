@@ -8,7 +8,7 @@ import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
-    limithourkey, pacerkey, pacertimekey
+    limithourkey, limitdatekey, pacerkey, pacertimekey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -118,6 +118,16 @@ class ProfileScreen extends Component {
 
     async saveValues(statename, keyvalue) {
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
+        if (statename === "limithour") {
+            if (this.state.limithour === 19 || 20 || 21 || 22 || 23) {
+                var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
+                    (async () => { await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall)) })()
+            } else {
+                var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
+                lastCall.setDate(lastCall.getDate() + 1)
+                    (async () => { await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall)) })()
+            }
+        }
     }
 
     showHideSetting(statename) {
@@ -125,7 +135,6 @@ class ProfileScreen extends Component {
     }
 
     render() {
-        console.log(this.state.limithour)
         var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
         return (
             <View>

@@ -13,7 +13,7 @@ import {
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
-    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText
+    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limithourkey, limitdatekey
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -30,18 +30,19 @@ class HomeScreen extends Component {
             name: "", gender: "", weight: "", bac: 0.0, buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
-            showlimit: false, hhhour: "", indefbreak: false, timesince: null
+            showlimit: false, hhhour: "", indefbreak: false, timesince: null, limithour: "", limitdate: ""
         }
     };
 
     async componentDidMount() {
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
-            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey])
+            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, limithourkey, limitdatekey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
+            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
+            limithour: JSON.parse(values[12][1]), limitdate: JSON.parse(values[13][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
@@ -84,6 +85,9 @@ class HomeScreen extends Component {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
+        if (this.checkLastCall() === true) {
+            this.setState({ showlimit: true })
+        }
     }
 
     componentWillUnmount() {
@@ -253,7 +257,15 @@ class HomeScreen extends Component {
                 [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : [[indefbreakkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
+    checkLastCall() {
+        var lastCall = Functions.getDayHourMin(new Date().setHours(23, 15, 0, 0), this.state.limitdate)
+        console.log(lastCall)
+        if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] >= 0) { return false }
+        else { return true }
+    }
+
     render() {
+        console.log(this.state.limitdate)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
@@ -400,18 +412,27 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>}
-                    {this.state.showlimit === true && this.state.bac > this.state.limitbac && this.state.bac < 0.10 && <View style={styles.cardView}>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have reached your {this.state.bac > this.state.limitbac && "BAC limit"}{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && " and "}{this.state.buzzes.length >= this.state.drinks && "set drink limit"}. Until your BAC is 0.0, stop drinking and have some water.</Text>
-                        {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
-                            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
-                                    <View>
-                                        <Text style={{ fontSize: alcTypeText }}>↩️</Text>
-                                    </View>
+                    {(this.state.showlimit === true && this.state.bac > this.state.limitbac && this.state.bac < 0.10) || this.state.showlimit === true && this.checkLastCall() === true && <View style={styles.cardView}>
+                        {this.checkLastCall() === false ?
+                            <View>
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have reached your {this.state.bac > this.state.limitbac && "BAC limit"}{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && " and "}{this.state.buzzes.length >= this.state.drinks && "set drink limit"}. Until your BAC is 0.0, stop drinking and have some water.</Text>
+                                {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
+                                    <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                        <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
+                                            <View>
+                                                <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
+                                        <Text style={styles.buttonText}>Cancel Set Limit</Text>
+                                    </TouchableOpacity>}
+                            </View> : <View>
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
+                                <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
+                                    <Text style={styles.buttonText}>Cancel Last Call</Text>
                                 </TouchableOpacity>
-                            </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
-                                <Text style={styles.buttonText}>Cancel Set Limit</Text>
-                            </TouchableOpacity>}
+                            </View>}
                     </View>}
 
                 </ScrollView>
