@@ -15,6 +15,7 @@ import {
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey
 } from "./Variables";
+// add pacer keys - pacerkey, pacertimekey
 import { Functions } from "./Functions";
 import styles from "./Styles"
 
@@ -26,6 +27,7 @@ var maxRecValues;
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
+        // add pacer states
         this.state = {
             name: "", gender: "", weight: "", bac: 0.0, buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
@@ -35,14 +37,17 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
+        // add pacer keys
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, limitdatekey])
+        // add pacer states
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
         })
+        // Or separate to set this.state.showpacer if pacer === true set this.state.showpacer: true
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
         })
@@ -239,6 +244,7 @@ class HomeScreen extends Component {
 
     cancelAlert(typealert) {
         Vibration.vibrate();
+        // Add pc to cancel pacer
         Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
             typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' : 'Consider keeping up your streak.',
             [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : typealert === "br" ? this.stopModeration("break") : this.stopModeration("ib") }, { text: 'No' }],
@@ -248,6 +254,7 @@ class HomeScreen extends Component {
 
     async stopModeration(stoptype) {
         Vibration.vibrate();
+        // add pc to handle pacer cancel
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
             stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "", limitdate: "" } : { indefbreak: false })
         if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
@@ -265,6 +272,11 @@ class HomeScreen extends Component {
         if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] > 0) { return true }
         else { return false }
     }
+
+    // checkPacer() {
+    //     if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < this.state.pacertime) { return true }
+    //     else { return false }
+    // }
 
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
@@ -312,7 +324,7 @@ class HomeScreen extends Component {
                             </CopilotView>
                         </CopilotStep>
                     </View>
-                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false &&
+                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false &&
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView>
                                 <View style={styles.cardView}>
@@ -435,7 +447,19 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>}
-
+                    {/* {this.state.showpacer === true && this.state.buzzes.length >= 1 &&<View style={styles.cardView}>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Drink pacer has been set, please wait to drink your next drink.</Text>
+                        {this.state.buzzes.length >= 1 && this.checkPacer() === true ?
+                            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
+                                    <View>
+                                        <Text style={{ fontSize: alcTypeText }}>↩️</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("pc")}>
+                                <Text style={styles.buttonText}>Cancel Pacer</Text>
+                            </TouchableOpacity>}
+                    </View>} */}
                 </ScrollView>
             </View>
         );
