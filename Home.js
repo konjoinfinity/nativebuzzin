@@ -324,7 +324,8 @@ class HomeScreen extends Component {
                             </CopilotView>
                         </CopilotStep>
                     </View>
-                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false &&
+                    {/* this.state.showpacer === false && */}
+                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false &&
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView>
                                 <View style={styles.cardView}>
