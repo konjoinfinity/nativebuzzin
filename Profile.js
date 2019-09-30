@@ -7,7 +7,8 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
-    drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey
+    drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
+    limithourkey, pacerkey, pacertimekey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -17,20 +18,21 @@ class ProfileScreen extends Component {
         this.state = {
             name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", hours: 0, days: 0, weeks: 0,
             months: 0, autobreak: "", happyhour: "", threshold: "", limit: "", drinks: 0, limitbac: "", cancelbreaks: "",
-            custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, indefbreak: ""
+            custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false,
+            indefbreak: "", limithour: ""
         }
     };
 
     async componentDidMount() {
         this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
-            drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey])
+            drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey, limithourkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-            indefbreak: JSON.parse(values[12][1])
+            indefbreak: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -123,6 +125,7 @@ class ProfileScreen extends Component {
     }
 
     render() {
+        console.log(this.state.limithour)
         var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
         return (
             <View>
@@ -280,6 +283,35 @@ class ProfileScreen extends Component {
                                     totalWidth={numberInputSize} step={1} rounded textColor='#103900' iconStyle={{ color: 'white' }}
                                     rightButtonBackgroundColor={this.state.drinks === 8 ? "#AE0000" : "#00897b"}
                                     leftButtonBackgroundColor={this.state.drinks === 1 ? "#AE0000" : "#00897b"} />
+                            </View>
+                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Last Call</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
+                                <TouchableOpacity style={this.state.limithour === 19 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 19 }, () => this.saveValues("limithour", limithourkey))}>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>7PM</Text></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={this.state.limithour === 20 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 20 }, () => this.saveValues("limithour", limithourkey))}>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>8PM</Text></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={this.state.limithour === 21 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 21 }, () => this.saveValues("limithour", limithourkey))}>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>9PM</Text></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={this.state.limithour === 22 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 22 }, () => this.saveValues("limithour", limithourkey))}>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>10PM</Text></View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
+                                <TouchableOpacity style={this.state.limithour === 23 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 23 }, () => this.saveValues("limithour", limithourkey))}>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>11PM</Text></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={this.state.limithour === 0 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 0 }, () => this.saveValues("limithour", limithourkey))}>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>12AM</Text></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={this.state.limithour === 1 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 1 }, () => this.saveValues("limithour", limithourkey))}>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>1AM</Text></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={this.state.limithour === 2 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 2 }, () => this.saveValues("limithour", limithourkey))}>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>2AM</Text></View>
+                                </TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlimit")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>

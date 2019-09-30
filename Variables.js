@@ -40,7 +40,7 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
     breakdatekey = "breakdate", autobreakkey = "autobreak", happyhourkey = "happyhour", autobreakminkey = "autobreakmin",
     autobreakthresholdkey = "autobreakthreshold", limitkey = "limit", limitbackey = "limitbac", drinkskey = "drinks",
     cancelbreakskey = "cancelbreaks", showlimitkey = "showlimit", custombreakkey = "custombreak", hhhourkey = "hhhour",
-    indefbreakkey = "indefbreak", chartkey = "chart", limithourkey = "limit hour", pacerkey = "pacer", pacertimekey = "pacertime";
+    indefbreakkey = "indefbreak", chartkey = "chart", limithourkey = "limithour", pacerkey = "pacer", pacertimekey = "pacertime";
 
 const warnText = (<View><Text style={styles.modalTextTitle}>Warning!</Text>
     <Text style={styles.modalTextBody}>Your BAC is now above the legal drinking limit in most states.</Text>
