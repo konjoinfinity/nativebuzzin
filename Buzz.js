@@ -18,8 +18,7 @@ class BuzzScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, sidescrollx: 0,
-            gender: "", chartswitch: false
+            buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "", chartswitch: false
         }
     };
 
@@ -50,7 +49,7 @@ class BuzzScreen extends Component {
 
     chartSwitch() {
         this.setState(prevState => ({ chartswitch: !prevState.chartswitch }))
-        this.state.sidescrollx === scrollToAmt ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
+        this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
 
     render() {
@@ -97,7 +96,7 @@ class BuzzScreen extends Component {
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={styles.scrollCard}>
-                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }} onScroll={(event) => { if (event.nativeEvent.contentOffset.x === scrollToAmt || event.nativeEvent.contentOffset.x === 0) { this.setState({ sidescrollx: event.nativeEvent.contentOffset.x }) } }} scrollEventThrottle={16}>
+                        <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }}>
                             <View>
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, flexDirection: 'row', justifyContent: "space-evenly" }}>
                                     <View style={{ flexDirection: 'column', padding: 10 }}>
@@ -129,18 +128,18 @@ class BuzzScreen extends Component {
                                 </View>
                             </View>
                             {values[0].length > 1 && <View style={{ flexDirection: 'column', padding: 10 }}>
-                                <LineChart style={{ height: 200, width: 1000 }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
+                                <LineChart style={{ height: 200, width: values[0].length * 130 }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                     svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                     contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
-                                    <XAxis style={{ height: 30, width: 1000 }} data={values[0]} contentInset={{ left: 30, right: 40 }}
+                                    <XAxis style={{ height: 30, width: values[0].length * 130 }} data={values[0]} contentInset={{ left: 30, right: 40 }}
                                         formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
                                         svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
                                     <Grid direction={Grid.Direction.HORIZONTAL} />
                                     <WeeksLabels />
                                 </LineChart>
                                 <LineChart
-                                    style={{ position: "absolute", height: 200, width: 1000, left: 10, top: 10 }} gridMin={0}
-                                    data={values[1]} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8}
+                                    style={{ position: "absolute", height: 200, width: values[0].length * 130, left: 10, top: 10 }} gridMin={0}
+                                    data={values[1]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
                                     svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
                                     gridMax={Math.max(...values[0]) + 6} horizontal={true}>
                                 </LineChart>
