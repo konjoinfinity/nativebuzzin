@@ -277,7 +277,10 @@ class HomeScreen extends Component {
     }
 
     checkLastCall() {
-        lastCall = Functions.getDayHourMin(this.state.limitdate, new Date)
+        var testDate = new Date()
+        testDate.setHours(20, 21, 22);
+        // new Date
+        lastCall = Functions.getDayHourMin(this.state.limitdate, testDate)
         if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] > 0) { return true }
         else { return false }
     }
@@ -430,7 +433,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>}
-                    {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) && this.state.bac < 0.10 && <View style={styles.cardView}>
+                    {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks || this.checkLastCall() === true) && this.state.bac < 0.10 && <View style={styles.cardView}>
                         {this.checkLastCall() === false ?
                             <View>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have reached your {this.state.bac > this.state.limitbac && "BAC limit"}{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && " and "}{this.state.buzzes.length >= this.state.drinks && "set drink limit"}. Until your BAC is 0.0, stop drinking and have some water.</Text>
