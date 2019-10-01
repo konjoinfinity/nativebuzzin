@@ -52,7 +52,7 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(pacerkey, (error, result) => {
             if (result === "true") {
                 this.setState({ pacer: JSON.parse(result) })
-            } else { this.setState({ pacer: JSON.parse(result) }) }
+            } else { this.setState({ pacer: JSON.parse(result), showpacer: false }) }
         })
         await AsyncStorage.getItem(limitdatekey, (error, result) => {
             if (result !== null) {
@@ -172,10 +172,14 @@ class HomeScreen extends Component {
                 this.setState({ countdown: false }, () => clearInterval(this.state.timer))
                 setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
             }
+            if (this.state.pacer === true && this.checkPacer() === false) {
+                this.setState({ showpacer: false })
+            }
         } else if (this.state.buzzes.length === 0) {
             this.setState({ bac: 0.0, countdown: false }, () => clearInterval(this.state.timer))
             setTimeout(() => this.setState({ timer: "" }), 200);
         }
+
     }
 
     flashWarning() {
@@ -220,6 +224,9 @@ class HomeScreen extends Component {
         if (this.state.showlimit === true) {
             await AsyncStorage.multiSet([[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)]], () => this.setState({ showlimit: false, limit: false, limitbac: "", drinks: "" }))
         }
+        if (this.state.pacer === true && this.state.showpacer === true) {
+            this.setState({ showpacer: false })
+        }
     }
 
     async clearDrinks() {
@@ -250,19 +257,19 @@ class HomeScreen extends Component {
 
     cancelAlert(typealert) {
         Vibration.vibrate();
-        // Add pc to cancel pacer
         Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
-            typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' : 'Consider keeping up your streak.',
-            [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : typealert === "br" ? this.stopModeration("break") : this.stopModeration("ib") }, { text: 'No' }],
+            typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
+                typealert === "ib" ? 'Consider keeping up your streak.' : "Drink pacer helps reduce drinking too quickly.",
+            [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : typealert === "br" ? this.stopModeration("break") : typealert === "ib" ? this.stopModeration("ib") : this.stopModeration("pc") }, { text: 'No' }],
             { cancelable: false },
         );
     }
 
     async stopModeration(stoptype) {
         Vibration.vibrate();
-        // add pc to handle pacer cancel
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
-            stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "", limitdate: "" } : { indefbreak: false })
+            stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "", limitdate: "" } :
+                stoptype === "ib" ? { indefbreak: false } : { showpacer: false, pacer: false })
         if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
         if (stoptype === "sl") { await AsyncStorage.removeItem(limitdatekey) }
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
@@ -270,7 +277,8 @@ class HomeScreen extends Component {
         [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
             stoptype === "hh" ? [[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
                 stoptype === "sl" ? [[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)],
-                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : [[indefbreakkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
+                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : stoptype === "ib" ? [[indefbreakkey, JSON.stringify(false)],
+                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : [[pacerkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
     checkLastCall() {
@@ -458,7 +466,7 @@ class HomeScreen extends Component {
                             </View>}
                     </View>}
                     {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{this.state.pacertime === 0.002 ? "15 Minute " : this.state.pacertime === 0.5 ? "30 Minute " : this.state.pacertime === 0.75 ? "45 Minute " : "1 Hour "}Drink Pace</Text>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{this.state.pacertime === 0.25 ? "15 Minute " : this.state.pacertime === 0.5 ? "30 Minute " : this.state.pacertime === 0.75 ? "45 Minute " : "1 Hour "}Drink Pace</Text>
                         <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Please wait to drink.</Text>
                         {this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
