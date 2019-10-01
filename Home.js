@@ -18,6 +18,7 @@ import {
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
+import CountDown from 'react-native-countdown-component';
 
 const CopilotView = walkthroughable(View);
 
@@ -464,7 +465,10 @@ class HomeScreen extends Component {
                     </View>}
                     {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
                         <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{this.state.pacertime === 0.25 ? "15 Minute " : this.state.pacertime === 0.5 ? "30 Minute " : this.state.pacertime === 0.75 ? "45 Minute " : "1 Hour "}Drink Pace</Text>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Please wait to drink.</Text>
+                        <CountDown size={30} until={10} onFinish={() => this.setState({ showpacer: false })}
+                            digitStyle={{ backgroundColor: "#e0f2f1", borderWidth: 2, borderColor: "#00897b" }}
+                            digitTxtStyle={{ color: "#00897b" }} separatorStyle={{ color: "#00897b" }}
+                            timeToShow={['M', 'S']} timeLabels={{ m: null, s: null }} showSeparator />
                         {this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
