@@ -362,13 +362,13 @@ class ProfileScreen extends Component {
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Drink Pace</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, margin: 15 }}>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.pacertime === 900 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("down")}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
+                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                    <View><Text style={{ fontSize: 20 }}>{this.state.pacertime / 60} Minutes</Text></View>
+                                    <View><Text style={{ fontSize: 22 }}>{this.state.pacertime / 60} Minutes</Text></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.pacertime === 3600 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("up")}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
+                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View>
                                 </TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setpacer")}>

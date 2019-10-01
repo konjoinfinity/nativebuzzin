@@ -457,7 +457,7 @@ class HomeScreen extends Component {
                         <CountDown size={28} until={this.state.pacertime} onFinish={() => this.setState({ showpacer: false })}
                             digitStyle={{ backgroundColor: "#e0f2f1", borderWidth: 2, borderColor: "#00897b" }}
                             digitTxtStyle={{ color: "#00897b" }} separatorStyle={{ color: "#00897b" }}
-                            timeToShow={['M', 'S']} timeLabels={{ m: null, s: null }} showSeparator />
+                            timeToShow={this.state.pacertime === 3600 ? ['H', 'M', 'S'] : ['M', 'S']} timeLabels={{ m: null, s: null }} showSeparator />
                         {this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
