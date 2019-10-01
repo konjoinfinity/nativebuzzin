@@ -277,10 +277,7 @@ class HomeScreen extends Component {
     }
 
     checkLastCall() {
-        var testDate = new Date()
-        testDate.setHours(20, 21, 22);
-        // new Date
-        lastCall = Functions.getDayHourMin(this.state.limitdate, testDate)
+        lastCall = Functions.getDayHourMin(this.state.limitdate, new Date)
         if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] > 0) { return true }
         else { return false }
     }
