@@ -353,7 +353,7 @@ class ProfileScreen extends Component {
                             <Text style={styles.profileLine}>___________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Drink Pace</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
-                                <TouchableOpacity style={this.state.pacertime === 0.25 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.25 }, () => this.saveValues("pacertime", pacertimekey))}>
+                                <TouchableOpacity style={this.state.pacertime === 0.002 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.002 }, () => this.saveValues("pacertime", pacertimekey))}>
                                     <View><Text style={{ fontSize: 18, color: "#ffffff" }}>15 Mins</Text></View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={this.state.pacertime === 0.5 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.5 }, () => this.saveValues("pacertime", pacertimekey))}>

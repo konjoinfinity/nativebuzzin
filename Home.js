@@ -13,9 +13,9 @@ import {
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
-    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey
+    showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
+    pacertimekey
 } from "./Variables";
-// add pacer keys - pacerkey, pacertimekey
 import { Functions } from "./Functions";
 import styles from "./Styles"
 
@@ -32,24 +32,27 @@ class HomeScreen extends Component {
             name: "", gender: "", weight: "", bac: 0.0, buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
-            showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: ""
+            showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: "", pacer: "", pacertime: "", showpacer: false
         }
     };
 
     async componentDidMount() {
-        // add pacer keys
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
-            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, limitdatekey])
-        // add pacer states
+            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1])
+            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
+            pacertime: JSON.parse(values[12][1])
         })
-        // Or separate to set this.state.showpacer if pacer === true set this.state.showpacer: true
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
+        })
+        await AsyncStorage.getItem(pacerkey, (error, result) => {
+            if (result === "true") {
+                this.setState({ pacer: JSON.parse(result) })
+            } else { this.setState({ pacer: JSON.parse(result) }) }
         })
         await AsyncStorage.getItem(limitdatekey, (error, result) => {
             if (result !== null) {
@@ -147,6 +150,9 @@ class HomeScreen extends Component {
             if (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) {
                 this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
             }
+        }
+        if (this.state.pacer === true && this.checkPacer() === true) {
+            this.setState({ showpacer: true })
         }
     }
 
@@ -273,12 +279,15 @@ class HomeScreen extends Component {
         else { return false }
     }
 
-    // checkPacer() {
-    //     if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < this.state.pacertime) { return true }
-    //     else { return false }
-    // }
+    checkPacer() {
+        if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < this.state.pacertime) { return true }
+        else { return false }
+    }
 
     render() {
+        console.log("Pacer Time: " + this.state.pacertime)
+        console.log("Pacer: " + this.state.pacer)
+        console.log("Show Pacer: " + this.state.showpacer)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
@@ -324,8 +333,8 @@ class HomeScreen extends Component {
                             </CopilotView>
                         </CopilotStep>
                     </View>
-                    {/* this.state.showpacer === false && */}
-                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false &&
+                    {/* Add coktail icon, with 40% abv selected, and 3oz default? (Long island) */}
+                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false &&
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView>
                                 <View style={styles.cardView}>
@@ -448,9 +457,10 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>}
-                    {/* {this.state.showpacer === true && this.state.buzzes.length >= 1 &&<View style={styles.cardView}>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Drink pacer has been set, please wait to drink your next drink.</Text>
-                        {this.state.buzzes.length >= 1 && this.checkPacer() === true ?
+                    {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{this.state.pacertime === 0.002 ? "15 Minute " : this.state.pacertime === 0.5 ? "30 Minute " : this.state.pacertime === 0.75 ? "45 Minute " : "1 Hour "}Drink Pace</Text>
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Please wait to drink.</Text>
+                        {this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
                                     <View>
@@ -460,7 +470,7 @@ class HomeScreen extends Component {
                             </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("pc")}>
                                 <Text style={styles.buttonText}>Cancel Pacer</Text>
                             </TouchableOpacity>}
-                    </View>} */}
+                    </View>}
                 </ScrollView>
             </View>
         );
