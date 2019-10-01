@@ -293,9 +293,6 @@ class HomeScreen extends Component {
     }
 
     render() {
-        console.log("Pacer Time: " + this.state.pacertime)
-        console.log("Pacer: " + this.state.pacer)
-        console.log("Show Pacer: " + this.state.showpacer)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         return (
