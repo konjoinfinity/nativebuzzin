@@ -8,7 +8,7 @@ import { Functions } from "./Functions";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
-    limithourkey, limitdatekey, pacerkey, pacertimekey
+    limithourkey, limitdatekey, pacerkey, pacertimekey, chartkey
 } from "./Variables";
 import styles from "./Styles"
 
@@ -87,7 +87,8 @@ class ProfileScreen extends Component {
         Vibration.vibrate();
         // await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-            limitkey, autobreakthresholdkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey])
+            limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
+            hhhourkey, indefbreakkey, chartkey, limithourkey, pacerkey, pacertimekey, limitdatekey])
         this.props.navigation.navigate("Login")
     }
 
