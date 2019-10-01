@@ -8,7 +8,7 @@ import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
 import { Text as TextSVG, G, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
-import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, chartkey } from "./Variables";
+import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt } from "./Variables";
 import styles from "./Styles"
 
 var values;
@@ -19,12 +19,11 @@ class BuzzScreen extends Component {
         super(props);
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, sidescrollx: 0,
-            gender: "", chartswitch: ""
+            gender: "", chartswitch: false
         }
     };
 
     async componentDidMount() {
-        await AsyncStorage.getItem(chartkey, (error, result) => { this.setState({ chartswitch: JSON.parse(result) }) })
         values = await Functions.maxRecDrinks()
         await AsyncStorage.getItem(key, (error, result) => {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })
@@ -50,7 +49,6 @@ class BuzzScreen extends Component {
     }
 
     chartSwitch() {
-        (async () => { await AsyncStorage.setItem(chartkey, JSON.stringify(!this.state.chartswitch)) })()
         this.setState(prevState => ({ chartswitch: !prevState.chartswitch }))
         this.state.sidescrollx === scrollToAmt ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
