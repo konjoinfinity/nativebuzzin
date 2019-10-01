@@ -153,6 +153,14 @@ class ProfileScreen extends Component {
         this.setState(prevState => ({ [statename]: !prevState[statename] }))
     }
 
+    pacerDuration(incdec) {
+        if (incdec === "up" && this.state.pacertime >= 900 && this.state.pacertime < 3600) {
+            this.setState({ pacertime: this.state.pacertime + 300 }, () => this.saveValues("pacertime", pacertimekey))
+        } else if (incdec === "down" && this.state.pacertime > 900 && this.state.pacertime <= 3600) {
+            this.setState({ pacertime: this.state.pacertime - 300 }, () => this.saveValues("pacertime", pacertimekey))
+        }
+    }
+
     render() {
         var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
         return (
@@ -352,20 +360,15 @@ class ProfileScreen extends Component {
                         {this.state.pacer === true && this.state.setpacer && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Drink Pace</Text>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
-                                <TouchableOpacity style={this.state.pacertime === 0.25 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.25 }, () => this.saveValues("pacertime", pacertimekey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>15 Mins</Text></View>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, margin: 15 }}>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.pacertime === 900 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("down")}>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={this.state.pacertime === 0.5 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.5 }, () => this.saveValues("pacertime", pacertimekey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>30 Mins</Text></View>
+                                <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
+                                    <View><Text style={{ fontSize: 20 }}>{this.state.pacertime / 60} Minutes</Text></View>
                                 </TouchableOpacity>
-                            </View>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
-                                <TouchableOpacity style={this.state.pacertime === 0.75 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 0.75 }, () => this.saveValues("pacertime", pacertimekey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>45 Mins</Text></View>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={this.state.pacertime === 1 ? styles.selectedpacerbutton : styles.pacerbutton} onPress={() => this.setState({ pacertime: 1 }, () => this.saveValues("pacertime", pacertimekey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>1 Hour</Text></View>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.pacertime === 3600 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("up")}>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
                                 </TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setpacer")}>

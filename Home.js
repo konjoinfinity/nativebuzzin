@@ -152,9 +152,7 @@ class HomeScreen extends Component {
                 this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
             }
         }
-        if (this.state.pacer === true && this.checkPacer() === true) {
-            this.setState({ showpacer: true })
-        }
+        if (this.state.pacer === true) { this.setState({ showpacer: true }) }
     }
 
     async checkBac() {
@@ -172,9 +170,6 @@ class HomeScreen extends Component {
             } else {
                 this.setState({ countdown: false }, () => clearInterval(this.state.timer))
                 setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
-            }
-            if (this.state.pacer === true && this.checkPacer() === false) {
-                this.setState({ showpacer: false })
             }
         } else if (this.state.buzzes.length === 0) {
             this.setState({ bac: 0.0, countdown: false }, () => clearInterval(this.state.timer))
@@ -285,11 +280,6 @@ class HomeScreen extends Component {
     checkLastCall() {
         lastCall = Functions.getDayHourMin(this.state.limitdate, new Date)
         if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] > 0) { return true }
-        else { return false }
-    }
-
-    checkPacer() {
-        if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < this.state.pacertime) { return true }
         else { return false }
     }
 
@@ -464,8 +454,8 @@ class HomeScreen extends Component {
                             </View>}
                     </View>}
                     {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{this.state.pacertime === 0.25 ? "15 Minute " : this.state.pacertime === 0.5 ? "30 Minute " : this.state.pacertime === 0.75 ? "45 Minute " : "1 Hour "}Drink Pace</Text>
-                        <CountDown size={30} until={10} onFinish={() => this.setState({ showpacer: false })}
+                        <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>Drink Pacer</Text>
+                        <CountDown size={28} until={this.state.pacertime} onFinish={() => this.setState({ showpacer: false })}
                             digitStyle={{ backgroundColor: "#e0f2f1", borderWidth: 2, borderColor: "#00897b" }}
                             digitTxtStyle={{ color: "#00897b" }} separatorStyle={{ color: "#00897b" }}
                             timeToShow={['M', 'S']} timeLabels={{ m: null, s: null }} showSeparator />

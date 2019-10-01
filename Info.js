@@ -48,6 +48,7 @@ class InfoScreen extends Component {
                     <Text style={styles.infoList}>react-native-dropdownalert</Text>
                     <Text style={styles.infoList}>react-native-numeric-input</Text>
                     <Text style={styles.infoList}>react-native-gesture-handler</Text>
+                    <Text style={styles.infoList}>react-native-countdown-component</Text>
                     <Text style={styles.infoList}>@react-native-community/async-storage</Text>
                     <Text style={styles.infoTitle}>Contact</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
