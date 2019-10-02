@@ -333,7 +333,7 @@ class HomeScreen extends Component {
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView>
                                 <View style={styles.cardView}>
-                                    <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
+                                    <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-around", paddingLeft: 20 }]}>
                                         <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
                                             containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                             onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : 2}>
@@ -342,11 +342,17 @@ class HomeScreen extends Component {
                                             <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                         </MultiSwitch>
                                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
+                                            this.checkLastDrink() === true ?
                                             <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => this.undoLastDrink()}>
                                                 <View>
                                                     <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                                 </View>
-                                            </TouchableOpacity>}
+                                            </TouchableOpacity> :
+                                            <View>
+                                                <Text style={{ fontSize: 16, textAlign: "center", paddingBottom: 5 }}>Total Drinks</Text>
+                                                <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#ffffff" }]}>
+                                                    <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.buzzes.length}</Text></TouchableOpacity>
+                                            </View>}
                                     </View>
                                     <View style={{ flex: 1, flexDirection: "row" }}>
                                         <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
