@@ -430,7 +430,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>}
-                    {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks || this.checkLastCall() === true) && this.state.bac < 0.10 && <View style={styles.cardView}>
+                    {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks || this.checkLastCall() === true) && this.state.bac < 0.10 && this.state.showpacer === false && <View style={styles.cardView}>
                         {this.checkLastCall() === false ?
                             <View>
                                 <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have reached your {this.state.bac > this.state.limitbac && "BAC limit"}{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && " and "}{this.state.buzzes.length >= this.state.drinks && "set drink limit"}. Until your BAC is 0.0, stop drinking and have some water.</Text>
