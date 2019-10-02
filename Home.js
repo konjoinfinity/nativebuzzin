@@ -412,9 +412,9 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.indefbreak === true &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking a break.</Text>
+                            <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking a break, It's been:</Text>
                             {this.state.timesince !== null && this.state.bac === 0 &&
-                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
+                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
                             <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("ib")}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
@@ -433,7 +433,10 @@ class HomeScreen extends Component {
                     {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks || this.checkLastCall() === true) && this.state.bac < 0.10 && this.state.showpacer === false && <View style={styles.cardView}>
                         {this.checkLastCall() === false ?
                             <View>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have reached your {this.state.bac > this.state.limitbac && "BAC limit"}{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && " and "}{this.state.buzzes.length >= this.state.drinks && "set drink limit"}. Until your BAC is 0.0, stop drinking and have some water.</Text>
+                                <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>You have reached your:</Text>
+                                {this.state.bac > this.state.limitbac && <Text style={{ fontSize: 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>BAC Limit - {this.state.limitbac}</Text>}
+                                {this.state.buzzes.length >= this.state.drinks && <Text style={{ fontSize: 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && "& "} Set Drink Limit - {this.state.drinks}</Text>}
+                                <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Until your BAC reaches 0.0, stop drinking and have some water.</Text>
                                 {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                                     <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                         <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
