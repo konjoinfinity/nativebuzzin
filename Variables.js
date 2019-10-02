@@ -25,7 +25,8 @@ var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineT
 
 let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }, { value: 'Cocktail' }],
     activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }],
-    beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
+    beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }],
+    shotsStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
 const gaugeLabels = [
     { name: '1', labelColor: '#e0f2f1', activeBarColor: '#ffffff' }, { name: '2', labelColor: '#e0f2f1', activeBarColor: '#b5d3a0' },
@@ -427,5 +428,5 @@ export {
     breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, gaugeLabels, warnText, dangerText,
     limitkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, abovePoint10, loginText, hhhourkey,
     loginButtonText, loginGenderText, numberInputSize, loginTitle, barChartWidth, scrollToAmt, indefbreakkey, limithourkey,
-    limitdatekey, pacerkey, pacertimekey
+    limitdatekey, pacerkey, pacertimekey, shotsStyle
 }

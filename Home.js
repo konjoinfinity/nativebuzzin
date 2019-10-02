@@ -14,7 +14,7 @@ import {
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
-    pacertimekey
+    pacertimekey, shotsStyle
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -391,7 +391,7 @@ class HomeScreen extends Component {
                                                 </View>}
                                             {this.state.alctype === "Cocktail" &&
                                                 <View style={styles.multiSwitchViews}>
-                                                    <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
+                                                    <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
                                                         containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                         onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
                                                         <Text style={{ fontSize: abvLiquorText }}>1</Text>
