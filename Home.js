@@ -333,32 +333,27 @@ class HomeScreen extends Component {
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView>
                                 <View style={styles.cardView}>
-                                    <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-around", paddingLeft: 20 }]}>
+                                    <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                         <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
-                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                            onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : 2}>
+                                            containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                            onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : this.state.alctype === "Liquor" ? 2 : 3}>
                                             <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                             <Text style={{ fontSize: alcTypeText }}>🍷</Text>
                                             <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
+                                            <Text style={{ fontSize: alcTypeText }}>🍹</Text>
                                         </MultiSwitch>
                                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
-                                            this.checkLastDrink() === true ?
                                             <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => this.undoLastDrink()}>
                                                 <View>
                                                     <Text style={{ fontSize: alcTypeText }}>↩️</Text>
                                                 </View>
-                                            </TouchableOpacity> :
-                                            <View>
-                                                <Text style={{ fontSize: 16, textAlign: "center", paddingBottom: 5 }}>Total Drinks</Text>
-                                                <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#ffffff" }]}>
-                                                    <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.buzzes.length}</Text></TouchableOpacity>
-                                            </View>}
+                                            </TouchableOpacity>}
                                     </View>
                                     <View style={{ flex: 1, flexDirection: "row" }}>
                                         <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
                                             <View style={{ paddingBottom: 15 }}>
-                                                <View style={styles.multiSwitchViews}>
-                                                    {this.state.alctype === "Beer" &&
+                                                {this.state.alctype === "Beer" &&
+                                                    <View style={styles.multiSwitchViews}>
                                                         <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
                                                             containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                             onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
@@ -367,33 +362,49 @@ class HomeScreen extends Component {
                                                             <Text style={{ fontSize: abvText }}>6%</Text>
                                                             <Text style={{ fontSize: abvText }}>7%</Text>
                                                             <Text style={{ fontSize: abvText }}>8%</Text>
-                                                        </MultiSwitch>}
-                                                </View>
-                                                <View style={styles.multiSwitchViews}>
-                                                    {this.state.alctype !== "Beer" &&
+                                                        </MultiSwitch>
+                                                    </View>}
+                                                {this.state.alctype !== "Beer" && this.state.alctype !== "Cocktail" &&
+                                                    <View style={styles.multiSwitchViews}>
                                                         <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                             containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                             onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
                                                             <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
                                                             <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
                                                             <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
-                                                        </MultiSwitch>}
-                                                </View>
+                                                        </MultiSwitch>
+                                                    </View>}
+                                                {this.state.alctype === "Cocktail" &&
+                                                    <View style={[styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
+                                                        <Text style={{ fontSize: abvWineText }}>Number of Shots</Text>
+                                                    </View>}
                                             </View>
-                                            <View style={styles.multiSwitchViews}>
-                                                <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
-                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
-                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "12oz" : this.state.alctype === "Wine" ? "5oz" : "1.5oz"}</Text>
-                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "16oz" : this.state.alctype === "Wine" ? "8oz" : "3oz"}</Text>
-                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "20oz" : this.state.alctype === "Wine" ? "12oz" : "6oz"}</Text>
-                                                </MultiSwitch>
-                                            </View>
+                                            {this.state.alctype !== "Cocktail" &&
+                                                <View style={styles.multiSwitchViews}>
+                                                    <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
+                                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                        onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
+                                                        <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "12oz" : this.state.alctype === "Wine" ? "5oz" : "1.5oz"}</Text>
+                                                        <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "16oz" : this.state.alctype === "Wine" ? "8oz" : "3oz"}</Text>
+                                                        <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "20oz" : this.state.alctype === "Wine" ? "12oz" : "6oz"}</Text>
+                                                    </MultiSwitch>
+                                                </View>}
+                                            {this.state.alctype === "Cocktail" &&
+                                                <View style={styles.multiSwitchViews}>
+                                                    <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
+                                                        containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                        onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
+                                                        <Text style={{ fontSize: abvLiquorText }}>1</Text>
+                                                        <Text style={{ fontSize: abvLiquorText }}>2</Text>
+                                                        <Text style={{ fontSize: abvLiquorText }}>3</Text>
+                                                        <Text style={{ fontSize: abvLiquorText }}>4</Text>
+                                                    </MultiSwitch>
+                                                </View>}
                                         </View>
                                         <CopilotStep text="Press to add drink with selected options." order={3} name="add">
                                             <CopilotView>
                                                 <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text></TouchableOpacity>
+                                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃" : "🍹"}</Text></TouchableOpacity>
                                             </CopilotView>
                                         </CopilotStep>
                                     </View>

@@ -46,6 +46,7 @@ export class Functions {
             if (buzz[i].drinkType === "Beer") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
             if (buzz[i].drinkType === "Wine") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
             if (buzz[i].drinkType === "Liquor") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
+            if (buzz[i].drinkType === "Cocktail") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
             totalArray.push(drinkTotal)
         }
         totalAlc = totalArray.reduce((a, b) => a + b, 0);
@@ -64,6 +65,10 @@ export class Functions {
         if (alcohol === "Liquor" && number === 0) { return 1.5 }
         if (alcohol === "Liquor" && number === 1) { return 3 }
         if (alcohol === "Liquor" && number === 2) { return 6 }
+        if (alcohol === "Cocktail" && number === 0) { return 1.5 }
+        if (alcohol === "Cocktail" && number === 1) { return 3 }
+        if (alcohol === "Cocktail" && number === 2) { return 4.5 }
+        if (alcohol === "Cocktail" && number === 3) { return 6 }
     }
 
     static setAbv(number, alcohol) {
@@ -86,6 +91,7 @@ export class Functions {
         if (value === "Beer") { return [0.05, 12] }
         if (value === "Wine") { return [0.12, 5] }
         if (value === "Liquor") { return [0.40, 1.5] }
+        if (value === "Cocktail") { return [0.45, 1.5] }
     }
 
     static setColorPercent(bac) {

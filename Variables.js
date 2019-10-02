@@ -23,7 +23,7 @@ var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineT
     addButtonText, addButtonSize, multiSwitchMargin, loginButtonText, loginGenderText, numberInputSize, loginTitle, barChartWidth,
     scrollToAmt;
 
-let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }],
+let alcValues = [{ value: 'Beer' }, { value: 'Wine' }, { value: 'Liquor' }, { value: 'Cocktail' }],
     activeStyle = [{ color: 'white' }, { color: 'white' }, { color: 'white' }],
     beerActive = [{ color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }, { color: 'white' }]
 
@@ -187,7 +187,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     // console.log("greater or equal to 750 & less than 828")
     gaugeSize = 350
     bacTextSize = 30
-    alcTypeSize = 75
+    alcTypeSize = 64
     alcTypeText = 30
     abvText = 18
     abvSize = 45

@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     undoButton: {
         height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
-        borderRadius: 50, margin: 10, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 },
+        borderRadius: 50, margin: 7, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 },
         elevation: undoTrash
     },
     infoButton: {
@@ -84,6 +84,10 @@ const styles = StyleSheet.create({
     button: {
         borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 10, borderRadius: 15,
         shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
+    },
+    numberofshots: {
+        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, opacity: 0.8, shadowOpacity: 0.35,
+        shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount, marginRight: 40
     },
     profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
     dangerOkButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
