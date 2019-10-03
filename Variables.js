@@ -88,8 +88,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 25
     numberInputSize = 280
     loginTitle = 32
-    barChartWidth = 200
-    scrollToAmt = 475
+    barChartWidth = 202
+    scrollToAmt = 479
 } else if (screenWidth <= 600) {
     console.log("less than 600")
     gaugeSize = 230
@@ -109,8 +109,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 13
     numberInputSize = 120
     loginTitle = 17
-    barChartWidth = 120
-    scrollToAmt = 325
+    barChartWidth = 122
+    scrollToAmt = 320
 } else if (screenWidth === 720 && screenHeight === 1280) {
     console.log("720x1280")
     gaugeSize = 320
@@ -130,8 +130,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 18
     numberInputSize = 200
     loginTitle = 25
-    barChartWidth = 145
-    scrollToAmt = 370
+    barChartWidth = 140
+    scrollToAmt = 362
 } else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
     console.log("greater than 600 & less than 750")
     gaugeSize = 295
@@ -155,8 +155,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
         barChartWidth = 120
         scrollToAmt = 320
     } else {
-        barChartWidth = 145
-        scrollToAmt = 370
+        barChartWidth = 142
+        scrollToAmt = 360
     }
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
     console.log("768 or equal to 1080 x 1776")
@@ -211,7 +211,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     console.log("828 or 1242 x 2688")
     gaugeSize = 390
     bacTextSize = 35
-    alcTypeSize = 90
+    alcTypeSize = 70
     alcTypeText = 40
     abvText = 20
     abvSize = 50
@@ -279,7 +279,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     console.log("1125")
     gaugeSize = 350
     bacTextSize = 30
-    alcTypeSize = 80
+    alcTypeSize = 64
     alcTypeText = 35
     abvText = 18
     abvSize = 40
@@ -300,7 +300,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     console.log("1242")
     gaugeSize = 390
     bacTextSize = 30
-    alcTypeSize = 75
+    alcTypeSize = 70
     alcTypeText = 30
     abvText = 18
     abvSize = 45

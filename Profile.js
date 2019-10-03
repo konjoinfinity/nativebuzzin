@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Vibration, Switch, Dimensions, PixelRatio } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Vibration, Switch, Dimensions, PixelRatio, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
@@ -182,7 +182,7 @@ class ProfileScreen extends Component {
                             {this.state.happyhour === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("sethappyhour")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
                         </View>
                         {this.state.happyhour === true && this.state.sethappyhour && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -217,7 +217,7 @@ class ProfileScreen extends Component {
                             {this.state.custombreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setcustombreak")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
                         </View>
                         {this.state.custombreak === true && this.state.setcustombreak === true && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -297,7 +297,7 @@ class ProfileScreen extends Component {
                             {this.state.limit === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setlimit")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
                         </View>
                         {this.state.limit === true && this.state.setlimit === true && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -356,7 +356,7 @@ class ProfileScreen extends Component {
                             {this.state.pacer === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setpacer")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
                         </View>
                         {this.state.pacer === true && this.state.setpacer && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -385,7 +385,7 @@ class ProfileScreen extends Component {
                             {this.state.autobreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setautobreak")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>⚙︎</Text></TouchableOpacity>}
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
                         </View>
                         {this.state.autobreak === true && this.state.setautobreak === true && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
