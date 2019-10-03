@@ -181,8 +181,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
         barChartWidth = 155
         scrollToAmt = 385
     } else {
-        barChartWidth = 145
-        scrollToAmt = 370
+        barChartWidth = 142
+        scrollToAmt = 360
     }
 } else if (screenWidth >= 750 && screenWidth < 828) {
     console.log("greater or equal to 750 & less than 828")
