@@ -107,7 +107,8 @@ class DemoScreen extends Component {
             (testbuzzes = Functions.reverseArray(this.state.testbuzzes).map((buzz, id) => {
                 return (
                     <View key={id} style={styles.buzzMap}>
-                        <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>
+                            {buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
                             <Text style={{ fontSize: 20, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
                             <Text style={{ fontSize: 15, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
@@ -115,29 +116,18 @@ class DemoScreen extends Component {
                 )
             }))
         return (
-            <View style={{ backgroundColor: "#ff8a80" }}>
-                <Modal animationType="slide" transparent={false} visible={this.state.modal1}>
-                    <ScrollView style={styles.modal1Card}>
-                        {warnText}
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <TouchableOpacity style={styles.warnOkButton}
-                                onPress={() => { this.handleModal("modal1") }}>
-                                <Text style={styles.buttonText}>Ok</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
-                </Modal>
+            <View style={{ backgroundColor: "#ff8a80" }}><Modal animationType="slide" transparent={false} visible={this.state.modal1}>
+                <ScrollView style={styles.modal1Card}>{warnText}
+                    <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <TouchableOpacity style={styles.warnOkButton} onPress={() => { this.handleModal("modal1") }}>
+                            <Text style={styles.buttonText}>Ok</Text>
+                        </TouchableOpacity></View></ScrollView></Modal>
                 <Modal animationType="slide" transparent={false} visible={this.state.modal2}>
-                    <ScrollView style={styles.modal2Card}>
-                        {dangerText}
+                    <ScrollView style={styles.modal2Card}>{dangerText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                            <TouchableOpacity style={styles.dangerOkButton}
-                                onPress={() => { this.handleModal("modal2") }}>
+                            <TouchableOpacity style={styles.dangerOkButton} onPress={() => { this.handleModal("modal2") }}>
                                 <Text style={styles.buttonText}>Ok</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
-                </Modal>
+                            </TouchableOpacity></View></ScrollView></Modal>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={styles.scrollCard}>
