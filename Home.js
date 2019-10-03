@@ -14,7 +14,7 @@ import {
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
-    pacertimekey, shotsStyle
+    pacertimekey, shotsStyle, loginTitle
 } from "./Variables";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -287,6 +287,16 @@ class HomeScreen extends Component {
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
+        let buzzes;
+        this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
+            return (<View style={styles.buzzMap} key={id}>
+                <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
+                <View style={{ flexDirection: "column" }}>
+                    <Text style={{ fontSize: loginButtonText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
+                    <Text style={{ fontSize: abvText, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+            </View>
+            )
+        }))
         return (
             <View>
                 <Modal animationType="slide" transparent={false} visible={this.state.modal1}>
@@ -477,6 +487,12 @@ class HomeScreen extends Component {
                             </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("pc")}>
                                 <Text style={styles.buttonText}>Cancel Pacer</Text>
                             </TouchableOpacity>}
+                    </View>}
+                    {(this.state.buzzes && this.state.buzzes.length > 0) && <View style={styles.buzzCard}>
+                        <View style={styles.buzzView}>
+                            <Text style={{ fontSize: 28, textAlign: "center", padding: 5 }}>Current Buzz</Text>
+                        </View>
+                        <View>{buzzes}</View>
                     </View>}
                 </ScrollView>
             </View>

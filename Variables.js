@@ -232,7 +232,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
     gaugeSize = 380
     bacTextSize = 30
-    alcTypeSize = 80
+    alcTypeSize = 70
     alcTypeText = 35
     abvText = 20
     abvSize = 50
@@ -248,8 +248,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     numberInputSize = 230
     loginTitle = 30
     if (screenHeight === 2416) {
-        barChartWidth = 200
-        scrollToAmt = 475
+        barChartWidth = 202
+        scrollToAmt = 479
     } else {
         barChartWidth = 168
         scrollToAmt = 410
@@ -258,7 +258,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     console.log("1080 x 2028")
     gaugeSize = 365
     bacTextSize = 30
-    alcTypeSize = 75
+    alcTypeSize = 70
     alcTypeText = 30
     abvText = 18
     abvSize = 45
@@ -273,8 +273,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 25
     numberInputSize = 230
     loginTitle = 30
-    barChartWidth = 160
-    scrollToAmt = 405
+    barChartWidth = 159
+    scrollToAmt = 392
 } else if (screenWidth === 1125) {
     console.log("1125")
     gaugeSize = 350
@@ -378,8 +378,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 24
     numberInputSize = 230
     loginTitle = 28
-    barChartWidth = 165
-    scrollToAmt = 405
+    barChartWidth = 168
+    scrollToAmt = 410
 } else if (screenWidth > 1125) {
     console.log("greater than 1125")
     gaugeSize = 390
