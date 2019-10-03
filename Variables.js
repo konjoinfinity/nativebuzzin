@@ -178,8 +178,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     numberInputSize = 160
     loginTitle = 22
     if (screenHeight === 1184) {
-        barChartWidth = 150
-        scrollToAmt = 375
+        barChartWidth = 155
+        scrollToAmt = 385
     } else {
         barChartWidth = 145
         scrollToAmt = 370
@@ -420,8 +420,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 22
     numberInputSize = 220
     loginTitle = 28
-    barChartWidth = 165
-    scrollToAmt = 405
+    barChartWidth = 168
+    scrollToAmt = 410
 }
 
 export {
