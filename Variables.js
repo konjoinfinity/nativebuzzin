@@ -3,20 +3,20 @@ import { Dimensions, PixelRatio, View, Text } from 'react-native';
 import styles from "./Styles"
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
-console.log(screenWidth + " x " + screenHeight)
+// console.log(screenWidth + " x " + screenHeight)
 
 // if (PixelRatio.get() === 1) {
-//     console.log("mdpi")
+//     // console.log("mdpi")
 // } else if (PixelRatio.get() === 1.5) {
-//     console.log("hdpi");
+//     // console.log("hdpi");
 // } else if (PixelRatio.get() === 2) {
-//     console.log("xhdpi");
+//     // console.log("xhdpi");
 // } else if (PixelRatio.get() === 3) {
-//     console.log("xxhdpi");
+//     // console.log("xxhdpi");
 // } else if (PixelRatio.get() === 3.5) {
-//     console.log("xxxhdpi");
+//     // console.log("xxxhdpi");
 // } else if (PixelRatio.get() === 4) {
-//     console.log("xxxhdpi");
+//     // console.log("xxxhdpi");
 // }
 
 var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
@@ -70,7 +70,7 @@ const loginText = (<View><Text style={{ fontSize: 25, textAlign: "center", paddi
     This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text></View>)
 
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
-    console.log("480x854/800")
+    // console.log("480x854/800")
     gaugeSize = 440
     bacTextSize = 30
     alcTypeSize = 75
@@ -91,7 +91,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 202
     scrollToAmt = 479
 } else if (screenWidth <= 600) {
-    console.log("less than 600")
+    // console.log("less than 600")
     gaugeSize = 230
     bacTextSize = 13
     alcTypeSize = 38
@@ -112,7 +112,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 122
     scrollToAmt = 320
 } else if (screenWidth === 720 && screenHeight === 1280) {
-    console.log("720x1280")
+    // console.log("720x1280")
     gaugeSize = 320
     bacTextSize = 20
     alcTypeSize = 60
@@ -133,7 +133,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 140
     scrollToAmt = 362
 } else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
-    console.log("greater than 600 & less than 750")
+    // console.log("greater than 600 & less than 750")
     gaugeSize = 295
     bacTextSize = 20
     alcTypeSize = 50
@@ -159,7 +159,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
         scrollToAmt = 360
     }
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
-    console.log("768 or equal to 1080 x 1776")
+    // console.log("768 or equal to 1080 x 1776")
     gaugeSize = 300
     bacTextSize = 20
     alcTypeSize = 50
@@ -185,7 +185,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
         scrollToAmt = 360
     }
 } else if (screenWidth >= 750 && screenWidth < 828) {
-    console.log("greater or equal to 750 & less than 828")
+    // console.log("greater or equal to 750 & less than 828")
     gaugeSize = 350
     bacTextSize = 30
     alcTypeSize = 64
@@ -208,7 +208,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     scrollToAmt = 375
     //
 } else if (screenWidth === 828 || screenWidth === 1242 && screenHeight === 2688) {
-    console.log("828 or 1242 x 2688")
+    // console.log("828 or 1242 x 2688")
     gaugeSize = 390
     bacTextSize = 35
     alcTypeSize = 70
@@ -229,7 +229,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 168
     scrollToAmt = 410
 } else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
-    console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
+    // console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
     gaugeSize = 380
     bacTextSize = 30
     alcTypeSize = 70
@@ -255,7 +255,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
         scrollToAmt = 410
     }
 } else if (screenWidth === 1080 && screenHeight === 2028) {
-    console.log("1080 x 2028")
+    // console.log("1080 x 2028")
     gaugeSize = 365
     bacTextSize = 30
     alcTypeSize = 70
@@ -276,7 +276,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 159
     scrollToAmt = 392
 } else if (screenWidth === 1125) {
-    console.log("1125")
+    // console.log("1125")
     gaugeSize = 350
     bacTextSize = 30
     alcTypeSize = 64
@@ -297,7 +297,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 150
     scrollToAmt = 375
 } else if (screenWidth === 1242) {
-    console.log("1242")
+    // console.log("1242")
     gaugeSize = 390
     bacTextSize = 30
     alcTypeSize = 70
@@ -318,7 +318,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 170
     scrollToAmt = 415
 } else if (screenWidth === 1440 && screenHeight === 2896 || screenWidth === 1440 && screenHeight === 2816) {
-    console.log("1440x2896/2816")
+    // console.log("1440x2896/2816")
     gaugeSize = 455
     bacTextSize = 40
     alcTypeSize = 80
@@ -336,13 +336,13 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 26
     numberInputSize = 260
     loginTitle = 32
-    barChartWidth = 200
-    scrollToAmt = 475
+    barChartWidth = 202
+    scrollToAmt = 480
 } else if (screenWidth === 1440 && screenHeight === 2768) {
-    console.log("1440x2768")
+    // console.log("1440x2768")
     gaugeSize = 335
     bacTextSize = 25
-    alcTypeSize = 70
+    alcTypeSize = 62
     alcTypeText = 30
     abvText = 15
     abvSize = 40
@@ -357,10 +357,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 24
     numberInputSize = 230
     loginTitle = 28
-    barChartWidth = 145
-    scrollToAmt = 370
+    barChartWidth = 143
+    scrollToAmt = 363
 } else if (screenWidth === 1440 && screenHeight !== 2712) {
-    console.log("1440")
+    // console.log("1440")
     gaugeSize = 390
     bacTextSize = 25
     alcTypeSize = 70
@@ -381,7 +381,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 168
     scrollToAmt = 410
 } else if (screenWidth > 1125) {
-    console.log("greater than 1125")
+    // console.log("greater than 1125")
     gaugeSize = 390
     bacTextSize = 25
     alcTypeSize = 75
@@ -402,7 +402,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     barChartWidth = 165
     scrollToAmt = 405
 } else {
-    console.log("other size")
+    // console.log("other size")
     gaugeSize = 350
     bacTextSize = 28
     alcTypeSize = 65
