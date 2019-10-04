@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +12,9 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logopurple1.png" translatesAutoresizingMaskIntoConstraints="NO" id="VRY-cP-TXR">
+                    <rect key="frame" x="0.0" y="61" width="480" height="250"/>
+                </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LifeSystems LLC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
                     <rect key="frame" x="0.0" y="439" width="480" height="21"/>
                     <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
@@ -26,31 +29,26 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" image="logopurple.png" translatesAutoresizingMaskIntoConstraints="NO" id="0G9-Ip-eYw">
-                    <rect key="frame" x="0.0" y="94" width="480" height="209"/>
-                    <color key="tintColor" white="1" alpha="0.79947024828767121" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
-                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="200.5" id="5cJ-9S-tgC"/>
-                <constraint firstItem="0G9-Ip-eYw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="94" id="DIT-pf-sbA"/>
                 <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
+                <constraint firstItem="VRY-cP-TXR" firstAttribute="trailing" secondItem="8ie-xW-0ye" secondAttribute="trailing" id="LLF-9c-Rfl"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="MfP-vx-nX0"/>
+                <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="VRY-cP-TXR" secondAttribute="bottom" constant="28" id="Nfx-rr-C3I"/>
+                <constraint firstItem="VRY-cP-TXR" firstAttribute="leading" secondItem="8ie-xW-0ye" secondAttribute="leading" id="Scq-WH-gch"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
-                <constraint firstItem="0G9-Ip-eYw" firstAttribute="leading" secondItem="8ie-xW-0ye" secondAttribute="leading" id="heN-Ei-534"/>
-                <constraint firstItem="0G9-Ip-eYw" firstAttribute="trailing" secondItem="8ie-xW-0ye" secondAttribute="trailing" id="yTH-6o-ub1"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="0G9-Ip-eYw" secondAttribute="bottom" constant="36" id="yY2-3r-NQs"/>
+                <constraint firstItem="VRY-cP-TXR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="61" id="to7-Ec-z8l"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="545.625" y="454.22535211267603"/>
+            <point key="canvasLocation" x="545.60000000000002" y="453.37331334332839"/>
         </view>
     </objects>
     <resources>
-        <image name="logopurple.png" width="1194" height="1066"/>
+        <image name="logopurple1.png" width="1194" height="1066"/>
     </resources>
 </document>
