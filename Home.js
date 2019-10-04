@@ -8,6 +8,9 @@ import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
 import moment from "moment";
+import { Functions } from "./Functions";
+import styles from "./Styles"
+import CountDown from 'react-native-countdown-component';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
@@ -16,9 +19,6 @@ import {
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
     pacertimekey, shotsStyle, loginTitle
 } from "./Variables";
-import { Functions } from "./Functions";
-import styles from "./Styles"
-import CountDown from 'react-native-countdown-component';
 
 const CopilotView = walkthroughable(View);
 
@@ -443,9 +443,7 @@ class HomeScreen extends Component {
                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => this.undoLastDrink()}>
-                                    <View>
-                                        <Text style={{ fontSize: alcTypeText }}>↩️</Text>
-                                    </View>
+                                    <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>
                             </View>}
                     </View>}
@@ -459,9 +457,7 @@ class HomeScreen extends Component {
                                 {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                                     <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                         <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
-                                            <View>
-                                                <Text style={{ fontSize: alcTypeText }}>↩️</Text>
-                                            </View>
+                                            <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
                                         </TouchableOpacity>
                                     </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
                                         <Text style={styles.buttonText}>Cancel Set Limit</Text>
@@ -483,9 +479,7 @@ class HomeScreen extends Component {
                         {this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
-                                    <View>
-                                        <Text style={{ fontSize: alcTypeText }}>↩️</Text>
-                                    </View>
+                                    <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>
                             </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("pc")}>
                                 <Text style={styles.buttonText}>Cancel Pacer</Text>

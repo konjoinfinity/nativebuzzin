@@ -6,14 +6,15 @@ import NumericInput from 'react-native-numeric-input'
 import RNSpeedometer from 'react-native-speedometer'
 import { NavigationEvents } from "react-navigation";
 import { AlertHelper } from './AlertHelper';
+import { Functions } from "./Functions";
+import styles from "./Styles"
+import moment from "moment";
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,
     abovePoint10, shotsStyle
 } from "./Variables";
-import { Functions } from "./Functions";
-import styles from "./Styles"
-import moment from "moment";
+
 
 class DemoScreen extends Component {
     constructor(props) {
@@ -240,8 +241,7 @@ class DemoScreen extends Component {
                             {abovePoint10}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => this.undoLastDrink()}>
-                                    <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View></TouchableOpacity>
                             </View>}
                         </View>}
                     {(this.state.testbuzzes && this.state.testbuzzes.length > 0) && <View style={styles.buzzCard}>

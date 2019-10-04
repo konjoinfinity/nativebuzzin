@@ -5,12 +5,13 @@ import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
+import styles from "./Styles"
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
     limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey
 } from "./Variables";
-import styles from "./Styles"
+
 
 class ProfileScreen extends Component {
     constructor(props) {
@@ -189,20 +190,15 @@ class ProfileScreen extends Component {
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Daily Break</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.hhhour === 16 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 16 }, () => this.saveValues("hhhour", hhhourkey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>4PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>4PM</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={this.state.hhhour === 17 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 17 }, () => this.saveValues("hhhour", hhhourkey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>5PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>5PM</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={this.state.hhhour === 18 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 18 }, () => this.saveValues("hhhour", hhhourkey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>6PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>6PM</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={this.state.hhhour === 19 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 19 }, () => this.saveValues("hhhour", hhhourkey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>7PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>7PM</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={this.state.hhhour === 20 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 20 }, () => this.saveValues("hhhour", hhhourkey))}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>8PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>8PM</Text></View></TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("sethappyhour")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
@@ -267,8 +263,7 @@ class ProfileScreen extends Component {
                             {this.state.indefbreak === true && <View>
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking an indefinite break.</Text>
                                 <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setcustombreak")}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
-                                </TouchableOpacity>
+                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                             </View>}
                             {this.state.break === false && <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 15 }}>
                                 <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Indefinite Break</Text>
@@ -280,11 +275,9 @@ class ProfileScreen extends Component {
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}> Keep up the good work!</Text>
                                 <View style={styles.spaceAroundView}>
                                     <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.stopBreak("all")}>
-                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel</Text>
-                                    </TouchableOpacity>
+                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Cancel</Text></TouchableOpacity>
                                     <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setcustombreak")}>
-                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
-                                    </TouchableOpacity>
+                                        <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                                 </View>
                             </View>}
                         </View>}
@@ -304,13 +297,11 @@ class ProfileScreen extends Component {
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Set BAC Limit</Text>
                             <View style={styles.plusMinusView}>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.limitbac === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                     <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.limitbac && this.state.limitbac.toFixed(2)}</Text></TouchableOpacity>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.limitbac === 0.08 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Total Drink Limit</Text>
                             <View style={{ alignSelf: "center" }}>
@@ -323,29 +314,22 @@ class ProfileScreen extends Component {
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Last Call</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.limithour === 19 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 19 }, () => this.saveValues("limithour", limithourkey))}>
-                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>7PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>7PM</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={this.state.limithour === 20 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 20 }, () => this.saveValues("limithour", limithourkey))}>
-                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>8PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>8PM</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={this.state.limithour === 21 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 21 }, () => this.saveValues("limithour", limithourkey))}>
-                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>9PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>9PM</Text></View></TouchableOpacity>
                             </View>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.limithour === 22 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 22 }, () => this.saveValues("limithour", limithourkey))}>
-                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>10PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>10PM</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={this.state.limithour === 23 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 23 }, () => this.saveValues("limithour", limithourkey))}>
-                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>11PM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>11PM</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={this.state.limithour === 0 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 0 }, () => this.saveValues("limithour", limithourkey))}>
-                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>12AM</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 16, color: "#ffffff" }}>12AM</Text></View></TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlimit")}>
-                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
-                            </TouchableOpacity>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
@@ -363,18 +347,14 @@ class ProfileScreen extends Component {
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Drink Pace</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, margin: 15 }}>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.pacertime === 900 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("down")}>
-                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                    <View><Text style={{ fontSize: 22 }}>{this.state.pacertime / 60} Minutes</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 22 }}>{this.state.pacertime / 60} Minutes</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.pacertime === 3600 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("up")}>
-                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setpacer")}>
-                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
-                            </TouchableOpacity>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
@@ -392,23 +372,19 @@ class ProfileScreen extends Component {
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
                             <View style={styles.plusMinusView}>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.threshold === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                     <Text style={{ fontSize: loginButtonText, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.threshold === 0.08 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
-                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View>
-                                </TouchableOpacity>
+                                    <View><Text style={{ fontSize: 18, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setautobreak")}>
-                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text>
-                            </TouchableOpacity>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
                         <TouchableOpacity style={styles.profilebutton} onPress={() => this.LogOut()}>
-                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Logout ➡️🚪</Text>
-                        </TouchableOpacity>
+                            <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Logout ➡️🚪</Text></TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>

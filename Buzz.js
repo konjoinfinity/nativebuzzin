@@ -8,8 +8,9 @@ import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
 import { Text as TextSVG, G, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
-import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt } from "./Variables";
 import styles from "./Styles"
+import { key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt } from "./Variables";
+
 
 var values;
 (async () => { values = await Functions.maxRecDrinks() })();
