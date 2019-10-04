@@ -96,7 +96,9 @@ class HomeScreen extends Component {
             if (this.state.pacer === true && this.state.buzzes.length >= 1 && this.state.showpacer === false) {
                 var drinkPacerTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated)
                 drinkPacerTime = drinkPacerTime * 3600
-                this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
+                if (drinkPacerTime < this.state.pacertime) {
+                    this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
+                }
             }
         }, 1050);
         if (this.state.happyhour === true) {
