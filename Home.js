@@ -66,13 +66,11 @@ class HomeScreen extends Component {
                 setTimeout(() => {
                     var breaktime = Functions.timeSince(this.state.breakdate, "break")
                     if (breaktime[0] + breaktime[1] + breaktime[2] + breaktime[3] < 0) {
-                        // Test to ensure this works
                         if (this.state.autobreak === false) { this.stopBreak("break") }
                     }
                 }, 100);
             }
         })
-        // To seed data, comment out just this function and add data to the buzz array
         await AsyncStorage.getItem(key, (error, result) => {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: [] })
         })
@@ -93,7 +91,14 @@ class HomeScreen extends Component {
                 this.props.navigation.setParams({ login: false });
             }, 1000);
         }
-        setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 1050);
+        setTimeout(() => {
+            this.setState({ focus: true }, () => this.checkBac())
+            if (this.state.pacer === true && this.state.buzzes.length >= 1 && this.state.showpacer === false) {
+                var drinkPacerTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated)
+                drinkPacerTime = drinkPacerTime * 3600
+                this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
+            }
+        }, 1050);
         if (this.state.happyhour === true) {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
