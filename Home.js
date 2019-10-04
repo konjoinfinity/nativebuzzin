@@ -286,7 +286,7 @@ class HomeScreen extends Component {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         let buzzes;
-        this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
+        this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
             return (<View style={styles.buzzMap} key={id}>
                 <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                 <View style={{ flexDirection: "column" }}>
@@ -401,7 +401,7 @@ class HomeScreen extends Component {
                                     <CopilotStep text="Press to add drink with selected options." order={3} name="add">
                                         <CopilotView>
                                             <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                                <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃" : "🍹"}</Text></TouchableOpacity>
+                                                <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                                         </CopilotView>
                                     </CopilotStep>
                                 </View>

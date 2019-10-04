@@ -232,7 +232,7 @@ class DemoScreen extends Component {
                                     </View>}
                             </View>
                             <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃" : "🍹"}</Text></TouchableOpacity>
+                                <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                         </View>
                     </View>}
                     {this.state.bac > 0.10 &&
