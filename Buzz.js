@@ -65,7 +65,7 @@ class BuzzScreen extends Component {
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
         var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
-        this.setState({ selectedBuzz: reordered[obid] })
+        this.componentDidMount().then(() => { this.setState({ selectedBuzz: reordered[obid], obid: [obid] }) })
     }
 
     // This method could be cleaner
@@ -73,13 +73,12 @@ class BuzzScreen extends Component {
         Vibration.vibrate();
         var obreverse = Functions.reverseArray(this.state.oldbuzzes).map((buzz) => { return Functions.reverseArray(buzz) })
         var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
-        var lastMin = lastTime.getMinutes()
-        lastTime.setMinutes(lastMin + 15)
+        lastTime.setHours(0, 0, 0, 0)
         obreverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
         var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
         var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
-        this.setState({ selectedBuzz: reorder[obid] })
+        this.setState({ selectedBuzz: reorder[obid], obid: [obid] }, () => { this.componentDidMount() })
     }
 
     // combine modal handles to one function
@@ -112,7 +111,8 @@ class BuzzScreen extends Component {
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{oldbuzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
                             <Text style={{ fontSize: abvText, padding: 5 }}>{oldbuzz.oz}oz  -  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
-                            <Text style={{ fontSize: abvText, padding: 5 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                            <Text style={{ fontSize: abvText, padding: 5 }}>{new Date(Date.parse(oldbuzz.dateCreated)).getMilliseconds() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getSeconds() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getMinutes() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getSeconds() === 0 ?
+                                moment(oldbuzz.dateCreated).format('MMMM Do YYYY') : moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
                     </View></View>
                 )
             })
@@ -124,7 +124,9 @@ class BuzzScreen extends Component {
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{oldbuzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
                         <Text style={{ fontSize: abvText, padding: 5 }}>{oldbuzz.oz}oz  -  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
-                        <Text style={{ fontSize: 16, padding: 5 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                        <Text style={{ fontSize: 16, padding: 5 }}>
+                            {new Date(Date.parse(oldbuzz.dateCreated)).getMilliseconds() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getSeconds() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getMinutes() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getSeconds() === 0 ?
+                                moment(oldbuzz.dateCreated).format('MMMM Do YYYY') : moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
                     {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteOldBuzz(this.state.obid, oldbuzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
             </View>
             )
