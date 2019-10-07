@@ -125,7 +125,7 @@ class BuzzScreen extends Component {
                     <View style={{ flexDirection: "column" }}>
                         <Text style={{ fontSize: abvText, padding: 5 }}>{oldbuzz.oz}oz  -  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
                         <Text style={{ fontSize: 16, padding: 5 }}>{moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
-                    <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteOldBuzz(this.state.obid, oldbuzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity></View>
+                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteOldBuzz(this.state.obid, oldbuzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
             </View>
             )
         }))
