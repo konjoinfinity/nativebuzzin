@@ -61,19 +61,13 @@ class BuzzScreen extends Component {
 
     async editOldBuzz(obid) {
         var obreverse = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => { return Functions.reverseArray(buzz) })
-        console.log(obreverse)
         var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
-        console.log(lastTime)
         var lastMin = lastTime.getMinutes()
         lastTime.setMinutes(lastMin + 15)
-        console.log(lastTime)
         obreverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
-        console.log(obreverse[obid])
         var obnormal = Functions.reverseArray(obreverse).map((buzz, obid) => { return Functions.reverseArray(buzz) })
-        console.log(obnormal)
         await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
         var reorder = Functions.reverseArray(obnormal).map((buzz, obid) => { return buzz })
-        console.log(reorder)
         this.setState({ selectedBuzz: reorder[obid] })
     }
 
@@ -137,7 +131,6 @@ class BuzzScreen extends Component {
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
-        console.log(this.state.obid)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
