@@ -59,12 +59,25 @@ class BuzzScreen extends Component {
         this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
 
-    // editOldBuzz(obid) {
-    //     console.log(obid)
-    // }
+    async editOldBuzz(obid) {
+        var obreverse = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => { return Functions.reverseArray(buzz) })
+        console.log(obreverse)
+        var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
+        console.log(lastTime)
+        var lastMin = lastTime.getMinutes()
+        lastTime.setMinutes(lastMin + 15)
+        console.log(lastTime)
+        obreverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
+        console.log(obreverse[obid])
+        var obnormal = Functions.reverseArray(obreverse).map((buzz, obid) => { return Functions.reverseArray(buzz) })
+        console.log(obnormal)
+        await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
+        var reorder = Functions.reverseArray(obnormal).map((buzz, obid) => { return buzz })
+        console.log(reorder)
+        this.setState({ selectedBuzz: reorder[obid] })
+    }
 
     openModal(buzz, obid) {
-        console.log(obid)
         Vibration.vibrate();
         this.setState({ modal: !this.state.modal, selectedBuzz: buzz, obid: obid });
     }
@@ -124,6 +137,7 @@ class BuzzScreen extends Component {
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
+        console.log(this.state.obid)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
@@ -195,7 +209,7 @@ class BuzzScreen extends Component {
                                             </MultiSwitch>
                                         </View>}
                                 </View>
-                                <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                <TouchableOpacity onPress={() => this.editOldBuzz(this.state.obid)} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
                                     <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                             </View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
