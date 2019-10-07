@@ -61,6 +61,7 @@ class BuzzScreen extends Component {
 
     // async and possibly add a conditional to prevent deleting a buzz session buzz array.length === 1, don't show delete icon
     async deleteOldBuzz(obid, oldbuzz) {
+        Vibration.vibrate();
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
         var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
@@ -69,6 +70,7 @@ class BuzzScreen extends Component {
 
     // This method could be cleaner
     async editOldBuzz(obid) {
+        Vibration.vibrate();
         var obreverse = Functions.reverseArray(this.state.oldbuzzes).map((buzz) => { return Functions.reverseArray(buzz) })
         var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
         var lastMin = lastTime.getMinutes()
@@ -148,6 +150,7 @@ class BuzzScreen extends Component {
                 <Modal animationType="fade" transparent={false} visible={this.state.modal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
+                            <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}>Edit Buzz</Text>
                             {selectedbuzz}
                         </View>
                         <View style={styles.cardView}>
