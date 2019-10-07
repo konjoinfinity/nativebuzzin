@@ -65,7 +65,8 @@ class BuzzScreen extends Component {
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
         var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
-        this.componentDidMount().then(() => { this.setState({ selectedBuzz: reordered[obid], obid: [obid] }) })
+        this.setState({ selectedBuzz: reordered[obid], obid: [obid] })
+        values = await Functions.maxRecDrinks()
     }
 
     // This method could be cleaner
@@ -78,7 +79,8 @@ class BuzzScreen extends Component {
         var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
         var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
-        this.setState({ selectedBuzz: reorder[obid], obid: [obid] }, () => { this.componentDidMount() })
+        this.setState({ selectedBuzz: reorder[obid], obid: [obid] })
+        values = await Functions.maxRecDrinks()
     }
 
     // combine modal handles to one function
