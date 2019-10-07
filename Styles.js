@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
         height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
         borderRadius: 50, margin: 5, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
     },
+    oldBuzzEditButton: {
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
+        borderRadius: 50, margin: 5, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
+    },
     profilebreakbutton: {
         borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, marginTop: 15, marginRight: 90,
         marginLeft: 90, marginBottom: 10, borderRadius: 15
