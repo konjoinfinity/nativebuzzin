@@ -149,7 +149,7 @@ class BuzzScreen extends Component {
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
-                <Modal animationType="fade" transparent={false} visible={this.state.modal}>
+                <Modal animationType="slide" transparent={false} visible={this.state.modal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
                             <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}>Edit Buzz</Text>
