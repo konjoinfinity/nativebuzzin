@@ -59,6 +59,7 @@ class BuzzScreen extends Component {
         this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
 
+    // This method could be cleaner
     async editOldBuzz(obid) {
         var obreverse = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => { return Functions.reverseArray(buzz) })
         var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
@@ -71,6 +72,7 @@ class BuzzScreen extends Component {
         this.setState({ selectedBuzz: reorder[obid] })
     }
 
+    // combine modal handles to one function
     openModal(buzz, obid) {
         Vibration.vibrate();
         this.setState({ modal: !this.state.modal, selectedBuzz: buzz, obid: obid });
