@@ -26,7 +26,7 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
-            selectedBuzz: "", bid: ""
+            selectedBuzz: "", bid: "", buzzduration: 5
         }
     };
 
@@ -69,19 +69,43 @@ class BuzzScreen extends Component {
         values = await Functions.maxRecDrinks()
     }
 
-    async editBuzz(bid) {
+    editBuzz() {
         Vibration.vibrate();
-        var breverse = Functions.reverseArray(this.state.buzzes).map((buzz) => { return Functions.reverseArray(buzz) })
+        var delayTime = new Date();
+        delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
+        var breverse = Functions.reverseArray(this.state.buzzes)
         // How will this be done?
         // Check if time is before/before each drink in the array - 
-        var lastTime = new Date(Date.parse(breverse[0].dateCreated))
-        lastTime.setHours(0, 0, 0, 0)
-        breverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
-        var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
-        await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
-        var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
-        this.setState({ selectedBuzz: reorder[obid], obid: [obid] })
-        values = await Functions.maxRecDrinks()
+        // var buzzTime = new Date(Date.parse(breverse[i].dateCreated))
+        for (i = 0; i <= this.state.buzzes.length - 1; i++) {
+            if (delayTime < new Date(Date.parse(breverse[i].dateCreated))) { console.log("Before array position:" + " " + i) }
+            if (delayTime > new Date(Date.parse(breverse[i].dateCreated))) { console.log("After array position:" + " " + i) }
+        }
+        // if (all array values === "After") {
+        // insert drink using breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        // }
+        // if (all array values === "Before") {
+        // insert drink using breverse.push({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        // }
+        // if (any array values === "Before" && "After") {
+        // insert drink using breverse.push({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        // }
+
+
+
+        // After array position: 0
+        // After array position: 1
+        // Before array position: 0
+        // After array position: 1
+        // Before array position: 0
+        // Before array position: 1
+        // lastTime.setHours(0, 0, 0, 0)
+        // breverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
+        // var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
+        // await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
+        // var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
+        // this.setState({ selectedBuzz: reorder[obid], obid: [obid] })
+        // values = await Functions.maxRecDrinks()
     }
 
     // async and possibly add a conditional to prevent deleting a buzz session buzz array.length === 1, don't show delete icon
@@ -129,6 +153,14 @@ class BuzzScreen extends Component {
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "", bid: "" });
     }
 
+    buzzDuration(incdec) {
+        if (incdec === "up" && this.state.buzzduration >= 0 && this.state.buzzduration < 120) {
+            this.setState({ buzzduration: this.state.buzzduration + 5 })
+        } else if (incdec === "down" && this.state.buzzduration > 0 && this.state.buzzduration <= 120) {
+            this.setState({ buzzduration: this.state.buzzduration - 5 })
+        }
+    }
+
     render() {
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz;
         this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
@@ -162,7 +194,7 @@ class BuzzScreen extends Component {
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
-                        <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV - AP{id}</Text>
                         <Text style={{ fontSize: 16, padding: 5 }}>
                             {new Date(Date.parse(buzz.dateCreated)).getMilliseconds() === 0 && new Date(Date.parse(buzz.dateCreated)).getSeconds() === 0 && new Date(Date.parse(buzz.dateCreated)).getMinutes() === 0 && new Date(Date.parse(buzz.dateCreated)).getSeconds() === 0 ?
                                 moment(buzz.dateCreated).format('MMMM Do YYYY') : moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
@@ -351,8 +383,17 @@ class BuzzScreen extends Component {
                                             </MultiSwitch>
                                         </View>}
                                 </View>
-                                <TouchableOpacity onPress={() => this.editBuzz(this.state.bid)} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                <TouchableOpacity onPress={() => this.editBuzz()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
                                     <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
+                            </View>
+                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>How Long Ago?</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, marginLeft: 20, marginRight: 20 }}>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 0 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
+                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
+                                <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
+                                    <View><Text style={{ fontSize: 22 }}>{this.state.buzzduration} Minutes</Text></View></TouchableOpacity>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 120 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("up")}>
+                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
