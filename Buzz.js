@@ -26,7 +26,7 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
-            selectedBuzz: "", bid: "", buzzduration: 5
+            selectedBuzz: "", bid: "", buzzduration: 30
         }
     };
 
@@ -74,18 +74,33 @@ class BuzzScreen extends Component {
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var breverse = Functions.reverseArray(this.state.buzzes)
+        breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        console.log(breverse)
+        breverse.sort((a, b) => new Date(Date.parse(a.dateCreated)).getTime() - new Date(Date.parse(b.dateCreated)).getTime());
+        console.log(breverse)
         // How will this be done?
         // Check if time is before/before each drink in the array - 
         // var buzzTime = new Date(Date.parse(breverse[i].dateCreated))
-        for (i = 0; i <= this.state.buzzes.length - 1; i++) {
-            if (delayTime < new Date(Date.parse(breverse[i].dateCreated))) { console.log("Before array position:" + " " + i) }
-            if (delayTime > new Date(Date.parse(breverse[i].dateCreated))) { console.log("After array position:" + " " + i) }
-        }
-        // if (all array values === "After") {
-        // insert drink using breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        // var timeValues = []
+        // for (i = 0; i <= this.state.buzzes.length - 1; i++) {
+        //     if (delayTime < new Date(Date.parse(breverse[i].dateCreated))) {
+        //         console.log("Before array position:" + " " + i)
+        //         timeValues.push("Before")
+        //     }
+        //     if (delayTime > new Date(Date.parse(breverse[i].dateCreated))) {
+        //         console.log("After array position:" + " " + i)
+        //         timeValues.push("After")
+        //     }
         // }
-        // if (all array values === "Before") {
-        // insert drink using breverse.push({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        // console.log(timeValues)
+        // console.log(timeValues.every((val, i, arr) => val === arr[0]))
+        // if (timeValues.every((val, i, arr) => val === arr[0]) === false && timeValues[0] === "After") {
+        //     console.log("insert using unshift")
+        //     // breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        // }
+        // if (timeValues.every((val, i, arr) => val === arr[0]) === false && timeValues[0] === "Before") {
+        //     console.log("insert using push")
+        // breverse.push({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
         // }
         // if (any array values === "Before" && "After") {
         // insert drink using breverse.push({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
@@ -154,10 +169,10 @@ class BuzzScreen extends Component {
     }
 
     buzzDuration(incdec) {
-        if (incdec === "up" && this.state.buzzduration >= 0 && this.state.buzzduration < 120) {
-            this.setState({ buzzduration: this.state.buzzduration + 5 })
-        } else if (incdec === "down" && this.state.buzzduration > 0 && this.state.buzzduration <= 120) {
-            this.setState({ buzzduration: this.state.buzzduration - 5 })
+        if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
+            this.setState({ buzzduration: this.state.buzzduration + 15 })
+        } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
+            this.setState({ buzzduration: this.state.buzzduration - 15 })
         }
     }
 
