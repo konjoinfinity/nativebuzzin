@@ -24,7 +24,7 @@ const CopilotView = walkthroughable(View);
 
 var maxRecValues;
 (async () => { maxRecValues = await Functions.maxRecDrinks() })();
-var oldTime;
+// var oldTime;
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -164,8 +164,9 @@ class HomeScreen extends Component {
 
     async checkBac() {
         if (this.state.buzzes.length >= 1) {
-            var duration = Functions.singleDuration(this.state.buzzes[0].dateCreated);
+            var duration = Functions.singleDuration(this.state.buzzes[0].dateCreated)
             var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.buzzes)
+            // console.log(totalBac)
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
@@ -179,9 +180,13 @@ class HomeScreen extends Component {
                 // or change based on each new drink added (this would be a lot of extra calculations)
                 // checkBac would continue running in the background, would this drain phone resources?
                 // Might have to parse drinkDate date if loaded from local storage***
-                // if (this.state.buzzes[this.state.buzzes.length - 1].dateCreated > oldTime)
+                // if (this.state.buzzes[this.state.buzzes.length - 1].dateCreated > oldTime) {
                 this.setState({ countdown: false }, () => clearInterval(this.state.timer))
                 setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
+                // } else {
+                //     console.log(this.state.buzzes)
+                //     this.setState({ bac: 0.0 })
+                // }
             }
         } else if (this.state.buzzes.length === 0) {
             this.setState({ bac: 0.0, countdown: false }, () => clearInterval(this.state.timer))

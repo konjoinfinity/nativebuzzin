@@ -25,7 +25,8 @@ class BuzzScreen extends Component {
         super(props);
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
-            chartswitch: false, modal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedBuzz: "", obid: ""
+            chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
+            selectedBuzz: "", bid: ""
         }
     };
 
@@ -59,13 +60,36 @@ class BuzzScreen extends Component {
         this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
 
+    async deleteBuzz(bid, buzz) {
+        // probably won't need bid for current buzzes
+        Vibration.vibrate();
+        var filtered = this.state.buzzes.map((buzzes) => { return buzzes.filter(deleted => deleted !== buzz) })
+        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered }) })
+        var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
+        this.setState({ selectedBuzz: reordered[bid], bid: [bid] })
+        values = await Functions.maxRecDrinks()
+    }
+
+    async editBuzz(bid) {
+        Vibration.vibrate();
+        var obreverse = Functions.reverseArray(this.state.buzzes).map((buzz) => { return Functions.reverseArray(buzz) })
+        var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
+        lastTime.setHours(0, 0, 0, 0)
+        obreverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
+        var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
+        await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
+        var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
+        this.setState({ selectedBuzz: reorder[obid], obid: [obid] })
+        values = await Functions.maxRecDrinks()
+    }
+
     // async and possibly add a conditional to prevent deleting a buzz session buzz array.length === 1, don't show delete icon
     async deleteOldBuzz(obid, oldbuzz) {
         Vibration.vibrate();
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
         var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
-        this.setState({ selectedBuzz: reordered[obid], obid: [obid] })
+        this.setState({ selectedOldBuzz: reordered[obid], obid: [obid] })
         values = await Functions.maxRecDrinks()
     }
 
@@ -79,36 +103,48 @@ class BuzzScreen extends Component {
         var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
         var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
-        this.setState({ selectedBuzz: reorder[obid], obid: [obid] })
+        this.setState({ selectedOldBuzz: reorder[obid], obid: [obid] })
         values = await Functions.maxRecDrinks()
     }
 
     // combine modal handles to one function
-    openModal(buzz, obid) {
+    oldModal(buzz, obid) {
         Vibration.vibrate();
-        this.setState({ modal: !this.state.modal, selectedBuzz: buzz, obid: obid });
+        this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz, obid: obid });
     }
 
-    closeModal() {
+    closeOldModal() {
         Vibration.vibrate();
-        this.setState({ modal: !this.state.modal, selectedBuzz: "", obid: "" });
+        this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: "", obid: "" });
+    }
+
+    buzzModal(id) {
+        Vibration.vibrate();
+        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes, bid: id });
+    }
+
+    closeBuzzModal() {
+        Vibration.vibrate();
+        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "", bid: "" });
     }
 
     render() {
-        let buzzes, oldbuzzes, selectedbuzz;
+        let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz;
         this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
-            return (<View style={styles.buzzMap} key={id}>
-                <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
-                <View style={{ flexDirection: "column" }}>
-                    <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
-                    <Text style={{ fontSize: abvText, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
-            </View>
+            return (<View key={id}>
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(buzz.dateCreated).format('MMMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                <View style={styles.buzzMap}>
+                    <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
+                    <View style={{ flexDirection: "column" }}>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                </View></View>
             )
         }))
         this.state.oldbuzzes !== null && (oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
             return Functions.reverseArray(buzz).map((oldbuzz, id) => {
                 return (<View key={id}>
-                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.openModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{oldbuzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
@@ -119,7 +155,21 @@ class BuzzScreen extends Component {
                 )
             })
         }))
-        this.state.selectedBuzz !== "" && (selectedbuzz = Functions.reverseArray(this.state.selectedBuzz).map((oldbuzz, id) => {
+        this.state.selectedBuzz !== "" && (selectedbuzz = Functions.reverseArray(this.state.selectedBuzz).map((buzz, id) => {
+            return (<View key={id}>
+                {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(buzz.dateCreated).format('MMMM Do YYYY')}</Text>}
+                <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
+                    <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
+                    <View style={{ flexDirection: "column" }}>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
+                        <Text style={{ fontSize: 16, padding: 5 }}>
+                            {new Date(Date.parse(buzz.dateCreated)).getMilliseconds() === 0 && new Date(Date.parse(buzz.dateCreated)).getSeconds() === 0 && new Date(Date.parse(buzz.dateCreated)).getMinutes() === 0 && new Date(Date.parse(buzz.dateCreated)).getSeconds() === 0 ?
+                                moment(buzz.dateCreated).format('MMMM Do YYYY') : moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteBuzz(this.state.bid, buzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
+            </View>
+            )
+        }))
+        this.state.selectedOldBuzz !== "" && (selectedoldbuzz = Functions.reverseArray(this.state.selectedOldBuzz).map((oldbuzz, id) => {
             return (<View key={id}>
                 {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('MMMM Do YYYY')}</Text>}
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
@@ -129,7 +179,7 @@ class BuzzScreen extends Component {
                         <Text style={{ fontSize: 16, padding: 5 }}>
                             {new Date(Date.parse(oldbuzz.dateCreated)).getMilliseconds() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getSeconds() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getMinutes() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getSeconds() === 0 ?
                                 moment(oldbuzz.dateCreated).format('MMMM Do YYYY') : moment(oldbuzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
-                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteOldBuzz(this.state.obid, oldbuzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
+                    {this.state.selectedOldBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteOldBuzz(this.state.obid, oldbuzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
             </View>
             )
         }))
@@ -148,14 +198,15 @@ class BuzzScreen extends Component {
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
+        console.log(this.state.selectedBuzz)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
-                <Modal animationType="slide" transparent={false} visible={this.state.modal}>
+                <Modal animationType="slide" transparent={false} visible={this.state.oldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
-                            <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}>Edit Buzz</Text>
-                            {selectedbuzz}
+                            <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}>Edit Old Buzz</Text>
+                            {selectedoldbuzz}
                         </View>
                         <View style={styles.cardView}>
                             <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
@@ -225,7 +276,87 @@ class BuzzScreen extends Component {
                             </View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.closeModal()}>
+                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.closeOldModal()}>
+                                    <Text style={styles.buttonText}>Done</Text>
+                                </TouchableOpacity></View>
+                        </View>
+                    </ScrollView>
+                </Modal>
+                <Modal animationType="slide" transparent={false} visible={this.state.buzzmodal}>
+                    <ScrollView>
+                        <View style={[styles.cardView, { marginTop: 30 }]}>
+                            <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}>Edit Current Buzz</Text>
+                            {selectedbuzz}
+                        </View>
+                        <View style={styles.cardView}>
+                            <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
+                                <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
+                                    containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                    onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : this.state.alctype === "Liquor" ? 2 : 3}>
+                                    <Text style={{ fontSize: alcTypeText }}>🍺</Text>
+                                    <Text style={{ fontSize: alcTypeText }}>🍷</Text>
+                                    <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
+                                    <Text style={{ fontSize: alcTypeText }}>🍹</Text>
+                                </MultiSwitch>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
+                                    <View style={{ paddingBottom: 15 }}>
+                                        {this.state.alctype === "Beer" &&
+                                            <View style={styles.multiSwitchViews}>
+                                                <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
+                                                    containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
+                                                    <Text style={{ fontSize: abvText }}>4%</Text>
+                                                    <Text style={{ fontSize: abvText }}>5%</Text>
+                                                    <Text style={{ fontSize: abvText }}>6%</Text>
+                                                    <Text style={{ fontSize: abvText }}>7%</Text>
+                                                    <Text style={{ fontSize: abvText }}>8%</Text>
+                                                </MultiSwitch>
+                                            </View>}
+                                        {this.state.alctype !== "Beer" && this.state.alctype !== "Cocktail" &&
+                                            <View style={styles.multiSwitchViews}>
+                                                <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
+                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
+                                                    <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
+                                                    <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
+                                                    <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
+                                                </MultiSwitch>
+                                            </View>}
+                                        {this.state.alctype === "Cocktail" &&
+                                            <View style={[styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
+                                                <Text style={{ fontSize: abvWineText }}>Number of Shots</Text>
+                                            </View>}
+                                    </View>
+                                    {this.state.alctype !== "Cocktail" &&
+                                        <View style={styles.multiSwitchViews}>
+                                            <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
+                                                containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
+                                                <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "12oz" : this.state.alctype === "Wine" ? "5oz" : "1.5oz"}</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "16oz" : this.state.alctype === "Wine" ? "8oz" : "3oz"}</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "20oz" : this.state.alctype === "Wine" ? "12oz" : "6oz"}</Text>
+                                            </MultiSwitch>
+                                        </View>}
+                                    {this.state.alctype === "Cocktail" &&
+                                        <View style={styles.multiSwitchViews}>
+                                            <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
+                                                containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
+                                                <Text style={{ fontSize: abvLiquorText }}>1</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>2</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>3</Text>
+                                                <Text style={{ fontSize: abvLiquorText }}>4</Text>
+                                            </MultiSwitch>
+                                        </View>}
+                                </View>
+                                <TouchableOpacity onPress={() => this.editBuzz(this.state.bid)} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
+                            </View>
+                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
+                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.closeBuzzModal()}>
                                     <Text style={styles.buttonText}>Done</Text>
                                 </TouchableOpacity></View>
                         </View>
