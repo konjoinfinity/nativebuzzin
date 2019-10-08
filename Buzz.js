@@ -62,14 +62,14 @@ class BuzzScreen extends Component {
 
     async deleteBuzz(buzz) {
         Vibration.vibrate();
-        var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
-        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered }) })
+        var filtered = Functions.reverseArray(this.state.buzzes).filter(deleted => deleted !== buzz)
         var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
-        this.setState({ selectedBuzz: reordered })
+        await AsyncStorage.setItem(key, JSON.stringify(reordered), () => { this.setState({ buzzes: reordered }) })
+        this.setState({ selectedBuzz: filtered })
         values = await Functions.maxRecDrinks()
     }
 
-    editBuzz() {
+    async editBuzz() {
         Vibration.vibrate();
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
@@ -78,49 +78,12 @@ class BuzzScreen extends Component {
         console.log(breverse)
         breverse.sort((a, b) => new Date(Date.parse(a.dateCreated)).getTime() - new Date(Date.parse(b.dateCreated)).getTime());
         console.log(breverse)
-        // How will this be done?
-        // Check if time is before/before each drink in the array - 
-        // var buzzTime = new Date(Date.parse(breverse[i].dateCreated))
-        // var timeValues = []
-        // for (i = 0; i <= this.state.buzzes.length - 1; i++) {
-        //     if (delayTime < new Date(Date.parse(breverse[i].dateCreated))) {
-        //         console.log("Before array position:" + " " + i)
-        //         timeValues.push("Before")
-        //     }
-        //     if (delayTime > new Date(Date.parse(breverse[i].dateCreated))) {
-        //         console.log("After array position:" + " " + i)
-        //         timeValues.push("After")
-        //     }
-        // }
-        // console.log(timeValues)
-        // console.log(timeValues.every((val, i, arr) => val === arr[0]))
-        // if (timeValues.every((val, i, arr) => val === arr[0]) === false && timeValues[0] === "After") {
-        //     console.log("insert using unshift")
-        //     // breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
-        // }
-        // if (timeValues.every((val, i, arr) => val === arr[0]) === false && timeValues[0] === "Before") {
-        //     console.log("insert using push")
-        // breverse.push({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
-        // }
-        // if (any array values === "Before" && "After") {
-        // insert drink using breverse.push({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
-        // }
-
-
-
-        // After array position: 0
-        // After array position: 1
-        // Before array position: 0
-        // After array position: 1
-        // Before array position: 0
-        // Before array position: 1
-        // lastTime.setHours(0, 0, 0, 0)
-        // breverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
-        // var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
-        // await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
-        // var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
-        // this.setState({ selectedBuzz: reorder[obid], obid: [obid] })
-        // values = await Functions.maxRecDrinks()
+        var buzznormal = Functions.reverseArray(breverse)
+        console.log(buzznormal)
+        await AsyncStorage.setItem(key, JSON.stringify(buzznormal), () => { this.setState({ buzzes: buzznormal }) })
+        console.log(breverse)
+        this.setState({ selectedBuzz: breverse })
+        values = await Functions.maxRecDrinks()
     }
 
     // async and possibly add a conditional to prevent deleting a buzz session buzz array.length === 1, don't show delete icon
