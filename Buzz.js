@@ -60,22 +60,23 @@ class BuzzScreen extends Component {
         this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
 
-    async deleteBuzz(bid, buzz) {
-        // probably won't need bid for current buzzes
+    async deleteBuzz(buzz) {
         Vibration.vibrate();
-        var filtered = this.state.buzzes.map((buzzes) => { return buzzes.filter(deleted => deleted !== buzz) })
+        var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered }) })
         var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
-        this.setState({ selectedBuzz: reordered[bid], bid: [bid] })
+        this.setState({ selectedBuzz: reordered })
         values = await Functions.maxRecDrinks()
     }
 
     async editBuzz(bid) {
         Vibration.vibrate();
-        var obreverse = Functions.reverseArray(this.state.buzzes).map((buzz) => { return Functions.reverseArray(buzz) })
-        var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
+        var breverse = Functions.reverseArray(this.state.buzzes).map((buzz) => { return Functions.reverseArray(buzz) })
+        // How will this be done?
+        // Check if time is before/before each drink in the array - 
+        var lastTime = new Date(Date.parse(breverse[0].dateCreated))
         lastTime.setHours(0, 0, 0, 0)
-        obreverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
+        breverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
         var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
         var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
@@ -165,7 +166,7 @@ class BuzzScreen extends Component {
                         <Text style={{ fontSize: 16, padding: 5 }}>
                             {new Date(Date.parse(buzz.dateCreated)).getMilliseconds() === 0 && new Date(Date.parse(buzz.dateCreated)).getSeconds() === 0 && new Date(Date.parse(buzz.dateCreated)).getMinutes() === 0 && new Date(Date.parse(buzz.dateCreated)).getSeconds() === 0 ?
                                 moment(buzz.dateCreated).format('MMMM Do YYYY') : moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
-                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteBuzz(this.state.bid, buzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
+                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteBuzz(buzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
             </View>
             )
         }))
@@ -198,7 +199,6 @@ class BuzzScreen extends Component {
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
-        console.log(this.state.selectedBuzz)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
