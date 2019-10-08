@@ -26,7 +26,7 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
-            selectedBuzz: "", bid: "", buzzduration: 30
+            selectedBuzz: "", buzzduration: 30
         }
     };
 
@@ -75,18 +75,13 @@ class BuzzScreen extends Component {
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var breverse = Functions.reverseArray(this.state.buzzes)
         breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
-        console.log(breverse)
         breverse.sort((a, b) => new Date(Date.parse(a.dateCreated)).getTime() - new Date(Date.parse(b.dateCreated)).getTime());
-        console.log(breverse)
         var buzznormal = Functions.reverseArray(breverse)
-        console.log(buzznormal)
         await AsyncStorage.setItem(key, JSON.stringify(buzznormal), () => { this.setState({ buzzes: buzznormal }) })
-        console.log(breverse)
         this.setState({ selectedBuzz: breverse })
         values = await Functions.maxRecDrinks()
     }
 
-    // async and possibly add a conditional to prevent deleting a buzz session buzz array.length === 1, don't show delete icon
     async deleteOldBuzz(obid, oldbuzz) {
         Vibration.vibrate();
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
@@ -121,14 +116,14 @@ class BuzzScreen extends Component {
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: "", obid: "" });
     }
 
-    buzzModal(id) {
+    buzzModal() {
         Vibration.vibrate();
-        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes, bid: id });
+        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
         Vibration.vibrate();
-        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "", bid: "" });
+        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" });
     }
 
     buzzDuration(incdec) {
@@ -172,10 +167,8 @@ class BuzzScreen extends Component {
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
-                        <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV - AP{id}</Text>
-                        <Text style={{ fontSize: 16, padding: 5 }}>
-                            {new Date(Date.parse(buzz.dateCreated)).getMilliseconds() === 0 && new Date(Date.parse(buzz.dateCreated)).getSeconds() === 0 && new Date(Date.parse(buzz.dateCreated)).getMinutes() === 0 && new Date(Date.parse(buzz.dateCreated)).getSeconds() === 0 ?
-                                moment(buzz.dateCreated).format('MMMM Do YYYY') : moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
+                        <Text style={{ fontSize: 16, padding: 5 }}>{moment(buzz.dateCreated).format('MMMM Do YYYY, h:mm a')}</Text></View>
                     {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteBuzz(buzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
             </View>
             )
