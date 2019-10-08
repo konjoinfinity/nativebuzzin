@@ -24,6 +24,7 @@ const CopilotView = walkthroughable(View);
 
 var maxRecValues;
 (async () => { maxRecValues = await Functions.maxRecDrinks() })();
+var oldTime;
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -135,6 +136,8 @@ class HomeScreen extends Component {
 
     async addDrink() {
         Vibration.vibrate();
+        // oldTime = new Date();
+        // oldTime.setHours(oldTime.getHours() + 8)
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
@@ -172,6 +175,11 @@ class HomeScreen extends Component {
                 }
                 if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
             } else {
+                // Have to assign a static value for each buzz (+8 hours from initial drink)
+                // or change based on each new drink added (this would be a lot of extra calculations)
+                // checkBac would continue running in the background, would this drain phone resources?
+                // Might have to parse drinkDate date if loaded from local storage***
+                // if (this.state.buzzes[this.state.buzzes.length - 1].dateCreated > oldTime)
                 this.setState({ countdown: false }, () => clearInterval(this.state.timer))
                 setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
             }
