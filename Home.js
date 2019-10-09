@@ -24,7 +24,6 @@ const CopilotView = walkthroughable(View);
 
 var maxRecValues;
 (async () => { maxRecValues = await Functions.maxRecDrinks() })();
-// var oldTime;
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -137,9 +136,6 @@ class HomeScreen extends Component {
 
     async addDrink() {
         Vibration.vibrate();
-        // oldTime = new Date();
-        // oldTime.setHours(oldTime.getHours() + 4) 
-        // 8 Hours is too long, if you haven't added a drink in 4 hours from the last drink, too bad.
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
@@ -165,26 +161,9 @@ class HomeScreen extends Component {
     }
 
     async checkBac() {
-        // var posVal = [], var posBuzzes = [];
         if (this.state.buzzes.length >= 1) {
-            // // Add delay conditional here to check if 1st, 2nd, 3rd values are <= 0, if so replace hardcoded [0]
-            // for (i = 0; i <= this.state.buzzes.length - 1; i++) {
-            //     var posduration = Functions.singleDuration(this.state.buzzes[i].dateCreated)
-            //     console.log(posduration)
-            //     var zeroVals = Functions.getBAC(this.state.weight, this.state.gender, posduration, this.state.buzzes[i])
-            //     if (zeroVals > 0) {
-            //         posVal.push(i)
-            //         posBuzzes.push(this.state.buzzes[i])
-            //     }
-            // }
-            // // if posVal is undefined - this.setState({ bac: 0.0 })
-            // console.log(posVal)
-            // // else run normal varGetBAC
-            // var duration = Functions.singleDuration(this.state.buzzes[posVal].dateCreated)
             var duration = Functions.singleDuration(this.state.buzzes[0].dateCreated)
-            // Will have to update this to filter this.state.buzzes starting with first positive value
             var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.buzzes)
-            // console.log(totalBac)
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
                 this.setState({ bac: totalBac })
@@ -194,23 +173,13 @@ class HomeScreen extends Component {
                 }
                 if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
             } else {
-                // Have to assign a static value for each buzz (+4 hours from initial drink)
-                // or change based on each new drink added (this would be a lot of extra calculations)
-                // checkBac would continue running in the background, would this drain phone resources?
-                // Might have to parse drinkDate date if loaded from local storage***
-                // if (this.state.buzzes[this.state.buzzes.length - 1].dateCreated > oldTime) {
                 this.setState({ countdown: false }, () => clearInterval(this.state.timer))
                 setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
-                // } else {
-                //     console.log(this.state.buzzes)
-                //     this.setState({ bac: 0.0 })
-                // }
             }
         } else if (this.state.buzzes.length === 0) {
             this.setState({ bac: 0.0, countdown: false }, () => clearInterval(this.state.timer))
             setTimeout(() => this.setState({ timer: "" }), 200);
         }
-
     }
 
     flashWarning() {
@@ -241,7 +210,15 @@ class HomeScreen extends Component {
     async moveToOld() {
         var autobreakcheck, oldbuzzarray = this.state.oldbuzzes, newbuzzarray = this.state.buzzes;
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
-        oldbuzzarray.push(newbuzzarray);
+
+        if (new Date(Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][0].dateCreated)).getDate() === new Date(Date.parse(this.state.buzzes[0].dateCreated)).getDate() && new Date(Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][0].dateCreated)).getMonth() === new Date(Date.parse(this.state.buzzes[0].dateCreated)).getMonth()) {
+            var combined = [].concat(oldbuzzes[this.state.oldbuzzes.length - 1], oldbuzzes);
+
+        } else {
+            // only if date && month don't match
+            oldbuzzarray.push(newbuzzarray);
+        }
+        // happens regardless of date match concat conditional
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
