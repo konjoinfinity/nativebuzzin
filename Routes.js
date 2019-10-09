@@ -9,6 +9,7 @@ import { Vibration, View, Text, Dimensions, PixelRatio, TouchableOpacity, Image 
 import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 const AppStack = createStackNavigator({
     MyTab: {
@@ -25,7 +26,7 @@ const AppStack = createStackNavigator({
                         const { routeName } = navigation.state;
                         let iconName;
                         routeName === 'Home' ? iconName = `🏠` : routeName === 'Buzz' ? iconName = `🍺` : routeName === 'Profile' ? iconName = `👤` : iconName = `📋`
-                        Vibration.vibrate();
+                        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true });
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>
                     }
                 }),

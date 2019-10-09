@@ -147,7 +147,6 @@ class HomeScreen extends Component {
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { this.handleModal("modal1") }
             if (this.state.bac > 0.10) { this.handleModal("modal2") }
         }, 200);
-        console.log(this.state.buzzes[0])
     }
 
     async saveBuzz() {
@@ -340,7 +339,6 @@ class HomeScreen extends Component {
     }
 
     render() {
-        console.log(this.state.selectedBuzz)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         let buzzes, selectedbuzz;
