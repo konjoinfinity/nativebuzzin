@@ -81,7 +81,7 @@ export class Functions {
         if (alcohol === "Wine" && number === 0) { return 0.11 }
         if (alcohol === "Wine" && number === 1) { return 0.12 }
         if (alcohol === "Wine" && number === 2) { return 0.13 }
-        if (alcohol === "Liquor" && number === 0) { return 0.30 }
+        if (alcohol === "Liquor" && number === 0) { return 0.001 }
         if (alcohol === "Liquor" && number === 1) { return 0.40 }
         if (alcohol === "Liquor" && number === 2) { return 0.50 }
     }

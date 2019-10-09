@@ -561,7 +561,8 @@ class HomeScreen extends Component {
                         </CopilotStep>}
                     {this.state.break === true && <View style={styles.cardView}>
                         {this.state.autobreak === true ?
-                            <View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break.</Text></View> :
+                            <View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break. It's been:</Text>{this.state.timesince !== null && this.state.bac === 0 &&
+                                <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}</View> :
                             <View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                                 <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text></View>}
                         <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("br")}>
