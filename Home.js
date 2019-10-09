@@ -210,15 +210,13 @@ class HomeScreen extends Component {
     async moveToOld() {
         var autobreakcheck, oldbuzzarray = this.state.oldbuzzes, newbuzzarray = this.state.buzzes;
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
-
-        if (new Date(Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][0].dateCreated)).getDate() === new Date(Date.parse(this.state.buzzes[0].dateCreated)).getDate() && new Date(Date.parse(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][0].dateCreated)).getMonth() === new Date(Date.parse(this.state.buzzes[0].dateCreated)).getMonth()) {
-            var combined = [].concat(oldbuzzes[this.state.oldbuzzes.length - 1], oldbuzzes);
-
+        if (new Date(Date.parse(oldbuzzarray[oldbuzzarray.length - 1][0].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[0].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[oldbuzzarray.length - 1][0].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[0].dateCreated)).getMonth()) {
+            var combined = [].concat(oldbuzzarray[oldbuzzarray.length - 1], newbuzzarray);
+            oldbuzzarray.pop();
+            oldbuzzarray.push(combined);
         } else {
-            // only if date && month don't match
             oldbuzzarray.push(newbuzzarray);
         }
-        // happens regardless of date match concat conditional
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
