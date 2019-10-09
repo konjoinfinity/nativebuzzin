@@ -147,6 +147,7 @@ class HomeScreen extends Component {
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { this.handleModal("modal1") }
             if (this.state.bac > 0.10) { this.handleModal("modal2") }
         }, 200);
+        console.log(this.state.buzzes[0])
     }
 
     async saveBuzz() {
@@ -314,21 +315,20 @@ class HomeScreen extends Component {
 
     async deleteBuzz(buzz) {
         Vibration.vibrate();
-        var filtered = Functions.reverseArray(this.state.buzzes).filter(deleted => deleted !== buzz)
-        var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
-        await AsyncStorage.setItem(key, JSON.stringify(reordered), () => { this.setState({ buzzes: reordered }) })
-        this.setState({ selectedBuzz: filtered })
+        var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
+        var reordered = filtered.map((buzz) => { return buzz })
+        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered }) })
+        this.setState({ selectedBuzz: reordered })
     }
 
     async editBuzz() {
         Vibration.vibrate();
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
-        var breverse = Functions.reverseArray(this.state.buzzes)
+        var breverse = this.state.buzzes
         breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
         breverse.sort((a, b) => new Date(Date.parse(a.dateCreated)).getTime() - new Date(Date.parse(b.dateCreated)).getTime());
-        var buzznormal = Functions.reverseArray(breverse)
-        await AsyncStorage.setItem(key, JSON.stringify(buzznormal), () => { this.setState({ buzzes: buzznormal }) })
+        await AsyncStorage.setItem(key, JSON.stringify(breverse), () => { this.setState({ buzzes: breverse }) })
         this.setState({ selectedBuzz: breverse })
     }
 
@@ -340,6 +340,7 @@ class HomeScreen extends Component {
     }
 
     render() {
+        console.log(this.state.selectedBuzz)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         let buzzes, selectedbuzz;
@@ -453,7 +454,7 @@ class HomeScreen extends Component {
                             </View>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>How Long Ago?</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, marginLeft: 20, marginRight: 20 }}>
-                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 0 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 15 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                     <View><Text style={{ fontSize: 22 }}>{this.state.buzzduration} Minutes</Text></View></TouchableOpacity>
