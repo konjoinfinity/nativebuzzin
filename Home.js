@@ -164,9 +164,24 @@ class HomeScreen extends Component {
     }
 
     async checkBac() {
+        // var posVal;
         if (this.state.buzzes.length >= 1) {
-            //add delay conditional here to check if 1st, 2nd, 3rd values are <= 0, if so replace hardcoded [0]
+            // // Add delay conditional here to check if 1st, 2nd, 3rd values are <= 0, if so replace hardcoded [0]
+            // for (i = 0; i <= this.state.buzzes.length - 1; i++) {
+            //     var posduration = Functions.singleDuration(this.state.buzzes[i].dateCreated)
+            //     console.log(posduration)
+            //     var zeroVals = Functions.getBAC(this.state.weight, this.state.gender, posduration, this.state.buzzes[i])
+            //     if (zeroVals > 0) {
+            //         posVal = i
+            //         break;
+            //     }
+            // }
+            // // if posVal is undefined - this.setState({ bac: 0.0 })
+            // console.log(posVal)
+            // // else run normal varGetBAC
+            // var duration = Functions.singleDuration(this.state.buzzes[posVal].dateCreated)
             var duration = Functions.singleDuration(this.state.buzzes[0].dateCreated)
+            // Will have to update this to filter this.state.buzzes starting with first positive value
             var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.buzzes)
             // console.log(totalBac)
             if (totalBac > 0) {

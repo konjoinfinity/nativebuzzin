@@ -212,5 +212,17 @@ export class Functions {
         })
         return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly]
     }
+
+    static getBAC(weight, gender, hours, buzz) {
+        var distribution, drinkTotal, bac
+        if (gender === "Female") { distribution = 0.66 }
+        if (gender === "Male") { distribution = 0.73 }
+        if (buzz.drinkType === "Beer") { drinkTotal = buzz.oz * 1 * buzz.abv }
+        if (buzz.drinkType === "Wine") { drinkTotal = buzz.oz * 1 * buzz.abv }
+        if (buzz.drinkType === "Liquor") { drinkTotal = buzz.oz * 1 * buzz.abv }
+        if (buzz.drinkType === "Cocktail") { drinkTotal = buzz.oz * 1 * buzz.abv }
+        bac = (drinkTotal * 5.14) / (weight * distribution) - 0.015 * hours;
+        return bac;
+    }
 }
 
