@@ -332,6 +332,13 @@ class HomeScreen extends Component {
         this.setState({ selectedBuzz: breverse })
     }
 
+    countDownFinished() {
+        setTimeout(() => {
+            this.setState({ showpacer: false })
+        }, 100)
+        Vibration.vibrate()
+    }
+
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
@@ -620,7 +627,7 @@ class HomeScreen extends Component {
                     </View>}
                     {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
                         <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>Drink Pacer</Text>
-                        <CountDown size={28} until={this.state.pacertime} onFinish={() => this.setState({ showpacer: false }, () => Vibration.vibrate())}
+                        <CountDown size={28} until={this.state.pacertime} onFinish={() => this.countDownFinished()}
                             digitStyle={{ backgroundColor: "#e0f2f1", borderWidth: 2, borderColor: "#00897b" }}
                             digitTxtStyle={{ color: "#00897b" }} separatorStyle={{ color: "#00897b" }}
                             timeToShow={this.state.pacertime === 3600 ? ['H', 'M', 'S'] : ['M', 'S']} timeLabels={{ m: null, s: null }} showSeparator />
