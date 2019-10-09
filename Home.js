@@ -138,7 +138,8 @@ class HomeScreen extends Component {
     async addDrink() {
         Vibration.vibrate();
         // oldTime = new Date();
-        // oldTime.setHours(oldTime.getHours() + 8)
+        // oldTime.setHours(oldTime.getHours() + 4) 
+        // 8 Hours is too long, if you haven't added a drink in 4 hours from the last drink, too bad.
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
@@ -164,7 +165,7 @@ class HomeScreen extends Component {
     }
 
     async checkBac() {
-        // var posVal;
+        // var posVal = [], var posBuzzes = [];
         if (this.state.buzzes.length >= 1) {
             // // Add delay conditional here to check if 1st, 2nd, 3rd values are <= 0, if so replace hardcoded [0]
             // for (i = 0; i <= this.state.buzzes.length - 1; i++) {
@@ -172,8 +173,8 @@ class HomeScreen extends Component {
             //     console.log(posduration)
             //     var zeroVals = Functions.getBAC(this.state.weight, this.state.gender, posduration, this.state.buzzes[i])
             //     if (zeroVals > 0) {
-            //         posVal = i
-            //         break;
+            //         posVal.push(i)
+            //         posBuzzes.push(this.state.buzzes[i])
             //     }
             // }
             // // if posVal is undefined - this.setState({ bac: 0.0 })
@@ -193,7 +194,7 @@ class HomeScreen extends Component {
                 }
                 if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
             } else {
-                // Have to assign a static value for each buzz (+8 hours from initial drink)
+                // Have to assign a static value for each buzz (+4 hours from initial drink)
                 // or change based on each new drink added (this would be a lot of extra calculations)
                 // checkBac would continue running in the background, would this drain phone resources?
                 // Might have to parse drinkDate date if loaded from local storage***
