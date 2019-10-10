@@ -172,7 +172,7 @@ class ProfileScreen extends Component {
         var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: (loginButtonText + 3), textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>
