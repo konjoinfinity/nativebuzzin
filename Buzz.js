@@ -48,10 +48,6 @@ class BuzzScreen extends Component {
         await AsyncStorage.getItem(genderkey, (error, result) => { this.setState({ gender: JSON.parse(result) }) })
     }
 
-    componentWillMount() {
-        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })
-    }
-
     showHideBuzzes(statename) {
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => {
             this.state[statename] === true ?
@@ -209,7 +205,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })} />
                 <Modal animationType="slide" transparent={false} visible={this.state.oldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
