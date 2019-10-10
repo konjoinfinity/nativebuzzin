@@ -127,6 +127,7 @@ class BuzzScreen extends Component {
     }
 
     buzzDuration(incdec) {
+        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
         if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
             this.setState({ buzzduration: this.state.buzzduration + 15 })
         } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
