@@ -32,7 +32,6 @@ class BuzzScreen extends Component {
     };
 
     async componentDidMount() {
-        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })
         values = await Functions.maxRecDrinks()
         await AsyncStorage.getItem(key, (error, result) => {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })
@@ -47,6 +46,10 @@ class BuzzScreen extends Component {
             } else { this.setState({ oldbuzzes: null }) }
         })
         await AsyncStorage.getItem(genderkey, (error, result) => { this.setState({ gender: JSON.parse(result) }) })
+    }
+
+    componentWillMount() {
+        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })
     }
 
     showHideBuzzes(statename) {
