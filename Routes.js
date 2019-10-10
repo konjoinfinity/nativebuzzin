@@ -9,6 +9,7 @@ import { View, Text, Dimensions, PixelRatio, TouchableOpacity, Image } from "rea
 import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const AppStack = createStackNavigator({
     MyTab: {
@@ -24,11 +25,11 @@ const AppStack = createStackNavigator({
                     tabBarIcon: ({ horizontal, tintColor }) => {
                         const { routeName } = navigation.state;
                         let iconName;
-                        routeName === 'Home' ? iconName = `🏠` : routeName === 'Buzz' ? iconName = `🍺` : routeName === 'Profile' ? iconName = `👤` : iconName = `📋`
+                        routeName === 'Home' ? iconName = <Icon name="home" color="#4db6ac" size={25} /> : routeName === 'Buzz' ? iconName = <Icon name="beer" color="#4db6ac" size={25} /> : routeName === 'Profile' ? iconName = <Icon name="user-cog" color="#4db6ac" size={25} /> : iconName = <Icon name="clipboard" color="#4db6ac" size={25} />
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>
                     }
                 }),
-                tabBarOptions: { activeTintColor: 'gray', inactiveTintColor: 'gray', activeBackgroundColor: "#e0f2f1" }
+                tabBarOptions: { activeTintColor: 'gray', inactiveTintColor: '#ffffff', activeBackgroundColor: "#e0f2f1" }
             }
         ),
         navigationOptions: ({ navigation }) => ({
