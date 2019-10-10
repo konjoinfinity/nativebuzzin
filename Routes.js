@@ -26,7 +26,7 @@ const AppStack = createStackNavigator({
                         const { routeName } = navigation.state;
                         let iconName;
                         routeName === 'Home' ? iconName = `🏠` : routeName === 'Buzz' ? iconName = `🍺` : routeName === 'Profile' ? iconName = `👤` : iconName = `📋`
-                        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true });
+                        Vibration.vibrate();
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>
                     }
                 }),
