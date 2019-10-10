@@ -5,11 +5,10 @@ import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
-import { Vibration, View, Text, Dimensions, PixelRatio, TouchableOpacity, Image } from "react-native"
+import { View, Text, Dimensions, PixelRatio, TouchableOpacity, Image } from "react-native"
 import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 const AppStack = createStackNavigator({
     MyTab: {
@@ -26,7 +25,6 @@ const AppStack = createStackNavigator({
                         const { routeName } = navigation.state;
                         let iconName;
                         routeName === 'Home' ? iconName = `🏠` : routeName === 'Buzz' ? iconName = `🍺` : routeName === 'Profile' ? iconName = `👤` : iconName = `📋`
-                        // Vibration.vibrate();
                         return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>
                     }
                 }),

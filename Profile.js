@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Vibration, Switch, Dimensions, PixelRatio, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
@@ -70,14 +70,15 @@ class ProfileScreen extends Component {
             var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
             if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
             if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
-            Vibration.vibrate(); this.setState({ break: true, breakdate: breakDate })
+            ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+            this.setState({ break: true, breakdate: breakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
         if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak("zero") }
     }
 
     async stopBreak(type) {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         this.setState({ break: false, breakdate: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
         await AsyncStorage.removeItem(breakdatekey)
         await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
@@ -87,7 +88,7 @@ class ProfileScreen extends Component {
     }
 
     async LogOut() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("notificationSuccess", { enableVibrateFallback: true })
         // await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
             limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
@@ -139,6 +140,7 @@ class ProfileScreen extends Component {
     }
 
     async saveValues(statename, keyvalue) {
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
         if (statename === "limithour") {
             if (this.state.limithour !== 0) {
@@ -154,6 +156,7 @@ class ProfileScreen extends Component {
     }
 
     showHideSetting(statename) {
+        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
         this.setState(prevState => ({ [statename]: !prevState[statename] }))
     }
 
@@ -169,7 +172,7 @@ class ProfileScreen extends Component {
         var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Text style={{ fontSize: (loginButtonText + 3), textAlign: "center", paddingBottom: 10 }}>👤 {this.state.name}</Text>

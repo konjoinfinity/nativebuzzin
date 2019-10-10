@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, View, TextInput, TouchableOpacity, Vibration, KeyboardAvoidingView, Alert, Keyboard, Modal, ScrollView, Platform } from "react-native";
+import { Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert, Keyboard, Modal, ScrollView, Platform } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import styles from "./Styles"
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText, limitkey,
@@ -19,20 +20,20 @@ class LoginScreen extends React.Component {
     }
 
     componentDidMount() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("notificationSuccess", { enableVibrateFallback: true })
     }
 
     handleModal() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
         if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
         else {
-            Vibration.vibrate();
+            ReactNativeHapticFeedback.trigger("notificationError", { enableVibrateFallback: true })
             Alert.alert("Please Enter Name")
         }
     }
 
     switchGender() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
         this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 

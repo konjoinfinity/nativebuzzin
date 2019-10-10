@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Vibration, Modal, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Modal, Platform } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import NumericInput from 'react-native-numeric-input'
@@ -32,12 +32,12 @@ class DemoScreen extends Component {
     }
 
     handleModal(number) {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("notificationWarning", { enableVibrateFallback: true })
         this.setState({ [number]: !this.state[number] })
     }
 
     addDrink() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         var drinkDate = new Date();
         this.setState(prevState => ({ testbuzzes: [...prevState.testbuzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
@@ -73,18 +73,18 @@ class DemoScreen extends Component {
     }
 
     async clearDrinks() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         this.setState({ testbuzzes: [], bac: 0.0 });
     }
 
     switchGender() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
         this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated) < 0.0333333) {
-            Vibration.vibrate();
+            ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
             var undobuzz = this.state.testbuzzes;
             if (undobuzz.length >= 1) { undobuzz.pop(), this.setState({ testbuzzes: undobuzz }, () => this.checkBac()) }
         }
@@ -100,7 +100,7 @@ class DemoScreen extends Component {
             if (this.state.showHideBuzzes === true) { this.scrolltop.scrollTo({ y: 550, animated: true }) }
             else { this.scrolltop.scrollTo({ y: 0, animated: true }) }
         }, 300));
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
     }
 
     render() {

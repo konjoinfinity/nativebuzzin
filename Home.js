@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Vibration, Alert, Modal, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Alert, Modal, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -115,7 +115,7 @@ class HomeScreen extends Component {
     }
 
     handleModal(number) {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("notificationWarning", { enableVibrateFallback: true })
         this.setState({ [number]: !this.state[number] });
     }
 
@@ -137,7 +137,7 @@ class HomeScreen extends Component {
     }
 
     async addDrink() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
@@ -238,7 +238,7 @@ class HomeScreen extends Component {
     }
 
     async clearDrinks() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         clearInterval(this.state.flashtimer);
         this.setState({ buzzes: [], bac: 0.0, flashtext: false, flashtimer: "", flashtext: "" })
         await AsyncStorage.removeItem(key);
@@ -246,7 +246,7 @@ class HomeScreen extends Component {
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < 0.0333333) {
-            Vibration.vibrate();
+            ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
             var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
                 if (result !== null) { undobuzz = JSON.parse(result); undobuzz.pop(); this.setState({ buzzes: undobuzz }) }
@@ -264,7 +264,7 @@ class HomeScreen extends Component {
     }
 
     cancelAlert(typealert) {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("notificationWarning", { enableVibrateFallback: true })
         Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
             typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
                 typealert === "ib" ? 'Consider keeping up your streak.' : "Drink pacer helps reduce drinking too quickly.",
@@ -274,7 +274,7 @@ class HomeScreen extends Component {
     }
 
     async stopModeration(stoptype) {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("notificationSuccess", { enableVibrateFallback: true })
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
             stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "", limitdate: "" } :
                 stoptype === "ib" ? { indefbreak: false } : { showpacer: false, pacer: false })
@@ -296,12 +296,12 @@ class HomeScreen extends Component {
     }
 
     buzzModal() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" },
             () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 750) })
     }
@@ -315,7 +315,7 @@ class HomeScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         var reordered = filtered.map((buzz) => { return buzz })
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered }) })
@@ -323,7 +323,7 @@ class HomeScreen extends Component {
     }
 
     async editBuzz() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var breverse = this.state.buzzes
@@ -337,7 +337,7 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.setState({ showpacer: false })
         }, 100)
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
     }
 
     render() {
