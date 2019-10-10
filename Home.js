@@ -8,7 +8,6 @@ import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
 import moment from "moment";
-import { NavigationEvents } from "react-navigation";
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import CountDown from 'react-native-countdown-component';
@@ -369,7 +368,6 @@ class HomeScreen extends Component {
         }))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })} />
                 <Modal animationType="slide" transparent={false} visible={this.state.modal1}>
                     <ScrollView style={styles.modal1Card}>{warnText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
