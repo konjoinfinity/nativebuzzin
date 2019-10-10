@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Linking, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, Linking, Platform, TouchableOpacity, Vibration } from 'react-native'
 import styles from "./Styles"
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 class InfoScreen extends Component {
+
+    componentDidMount() {
+        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })
+    }
 
     static navigationOptions = ({ navigation }) => {
         return {
@@ -23,6 +28,7 @@ class InfoScreen extends Component {
                     <TouchableOpacity style={styles.profilebutton} onPress={() => { ReactNativeHapticFeedback.trigger("notificationSuccess", { enableVibrateFallback: true }) }}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Success</Text></TouchableOpacity>
                     <TouchableOpacity style={styles.profilebutton} onPress={() => { ReactNativeHapticFeedback.trigger("notificationWarning", { enableVibrateFallback: true }) }}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Warning</Text></TouchableOpacity>
                     <TouchableOpacity style={styles.profilebutton} onPress={() => { ReactNativeHapticFeedback.trigger("notificationError", { enableVibrateFallback: true }) }}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Error</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.profilebutton} onPress={() => { Vibration.vibrate() }}><Text style={{ textAlign: "center", color: "#ffffff" }}>Normal Vibration</Text></TouchableOpacity>
                     {/* Possible values are "selection", "impactLight", "impactMedium", "impactHeavy", "notificationSuccess", "notificationWarning", "notificationError" (default: "selection") */}
                     <Text style={styles.infoText}>The buzzin app helps to reduce, moderate, and track personal alcohol consumption habits.  Alcohol is a problem for many people around the world.  We want to help people control the amount of alcohol they consume in a responsible manner.</Text>
                     <Text style={styles.infoTitle}>About Us</Text>

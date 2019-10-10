@@ -6,6 +6,7 @@ import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
 import styles from "./Styles"
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
@@ -25,6 +26,7 @@ class ProfileScreen extends Component {
     };
 
     async componentDidMount() {
+        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true });
         this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
             drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,

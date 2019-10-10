@@ -10,6 +10,7 @@ import { Text as TextSVG, G, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import styles from "./Styles"
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import {
     key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, shotsStyle, alcTypeSize, alcValues,
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
@@ -31,6 +32,7 @@ class BuzzScreen extends Component {
     };
 
     async componentDidMount() {
+        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true });
         values = await Functions.maxRecDrinks()
         await AsyncStorage.getItem(key, (error, result) => {
             result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })

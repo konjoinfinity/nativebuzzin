@@ -8,9 +8,11 @@ import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import RNSpeedometer from 'react-native-speedometer'
 import moment from "moment";
+import { NavigationEvents } from "react-navigation";
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import CountDown from 'react-native-countdown-component';
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
@@ -38,6 +40,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
+        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey])
         this.setState({
@@ -366,6 +369,7 @@ class HomeScreen extends Component {
         }))
         return (
             <View>
+                <NavigationEvents onWillFocus={() => ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })} />
                 <Modal animationType="slide" transparent={false} visible={this.state.modal1}>
                     <ScrollView style={styles.modal1Card}>{warnText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>

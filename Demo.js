@@ -9,6 +9,7 @@ import { AlertHelper } from './AlertHelper';
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import moment from "moment";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,
@@ -26,6 +27,7 @@ class DemoScreen extends Component {
     };
 
     async componentDidMount() {
+        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true });
         setTimeout(() => { this.checkBac() }, 200)
     }
 
