@@ -343,6 +343,7 @@ class HomeScreen extends Component {
     }
 
     async addLog() {
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         if (this.state.log !== "") {
             if (this.state.buzzes[0].log) {
                 this.state.buzzes[0].log.unshift({ entry: this.state.log })
@@ -684,7 +685,7 @@ class HomeScreen extends Component {
                         {/* Will have to check and filter all buzzes with the .log property beforehand */}
                         {this.state.buzzes[0].log.length > 0 && this.state.buzzes[0].log.map((entries, id) => {
                             return (<View key={id} style={styles.buzzLog}>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
+                                <Text style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
                             </View>
                             )
                         })}

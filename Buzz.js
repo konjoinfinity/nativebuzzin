@@ -137,6 +137,7 @@ class BuzzScreen extends Component {
     }
 
     async addLog() {
+        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
         if (this.state.log !== "") {
             if (this.state.buzzes[0].log) {
                 this.state.buzzes[0].log.unshift({ entry: this.state.log })
@@ -206,12 +207,11 @@ class BuzzScreen extends Component {
         var buzzarr, buzzarrfiltered;
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarr = this.state.oldbuzzes.reduce((acc, val) => acc.concat(val), []))
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarrfiltered = buzzarr.filter(logs => logs.log))
-        console.log(buzzarr)
-        console.log(buzzarrfiltered)
+        // Should do the same thing for buzzes, just in case position [0] drink object changes mid session
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && buzzarrfiltered.length > 0 && (logentries = buzzarrfiltered.map((buzz, id) => {
             return (<View key={id} style={styles.buzzLog}>
                 {buzz.log.map((logs, id) => {
-                    return (<Text key={id} style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{logs.entry}</Text>)
+                    return (<Text key={id} style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{logs.entry}</Text>)
                 })}
                 <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>
             </View>
@@ -513,7 +513,7 @@ class BuzzScreen extends Component {
                             <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Current Log</Text>
                             {this.state.buzzes[0].log.length > 0 && this.state.buzzes[0].log.map((entries, id) => {
                                 return (<View key={id} style={styles.buzzLog}>
-                                    <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
+                                    <Text style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
                                     <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(this.state.buzzes[0].dateCreated).format('ddd MMM Do YYYY')}</Text>
                                 </View>
                                 )
