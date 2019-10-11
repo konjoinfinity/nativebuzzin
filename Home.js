@@ -344,6 +344,20 @@ class HomeScreen extends Component {
         ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
     }
 
+    addLog() {
+        if (this.state.log !== "") {
+            // rework to allow multiple
+            if (this.state.buzzes[0].log) {
+                this.state.buzzes[0].log.unshift({ entry: this.state.log })
+            } else {
+                this.state.buzzes[0].log = [{ entry: this.state.log }]
+            }
+            this.setState({ log: "", logmodal: false })
+        } else {
+            Alert.alert("Please Enter a Note")
+        }
+    }
+
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
@@ -393,7 +407,7 @@ class HomeScreen extends Component {
                                 onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ logmodal: false })}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
                                     <Text style={styles.buttonText}>Done</Text>
                                 </TouchableOpacity></View>
                         </View>
@@ -663,10 +677,25 @@ class HomeScreen extends Component {
                     {(this.state.buzzes && this.state.buzzes.length > 0) && <View style={styles.buzzCard}>
                         {buzzes}
                     </View>}
+                    {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[0].log && <View style={styles.buzzCard}>
+                        <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Current Log</Text>
+                        {/* Will have to check and filter all buzzes with the .log property beforehand */}
+                        {this.state.buzzes[0].log.length === 1 &&
+                            <View style={styles.buzzMap}>
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{this.state.buzzes[0].log[0].entry}</Text>
+                            </View>}
+                        {this.state.buzzes[0].log.length > 1 && this.state.buzzes[0].log.map((entries, id) => {
+                            return (<View key={id} style={styles.buzzMap}>
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{entries.entry}</Text></View>
+                            )
+                        })}
+                    </View>}
                 </ScrollView>
             </View>
         );
     }
 }
+
+
 
 export default copilot((Platform.OS === 'ios') ? { androidStatusBarVisible: false } : { androidStatusBarVisible: true })(HomeScreen);
