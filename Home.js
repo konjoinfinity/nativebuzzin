@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Alert, Modal, Platform, TextInput, Dimensions } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Alert, Modal, Platform, TextInput, Dimensions, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -681,7 +681,7 @@ class HomeScreen extends Component {
                         {buzzes}
                     </View>}
                     {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[0].log && <View style={styles.buzzCard}>
-                        <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Current Log</Text>
+                        <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Log</Text>
                         {/* Will have to check and filter all buzzes with the .log property beforehand */}
                         {this.state.buzzes[0].log.length > 0 && this.state.buzzes[0].log.map((entries, id) => {
                             return (<View key={id} style={styles.buzzLog}>

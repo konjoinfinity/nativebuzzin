@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, TextInput, Dimensions } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, TextInput, Dimensions, Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -519,7 +519,7 @@ class BuzzScreen extends Component {
                                 )
                             })}
                         </View>}
-                    {this.state.oldbuzzes && logentries.length > 0 &&
+                    {this.state.oldbuzzes && logentries !== undefined &&
                         <View style={styles.buzzCard}>
                             <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
                             {logentries}
