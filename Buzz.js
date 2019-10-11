@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, TextInput, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -11,6 +11,7 @@ import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, shotsStyle, alcTypeSize, alcValues,
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
@@ -27,7 +28,7 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
-            selectedBuzz: "", buzzduration: 30
+            selectedBuzz: "", buzzduration: 30, logmodal: false, log: "", textinputheight: 0
         }
     };
 
@@ -135,11 +136,25 @@ class BuzzScreen extends Component {
         }
     }
 
+    async addLog() {
+        if (this.state.log !== "") {
+            if (this.state.buzzes[0].log) {
+                this.state.buzzes[0].log.unshift({ entry: this.state.log })
+            } else {
+                this.state.buzzes[0].log = [{ entry: this.state.log }]
+            }
+            this.setState({ log: "", logmodal: false })
+            await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
+        } else {
+            Alert.alert("Please Enter a Note")
+        }
+    }
+
     render() {
-        let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz;
+        let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, logentries;
         this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
@@ -188,6 +203,20 @@ class BuzzScreen extends Component {
             </View>
             )
         }))
+        var buzzarr, buzzarrfiltered;
+        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarr = this.state.oldbuzzes.reduce((acc, val) => acc.concat(val), []))
+        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarrfiltered = buzzarr.filter(logs => logs.log))
+        console.log(buzzarr)
+        console.log(buzzarrfiltered)
+        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && buzzarrfiltered.length > 0 && (logentries = buzzarrfiltered.map((buzz, id) => {
+            return (<View key={id} style={styles.buzzLog}>
+                {buzz.log.map((logs, id) => {
+                    return (<Text key={id} style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{logs.entry}</Text>)
+                })}
+                <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>
+            </View>
+            )
+        }))
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
@@ -206,6 +235,25 @@ class BuzzScreen extends Component {
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })} />
+                <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
+                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }}>
+                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
+                            <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
+                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "center", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight) }}
+                                placeholder="" autoFocus={true} returnKeyType={"default"} blurOnSubmit={true} value={this.state.log}
+                                onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
+                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
+                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ log: "", logmodal: false })}>
+                                    <Text style={styles.buttonText}>Cancel</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
+                                    <Text style={styles.buttonText}>Save</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
                 <Modal animationType="slide" transparent={false} visible={this.state.oldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
@@ -459,6 +507,18 @@ class BuzzScreen extends Component {
                     </View>}
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
+                    </View>}
+                    {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[0].log && <View style={styles.buzzCard}>
+                        <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
+                        {/* Will have to check and filter all buzzes with the .log property beforehand */}
+                        {this.state.buzzes[0].log.length > 0 && this.state.buzzes[0].log.map((entries, id) => {
+                            return (<View key={id} style={styles.buzzLog}>
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
+                                <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(this.state.buzzes[0].dateCreated).format('ddd MMM Do YYYY')}</Text>
+                            </View>
+                            )
+                        })}
+                        {logentries}
                     </View>}
                 </ScrollView>
             </View>

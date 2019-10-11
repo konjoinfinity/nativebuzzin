@@ -12,8 +12,6 @@ import { Functions } from "./Functions";
 import styles from "./Styles"
 import CountDown from 'react-native-countdown-component';
 import ReactNativeHapticFeedback from "react-native-haptic-feedback";
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import FeatherIcon from 'react-native-vector-icons/Feather'
 import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
@@ -684,13 +682,10 @@ class HomeScreen extends Component {
                     {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[0].log && <View style={styles.buzzCard}>
                         <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Current Log</Text>
                         {/* Will have to check and filter all buzzes with the .log property beforehand */}
-                        {this.state.buzzes[0].log.length === 1 &&
-                            <View style={styles.buzzMap}>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{this.state.buzzes[0].log[0].entry}</Text>
-                            </View>}
-                        {this.state.buzzes[0].log.length > 1 && this.state.buzzes[0].log.map((entries, id) => {
-                            return (<View key={id} style={styles.buzzMap}>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{entries.entry}</Text></View>
+                        {this.state.buzzes[0].log.length > 0 && this.state.buzzes[0].log.map((entries, id) => {
+                            return (<View key={id} style={styles.buzzLog}>
+                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
+                            </View>
                             )
                         })}
                     </View>}
