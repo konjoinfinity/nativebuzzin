@@ -508,18 +508,22 @@ class BuzzScreen extends Component {
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                     </View>}
-                    {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[0].log && <View style={styles.buzzCard}>
-                        <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
-                        {/* Will have to check and filter all buzzes with the .log property beforehand */}
-                        {this.state.buzzes[0].log.length > 0 && this.state.buzzes[0].log.map((entries, id) => {
-                            return (<View key={id} style={styles.buzzLog}>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
-                                <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(this.state.buzzes[0].dateCreated).format('ddd MMM Do YYYY')}</Text>
-                            </View>
-                            )
-                        })}
-                        {logentries}
-                    </View>}
+                    {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[0].log &&
+                        <View style={styles.buzzCard}>
+                            <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Current Log</Text>
+                            {this.state.buzzes[0].log.length > 0 && this.state.buzzes[0].log.map((entries, id) => {
+                                return (<View key={id} style={styles.buzzLog}>
+                                    <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
+                                    <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(this.state.buzzes[0].dateCreated).format('ddd MMM Do YYYY')}</Text>
+                                </View>
+                                )
+                            })}
+                        </View>}
+                    {this.state.oldbuzzes && logentries.length > 0 &&
+                        <View style={styles.buzzCard}>
+                            <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
+                            {logentries}
+                        </View>}
                 </ScrollView>
             </View>
         );
