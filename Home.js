@@ -344,15 +344,15 @@ class HomeScreen extends Component {
         ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
     }
 
-    addLog() {
+    async addLog() {
         if (this.state.log !== "") {
-            // rework to allow multiple
             if (this.state.buzzes[0].log) {
                 this.state.buzzes[0].log.unshift({ entry: this.state.log })
             } else {
                 this.state.buzzes[0].log = [{ entry: this.state.log }]
             }
             this.setState({ log: "", logmodal: false })
+            await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         } else {
             Alert.alert("Please Enter a Note")
         }
@@ -407,9 +407,13 @@ class HomeScreen extends Component {
                                 onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ log: "", logmodal: false })}>
+                                    <Text style={styles.buttonText}>Cancel</Text>
+                                </TouchableOpacity>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
-                                    <Text style={styles.buttonText}>Done</Text>
-                                </TouchableOpacity></View>
+                                    <Text style={styles.buttonText}>Save</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </Modal>
