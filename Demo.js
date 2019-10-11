@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Modal, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Modal, Platform, Vibration } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import NumericInput from 'react-native-numeric-input'
@@ -9,13 +9,11 @@ import { AlertHelper } from './AlertHelper';
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import moment from "moment";
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,
     abovePoint10, shotsStyle
 } from "./Variables";
-
 
 class DemoScreen extends Component {
     constructor(props) {
@@ -27,17 +25,17 @@ class DemoScreen extends Component {
     };
 
     async componentDidMount() {
-        ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true });
+        Vibration.vibrate();
         setTimeout(() => { this.checkBac() }, 200)
     }
 
     handleModal(number) {
-        ReactNativeHapticFeedback.trigger("notificationWarning", { enableVibrateFallback: true })
+        Vibration.vibrate()
         this.setState({ [number]: !this.state[number] })
     }
 
     addDrink() {
-        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+        Vibration.vibrate()
         var drinkDate = new Date();
         this.setState(prevState => ({ testbuzzes: [...prevState.testbuzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
@@ -73,18 +71,18 @@ class DemoScreen extends Component {
     }
 
     async clearDrinks() {
-        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+        Vibration.vibrate()
         this.setState({ testbuzzes: [], bac: 0.0 });
     }
 
     switchGender() {
-        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
+        Vibration.vibrate()
         this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated) < 0.0333333) {
-            ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+            Vibration.vibrate()
             var undobuzz = this.state.testbuzzes;
             if (undobuzz.length >= 1) { undobuzz.pop(), this.setState({ testbuzzes: undobuzz }, () => this.checkBac()) }
         }
@@ -100,7 +98,7 @@ class DemoScreen extends Component {
             if (this.state.showHideBuzzes === true) { this.scrolltop.scrollTo({ y: 550, animated: true }) }
             else { this.scrolltop.scrollTo({ y: 0, animated: true }) }
         }, 300));
-        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
+        Vibration.vibrate()
     }
 
     render() {
@@ -141,7 +139,7 @@ class DemoScreen extends Component {
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight} totalHeight={50}
-                                onChange={(weight) => this.setState({ weight }, () => { ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true }) })} step={5} rounded textColor='#103900' totalWidth={120}
+                                onChange={(weight) => this.setState({ weight }, () => { Vibration.vibrate() })} step={5} rounded textColor='#103900' totalWidth={120}
                                 iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, TextInput, Dimensions, Keyboard } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, TextInput, Dimensions, Keyboard, Vibration } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -10,7 +10,6 @@ import { Text as TextSVG, G, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import styles from "./Styles"
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, shotsStyle, alcTypeSize, alcValues,
@@ -54,7 +53,7 @@ class BuzzScreen extends Component {
             this.state[statename] === true ?
                 this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 500));
-        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
+        Vibration.vibrate()
     }
 
     chartSwitch() {
@@ -63,7 +62,7 @@ class BuzzScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
-        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+        Vibration.vibrate()
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         var reordered = filtered.map((buzz) => { return buzz })
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered }) })
@@ -72,7 +71,7 @@ class BuzzScreen extends Component {
     }
 
     async editBuzz() {
-        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+        Vibration.vibrate()
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var breverse = this.state.buzzes
@@ -84,7 +83,7 @@ class BuzzScreen extends Component {
     }
 
     async deleteOldBuzz(obid, oldbuzz) {
-        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+        Vibration.vibrate()
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
         var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
@@ -94,7 +93,7 @@ class BuzzScreen extends Component {
 
     // This method could be cleaner
     async editOldBuzz(obid) {
-        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+        Vibration.vibrate()
         var obreverse = Functions.reverseArray(this.state.oldbuzzes).map((buzz) => { return Functions.reverseArray(buzz) })
         var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
         lastTime.setHours(0, 0, 0, 0)
@@ -108,27 +107,27 @@ class BuzzScreen extends Component {
 
     // combine modal handles to one function
     oldModal(buzz, obid) {
-        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
+        Vibration.vibrate()
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz, obid: obid });
     }
 
     closeOldModal() {
-        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
+        Vibration.vibrate()
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: "", obid: "" });
     }
 
     buzzModal() {
-        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
+        Vibration.vibrate()
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
-        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
+        Vibration.vibrate()
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" });
     }
 
     buzzDuration(incdec) {
-        ReactNativeHapticFeedback.trigger("impactLight", { enableVibrateFallback: true })
+        Vibration.vibrate()
         if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
             this.setState({ buzzduration: this.state.buzzduration + 15 })
         } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
@@ -137,7 +136,7 @@ class BuzzScreen extends Component {
     }
 
     async addLog() {
-        ReactNativeHapticFeedback.trigger("impactMedium", { enableVibrateFallback: true })
+        Vibration.vibrate()
         if (this.state.log !== "") {
             if (this.state.buzzes[0].log) {
                 this.state.buzzes[0].log.unshift({ entry: this.state.log })
@@ -234,7 +233,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHapticFeedback.trigger("impactHeavy", { enableVibrateFallback: true })} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => Vibration.vibrate()} />
                 <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
