@@ -524,7 +524,7 @@ class BuzzScreen extends Component {
                             {logentries}
                         </View>}
                 </ScrollView>
-            </View>
+            </View >
         );
     }
 }
