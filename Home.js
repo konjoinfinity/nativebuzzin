@@ -28,6 +28,8 @@ var maxRecValues;
 
 // (async () => { await AsyncStorage.setItem(oldkey, JSON.stringify([[{ "drinkType": "Beer", "dateCreated": "2019-09-11T15:06:20.747Z", "oz": 16, "abv": 0.07 }, { "drinkType": "Wine", "dateCreated": "2019-09-11T15:16:20.747Z", "oz": 5, "abv": 0.12 }, { "drinkType": "Beer", "dateCreated": "2019-09-11T15:26:20.747Z", "oz": 12, "abv": 0.06 }, { "drinkType": "Liquor", "dateCreated": "2019-09-11T15:36:20.747Z", "oz": 1.5, "abv": 0.4 }], [{ "drinkType": "Liquor", "dateCreated": "2019-09-27T15:21:48.189Z", "oz": 1.5, "abv": 0.001 }], [{ "drinkType": "Liquor", "dateCreated": "2019-09-27T15:29:42.653Z", "oz": 1.5, "abv": 0.001 }], [{ "drinkType": "Liquor", "dateCreated": "2019-09-27T15:30:15.598Z", "oz": 1.5, "abv": 0.001 }], [{ "drinkType": "Liquor", "dateCreated": "2019-09-27T15:31:03.095Z", "oz": 1.5, "abv": 0.001 }], [{ "drinkType": "Liquor", "dateCreated": "2019-09-27T15:36:03.070Z", "oz": 1.5, "abv": 0.001 }], [{ "drinkType": "Liquor", "dateCreated": "2019-10-01T15:53:10.713Z", "oz": 1.5, "abv": 0.001 }], [{ "drinkType": "Liquor", "dateCreated": "2019-10-01T15:54:38.979Z", "oz": 1.5, "abv": 0.001 }]])) })();
 
+// Any hardcoded array positions will have to be updated from [0], [0][0], [buzz/oldbuzz.length - 1] to reverse position 
+
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -141,6 +143,7 @@ class HomeScreen extends Component {
     async addDrink() {
         Vibration.vibrate()
         var drinkDate = new Date();
+        // Update method to insert drink object into beginning of array
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
@@ -216,9 +219,12 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
         if (new Date(Date.parse(oldbuzzarray[oldbuzzarray.length - 1][0].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[0].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[oldbuzzarray.length - 1][0].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[0].dateCreated)).getMonth()) {
             var combined = [].concat(oldbuzzarray[oldbuzzarray.length - 1], newbuzzarray);
+            // replace with .shift()
             oldbuzzarray.pop();
+            // replace with .unshift()
             oldbuzzarray.push(combined);
         } else {
+            // replace with .unshift()
             oldbuzzarray.push(newbuzzarray);
         }
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
@@ -251,7 +257,12 @@ class HomeScreen extends Component {
             Vibration.vibrate()
             var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
-                if (result !== null) { undobuzz = JSON.parse(result); undobuzz.pop(); this.setState({ buzzes: undobuzz }) }
+                if (result !== null) {
+                    undobuzz = JSON.parse(result);
+                    // replace with .shift()
+                    undobuzz.pop();
+                    this.setState({ buzzes: undobuzz })
+                }
             })
             await AsyncStorage.setItem(key, JSON.stringify(undobuzz), () => { this.checkBac() })
         }
@@ -360,6 +371,7 @@ class HomeScreen extends Component {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         let buzzes, selectedbuzz;
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated
         this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
             return (<View key={id}>
                 {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: 26, textAlign: "center" }}>Current Buzz</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
@@ -371,6 +383,7 @@ class HomeScreen extends Component {
                 </View></View>
             )
         }))
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated
         this.state.selectedBuzz !== "" && (selectedbuzz = Functions.reverseArray(this.state.selectedBuzz).map((buzz, id) => {
             return (<View key={id}>
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>

@@ -37,6 +37,7 @@ class DemoScreen extends Component {
     addDrink() {
         Vibration.vibrate()
         var drinkDate = new Date();
+        // Update method to insert drink object into beginning of array
         this.setState(prevState => ({ testbuzzes: [...prevState.testbuzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) { AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
@@ -84,6 +85,7 @@ class DemoScreen extends Component {
         if (Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated) < 0.0333333) {
             Vibration.vibrate()
             var undobuzz = this.state.testbuzzes;
+            // Update to .shift()
             if (undobuzz.length >= 1) { undobuzz.pop(), this.setState({ testbuzzes: undobuzz }, () => this.checkBac()) }
         }
     }
@@ -105,6 +107,7 @@ class DemoScreen extends Component {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1], testbuzzes;
         (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
+            // Will be able to remove Functions.reverseArray after buzz storage has been updated
             (testbuzzes = Functions.reverseArray(this.state.testbuzzes).map((buzz, id) => {
                 return (
                     <View key={id} style={styles.buzzMap}>

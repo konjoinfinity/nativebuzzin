@@ -137,6 +137,7 @@ export class Functions {
         }
     }
 
+    // This function will be deleted when data storing/accessing methods have been updated to .shift()/.unshift()
     static reverseArray(array) {
         var reversedArray = [];
         for (var i = array.length - 1; i >= 0; i--) { reversedArray.push(array[i]) }
@@ -174,6 +175,7 @@ export class Functions {
         var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [],
             maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes
         await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
+            // values will have to be updated when .shift()/.unshift() methods have been implemented
             gender = JSON.parse(result[1][1])
             if (result[0][1] !== null && result[1][1] !== null) {
                 oldbuzzes = JSON.parse(result[0][1])

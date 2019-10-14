@@ -86,6 +86,7 @@ class BuzzScreen extends Component {
         Vibration.vibrate()
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated
         var reordered = Functions.reverseArray(filtered).map((buzz) => { return buzz })
         this.setState({ selectedOldBuzz: reordered[obid], obid: [obid] })
         values = await Functions.maxRecDrinks()
@@ -94,12 +95,15 @@ class BuzzScreen extends Component {
     // This method could be cleaner
     async editOldBuzz(obid) {
         Vibration.vibrate()
+        // Will be able to remove both Functions.reverseArray methods after buzz storage has been updated
         var obreverse = Functions.reverseArray(this.state.oldbuzzes).map((buzz) => { return Functions.reverseArray(buzz) })
         var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
         lastTime.setHours(0, 0, 0, 0)
         obreverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
+        // Will be able to remove both Functions.reverseArray methods after buzz storage has been updated
         var obnormal = Functions.reverseArray(obreverse).map((buzz) => { return Functions.reverseArray(buzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated
         var reorder = Functions.reverseArray(obnormal).map((buzz) => { return buzz })
         this.setState({ selectedOldBuzz: reorder[obid], obid: [obid] })
         values = await Functions.maxRecDrinks()
@@ -152,6 +156,7 @@ class BuzzScreen extends Component {
 
     render() {
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, logentries;
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated
         this.state.buzzes !== null && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
             return (<View key={id}>
                 {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
@@ -163,6 +168,7 @@ class BuzzScreen extends Component {
                 </View></View>
             )
         }))
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated
         this.state.oldbuzzes !== null && (oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
             return Functions.reverseArray(buzz).map((oldbuzz, id) => {
                 return (<View key={id}>
@@ -177,6 +183,7 @@ class BuzzScreen extends Component {
                 )
             })
         }))
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated
         this.state.selectedBuzz !== "" && (selectedbuzz = Functions.reverseArray(this.state.selectedBuzz).map((buzz, id) => {
             return (<View key={id}>
                 {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>}
@@ -189,6 +196,7 @@ class BuzzScreen extends Component {
             </View>
             )
         }))
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated
         this.state.selectedOldBuzz !== "" && (selectedoldbuzz = Functions.reverseArray(this.state.selectedOldBuzz).map((oldbuzz, id) => {
             return (<View key={id}>
                 {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY')}</Text>}
