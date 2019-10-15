@@ -156,16 +156,17 @@ class BuzzScreen extends Component {
 
     async addOldLog() {
         Vibration.vibrate();
-        var position = this.state.position === "" ? this.state.oldbuzzes.length - 1 : this.state.position
-        var secondpos = this.state.oldbuzzes[position].length - 1
+        var oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz) => { return Functions.reverseArray(buzz) })
+        var position = this.state.position === "" ? oldbuzzes.length - 1 : this.state.position
         if (this.state.oldlog !== "") {
-            if (this.state.oldbuzzes[position][secondpos].log) {
-                this.state.oldbuzzes[position][secondpos].log.unshift({ entry: this.state.oldlog })
+            if (oldbuzzes[position][0].log) {
+                oldbuzzes[position][0].log.unshift({ entry: this.state.oldlog })
             } else {
-                this.state.oldbuzzes[position][secondpos].log = [{ entry: this.state.oldlog }]
+                oldbuzzes[position][0].log = [{ entry: this.state.oldlog }]
             }
             this.setState({ oldlog: "", oldlogmodal: false, position: "" })
-            await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.oldbuzzes))
+            oldbuzzes = Functions.reverseArray(oldbuzzes).map((buzz) => { return Functions.reverseArray(buzz) })
+            await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes))
         } else {
             Alert.alert("Please Enter a Note")
         }
@@ -189,7 +190,7 @@ class BuzzScreen extends Component {
         this.state.oldbuzzes !== null && (oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
             return Functions.reverseArray(buzz).map((oldbuzz, id) => {
                 return (<View key={id}>
-                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ oldlogmodal: true, position: id })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ oldlogmodal: true, position: obid })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{oldbuzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
