@@ -157,7 +157,7 @@ class BuzzScreen extends Component {
     async addOldLog() {
         Vibration.vibrate();
         var oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz) => { return Functions.reverseArray(buzz) })
-        var position = this.state.position === "" ? oldbuzzes.length - 1 : this.state.position
+        var position = this.state.position === "" ? 0 : this.state.position
         if (this.state.oldlog !== "") {
             if (oldbuzzes[position][0].log) {
                 oldbuzzes[position][0].log.unshift({ entry: this.state.oldlog })
