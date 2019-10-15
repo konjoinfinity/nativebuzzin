@@ -212,7 +212,7 @@ class BuzzScreen extends Component {
         }))
         var buzzarr, buzzarrfiltered;
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarr = this.state.oldbuzzes.reduce((acc, val) => acc.concat(val), []))
-        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarrfiltered = buzzarr.filter(logs => logs.log))
+        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarrfiltered = Functions.reverseArray(buzzarr).filter(logs => logs.log))
         // Should do the same thing for buzzes, just in case position [0] drink object changes mid session
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && buzzarrfiltered.length > 0 && (logentries = buzzarrfiltered.map((buzz, id) => {
             return (<View key={id} style={styles.buzzLog}>
