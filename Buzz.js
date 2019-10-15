@@ -26,7 +26,7 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
-            selectedBuzz: "", buzzduration: 30, logmodal: false, log: "", textinputheight: 0
+            selectedBuzz: "", buzzduration: 30, logmodal: false, log: "", textinputheight: 0, oldlogmodal: false, oldlog: "", position: ""
         }
     };
 
@@ -153,6 +153,21 @@ class BuzzScreen extends Component {
         }
     }
 
+    async addOldLog(position) {
+        Vibration.vibrate()
+        if (this.state.oldlog !== "") {
+            if (this.state.oldbuzzes[position][this.state.oldbuzzes[position].length - 1].log) {
+                this.state.oldbuzzes[position][this.state.oldbuzzes[position].length - 1].log.unshift({ entry: this.state.oldlog })
+            } else {
+                this.state.oldbuzzes[position][this.state.oldbuzzes[position].length - 1].log = [{ entry: this.state.oldlog }]
+            }
+            this.setState({ oldlog: "", oldlogmodal: false, position: "" })
+            await AsyncStorage.setItem(key, JSON.stringify(this.state.oldbuzzes))
+        } else {
+            Alert.alert("Please Enter a Note")
+        }
+    }
+
     render() {
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, logentries;
         // Will be able to remove Functions.reverseArray after buzz storage has been updated
@@ -171,7 +186,7 @@ class BuzzScreen extends Component {
         this.state.oldbuzzes !== null && (oldbuzzes = Functions.reverseArray(this.state.oldbuzzes).map((buzz, obid) => {
             return Functions.reverseArray(buzz).map((oldbuzz, id) => {
                 return (<View key={id}>
-                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ oldlogmodal: true, position: id })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{oldbuzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
@@ -254,6 +269,25 @@ class BuzzScreen extends Component {
                                     <Text style={styles.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
+                                    <Text style={styles.buttonText}>Save</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+                <Modal animationType="fade" transparent={true} visible={this.state.oldlogmodal}>
+                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }}>
+                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
+                            <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
+                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "center", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight) }}
+                                placeholder="" autoFocus={true} returnKeyType={"default"} blurOnSubmit={true} value={this.state.oldlog}
+                                onChangeText={(oldlog) => this.setState({ oldlog })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
+                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
+                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ oldlog: "", oldlogmodal: false, position: "" })}>
+                                    <Text style={styles.buttonText}>Cancel</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addOldLog(this.state.position)}>
                                     <Text style={styles.buttonText}>Save</Text>
                                 </TouchableOpacity>
                             </View>
