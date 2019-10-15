@@ -26,7 +26,8 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
-            selectedBuzz: "", buzzduration: 30, logmodal: false, log: "", textinputheight: 0, oldlogmodal: false, oldlog: "", position: ""
+            selectedBuzz: "", buzzduration: 30, logmodal: false, log: "", textinputheight: 0, oldlogmodal: false, oldlog: "",
+            position: "", oldposition: ""
         }
     };
 
@@ -153,16 +154,18 @@ class BuzzScreen extends Component {
         }
     }
 
-    async addOldLog(position) {
-        Vibration.vibrate()
+    async addOldLog() {
+        Vibration.vibrate();
+        var position = this.state.position === "" ? this.state.oldbuzzes.length - 1 : this.state.position
+        var secondpos = this.state.oldbuzzes[position].length - 1
         if (this.state.oldlog !== "") {
-            if (this.state.oldbuzzes[position][this.state.oldbuzzes[position].length - 1].log) {
-                this.state.oldbuzzes[position][this.state.oldbuzzes[position].length - 1].log.unshift({ entry: this.state.oldlog })
+            if (this.state.oldbuzzes[position][secondpos].log) {
+                this.state.oldbuzzes[position][secondpos].log.unshift({ entry: this.state.oldlog })
             } else {
-                this.state.oldbuzzes[position][this.state.oldbuzzes[position].length - 1].log = [{ entry: this.state.oldlog }]
+                this.state.oldbuzzes[position][secondpos].log = [{ entry: this.state.oldlog }]
             }
             this.setState({ oldlog: "", oldlogmodal: false, position: "" })
-            await AsyncStorage.setItem(key, JSON.stringify(this.state.oldbuzzes))
+            await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.oldbuzzes))
         } else {
             Alert.alert("Please Enter a Note")
         }
@@ -287,7 +290,7 @@ class BuzzScreen extends Component {
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ oldlog: "", oldlogmodal: false, position: "" })}>
                                     <Text style={styles.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addOldLog(this.state.position)}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addOldLog()}>
                                     <Text style={styles.buttonText}>Save</Text>
                                 </TouchableOpacity>
                             </View>
@@ -568,7 +571,7 @@ class BuzzScreen extends Component {
                         </View>}
                     {this.state.oldbuzzes && logentries !== undefined &&
                         <View style={styles.buzzCard}>
-                            <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
+                            <View style={{ flexDirection: "row", justifyContent: "center" }}><Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ oldlogmodal: true })}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>
                             {logentries}
                         </View>}
                 </ScrollView>
