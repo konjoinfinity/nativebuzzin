@@ -173,7 +173,7 @@ export class Functions {
 
     static async maxRecDrinks() {
         var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [],
-            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes
+            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg
         await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
             // values will have to be updated when .shift()/.unshift() methods have been implemented
             gender = JSON.parse(result[1][1])
@@ -203,16 +203,18 @@ export class Functions {
                 sevenData = [sevenArray.length + buzzes.length], thirtyData = [thirtyArray.length]
                 weekly = gender === "Male" ? 14 : 7
                 monthly = gender === "Male" ? 56 : 28
+                pushavg = weeksData.reduce((a, b) => a.concat(b), []).reduce((a, b) => a + b, 0) / weeksData.length
+                avg = Array(maxrecdata.length).fill(pushavg)
             } else {
                 if (result[2][1] !== null && result[2][1] !== "[]") {
                     buzzes = JSON.parse(result[2][1])
-                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = this.barColor(buzzes.length, "seven", gender), monthColor = ["#ffffff", "0 Drinks"], sevenData = [buzzes.length], thirtyData = [0], weekly = 14, monthly = 56
+                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = this.barColor(buzzes.length, "seven", gender), monthColor = ["#ffffff", "0 Drinks"], sevenData = [buzzes.length], thirtyData = [0], weekly = 14, monthly = 56, avg = [0]
                 } else {
-                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56
+                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56, avg = [0]
                 }
             }
         })
-        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly]
+        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, avg]
     }
 
     static getBAC(weight, gender, hours, buzz) {
