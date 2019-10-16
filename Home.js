@@ -26,9 +26,6 @@ const CopilotView = walkthroughable(View);
 var maxRecValues;
 (async () => { maxRecValues = await Functions.maxRecDrinks() })();
 
-// var oldbuzzreverse, oldbuzzinorder;
-// (async () => { await AsyncStorage.getItem(oldkey, (error, result) => { oldbuzzreverse = JSON.parse(result) }, () => oldbuzzinorder = Functions.reverseArray(oldbuzzreverse).map((buzz) => { return Functions.reverseArray(buzz) }, () => { (async () => { await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzinorder)) })() })) })();
-
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -109,6 +106,9 @@ class HomeScreen extends Component {
                 this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
             }
         }
+        // var oldbuzzreverse = this.state.oldbuzzes
+        // var oldbuzzinorder = Functions.reverseArray(oldbuzzreverse).map((buzz) => { return Functions.reverseArray(buzz) })
+        // await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzinorder))
     }
 
     componentWillUnmount() {
