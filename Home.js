@@ -223,10 +223,10 @@ class HomeScreen extends Component {
     async moveToOld() {
         var autobreakcheck, oldbuzzarray = this.state.oldbuzzes, newbuzzarray = this.state.buzzes;
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
-        // oldbuzzarry[0][oldbuzzarray[0].length - 1].dateCreated - newbuzzarray[newbuzzarray.length - 1].dateCreated
-        if (new Date(Date.parse(oldbuzzarry[0][oldbuzzarray[0].length - 1].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarry[0][oldbuzzarray[0].length - 1].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getMonth()) {
+        // oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated - newbuzzarray[newbuzzarray.length - 1].dateCreated
+        if (new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getMonth()) {
             // oldbuzzarray[0]
-            var combined = [].concat(oldbuzzarray[0], newbuzzarray);
+            var combined = [].concat(newbuzzarray, oldbuzzarray[0]);
             // oldbuzzarray.shift();
             oldbuzzarray.shift();
             // oldbuzzarray.unshift(combined);
