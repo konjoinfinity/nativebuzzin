@@ -138,11 +138,11 @@ export class Functions {
     }
 
     // This function will be deleted when data storing/accessing methods have been updated to .shift()/.unshift()
-    static reverseArray(array) {
-        var reversedArray = [];
-        for (var i = array.length - 1; i >= 0; i--) { reversedArray.push(array[i]) }
-        return reversedArray;
-    }
+    // static reverseArray(array) {
+    //     var reversedArray = [];
+    //     for (var i = array.length - 1; i >= 0; i--) { reversedArray.push(array[i]) }
+    //     return reversedArray;
+    // }
 
     static bacEmotion(bac) {
         if (bac > 0.00 && bac < 0.01) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😊" : "🙂"] }
@@ -180,7 +180,7 @@ export class Functions {
                 oldbuzzes = JSON.parse(result[0][1])
                 result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
                 // var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[0].length - 1].dateCreated) / 168)
-                var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[0].length - 1].dateCreated) / 168)
+                var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[oldbuzzes.length - 1].length - 1].dateCreated) / 168)
                 maxrecgender = gender === "Male" ? 14 : 7
                 for (i = 1; i <= numOfArrays; i++) { lastWeeks.push([]) }
                 (oldbuzzes.map((buzz) => {

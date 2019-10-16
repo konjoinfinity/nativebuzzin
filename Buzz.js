@@ -537,7 +537,7 @@ class BuzzScreen extends Component {
                                     </LineChart>
                                     <Text style={{ fontSize: 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#00897b", fontWeight: "bold", fontSize: 25, opacity: 0.8 }}>- </Text>Historical Weekly Totals</Text>
                                     <Text style={{ fontSize: 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#AE0000", fontWeight: "bold", fontSize: 25, opacity: 0.3 }}>- </Text>Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
-                                    <Text style={{ fontSize: 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", fontWeight: "bold", fontSize: 25, opacity: 0.3 }}>- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0]} Drinks</Text>
+                                    <Text style={{ fontSize: 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", fontWeight: "bold", fontSize: 25, opacity: 0.3 }}>- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(2)} Drinks</Text>
                                 </View>
                             </View>}
                     </ScrollView>

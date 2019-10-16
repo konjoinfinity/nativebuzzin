@@ -38,7 +38,7 @@ class DemoScreen extends Component {
         Vibration.vibrate()
         var drinkDate = new Date();
         // [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes]
-        this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => this.checkBac())
+        this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => { console.log(this.state.testbuzzes); this.checkBac() })
         setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) { AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) { AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
@@ -50,8 +50,8 @@ class DemoScreen extends Component {
 
     async checkBac() {
         if (this.state.testbuzzes.length >= 1) {
-            // this.state.buzzes[this.state.testbuzzes.length - 1].dateCreated
-            var duration = Functions.singleDuration(this.state.buzzes[this.state.testbuzzes.length - 1].dateCreated);
+            // this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated
+            var duration = Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
             var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.testbuzzes)
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
@@ -96,8 +96,8 @@ class DemoScreen extends Component {
     }
 
     checkLastDrink() {
-        // this.state.buzzes[0].dateCreated
-        if (Functions.singleDuration(this.state.buzzes[0].dateCreated) < 0.0333333) { return true }
+        // this.state.testbuzzes[0].dateCreated
+        if (Functions.singleDuration(this.state.testbuzzes[0].dateCreated) < 0.0333333) { return true }
         else { return false }
     }
 
