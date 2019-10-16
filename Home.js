@@ -93,8 +93,8 @@ class HomeScreen extends Component {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
                 setTimeout(() => {
-                    // this needs to be updated to this.state.oldbuzzes[0][0].dateCreated
-                    var durations = Functions.timeSince(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated, "timesince")
+                    // this.state.oldbuzzes[0][0].dateCreated
+                    var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                 }, 200);
             } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
@@ -114,7 +114,7 @@ class HomeScreen extends Component {
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
         if (this.state.pacer === true && this.state.buzzes.length >= 1 && this.state.showpacer === false) {
             // this.state.buzzes[0].dateCreated
-            var drinkPacerTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated)
+            var drinkPacerTime = Functions.singleDuration(this.state.buzzes[0].dateCreated)
             drinkPacerTime = drinkPacerTime * 3600
             if (drinkPacerTime < this.state.pacertime) {
                 this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
@@ -153,8 +153,8 @@ class HomeScreen extends Component {
     async addDrink() {
         Vibration.vibrate()
         var drinkDate = new Date();
-        // Update method to insert drink object into beginning of array [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes]
-        this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
+        // [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes]
+        this.setState(prevState => ({ buzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes] }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
             this.flashWarning();
@@ -180,7 +180,7 @@ class HomeScreen extends Component {
     async checkBac() {
         if (this.state.buzzes.length >= 1) {
             // this.state.buzzes[this.state.buzzes.length - 1].dateCreated
-            var duration = Functions.singleDuration(this.state.buzzes[0].dateCreated)
+            var duration = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated)
             var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.buzzes)
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
@@ -229,16 +229,16 @@ class HomeScreen extends Component {
         var autobreakcheck, oldbuzzarray = this.state.oldbuzzes, newbuzzarray = this.state.buzzes;
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
         // oldbuzzarry[0][oldbuzzarray[0].length - 1].dateCreated - newbuzzarray[newbuzzarray.length - 1].dateCreated
-        if (new Date(Date.parse(oldbuzzarray[oldbuzzarray.length - 1][0].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[0].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[oldbuzzarray.length - 1][0].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[0].dateCreated)).getMonth()) {
+        if (new Date(Date.parse(oldbuzzarry[0][oldbuzzarray[0].length - 1].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarry[0][oldbuzzarray[0].length - 1].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getMonth()) {
             // oldbuzzarray[0]
-            var combined = [].concat(oldbuzzarray[oldbuzzarray.length - 1], newbuzzarray);
-            // replace with .shift()
-            oldbuzzarray.pop();
-            // replace with .unshift()
-            oldbuzzarray.push(combined);
+            var combined = [].concat(oldbuzzarray[0], newbuzzarray);
+            // oldbuzzarray.shift();
+            oldbuzzarray.shift();
+            // oldbuzzarray.unshift(combined);
+            oldbuzzarray.unshift(combined);
         } else {
-            // replace with .unshift()
-            oldbuzzarray.push(newbuzzarray);
+            // oldbuzzarray.unshift(newbuzzarray);
+            oldbuzzarray.unshift(newbuzzarray);
         }
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
@@ -267,14 +267,14 @@ class HomeScreen extends Component {
 
     async undoLastDrink() {
         // this.state.buzzes[0].dateCreated
-        if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < 0.0333333) {
+        if (Functions.singleDuration(this.state.buzzes[0].dateCreated) < 0.0333333) {
             Vibration.vibrate()
             var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
                 if (result !== null) {
                     undobuzz = JSON.parse(result);
-                    // replace with .shift()
-                    undobuzz.pop();
+                    // undobuzz.shift();
+                    undobuzz.shift();
                     this.setState({ buzzes: undobuzz })
                 }
             })
@@ -285,7 +285,7 @@ class HomeScreen extends Component {
 
     checkLastDrink() {
         // this.state.buzzes[0].dateCreated
-        if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < 0.0333333) { return true }
+        if (Functions.singleDuration(this.state.buzzes[0].dateCreated) < 0.0333333) { return true }
         else { return false }
     }
 
@@ -357,6 +357,7 @@ class HomeScreen extends Component {
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var breverse = this.state.buzzes
         breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        // ????
         breverse.sort((a, b) => new Date(Date.parse(a.dateCreated)).getTime() - new Date(Date.parse(b.dateCreated)).getTime());
         await AsyncStorage.setItem(key, JSON.stringify(breverse), () => { this.setState({ buzzes: breverse }) })
         this.setState({ selectedBuzz: breverse })
@@ -371,12 +372,12 @@ class HomeScreen extends Component {
         Vibration.vibrate()
         if (this.state.log !== "") {
             // this.state.buzzes[this.state.buzzes.length - 1].log
-            if (this.state.buzzes[0].log) {
+            if (this.state.buzzes[this.state.buzzes.length - 1].log) {
                 // this.state.buzzes[this.state.buzzes.length - 1].log
-                this.state.buzzes[0].log.unshift({ entry: this.state.log })
+                this.state.buzzes[this.state.buzzes.length - 1].log.unshift({ entry: this.state.log })
             } else {
                 // this.state.buzzes[this.state.buzzes.length - 1].log
-                this.state.buzzes[0].log = [{ entry: this.state.log }]
+                this.state.buzzes[this.state.buzzes.length - 1].log = [{ entry: this.state.log }]
             }
             this.setState({ log: "", logmodal: false })
             await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
@@ -389,8 +390,8 @@ class HomeScreen extends Component {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         let buzzes, selectedbuzz;
-        // Will be able to remove Functions.reverseArray after buzz storage has been updated - buzzes = this.state.buzzes.map((buzz, id) => {
-        this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
+        // buzzes = this.state.buzzes.map((buzz, id) => {
+        this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
                 {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: 26, textAlign: "center" }}>Current Buzz</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
@@ -401,8 +402,8 @@ class HomeScreen extends Component {
                 </View></View>
             )
         }))
-        // Will be able to remove Functions.reverseArray after buzz storage has been updated - selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
-        this.state.selectedBuzz !== "" && (selectedbuzz = Functions.reverseArray(this.state.selectedBuzz).map((buzz, id) => {
+        // selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
+        this.state.selectedBuzz !== "" && (selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
             return (<View key={id}>
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
@@ -710,10 +711,10 @@ class HomeScreen extends Component {
                     {(this.state.buzzes && this.state.buzzes.length > 0) && <View style={styles.buzzCard}>
                         {buzzes}
                     </View>}
-                    {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[0].log && <View style={styles.buzzCard}>
+                    {/* this.state.buzzes[this.state.buzzes.length - 1].log */}
+                    {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[this.state.buzzes.length - 1].log && <View style={styles.buzzCard}>
                         <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Log</Text>
-                        {/* Will have to check and filter all buzzes with the .log property beforehand */}
-                        {this.state.buzzes[0].log.length > 0 && this.state.buzzes[0].log.map((entries, id) => {
+                        {this.state.buzzes[this.state.buzzes.length - 1].log.length > 0 && this.state.buzzes[this.state.buzzes.length - 1].log.map((entries, id) => {
                             return (<View key={id} style={styles.buzzLog}>
                                 <Text style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
                             </View>
