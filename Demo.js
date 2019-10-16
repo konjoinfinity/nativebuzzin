@@ -37,8 +37,8 @@ class DemoScreen extends Component {
     addDrink() {
         Vibration.vibrate()
         var drinkDate = new Date();
-        // Update method to insert drink object into beginning of array [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes]
-        this.setState(prevState => ({ testbuzzes: [...prevState.testbuzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
+        // [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes]
+        this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => this.checkBac())
         setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) { AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) { AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
@@ -51,7 +51,7 @@ class DemoScreen extends Component {
     async checkBac() {
         if (this.state.testbuzzes.length >= 1) {
             // this.state.buzzes[this.state.testbuzzes.length - 1].dateCreated
-            var duration = Functions.singleDuration(this.state.testbuzzes[0].dateCreated);
+            var duration = Functions.singleDuration(this.state.buzzes[this.state.testbuzzes.length - 1].dateCreated);
             var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.testbuzzes)
             if (totalBac > 0) {
                 totalBac = parseFloat(totalBac.toFixed(6));
@@ -84,17 +84,20 @@ class DemoScreen extends Component {
 
     async undoLastDrink() {
         // this.state.testbuzzes[0].dateCreated
-        if (Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated) < 0.0333333) {
+        if (Functions.singleDuration(this.state.testbuzzes[0].dateCreated) < 0.0333333) {
             Vibration.vibrate()
             var undobuzz = this.state.testbuzzes;
-            // Update to undobuzz.shift()
-            if (undobuzz.length >= 1) { undobuzz.pop(), this.setState({ testbuzzes: undobuzz }, () => this.checkBac()) }
+            // undobuzz.shift();
+            if (undobuzz.length >= 1) {
+                undobuzz.shift();
+                this.setState({ testbuzzes: undobuzz }, () => this.checkBac())
+            }
         }
     }
 
     checkLastDrink() {
         // this.state.buzzes[0].dateCreated
-        if (Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated) < 0.0333333) { return true }
+        if (Functions.singleDuration(this.state.buzzes[0].dateCreated) < 0.0333333) { return true }
         else { return false }
     }
 
@@ -110,8 +113,8 @@ class DemoScreen extends Component {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1], testbuzzes;
         (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
-            // Will be able to remove Functions.reverseArray after buzz storage has been updated
-            (testbuzzes = Functions.reverseArray(this.state.testbuzzes).map((buzz, id) => {
+            // testbuzzes = this.state.testbuzzes.map((buzz, id) => {
+            (testbuzzes = this.state.testbuzzes.map((buzz, id) => {
                 return (
                     <View key={id} style={styles.buzzMap}>
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: 30, textAlign: "center", padding: 5 }}>

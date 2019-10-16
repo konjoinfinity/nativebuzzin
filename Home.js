@@ -30,13 +30,13 @@ var maxRecValues;
 
 // Any hardcoded array positions will have to be updated from [0], [0][0], [buzz/oldbuzz.length - 1] to reverse position 
 
-// var oldbuzzreverse;
-// (async () => { oldbuzzreverse = await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) }) })();
-// console.log(oldbuzzreverse)
-// var oldbuzzinorder = Functions.reverseArray(oldbuzzreverse).map((buzz) => { return Functions.reverseArray(buzz) })
-// console.log(oldbuzzinorder)
-//     (async () => { await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzinorder)) })();
-// (async () => { console.log(await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) })) })();
+var oldbuzzreverse;
+(async () => { oldbuzzreverse = await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) }) })();
+console.log(oldbuzzreverse)
+var oldbuzzinorder = Functions.reverseArray(oldbuzzreverse).map((buzz) => { return Functions.reverseArray(buzz) })
+console.log(oldbuzzinorder)
+    (async () => { await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzinorder)) })();
+(async () => { console.log(await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) })) })();
 
 class HomeScreen extends Component {
     constructor(props) {

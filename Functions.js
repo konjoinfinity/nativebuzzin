@@ -175,13 +175,12 @@ export class Functions {
         var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [],
             maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg
         await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
-            // values will have to be updated when .shift()/.unshift() methods have been implemented
             gender = JSON.parse(result[1][1])
             if (result[0][1] !== null && result[1][1] !== null) {
                 oldbuzzes = JSON.parse(result[0][1])
                 result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
-                // Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[0].length - 1].dateCreated) / 168)
-                var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[0][0].dateCreated) / 168)
+                // var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[0].length - 1].dateCreated) / 168)
+                var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[0].length - 1].dateCreated) / 168)
                 maxrecgender = gender === "Male" ? 14 : 7
                 for (i = 1; i <= numOfArrays; i++) { lastWeeks.push([]) }
                 (oldbuzzes.map((buzz) => {
