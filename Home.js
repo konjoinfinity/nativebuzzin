@@ -30,13 +30,13 @@ var maxRecValues;
 
 // Any hardcoded array positions will have to be updated from [0], [0][0], [buzz/oldbuzz.length - 1] to reverse position 
 
-var oldbuzzreverse;
-(async () => { oldbuzzreverse = await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) }) })();
-console.log(oldbuzzreverse)
-var oldbuzzinorder = Functions.reverseArray(oldbuzzreverse).map((buzz) => { return Functions.reverseArray(buzz) })
-console.log(oldbuzzinorder)
-    (async () => { await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzinorder)) })();
-(async () => { console.log(await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) })) })();
+// var oldbuzzreverse;
+// (async () => { oldbuzzreverse = await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) }) })();
+// console.log(oldbuzzreverse)
+// var oldbuzzinorder = Functions.reverseArray(oldbuzzreverse).map((buzz) => { return Functions.reverseArray(buzz) })
+// console.log(oldbuzzinorder)
+//     (async () => { await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzinorder)) })();
+// (async () => { console.log(await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) })) })();
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -368,12 +368,14 @@ class HomeScreen extends Component {
     }
 
     async addLog() {
-        // This is good, array modification position will be [0]
         Vibration.vibrate()
         if (this.state.log !== "") {
+            // this.state.buzzes[this.state.buzzes.length - 1].log
             if (this.state.buzzes[0].log) {
+                // this.state.buzzes[this.state.buzzes.length - 1].log
                 this.state.buzzes[0].log.unshift({ entry: this.state.log })
             } else {
+                // this.state.buzzes[this.state.buzzes.length - 1].log
                 this.state.buzzes[0].log = [{ entry: this.state.log }]
             }
             this.setState({ log: "", logmodal: false })
