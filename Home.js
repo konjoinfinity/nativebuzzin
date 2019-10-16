@@ -352,8 +352,8 @@ class HomeScreen extends Component {
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var breverse = this.state.buzzes
         breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
-        // ????
-        breverse.sort((a, b) => new Date(Date.parse(a.dateCreated)).getTime() - new Date(Date.parse(b.dateCreated)).getTime());
+        // breverse.sort((a, b) => new Date(Date.parse(b.dateCreated)).getTime() - new Date(Date.parse(a.dateCreated)).getTime());
+        breverse.sort((a, b) => new Date(Date.parse(b.dateCreated)).getTime() - new Date(Date.parse(a.dateCreated)).getTime());
         await AsyncStorage.setItem(key, JSON.stringify(breverse), () => { this.setState({ buzzes: breverse }) })
         this.setState({ selectedBuzz: breverse })
     }
@@ -641,7 +641,7 @@ class HomeScreen extends Component {
                     </View>}
                     {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhour === true && this.state.happyhourtime !== "" &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>No Drinks Until:</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>No drinks until:</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 15, fontWeight: "bold" }}>Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
                             {/* <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("hh")}>
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>

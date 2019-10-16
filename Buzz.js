@@ -73,14 +73,13 @@ class BuzzScreen extends Component {
     }
 
     async editBuzz() {
-        // Will likely have to modify this function to reverse the sort (array should be most recent to oldest) - rename breverse
-        Vibration.vibrate()
+        Vibration.vibrate();
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var breverse = this.state.buzzes
         breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
-        // ?????
-        breverse.sort((a, b) => new Date(Date.parse(a.dateCreated)).getTime() - new Date(Date.parse(b.dateCreated)).getTime());
+        // breverse.sort((a, b) => new Date(Date.parse(b.dateCreated)).getTime() - new Date(Date.parse(a.dateCreated)).getTime());
+        breverse.sort((a, b) => new Date(Date.parse(b.dateCreated)).getTime() - new Date(Date.parse(a.dateCreated)).getTime());
         await AsyncStorage.setItem(key, JSON.stringify(breverse), () => { this.setState({ buzzes: breverse }) })
         this.setState({ selectedBuzz: breverse })
         values = await Functions.maxRecDrinks()
@@ -160,6 +159,7 @@ class BuzzScreen extends Component {
             Alert.alert("Please Enter a Note")
         }
     }
+    // Consider adding a scroll to logs to view
 
     // Will likely remove some lines here 
     async addOldLog() {
@@ -181,6 +181,7 @@ class BuzzScreen extends Component {
             Alert.alert("Please Enter a Note")
         }
     }
+    // Consider adding a scroll to logs to view
 
     render() {
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, logentries;
