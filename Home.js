@@ -323,8 +323,7 @@ class HomeScreen extends Component {
     async deleteBuzz(buzz) {
         Vibration.vibrate()
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
-        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered }) })
-        this.setState({ selectedBuzz: filtered })
+        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
     }
 
     async editBuzz() {

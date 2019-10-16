@@ -40,7 +40,6 @@ class BuzzScreen extends Component {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) })
                 setTimeout(() => {
-                    // this.state.oldbuzzes[0][0].dateCreated
                     var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                 }, 200);
@@ -63,12 +62,9 @@ class BuzzScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
-        // No need to change this function, no reverse
         Vibration.vibrate()
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
-        var reordered = filtered.map((buzz) => { return buzz })
-        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered }) })
-        this.setState({ selectedBuzz: reordered })
+        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
         values = await Functions.maxRecDrinks()
     }
 
@@ -76,39 +72,27 @@ class BuzzScreen extends Component {
         Vibration.vibrate();
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
-        var breverse = this.state.buzzes
-        breverse.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
-        // breverse.sort((a, b) => new Date(Date.parse(b.dateCreated)).getTime() - new Date(Date.parse(a.dateCreated)).getTime());
-        breverse.sort((a, b) => new Date(Date.parse(b.dateCreated)).getTime() - new Date(Date.parse(a.dateCreated)).getTime());
-        await AsyncStorage.setItem(key, JSON.stringify(breverse), () => { this.setState({ buzzes: breverse }) })
-        this.setState({ selectedBuzz: breverse })
+        var editbuzzes = this.state.buzzes
+        editbuzzes.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
+        editbuzzes.sort((a, b) => new Date(Date.parse(b.dateCreated)).getTime() - new Date(Date.parse(a.dateCreated)).getTime());
+        await AsyncStorage.setItem(key, JSON.stringify(editbuzzes), () => { this.setState({ buzzes: editbuzzes, selectedBuzz: editbuzzes }) })
         values = await Functions.maxRecDrinks()
     }
 
     async deleteOldBuzz(obid, oldbuzz) {
         Vibration.vibrate()
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
-        await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
-        // var reordered = filtered.map((buzz) => { return buzz })
-        var reordered = filtered.map((buzz) => { return buzz })
-        this.setState({ selectedOldBuzz: reordered[obid], obid: [obid] })
+        await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
         values = await Functions.maxRecDrinks()
     }
 
-    // This method could be cleaner, will likely remove some lines
     async editOldBuzz(obid) {
         Vibration.vibrate()
-        // var obreverse = this.state.oldbuzzes.map((buzz) => { return buzz })
-        var obreverse = this.state.oldbuzzes.map((buzz) => { return buzz })
-        var lastTime = new Date(Date.parse(obreverse[obid][0].dateCreated))
+        var obnormal = this.state.oldbuzzes
+        var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
         lastTime.setHours(0, 0, 0, 0)
-        obreverse[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
-        // var obnormal = obreverse.map((buzz) => { return buzz })
-        var obnormal = obreverse.map((buzz) => { return buzz })
-        await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal }) })
-        // var reorder = obnormal.map((buzz) => { return buzz })
-        var reorder = obnormal.map((buzz) => { return buzz })
-        this.setState({ selectedOldBuzz: reorder[obid], obid: [obid] })
+        obnormal[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
+        await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal, selectedOldBuzz: obnormal[obid], obid: [obid] }) })
         values = await Functions.maxRecDrinks()
     }
 
@@ -143,14 +127,12 @@ class BuzzScreen extends Component {
     }
 
     async addLog() {
+        // Consider adding a scroll to logs to view
         Vibration.vibrate()
         if (this.state.log !== "") {
-            // this.state.buzzes[this.state.buzzes.length - 1].log
             if (this.state.buzzes[this.state.buzzes.length - 1].log) {
-                // this.state.buzzes[this.state.buzzes.length - 1].log
                 this.state.buzzes[this.state.buzzes.length - 1].log.unshift({ entry: this.state.log })
             } else {
-                // this.state.buzzes[this.state.buzzes.length - 1].log
                 this.state.buzzes[this.state.buzzes.length - 1].log = [{ entry: this.state.log }]
             }
             this.setState({ log: "", logmodal: false })
@@ -159,13 +141,13 @@ class BuzzScreen extends Component {
             Alert.alert("Please Enter a Note")
         }
     }
-    // Consider adding a scroll to logs to view
 
-    // Will likely remove some lines here 
+
+
     async addOldLog() {
+        // Consider adding a scroll to logs to view
         Vibration.vibrate();
-        // var oldbuzzes = this.state.oldbuzzes.map((buzz) => { return buzz })
-        var oldbuzzes = this.state.oldbuzzes.map((buzz) => { return buzz })
+        var oldbuzzes = this.state.oldbuzzes
         var position = this.state.position === "" ? 0 : this.state.position
         if (this.state.oldlog !== "") {
             if (oldbuzzes[position][oldbuzzes[position].length - 1].log) {
@@ -174,18 +156,14 @@ class BuzzScreen extends Component {
                 oldbuzzes[position][oldbuzzes[position].length - 1].log = [{ entry: this.state.oldlog }]
             }
             this.setState({ oldlog: "", oldlogmodal: false, position: "" })
-            // oldbuzzes = oldbuzzes.map((buzz) => { return buzz })
-            oldbuzzes = oldbuzzes.map((buzz) => { return buzz })
             await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes))
         } else {
             Alert.alert("Please Enter a Note")
         }
     }
-    // Consider adding a scroll to logs to view
 
     render() {
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, logentries;
-        // buzzes = this.state.buzzes.map((buzz, id) => {
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
                 {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
@@ -197,8 +175,6 @@ class BuzzScreen extends Component {
                 </View></View>
             )
         }))
-        // oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
-        // return buzz.map((oldbuzz, id) => {
         this.state.oldbuzzes !== null && (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
             return buzz.map((oldbuzz, id) => {
                 return (<View key={id}>
@@ -213,7 +189,6 @@ class BuzzScreen extends Component {
                 )
             })
         }))
-        // selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
         this.state.selectedBuzz !== "" && (selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
             return (<View key={id}>
                 {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>}
@@ -226,7 +201,6 @@ class BuzzScreen extends Component {
             </View>
             )
         }))
-        // selectedoldbuzz = this.state.selectedOldBuzz.map((oldbuzz, id) => {
         this.state.selectedOldBuzz !== "" && (selectedoldbuzz = this.state.selectedOldBuzz.map((oldbuzz, id) => {
             return (<View key={id}>
                 {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY')}</Text>}
@@ -243,7 +217,6 @@ class BuzzScreen extends Component {
         }))
         var buzzarr, buzzarrfiltered;
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarr = this.state.oldbuzzes.reduce((acc, val) => acc.concat(val), []))
-        // buzzarrfiltered = buzzarr.filter(logs => logs.log))
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarrfiltered = buzzarr.filter(logs => logs.log))
         // Should do the same thing for buzzes, just in case position [0] drink object changes mid session
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && buzzarrfiltered.length > 0 && (logentries = buzzarrfiltered.map((buzz, id) => {
@@ -572,15 +545,12 @@ class BuzzScreen extends Component {
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                     </View>}
-                    {/* this.state.buzzes[this.state.buzzes.length - 1].log */}
                     {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[this.state.buzzes.length - 1].log &&
                         <View style={styles.buzzCard}>
                             <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Current Log</Text>
-                            {/* this.state.buzzes[this.state.buzzes.length - 1].log.length // this.state.buzzes[this.state.buzzes.length - 1].log.map((entries, id) => { */}
                             {this.state.buzzes[this.state.buzzes.length - 1].log.length > 0 && this.state.buzzes[this.state.buzzes.length - 1].log.map((entries, id) => {
                                 return (<View key={id} style={styles.buzzLog}>
                                     <Text style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
-                                    {/* this.state.buzzes[this.state.buzzes.length - 1].dateCreated */}
                                     <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(this.state.buzzes[this.state.buzzes.length - 1].dateCreated).format('ddd MMM Do YYYY')}</Text>
                                 </View>
                                 )
