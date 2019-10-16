@@ -37,7 +37,6 @@ class DemoScreen extends Component {
     addDrink() {
         Vibration.vibrate()
         var drinkDate = new Date();
-        // [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes]
         this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => { console.log(this.state.testbuzzes); this.checkBac() })
         setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) { AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
@@ -50,7 +49,6 @@ class DemoScreen extends Component {
 
     async checkBac() {
         if (this.state.testbuzzes.length >= 1) {
-            // this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated
             var duration = Functions.singleDuration(this.state.testbuzzes[this.state.testbuzzes.length - 1].dateCreated);
             var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.testbuzzes)
             if (totalBac > 0) {
@@ -83,11 +81,9 @@ class DemoScreen extends Component {
     }
 
     async undoLastDrink() {
-        // this.state.testbuzzes[0].dateCreated
         if (Functions.singleDuration(this.state.testbuzzes[0].dateCreated) < 0.0333333) {
             Vibration.vibrate()
             var undobuzz = this.state.testbuzzes;
-            // undobuzz.shift();
             if (undobuzz.length >= 1) {
                 undobuzz.shift();
                 this.setState({ testbuzzes: undobuzz }, () => this.checkBac())
@@ -96,7 +92,6 @@ class DemoScreen extends Component {
     }
 
     checkLastDrink() {
-        // this.state.testbuzzes[0].dateCreated
         if (Functions.singleDuration(this.state.testbuzzes[0].dateCreated) < 0.0333333) { return true }
         else { return false }
     }
@@ -113,7 +108,6 @@ class DemoScreen extends Component {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1], testbuzzes;
         (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
-            // testbuzzes = this.state.testbuzzes.map((buzz, id) => {
             (testbuzzes = this.state.testbuzzes.map((buzz, id) => {
                 return (
                     <View key={id} style={styles.buzzMap}>
