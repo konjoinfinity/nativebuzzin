@@ -30,6 +30,14 @@ var maxRecValues;
 
 // Any hardcoded array positions will have to be updated from [0], [0][0], [buzz/oldbuzz.length - 1] to reverse position 
 
+var oldbuzzreverse;
+(async () => { oldbuzzreverse = await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) }) })();
+console.log(oldbuzzreverse)
+var oldbuzzinorder = Functions.reverseArray(oldbuzzreverse).map((buzz) => { return Functions.reverseArray(buzz) })
+console.log(oldbuzzinorder)
+    (async () => { await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzinorder)) })();
+(async () => { console.log(await AsyncStorage.getItem(oldkey, (error, result) => { JSON.parse(result) })) })();
+
 class HomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -85,6 +93,7 @@ class HomeScreen extends Component {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
                 setTimeout(() => {
+                    // this needs to be updated to this.state.oldbuzzes[0][0].dateCreated
                     var durations = Functions.timeSince(this.state.oldbuzzes[this.state.oldbuzzes.length - 1][this.state.oldbuzzes[this.state.oldbuzzes.length - 1].length - 1].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                 }, 200);
@@ -104,6 +113,7 @@ class HomeScreen extends Component {
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
         if (this.state.pacer === true && this.state.buzzes.length >= 1 && this.state.showpacer === false) {
+            // this.state.buzzes[0].dateCreated
             var drinkPacerTime = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated)
             drinkPacerTime = drinkPacerTime * 3600
             if (drinkPacerTime < this.state.pacertime) {
@@ -143,7 +153,7 @@ class HomeScreen extends Component {
     async addDrink() {
         Vibration.vibrate()
         var drinkDate = new Date();
-        // Update method to insert drink object into beginning of array
+        // Update method to insert drink object into beginning of array [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes]
         this.setState(prevState => ({ buzzes: [...prevState.buzzes, { drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }] }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
@@ -169,6 +179,7 @@ class HomeScreen extends Component {
 
     async checkBac() {
         if (this.state.buzzes.length >= 1) {
+            // this.state.buzzes[this.state.buzzes.length - 1].dateCreated
             var duration = Functions.singleDuration(this.state.buzzes[0].dateCreated)
             var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.buzzes)
             if (totalBac > 0) {
@@ -217,7 +228,9 @@ class HomeScreen extends Component {
     async moveToOld() {
         var autobreakcheck, oldbuzzarray = this.state.oldbuzzes, newbuzzarray = this.state.buzzes;
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
+        // oldbuzzarry[0][oldbuzzarray[0].length - 1].dateCreated - newbuzzarray[newbuzzarray.length - 1].dateCreated
         if (new Date(Date.parse(oldbuzzarray[oldbuzzarray.length - 1][0].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[0].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[oldbuzzarray.length - 1][0].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[0].dateCreated)).getMonth()) {
+            // oldbuzzarray[0]
             var combined = [].concat(oldbuzzarray[oldbuzzarray.length - 1], newbuzzarray);
             // replace with .shift()
             oldbuzzarray.pop();
@@ -253,6 +266,7 @@ class HomeScreen extends Component {
     }
 
     async undoLastDrink() {
+        // this.state.buzzes[0].dateCreated
         if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < 0.0333333) {
             Vibration.vibrate()
             var undobuzz;
@@ -266,12 +280,11 @@ class HomeScreen extends Component {
             })
             await AsyncStorage.setItem(key, JSON.stringify(undobuzz), () => { this.checkBac() })
         }
-        if (this.state.showlimit === true && this.state.bac < this.state.limitbac) {
-            this.setState({ showlimit: false })
-        }
+        if (this.state.showlimit === true && this.state.bac < this.state.limitbac) { this.setState({ showlimit: false }) }
     }
 
     checkLastDrink() {
+        // this.state.buzzes[0].dateCreated
         if (Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated) < 0.0333333) { return true }
         else { return false }
     }
@@ -329,6 +342,7 @@ class HomeScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
+        // No need to change this function, no reverse
         Vibration.vibrate()
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         var reordered = filtered.map((buzz) => { return buzz })
@@ -337,6 +351,7 @@ class HomeScreen extends Component {
     }
 
     async editBuzz() {
+        // Will likely have to modify this function to reverse the sort (array should be most recent to oldest) - rename breverse
         Vibration.vibrate()
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
@@ -353,6 +368,7 @@ class HomeScreen extends Component {
     }
 
     async addLog() {
+        // This is good, array modification position will be [0]
         Vibration.vibrate()
         if (this.state.log !== "") {
             if (this.state.buzzes[0].log) {
@@ -371,7 +387,7 @@ class HomeScreen extends Component {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         let buzzes, selectedbuzz;
-        // Will be able to remove Functions.reverseArray after buzz storage has been updated
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated - buzzes = this.state.buzzes.map((buzz, id) => {
         this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = Functions.reverseArray(this.state.buzzes).map((buzz, id) => {
             return (<View key={id}>
                 {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: 26, textAlign: "center" }}>Current Buzz</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
@@ -383,7 +399,7 @@ class HomeScreen extends Component {
                 </View></View>
             )
         }))
-        // Will be able to remove Functions.reverseArray after buzz storage has been updated
+        // Will be able to remove Functions.reverseArray after buzz storage has been updated - selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
         this.state.selectedBuzz !== "" && (selectedbuzz = Functions.reverseArray(this.state.selectedBuzz).map((buzz, id) => {
             return (<View key={id}>
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
@@ -627,7 +643,7 @@ class HomeScreen extends Component {
                     </View>}
                     {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhour === true && this.state.happyhourtime !== "" &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>You are taking a break until:</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>No Drinks Until:</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 15, fontWeight: "bold" }}>Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
                             {/* <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("hh")}>
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>
