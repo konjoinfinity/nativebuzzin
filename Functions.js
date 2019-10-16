@@ -180,6 +180,7 @@ export class Functions {
             if (result[0][1] !== null && result[1][1] !== null) {
                 oldbuzzes = JSON.parse(result[0][1])
                 result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
+                // Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[0].length - 1].dateCreated) / 168)
                 var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[0][0].dateCreated) / 168)
                 maxrecgender = gender === "Male" ? 14 : 7
                 for (i = 1; i <= numOfArrays; i++) { lastWeeks.push([]) }
