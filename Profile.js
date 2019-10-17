@@ -9,7 +9,7 @@ import styles from "./Styles"
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
-    limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey
+    limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey
 } from "./Variables";
 
 
@@ -20,23 +20,23 @@ class ProfileScreen extends Component {
             name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", hours: 0, days: 0, weeks: 0,
             months: 0, autobreak: "", happyhour: "", threshold: "", limit: "", drinks: 0, limitbac: "", cancelbreaks: "",
             custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false,
-            indefbreak: "", limithour: "", pacer: "", setpacer: false, pacertime: ""
+            indefbreak: "", limithour: "", pacer: "", setpacer: false, pacertime: "", setlastcall: false, lastcall: ""
         }
     };
 
     async componentDidMount() {
         Vibration.vibrate();
-        this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false })
+        this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
             drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
-            limithourkey, pacerkey, pacertimekey])
+            limithourkey, pacerkey, pacertimekey, lastcallkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
             indefbreak: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]), pacer: JSON.parse(values[14][1]),
-            pacertime: JSON.parse(values[15][1])
+            pacertime: JSON.parse(values[15][1]), lastcall: JSON.parse(values[16][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -91,7 +91,7 @@ class ProfileScreen extends Component {
         // await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
             limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
-            hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey])
+            hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey])
         this.props.navigation.navigate("Login")
     }
 
@@ -112,10 +112,9 @@ class ProfileScreen extends Component {
             }
         }
         if (statename === "limit" && this.state.limit === true) {
-            await AsyncStorage.removeItem(limitdatekey)
             this.setState({ setlimit: true })
         }
-        if (statename === "limit" && this.state.limit === false) {
+        if (statename === "lastcall" && this.state.lastcall === true) {
             this.saveValues("limithour", limithourkey)
         }
         if (statename === "happyhour" && this.state.happyhour === true) {
@@ -315,7 +314,23 @@ class ProfileScreen extends Component {
                                     rightButtonBackgroundColor={this.state.drinks === 8 ? "#AE0000" : "#00897b"}
                                     leftButtonBackgroundColor={this.state.drinks === 1 ? "#AE0000" : "#00897b"} />
                             </View>
-                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Last Call</Text>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlimit")}>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
+                        </View>}
+                    </View>
+                    <View style={styles.profileCards}>
+                        <View style={styles.endView}>
+                            <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Last Call</Text>
+                            <View style={{ marginLeft: 5, marginRight: 5 }}>
+                                <Switch value={this.state.lastcall} onChange={() => this.handleSwitches("lastcall", lastcallkey, "setlastcall")} /></View>
+                            {this.state.lastcall === false ? <TouchableOpacity style={styles.profileSettingHidden}>
+                                <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
+                                : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setlastcall")}>
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
+                        </View>
+                        {this.state.lastcall === true && this.state.setlastcall === true && <View>
+                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Set Last Call</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.limithour === 19 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 19 }, () => this.saveValues("limithour", limithourkey))}>
                                     <View><Text style={{ fontSize: 16, color: "#ffffff" }}>7PM</Text></View></TouchableOpacity>
@@ -332,7 +347,7 @@ class ProfileScreen extends Component {
                                 <TouchableOpacity style={this.state.limithour === 0 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 0 }, () => this.saveValues("limithour", limithourkey))}>
                                     <View><Text style={{ fontSize: 16, color: "#ffffff" }}>12AM</Text></View></TouchableOpacity>
                             </View>
-                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlimit")}>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setlastcall")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                         </View>}
                     </View>

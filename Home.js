@@ -18,7 +18,7 @@ import {
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
-    pacertimekey, shotsStyle, loginTitle
+    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey
 } from "./Variables";
 
 const CopilotView = walkthroughable(View);
@@ -34,20 +34,21 @@ class HomeScreen extends Component {
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
             showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: "", pacer: "", pacertime: "", showpacer: false,
-            selectedBuzz: "", buzzmodal: false, buzzduration: 30, logmodal: false, log: "", textinputheight: 0
+            selectedBuzz: "", buzzmodal: false, buzzduration: 30, logmodal: false, log: "", textinputheight: 0, lastcall: "",
+            showlastcall: false, limithour: ""
         }
     };
 
     async componentDidMount() {
         Vibration.vibrate()
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
-            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey])
+            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-            pacertime: JSON.parse(values[12][1])
+            pacertime: JSON.parse(values[12][1]), lastcall: JSON.parse(values[13][1]), limithour: JSON.parse(values[14][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
@@ -60,8 +61,8 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(limitdatekey, (error, result) => {
             if (result !== null) {
                 this.setState({ limitdate: JSON.parse(result) })
-                if (this.checkLastCall() === true && this.state.limit === true) { this.setState({ showlimit: true }) }
-            } else { this.setState({ showlimit: false, limitdate: "" }) }
+                if (this.state.lastcall === true) { this.checkLastCall() }
+            }
         })
         await AsyncStorage.getItem(breakdatekey, (error, result) => {
             if (result !== null) {
@@ -278,40 +279,38 @@ class HomeScreen extends Component {
     async stopModeration(stoptype) {
         Vibration.vibrate()
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
-            stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "", limitdate: "" } :
-                stoptype === "ib" ? { indefbreak: false } : { showpacer: false, pacer: false })
+            stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } :
+                stoptype === "ib" ? { indefbreak: false } : stoptype === "lc" ? { limitdate: "", showlastcall: false, lastcall: false } : { showpacer: false, pacer: false })
         if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
-        if (stoptype === "sl") { await AsyncStorage.removeItem(limitdatekey) }
+        if (stoptype === "lc") { await AsyncStorage.removeItem(limitdatekey) }
         var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
         await AsyncStorage.multiSet(stoptype === "break" ? [[breakkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)],
         [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
             stoptype === "hh" ? [[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
                 stoptype === "sl" ? [[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)],
                 [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : stoptype === "ib" ? [[indefbreakkey, JSON.stringify(false)],
+                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : stoptype === "lc" ? [[lastcallkey, JSON.stringify(false)],
                 [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : [[pacerkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
     }
 
-    checkLastCall() {
-        lastCall = Functions.getDayHourMin(this.state.limitdate, new Date)
-        if (lastCall[1] > 0 && lastCall[1] < 12) { return true }
-        else { return false }
-        // if more than 12, reset limitdate to next night
-        // might have to turn this into a this.state.checklastcall
-        //
-        // if (lastCall[1] < 0) { this.setState({ checklastcall: false }) }
-        // if (lastCall[1] > 0 && lastCall[1] < 12) { this.setState({ checklastcall: true }) }
-        // if (lastCall[1] > 12) { 
-        //     this.setState({ checklastcall: false }) 
-        //     if (this.state.limithour !== 0) {
-        //         var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
-        //         await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall))
-        //     } else {
-        //         var midnight = new Date()
-        //         midnight.setDate(midnight.getDate() + 1)
-        //         midnight.setHours(0, 0, 0, 0)
-        //         await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
-        //     }
-        // }
+    async checkLastCall() {
+        var lastCall = Functions.getDayHourMin(new Date(this.state.limitdate), new Date())
+        if (lastCall[1] < 0) { this.setState({ showlastcall: false }) }
+        if (lastCall[2] > 0 && lastCall[1] < 12) { this.setState({ showlastcall: true }) }
+        if (lastCall[1] >= 12) {
+            this.setState({ showlastcall: false })
+            if (this.state.limithour !== 0) {
+                var beforeMidnight = new Date().setHours(this.state.limithour, 0, 0, 0)
+                await AsyncStorage.setItem(limitdatekey, JSON.stringify(beforeMidnight))
+                this.setState({ limitdate: beforeMidnight }, () => console.log(new Date(this.state.limitdate)))
+            } else {
+                var midnight = new Date()
+                midnight.setDate(midnight.getDate() + 1)
+                midnight.setHours(0, 0, 0, 0)
+                await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
+                this.setState({ limitdate: midnight }, () => console.log(this.state.limitdate))
+            }
+        }
     }
 
     buzzModal() {
@@ -356,7 +355,6 @@ class HomeScreen extends Component {
     }
 
     async addLog() {
-        // Consider adding a scroll to after log has been entered
         Vibration.vibrate()
         if (this.state.log !== "") {
             if (this.state.buzzes[this.state.buzzes.length - 1].log) {
@@ -541,7 +539,7 @@ class HomeScreen extends Component {
                             </CopilotView>
                         </CopilotStep>
                     </View>
-                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false &&
+                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false &&
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView><View style={styles.cardView}>
                                 <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
@@ -669,7 +667,7 @@ class HomeScreen extends Component {
                                     <Text style={styles.buttonText}>Cancel Set Limit</Text>
                                 </TouchableOpacity>}
                         </View>}
-                    {this.state.lastcall === true && this.checkLastCall() === true && this.state.bac < 0.10 && this.state.showpacer === false &&
+                    {this.state.lastcall === true && this.state.showlastcall === true && this.state.bac < 0.10 && this.state.showpacer === false &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
