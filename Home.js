@@ -106,9 +106,6 @@ class HomeScreen extends Component {
                 this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
             }
         }
-        // var oldbuzzreverse = this.state.oldbuzzes
-        // var oldbuzzinorder = Functions.reverseArray(oldbuzzreverse).map((buzz) => { return Functions.reverseArray(buzz) })
-        // await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzinorder))
     }
 
     componentWillUnmount() {

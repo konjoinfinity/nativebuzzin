@@ -137,13 +137,6 @@ export class Functions {
         }
     }
 
-    // This function will be deleted when data storing/accessing methods have been updated to .shift()/.unshift()
-    // static reverseArray(array) {
-    //     var reversedArray = [];
-    //     for (var i = array.length - 1; i >= 0; i--) { reversedArray.push(array[i]) }
-    //     return reversedArray;
-    // }
-
     static bacEmotion(bac) {
         if (bac > 0.00 && bac < 0.01) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😊" : "🙂"] }
         else if (bac >= 0.01 && bac < 0.02) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "☺️" : "😊"] }
