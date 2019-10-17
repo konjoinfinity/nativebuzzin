@@ -27,7 +27,7 @@ class BuzzScreen extends Component {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
             selectedBuzz: "", buzzduration: 30, logmodal: false, log: "", textinputheight: 0, oldlogmodal: false, oldlog: "",
-            position: "", oldposition: ""
+            position: "", oldposition: "", showlogs: false
         }
     };
 
@@ -142,8 +142,6 @@ class BuzzScreen extends Component {
         }
     }
 
-
-
     async addOldLog() {
         // Consider adding a scroll to logs to view
         Vibration.vibrate();
@@ -156,10 +154,17 @@ class BuzzScreen extends Component {
                 oldbuzzes[position][oldbuzzes[position].length - 1].log = [{ entry: this.state.oldlog }]
             }
             this.setState({ oldlog: "", oldlogmodal: false, position: "" })
+            if (this.state.showlogs === false) { this.setState({ showlogs: true }) }
             await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes))
+            // this.scrolltop.scrollToEnd({ animated: true, duration: 500 });
         } else {
             Alert.alert("Please Enter a Note")
         }
+    }
+
+    showHideLogs() {
+        this.setState(prevState => ({ showlogs: !prevState.showlogs }))
+        Vibration.vibrate()
     }
 
     render() {
@@ -250,7 +255,7 @@ class BuzzScreen extends Component {
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
-                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "center", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight) }}
+                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 5, paddingRight: 5 }}
                                 placeholder="" autoFocus={true} returnKeyType={"default"} blurOnSubmit={true} value={this.state.log}
                                 onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
@@ -269,7 +274,7 @@ class BuzzScreen extends Component {
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
-                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "center", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight) }}
+                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 5, paddingRight: 5 }}
                                 placeholder="" autoFocus={true} returnKeyType={"default"} blurOnSubmit={true} value={this.state.oldlog}
                                 onChangeText={(oldlog) => this.setState({ oldlog })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
@@ -558,8 +563,12 @@ class BuzzScreen extends Component {
                         </View>}
                     {this.state.oldbuzzes && logentries !== undefined &&
                         <View style={styles.buzzCard}>
-                            <View style={{ flexDirection: "row", justifyContent: "center" }}><Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ oldlogmodal: true })}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>
-                            {logentries}
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                                <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
+                                <TouchableOpacity style={[styles.plusMinusButtons, { marginTop: 2 }]} onPress={() => this.setState({ oldlogmodal: true })}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
+                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show" : "Hide"}</Text></TouchableOpacity>
+                            </View>
+                            {this.state.showlogs === true && <View style={{ marginTop: 5 }}>{logentries}</View>}
                         </View>}
                 </ScrollView>
             </View >

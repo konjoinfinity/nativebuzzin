@@ -293,8 +293,25 @@ class HomeScreen extends Component {
 
     checkLastCall() {
         lastCall = Functions.getDayHourMin(this.state.limitdate, new Date)
-        if (lastCall[0] + lastCall[1] + lastCall[2] + lastCall[3] > 0) { return true }
+        if (lastCall[1] > 0 && lastCall[1] < 12) { return true }
         else { return false }
+        // if more than 12, reset limitdate to next night
+        // might have to turn this into a this.state.checklastcall
+        //
+        // if (lastCall[1] < 0) { this.setState({ checklastcall: false }) }
+        // if (lastCall[1] > 0 && lastCall[1] < 12) { this.setState({ checklastcall: true }) }
+        // if (lastCall[1] > 12) { 
+        //     this.setState({ checklastcall: false }) 
+        //     if (this.state.limithour !== 0) {
+        //         var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
+        //         await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall))
+        //     } else {
+        //         var midnight = new Date()
+        //         midnight.setDate(midnight.getDate() + 1)
+        //         midnight.setHours(0, 0, 0, 0)
+        //         await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
+        //     }
+        // }
     }
 
     buzzModal() {
@@ -349,6 +366,7 @@ class HomeScreen extends Component {
             }
             this.setState({ log: "", logmodal: false })
             await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
+            this.scrolltop.scrollToEnd({ animated: true, duration: 500 });
         } else {
             Alert.alert("Please Enter a Note")
         }
@@ -398,7 +416,7 @@ class HomeScreen extends Component {
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
-                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "center", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight) }}
+                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 5, paddingRight: 5 }}
                                 placeholder="" autoFocus={true} returnKeyType={"default"} blurOnSubmit={true} value={this.state.log}
                                 onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
@@ -636,29 +654,29 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>}
                     </View>}
-                    {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks || this.checkLastCall() === true) && this.state.bac < 0.10 && this.state.showpacer === false && <View style={styles.cardView}>
-                        {this.checkLastCall() === false ?
-                            <View>
-                                <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>You have reached your:</Text>
-                                {this.state.bac > this.state.limitbac && <Text style={{ fontSize: 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>BAC Limit - {this.state.limitbac}</Text>}
-                                {this.state.buzzes.length >= this.state.drinks && <Text style={{ fontSize: 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && "& "} Set Drink Limit - {this.state.drinks}</Text>}
-                                <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Until your BAC reaches 0.0, stop drinking and have some water.</Text>
-                                {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
-                                    <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                        <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
-                                            <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
-                                        </TouchableOpacity>
-                                    </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
-                                        <Text style={styles.buttonText}>Cancel Set Limit</Text>
-                                    </TouchableOpacity>}
-                            </View> : <View>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
-                                <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
-                                <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
-                                    <Text style={styles.buttonText}>Cancel Last Call</Text>
-                                </TouchableOpacity>
-                            </View>}
-                    </View>}
+                    {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) && this.state.bac < 0.10 && this.state.showpacer === false &&
+                        <View style={styles.cardView}>
+                            <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>You have reached your:</Text>
+                            {this.state.bac > this.state.limitbac && <Text style={{ fontSize: 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>BAC Limit - {this.state.limitbac}</Text>}
+                            {this.state.buzzes.length >= this.state.drinks && <Text style={{ fontSize: 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && "& "} Set Drink Limit - {this.state.drinks}</Text>}
+                            <Text style={{ fontSize: 18, textAlign: "center", padding: 5 }}>Until your BAC reaches 0.0, stop drinking and have some water.</Text>
+                            {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
+                                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                    <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
+                                        <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
+                                    </TouchableOpacity>
+                                </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
+                                    <Text style={styles.buttonText}>Cancel Set Limit</Text>
+                                </TouchableOpacity>}
+                        </View>}
+                    {this.state.lastcall === true && this.checkLastCall() === true && this.state.bac < 0.10 && this.state.showpacer === false &&
+                        <View style={styles.cardView}>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
+                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("lc")}>
+                                <Text style={styles.buttonText}>Cancel Last Call</Text>
+                            </TouchableOpacity>
+                        </View>}
                     {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
                         <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>Drink Pacer</Text>
                         <CountDown size={28} until={this.state.pacertime} onFinish={() => this.countDownFinished()}
