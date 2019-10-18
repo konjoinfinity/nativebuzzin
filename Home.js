@@ -107,6 +107,14 @@ class HomeScreen extends Component {
                 this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
             }
         }
+        var testdate = new Date
+        console.log(testdate)
+        // testdate = JSON.stringify(testdate)
+        // console.log(testdate)
+        // testdate = JSON.parse(testdate)
+        // console.log(testdate)
+        // testdate = Date.parse(testdate)
+        // console.log(testdate)
     }
 
     componentWillUnmount() {
@@ -295,13 +303,16 @@ class HomeScreen extends Component {
     }
 
     async checkLastCall() {
-        var lastCall = Functions.getDayHourMin(new Date(this.state.limitdate), new Date())
+        checkdate = new Date(1571505620000)
+        console.log(checkdate)
+        console.log(new Date(this.state.limitdate))
+        var lastCall = Functions.getDayHourMin(new Date(this.state.limitdate), checkdate)
         if (lastCall[1] < 0) { this.setState({ showlastcall: false }) }
         if (lastCall[2] > 0 && lastCall[1] < 12) { this.setState({ showlastcall: true }) }
         if (lastCall[1] >= 12) {
             this.setState({ showlastcall: false })
             if (this.state.limithour !== 0) {
-                var beforeMidnight = new Date().setHours(this.state.limithour, 0, 0, 0)
+                var beforeMidnight = checkdate.setHours(this.state.limithour, 0, 0, 0)
                 await AsyncStorage.setItem(limitdatekey, JSON.stringify(beforeMidnight))
                 this.setState({ limitdate: beforeMidnight }, () => console.log(new Date(this.state.limitdate)))
             } else {
@@ -369,6 +380,12 @@ class HomeScreen extends Component {
         } else {
             Alert.alert("Please Enter a Note")
         }
+    }
+
+    showLastCall() {
+        console.log("show last call")
+        if (this.state.showlastcall === true) { return true }
+        else { return false }
     }
 
     render() {
@@ -668,7 +685,7 @@ class HomeScreen extends Component {
                                     <Text style={styles.buttonText}>Cancel Set Limit</Text>
                                 </TouchableOpacity>}
                         </View>}
-                    {this.state.lastcall === true && this.state.showlastcall === true && this.state.bac < 0.10 && this.state.showpacer === false &&
+                    {this.state.lastcall === true && this.showLastCall() === true && this.state.bac < 0.10 && this.state.showpacer === false &&
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
