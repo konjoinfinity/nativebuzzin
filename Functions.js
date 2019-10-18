@@ -165,7 +165,7 @@ export class Functions {
     }
 
     static async maxRecDrinks() {
-        var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [],
+        var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [],
             maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg
         await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
             gender = JSON.parse(result[1][1])
@@ -189,6 +189,7 @@ export class Functions {
                 for (i = 0; i < numOfArrays; i++) {
                     weeksData.push(lastWeeks[i].length)
                     maxrecdata.push(maxrecgender)
+                    trendLine.push(lastWeeks[i].length / 7)
                 }
                 weekColor = this.barColor(sevenArray.length + buzzes.length, "seven", gender)
                 monthColor = this.barColor(thirtyArray.length, "thirty", gender)
@@ -206,7 +207,7 @@ export class Functions {
                 }
             }
         })
-        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, avg]
+        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, trendLine, avg]
     }
 
     static getBAC(weight, gender, hours, buzz) {

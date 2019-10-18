@@ -37,7 +37,7 @@ class DemoScreen extends Component {
     addDrink() {
         Vibration.vibrate()
         var drinkDate = new Date();
-        this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => { console.log(this.state.testbuzzes); this.checkBac() })
+        this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => { this.checkBac() })
         setTimeout(() => {
             if (this.state.bac > 0.04 && this.state.bac < 0.06) { AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) { AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
