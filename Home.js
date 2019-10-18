@@ -107,14 +107,6 @@ class HomeScreen extends Component {
                 this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
             }
         }
-        var testdate = new Date
-        console.log(testdate)
-        // testdate = JSON.stringify(testdate)
-        // console.log(testdate)
-        // testdate = JSON.parse(testdate)
-        // console.log(testdate)
-        // testdate = Date.parse(testdate)
-        // console.log(testdate)
     }
 
     componentWillUnmount() {
@@ -303,24 +295,21 @@ class HomeScreen extends Component {
     }
 
     async checkLastCall() {
-        checkdate = new Date(1571505620000)
-        console.log(checkdate)
-        console.log(new Date(this.state.limitdate))
-        var lastCall = Functions.getDayHourMin(new Date(this.state.limitdate), checkdate)
-        if (lastCall[1] < 0) { this.setState({ showlastcall: false }) }
-        if (lastCall[2] > 0 && lastCall[1] < 12) { this.setState({ showlastcall: true }) }
+        var lastCall = Functions.getDayHourMin(new Date(this.state.limitdate), new Date)
+        if (lastCall[3] < 0) { this.setState({ showlastcall: false }) }
+        if (lastCall[3] >= 0 && lastCall[1] < 12) { this.setState({ showlastcall: true }) }
         if (lastCall[1] >= 12) {
             this.setState({ showlastcall: false })
             if (this.state.limithour !== 0) {
-                var beforeMidnight = checkdate.setHours(this.state.limithour, 0, 0, 0)
+                var beforeMidnight = new Date().setHours(this.state.limithour, 0, 0, 0)
                 await AsyncStorage.setItem(limitdatekey, JSON.stringify(beforeMidnight))
-                this.setState({ limitdate: beforeMidnight }, () => console.log(new Date(this.state.limitdate)))
+                this.setState({ limitdate: beforeMidnight })
             } else {
                 var midnight = new Date()
                 midnight.setDate(midnight.getDate() + 1)
                 midnight.setHours(0, 0, 0, 0)
                 await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
-                this.setState({ limitdate: midnight }, () => console.log(this.state.limitdate))
+                this.setState({ limitdate: midnight })
             }
         }
     }
@@ -383,7 +372,6 @@ class HomeScreen extends Component {
     }
 
     showLastCall() {
-        console.log("show last call")
         if (this.state.showlastcall === true) { return true }
         else { return false }
     }
