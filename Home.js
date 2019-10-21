@@ -382,7 +382,7 @@ class HomeScreen extends Component {
         let buzzes, selectedbuzz;
         this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: 26, textAlign: "center" }}>Current Buzz</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: 26, textAlign: "center" }}>Current Buzz</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
@@ -417,13 +417,13 @@ class HomeScreen extends Component {
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity></View></ScrollView></Modal>
                 <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
-                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }}>
+                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.loginput.blur()}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
                             <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 8, paddingRight: 8 }}
-                                placeholder="" autoFocus={true} returnKeyType={"default"} blurOnSubmit={true} value={this.state.log}
-                                onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
-                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
+                                placeholder="" returnKeyType={"default"} blurOnSubmit={true} value={this.state.log} ref={(input) => { this.loginput = input }} onFocus={() => this.loginput.focus()}
+                                onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => { Keyboard.dismiss(); this.addLog() }} multiline={true} onBlur={() => { Keyboard.dismiss() }}
+                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} returnKeyType={'done'} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ log: "", logmodal: false })}>
                                     <Text style={styles.buttonText}>Cancel</Text>

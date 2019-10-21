@@ -171,7 +171,7 @@ class BuzzScreen extends Component {
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, logentries;
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
@@ -252,13 +252,13 @@ class BuzzScreen extends Component {
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => Vibration.vibrate()} />
                 <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
-                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }}>
+                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.loginput.blur()}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
                             <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 8, paddingRight: 8 }}
-                                placeholder="" autoFocus={true} returnKeyType={"default"} blurOnSubmit={true} value={this.state.log}
-                                onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
-                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
+                                placeholder="" returnKeyType={"default"} blurOnSubmit={true} value={this.state.log} ref={(input) => { this.loginput = input }} onFocus={() => this.loginput.focus()}
+                                onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => { Keyboard.dismiss(); this.addLog() }} multiline={true} onBlur={() => { Keyboard.dismiss() }}
+                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} returnKeyType={'done'} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ log: "", logmodal: false })}>
                                     <Text style={styles.buttonText}>Cancel</Text>
@@ -271,13 +271,13 @@ class BuzzScreen extends Component {
                     </View>
                 </Modal>
                 <Modal animationType="fade" transparent={true} visible={this.state.oldlogmodal}>
-                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }}>
+                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.oldloginput.blur()}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
                             <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 8, paddingRight: 8 }}
-                                placeholder="" autoFocus={true} returnKeyType={"default"} blurOnSubmit={true} value={this.state.oldlog}
-                                onChangeText={(oldlog) => this.setState({ oldlog })} onSubmitEditing={() => Keyboard.dismiss()} multiline={true}
-                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
+                                placeholder="" returnKeyType={"default"} blurOnSubmit={true} value={this.state.oldlog} ref={(input) => { this.oldloginput = input }}
+                                onChangeText={(oldlog) => this.setState({ oldlog })} onSubmitEditing={() => { Keyboard.dismiss(); this.addOldLog() }} multiline={true} onFocus={() => this.oldloginput.focus()}
+                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} returnKeyType={'done'} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ oldlog: "", oldlogmodal: false, position: "" })}>
                                     <Text style={styles.buttonText}>Cancel</Text>
@@ -565,7 +565,7 @@ class BuzzScreen extends Component {
                         <View style={styles.buzzCard}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                 <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
-                                <TouchableOpacity style={[styles.plusMinusButtons, { marginTop: 2 }]} onPress={() => this.setState({ oldlogmodal: true })}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
+                                <TouchableOpacity style={[styles.plusMinusButtons, { marginTop: 2 }]} onPress={() => this.setState({ oldlogmodal: true }, () => { this.oldloginput.focus() })}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
                                 <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show" : "Hide"}</Text></TouchableOpacity>
                             </View>
                             {this.state.showlogs === true && <View style={{ marginTop: 5 }}>{logentries}</View>}
