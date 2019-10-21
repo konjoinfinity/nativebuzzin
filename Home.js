@@ -714,6 +714,4 @@ class HomeScreen extends Component {
     }
 }
 
-
-
 export default copilot((Platform.OS === 'ios') ? { androidStatusBarVisible: false } : { androidStatusBarVisible: true })(HomeScreen);

@@ -73,6 +73,11 @@ const styles = StyleSheet.create({
         elevation: undoTrash
     },
     infoButton: {
+        height: 30, width: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginLeft: 15,
+        borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount,
+        padding: 2
+    },
+    logButton: {
         height: 30, width: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 15,
         borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount,
         padding: 2

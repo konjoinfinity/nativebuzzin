@@ -10,6 +10,8 @@ import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LogScreen from "./Log"
 
 const AppStack = createStackNavigator({
     MyTab: {
@@ -39,11 +41,16 @@ const AppStack = createStackNavigator({
                 color: "#ffffff", fontSize: 25, fontWeight: '400',
                 paddingTop: Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 ? 25 : 0
             },
-            headerRight: (<View style={{ flexDirection: "row" }}>
+            headerLeft: (<View style={{ flexDirection: "row" }}>
                 <TouchableOpacity style={styles.infoButton} onPress={() => navigation.push("Info")}>
-                    <View><Image style={{ width: 25, height: 25 }} source={require('./info.png')}></Image></View></TouchableOpacity></View>)
+                    <View><Image style={{ width: 25, height: 25 }} source={require('./info.png')}></Image></View></TouchableOpacity></View>),
+            headerRight: (<View style={{ flexDirection: "row" }}>
+                <TouchableOpacity style={styles.logButton} onPress={() => navigation.push("Log")}>
+                    <View><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></View></TouchableOpacity></View>)
         })
-    }, Info: InfoScreen
+    },
+    Info: InfoScreen,
+    Log: LogScreen
 }, { headerLayoutPreset: 'center' })
 
 const AuthStack = createStackNavigator({ Login: LoginScreen },

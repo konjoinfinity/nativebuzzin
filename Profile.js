@@ -287,7 +287,7 @@ class ProfileScreen extends Component {
                     </View>
                     <View style={styles.profileCards}>
                         <View style={styles.endView}>
-                            <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Set Limit</Text>
+                            <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Session Limits</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
                             {this.state.limit === false ? <TouchableOpacity style={styles.profileSettingHidden}>
