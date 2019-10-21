@@ -63,7 +63,7 @@ class LogScreen extends Component {
             return (<View key={id} style={[styles.buzzLog, { flexDirection: "row", justifyContent: "space-evenly" }]}>
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: 250 }}>{log.log}</Text>
-                    <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
+                    <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
                 <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.deleteLog(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
