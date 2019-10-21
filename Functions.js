@@ -166,7 +166,7 @@ export class Functions {
 
     static async maxRecDrinks() {
         var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [],
-            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg, trendArr = [];
+            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg;
         await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
             gender = JSON.parse(result[1][1])
             if (result[0][1] !== null && result[1][1] !== null) {
@@ -199,11 +199,6 @@ export class Functions {
                 monthly = gender === "Male" ? 56 : 28
                 pushavg = weeksData.reduce((a, b) => a.concat(b), []).reduce((a, b) => a + b, 0) / weeksData.length
                 avg = Array(maxrecdata.length).fill(pushavg)
-                // var cumulativeTotal = weeksData.reduce((a, b) => a.concat(b), []).reduce((a, b) => a + b, 0);
-                // console.log(cumulativeTotal) - cumulativeTotal
-                for (i = 0; i < weeksData.length; i++) {
-                    trendArr.push(weeksData[i] / 7)
-                }
             } else {
                 if (result[2][1] !== null && result[2][1] !== "[]") {
                     buzzes = JSON.parse(result[2][1])
@@ -213,7 +208,7 @@ export class Functions {
                 }
             }
         })
-        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, trendArr, avg]
+        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, avg]
     }
 
     static getBAC(weight, gender, hours, buzz) {
