@@ -27,21 +27,20 @@ class LogScreen extends Component {
     }
 
     async addLog() {
-        // Consider adding a scroll to logs to view
-        // Create new log data model here
-        // Add ability to delete entries as well
-        // Store separately from buzzes
         Vibration.vibrate()
         if (this.state.log !== "") {
-            console.log(this.state.logs)
             var newLog = this.state.logs
-            console.log(newLog)
             var logDate = new Date();
             newLog.unshift({ log: this.state.log, dateCreated: logDate })
-            console.log(newLog)
-            this.setState({ log: "", logmodal: false, logs: newLog }, () => console.log(this.state.logs))
+            this.setState({ log: "", logmodal: false, logs: newLog })
             await AsyncStorage.setItem(logskey, JSON.stringify(newLog))
-            if (this.state.showlogs === false) { this.setState({ showlogs: true }) }
+            if (this.state.showlogs === false) {
+                this.setState({ showlogs: true }, () => {
+                    setTimeout(() => {
+                        this.scrolltop.scrollTo({ y: 130, animated: true })
+                    }, 750)
+                })
+            }
         } else {
             Alert.alert("Please Enter a Note")
         }
@@ -49,8 +48,7 @@ class LogScreen extends Component {
 
     async deleteLog(log) {
         var filtered = this.state.logs.filter(deleted => deleted !== log)
-        console.log(filtered)
-        this.setState({ log: "", logmodal: false, logs: filtered }, () => console.log(this.state.logs))
+        this.setState({ log: "", logmodal: false, logs: filtered })
         await AsyncStorage.setItem(logskey, JSON.stringify(filtered))
     }
 
@@ -64,7 +62,7 @@ class LogScreen extends Component {
         this.state.logs && this.state.logs.length > 0 && (eachlog = this.state.logs.map((log, id) => {
             return (<View key={id} style={[styles.buzzLog, { flexDirection: "row", justifyContent: "space-evenly" }]}>
                 <View style={{ flexDirection: "column" }}>
-                    <Text style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{log.log}</Text>
+                    <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: 250 }}>{log.log}</Text>
                     <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
                 <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.deleteLog(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
@@ -91,7 +89,7 @@ class LogScreen extends Component {
                         </View>
                     </View>
                 </Modal>
-                <ScrollView>
+                <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 10, marginTop: 10 }}><Text style={styles.infoTitle}>New Log</Text>
                             <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity></View>

@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
     },
     deleteLogButtons: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginTop: 10,
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', margin: 10,
         borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
     },
     profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
