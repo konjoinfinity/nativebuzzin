@@ -166,7 +166,7 @@ export class Functions {
 
     static async maxRecDrinks() {
         var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [],
-            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg
+            maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg, trendArr = [];
         await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
             gender = JSON.parse(result[1][1])
             if (result[0][1] !== null && result[1][1] !== null) {
@@ -189,6 +189,7 @@ export class Functions {
                 for (i = 0; i < numOfArrays; i++) {
                     weeksData.push(lastWeeks[i].length)
                     maxrecdata.push(maxrecgender)
+
                     trendLine.push(lastWeeks[i].length / 7)
                 }
                 weekColor = this.barColor(sevenArray.length + buzzes.length, "seven", gender)
@@ -198,16 +199,21 @@ export class Functions {
                 monthly = gender === "Male" ? 56 : 28
                 pushavg = weeksData.reduce((a, b) => a.concat(b), []).reduce((a, b) => a + b, 0) / weeksData.length
                 avg = Array(maxrecdata.length).fill(pushavg)
+                // var cumulativeTotal = weeksData.reduce((a, b) => a.concat(b), []).reduce((a, b) => a + b, 0);
+                // console.log(cumulativeTotal) - cumulativeTotal
+                for (i = 0; i < weeksData.length; i++) {
+                    trendArr.push(weeksData[i] / 7)
+                }
             } else {
                 if (result[2][1] !== null && result[2][1] !== "[]") {
                     buzzes = JSON.parse(result[2][1])
-                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = this.barColor(buzzes.length, "seven", gender), monthColor = ["#ffffff", "0 Drinks"], sevenData = [buzzes.length], thirtyData = [0], weekly = 14, monthly = 56, avg = [0]
+                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = this.barColor(buzzes.length, "seven", gender), monthColor = ["#ffffff", "0 Drinks"], sevenData = [buzzes.length], thirtyData = [0], weekly = 14, monthly = 56, trendArr = [0], avg = [0]
                 } else {
-                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56, avg = [0]
+                    weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56, trendArr = [0], avg = [0]
                 }
             }
         })
-        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, trendLine, avg]
+        return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, trendArr, avg]
     }
 
     static getBAC(weight, gender, hours, buzz) {
