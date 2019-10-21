@@ -8,7 +8,7 @@ import styles from "./Styles"
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
-    loginTitle, indefbreakkey, limithourkey, limitdatekey, pacerkey, pacertimekey, lastcallkey
+    loginTitle, indefbreakkey, limithourkey, limitdatekey, pacerkey, pacertimekey, lastcallkey, amount
 } from "./Variables";
 
 class LoginScreen extends React.Component {
@@ -20,7 +20,8 @@ class LoginScreen extends React.Component {
     }
 
     componentDidMount() {
-        Vibration.vibrate()
+        Vibration.vibrate();
+        this.nameinput.focus();
     }
 
     handleModal() {
@@ -54,7 +55,7 @@ class LoginScreen extends React.Component {
         return (
             <KeyboardAvoidingView style={styles.logincontainer} behavior={(Platform.OS === 'ios') ? "padding" : null}>
                 <ScrollView>
-                    <View onStartShouldSetResponderCapture={(e) => { Keyboard.dismiss() }} style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                    <View onStartShouldSetResponder={() => this.nameinput.blur()} style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Modal animationType="slide" transparent={false} visible={this.state.modal}>
                             <ScrollView>
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10 }}>
@@ -71,12 +72,12 @@ class LoginScreen extends React.Component {
                             </ScrollView></Modal>
                         <Text style={[styles.loginheader, { fontSize: loginTitle }]}>Login</Text>
                         <View style={styles.logininputContainer}>
-                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name" autoFocus={true}
-                                name="name" id="name" returnKeyType={"default"} blurOnSubmit={true} value={this.state.name}
-                                onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} />
+                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name"
+                                name="name" id="name" returnKeyType={"default"} blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
+                                onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
-                            <TouchableOpacity style={styles.loginbutton} onPress={() => this.switchGender()}><Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Switch Gender ♂♀</Text></TouchableOpacity>
+                            <TouchableOpacity style={[styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.switchGender()}><Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Choose Gender ♂♀</Text></TouchableOpacity>
                             <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Text style={{ fontSize: loginGenderText, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                             </View>
@@ -89,7 +90,7 @@ class LoginScreen extends React.Component {
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
-                            <TouchableOpacity style={styles.loginbutton} onPress={() => this.handleModal()}>
+                            <TouchableOpacity style={[styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal()}>
                                 <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Login</Text>
                             </TouchableOpacity>
                         </View>
