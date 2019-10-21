@@ -98,6 +98,10 @@ const styles = StyleSheet.create({
         borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, opacity: 0.8, shadowOpacity: 0.35,
         shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount, marginRight: 40
     },
+    addLogButton: {
+        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b',
+        borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
+    },
     profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
     dangerOkButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
     warnOkButton: { borderWidth: 1, borderColor: "#f9a825", backgroundColor: "#f9a825", padding: 15, margin: 5, borderRadius: 15 },
@@ -138,7 +142,8 @@ const styles = StyleSheet.create({
     infoList: { fontSize: 15, textAlign: "center", padding: 1 },
     pacerbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15 },
     selectedpacerbutton: { borderWidth: 1, borderColor: "#1de9b6", backgroundColor: "#1de9b6", padding: 15, margin: 5, borderRadius: 15 },
-    buzzLog: { backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }
+    buzzLog: { backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 },
+    logbuttonText: { color: "#FFFFFF", fontSize: 28, textAlign: "center" }
 })
 
 export default styles;
