@@ -4,6 +4,7 @@ import styles from "./Styles"
 import { loginButtonText, logskey } from "./Variables"
 import AsyncStorage from '@react-native-community/async-storage'
 import moment from "moment";
+import Icon from "react-native-vector-icons/FontAwesome5"
 
 class LogScreen extends Component {
     constructor(props) {
@@ -40,6 +41,7 @@ class LogScreen extends Component {
             console.log(newLog)
             this.setState({ log: "", logmodal: false, logs: newLog }, () => console.log(this.state.logs))
             await AsyncStorage.setItem(logskey, JSON.stringify(newLog))
+            if (this.state.showlogs === false) { this.setState({ showlogs: true }) }
         } else {
             Alert.alert("Please Enter a Note")
         }
@@ -64,7 +66,7 @@ class LogScreen extends Component {
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{log.log}</Text>
                     <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteLog(log)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.deleteLog(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
         }))
@@ -91,10 +93,13 @@ class LogScreen extends Component {
                 </Modal>
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 20, marginTop: 10 }}><Text style={styles.infoTitle}>New Log</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 10, marginTop: 10 }}><Text style={styles.infoTitle}>New Log</Text>
                             <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity></View>
                     </View>
-                    <View style={styles.buzzCard}><View style={{ flexDirection: "row", justifyContent: "space-evenly" }}><Text style={{ fontSize: loginButtonText, textAlign: "center" }}>Logs</Text><TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show" : "Hide"}</Text></TouchableOpacity></View>
+                    <View style={styles.buzzCard}><View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 10 }}>
+                        <Text style={{ fontSize: 28, padding: 10 }}>Logs</Text>
+                        <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show" : "Hide"}</Text></TouchableOpacity>
+                    </View>
                         {this.state.logs && eachlog !== undefined && this.state.showlogs === true && <View>{eachlog}</View>}
                     </View>
                 </ScrollView>

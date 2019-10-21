@@ -227,7 +227,7 @@ class BuzzScreen extends Component {
         this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && buzzarrfiltered.length > 0 && (logentries = buzzarrfiltered.map((buzz, id) => {
             return (<View key={id} style={styles.buzzLog}>
                 {buzz.log.map((logs, id) => {
-                    return (<Text key={id} style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{logs.entry}</Text>)
+                    return (<Text key={id} selectable={true} style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{logs.entry}</Text>)
                 })}
                 <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>
             </View>

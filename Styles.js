@@ -102,6 +102,10 @@ const styles = StyleSheet.create({
         height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b',
         borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
     },
+    deleteLogButtons: {
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginTop: 10,
+        borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
+    },
     profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
     dangerOkButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
     warnOkButton: { borderWidth: 1, borderColor: "#f9a825", backgroundColor: "#f9a825", padding: 15, margin: 5, borderRadius: 15 },
