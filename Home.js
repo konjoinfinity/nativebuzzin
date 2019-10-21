@@ -421,7 +421,7 @@ class HomeScreen extends Component {
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
                             <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 8, paddingRight: 8 }}
-                                placeholder="" returnKeyType={"default"} blurOnSubmit={true} value={this.state.log} ref={(input) => { this.loginput = input }} onFocus={() => this.loginput.focus()}
+                                placeholder="" blurOnSubmit={true} value={this.state.log} ref={(input) => { this.loginput = input }} onFocus={() => this.loginput.focus()}
                                 onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => { Keyboard.dismiss(); this.addLog() }} multiline={true} onBlur={() => { Keyboard.dismiss() }}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} returnKeyType={'done'} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>

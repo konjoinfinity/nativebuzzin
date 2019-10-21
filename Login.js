@@ -73,7 +73,7 @@ class LoginScreen extends React.Component {
                         <Text style={[styles.loginheader, { fontSize: loginTitle }]}>Login</Text>
                         <View style={styles.logininputContainer}>
                             <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name"
-                                name="name" id="name" returnKeyType={"default"} blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
+                                name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
                                 onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
