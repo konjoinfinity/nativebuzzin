@@ -90,10 +90,9 @@ class ProfileScreen extends Component {
     async LogOut() {
         Vibration.vibrate()
         // await AsyncStorage.removeItem(oldkey)
-        // breakkey, breakdatekey, indefbreakkey, custombreakkey,
-        await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, autobreakkey, happyhourkey, limitkey, autobreakthresholdkey,
-            autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, hhhourkey, limithourkey, pacerkey, pacertimekey,
-            limitdatekey, lastcallkey, maxreckey])
+        await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
+            limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
+            hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, maxreckey])
         this.props.navigation.navigate("Login")
     }
 
