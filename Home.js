@@ -18,7 +18,7 @@ import {
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
-    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey
+    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey
 } from "./Variables";
 
 const CopilotView = walkthroughable(View);
@@ -35,20 +35,21 @@ class HomeScreen extends Component {
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
             showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: "", pacer: "", pacertime: "", showpacer: false,
             selectedBuzz: "", buzzmodal: false, buzzduration: 30, logmodal: false, log: "", textinputheight: 0, lastcall: "",
-            showlastcall: false, limithour: ""
+            showlastcall: false, limithour: "", maxrec: ""
         }
     };
 
     async componentDidMount() {
         Vibration.vibrate()
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
-            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey])
+            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-            pacertime: JSON.parse(values[12][1]), lastcall: JSON.parse(values[13][1]), limithour: JSON.parse(values[14][1])
+            pacertime: JSON.parse(values[12][1]), lastcall: JSON.parse(values[13][1]), limithour: JSON.parse(values[14][1]),
+            maxrec: JSON.parse(values[15][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
@@ -107,6 +108,7 @@ class HomeScreen extends Component {
                 this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
             }
         }
+        maxRecValues = await Functions.maxRecDrinks()
     }
 
     componentWillUnmount() {
@@ -161,6 +163,7 @@ class HomeScreen extends Component {
             }
         }
         if (this.state.pacer === true) { this.setState({ showpacer: true }) }
+        maxRecValues = await Functions.maxRecDrinks()
     }
 
     async checkBac() {
@@ -236,6 +239,7 @@ class HomeScreen extends Component {
         if (this.state.pacer === true && this.state.showpacer === true) {
             this.setState({ showpacer: false })
         }
+        maxRecValues = await Functions.maxRecDrinks()
     }
 
     async clearDrinks() {
@@ -259,6 +263,7 @@ class HomeScreen extends Component {
             await AsyncStorage.setItem(key, JSON.stringify(undobuzz), () => { this.checkBac() })
         }
         if (this.state.showlimit === true && this.state.bac < this.state.limitbac) { this.setState({ showlimit: false }) }
+        maxRecValues = await Functions.maxRecDrinks()
     }
 
     checkLastDrink() {
@@ -376,7 +381,20 @@ class HomeScreen extends Component {
         else { return false }
     }
 
+    checkMaxRec() {
+        if (this.state.maxrec === true) {
+            if (maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] === true) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+
     render() {
+        console.log(maxRecValues)
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         let buzzes, selectedbuzz;
@@ -545,7 +563,7 @@ class HomeScreen extends Component {
                             </CopilotView>
                         </CopilotStep>
                     </View>
-                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false &&
+                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false &&
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView><View style={styles.cardView}>
                                 <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
@@ -696,6 +714,17 @@ class HomeScreen extends Component {
                                 <Text style={styles.buttonText}>Cancel Pacer</Text>
                             </TouchableOpacity>}
                     </View>}
+                    {this.checkMaxRec() === true &&
+                        <View style={styles.cardView}>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>You have reached the max recommended {maxRecValues[5] > maxRecValues[7] && maxRecValues[6] > maxRecValues[8] ? "weekly and monthly" : maxRecValues[5] > maxRecValues[7] === true && maxRecValues[6] > maxRecValues[8] === false ? "weekly" : "monthly"} limit.</Text>
+                            <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Please condiser taking a break.</Text>
+                            {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
+                                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                                    <TouchableOpacity style={addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => this.undoLastDrink()}>
+                                        <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
+                                    </TouchableOpacity>
+                                </View>}
+                        </View>}
                     {(this.state.buzzes && this.state.buzzes.length > 0) && <View style={styles.buzzCard}>
                         {buzzes}
                     </View>}

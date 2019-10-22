@@ -9,7 +9,7 @@ import styles from "./Styles"
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
-    limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey
+    limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey, maxreckey
 } from "./Variables";
 
 
@@ -20,23 +20,24 @@ class ProfileScreen extends Component {
             name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", hours: 0, days: 0, weeks: 0,
             months: 0, autobreak: "", happyhour: "", threshold: "", limit: "", drinks: 0, limitbac: "", cancelbreaks: "",
             custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false,
-            indefbreak: "", limithour: "", pacer: "", setpacer: false, pacertime: "", setlastcall: false, lastcall: ""
+            indefbreak: "", limithour: "", pacer: "", setpacer: false, pacertime: "", setlastcall: false, lastcall: "",
+            setmaxrec: false, maxrec: ""
         }
     };
 
     async componentDidMount() {
         Vibration.vibrate();
-        this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false })
+        this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false, setmaxrec: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
             drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
-            limithourkey, pacerkey, pacertimekey, lastcallkey])
+            limithourkey, pacerkey, pacertimekey, lastcallkey, maxreckey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
             indefbreak: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]), pacer: JSON.parse(values[14][1]),
-            pacertime: JSON.parse(values[15][1]), lastcall: JSON.parse(values[16][1])
+            pacertime: JSON.parse(values[15][1]), lastcall: JSON.parse(values[16][1]), maxrec: JSON.parse(values[17][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) {
@@ -373,6 +374,24 @@ class ProfileScreen extends Component {
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setpacer")}>
+                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
+                        </View>}
+                    </View>
+                    <View style={styles.profileCards}>
+                        <View style={styles.endView}>
+                            <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Max Recommended</Text>
+                            <View style={{ marginLeft: 5, marginRight: 5 }}>
+                                <Switch value={this.state.maxrec} onChange={() => this.handleSwitches("maxrec", maxreckey, "setmaxrec")} /></View>
+                            {this.state.maxrec === false ? <TouchableOpacity style={styles.profileSettingHidden}>
+                                <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
+                                : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setmaxrec")}>
+                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
+                        </View>
+                        {this.state.maxrec === true && this.state.setmaxrec === true && <View>
+                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Max Recommneded Weekly Limit: {this.state.gender === "Male" ? "14" : "7"}</Text>
+                            <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Max Recommneded Monthly Limit: {this.state.gender === "Male" ? "56" : "28"}</Text>
+                            <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setmaxrec")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                         </View>}
                     </View>
