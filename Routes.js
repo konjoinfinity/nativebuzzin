@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer, createSwitchNavigator, createBottomTabNavigator } from "react-navigation";
+import { createStackNavigator, createAppContainer, createSwitchNavigator, createMaterialTopTabNavigator } from "react-navigation";
 import ProfileScreen from "./Profile"
 import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
@@ -15,23 +15,45 @@ import LogScreen from "./Log"
 
 const AppStack = createStackNavigator({
     MyTab: {
-        screen: createBottomTabNavigator(
+        screen: createMaterialTopTabNavigator(
             {
-                Home: HomeScreen,
-                Buzz: BuzzScreen,
-                Profile: ProfileScreen,
-                Demo: DemoScreen
+                Home: {
+                    screen: HomeScreen,
+                    navigationOptions: {
+                        tabBarLabel: "Home",
+                        tabBarIcon: ({ tintColor }) => (<Icon name="home" color="#4db6ac" size={25} />)
+                    },
+                },
+                Buzz: {
+                    screen: BuzzScreen,
+                    navigationOptions: {
+                        tabBarLabel: "Buzz",
+                        tabBarIcon: ({ tintColor }) => (<Icon name="beer" color="#4db6ac" size={25} />)
+                    },
+                },
+                Profile: {
+                    screen: ProfileScreen,
+                    navigationOptions: {
+                        tabBarLabel: "Profile",
+                        tabBarIcon: ({ tintColor }) => (<Icon name="user-cog" color="#4db6ac" size={25} />)
+                    },
+                },
+                Demo: {
+                    screen: DemoScreen,
+                    navigationOptions: {
+                        tabBarLabel: "Demo",
+                        tabBarIcon: ({ tintColor }) => (<Icon name="clipboard" color="#4db6ac" size={25} />)
+                    },
+                },
             },
             {
-                defaultNavigationOptions: ({ navigation }) => ({
-                    tabBarIcon: ({ horizontal, tintColor }) => {
-                        const { routeName } = navigation.state;
-                        let iconName;
-                        routeName === 'Home' ? iconName = <Icon name="home" color="#4db6ac" size={25} /> : routeName === 'Buzz' ? iconName = <Icon name="beer" color="#4db6ac" size={25} /> : routeName === 'Profile' ? iconName = <Icon name="user-cog" color="#4db6ac" size={25} /> : iconName = <Icon name="clipboard" color="#4db6ac" size={25} />
-                        return <View style={{ paddingTop: 5 }}><Text style={{ fontSize: 25, color: tintColor }}>{iconName}</Text></View>
-                    }
-                }),
-                tabBarOptions: { activeTintColor: 'gray', inactiveTintColor: '#ffffff', activeBackgroundColor: "#e0f2f1" }
+                tabBarOptions: {
+                    style: { backgroundColor: '#ffffff', borderTopWidth: 0.5, borderTopColor: "#e0e0e0" },
+                    indicatorStyle: { backgroundColor: "#4db6ac" },
+                    labelStyle: { margin: 0, padding: 0 },
+                    activeTintColor: "gray", inactiveTintColor: '#ffffff', showIcon: true, upperCaseLabel: false, showLabel: true,
+                },
+                tabBarPosition: 'bottom'
             }
         ),
         navigationOptions: ({ navigation }) => ({
