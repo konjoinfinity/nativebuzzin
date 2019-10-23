@@ -109,7 +109,8 @@ class LogScreen extends Component {
                 </Modal>
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
-                        <Text style={{ fontSize: 28, padding: 10, marginRight: 60 }}>Logs</Text>
+                        {/* Will have to make the marginRiight value variable for all phones */}
+                        <Text style={{ fontSize: 28, padding: 10, marginRight: 62 }}>Logs</Text>
                         <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
                     </View>
                         {this.state.logs && eachlog !== undefined && this.state.showlogs === false && <View>{currentlogs}</View>}
