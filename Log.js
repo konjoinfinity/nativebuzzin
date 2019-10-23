@@ -58,6 +58,16 @@ class LogScreen extends Component {
     }
 
     render() {
+        var currentlogs;
+        this.state.logs && this.state.logs.length > 0 && (currentlogs = this.state.logs.slice(0, 5).map((log, id) => {
+            return (<View key={id} style={[styles.buzzLog, { flexDirection: "row", justifyContent: "space-evenly" }]}>
+                <View style={{ flexDirection: "column" }}>
+                    <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: 250 }}>{log.log}</Text>
+                    <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
+                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.deleteLog(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
+            </View>
+            )
+        }))
         var eachlog;
         this.state.logs && this.state.logs.length > 0 && (eachlog = this.state.logs.map((log, id) => {
             return (<View key={id} style={[styles.buzzLog, { flexDirection: "row", justifyContent: "space-evenly" }]}>
@@ -90,15 +100,13 @@ class LogScreen extends Component {
                     </View>
                 </Modal>
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 10, marginTop: 10 }}><Text style={styles.infoTitle}>New Log</Text>
-                            <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity></View>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
+                        <Text style={{ fontSize: 28, padding: 10, marginRight: 60 }}>Logs</Text>
+                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
                     </View>
-                    <View style={styles.buzzCard}><View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 10 }}>
-                        <Text style={{ fontSize: 28, padding: 10 }}>Logs</Text>
-                        <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show" : "Hide"}</Text></TouchableOpacity>
-                    </View>
+                        {this.state.logs && eachlog !== undefined && this.state.showlogs === false && <View>{currentlogs}</View>}
                         {this.state.logs && eachlog !== undefined && this.state.showlogs === true && <View>{eachlog}</View>}
+                        <View style={{ margin: 8, paddingRight: 50, paddingLeft: 50 }}><TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show All" : "Hide"}</Text></TouchableOpacity></View>
                     </View>
                 </ScrollView>
             </View>
