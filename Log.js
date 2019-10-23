@@ -37,7 +37,7 @@ class LogScreen extends Component {
             if (this.state.showlogs === false) {
                 this.setState({ showlogs: true }, () => {
                     setTimeout(() => {
-                        this.scrolltop.scrollTo({ y: 130, animated: true })
+                        this.scrolltop.scrollTo({ y: 90, animated: true })
                     }, 750)
                 })
             }
@@ -53,7 +53,7 @@ class LogScreen extends Component {
     }
 
     showHideLogs() {
-        this.setState(prevState => ({ showlogs: !prevState.showlogs }))
+        this.setState(prevState => ({ showlogs: !prevState.showlogs }), () => { setTimeout(() => { this.scrolltop.scrollTo(this.state.showlogs === true ? { y: 90, animated: true } : { y: 0, animated: true }) }, 750) })
         Vibration.vibrate()
     }
 
