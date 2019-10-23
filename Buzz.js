@@ -180,7 +180,16 @@ class BuzzScreen extends Component {
                 </View></View>
             )
         }))
-        this.state.oldbuzzes !== null && (oldbuzzes = this.state.oldbuzzes.map((buzz, obid) => {
+        var oldbuzzmonth;
+        var monthOld = new Date()
+        console.log(monthOld)
+        monthOld.setMonth(monthOld.getMonth() - 1)
+        console.log(monthOld)
+        this.state.oldbuzzes !== null && (oldbuzzmonth = this.state.oldbuzzes.map(buzz => {
+            return buzz.filter(oldbuzz => Date.parse(oldbuzz.dateCreated) > monthOld)
+        }))
+
+        this.state.oldbuzzes !== null && (oldbuzzes = oldbuzzmonth.map((buzz, obid) => {
             return buzz.map((oldbuzz, id) => {
                 return (<View key={id}>
                     {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ oldlogmodal: true, position: obid })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
@@ -248,6 +257,7 @@ class BuzzScreen extends Component {
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value) - 20} fontSize={18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
+        console.log(oldbuzzmonth)
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => Vibration.vibrate()} />
