@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Vibration, Keyboard, Modal, Dimensions, TextInput } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Vibration, Keyboard, Modal, Dimensions, TextInput, Alert } from 'react-native'
 import styles from "./Styles"
 import { loginButtonText, logskey } from "./Variables"
 import AsyncStorage from '@react-native-community/async-storage'
@@ -57,6 +57,14 @@ class LogScreen extends Component {
         Vibration.vibrate()
     }
 
+    confirmDelete(log) {
+        Vibration.vibrate()
+        Alert.alert('Are you sure you want to delete this log?', 'Please confirm.',
+            [{ text: 'Yes', onPress: () => this.deleteLog(log) }, { text: 'No' }],
+            { cancelable: false },
+        );
+    }
+
     render() {
         var currentlogs;
         this.state.logs && this.state.logs.length > 0 && (currentlogs = this.state.logs.slice(0, 5).map((log, id) => {
@@ -64,7 +72,7 @@ class LogScreen extends Component {
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: 250 }}>{log.log}</Text>
                     <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.deleteLog(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
+                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.confirmDelete(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
         }))
@@ -74,7 +82,7 @@ class LogScreen extends Component {
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: 250 }}>{log.log}</Text>
                     <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.deleteLog(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
+                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.confirmDelete(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
         }))
