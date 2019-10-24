@@ -4,13 +4,13 @@ import styles from "./Styles"
 import { loginButtonText, logskey } from "./Variables"
 import AsyncStorage from '@react-native-community/async-storage'
 import moment from "moment";
-import Icon from "react-native-vector-icons/FontAwesome5"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 class LogScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            logmodal: false, log: "", showlogs: false, logs: [], textinputheight: 0
+            logmodal: false, log: "", showlogs: false, logs: [], textinputheight: 0, editlog: "", editlogmodal: false
         }
     }
 
@@ -66,14 +66,15 @@ class LogScreen extends Component {
     }
 
     render() {
-        console.log(this.state.textinputheight)
+        console.log(this.state.editlog)
         var currentlogs;
         this.state.logs && this.state.logs.length > 0 && (currentlogs = this.state.logs.slice(0, 5).map((log, id) => {
             return (<View key={id} style={[styles.buzzLog, { flexDirection: "row", justifyContent: "space-evenly" }]}>
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: 250 }}>{log.log}</Text>
                     <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.confirmDelete(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
+                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log }, () => { this.editloginput.focus() })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
+                {/* () => this.confirmDelete(log) */}
             </View>
             )
         }))
@@ -83,7 +84,7 @@ class LogScreen extends Component {
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: 250 }}>{log.log}</Text>
                     <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.confirmDelete(log)}><Icon name="trash" color="#ffffff" size={20} /></TouchableOpacity>
+                <TouchableOpacity style={styles.deleteLogButtons} onPress={(log) => this.setState({ editlogmodal: true, editlog: log.log }, () => { this.editloginput.focus() })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
         }))
@@ -103,6 +104,26 @@ class LogScreen extends Component {
                                     <Text style={styles.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
+                                    <Text style={styles.buttonText}>Save</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+                <Modal animationType="fade" transparent={true} visible={this.state.editlogmodal}>
+                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.editloginput.blur()}>
+                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.95 }]}>
+                            <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 5, margin: 5 }}>Edit Log</Text>
+                            {/* Will have to make the height value variable for all phones */}
+                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: this.state.textinputheight <= 236.5 ? Math.max(50, this.state.textinputheight) : 236.5, paddingLeft: 8, paddingRight: 8 }}
+                                blurOnSubmit={true} value={this.state.editlog} ref={(input) => { this.editloginput = input }} onFocus={() => this.editloginput.focus()}
+                                onChangeText={(editlog) => this.setState({ editlog })} onSubmitEditing={() => { Keyboard.dismiss(); this.editLog() }} multiline={true} onBlur={() => { Keyboard.dismiss() }}
+                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} returnKeyType={'done'} />
+                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ editlog: "", editlogmodal: false })}>
+                                    <Text style={styles.buttonText}>Cancel</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.editLog()}>
                                     <Text style={styles.buttonText}>Save</Text>
                                 </TouchableOpacity>
                             </View>
