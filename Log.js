@@ -35,11 +35,7 @@ class LogScreen extends Component {
             this.setState({ log: "", logmodal: false, logs: newLog })
             await AsyncStorage.setItem(logskey, JSON.stringify(newLog))
             if (this.state.showlogs === false) {
-                this.setState({ showlogs: true }, () => {
-                    setTimeout(() => {
-                        this.scrolltop.scrollTo({ y: 90, animated: true })
-                    }, 750)
-                })
+                this.setState({ showlogs: true }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750) })
             }
         } else {
             Alert.alert("Please type in some text.")

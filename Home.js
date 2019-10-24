@@ -85,7 +85,7 @@ class HomeScreen extends Component {
                 setTimeout(() => {
                     var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
-                }, 200);
+                }, 50);
             } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
         })
         const login = this.props.navigation.getParam('login');
