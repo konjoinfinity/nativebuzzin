@@ -11,7 +11,7 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import CountDown from 'react-native-countdown-component';
-import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
@@ -34,10 +34,10 @@ class HomeScreen extends Component {
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
             showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: "", pacer: "", pacertime: "", showpacer: false,
-            selectedBuzz: "", buzzmodal: false, buzzduration: 30, logmodal: false, log: "", textinputheight: 0, lastcall: "",
-            showlastcall: false, limithour: "", maxrec: ""
+            selectedBuzz: "", buzzmodal: false, buzzduration: 30, lastcall: "", showlastcall: false, limithour: "", maxrec: ""
         }
     };
+    // logmodal: false, log: "", textinputheight: 0,
 
     async componentDidMount() {
         Vibration.vibrate()
@@ -360,21 +360,21 @@ class HomeScreen extends Component {
         Vibration.vibrate()
     }
 
-    async addLog() {
-        Vibration.vibrate()
-        if (this.state.log !== "") {
-            if (this.state.buzzes[this.state.buzzes.length - 1].log) {
-                this.state.buzzes[this.state.buzzes.length - 1].log.unshift({ entry: this.state.log })
-            } else {
-                this.state.buzzes[this.state.buzzes.length - 1].log = [{ entry: this.state.log }]
-            }
-            this.setState({ log: "", logmodal: false })
-            await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
-            this.scrolltop.scrollToEnd({ animated: true, duration: 500 });
-        } else {
-            Alert.alert("Please Enter a Note")
-        }
-    }
+    // async addLog() {
+    //     Vibration.vibrate()
+    //     if (this.state.log !== "") {
+    //         if (this.state.buzzes[this.state.buzzes.length - 1].log) {
+    //             this.state.buzzes[this.state.buzzes.length - 1].log.unshift({ entry: this.state.log })
+    //         } else {
+    //             this.state.buzzes[this.state.buzzes.length - 1].log = [{ entry: this.state.log }]
+    //         }
+    //         this.setState({ log: "", logmodal: false })
+    //         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
+    //         this.scrolltop.scrollToEnd({ animated: true, duration: 500 });
+    //     } else {
+    //         Alert.alert("Please Enter a Note")
+    //     }
+    // }
 
     showLastCall() {
         if (this.state.showlastcall === true) { return true }
@@ -399,7 +399,8 @@ class HomeScreen extends Component {
         let buzzes, selectedbuzz;
         this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-around" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: 26, textAlign: "center" }}>Current Buzz</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                {/* <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity> */}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: 26, textAlign: "center", paddingRight: 45, paddingTop: 5 }}>Current Buzz</Text><TouchableOpacity style={[styles.plusMinusButtons, { marginRight: 5 }]} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
@@ -433,7 +434,7 @@ class HomeScreen extends Component {
                             <TouchableOpacity style={styles.dangerOkButton} onPress={() => { this.handleModal("modal2") }}>
                                 <Text style={styles.buttonText}>Ok</Text>
                             </TouchableOpacity></View></ScrollView></Modal>
-                <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
+                {/* <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.loginput.blur()}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
@@ -451,7 +452,7 @@ class HomeScreen extends Component {
                             </View>
                         </View>
                     </View>
-                </Modal>
+                </Modal> */}
                 <Modal animationType="slide" transparent={false} visible={this.state.buzzmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
@@ -727,7 +728,7 @@ class HomeScreen extends Component {
                     {(this.state.buzzes && this.state.buzzes.length > 0) && <View style={styles.buzzCard}>
                         {buzzes}
                     </View>}
-                    {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[this.state.buzzes.length - 1].log && <View style={styles.buzzCard}>
+                    {/* {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[this.state.buzzes.length - 1].log && <View style={styles.buzzCard}>
                         <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Log</Text>
                         {this.state.buzzes[this.state.buzzes.length - 1].log.length > 0 && this.state.buzzes[this.state.buzzes.length - 1].log.map((entries, id) => {
                             return (<View key={id} style={styles.buzzLog}>
@@ -735,7 +736,7 @@ class HomeScreen extends Component {
                             </View>
                             )
                         })}
-                    </View>}
+                    </View>} */}
                 </ScrollView>
             </View>
         );
