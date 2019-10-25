@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, TextInput, Dimensions, Keyboard, Vibration } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Vibration } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -10,7 +10,6 @@ import { Text as TextSVG, G, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import styles from "./Styles"
-import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, shotsStyle, alcTypeSize, alcValues,
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
@@ -26,8 +25,7 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
-            selectedBuzz: "", buzzduration: 30, logmodal: false, log: "", textinputheight: 0, oldlogmodal: false, oldlog: "",
-            position: "", oldposition: "", showlogs: false
+            selectedBuzz: "", buzzduration: 30, position: "", oldposition: ""
         }
     };
 
@@ -137,54 +135,10 @@ class BuzzScreen extends Component {
         }
     }
 
-    // async addLog() {
-    //     // Consider adding a scroll to logs to view
-    //     Vibration.vibrate()
-    //     if (this.state.log !== "") {
-    //         if (this.state.buzzes[this.state.buzzes.length - 1].log) {
-    //             this.state.buzzes[this.state.buzzes.length - 1].log.unshift({ entry: this.state.log })
-    //         } else {
-    //             this.state.buzzes[this.state.buzzes.length - 1].log = [{ entry: this.state.log }]
-    //         }
-    //         this.setState({ log: "", logmodal: false })
-    //         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
-    //     } else {
-    //         Alert.alert("Please Enter a Note")
-    //     }
-    // }
-
-    // async addOldLog() {
-    //     // Consider adding a scroll to logs to view
-    //     Vibration.vibrate();
-    //     var oldbuzzes = this.state.oldbuzzes
-    //     var position = this.state.position === "" ? 0 : this.state.position
-    //     if (this.state.oldlog !== "") {
-    //         if (oldbuzzes[position][oldbuzzes[position].length - 1].log) {
-    //             oldbuzzes[position][oldbuzzes[position].length - 1].log.unshift({ entry: this.state.oldlog })
-    //         } else {
-    //             oldbuzzes[position][oldbuzzes[position].length - 1].log = [{ entry: this.state.oldlog }]
-    //         }
-    //         this.setState({ oldlog: "", oldlogmodal: false, position: "" })
-    //         if (this.state.showlogs === false) { this.setState({ showlogs: true }) }
-    //         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes))
-    //         // this.scrolltop.scrollToEnd({ animated: true, duration: 500 });
-    //     } else {
-    //         Alert.alert("Please Enter a Note")
-    //     }
-    // }
-
-    // showHideLogs() {
-    //     this.setState(prevState => ({ showlogs: !prevState.showlogs }))
-    //     Vibration.vibrate()
-    // }
-
     render() {
-        // , logentries;
-        console.log(JSON.stringify(this.state.oldbuzzes))
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz;
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {/* <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity> */}
                 {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center", marginRight: 10 }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
@@ -203,7 +157,6 @@ class BuzzScreen extends Component {
         this.state.oldbuzzes !== null && (oldbuzzes = oldbuzzmonth.map((buzz, obid) => {
             return buzz.map((oldbuzz, id) => {
                 return (<View key={id}>
-                    {/* <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ oldlogmodal: true, position: obid })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity> */}
                     {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center", marginRight: 10 }}>Date: {moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{oldbuzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
@@ -241,26 +194,6 @@ class BuzzScreen extends Component {
             </View>
             )
         }))
-        console.log(this.state.oldbuzzes)
-        // var buzzarr, buzzarrfiltered, test;
-        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarr = this.state.oldbuzzes.reduce((acc, val) => acc.concat(val), []))
-        // console.log(buzzarr)
-        // // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarrfiltered = buzzarr.filter(logs => logs.log))
-        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (test = buzzarr.map(buzz => {
-        //     delete buzz.log;
-        //     return buzz;
-        // }))
-
-        // Should do the same thing for buzzes, just in case position [0] drink object changes mid session
-        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && buzzarrfiltered.length > 0 && (logentries = buzzarrfiltered.map((buzz, id) => {
-        //     return (<View key={id} style={styles.buzzLog}>
-        //         {buzz.log.map((logs, id) => {
-        //             return (<Text key={id} selectable={true} style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{logs.entry}</Text>)
-        //         })}
-        //         <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>
-        //     </View>
-        //     )
-        // }))
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
@@ -279,44 +212,6 @@ class BuzzScreen extends Component {
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => Vibration.vibrate()} />
-                {/* <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
-                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.loginput.blur()}>
-                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
-                            <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
-                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 8, paddingRight: 8 }}
-                                placeholder="" blurOnSubmit={true} value={this.state.log} ref={(input) => { this.loginput = input }} onFocus={() => this.loginput.focus()}
-                                onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => { Keyboard.dismiss(); this.addLog() }} multiline={true} onBlur={() => { Keyboard.dismiss() }}
-                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} returnKeyType={'done'} />
-                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ log: "", logmodal: false })}>
-                                    <Text style={styles.buttonText}>Cancel</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
-                                    <Text style={styles.buttonText}>Save</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </Modal> */}
-                <Modal animationType="fade" transparent={true} visible={this.state.oldlogmodal}>
-                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.oldloginput.blur()}>
-                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
-                            <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
-                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: Math.max(50, this.state.textinputheight), paddingLeft: 8, paddingRight: 8 }}
-                                placeholder="" blurOnSubmit={true} value={this.state.oldlog} ref={(input) => { this.oldloginput = input }}
-                                onChangeText={(oldlog) => this.setState({ oldlog })} onSubmitEditing={() => { Keyboard.dismiss(); this.addOldLog() }} multiline={true} onFocus={() => this.oldloginput.focus()}
-                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} returnKeyType={'done'} />
-                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ oldlog: "", oldlogmodal: false, position: "" })}>
-                                    <Text style={styles.buttonText}>Cancel</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addOldLog()}>
-                                    <Text style={styles.buttonText}>Save</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
                 <Modal animationType="slide" transparent={false} visible={this.state.oldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
@@ -578,26 +473,6 @@ class BuzzScreen extends Component {
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                     </View>}
-                    {/* {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[this.state.buzzes.length - 1].log &&
-                        <View style={styles.buzzCard}>
-                            <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Current Log</Text>
-                            {this.state.buzzes[this.state.buzzes.length - 1].log.length > 0 && this.state.buzzes[this.state.buzzes.length - 1].log.map((entries, id) => {
-                                return (<View key={id} style={styles.buzzLog}>
-                                    <Text style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{entries.entry}</Text>
-                                    <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(this.state.buzzes[this.state.buzzes.length - 1].dateCreated).format('ddd MMM Do YYYY')}</Text>
-                                </View>
-                                )
-                            })}
-                        </View>} */}
-                    {/* {this.state.oldbuzzes && logentries !== undefined &&
-                        <View style={styles.buzzCard}>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                                <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
-                                <TouchableOpacity style={[styles.plusMinusButtons, { marginTop: 2 }]} onPress={() => this.setState({ oldlogmodal: true }, () => { this.oldloginput.focus() })}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
-                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show" : "Hide"}</Text></TouchableOpacity>
-                            </View>
-                            {this.state.showlogs === true && <View style={{ marginTop: 5 }}>{logentries}</View>}
-                        </View>} */}
                 </ScrollView>
             </View >
         );
