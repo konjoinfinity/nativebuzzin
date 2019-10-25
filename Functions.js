@@ -55,8 +55,8 @@ export class Functions {
         return bac;
     }
 
-    static setOz(number, alcohol) {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+    static setOz(number, alcohol, type) {
+        if (type === "notmodal") { ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false }) }
         if (alcohol === "Beer" && number === 0) { return 12 }
         if (alcohol === "Beer" && number === 1) { return 16 }
         if (alcohol === "Beer" && number === 2) { return 20 }
@@ -72,8 +72,8 @@ export class Functions {
         if (alcohol === "Cocktail" && number === 3) { return 6 }
     }
 
-    static setAbv(number, alcohol) {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+    static setAbv(number, alcohol, type) {
+        if (type === "notmodal") { ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false }) }
         if (alcohol === "Beer" && number === 0) { return 0.04 }
         if (alcohol === "Beer" && number === 1) { return 0.05 }
         if (alcohol === "Beer" && number === 2) { return 0.06 }
@@ -87,8 +87,8 @@ export class Functions {
         if (alcohol === "Liquor" && number === 2) { return 0.50 }
     }
 
-    static setAlcType(value) {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+    static setAlcType(value, type) {
+        if (type === "notmodal") { ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false }) }
         if (value === "Beer") { return [0.05, 12] }
         if (value === "Wine") { return [0.12, 5] }
         if (value === "Liquor") { return [0.40, 1.5] }
