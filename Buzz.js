@@ -46,6 +46,17 @@ class BuzzScreen extends Component {
             } else { this.setState({ oldbuzzes: null }) }
         })
         await AsyncStorage.getItem(genderkey, (error, result) => { this.setState({ gender: JSON.parse(result) }) })
+
+        // script to remove oldbuzz logs, run once
+
+        // var test, buzzarr = this.state.oldbuzzes;
+        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (test = buzzarr.map(oldbuzz => {
+        //     return oldbuzz.map(buzz => {
+        //         delete buzz.log;
+        //         return buzz;
+        //     });
+        // }))
+        // await AsyncStorage.setItem(oldkey, JSON.stringify(test), () => { this.setState({ oldbuzzes: test }) })
     }
 
     showHideBuzzes(statename) {
@@ -126,52 +137,55 @@ class BuzzScreen extends Component {
         }
     }
 
-    async addLog() {
-        // Consider adding a scroll to logs to view
-        Vibration.vibrate()
-        if (this.state.log !== "") {
-            if (this.state.buzzes[this.state.buzzes.length - 1].log) {
-                this.state.buzzes[this.state.buzzes.length - 1].log.unshift({ entry: this.state.log })
-            } else {
-                this.state.buzzes[this.state.buzzes.length - 1].log = [{ entry: this.state.log }]
-            }
-            this.setState({ log: "", logmodal: false })
-            await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
-        } else {
-            Alert.alert("Please Enter a Note")
-        }
-    }
+    // async addLog() {
+    //     // Consider adding a scroll to logs to view
+    //     Vibration.vibrate()
+    //     if (this.state.log !== "") {
+    //         if (this.state.buzzes[this.state.buzzes.length - 1].log) {
+    //             this.state.buzzes[this.state.buzzes.length - 1].log.unshift({ entry: this.state.log })
+    //         } else {
+    //             this.state.buzzes[this.state.buzzes.length - 1].log = [{ entry: this.state.log }]
+    //         }
+    //         this.setState({ log: "", logmodal: false })
+    //         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
+    //     } else {
+    //         Alert.alert("Please Enter a Note")
+    //     }
+    // }
 
-    async addOldLog() {
-        // Consider adding a scroll to logs to view
-        Vibration.vibrate();
-        var oldbuzzes = this.state.oldbuzzes
-        var position = this.state.position === "" ? 0 : this.state.position
-        if (this.state.oldlog !== "") {
-            if (oldbuzzes[position][oldbuzzes[position].length - 1].log) {
-                oldbuzzes[position][oldbuzzes[position].length - 1].log.unshift({ entry: this.state.oldlog })
-            } else {
-                oldbuzzes[position][oldbuzzes[position].length - 1].log = [{ entry: this.state.oldlog }]
-            }
-            this.setState({ oldlog: "", oldlogmodal: false, position: "" })
-            if (this.state.showlogs === false) { this.setState({ showlogs: true }) }
-            await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes))
-            // this.scrolltop.scrollToEnd({ animated: true, duration: 500 });
-        } else {
-            Alert.alert("Please Enter a Note")
-        }
-    }
+    // async addOldLog() {
+    //     // Consider adding a scroll to logs to view
+    //     Vibration.vibrate();
+    //     var oldbuzzes = this.state.oldbuzzes
+    //     var position = this.state.position === "" ? 0 : this.state.position
+    //     if (this.state.oldlog !== "") {
+    //         if (oldbuzzes[position][oldbuzzes[position].length - 1].log) {
+    //             oldbuzzes[position][oldbuzzes[position].length - 1].log.unshift({ entry: this.state.oldlog })
+    //         } else {
+    //             oldbuzzes[position][oldbuzzes[position].length - 1].log = [{ entry: this.state.oldlog }]
+    //         }
+    //         this.setState({ oldlog: "", oldlogmodal: false, position: "" })
+    //         if (this.state.showlogs === false) { this.setState({ showlogs: true }) }
+    //         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes))
+    //         // this.scrolltop.scrollToEnd({ animated: true, duration: 500 });
+    //     } else {
+    //         Alert.alert("Please Enter a Note")
+    //     }
+    // }
 
-    showHideLogs() {
-        this.setState(prevState => ({ showlogs: !prevState.showlogs }))
-        Vibration.vibrate()
-    }
+    // showHideLogs() {
+    //     this.setState(prevState => ({ showlogs: !prevState.showlogs }))
+    //     Vibration.vibrate()
+    // }
 
     render() {
-        let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, logentries;
+        // , logentries;
+        console.log(JSON.stringify(this.state.oldbuzzes))
+        let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz;
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                {/* <TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity> */}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
@@ -226,19 +240,26 @@ class BuzzScreen extends Component {
             </View>
             )
         }))
-        var buzzarr, buzzarrfiltered;
-        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarr = this.state.oldbuzzes.reduce((acc, val) => acc.concat(val), []))
-        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarrfiltered = buzzarr.filter(logs => logs.log))
+        console.log(this.state.oldbuzzes)
+        // var buzzarr, buzzarrfiltered, test;
+        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarr = this.state.oldbuzzes.reduce((acc, val) => acc.concat(val), []))
+        // console.log(buzzarr)
+        // // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (buzzarrfiltered = buzzarr.filter(logs => logs.log))
+        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (test = buzzarr.map(buzz => {
+        //     delete buzz.log;
+        //     return buzz;
+        // }))
+
         // Should do the same thing for buzzes, just in case position [0] drink object changes mid session
-        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && buzzarrfiltered.length > 0 && (logentries = buzzarrfiltered.map((buzz, id) => {
-            return (<View key={id} style={styles.buzzLog}>
-                {buzz.log.map((logs, id) => {
-                    return (<Text key={id} selectable={true} style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{logs.entry}</Text>)
-                })}
-                <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>
-            </View>
-            )
-        }))
+        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && buzzarrfiltered.length > 0 && (logentries = buzzarrfiltered.map((buzz, id) => {
+        //     return (<View key={id} style={styles.buzzLog}>
+        //         {buzz.log.map((logs, id) => {
+        //             return (<Text key={id} selectable={true} style={{ fontSize: 18, textAlign: "center", padding: 10 }}>{logs.entry}</Text>)
+        //         })}
+        //         <Text style={{ fontSize: 14, padding: 2, textAlign: "center" }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>
+        //     </View>
+        //     )
+        // }))
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
@@ -257,7 +278,7 @@ class BuzzScreen extends Component {
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => Vibration.vibrate()} />
-                <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
+                {/* <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.loginput.blur()}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 10, margin: 10 }}>Add Log Entry</Text>
@@ -275,7 +296,7 @@ class BuzzScreen extends Component {
                             </View>
                         </View>
                     </View>
-                </Modal>
+                </Modal> */}
                 <Modal animationType="fade" transparent={true} visible={this.state.oldlogmodal}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.oldloginput.blur()}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.5 }]}>
@@ -556,7 +577,7 @@ class BuzzScreen extends Component {
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
                     </View>}
-                    {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[this.state.buzzes.length - 1].log &&
+                    {/* {(this.state.buzzes && this.state.buzzes.length > 0) && this.state.buzzes[this.state.buzzes.length - 1].log &&
                         <View style={styles.buzzCard}>
                             <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Current Log</Text>
                             {this.state.buzzes[this.state.buzzes.length - 1].log.length > 0 && this.state.buzzes[this.state.buzzes.length - 1].log.map((entries, id) => {
@@ -566,8 +587,8 @@ class BuzzScreen extends Component {
                                 </View>
                                 )
                             })}
-                        </View>}
-                    {this.state.oldbuzzes && logentries !== undefined &&
+                        </View>} */}
+                    {/* {this.state.oldbuzzes && logentries !== undefined &&
                         <View style={styles.buzzCard}>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                 <Text style={{ fontSize: 24, textAlign: "center", padding: 10 }}>Running Log</Text>
@@ -575,7 +596,7 @@ class BuzzScreen extends Component {
                                 <TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show" : "Hide"}</Text></TouchableOpacity>
                             </View>
                             {this.state.showlogs === true && <View style={{ marginTop: 5 }}>{logentries}</View>}
-                        </View>}
+                        </View>} */}
                 </ScrollView>
             </View >
         );
