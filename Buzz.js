@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Vibration } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -15,6 +15,7 @@ import {
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
     abvWineSize, abvWineText
 } from "./Variables";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 var values;
 (async () => { values = await Functions.maxRecDrinks() })();
@@ -62,7 +63,7 @@ class BuzzScreen extends Component {
             this.state[statename] === true ?
                 this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 500));
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
     }
 
     chartSwitch() {
@@ -71,14 +72,14 @@ class BuzzScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
         values = await Functions.maxRecDrinks()
     }
 
     async editBuzz() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });;
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var editbuzzes = this.state.buzzes
@@ -89,14 +90,14 @@ class BuzzScreen extends Component {
     }
 
     async deleteOldBuzz(obid, oldbuzz) {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
         values = await Functions.maxRecDrinks()
     }
 
     async editOldBuzz(obid) {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         var obnormal = this.state.oldbuzzes
         var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
         lastTime.setHours(0, 0, 0, 0)
@@ -107,27 +108,27 @@ class BuzzScreen extends Component {
 
     // combine modal handles to one function
     oldModal(buzz, obid) {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz, obid: obid });
     }
 
     closeOldModal() {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: "", obid: "" });
     }
 
     buzzModal() {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" });
     }
 
     buzzDuration(incdec) {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
             this.setState({ buzzduration: this.state.buzzduration + 15 })
         } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
@@ -211,7 +212,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => Vibration.vibrate()} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false })} />
                 <Modal animationType="slide" transparent={false} visible={this.state.oldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>

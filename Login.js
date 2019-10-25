@@ -1,7 +1,5 @@
 import React from "react";
-import {
-    Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert, Keyboard, Modal, ScrollView, Platform, Vibration
-} from "react-native";
+import { Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert, Keyboard, Modal, ScrollView, Platform } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import styles from "./Styles"
@@ -10,6 +8,7 @@ import {
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
     loginTitle, indefbreakkey, limithourkey, limitdatekey, pacerkey, pacertimekey, lastcallkey, amount, maxreckey
 } from "./Variables";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -20,21 +19,21 @@ class LoginScreen extends React.Component {
     }
 
     componentDidMount() {
-        Vibration.vibrate();
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });;
         this.nameinput.focus();
     }
 
     handleModal() {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
         else {
-            Vibration.vibrate()
+            ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
             Alert.alert("Please Enter Name")
         }
     }
 
     switchGender() {
-        Vibration.vibrate()
+        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
         this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
@@ -85,7 +84,7 @@ class LoginScreen extends React.Component {
                         <View style={{ paddingTop: 20, alignItems: "center" }}>
                             <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight}
-                                onChange={(weight) => this.setState({ weight }, () => { Vibration.vibrate() })} step={5} totalWidth={numberInputSize}
+                                onChange={(weight) => this.setState({ weight }, () => { ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false }); })} step={5} totalWidth={numberInputSize}
                                 rounded textColor='#103900' iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
