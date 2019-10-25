@@ -39,7 +39,7 @@ class LogScreen extends Component {
                 this.setState({ showlogs: true }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750) })
             }
         } else {
-            Alert.alert("Please type in some text.")
+            Alert.alert("Please type some text.")
         }
     }
 
