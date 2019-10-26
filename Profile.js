@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio, Platform, Vibration } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
@@ -11,8 +11,6 @@ import {
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
     limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey, maxreckey
 } from "./Variables";
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
-
 
 class ProfileScreen extends Component {
     constructor(props) {
@@ -27,7 +25,7 @@ class ProfileScreen extends Component {
     };
 
     async componentDidMount() {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });;
+        Vibration.vibrate();;
         this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false, setmaxrec: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
             drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
@@ -71,7 +69,7 @@ class ProfileScreen extends Component {
             var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
             if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
             if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
-            ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+            Vibration.vibrate();
             this.setState({ break: true, breakdate: breakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
@@ -79,7 +77,7 @@ class ProfileScreen extends Component {
     }
 
     async stopBreak(type) {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         this.setState({ break: false, breakdate: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
         await AsyncStorage.removeItem(breakdatekey)
         await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
@@ -89,7 +87,7 @@ class ProfileScreen extends Component {
     }
 
     async LogOut() {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         // await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
             limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
@@ -140,7 +138,7 @@ class ProfileScreen extends Component {
     }
 
     async saveValues(statename, keyvalue) {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
         if (statename === "limithour") {
             if (this.state.limithour !== 0) {
@@ -156,7 +154,7 @@ class ProfileScreen extends Component {
     }
 
     showHideSetting(statename) {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         this.setState(prevState => ({ [statename]: !prevState[statename] }))
     }
 

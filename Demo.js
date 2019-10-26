@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Modal, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Modal, Platform, Vibration } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import NumericInput from 'react-native-numeric-input'
@@ -14,7 +14,6 @@ import {
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,
     abovePoint10, shotsStyle
 } from "./Variables";
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 class DemoScreen extends Component {
     constructor(props) {
@@ -26,17 +25,17 @@ class DemoScreen extends Component {
     };
 
     async componentDidMount() {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });;
+        Vibration.vibrate();;
         setTimeout(() => { this.checkBac() }, 200)
     }
 
     handleModal(number) {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         this.setState({ [number]: !this.state[number] })
     }
 
     addDrink() {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         var drinkDate = new Date();
         this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => { this.checkBac() })
         setTimeout(() => {
@@ -72,18 +71,18 @@ class DemoScreen extends Component {
     }
 
     async clearDrinks() {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         this.setState({ testbuzzes: [], bac: 0.0 });
     }
 
     switchGender() {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.testbuzzes[0].dateCreated) < 0.0333333) {
-            ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+            Vibration.vibrate();
             var undobuzz = this.state.testbuzzes;
             if (undobuzz.length >= 1) {
                 undobuzz.shift();
@@ -102,7 +101,7 @@ class DemoScreen extends Component {
             if (this.state.showHideBuzzes === true) { this.scrolltop.scrollTo({ y: 550, animated: true }) }
             else { this.scrolltop.scrollTo({ y: 0, animated: true }) }
         }, 300));
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
     }
 
     render() {
@@ -143,7 +142,7 @@ class DemoScreen extends Component {
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight} totalHeight={50}
-                                onChange={(weight) => this.setState({ weight }, () => { ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false }); })} step={5} rounded textColor='#103900' totalWidth={120}
+                                onChange={(weight) => this.setState({ weight }, () => { Vibration.vibrate(); })} step={5} rounded textColor='#103900' totalWidth={120}
                                 iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
@@ -169,7 +168,7 @@ class DemoScreen extends Component {
                         <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                             <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
                                 containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value, "notmodal")[0], oz: Functions.setAlcType(alcValues[number].value, "notmodal")[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : this.state.alctype === "Liquor" ? 2 : 3}>
+                                onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : this.state.alctype === "Liquor" ? 2 : 3}>
                                 <Text style={{ fontSize: alcTypeText }}>🍺</Text>
                                 <Text style={{ fontSize: alcTypeText }}>🍷</Text>
                                 <Text style={{ fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
@@ -191,7 +190,7 @@ class DemoScreen extends Component {
                                         <View style={styles.multiSwitchViews}>
                                             <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
                                                 containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype, "notmodal") }) }} active={1}>
+                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
                                                 <Text style={{ fontSize: abvText }}>4%</Text>
                                                 <Text style={{ fontSize: abvText }}>5%</Text>
                                                 <Text style={{ fontSize: abvText }}>6%</Text>
@@ -203,7 +202,7 @@ class DemoScreen extends Component {
                                         <View style={styles.multiSwitchViews}>
                                             <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                 containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype, "notmodal") }) }} active={1}>
+                                                onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={1}>
                                                 <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
                                                 <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
                                                 <Text style={{ fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
@@ -218,7 +217,7 @@ class DemoScreen extends Component {
                                     <View style={styles.multiSwitchViews}>
                                         <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
                                             containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype, "notmodal") }) }} active={0}>
+                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
                                             <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "12oz" : this.state.alctype === "Wine" ? "5oz" : "1.5oz"}</Text>
                                             <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "16oz" : this.state.alctype === "Wine" ? "8oz" : "3oz"}</Text>
                                             <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "20oz" : this.state.alctype === "Wine" ? "12oz" : "6oz"}</Text>
@@ -228,7 +227,7 @@ class DemoScreen extends Component {
                                     <View style={styles.multiSwitchViews}>
                                         <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
                                             containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype, "notmodal") }) }} active={0}>
+                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
                                             <Text style={{ fontSize: abvLiquorText }}>1</Text>
                                             <Text style={{ fontSize: abvLiquorText }}>2</Text>
                                             <Text style={{ fontSize: abvLiquorText }}>3</Text>

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Keyboard, Modal, Dimensions, TextInput, Alert } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Keyboard, Modal, Dimensions, TextInput, Alert, Vibration } from 'react-native'
 import styles from "./Styles"
 import { loginButtonText, logskey } from "./Variables"
 import AsyncStorage from '@react-native-community/async-storage'
 import moment from "moment";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 
 class LogScreen extends Component {
     constructor(props) {
@@ -23,12 +22,12 @@ class LogScreen extends Component {
     }
 
     async componentDidMount() {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         await AsyncStorage.getItem(logskey, (error, result) => { result !== null && result !== "[]" ? this.setState({ logs: JSON.parse(result) }) : this.setState({ logs: [] }) })
     }
 
     async addLog() {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         if (this.state.log !== "") {
             var newLog = this.state.logs
             var logDate = new Date();
@@ -67,11 +66,11 @@ class LogScreen extends Component {
 
     showHideLogs() {
         this.setState(prevState => ({ showlogs: !prevState.showlogs }), () => { setTimeout(() => { this.scrolltop.scrollTo(this.state.showlogs === true ? { y: 90, animated: true } : { y: 0, animated: true }) }, 750) })
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
     }
 
     confirmDelete(log) {
-        ReactNativeHapticFeedback.trigger("selection", { enableVibrateFallback: true, ignoreAndroidSystemSettings: false });
+        Vibration.vibrate();
         Alert.alert('Are you sure you want to delete this log?', 'Please confirm.',
             [{ text: 'Yes', onPress: () => { this.deleteLog(log) } }, { text: 'No' }],
             { cancelable: false },
