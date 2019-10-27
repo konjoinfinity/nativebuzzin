@@ -47,14 +47,14 @@ class BuzzScreen extends Component {
 
         // script to remove oldbuzz logs, run once
 
-        // var test, buzzarr = this.state.oldbuzzes;
-        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (test = buzzarr.map(oldbuzz => {
-        //     return oldbuzz.map(buzz => {
-        //         delete buzz.log;
-        //         return buzz;
-        //     });
-        // }))
-        // await AsyncStorage.setItem(oldkey, JSON.stringify(test), () => { this.setState({ oldbuzzes: test }) })
+        var test, buzzarr = this.state.oldbuzzes;
+        this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (test = buzzarr.map(oldbuzz => {
+            return oldbuzz.map(buzz => {
+                delete buzz.log;
+                return buzz;
+            });
+        }))
+        await AsyncStorage.setItem(oldkey, JSON.stringify(test), () => { this.setState({ oldbuzzes: test }) })
     }
 
     showHideBuzzes(statename) {

@@ -33,8 +33,6 @@ target 'buzzin' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
-
-
   target 'buzzinTests' do
     inherit! :search_paths
     # Pods for testing
