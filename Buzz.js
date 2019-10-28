@@ -152,7 +152,6 @@ class BuzzScreen extends Component {
 
     deleteAddOldBuzz(oldbuzz) {
         var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
-        console.log(delfilter)
         this.setState({ addoldbuzzes: delfilter })
     }
 
@@ -160,11 +159,9 @@ class BuzzScreen extends Component {
         var oldbuzzadd = this.state.addoldbuzzes;
         var oldbuzzes = this.state.oldbuzzes
         oldbuzzes.unshift(oldbuzzadd);
-        console.log(oldbuzzes);
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
-        console.log(oldbuzzes);
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
-        console.log(this.state.oldbuzzes)
+        if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
     }
 
     onDateChange(date) {
@@ -270,8 +267,7 @@ class BuzzScreen extends Component {
                         </View>
                         <View style={[styles.cardView, { padding: 10 }]}>
                             {this.state.drinkadd === false && <View>
-                                {/* Disable adding buzzes more than 1-2 months old */}
-                                <CalendarPicker onDateChange={(date) => this.onDateChange(date)} maxDate={new Date()} scaleFactor={400} selectedDayColor={"#1de9b6"} />
+                                <CalendarPicker onDateChange={(date) => this.onDateChange(date)} maxDate={new Date()} minDate={monthOld} scaleFactor={400} selectedDayColor={"#1de9b6"} />
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 5 }}>
                                     <TouchableOpacity style={[styles.buzzbutton, { backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => this.addOldModal()}>
                                         <Text style={styles.buttonText}>Cancel</Text>
