@@ -17,6 +17,7 @@
     "moment": "^2.24.0",
     "react": "16.8.6",
     "react-native": "0.60.3",
+    "react-native-calendar-picker": "^6.0.2",
     "react-native-copilot": "^2.4.4",
     "react-native-countdown-component": "^2.6.0",
     "react-native-dropdownalert": "^4.1.0",

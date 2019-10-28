@@ -10,6 +10,7 @@ import { Text as TextSVG, G, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import styles from "./Styles"
+import CalendarPicker from 'react-native-calendar-picker';
 import {
     key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, shotsStyle, alcTypeSize, alcValues,
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
@@ -25,8 +26,9 @@ class BuzzScreen extends Component {
         this.state = {
             buzzes: null, oldbuzzes: null, timesince: null, showHideBuzzes: false, showHideOldBuzzes: false, gender: "",
             chartswitch: false, oldmodal: false, buzzmodal: false, alctype: "Beer", abv: 0.05, oz: 12, selectedOldBuzz: "", obid: "",
-            selectedBuzz: "", buzzduration: 30, position: "", oldposition: "", addoldmodal: false
+            selectedBuzz: "", buzzduration: 30, position: "", oldposition: "", addoldmodal: false, addoldbuzzes: [], selectedStartDate: null
         }
+        this.onDateChange = this.onDateChange.bind(this);
     };
 
     async componentDidMount() {
@@ -140,6 +142,15 @@ class BuzzScreen extends Component {
         }
     }
 
+    addOldBuzzState() {
+        addoldbuzzes = this.state.addoldbuzzes
+        var oldbuzzdate = new Date();
+        oldbuzzdate.setHours(0, 0, 0, 0);
+        addoldbuzzes.unshift({ drinkType: this.state.alctype, dateCreated: oldbuzzdate, oz: this.state.oz, abv: this.state.abv })
+        console.log(addoldbuzzes)
+        this.setState({ addoldbuzzes: addoldbuzzes })
+    }
+
     addOldBuzz() {
         // Use date picker to capture date and insert here
         var oldbuzzdate = new Date("2019-10-15T15:06:20.747Z");
@@ -159,8 +170,14 @@ class BuzzScreen extends Component {
         );
     }
 
+    onDateChange(date) {
+        this.setState({ selectedStartDate: date });
+    }
+
     render() {
-        let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz;
+        const { selectedStartDate } = this.state
+        const startDate = selectedStartDate ? moment(selectedStartDate).format('ddd MMM Do YYYY') : '';
+        let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, oldbuzztoadd;
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
                 {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center", marginRight: 10 }}>Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
@@ -218,6 +235,20 @@ class BuzzScreen extends Component {
             </View>
             )
         }))
+        this.state.addoldbuzzes !== null && (oldbuzztoadd = this.state.addoldbuzzes.map((oldbuzz, id) => {
+            return (<View key={id}>
+                {id === 0 && <Text style={{ fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY')}</Text>}
+                <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
+                    <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{oldbuzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
+                    <View style={{ flexDirection: "column" }}>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{oldbuzz.oz}oz  -  {Math.round(oldbuzz.abv * 100)}% ABV</Text>
+                        <Text style={{ fontSize: 16, padding: 5 }}>
+                            {new Date(Date.parse(oldbuzz.dateCreated)).getMilliseconds() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getSeconds() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getMinutes() === 0 && new Date(Date.parse(oldbuzz.dateCreated)).getSeconds() === 0 ?
+                                moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY') : moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
+                    {this.state.addoldbuzzes.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteOldBuzz(this.state.obid, oldbuzz)}><Text style={styles.buttonText}>🗑</Text></TouchableOpacity>}</View>
+            </View>
+            )
+        }))
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
             <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - 10} fontSize={20} fill={'black'}
                 alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
@@ -240,10 +271,14 @@ class BuzzScreen extends Component {
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
                             <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "500" }}>Add Old Buzz</Text>
-                            {/* {oldbuzztoadd} */}
+                            {oldbuzztoadd}
                         </View>
                         <View style={styles.cardView}>
-                            <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
+                            <CalendarPicker onDateChange={this.onDateChange} maxDate={new Date()} />
+                            <View>
+                                <Text style={{ textAlign: "center" }}>Selected Date: {startDate}</Text>
+                            </View>
+                            {/* <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
                                 <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
                                     containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                     onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : this.state.alctype === "Liquor" ? 2 : 3}>
@@ -303,12 +338,12 @@ class BuzzScreen extends Component {
                                                 <Text style={{ fontSize: abvLiquorText }}>3</Text>
                                                 <Text style={{ fontSize: abvLiquorText }}>4</Text>
                                             </MultiSwitch>
-                                        </View>}
-                                </View>
-                                {/* Adding drinks would add them to state, state renders to the top of the modal, submit adds to oldbuzzes */}
-                                <TouchableOpacity onPress={() => this.addOldBuzz()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
-                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
-                            </View>
+                                        </View>} */}
+                            {/* </View> */}
+                            {/* Adding drinks would add them to state, state renders to the top of the modal, submit adds to oldbuzzes */}
+                            {/* <TouchableOpacity onPress={() => this.addOldBuzzState()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                    <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity> */}
+                            {/* </View> */}
                             <Text style={styles.profileLine}>___________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={styles.buzzbutton} onPress={() => this.addOldModal()}>
