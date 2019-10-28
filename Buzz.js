@@ -46,17 +46,6 @@ class BuzzScreen extends Component {
             } else { this.setState({ oldbuzzes: null }) }
         })
         await AsyncStorage.getItem(genderkey, (error, result) => { this.setState({ gender: JSON.parse(result) }) })
-
-        // script to remove oldbuzz logs, run once
-
-        // var test, buzzarr = this.state.oldbuzzes;
-        // this.state.oldbuzzes && this.state.oldbuzzes.length > 0 && (test = buzzarr.map(oldbuzz => {
-        //     return oldbuzz.map(buzz => {
-        //         delete buzz.log;
-        //         return buzz;
-        //     });
-        // }))
-        // await AsyncStorage.setItem(oldkey, JSON.stringify(test), () => { this.setState({ oldbuzzes: test }) })
     }
 
     showHideBuzzes(statename) {
