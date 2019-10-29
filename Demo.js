@@ -26,7 +26,7 @@ class DemoScreen extends Component {
     };
 
     async componentDidMount() {
-        ReactNativeHaptic.generate('impactLight');;
+        ReactNativeHaptic.generate('impactLight');
         setTimeout(() => { this.checkBac() }, 200)
     }
 

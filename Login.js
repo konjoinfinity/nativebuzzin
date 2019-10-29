@@ -19,7 +19,7 @@ class LoginScreen extends React.Component {
     }
 
     componentDidMount() {
-        ReactNativeHaptic.generate('selection');;
+        ReactNativeHaptic.generate('impactLight');
         this.nameinput.focus();
     }
 

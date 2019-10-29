@@ -23,7 +23,7 @@ class LogScreen extends Component {
     }
 
     async componentDidMount() {
-        ReactNativeHaptic.generate('selection')
+        ReactNativeHaptic.generate('impactLight');
         await AsyncStorage.getItem(logskey, (error, result) => { result !== null && result !== "[]" ? this.setState({ logs: JSON.parse(result) }) : this.setState({ logs: [] }) })
     }
 

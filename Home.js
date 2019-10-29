@@ -39,7 +39,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        ReactNativeHaptic.generate('impact');
+        ReactNativeHaptic.generate('impactLight');
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey])
         this.setState({

@@ -26,7 +26,7 @@ class ProfileScreen extends Component {
     };
 
     async componentDidMount() {
-        ReactNativeHaptic.generate('impactMedium');;
+        ReactNativeHaptic.generate('impactLight');
         this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false, setmaxrec: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
             drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
@@ -139,7 +139,6 @@ class ProfileScreen extends Component {
     }
 
     async saveValues(statename, keyvalue) {
-        ReactNativeHaptic.generate('selection');
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
         if (statename === "limithour") {
             if (this.state.limithour !== 0) {

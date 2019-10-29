@@ -70,7 +70,7 @@ class BuzzScreen extends Component {
     }
 
     async editBuzz() {
-        ReactNativeHaptic.generate('selection');;
+        ReactNativeHaptic.generate('selection');
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var editbuzzes = this.state.buzzes
@@ -247,7 +247,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHaptic.generate('impactHeavy')} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHaptic.generate('impactLight')} />
                 <Modal animationType="slide" transparent={false} visible={this.state.addoldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
