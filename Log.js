@@ -5,6 +5,7 @@ import { loginButtonText, logskey } from "./Variables"
 import AsyncStorage from '@react-native-community/async-storage'
 import moment from "moment";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import ReactNativeHaptic from 'react-native-haptic';
 
 class LogScreen extends Component {
     constructor(props) {
@@ -22,12 +23,12 @@ class LogScreen extends Component {
     }
 
     async componentDidMount() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection')
         await AsyncStorage.getItem(logskey, (error, result) => { result !== null && result !== "[]" ? this.setState({ logs: JSON.parse(result) }) : this.setState({ logs: [] }) })
     }
 
     async addLog() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         if (this.state.log !== "") {
             var newLog = this.state.logs
             var logDate = new Date();
@@ -66,11 +67,11 @@ class LogScreen extends Component {
 
     showHideLogs() {
         this.setState(prevState => ({ showlogs: !prevState.showlogs }), () => { setTimeout(() => { this.scrolltop.scrollTo(this.state.showlogs === true ? { y: 90, animated: true } : { y: 0, animated: true }) }, 750) })
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
     }
 
     confirmDelete(log) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         Alert.alert('Are you sure you want to delete this log?', 'Please confirm.',
             [{ text: 'Yes', onPress: () => { this.deleteLog(log) } }, { text: 'No' }],
             { cancelable: false },

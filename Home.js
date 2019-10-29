@@ -11,6 +11,7 @@ import moment from "moment";
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import CountDown from 'react-native-countdown-component';
+import ReactNativeHaptic from 'react-native-haptic';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
@@ -38,7 +39,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey])
         this.setState({
@@ -116,7 +117,7 @@ class HomeScreen extends Component {
     }
 
     handleModal(number) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ [number]: !this.state[number] });
     }
 
@@ -138,7 +139,7 @@ class HomeScreen extends Component {
     }
 
     async addDrink() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes] }), () => this.checkBac())
         setTimeout(() => {
@@ -241,7 +242,7 @@ class HomeScreen extends Component {
     }
 
     async clearDrinks() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         clearInterval(this.state.flashtimer);
         this.setState({ buzzes: [], bac: 0.0, flashtext: false, flashtimer: "", flashtext: "" })
         await AsyncStorage.removeItem(key);
@@ -249,7 +250,7 @@ class HomeScreen extends Component {
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.buzzes[0].dateCreated) < 0.0333333) {
-            Vibration.vibrate();
+            ReactNativeHaptic.generate('selection');
             var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
                 if (result !== null) {
@@ -270,7 +271,7 @@ class HomeScreen extends Component {
     }
 
     cancelAlert(typealert) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
             typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
                 typealert === "ib" ? 'Consider keeping up your streak.' : typealert === "lc" ? "It's after last call, consider going home." :
@@ -281,7 +282,7 @@ class HomeScreen extends Component {
     }
 
     async stopModeration(stoptype) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
             stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } :
                 stoptype === "ib" ? { indefbreak: false } : stoptype === "lc" ? { limitdate: "", showlastcall: false, lastcall: false } : { showpacer: false, pacer: false })
@@ -318,18 +319,18 @@ class HomeScreen extends Component {
     }
 
     buzzModal() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" },
             () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 750) })
     }
 
     buzzDuration(incdec) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
             this.setState({ buzzduration: this.state.buzzduration + 15 })
         } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
@@ -338,13 +339,13 @@ class HomeScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
     }
 
     async editBuzz() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var editbuzzes = this.state.buzzes
@@ -355,7 +356,7 @@ class HomeScreen extends Component {
 
     countDownFinished() {
         setTimeout(() => { this.setState({ showpacer: false }) }, 100)
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
     }
 
     showLastCall() {

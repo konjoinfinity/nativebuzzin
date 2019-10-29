@@ -11,6 +11,7 @@ import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import CalendarPicker from 'react-native-calendar-picker';
+import ReactNativeHaptic from 'react-native-haptic';
 import {
     key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, shotsStyle, alcTypeSize, alcValues,
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
@@ -53,7 +54,7 @@ class BuzzScreen extends Component {
             this.state[statename] === true ?
                 this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 500));
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
     }
 
     chartSwitch() {
@@ -62,14 +63,14 @@ class BuzzScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
         values = await Functions.maxRecDrinks()
     }
 
     async editBuzz() {
-        Vibration.vibrate();;
+        ReactNativeHaptic.generate('selection');;
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var editbuzzes = this.state.buzzes
@@ -80,14 +81,14 @@ class BuzzScreen extends Component {
     }
 
     async deleteOldBuzz(obid, oldbuzz) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
         values = await Functions.maxRecDrinks()
     }
 
     async editOldBuzz(obid) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         var obnormal = this.state.oldbuzzes
         var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
         lastTime.setHours(0, 0, 0, 0)
@@ -98,32 +99,32 @@ class BuzzScreen extends Component {
 
     // combine modal handles to one function
     oldModal(buzz, obid) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz, obid: obid });
     }
 
     closeOldModal() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: "", obid: "" });
     }
 
     buzzModal() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" });
     }
 
     addOldModal() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ addoldmodal: !this.state.addoldmodal, selectedStartDate: null, drinkadd: false, addoldbuzzes: [] });
     }
 
     buzzDuration(incdec) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
             this.setState({ buzzduration: this.state.buzzduration + 15 })
         } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
@@ -246,7 +247,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => Vibration.vibrate()} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHaptic.generate('selection')} />
                 <Modal animationType="slide" transparent={false} visible={this.state.addoldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>

@@ -9,6 +9,7 @@ import { AlertHelper } from './AlertHelper';
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import moment from "moment";
+import ReactNativeHaptic from 'react-native-haptic';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,
@@ -25,17 +26,17 @@ class DemoScreen extends Component {
     };
 
     async componentDidMount() {
-        Vibration.vibrate();;
+        ReactNativeHaptic.generate('selection');;
         setTimeout(() => { this.checkBac() }, 200)
     }
 
     handleModal(number) {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ [number]: !this.state[number] })
     }
 
     addDrink() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         var drinkDate = new Date();
         this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => { this.checkBac() })
         setTimeout(() => {
@@ -71,18 +72,18 @@ class DemoScreen extends Component {
     }
 
     async clearDrinks() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.setState({ testbuzzes: [], bac: 0.0 });
     }
 
     switchGender() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
         this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.testbuzzes[0].dateCreated) < 0.0333333) {
-            Vibration.vibrate();
+            ReactNativeHaptic.generate('selection');
             var undobuzz = this.state.testbuzzes;
             if (undobuzz.length >= 1) {
                 undobuzz.shift();
@@ -101,7 +102,7 @@ class DemoScreen extends Component {
             if (this.state.showHideBuzzes === true) { this.scrolltop.scrollTo({ y: 550, animated: true }) }
             else { this.scrolltop.scrollTo({ y: 0, animated: true }) }
         }, 300));
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
     }
 
     render() {
@@ -142,7 +143,7 @@ class DemoScreen extends Component {
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight} totalHeight={50}
-                                onChange={(weight) => this.setState({ weight }, () => { Vibration.vibrate(); })} step={5} rounded textColor='#103900' totalWidth={120}
+                                onChange={(weight) => this.setState({ weight }, () => { ReactNativeHaptic.generate('selection'); })} step={5} rounded textColor='#103900' totalWidth={120}
                                 iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>

@@ -33,6 +33,8 @@ target 'buzzin' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-haptic', :path => '../node_modules/react-native-haptic'
+
   target 'buzzinTests' do
     inherit! :search_paths
     # Pods for testing

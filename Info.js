@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Linking, Platform, TouchableOpacity, Vibration } from 'react-native'
+import ReactNativeHaptic from 'react-native-haptic';
 import styles from "./Styles"
 
 class InfoScreen extends Component {
 
     componentDidMount() {
-        Vibration.vibrate();
+        ReactNativeHaptic.generate('selection');
     }
 
     static navigationOptions = ({ navigation }) => {
