@@ -583,9 +583,9 @@ class BuzzScreen extends Component {
                             </View>}
                     </ScrollView>
                     {values[0].length > 1 && <View style={[styles.buzzInfo, { flexDirection: "row", justifyContent: "space-evenly" }]}>
-                        <Text style={{ fontSize: loginButtonText }}>Bar Charts</Text>
-                        <Switch value={this.state.chartswitch} onChange={() => this.chartSwitch()} />
-                        <Text style={{ fontSize: loginButtonText }}>Line Chart</Text>
+                        <Text style={{ fontSize: loginButtonText }}>Week/Month</Text>
+                        <Switch ios_backgroundColor={"#1de9b6"} trackColor={{ true: "#1de9b6", false: "#1de9b6" }} value={this.state.chartswitch} onChange={() => this.chartSwitch()} />
+                        <Text style={{ fontSize: loginButtonText }}>Cumulative</Text>
                     </View>}
                     {this.state.buzzes !== null && <View style={styles.buzzCard}>
                         <View style={styles.buzzView}>
