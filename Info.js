@@ -6,7 +6,7 @@ import styles from "./Styles"
 class InfoScreen extends Component {
 
     componentDidMount() {
-        ReactNativeHaptic.generate('selection');
+        ReactNativeHaptic.generate('notification');
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -21,9 +21,30 @@ class InfoScreen extends Component {
             <ScrollView>
                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                     <Text style={{ marginTop: 10, fontSize: 40, textAlign: "center", padding: 20 }}>Info</Text>
+
                     <Text style={styles.infoText}>The buzzin app helps to reduce, moderate, and track personal alcohol consumption habits.  Alcohol is a problem for many people around the world.  We want to help people control the amount of alcohol they consume in a responsible manner.</Text>
                     <Text style={styles.infoTitle}>About Us</Text>
                     <Text style={styles.infoText}>Co-Founders Charles and Wesley started developing this app in June 2019 to help people drink alcohol responsibly.  We both have at one point in our lives struggled with alcohol.  We hope this tool we built helps our users to get a better handle on their drinking habits.  We both use the tool daily and we hope you will too.</Text>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('selection')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Selection</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notification')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification</Text></TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impact')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impactLight')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Light</Text></TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impactMedium')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Medium</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impactHeavy')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Heavy</Text></TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notificationError')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Error</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notificationSuccess')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Success</Text></TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notificationWarning')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Warning</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Normal Vibration</Text></TouchableOpacity>
+                    </View>
                     <Text style={styles.infoTitle}>Feedback</Text>
                     <Text style={styles.infoText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
                     <Text style={styles.infoTitle}>Disclaimer</Text>

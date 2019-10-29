@@ -247,7 +247,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHaptic.generate('selection')} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHaptic.generate('impactHeavy')} />
                 <Modal animationType="slide" transparent={false} visible={this.state.addoldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
