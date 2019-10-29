@@ -64,10 +64,10 @@ const AppStack = createStackNavigator({
                 paddingTop: Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 ? 25 : 0
             },
             headerLeft: (<View style={{ flexDirection: "row" }}>
-                <TouchableOpacity style={styles.infoButton} onPress={() => navigation.push("Info")}>
+                <TouchableOpacity style={[styles.infoButton, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>
                     <View><Image style={{ width: 25, height: 25 }} source={require('./info.png')}></Image></View></TouchableOpacity></View>),
             headerRight: (<View style={{ flexDirection: "row" }}>
-                <TouchableOpacity style={styles.logButton} onPress={() => navigation.push("Log")}>
+                <TouchableOpacity style={[styles.logButton, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Log")}>
                     <View><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></View></TouchableOpacity></View>)
         })
     },
