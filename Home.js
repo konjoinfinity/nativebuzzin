@@ -39,7 +39,7 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        this.setState({ test: true })
+        if (this.props.navigation.isFocused() === true) { ReactNativeHaptic.generate('impactLight') }
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey])
         this.setState({
@@ -505,7 +505,6 @@ class HomeScreen extends Component {
                         </View>
                     </ScrollView>
                 </Modal>
-                {this.state.test === true && <NavigationEvents onDidFocus={() => ReactNativeHaptic.generate('impactLight')} />}
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => this.componentDidMount()} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>

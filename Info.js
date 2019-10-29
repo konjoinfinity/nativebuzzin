@@ -22,6 +22,7 @@ class InfoScreen extends Component {
                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                     <Text style={{ marginTop: 10, fontSize: 40, textAlign: "center", padding: 20 }}>Info</Text>
                     <Text style={styles.infoText}>The buzzin app helps to reduce, moderate, and track personal alcohol consumption habits.  Alcohol is a problem for many people around the world.  We want to help people control the amount of alcohol they consume in a responsible manner.</Text>
+                    <Text style={[styles.infoText, { fontWeight: "bold" }]}>Test Haptic Vibrations</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                         <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('selection')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Selection</Text></TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notification')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification</Text></TouchableOpacity>
