@@ -44,6 +44,7 @@ class LogScreen extends Component {
     }
 
     async deleteLog(log) {
+        ReactNativeHaptic.generate('selection');
         var filtered = this.state.logs.filter(deleted => deleted !== log)
         this.setState({ log: "", editlogmodal: false, logs: filtered, editlog: "" })
         await AsyncStorage.setItem(logskey, JSON.stringify(filtered))
@@ -58,6 +59,7 @@ class LogScreen extends Component {
     }
 
     async editLog(position) {
+        ReactNativeHaptic.generate('selection');
         var editlogs = this.state.logs
         editlogs[position].log = this.state.editlog
         this.setState({ logs: editlogs, editlog: "", editlogmodal: false })
@@ -148,7 +150,7 @@ class LogScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
                         {/* Will have to make the marginRiight value variable for all phones */}
                         <Text style={{ fontSize: 28, padding: 10, marginRight: 62 }}>Logs</Text>
-                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { ReactNativeHaptic.generate('selection'); this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
                     </View>
                         {this.state.logs && eachlog !== undefined && this.state.showlogs === false && <View>{currentlogs}</View>}
                         {this.state.logs && eachlog !== undefined && this.state.showlogs === true && <View>{eachlog}</View>}

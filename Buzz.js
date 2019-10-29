@@ -133,6 +133,7 @@ class BuzzScreen extends Component {
     }
 
     addOldBuzzState() {
+        ReactNativeHaptic.generate('selection');
         addoldbuzzes = this.state.addoldbuzzes
         var oldbuzzdate = new Date(this.state.selectedStartDate);
         oldbuzzdate.setHours(0, 0, 0, 0);
@@ -141,11 +142,13 @@ class BuzzScreen extends Component {
     }
 
     deleteAddOldBuzz(oldbuzz) {
+        ReactNativeHaptic.generate('selection');
         var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
         this.setState({ addoldbuzzes: delfilter })
     }
 
     async addOldBuzz() {
+        ReactNativeHaptic.generate('selection');
         var oldbuzzadd = this.state.addoldbuzzes;
         var oldbuzzes = this.state.oldbuzzes
         oldbuzzes.unshift(oldbuzzadd);
@@ -155,6 +158,7 @@ class BuzzScreen extends Component {
     }
 
     onDateChange(date) {
+        ReactNativeHaptic.generate('selection');
         this.setState({ selectedStartDate: date });
     }
 
@@ -263,7 +267,7 @@ class BuzzScreen extends Component {
                                         <Text style={styles.buttonText}>Cancel</Text>
                                     </TouchableOpacity>
                                     {this.state.selectedStartDate !== null &&
-                                        <TouchableOpacity style={styles.buzzbutton} onPress={() => this.setState({ drinkadd: true })}>
+                                        <TouchableOpacity style={styles.buzzbutton} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ drinkadd: true }) }}>
                                             <Text style={styles.buttonText}>Add Drinks</Text>
                                         </TouchableOpacity>}
                                 </View>
