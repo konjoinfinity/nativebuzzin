@@ -68,8 +68,8 @@ class LogScreen extends Component {
     }
 
     showHideLogs() {
-        this.setState(prevState => ({ showlogs: !prevState.showlogs }), () => { setTimeout(() => { this.scrolltop.scrollTo(this.state.showlogs === true ? { y: 90, animated: true } : { y: 0, animated: true }) }, 750) })
         ReactNativeHaptic.generate('selection');
+        this.setState(prevState => ({ showlogs: !prevState.showlogs }), () => { setTimeout(() => { this.scrolltop.scrollTo(this.state.showlogs === true ? { y: 90, animated: true } : { y: 0, animated: true }) }, 750) })
     }
 
     confirmDelete(log) {
@@ -113,7 +113,7 @@ class LogScreen extends Component {
                                 onChangeText={(log) => this.setState({ log })} onSubmitEditing={() => { Keyboard.dismiss(); this.addLog() }} multiline={true} onBlur={() => { Keyboard.dismiss() }}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} returnKeyType={'done'} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ log: "", logmodal: false })}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ log: "", logmodal: false }) }}>
                                     <Text style={styles.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
@@ -136,7 +136,7 @@ class LogScreen extends Component {
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete(this.state.logselected) }}>
                                     <Text style={styles.buttonText}>Delete</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.setState({ editlog: "", editlogmodal: false })}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ editlog: "", editlogmodal: false }) }}>
                                     <Text style={styles.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.editLog(this.state.position)}>
