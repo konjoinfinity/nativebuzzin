@@ -28,8 +28,8 @@ class LogScreen extends Component {
     }
 
     async addLog() {
-        ReactNativeHaptic.generate('selection');
         if (this.state.log !== "") {
+            ReactNativeHaptic.generate('selection');
             var newLog = this.state.logs
             var logDate = new Date();
             newLog.unshift({ log: this.state.log, dateCreated: logDate })
@@ -39,6 +39,7 @@ class LogScreen extends Component {
                 this.setState({ showlogs: true }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750) })
             }
         } else {
+            ReactNativeHaptic.generate('notificationWarning');
             Alert.alert("Please type some text.")
         }
     }
@@ -73,7 +74,7 @@ class LogScreen extends Component {
     }
 
     confirmDelete(log) {
-        ReactNativeHaptic.generate('selection');
+        ReactNativeHaptic.generate('notificationWarning');
         Alert.alert('Are you sure you want to delete this log?', 'Please confirm.',
             [{ text: 'Yes', onPress: () => { this.deleteLog(log) } }, { text: 'No' }],
             { cancelable: false },

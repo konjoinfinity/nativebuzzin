@@ -27,7 +27,7 @@ class LoginScreen extends React.Component {
         ReactNativeHaptic.generate('selection');
         if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
         else {
-            ReactNativeHaptic.generate('selection');
+            ReactNativeHaptic.generate('notificationWarning');
             Alert.alert("Please Enter Name")
         }
     }

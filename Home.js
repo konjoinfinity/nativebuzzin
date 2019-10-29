@@ -39,7 +39,6 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        if (this.props.navigation.isFocused() === true) { ReactNativeHaptic.generate('impactLight') }
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey])
         this.setState({
@@ -93,9 +92,9 @@ class HomeScreen extends Component {
             setTimeout(() => {
                 this.props.start();
                 this.props.navigation.setParams({ login: false });
-            }, 1000);
+            }, 100);
         }
-        setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 1050);
+        setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 150);
         if (this.state.happyhour === true) {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
@@ -271,7 +270,7 @@ class HomeScreen extends Component {
     }
 
     cancelAlert(typealert) {
-        ReactNativeHaptic.generate('selection');
+        ReactNativeHaptic.generate('notificationWarning');
         Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
             typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
                 typealert === "ib" ? 'Consider keeping up your streak.' : typealert === "lc" ? "It's after last call, consider going home." :
@@ -505,7 +504,7 @@ class HomeScreen extends Component {
                         </View>
                     </ScrollView>
                 </Modal>
-                {this.state.focus === true && <NavigationEvents onWillFocus={() => this.componentDidMount()} />}
+                {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="This gauge displays your current BAC.  The tick marks show the optimal buzz range.  Check the readout for your current BAC." order={1} name="gauge">

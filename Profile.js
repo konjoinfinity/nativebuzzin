@@ -189,7 +189,7 @@ class ProfileScreen extends Component {
                                     <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
                         </View>
                         {this.state.happyhour === true && this.state.sethappyhour && <View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 5 }}>___________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Daily Break</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.hhhour === 16 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 16 }, () => this.saveValues("hhhour", hhhourkey))}>
