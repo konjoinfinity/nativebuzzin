@@ -174,7 +174,6 @@ class ProfileScreen extends Component {
     }
 
     render() {
-        console.log(loginButtonText)
         var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
         return (
             <View>

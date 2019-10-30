@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Vibration } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Vibration, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -12,11 +12,13 @@ import { Functions } from "./Functions";
 import styles from "./Styles"
 import CalendarPicker from 'react-native-calendar-picker';
 import ReactNativeHaptic from 'react-native-haptic';
+import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import {
     key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, shotsStyle, alcTypeSize, alcValues,
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
     abvWineSize, abvWineText
 } from "./Variables";
+import { AlertHelper } from './AlertHelper';
 
 var values;
 (async () => { values = await Functions.maxRecDrinks() })();
@@ -162,6 +164,20 @@ class BuzzScreen extends Component {
         this.setState({ selectedStartDate: date });
     }
 
+    async deleteWholeOldBuzz() {
+        var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
+        await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
+        this.closeOldModal()
+    }
+
+    confirmDelete() {
+        ReactNativeHaptic.generate('notificationWarning');
+        Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.',
+            [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }],
+            { cancelable: false },
+        );
+    }
+
     render() {
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, oldbuzztoadd;
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
@@ -184,7 +200,7 @@ class BuzzScreen extends Component {
         this.state.oldbuzzes !== null && (oldbuzzes = oldbuzzmonth.map((buzz, obid) => {
             return buzz.map((oldbuzz, id) => {
                 return (<View key={id}>
-                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center", marginRight: 30 }}>{moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center", marginRight: 30 }}>{moment(oldbuzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.oldModal(buzz, obid)}><Micon name="file-document-edit-outline" color="#ffffff" size={21} /></TouchableOpacity></View>}
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
                         <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{oldbuzz.drinkType === "Beer" && <Text>🍺</Text>}{oldbuzz.drinkType === "Wine" && <Text>🍷</Text>}{oldbuzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{oldbuzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                         <View style={{ flexDirection: "column" }}>
@@ -424,8 +440,11 @@ class BuzzScreen extends Component {
                                     <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                             </View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
-                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.closeOldModal()}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", paddingTop: 5, paddingBottom: 5 }}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete() }}>
+                                    <Text style={styles.buttonText}>Delete</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.closeOldModal()}>
                                     <Text style={styles.buttonText}>Done</Text>
                                 </TouchableOpacity></View>
                         </View>
