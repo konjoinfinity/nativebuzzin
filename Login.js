@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import styles from "./Styles"
 import ReactNativeHaptic from 'react-native-haptic';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
@@ -90,7 +91,10 @@ class LoginScreen extends React.Component {
                         </View>
                         <View style={{ paddingTop: 20 }}>
                             <TouchableOpacity style={[styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal()}>
-                                <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Login</Text>
+                                <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                                    <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Login   </Text><Icon name="login" color="#ffffff" size={loginButtonText} style={{ paddingTop: 2 }} />
+
+                                </View>
                             </TouchableOpacity>
                         </View>
                     </View>
