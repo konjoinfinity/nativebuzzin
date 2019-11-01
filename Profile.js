@@ -9,11 +9,6 @@ import styles from "./Styles"
 import ReactNativeHaptic from 'react-native-haptic';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontIcon from 'react-native-vector-icons/FontAwesome';
-import Sicon from 'react-native-vector-icons/SimpleLineIcons'
-import Ficon from 'react-native-vector-icons/Feather'
-import Foicon from 'react-native-vector-icons/Fontisto'
-import Iicon from 'react-native-vector-icons/Ionicons'
-import Aicon from 'react-native-vector-icons/AntDesign'
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
@@ -221,9 +216,9 @@ class ProfileScreen extends Component {
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch trackColor={{ true: "#26a69a" }} value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey, "setcustombreak")} /></View>
                             {this.state.custombreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
-                                <Sicon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
+                                <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setcustombreak")}>
-                                    <Sicon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
+                                    <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.custombreak === true && this.state.setcustombreak === true && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -298,9 +293,9 @@ class ProfileScreen extends Component {
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch trackColor={{ true: "#26a69a" }} value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
                             {this.state.limit === false ? <TouchableOpacity style={styles.profileSettingHidden}>
-                                <Ficon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
+                                <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setlimit")}>
-                                    <Ficon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
+                                    <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.limit === true && this.state.setlimit === true && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -331,9 +326,9 @@ class ProfileScreen extends Component {
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch trackColor={{ true: "#26a69a" }} value={this.state.lastcall} onChange={() => this.handleSwitches("lastcall", lastcallkey, "setlastcall")} /></View>
                             {this.state.lastcall === false ? <TouchableOpacity style={styles.profileSettingHidden}>
-                                <Iicon name="ios-settings" color="#e0f2f1" size={loginButtonText} style={{ padding: 3.5 }} /></TouchableOpacity>
+                                <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setlastcall")}>
-                                    <Iicon name="ios-settings" color="#ffffff" size={loginButtonText} style={{ padding: 3.5 }} /></TouchableOpacity>}
+                                    <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.lastcall === true && this.state.setlastcall === true && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -364,9 +359,9 @@ class ProfileScreen extends Component {
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch trackColor={{ true: "#26a69a" }} value={this.state.pacer} onChange={() => this.handleSwitches("pacer", pacerkey, "setpacer")} /></View>
                             {this.state.pacer === false ? <TouchableOpacity style={styles.profileSettingHidden}>
-                                <Foicon name="player-settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
+                                <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setpacer")}>
-                                    <Foicon name="player-settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
+                                    <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.pacer === true && this.state.setpacer && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -389,9 +384,9 @@ class ProfileScreen extends Component {
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch trackColor={{ true: "#26a69a" }} value={this.state.maxrec} onChange={() => this.handleSwitches("maxrec", maxreckey, "setmaxrec")} /></View>
                             {this.state.maxrec === false ? <TouchableOpacity style={styles.profileSettingHidden}>
-                                <Aicon name="setting" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
+                                <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setmaxrec")}>
-                                    <Aicon name="setting" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
+                                    <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.maxrec === true && this.state.setmaxrec === true && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
@@ -407,9 +402,9 @@ class ProfileScreen extends Component {
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
                                 <Switch trackColor={{ true: "#26a69a" }} value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
                             {this.state.autobreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
-                                <Text style={[{ fontSize: loginButtonText }, styles.profileSettingTextHidden]}>⚙︎</Text></TouchableOpacity>
+                                <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setautobreak")}>
-                                    <Text style={[{ fontSize: loginButtonText }, styles.profileSettingText]}>{Platform.OS === 'android' && Platform.Version < 23 ? "+" : "⚙︎"}</Text></TouchableOpacity>}
+                                    <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.autobreak === true && this.state.setautobreak === true && <View>
                             <Text style={styles.profileLine}>___________________________________________</Text>

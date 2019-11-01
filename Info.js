@@ -33,17 +33,17 @@ class InfoScreen extends Component {
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><AntIcon name="info" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><EIcon name="info" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><EIcon name="info-with-circle" color="#ffffff" size={25} /></TouchableOpacity>
-                        <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><FeatherIcon name="info" color="#ffffff" size={25} /></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><FeatherIcon name="info" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><FAIcon name="info-circle" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><FAIcon name="info" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><FA5Icon name="info" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><FA5Icon name="info-circle" color="#ffffff" size={25} /></TouchableOpacity>
-                        <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><MCIcon name="information" color="#ffffff" size={25} /></TouchableOpacity>
-                        <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><MCIcon name="information-outline" color="#ffffff" size={25} /></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><MCIcon name="information" color="#ffffff" size={25} /></TouchableOpacity>
+                        <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><MCIcon name="information-outline" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><MCIcon name="information-variant" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><MIcon name="info" color="#ffffff" size={25} /></TouchableOpacity>
                         <TouchableOpacity style={[styles.plusMinusButtons, { margin: 5 }]}><MIcon name="info-outline" color="#ffffff" size={25} /></TouchableOpacity>
@@ -81,9 +81,9 @@ class InfoScreen extends Component {
                     <Text style={styles.infoTitle}>Donate</Text>
                     <Text style={styles.infoText}>Paypal (register buzzin.io email for paypal)Instructions for moderation options, how to use other parts of the app, etc.</Text>
                     <Text style={styles.infoTitle}>Tips and FAQ</Text>
-                    <Text style={styles.infoText}>Instructions for moderation options, how to use other parts of the app, etc.</Text>
+                    <Text style={styles.infoText}>We recommend enabling at least one moderation option on the profile page.</Text>
                     <Text style={styles.infoTitle}>More Info</Text>
-                    <Text style={styles.infoText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+                    <Text style={styles.infoText}>See our website or send us an email using the buttons below.</Text>
                     <Text style={styles.infoTitle}>Acknowledgements</Text>
                     <Text style={styles.infoText}>Built using the following third party packages:</Text>
                     <Text style={styles.infoList}>react</Text>
