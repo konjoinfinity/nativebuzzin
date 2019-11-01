@@ -23,13 +23,13 @@ class LogScreen extends Component {
     }
 
     async componentDidMount() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('impactLight') : Vibration.vibrate()
         await AsyncStorage.getItem(logskey, (error, result) => { result !== null && result !== "[]" ? this.setState({ logs: JSON.parse(result) }) : this.setState({ logs: [] }) })
     }
 
     async addLog() {
         if (this.state.log !== "") {
-            Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('selection') : Vibration.vibrate()
             var newLog = this.state.logs
             var logDate = new Date();
             newLog.unshift({ log: this.state.log, dateCreated: logDate })
@@ -39,13 +39,13 @@ class LogScreen extends Component {
                 this.setState({ showlogs: true }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750) })
             }
         } else {
-            Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
+            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
             Alert.alert("Please type some text.")
         }
     }
 
     async deleteLog(log) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var filtered = this.state.logs.filter(deleted => deleted !== log)
         this.setState({ log: "", editlogmodal: false, logs: filtered, editlog: "" })
         await AsyncStorage.setItem(logskey, JSON.stringify(filtered))
@@ -60,7 +60,7 @@ class LogScreen extends Component {
     }
 
     async editLog(position) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var editlogs = this.state.logs
         editlogs[position].log = this.state.editlog
         this.setState({ logs: editlogs, editlog: "", editlogmodal: false })
@@ -69,12 +69,12 @@ class LogScreen extends Component {
     }
 
     showHideLogs() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState(prevState => ({ showlogs: !prevState.showlogs }), () => { setTimeout(() => { this.scrolltop.scrollTo(this.state.showlogs === true ? { y: 90, animated: true } : { y: 0, animated: true }) }, 750) })
     }
 
     confirmDelete(log) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
         Alert.alert('Are you sure you want to delete this log?', 'Please confirm.',
             [{ text: 'Yes', onPress: () => { this.deleteLog(log) } }, { text: 'No' }],
             { cancelable: false },
@@ -114,48 +114,48 @@ class LogScreen extends Component {
                                 onChangeText={(log) => this.setState({ log })} multiline={true} onBlur={() => { Keyboard.dismiss() }} blurOnSubmit={false}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => { Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.setState({ log: "", logmodal: false }) }}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.setState({log: "", logmodal: false }) }}>
                                     <Text style={styles.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
-                                    <Text style={styles.buttonText}>Save</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.addLog()}>
+                                <Text style={styles.buttonText}>Save</Text>
+                            </TouchableOpacity>
                         </View>
+                    </View>
                     </View>
                 </Modal>
-                <Modal animationType="fade" transparent={true} visible={this.state.editlogmodal}>
-                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.editloginput.blur()}>
-                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.95 }]}>
-                            <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 5, margin: 5 }}>Edit Log</Text>
-                            {/* Will have to make the height value variable for all phones */}
-                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: this.state.textinputheight <= 236.5 ? Math.max(50, this.state.textinputheight) : 236.5, paddingLeft: 8, paddingRight: 8 }}
-                                value={this.state.editlog} ref={(input) => { this.editloginput = input }} onFocus={() => this.editloginput.focus()}
-                                onChangeText={(editlog) => this.setState({ editlog })} multiline={true} onBlur={() => { Keyboard.dismiss() }} blurOnSubmit={false}
-                                onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
-                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete(this.state.logselected) }}>
-                                    <Text style={styles.buttonText}>Delete</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => { Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.setState({ editlog: "", editlogmodal: false }) }}>
+            <Modal animationType="fade" transparent={true} visible={this.state.editlogmodal}>
+                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.editloginput.blur()}>
+                    <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.95 }]}>
+                        <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 5, margin: 5 }}>Edit Log</Text>
+                        {/* Will have to make the height value variable for all phones */}
+                        <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: this.state.textinputheight <= 236.5 ? Math.max(50, this.state.textinputheight) : 236.5, paddingLeft: 8, paddingRight: 8 }}
+                            value={this.state.editlog} ref={(input) => { this.editloginput = input }} onFocus={() => this.editloginput.focus()}
+                            onChangeText={(editlog) => this.setState({ editlog })} multiline={true} onBlur={() => { Keyboard.dismiss() }} blurOnSubmit={false}
+                            onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
+                        <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
+                            <TouchableOpacity style={[styles.buzzbutton, { margin: 10, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete(this.state.logselected) }}>
+                                <Text style={styles.buttonText}>Delete</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.setState({editlog: "", editlogmodal: false }) }}>
                                     <Text style={styles.buttonText}>Cancel</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.editLog(this.state.position)}>
-                                    <Text style={styles.buttonText}>Save</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.editLog(this.state.position)}>
+                            <Text style={styles.buttonText}>Save</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                     </View>
                 </Modal >
-                <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
-                        {/* Will have to make the marginRiight value variable for all phones */}
-                        <Text style={{ fontSize: 28, padding: 10, marginRight: 62 }}>Logs</Text>
-                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
-                    </View>
-                        {this.state.logs && eachlog !== undefined && this.state.showlogs === false && <View>{currentlogs}</View>}
-                        {this.state.logs && eachlog !== undefined && this.state.showlogs === true && <View>{eachlog}</View>}
-                        <View style={{ margin: 8, paddingRight: 50, paddingLeft: 50 }}><TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show All" : "Hide"}</Text></TouchableOpacity></View>
+            <ScrollView ref={(ref) => { this.scrolltop = ref }}>
+                <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
+                    {/* Will have to make the marginRiight value variable for all phones */}
+                    <Text style={{ fontSize: 28, padding: 10, marginRight: 62 }}>Logs</Text>
+                    <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
+                </View>
+                {this.state.logs && eachlog !== undefined && this.state.showlogs === false && <View>{currentlogs}</View>}
+                {this.state.logs && eachlog !== undefined && this.state.showlogs === true && <View>{eachlog}</View>}
+                <View style={{ margin: 8, paddingRight: 50, paddingLeft: 50 }}><TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show All" : "Hide"}</Text></TouchableOpacity></View>
                     </View>
                 </ScrollView >
             </View >

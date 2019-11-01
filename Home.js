@@ -39,7 +39,6 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        console.log(Platform)
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
             happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey])
         this.setState({
@@ -117,7 +116,7 @@ class HomeScreen extends Component {
     }
 
     handleModal(number) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ [number]: !this.state[number] });
     }
 
@@ -139,7 +138,7 @@ class HomeScreen extends Component {
     }
 
     async addDrink() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes] }), () => this.checkBac())
         setTimeout(() => {
@@ -147,7 +146,9 @@ class HomeScreen extends Component {
             this.flashWarning();
             if (this.state.bac > 0.04 && this.state.bac < 0.06) { ReactNativeHaptic.generate('notification'); AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) { ReactNativeHaptic.generate('notificationSuccess'); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
-            if (this.state.bac > 0.07 && this.state.bac < 0.08) { Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate(); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
+            if (this.state.bac > 0.07 && this.state.bac < 0.08) {
+            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate(); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.")
+            }
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal1") }
             if (this.state.bac > 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal2") }
         }, 200);
@@ -242,7 +243,7 @@ class HomeScreen extends Component {
     }
 
     async clearDrinks() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         clearInterval(this.state.flashtimer);
         this.setState({ buzzes: [], bac: 0.0, flashtext: false, flashtimer: "", flashtext: "" })
         await AsyncStorage.removeItem(key);
@@ -250,7 +251,7 @@ class HomeScreen extends Component {
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.buzzes[0].dateCreated) < 0.0333333) {
-            Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
             var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
                 if (result !== null) {
@@ -271,7 +272,7 @@ class HomeScreen extends Component {
     }
 
     cancelAlert(typealert) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate();
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate();
         Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
             typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
                 typealert === "ib" ? 'Consider keeping up your streak.' : typealert === "lc" ? "It's after last call, consider going home." :
@@ -282,7 +283,7 @@ class HomeScreen extends Component {
     }
 
     async stopModeration(stoptype) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
             stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } :
                 stoptype === "ib" ? { indefbreak: false } : stoptype === "lc" ? { limitdate: "", showlastcall: false, lastcall: false } : { showpacer: false, pacer: false })
@@ -319,18 +320,18 @@ class HomeScreen extends Component {
     }
 
     buzzModal() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" },
             () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 750) })
     }
 
     buzzDuration(incdec) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
             this.setState({ buzzduration: this.state.buzzduration + 15 })
         } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
@@ -339,13 +340,13 @@ class HomeScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
     }
 
     async editBuzz() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var editbuzzes = this.state.buzzes
@@ -356,7 +357,7 @@ class HomeScreen extends Component {
 
     countDownFinished() {
         setTimeout(() => { this.setState({ showpacer: false }) }, 100)
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationSuccess') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationSuccess') : Vibration.vibrate()
     }
 
     showLastCall() {
@@ -505,7 +506,7 @@ class HomeScreen extends Component {
                         </View>
                     </ScrollView>
                 </Modal>
-                {this.state.focus === true && <NavigationEvents onWillFocus={() => { Platform.OS === "ios" && Platform.Version >= 10 && ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
+                {this.state.focus === true && <NavigationEvents onWillFocus={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 && ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="This gauge displays your current BAC.  The tick marks show the optimal buzz range.  Check the readout for your current BAC." order={1} name="gauge">

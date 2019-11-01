@@ -28,7 +28,7 @@ class ProfileScreen extends Component {
     };
 
     async componentDidMount() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate();
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate();
         this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false, setmaxrec: false })
         var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
             drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
@@ -72,7 +72,7 @@ class ProfileScreen extends Component {
             var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
             if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
             if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
-            Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
+            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
             this.setState({ break: true, breakdate: breakDate })
             await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
         }
@@ -80,7 +80,7 @@ class ProfileScreen extends Component {
     }
 
     async stopBreak(type) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
         this.setState({ break: false, breakdate: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
         await AsyncStorage.removeItem(breakdatekey)
         await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
@@ -90,7 +90,7 @@ class ProfileScreen extends Component {
     }
 
     async LogOut() {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
         // await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
             limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
@@ -156,7 +156,7 @@ class ProfileScreen extends Component {
     }
 
     showHideSetting(statename) {
-        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState(prevState => ({ [statename]: !prevState[statename] }))
     }
 
