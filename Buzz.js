@@ -56,7 +56,7 @@ class BuzzScreen extends Component {
             this.state[statename] === true ?
                 this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
         }, 500));
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
     }
 
     chartSwitch() {
@@ -65,14 +65,14 @@ class BuzzScreen extends Component {
     }
 
     async deleteBuzz(buzz) {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
         values = await Functions.maxRecDrinks()
     }
 
     async editBuzz() {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var editbuzzes = this.state.buzzes
@@ -83,14 +83,14 @@ class BuzzScreen extends Component {
     }
 
     async deleteOldBuzz(obid, oldbuzz) {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
         values = await Functions.maxRecDrinks()
     }
 
     async editOldBuzz(obid) {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var obnormal = this.state.oldbuzzes
         var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
         lastTime.setHours(0, 0, 0, 0)
@@ -101,32 +101,32 @@ class BuzzScreen extends Component {
 
     // combine modal handles to one function
     oldModal(buzz, obid) {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz, obid: obid });
     }
 
     closeOldModal() {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: "", obid: "" });
     }
 
     buzzModal() {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" });
     }
 
     addOldModal() {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ addoldmodal: !this.state.addoldmodal, selectedStartDate: null, drinkadd: false, addoldbuzzes: [] });
     }
 
     buzzDuration(incdec) {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
             this.setState({ buzzduration: this.state.buzzduration + 15 })
         } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
@@ -135,7 +135,7 @@ class BuzzScreen extends Component {
     }
 
     addOldBuzzState() {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         addoldbuzzes = this.state.addoldbuzzes
         var oldbuzzdate = new Date(this.state.selectedStartDate);
         oldbuzzdate.setHours(0, 0, 0, 0);
@@ -144,13 +144,13 @@ class BuzzScreen extends Component {
     }
 
     deleteAddOldBuzz(oldbuzz) {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
         this.setState({ addoldbuzzes: delfilter })
     }
 
     async addOldBuzz() {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var oldbuzzadd = this.state.addoldbuzzes;
         var oldbuzzes = this.state.oldbuzzes
         oldbuzzes.unshift(oldbuzzadd);
@@ -160,7 +160,7 @@ class BuzzScreen extends Component {
     }
 
     onDateChange(date) {
-        ReactNativeHaptic.generate('selection');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ selectedStartDate: date });
     }
 
@@ -171,7 +171,7 @@ class BuzzScreen extends Component {
     }
 
     confirmDelete() {
-        ReactNativeHaptic.generate('notificationWarning');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
         Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.',
             [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }],
             { cancelable: false },
@@ -267,7 +267,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHaptic.generate('impactLight')} />
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => Platform.OS === "ios" && Platform.Version >= 10 && ReactNativeHaptic.generate('impactLight')} />
                 <Modal animationType="slide" transparent={false} visible={this.state.addoldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
@@ -283,7 +283,7 @@ class BuzzScreen extends Component {
                                         <Text style={styles.buttonText}>Cancel</Text>
                                     </TouchableOpacity>
                                     {this.state.selectedStartDate !== null &&
-                                        <TouchableOpacity style={styles.buzzbutton} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ drinkadd: true }) }}>
+                                        <TouchableOpacity style={styles.buzzbutton} onPress={() => { Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.setState({ drinkadd: true }) }}>
                                             <Text style={styles.buttonText}>Add Drinks</Text>
                                         </TouchableOpacity>}
                                 </View>

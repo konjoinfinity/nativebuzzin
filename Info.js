@@ -6,7 +6,7 @@ import styles from "./Styles"
 class InfoScreen extends Component {
 
     componentDidMount() {
-        ReactNativeHaptic.generate('impactLight');
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate()
     }
 
     static navigationOptions = ({ navigation }) => {
@@ -25,23 +25,23 @@ class InfoScreen extends Component {
                     <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Test Haptic Vibrations</Text>
                     <Text style={styles.profileLine}>___________________________________________</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('selection')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Selection</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notification')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Selection</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notification') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification</Text></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impact')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impactLight')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Light</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('impact') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Light</Text></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impactMedium')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Medium</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impactHeavy')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Heavy</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('impactMedium') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Medium</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('impactHeavy') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Heavy</Text></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notificationError')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Error</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notificationSuccess')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Success</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationError') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Error</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationSuccess') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Success</Text></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notificationWarning')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Warning</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Warning</Text></TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Normal Vibration</Text></TouchableOpacity>
                     </View>
                     <Text style={styles.infoTitle}>About Us</Text>
@@ -88,7 +88,7 @@ class InfoScreen extends Component {
                             <Text style={{ textAlign: "center", color: "#ffffff" }}>Our Website</Text></TouchableOpacity>
                     </View>
                 </View>
-            </ScrollView>
+            </ScrollView >
         );
     }
 }

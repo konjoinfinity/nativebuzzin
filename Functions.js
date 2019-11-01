@@ -56,7 +56,7 @@ export class Functions {
     }
 
     static setOz(number, alcohol) {
-        ReactNativeHaptic.generate('selection')
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         if (alcohol === "Beer" && number === 0) { return 12 }
         if (alcohol === "Beer" && number === 1) { return 16 }
         if (alcohol === "Beer" && number === 2) { return 20 }
@@ -73,7 +73,7 @@ export class Functions {
     }
 
     static setAbv(number, alcohol) {
-        ReactNativeHaptic.generate('selection')
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         if (alcohol === "Beer" && number === 0) { return 0.04 }
         if (alcohol === "Beer" && number === 1) { return 0.05 }
         if (alcohol === "Beer" && number === 2) { return 0.06 }
@@ -88,7 +88,7 @@ export class Functions {
     }
 
     static setAlcType(value) {
-        ReactNativeHaptic.generate('selection')
+        Platform.OS === "ios" && Platform.Version >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         if (value === "Beer") { return [0.05, 12] }
         if (value === "Wine") { return [0.12, 5] }
         if (value === "Liquor") { return [0.40, 1.5] }
