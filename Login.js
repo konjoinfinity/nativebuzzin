@@ -20,21 +20,21 @@ class LoginScreen extends React.Component {
     }
 
     componentDidMount() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('impactLight') : Vibration.vibrate();
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate();
         this.nameinput.focus();
     }
 
     handleModal() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('selection') : Vibration.vibrate();
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
         if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
         else {
-            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate();
+            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate();
             Alert.alert("Please Enter Name")
         }
     }
 
     switchGender() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ?ReactNativeHaptic.generate('selection') : Vibration.vibrate();
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate();
         this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
@@ -86,8 +86,8 @@ class LoginScreen extends React.Component {
                             <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight}
                                 onChange={(weight) => this.setState({ weight }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); })} step={5} totalWidth={numberInputSize}
-                            rounded textColor='#103900' iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
-                            leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
+                                rounded textColor='#103900' iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
+                                leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
                             <TouchableOpacity style={[styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal()}>

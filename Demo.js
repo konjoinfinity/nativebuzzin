@@ -40,11 +40,11 @@ class DemoScreen extends Component {
         var drinkDate = new Date();
         this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => { this.checkBac() })
         setTimeout(() => {
-            if (this.state.bac > 0.04 && this.state.bac < 0.06) { ReactNativeHaptic.generate('notification'); AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
-            if (this.state.bac > 0.06 && this.state.bac < 0.07) { ReactNativeHaptic.generate('notificationSuccess'); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
+            if (this.state.bac > 0.04 && this.state.bac < 0.06) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notification') : Vibration.vibrate(); AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
+            if (this.state.bac > 0.06 && this.state.bac < 0.07) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationSuccess') : Vibration.vibrate(); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
             if (this.state.bac > 0.07 && this.state.bac < 0.08) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate(); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
-            if (this.state.bac > 0.08 && this.state.bac < 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal1") }
-            if (this.state.bac > 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal2") }
+            if (this.state.bac > 0.08 && this.state.bac < 0.10) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationError') : Vibration.vibrate(); this.handleModal("modal1") }
+            if (this.state.bac > 0.10) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationError') : Vibration.vibrate(); this.handleModal("modal2") }
         }, 200);
     }
 
