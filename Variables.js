@@ -3,21 +3,21 @@ import { Dimensions, PixelRatio, View, Text } from 'react-native';
 import styles from "./Styles"
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
-// console.log(screenWidth + " x " + screenHeight)
+console.log(screenWidth + " x " + screenHeight)
 
-// if (PixelRatio.get() === 1) {
-//     // console.log("mdpi")
-// } else if (PixelRatio.get() === 1.5) {
-//     // console.log("hdpi");
-// } else if (PixelRatio.get() === 2) {
-//     // console.log("xhdpi");
-// } else if (PixelRatio.get() === 3) {
-//     // console.log("xxhdpi");
-// } else if (PixelRatio.get() === 3.5) {
-//     // console.log("xxxhdpi");
-// } else if (PixelRatio.get() === 4) {
-//     // console.log("xxxhdpi");
-// }
+if (PixelRatio.get() === 1) {
+    // console.log("mdpi")
+} else if (PixelRatio.get() === 1.5) {
+    // console.log("hdpi");
+} else if (PixelRatio.get() === 2) {
+    // console.log("xhdpi");
+} else if (PixelRatio.get() === 3) {
+    // console.log("xxhdpi");
+} else if (PixelRatio.get() === 3.5) {
+    // console.log("xxxhdpi");
+} else if (PixelRatio.get() === 4) {
+    // console.log("xxxhdpi");
+}
 
 var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, loginButtonText, loginGenderText, numberInputSize, loginTitle, barChartWidth,
@@ -290,7 +290,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     addButtonText = 40
     addButtonSize = false
     multiSwitchMargin = 12
-    loginButtonText = 25
+    loginButtonText = 23
     loginGenderText = 26
     numberInputSize = 260
     loginTitle = 30

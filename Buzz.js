@@ -18,7 +18,6 @@ import {
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
     abvWineSize, abvWineText
 } from "./Variables";
-import { AlertHelper } from './AlertHelper';
 
 var values;
 (async () => { values = await Functions.maxRecDrinks() })();

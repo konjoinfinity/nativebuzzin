@@ -13,6 +13,11 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LogScreen from "./Log"
 
+var bottomPad = false;
+if (Dimensions.get('window').width * PixelRatio.get() === 828 && Dimensions.get('window').height * PixelRatio.get() === 1792) { bottomPad = true }
+if (Dimensions.get('window').width * PixelRatio.get() === 1125) { bottomPad = true }
+if (Dimensions.get('window').width * PixelRatio.get() === 1242 && Dimensions.get('window').height * PixelRatio.get() === 2688) { bottomPad = true }
+
 const AppStack = createStackNavigator({
     MyTab: {
         screen: createMaterialTopTabNavigator(
@@ -50,7 +55,7 @@ const AppStack = createStackNavigator({
                 tabBarOptions: {
                     style: { backgroundColor: '#ffffff', borderTopWidth: 0.5, borderTopColor: "#e0e0e0" },
                     indicatorStyle: { backgroundColor: "#4db6ac" },
-                    labelStyle: { margin: 0, padding: 0 },
+                    labelStyle: { margin: 0, padding: 0, paddingBottom: bottomPad === true ? 7 : 0 },
                     activeTintColor: "gray", inactiveTintColor: '#ffffff', showIcon: true, upperCaseLabel: false, showLabel: true,
                 },
                 tabBarPosition: 'bottom'
