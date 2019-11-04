@@ -10,6 +10,7 @@ import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Ficon from 'react-native-vector-icons/Feather'
 import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LogScreen from "./Log"
 
@@ -40,7 +41,7 @@ const AppStack = createStackNavigator({
                     screen: ProfileScreen,
                     navigationOptions: {
                         tabBarLabel: "Profile",
-                        tabBarIcon: ({ tintColor }) => (<Icon name="user-cog" color="#4db6ac" size={25} />)
+                        tabBarIcon: ({ tintColor }) => (<Icon name="user-cog" color="#4db6ac" size={24} />)
                     },
                 },
                 Demo: {
@@ -70,7 +71,7 @@ const AppStack = createStackNavigator({
             },
             headerLeft: (<View style={{ flexDirection: "row" }}>
                 <TouchableOpacity style={[styles.infoButton, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>
-                    <View><Image style={{ width: 25, height: 25 }} source={require('./info.png')}></Image></View></TouchableOpacity></View>),
+                    <View><Ficon name="info" color="#ffffff" size={22} /></View></TouchableOpacity></View>),
             headerRight: (<View style={{ flexDirection: "row" }}>
                 <TouchableOpacity style={[styles.logButton, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Log")}>
                     <View><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></View></TouchableOpacity></View>)
