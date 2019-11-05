@@ -153,6 +153,7 @@ class LogScreen extends Component {
                         <Text style={{ fontSize: 28, padding: 10, marginRight: 62 }}>Logs</Text>
                         <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
                     </View>
+                        {/* Update to render 5 logs without show hide button, then render show hide when there are 6 or more */}
                         {this.state.logs && eachlog !== undefined && this.state.showlogs === false && <View>{currentlogs}</View>}
                         {this.state.logs && eachlog !== undefined && this.state.showlogs === true && <View>{eachlog}</View>}
                         <View style={{ margin: 8, paddingRight: 50, paddingLeft: 50 }}><TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show All" : "Hide"}</Text></TouchableOpacity></View>

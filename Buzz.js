@@ -156,6 +156,7 @@ class BuzzScreen extends Component {
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
         if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
+        values = await Functions.maxRecDrinks()
     }
 
     onDateChange(date) {
@@ -167,6 +168,7 @@ class BuzzScreen extends Component {
         var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
         this.closeOldModal()
+        values = await Functions.maxRecDrinks()
     }
 
     confirmDelete() {
