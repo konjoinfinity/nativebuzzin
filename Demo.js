@@ -166,7 +166,7 @@ class DemoScreen extends Component {
                                     <Text style={{ fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text></View><Text style={{ fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>)}
                     </View>
                     {this.state.bac < 0.10 && <View style={styles.cardView}>
-                        <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
+                        <View style={[styles.multiSwitchViews, { paddingBottom: 10, flexDirection: "row", justifyContent: "space-between" }]}>
                             <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
                                 containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                 onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value)[0], oz: Functions.setAlcType(alcValues[number].value)[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : this.state.alctype === "Liquor" ? 2 : 3}>
@@ -185,8 +185,8 @@ class DemoScreen extends Component {
                                 </TouchableOpacity>}
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
-                            <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
-                                <View style={{ paddingBottom: 15 }}>
+                            <View style={{ flex: 1, flexDirection: "column" }}>
+                                <View style={{ paddingBottom: 10 }}>
                                     {this.state.alctype === "Beer" &&
                                         <View style={styles.multiSwitchViews}>
                                             <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
