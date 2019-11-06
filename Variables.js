@@ -3,7 +3,7 @@ import { Dimensions, PixelRatio, View, Text } from 'react-native';
 import styles from "./Styles"
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
-console.log(screenWidth + " x " + screenHeight)
+// console.log(screenWidth + " x " + screenHeight)
 
 if (PixelRatio.get() === 1) {
     // console.log("mdpi")
