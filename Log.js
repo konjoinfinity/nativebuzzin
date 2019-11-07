@@ -82,7 +82,7 @@ class LogScreen extends Component {
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: Dimensions.get('window').width * 0.6 }}>{log.log}</Text>
                     <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 50) })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
+                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { Platform.OS === "ios" ? this.editloginput.focus() : setTimeout(() => this.editloginput.focus(), 10) })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
         }))
@@ -137,7 +137,7 @@ class LogScreen extends Component {
                         {/* Will have to make the marginRiight value variable for all phones */}
                         <View style={styles.hiddenLogButton}><Text style={{ color: "#e0f2f1", fontSize: 28, textAlign: "center" }}>+</Text></View>
                         <Text style={{ fontSize: 28, padding: 10 }}>Logs</Text>
-                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 50) })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 10) })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
                     </View>
                         {this.state.logs && eachlog !== undefined && <View>{eachlog}</View>}
                     </View>
