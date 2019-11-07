@@ -102,6 +102,9 @@ const styles = StyleSheet.create({
         height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b',
         borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
     },
+    hiddenLogButton: {
+        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1", borderRadius: 50
+    },
     deleteLogButtons: {
         height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', margin: 10,
         borderRadius: 50, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount

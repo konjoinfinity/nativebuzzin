@@ -11,7 +11,7 @@ class LogScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            logmodal: false, log: "", showlogs: false, logs: [], textinputheight: 0, editlog: "", editlogmodal: false, position: "", logselected: ""
+            logmodal: false, log: "", logs: [], textinputheight: 0, editlog: "", editlogmodal: false, position: "", logselected: ""
         }
     }
 
@@ -35,9 +35,7 @@ class LogScreen extends Component {
             newLog.unshift({ log: this.state.log, dateCreated: logDate })
             this.setState({ log: "", logmodal: false, logs: newLog })
             await AsyncStorage.setItem(logskey, JSON.stringify(newLog))
-            if (this.state.showlogs === false) {
-                this.setState({ showlogs: true }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750) })
-            }
+            setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750)
         } else {
             Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
             Alert.alert("Please type some text.")
@@ -68,11 +66,6 @@ class LogScreen extends Component {
         setTimeout(() => { this.scrollToLogRef(this.state.position) }, 750)
     }
 
-    showHideLogs() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        this.setState(prevState => ({ showlogs: !prevState.showlogs }), () => { setTimeout(() => { this.scrolltop.scrollTo(this.state.showlogs === true ? { y: 90, animated: true } : { y: 0, animated: true }) }, 750) })
-    }
-
     confirmDelete(log) {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
         Alert.alert('Are you sure you want to delete this log?', 'Please confirm.',
@@ -82,16 +75,6 @@ class LogScreen extends Component {
     }
 
     render() {
-        var currentlogs;
-        this.state.logs && this.state.logs.length > 0 && (currentlogs = this.state.logs.slice(0, 5).map((log, id) => {
-            return (<View key={id} ref={'log' + id} style={[styles.buzzLog, { flexDirection: "row", justifyContent: "space-evenly" }]}>
-                <View style={{ flexDirection: "column" }}>
-                    <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: 250 }}>{log.log}</Text>
-                    <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { this.editloginput.focus() })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
-            </View>
-            )
-        }))
         var eachlog;
         this.state.logs && this.state.logs.length > 0 && (eachlog = this.state.logs.map((log, id) => {
             return (<View key={id} ref={'log' + id} style={[styles.buzzLog, { flexDirection: "row", justifyContent: "space-evenly" }]}>
@@ -105,11 +88,11 @@ class LogScreen extends Component {
         return (
             <View>
                 <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
-                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.loginput.blur()}>
-                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.65 }]}>
+                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#00000080', paddingTop: 10 }} onStartShouldSetResponder={() => this.loginput.blur()}>
+                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.56 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 5, margin: 5 }}>Add New Log</Text>
                             {/* Will have to make the height value variable for all phones */}
-                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: this.state.textinputheight <= 236.5 ? Math.max(50, this.state.textinputheight) : 236.5, paddingLeft: 8, paddingRight: 8 }}
+                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: this.state.textinputheight <= 210.5 ? Math.max(50, this.state.textinputheight) : 210.5, paddingLeft: 8, paddingRight: 8 }}
                                 placeholder="" value={this.state.log} ref={(input) => { this.loginput = input }} onFocus={() => this.loginput.focus()}
                                 onChangeText={(log) => this.setState({ log })} multiline={true} onBlur={() => { Keyboard.dismiss() }} blurOnSubmit={false}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
@@ -125,11 +108,11 @@ class LogScreen extends Component {
                     </View>
                 </Modal>
                 <Modal animationType="fade" transparent={true} visible={this.state.editlogmodal}>
-                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#00000080' }} onStartShouldSetResponder={() => this.editloginput.blur()}>
-                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.58 }]}>
+                    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#00000080', paddingTop: 10 }} onStartShouldSetResponder={() => this.editloginput.blur()}>
+                        <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.56 }]}>
                             <Text style={{ textAlign: "center", fontSize: 22, fontWeight: "400", padding: 5, margin: 5 }}>Edit Log</Text>
                             {/* Will have to make the height value variable for all phones */}
-                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: this.state.textinputheight <= 236.5 ? Math.max(50, this.state.textinputheight) : 236.5, paddingLeft: 8, paddingRight: 8 }}
+                            <TextInput style={{ borderColor: "#CCCCCC", borderWidth: 1, margin: 10, borderRadius: 15, textAlign: "left", fontSize: loginButtonText, height: this.state.textinputheight <= 210.5 ? Math.max(50, this.state.textinputheight) : 210.5, paddingLeft: 8, paddingRight: 8 }}
                                 value={this.state.editlog} ref={(input) => { this.editloginput = input }} onFocus={() => this.editloginput.focus()}
                                 onChangeText={(editlog) => this.setState({ editlog })} multiline={true} onBlur={() => { Keyboard.dismiss() }} blurOnSubmit={false}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
@@ -148,15 +131,13 @@ class LogScreen extends Component {
                     </View>
                 </Modal>
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "flex-end", padding: 10 }}>
+                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
                         {/* Will have to make the marginRiight value variable for all phones */}
-                        <Text style={{ fontSize: 28, padding: 10, marginRight: 62 }}>Logs</Text>
+                        <View style={styles.hiddenLogButton}><Text style={{ color: "#e0f2f1", fontSize: 28, textAlign: "center" }}>+</Text></View>
+                        <Text style={{ fontSize: 28, padding: 10 }}>Logs</Text>
                         <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.loginput.focus() })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
                     </View>
-                        {/* Update to render 5 logs without show hide button, then render show hide when there are 6 or more */}
-                        {this.state.logs && eachlog !== undefined && this.state.showlogs === false && <View>{currentlogs}</View>}
-                        {this.state.logs && eachlog !== undefined && this.state.showlogs === true && <View>{eachlog}</View>}
-                        <View style={{ margin: 8, paddingRight: 50, paddingLeft: 50 }}><TouchableOpacity style={styles.buzzbutton} onPress={() => this.showHideLogs()}><Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showlogs === false ? "Show All" : "Hide"}</Text></TouchableOpacity></View>
+                        {this.state.logs && eachlog !== undefined && <View>{eachlog}</View>}
                     </View>
                 </ScrollView >
             </View >

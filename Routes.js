@@ -71,10 +71,10 @@ const AppStack = createStackNavigator({
             },
             headerLeft: (<View style={{ flexDirection: "row" }}>
                 <TouchableOpacity style={[styles.infoButton, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>
-                    <View><Ficon name="info" color="#ffffff" size={20} /></View></TouchableOpacity></View>),
+                    <Ficon name="info" color="#ffffff" size={25} /></TouchableOpacity></View>),
             headerRight: (<View style={{ flexDirection: "row" }}>
                 <TouchableOpacity style={[styles.logButton, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Log")}>
-                    <View><MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></View></TouchableOpacity></View>)
+                    <MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} /></TouchableOpacity></View>)
         })
     },
     Info: InfoScreen,
