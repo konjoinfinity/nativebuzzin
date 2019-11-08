@@ -148,9 +148,10 @@ class BuzzScreen extends Component {
     }
 
     async addOldBuzz() {
+        var oldbuzzes;
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         var oldbuzzadd = this.state.addoldbuzzes;
-        var oldbuzzes = this.state.oldbuzzes
+        this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
         oldbuzzes.unshift(oldbuzzadd);
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
