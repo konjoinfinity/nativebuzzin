@@ -21,6 +21,7 @@ import {
     pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey
 } from "./Variables";
 
+var amount = Platform.OS === 'android' ? 10 : 0
 const CopilotView = walkthroughable(View);
 
 var maxRecValues;
@@ -34,7 +35,8 @@ class HomeScreen extends Component {
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
             showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: "", pacer: "", pacertime: "", showpacer: false,
-            selectedBuzz: "", buzzmodal: false, buzzduration: 30, lastcall: "", showlastcall: false, limithour: "", maxrec: "", test: false
+            selectedBuzz: "", buzzmodal: false, buzzduration: 30, lastcall: "", showlastcall: false, limithour: "", maxrec: "", test: false,
+            warn: false
         }
     };
 
@@ -82,6 +84,7 @@ class HomeScreen extends Component {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
                 setTimeout(() => {
                     var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
+                    console.log(durations)
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                 }, 50);
             } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
@@ -375,6 +378,11 @@ class HomeScreen extends Component {
         }
     }
 
+    acceptWarn() {
+        Alert.alert('Are you sure you want to start drinking?', "Consider a moderation option.", [{ text: 'Yes', onPress: () => this.setState({ warn: true }) }, { text: 'No' }],
+            { cancelable: false })
+    }
+
     render() {
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
@@ -525,7 +533,7 @@ class HomeScreen extends Component {
                             </CopilotView>
                         </CopilotStep>
                     </View>
-                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false &&
+                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false && this.state.warn === true &&
                         <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
                             <CopilotView><View style={styles.cardView}>
                                 <View style={[styles.multiSwitchViews, { paddingBottom: 13, flexDirection: "row", justifyContent: "space-between" }]}>
@@ -616,9 +624,9 @@ class HomeScreen extends Component {
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>No drinks until:</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 15, fontWeight: "bold" }}>Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
-                            {/* <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("hh")}>
+                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("hh")}>
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>
-                            </TouchableOpacity> */}
+                            </TouchableOpacity>
                         </View>}
                     {this.state.indefbreak === true &&
                         <View style={styles.cardView}>
@@ -687,6 +695,14 @@ class HomeScreen extends Component {
                                     </TouchableOpacity>
                                 </View>}
                         </View>}
+                    <View style={styles.cardView}>
+                        <Text style={{ fontSize: 17, textAlign: "center", padding: 5, fontWeight: "bold" }}>Government Warning:</Text>
+                        <Text style={{ fontSize: 14, textAlign: "center", padding: 5 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
+                        <Text style={{ fontSize: 14, textAlign: "center", padding: 5 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
+                        <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 5, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.acceptWarn()}>
+                            <Text style={{ color: "#FFFFFF", fontSize: 17, textAlign: "center" }}>Accept</Text>
+                        </TouchableOpacity>
+                    </View>
                     {(this.state.buzzes && this.state.buzzes.length > 0) && <View style={styles.buzzCard}>
                         {buzzes}
                     </View>}
