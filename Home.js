@@ -87,8 +87,11 @@ class HomeScreen extends Component {
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                     var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
                     console.log(warning)
-                    if (warning[3] >= 0 && warning[1] < 12) { this.setState({ warn: false }) }
-                    if (warning[1] >= 12) { this.setState({ warn: true }) }
+                    if (warning[0] === 0) {
+                        if (warning[3] >= 0 && warning[1] < 12) {
+                            this.setState({ warn: false })
+                        }
+                    } else { this.setState({ warn: true }) }
                 }, 50);
             } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
         })
@@ -379,11 +382,6 @@ class HomeScreen extends Component {
         } else {
             return false
         }
-    }
-
-    acceptWarn() {
-        Alert.alert('Are you sure you want to start drinking?', "Consider a moderation option.", [{ text: 'Yes', onPress: () => this.setState({ warn: false }) }, { text: 'No' }],
-            { cancelable: false })
     }
 
     render() {
@@ -703,7 +701,7 @@ class HomeScreen extends Component {
                             <Text style={{ fontSize: 17, textAlign: "center", padding: 5, fontWeight: "bold" }}>Government Warning:</Text>
                             <Text style={{ fontSize: 14, textAlign: "center", padding: 5 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
                             <Text style={{ fontSize: 14, textAlign: "center", padding: 5 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
-                            <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 5, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.acceptWarn()}>
+                            <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 5, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.setState({ warn: false })}>
                                 <Text style={{ color: "#FFFFFF", fontSize: 17, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
                         </View>}
