@@ -86,7 +86,6 @@ class HomeScreen extends Component {
                     var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                     var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
-                    console.log(warning)
                     if (warning[0] === 0) {
                         if (warning[3] >= 0 && warning[1] < 12) {
                             this.setState({ warn: false })
@@ -696,7 +695,8 @@ class HomeScreen extends Component {
                                     </TouchableOpacity>
                                 </View>}
                         </View>}
-                    {this.state.warn === true &&
+                    {this.state.warn === true && this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhour === false &&
+                        // will have to read from local storage, test... is there another way to accomplish the same effect?
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 17, textAlign: "center", padding: 5, fontWeight: "bold" }}>Government Warning:</Text>
                             <Text style={{ fontSize: 14, textAlign: "center", padding: 5 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
