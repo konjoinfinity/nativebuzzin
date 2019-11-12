@@ -85,7 +85,6 @@ class HomeScreen extends Component {
                 setTimeout(() => {
                     var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
-                    // will have to figure out logic to turn off the warning
                     var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
                     console.log(warning)
                     if (warning[3] >= 0 && warning[1] < 12) { this.setState({ warn: false }) }
@@ -383,7 +382,7 @@ class HomeScreen extends Component {
     }
 
     acceptWarn() {
-        Alert.alert('Are you sure you want to start drinking?', "Consider a moderation option.", [{ text: 'Yes', onPress: () => this.setState({ warn: true }) }, { text: 'No' }],
+        Alert.alert('Are you sure you want to start drinking?', "Consider a moderation option.", [{ text: 'Yes', onPress: () => this.setState({ warn: false }) }, { text: 'No' }],
             { cancelable: false })
     }
 
