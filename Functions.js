@@ -82,7 +82,7 @@ export class Functions {
         if (alcohol === "Wine" && number === 0) { return 0.11 }
         if (alcohol === "Wine" && number === 1) { return 0.12 }
         if (alcohol === "Wine" && number === 2) { return 0.13 }
-        if (alcohol === "Liquor" && number === 0) { return 0.30 }
+        if (alcohol === "Liquor" && number === 0) { return 0.001 }
         if (alcohol === "Liquor" && number === 1) { return 0.40 }
         if (alcohol === "Liquor" && number === 2) { return 0.50 }
     }
@@ -170,7 +170,8 @@ export class Functions {
             maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg;
         await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
             gender = JSON.parse(result[1][1])
-            if (result[0][1] !== null && result[1][1] !== null) {
+            console.log(result)
+            if (result[0][1] !== null && result[0][1] !== "[]" && result[1][1] !== null && result[1][1] !== "[]") {
                 oldbuzzes = JSON.parse(result[0][1])
                 result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
                 var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[oldbuzzes.length - 1].length - 1].dateCreated) / 168)

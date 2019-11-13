@@ -169,6 +169,10 @@ class BuzzScreen extends Component {
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
         this.closeOldModal()
         values = await Functions.maxRecDrinks()
+        if (this.state.oldbuzzes.length === 0) {
+            this.showHideBuzzes("showHideOldBuzzes")
+            values = await Functions.maxRecDrinks()
+        }
     }
 
     confirmDelete() {
