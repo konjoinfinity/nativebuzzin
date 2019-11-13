@@ -38,7 +38,7 @@ class LogScreen extends Component {
             setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750)
         } else {
             Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
-            Alert.alert("Please type some text.")
+            Alert.alert("Please enter some text.")
         }
     }
 
@@ -68,10 +68,7 @@ class LogScreen extends Component {
 
     confirmDelete(log) {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
-        Alert.alert('Are you sure you want to delete this log?', 'Please confirm.',
-            [{ text: 'Yes', onPress: () => { this.deleteLog(log) } }, { text: 'No' }],
-            { cancelable: false },
-        );
+        Alert.alert('Are you sure you want to delete this log?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteLog(log) } }, { text: 'No' }], { cancelable: false });
     }
 
     render() {

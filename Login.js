@@ -29,7 +29,7 @@ class LoginScreen extends React.Component {
         if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
         else {
             Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate();
-            Alert.alert("Please Enter Name")
+            Alert.alert("Please enter your name")
         }
     }
 
@@ -93,7 +93,6 @@ class LoginScreen extends React.Component {
                             <TouchableOpacity style={[styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal()}>
                                 <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                     <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Login   </Text><Icon name="login" color="#ffffff" size={loginButtonText} style={{ paddingTop: 2 }} />
-
                                 </View>
                             </TouchableOpacity>
                         </View>

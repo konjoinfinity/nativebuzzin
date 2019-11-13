@@ -15,6 +15,8 @@ import {
     limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey, maxreckey
 } from "./Variables";
 
+var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
+
 class ProfileScreen extends Component {
     constructor(props) {
         super(props);
@@ -84,9 +86,7 @@ class ProfileScreen extends Component {
         this.setState({ break: false, breakdate: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
         await AsyncStorage.removeItem(breakdatekey)
         await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
-        if (type !== "zero") {
-            await AsyncStorage.setItem(custombreakkey, JSON.stringify(false), () => { this.setState({ setcustombreak: false, custombreak: false }) })
-        }
+        if (type !== "zero") { await AsyncStorage.setItem(custombreakkey, JSON.stringify(false), () => { this.setState({ setcustombreak: false, custombreak: false }) }) }
     }
 
     async LogOut() {
@@ -114,15 +114,9 @@ class ProfileScreen extends Component {
                 await AsyncStorage.setItem(breakkey, JSON.stringify(false))
             }
         }
-        if (statename === "limit" && this.state.limit === true) {
-            this.setState({ setlimit: true })
-        }
-        if (statename === "lastcall" && this.state.lastcall === true) {
-            this.saveValues("limithour", limithourkey)
-        }
-        if (statename === "happyhour" && this.state.happyhour === true) {
-            this.setState({ sethappyhour: true })
-        }
+        if (statename === "limit" && this.state.limit === true) { this.setState({ setlimit: true }) }
+        if (statename === "lastcall" && this.state.lastcall === true) { this.saveValues("limithour", limithourkey) }
+        if (statename === "happyhour" && this.state.happyhour === true) { this.setState({ sethappyhour: true }) }
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => this.saveSwitches(this.state[statename], keyvalue))
         this.setState(prevState => ({ [setstatename]: !prevState[setstatename] }))
     }
@@ -132,12 +126,8 @@ class ProfileScreen extends Component {
     }
 
     changeBac(increment, statename, keyvalue) {
-        if (increment === "up" && this.state[statename] < 0.08) {
-            this.setState({ [statename]: Math.round((this.state[statename] + 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
-        }
-        if (increment === "down" && this.state[statename] > 0.02) {
-            this.setState({ [statename]: Math.round((this.state[statename] - 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue))
-        }
+        if (increment === "up" && this.state[statename] < 0.08) { this.setState({ [statename]: Math.round((this.state[statename] + 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue)) }
+        if (increment === "down" && this.state[statename] > 0.02) { this.setState({ [statename]: Math.round((this.state[statename] - 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue)) }
     }
 
     async saveValues(statename, keyvalue) {
@@ -161,15 +151,11 @@ class ProfileScreen extends Component {
     }
 
     pacerDuration(incdec) {
-        if (incdec === "up" && this.state.pacertime >= 900 && this.state.pacertime < 3600) {
-            this.setState({ pacertime: this.state.pacertime + 300 }, () => this.saveValues("pacertime", pacertimekey))
-        } else if (incdec === "down" && this.state.pacertime > 900 && this.state.pacertime <= 3600) {
-            this.setState({ pacertime: this.state.pacertime - 300 }, () => this.saveValues("pacertime", pacertimekey))
-        }
+        if (incdec === "up" && this.state.pacertime >= 900 && this.state.pacertime < 3600) { this.setState({ pacertime: this.state.pacertime + 300 }, () => this.saveValues("pacertime", pacertimekey)) }
+        else if (incdec === "down" && this.state.pacertime > 900 && this.state.pacertime <= 3600) { this.setState({ pacertime: this.state.pacertime - 300 }, () => this.saveValues("pacertime", pacertimekey)) }
     }
 
     render() {
-        var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
         return (
             <View>
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />

@@ -171,7 +171,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(this.state.buzzes)
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, oldbuzztoadd;
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
