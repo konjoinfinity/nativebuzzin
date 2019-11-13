@@ -7,9 +7,7 @@ export class AlertHelper {
     }
 
     static show(type, title, message) {
-        if (this.dropDown) {
-            this.dropDown.alertWithType(type, title, message)
-        }
+        if (this.dropDown) { this.dropDown.alertWithType(type, title, message) }
     }
 
     static setOnClose(onClose) {
@@ -17,8 +15,6 @@ export class AlertHelper {
     }
 
     static invokeOnClose() {
-        if (typeof this.onClose === 'function') {
-            this.onClose()
-        }
+        if (typeof this.onClose === 'function') { this.onClose() }
     }
 }
