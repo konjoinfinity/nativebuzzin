@@ -75,9 +75,7 @@ class HomeScreen extends Component {
                 }, 100);
             }
         })
-        await AsyncStorage.getItem(key, (error, result) => {
-            result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: [] })
-        })
+        await AsyncStorage.getItem(key, (error, result) => { result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
@@ -86,9 +84,7 @@ class HomeScreen extends Component {
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                     var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
                     if (warning[0] === 0) {
-                        if (warning[3] >= 0 && warning[1] < 12) {
-                            this.setState({ warn: false })
-                        }
+                        if (warning[3] >= 0 && warning[1] < 12) { this.setState({ warn: false }) }
                     } else { this.setState({ warn: true }) }
                 }, 50);
             } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
@@ -110,9 +106,7 @@ class HomeScreen extends Component {
         if (this.state.pacer === true && this.state.buzzes.length >= 1 && this.state.showpacer === false) {
             var drinkPacerTime = Functions.singleDuration(this.state.buzzes[0].dateCreated)
             drinkPacerTime = drinkPacerTime * 3600
-            if (drinkPacerTime < this.state.pacertime) {
-                this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true }))
-            }
+            if (drinkPacerTime < this.state.pacertime) { this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true })) }
         }
         maxRecValues = await Functions.maxRecDrinks()
     }
@@ -164,9 +158,7 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         if (this.state.bac > this.state.threshold) { await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true)) }
         if (this.state.limit === true) {
-            if (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) {
-                this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
-            }
+            if (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) { this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true)) }
         }
         if (this.state.pacer === true) { this.setState({ showpacer: true }) }
         maxRecValues = await Functions.maxRecDrinks()
@@ -199,9 +191,7 @@ class HomeScreen extends Component {
             this.setState({ flashtext: true })
             setTimeout(() => {
                 if (this.state.flashtimer === "") {
-                    var flashTimer = setInterval(() => {
-                        this.setState(this.state.flashwarning === "#00bfa5" ? { flashwarning: "#AE0000" } : { flashwarning: "#00bfa5" })
-                    }, 800);
+                    var flashTimer = setInterval(() => { this.setState(this.state.flashwarning === "#00bfa5" ? { flashwarning: "#AE0000" } : { flashwarning: "#00bfa5" }) }, 800);
                     this.setState({ flashtimer: flashTimer })
                 }
             }, 200);
@@ -245,9 +235,7 @@ class HomeScreen extends Component {
         if (this.state.showlimit === true) {
             await AsyncStorage.multiSet([[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)]], () => this.setState({ showlimit: false, limit: false, limitbac: "", drinks: "" }))
         }
-        if (this.state.pacer === true && this.state.showpacer === true) {
-            this.setState({ showpacer: false })
-        }
+        if (this.state.pacer === true && this.state.showpacer === true) { this.setState({ showpacer: false }) }
         maxRecValues = await Functions.maxRecDrinks()
     }
 
@@ -335,17 +323,13 @@ class HomeScreen extends Component {
 
     closeBuzzModal() {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" },
-            () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 750) })
+        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 750) })
     }
 
     buzzDuration(incdec) {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
-            this.setState({ buzzduration: this.state.buzzduration + 15 })
-        } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
-            this.setState({ buzzduration: this.state.buzzduration - 15 })
-        }
+        if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) { this.setState({ buzzduration: this.state.buzzduration + 15 }) }
+        else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) { this.setState({ buzzduration: this.state.buzzduration - 15 }) }
     }
 
     async deleteBuzz(buzz) {
@@ -376,14 +360,9 @@ class HomeScreen extends Component {
 
     checkMaxRec() {
         if (this.state.maxrec === true) {
-            if (maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] === true) {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return false
-        }
+            if (maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] === true) { return true }
+            else { return false }
+        } else { return false }
     }
 
     render() {

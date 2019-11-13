@@ -35,9 +35,7 @@ class BuzzScreen extends Component {
 
     async componentDidMount() {
         values = await Functions.maxRecDrinks()
-        await AsyncStorage.getItem(key, (error, result) => {
-            result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null })
-        })
+        await AsyncStorage.getItem(key, (error, result) => { result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
                 this.setState({ oldbuzzes: JSON.parse(result) })
@@ -51,10 +49,7 @@ class BuzzScreen extends Component {
     }
 
     showHideBuzzes(statename) {
-        this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => {
-            this.state[statename] === true ?
-                this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true })
-        }, 500));
+        this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
     }
 
@@ -98,6 +93,7 @@ class BuzzScreen extends Component {
         values = await Functions.maxRecDrinks()
     }
 
+    // refactor to combine these modal handles
     oldModal(buzz, obid) {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz, obid: obid });
@@ -125,11 +121,8 @@ class BuzzScreen extends Component {
 
     buzzDuration(incdec) {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) {
-            this.setState({ buzzduration: this.state.buzzduration + 15 })
-        } else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) {
-            this.setState({ buzzduration: this.state.buzzduration - 15 })
-        }
+        if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) { this.setState({ buzzduration: this.state.buzzduration + 15 }) }
+        else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) { this.setState({ buzzduration: this.state.buzzduration - 15 }) }
     }
 
     addOldBuzzState() {
@@ -156,7 +149,7 @@ class BuzzScreen extends Component {
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
         if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
-        values = await Functions.maxRecDrinks()
+        this.componentDidMount()
     }
 
     onDateChange(date) {
@@ -168,22 +161,17 @@ class BuzzScreen extends Component {
         var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
         this.closeOldModal()
-        values = await Functions.maxRecDrinks()
-        if (this.state.oldbuzzes.length === 0) {
-            this.showHideBuzzes("showHideOldBuzzes")
-            values = await Functions.maxRecDrinks()
-        }
+        if (this.state.oldbuzzes.length === 0) { this.setState({ timesince: null }, () => { this.showHideBuzzes("showHideOldBuzzes") }) }
+        this.componentDidMount()
     }
 
     confirmDelete() {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()
-        Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.',
-            [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }],
-            { cancelable: false },
-        );
+        Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
     }
 
     render() {
+        console.log(this.state.buzzes)
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, oldbuzztoadd;
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
@@ -193,15 +181,12 @@ class BuzzScreen extends Component {
                     <View style={{ flexDirection: "column" }}>
                         <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
                         <Text style={{ fontSize: abvText, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                </View></View>
-            )
+                </View></View>)
         }))
         var oldbuzzmonth;
         var monthOld = new Date()
         monthOld.setMonth(monthOld.getMonth() - 2)
-        this.state.oldbuzzes !== null && (oldbuzzmonth = this.state.oldbuzzes.map(buzz => {
-            return buzz.filter(oldbuzz => Date.parse(oldbuzz.dateCreated) > monthOld)
-        }))
+        this.state.oldbuzzes !== null && (oldbuzzmonth = this.state.oldbuzzes.map(buzz => { return buzz.filter(oldbuzz => Date.parse(oldbuzz.dateCreated) > monthOld) }))
         this.state.oldbuzzes !== null && (oldbuzzes = oldbuzzmonth.map((buzz, obid) => {
             return buzz.map((oldbuzz, id) => {
                 return (<View key={id}>
@@ -356,7 +341,6 @@ class BuzzScreen extends Component {
                                                 </MultiSwitch>
                                             </View>}
                                     </View>
-                                    {/* Adding drinks would add them to state, state renders to the top of the modal, submit adds to oldbuzzes */}
                                     <TouchableOpacity onPress={() => this.addOldBuzzState()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
                                         <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                                 </View>
@@ -621,9 +605,9 @@ class BuzzScreen extends Component {
                     </View>}
                     {this.state.buzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
-                        {this.state.timesince !== null && <View>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>
-                            <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text></View>}
+                        <View>
+                            {this.state.timesince !== null && <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}
+                            {this.state.timesince === null && <Text style={{ fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}</View>
                     </View>}
                     {this.state.oldbuzzes !== null && <View style={styles.buzzCard}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>
