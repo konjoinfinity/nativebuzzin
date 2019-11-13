@@ -35,8 +35,7 @@ class HomeScreen extends Component {
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
             showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: "", pacer: "", pacertime: "", showpacer: false,
-            selectedBuzz: "", buzzmodal: false, buzzduration: 30, lastcall: "", showlastcall: false, limithour: "", maxrec: "", test: false,
-            warn: true
+            selectedBuzz: "", buzzmodal: false, buzzduration: 30, lastcall: "", showlastcall: false, limithour: "", maxrec: "", warn: true
         }
     };
 
@@ -96,6 +95,7 @@ class HomeScreen extends Component {
         })
         const login = this.props.navigation.getParam('login');
         if (login === true) {
+            this.setState({ warn: false })
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
             setTimeout(() => {
                 this.props.start();
@@ -220,12 +220,15 @@ class HomeScreen extends Component {
     }
 
     async moveToOld() {
-        var autobreakcheck, oldbuzzarray = this.state.oldbuzzes, newbuzzarray = this.state.buzzes;
+        var autobreakcheck, oldbuzzarray, newbuzzarray = this.state.buzzes;
+        this.state.oldbuzzes.length !== 0 ? oldbuzzarray = this.state.oldbuzzes : oldbuzzarray = []
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
-        if (new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getMonth()) {
-            var combined = [].concat(newbuzzarray, oldbuzzarray[0]);
-            oldbuzzarray.shift();
-            oldbuzzarray.unshift(combined);
+        if (oldbuzzarray.length !== 0) {
+            if (new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getMonth()) {
+                var combined = [].concat(newbuzzarray, oldbuzzarray[0]);
+                oldbuzzarray.shift();
+                oldbuzzarray.unshift(combined);
+            }
         } else {
             oldbuzzarray.unshift(newbuzzarray);
         }
@@ -696,12 +699,11 @@ class HomeScreen extends Component {
                                 </View>}
                         </View>}
                     {this.state.warn === true && this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhour === false &&
-                        // will have to read from local storage, test... is there another way to accomplish the same effect?
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 17, textAlign: "center", padding: 5, fontWeight: "bold" }}>Government Warning:</Text>
-                            <Text style={{ fontSize: 14, textAlign: "center", padding: 5 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
-                            <Text style={{ fontSize: 14, textAlign: "center", padding: 5 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
-                            <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 5, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.setState({ warn: false })}>
+                            <Text style={{ fontSize: 17, textAlign: "center", padding: 4, fontWeight: "bold" }}>Government Warning:</Text>
+                            <Text style={{ fontSize: 14, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
+                            <Text style={{ fontSize: 14, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
+                            <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.setState({ warn: false }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate() })}>
                                 <Text style={{ color: "#FFFFFF", fontSize: 17, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
                         </View>}
