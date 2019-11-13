@@ -170,7 +170,6 @@ export class Functions {
             maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg;
         await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
             gender = JSON.parse(result[1][1])
-            console.log(result)
             if (result[0][1] !== null && result[0][1] !== "[]" && result[1][1] !== null && result[1][1] !== "[]") {
                 oldbuzzes = JSON.parse(result[0][1])
                 result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
