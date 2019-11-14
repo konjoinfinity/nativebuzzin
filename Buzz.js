@@ -152,11 +152,6 @@ class BuzzScreen extends Component {
         this.componentDidMount()
     }
 
-    onDateChange(date) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        this.setState({ selectedStartDate: date });
-    }
-
     async deleteWholeOldBuzz() {
         var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
@@ -266,7 +261,7 @@ class BuzzScreen extends Component {
                         </View>
                         <View style={[styles.cardView, { padding: 10 }]}>
                             {this.state.drinkadd === false && <View>
-                                <CalendarPicker onDateChange={(date) => this.onDateChange(date)} maxDate={new Date()} minDate={monthOld} scaleFactor={400} selectedDayColor={"#1de9b6"} />
+                                <CalendarPicker onDateChange={(date) => this.setState({ selectedStartDate: date }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate() })} maxDate={new Date()} minDate={monthOld} scaleFactor={400} selectedDayColor={"#1de9b6"} />
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 5 }}>
                                     <TouchableOpacity style={[styles.buzzbutton, { backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => this.addOldModal()}>
                                         <Text style={styles.buttonText}>Cancel</Text>
