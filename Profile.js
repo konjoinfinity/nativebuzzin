@@ -12,7 +12,7 @@ import FontIcon from 'react-native-vector-icons/FontAwesome';
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
-    limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey, maxreckey
+    limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey, logskey, maxreckey
 } from "./Variables";
 
 var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
@@ -94,7 +94,7 @@ class ProfileScreen extends Component {
         // await AsyncStorage.removeItem(oldkey)
         await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
             limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
-            hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, maxreckey])
+            hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, logskey, maxreckey])
         this.props.navigation.navigate("Login")
     }
 
