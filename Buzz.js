@@ -93,25 +93,14 @@ class BuzzScreen extends Component {
         values = await Functions.maxRecDrinks()
     }
 
-    // refactor to combine these modal handles
     oldModal(buzz, obid) {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz, obid: obid });
+        this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz === "a" ? "" : buzz, obid: obid === "z" ? "" : obid });
     }
 
-    closeOldModal() {
+    buzzModal(action) {
         Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: "", obid: "" });
-    }
-
-    buzzModal() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
-    }
-
-    closeBuzzModal() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
-        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" });
+        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: action === "open" ? this.state.buzzes : "" });
     }
 
     addOldModal() {
@@ -155,7 +144,7 @@ class BuzzScreen extends Component {
     async deleteWholeOldBuzz() {
         var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
         await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
-        this.closeOldModal()
+        this.oldModal("a", "z")
         if (this.state.oldbuzzes.length === 0) { this.setState({ timesince: null }, () => { this.showHideBuzzes("showHideOldBuzzes") }) }
         this.componentDidMount()
     }
@@ -169,7 +158,7 @@ class BuzzScreen extends Component {
         let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, oldbuzztoadd;
         this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center", marginRight: 30 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: abvText, padding: 10, textAlign: "center", marginRight: 30 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={styles.plusMinusButtons} onPress={() => this.buzzModal("open")}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
@@ -427,7 +416,7 @@ class BuzzScreen extends Component {
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete() }}>
                                     <Text style={styles.buttonText}>Delete</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.closeOldModal()}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 10 }]} onPress={() => this.oldModal("a", "z")}>
                                     <Text style={styles.buttonText}>Done</Text>
                                 </TouchableOpacity></View>
                         </View>
@@ -516,7 +505,7 @@ class BuzzScreen extends Component {
                             </View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.closeBuzzModal()}>
+                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.buzzModal("close")}>
                                     <Text style={styles.buttonText}>Done</Text>
                                 </TouchableOpacity></View>
                         </View>
