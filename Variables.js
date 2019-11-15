@@ -230,6 +230,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginTitle = 30
     barChartWidth = 168
     scrollToAmt = 410
+    warnTitleButton = 24
+    warnBody = 20
 } else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
     console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
     gaugeSize = 380
@@ -298,6 +300,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginTitle = 30
     barChartWidth = 150
     scrollToAmt = 375
+    warnTitleButton = 22
+    warnBody = 19
 } else if (screenWidth === 1242) {
     console.log("1242")
     gaugeSize = 390
