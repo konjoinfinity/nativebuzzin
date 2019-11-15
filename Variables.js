@@ -90,6 +90,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginTitle = 32
     barChartWidth = 202
     scrollToAmt = 479
+    warnTitleButton = 21
+    warnBody = 18
 } else if (screenWidth <= 600) {
     console.log("less than 600")
     gaugeSize = 230
@@ -111,6 +113,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginTitle = 17
     barChartWidth = 122
     scrollToAmt = 320
+    warnTitleButton = 12
+    warnBody = 9
 } else if (screenWidth === 720 && screenHeight === 1280) {
     console.log("720x1280")
     gaugeSize = 320
@@ -132,6 +136,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginTitle = 25
     barChartWidth = 140
     scrollToAmt = 362
+    warnTitleButton = 16
+    warnBody = 13
 } else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
     console.log("greater than 600 & less than 750")
     gaugeSize = 295
@@ -186,6 +192,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
         barChartWidth = 142
         scrollToAmt = 360
     }
+    warnTitleButton = 13
+    warnBody = 10
 } else if (screenWidth >= 750 && screenWidth < 828) {
     console.log("greater or equal to 750 & less than 828")
     gaugeSize = 350
@@ -258,6 +266,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
         barChartWidth = 168
         scrollToAmt = 410
     }
+    warnTitleButton = 20
+    warnBody = 17
 } else if (screenWidth === 1080 && screenHeight === 2028) {
     console.log("1080 x 2028")
     gaugeSize = 365
@@ -279,6 +289,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginTitle = 30
     barChartWidth = 159
     scrollToAmt = 392
+    warnTitleButton = 18
+    warnBody = 15
 } else if (screenWidth === 1125) {
     console.log("1125")
     gaugeSize = 350
@@ -388,6 +400,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginTitle = 28
     barChartWidth = 168
     scrollToAmt = 410
+    warnTitleButton = 16
+    warnBody = 13
 } else if (screenWidth > 1125) {
     console.log("greater than 1125")
     gaugeSize = 390
@@ -430,6 +444,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginTitle = 28
     barChartWidth = 168
     scrollToAmt = 410
+    warnTitleButton = 16
+    warnBody = 13
 }
 
 export {
