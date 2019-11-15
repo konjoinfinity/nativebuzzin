@@ -18,7 +18,7 @@ import {
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
-    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey
+    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody
 } from "./Variables";
 
 var amount = Platform.OS === 'android' ? 10 : 0
@@ -679,11 +679,11 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.warn === true && this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhour === false &&
                         <View style={styles.cardView}>
-                            <Text style={{ fontSize: 17, textAlign: "center", padding: 4, fontWeight: "bold" }}>Government Warning:</Text>
-                            <Text style={{ fontSize: 14, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
-                            <Text style={{ fontSize: 14, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
+                            <Text style={{ fontSize: warnTitleButton, textAlign: "center", padding: 4, fontWeight: "bold" }}>Government Warning:</Text>
+                            <Text style={{ fontSize: warnBody, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
+                            <Text style={{ fontSize: warnBody, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
                             <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.setState({ warn: false }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate() })}>
-                                <Text style={{ color: "#FFFFFF", fontSize: 17, textAlign: "center" }}>Accept</Text>
+                                <Text style={{ color: "#FFFFFF", fontSize: warnTitleButton, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
                         </View>}
                     {(this.state.buzzes && this.state.buzzes.length > 0) && <View style={styles.buzzCard}>

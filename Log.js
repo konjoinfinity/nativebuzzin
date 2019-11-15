@@ -76,8 +76,8 @@ class LogScreen extends Component {
         this.state.logs && this.state.logs.length > 0 && (eachlog = this.state.logs.map((log, id) => {
             return (<View key={id} ref={'log' + id} style={[styles.buzzLog, { flexDirection: "row", justifyContent: "space-evenly" }]}>
                 <View style={{ flexDirection: "column" }}>
-                    <Text style={{ fontSize: 18, textAlign: "center", paddingTop: 10, width: Dimensions.get('window').width * 0.6 }}>{log.log}</Text>
-                    <Text style={{ fontSize: 14, padding: 5, textAlign: "center" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
+                    <Text style={{ fontSize: 18, padding: 4, textAlign: "left", paddingTop: 10, width: Dimensions.get('window').width * 0.58 }}>{log.log}</Text>
+                    <Text style={{ fontSize: 13, padding: 4, textAlign: "left" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
                 <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { Platform.OS === "ios" ? this.editloginput.focus() : setTimeout(() => this.editloginput.focus(), 10) })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
