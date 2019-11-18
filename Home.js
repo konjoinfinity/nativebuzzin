@@ -158,7 +158,10 @@ class HomeScreen extends Component {
         await AsyncStorage.setItem(key, JSON.stringify(this.state.buzzes))
         if (this.state.bac > this.state.threshold) { await AsyncStorage.setItem(autobreakminkey, JSON.stringify(true)) }
         if (this.state.limit === true) {
-            if (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) { this.setState({ showlimit: true }), await AsyncStorage.setItem(showlimitkey, JSON.stringify(true)) }
+            if (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) {
+                this.setState({ showlimit: true })
+                await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
+            }
         }
         if (this.state.pacer === true) { this.setState({ showpacer: true }) }
         maxRecValues = await Functions.maxRecDrinks()
