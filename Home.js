@@ -497,7 +497,7 @@ class HomeScreen extends Component {
                         </View>
                     </ScrollView>
                 </Modal>
-                {this.state.focus === true && <NavigationEvents onWillFocus={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 && ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
+                {this.state.focus === true && <NavigationEvents onWillFocus={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate(25); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="This gauge displays your current BAC.  The tick marks show the optimal buzz range.  Check the readout for your current BAC." order={1} name="gauge">
