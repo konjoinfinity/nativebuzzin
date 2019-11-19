@@ -44,6 +44,14 @@ class InfoScreen extends Component {
                         <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Warning</Text></TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Normal Vibration</Text></TouchableOpacity>
                     </View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(10)}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (10ms)</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impact') : Vibration.vibrate(20)}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (20ms)</Text></TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate(30)}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (30ms)</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={() => Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactMedium') : Vibration.vibrate(40)}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (40ms)</Text></TouchableOpacity>
+                    </View>
                     <Text style={styles.infoTitle}>About Us</Text>
                     <Text style={styles.infoText}>Co-Founders Charles and Wesley started developing this app in June 2019 to help people drink alcohol responsibly.  We both have at one point in our lives struggled with alcohol.  We hope this tool we built helps our users to get a better handle on their drinking habits.  We both use the tool daily and we hope you will too.</Text>
                     <Text style={styles.infoTitle}>Disclaimer</Text>

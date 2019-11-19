@@ -251,6 +251,7 @@ class BuzzScreen extends Component {
                         </View>
                         <View style={[styles.cardView, { padding: 10 }]}>
                             {this.state.drinkadd === false && <View>
+                                {/* this could also be the issue, test */}
                                 <CalendarPicker onDateChange={(date) => { this.setState({ selectedStartDate: date }); Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate() }} maxDate={new Date()} minDate={monthOld} scaleFactor={400} selectedDayColor={"#1de9b6"} />
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 5 }}>
                                     <TouchableOpacity style={[styles.buzzbutton, { backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => this.addOldModal()}>
