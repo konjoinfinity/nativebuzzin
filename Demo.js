@@ -26,25 +26,25 @@ class DemoScreen extends Component {
     };
 
     async componentDidMount() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate(25)
+        ReactNativeHaptic.generate('impactLight')
         setTimeout(() => { this.checkBac() }, 200)
     }
 
     handleModal(number) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         this.setState({ [number]: !this.state[number] })
     }
 
     addDrink() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         var drinkDate = new Date();
         this.setState(prevState => ({ testbuzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.testbuzzes] }), () => { this.checkBac() })
         setTimeout(() => {
-            if (this.state.bac > 0.04 && this.state.bac < 0.06) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notification') : Vibration.vibrate(); AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
-            if (this.state.bac > 0.06 && this.state.bac < 0.07) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationSuccess') : Vibration.vibrate(); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
-            if (this.state.bac > 0.07 && this.state.bac < 0.08) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate(); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
-            if (this.state.bac > 0.08 && this.state.bac < 0.10) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationError') : Vibration.vibrate(); this.handleModal("modal1") }
-            if (this.state.bac > 0.10) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationError') : Vibration.vibrate(); this.handleModal("modal2") }
+            if (this.state.bac > 0.04 && this.state.bac < 0.06) { ReactNativeHaptic.generate('notification'); AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
+            if (this.state.bac > 0.06 && this.state.bac < 0.07) { ReactNativeHaptic.generate('notificationSuccess'); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
+            if (this.state.bac > 0.07 && this.state.bac < 0.08) { ReactNativeHaptic.generate('notificationWarning'); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
+            if (this.state.bac > 0.08 && this.state.bac < 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal1") }
+            if (this.state.bac > 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal2") }
         }, 200);
     }
 
@@ -72,18 +72,18 @@ class DemoScreen extends Component {
     }
 
     async clearDrinks() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         this.setState({ testbuzzes: [], bac: 0.0 });
     }
 
     switchGender() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
     }
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.testbuzzes[0].dateCreated) < 0.0333333) {
-            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+            ReactNativeHaptic.generate('selection')
             var undobuzz = this.state.testbuzzes;
             if (undobuzz.length >= 1) {
                 undobuzz.shift();
@@ -102,7 +102,7 @@ class DemoScreen extends Component {
             if (this.state.showHideBuzzes === true) { this.scrolltop.scrollTo({ y: 550, animated: true }) }
             else { this.scrolltop.scrollTo({ y: 0, animated: true }) }
         }, 300));
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
     }
 
     render() {
@@ -143,7 +143,7 @@ class DemoScreen extends Component {
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                             <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight} totalHeight={50}
-                                onChange={(weight) => this.setState({ weight }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22); })} step={5} rounded textColor='#103900' totalWidth={120}
+                                onChange={(weight) => this.setState({ weight }, () => { ReactNativeHaptic.generate('selection'); })} step={5} rounded textColor='#103900' totalWidth={120}
                                 iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>

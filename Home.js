@@ -118,7 +118,7 @@ class HomeScreen extends Component {
     }
 
     handleModal(number) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         this.setState({ [number]: !this.state[number] });
     }
 
@@ -140,17 +140,17 @@ class HomeScreen extends Component {
     }
 
     async addDrink() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         var drinkDate = new Date();
         this.setState(prevState => ({ buzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes] }), () => this.checkBac())
         setTimeout(() => {
             this.saveBuzz();
             this.flashWarning();
-            if (this.state.bac > 0.04 && this.state.bac < 0.06) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notification') : Vibration.vibrate(); AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
-            if (this.state.bac > 0.06 && this.state.bac < 0.07) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationSuccess') : Vibration.vibrate(); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
-            if (this.state.bac > 0.07 && this.state.bac < 0.08) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate(); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
-            if (this.state.bac > 0.08 && this.state.bac < 0.10) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationError') : Vibration.vibrate(); this.handleModal("modal1") }
-            if (this.state.bac > 0.10) { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationError') : Vibration.vibrate(); this.handleModal("modal2") }
+            if (this.state.bac > 0.04 && this.state.bac < 0.06) { ReactNativeHaptic.generate('notification'); AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
+            if (this.state.bac > 0.06 && this.state.bac < 0.07) { ReactNativeHaptic.generate('notificationSuccess'); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
+            if (this.state.bac > 0.07 && this.state.bac < 0.08) { ReactNativeHaptic.generate('notificationWarning'); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
+            if (this.state.bac > 0.08 && this.state.bac < 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal1") }
+            if (this.state.bac > 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal2") }
         }, 200);
     }
 
@@ -243,7 +243,7 @@ class HomeScreen extends Component {
     }
 
     async clearDrinks() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         clearInterval(this.state.flashtimer);
         this.setState({ buzzes: [], bac: 0.0, flashtext: false, flashtimer: "", flashtext: "" })
         await AsyncStorage.removeItem(key);
@@ -251,7 +251,7 @@ class HomeScreen extends Component {
 
     async undoLastDrink() {
         if (Functions.singleDuration(this.state.buzzes[0].dateCreated) < 0.0333333) {
-            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+            ReactNativeHaptic.generate('selection')
             var undobuzz;
             await AsyncStorage.getItem(key, (error, result) => {
                 if (result !== null) {
@@ -272,7 +272,7 @@ class HomeScreen extends Component {
     }
 
     cancelAlert(typealert) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationWarning') : Vibration.vibrate();
+        ReactNativeHaptic.generate('notificationWarning');
         Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
             typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
                 typealert === "ib" ? 'Consider keeping up your streak.' : typealert === "lc" ? "It's after last call, consider going home." :
@@ -283,7 +283,7 @@ class HomeScreen extends Component {
     }
 
     async stopModeration(stoptype) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22);
+        ReactNativeHaptic.generate('selection');
         this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
             stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } :
                 stoptype === "ib" ? { indefbreak: false } : stoptype === "lc" ? { limitdate: "", showlastcall: false, lastcall: false } : { showpacer: false, pacer: false })
@@ -320,29 +320,29 @@ class HomeScreen extends Component {
     }
 
     buzzModal() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: this.state.buzzes });
     }
 
     closeBuzzModal() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: "" }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 750) })
     }
 
     buzzDuration(incdec) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) { this.setState({ buzzduration: this.state.buzzduration + 15 }) }
         else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) { this.setState({ buzzduration: this.state.buzzduration - 15 }) }
     }
 
     async deleteBuzz(buzz) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
         await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
     }
 
     async editBuzz() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
+        ReactNativeHaptic.generate('selection')
         var delayTime = new Date();
         delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
         var editbuzzes = this.state.buzzes
@@ -353,7 +353,7 @@ class HomeScreen extends Component {
 
     countDownFinished() {
         setTimeout(() => { this.setState({ showpacer: false }) }, 100)
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('notificationSuccess') : Vibration.vibrate()
+        ReactNativeHaptic.generate('notificationSuccess')
     }
 
     showLastCall() {
@@ -497,7 +497,7 @@ class HomeScreen extends Component {
                         </View>
                     </ScrollView>
                 </Modal>
-                {this.state.focus === true && <NavigationEvents onWillFocus={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate(25); this.componentDidMount() }} />}
+                {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep text="This gauge displays your current BAC.  The tick marks show the optimal buzz range.  Check the readout for your current BAC." order={1} name="gauge">
@@ -685,7 +685,7 @@ class HomeScreen extends Component {
                             <Text style={{ fontSize: warnTitleButton, textAlign: "center", padding: 4, fontWeight: "bold" }}>Warning</Text>
                             <Text style={{ fontSize: warnBody, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
                             <Text style={{ fontSize: warnBody, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
-                            <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.setState({ warn: false }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22) })}>
+                            <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.setState({ warn: false }, () => { ReactNativeHaptic.generate('selection') })}>
                                 <Text style={{ color: "#FFFFFF", fontSize: warnTitleButton, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
                         </View>}
@@ -693,7 +693,7 @@ class HomeScreen extends Component {
                         {buzzes}
                     </View>}
                 </ScrollView>
-            </View>
+            </View >
         );
     }
 }
