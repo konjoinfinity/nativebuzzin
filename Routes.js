@@ -5,7 +5,7 @@ import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
-import { View, Dimensions, PixelRatio, TouchableOpacity, Image } from "react-native"
+import { View, Dimensions, PixelRatio, TouchableOpacity } from "react-native"
 import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Vibration, Alert } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'

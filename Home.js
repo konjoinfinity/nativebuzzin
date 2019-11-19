@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Alert, Modal, Platform, Vibration } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Alert, Modal, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';

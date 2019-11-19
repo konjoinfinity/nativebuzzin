@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio, Platform, Vibration } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'

@@ -1,4 +1,4 @@
-import { Platform, Vibration } from 'react-native';
+import { Platform } from 'react-native';
 import moment from "moment";
 import AsyncStorage from '@react-native-community/async-storage';
 import { oldkey, genderkey, key } from "./Variables";
@@ -56,7 +56,7 @@ export class Functions {
     }
 
     static setOz(number, alcohol) {
-         ReactNativeHaptic.generate('selection')  
+        ReactNativeHaptic.generate('selection')
         if (alcohol === "Beer" && number === 0) { return 12 }
         if (alcohol === "Beer" && number === 1) { return 16 }
         if (alcohol === "Beer" && number === 2) { return 20 }
@@ -73,7 +73,7 @@ export class Functions {
     }
 
     static setAbv(number, alcohol) {
-         ReactNativeHaptic.generate('selection')  
+        ReactNativeHaptic.generate('selection')
         if (alcohol === "Beer" && number === 0) { return 0.04 }
         if (alcohol === "Beer" && number === 1) { return 0.05 }
         if (alcohol === "Beer" && number === 2) { return 0.06 }
@@ -88,7 +88,7 @@ export class Functions {
     }
 
     static setAlcType(value) {
-         ReactNativeHaptic.generate('selection')  
+        ReactNativeHaptic.generate('selection')
         if (value === "Beer") { return [0.05, 12] }
         if (value === "Wine") { return [0.12, 5] }
         if (value === "Liquor") { return [0.40, 1.5] }

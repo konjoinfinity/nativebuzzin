@@ -48,32 +48,6 @@ class InfoScreen extends Component {
                         <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Default</Text></TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impact')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (22ms)</Text></TouchableOpacity>
                     </View>
-                    {Platform.OS === "android" && <View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate(25)}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (25ms)</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate(30)}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (30ms)</Text></TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate(40)}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (40ms)</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate(45)}> <Text style={{ textAlign: "center", color: "#ffffff" }}>Android (45ms)</Text></TouchableOpacity >
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate(50)}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (50ms)</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate(60)}> <Text style={{ textAlign: "center", color: "#ffffff" }}>Android (65ms)</Text></TouchableOpacity >
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate([10, 40, 60, 30])}><Text style={{ textAlign: "center", color: "#ffffff" }}>x2</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate([10, 50, 70, 40, 70, 30])}> <Text style={{ textAlign: "center", color: "#ffffff" }}>x3</Text></TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate([10, 75, 100, 40])}><Text style={{ textAlign: "center", color: "#ffffff" }}>x2</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate([10, 60, 80, 45, 80, 30])}> <Text style={{ textAlign: "center", color: "#ffffff" }}>x3</Text></TouchableOpacity >
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate([10, 30, 80, 40, 80, 50])}><Text style={{ textAlign: "center", color: "#ffffff" }}>up up up</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate([10, 40, 80, 30, 80, 50])}> <Text style={{ textAlign: "center", color: "#ffffff" }}>mid up down</Text></TouchableOpacity >
-                        </View>
-                    </View>}
                     <Text style={styles.infoTitle}>About Us</Text>
                     <Text style={styles.infoText}>Co-Founders Charles and Wesley started developing this app in June 2019 to help people drink alcohol responsibly.  We both have at one point in our lives struggled with alcohol.  We hope this tool we built helps our users to get a better handle on their drinking habits.  We both use the tool daily and we hope you will too.</Text>
                     <Text style={styles.infoTitle}>Disclaimer</Text>

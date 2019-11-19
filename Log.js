@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Keyboard, Modal, Dimensions, TextInput, Alert, Vibration, Platform } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Keyboard, Modal, Dimensions, TextInput, Alert, Platform } from 'react-native'
 import styles from "./Styles"
 import { loginButtonText, logskey } from "./Variables"
 import AsyncStorage from '@react-native-community/async-storage'
