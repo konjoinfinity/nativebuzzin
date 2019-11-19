@@ -23,13 +23,13 @@ class LogScreen extends Component {
     }
 
     async componentDidMount() {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('impactLight') : Vibration.vibrate(25)
         await AsyncStorage.getItem(logskey, (error, result) => { result !== null && result !== "[]" ? this.setState({ logs: JSON.parse(result) }) : this.setState({ logs: [] }) })
     }
 
     async addLog() {
         if (this.state.log !== "") {
-            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+            Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
             var newLog = this.state.logs
             var logDate = new Date();
             newLog.unshift({ log: this.state.log, dateCreated: logDate })
@@ -43,7 +43,7 @@ class LogScreen extends Component {
     }
 
     async deleteLog(log) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
         var filtered = this.state.logs.filter(deleted => deleted !== log)
         this.setState({ log: "", editlogmodal: false, logs: filtered, editlog: "" })
         await AsyncStorage.setItem(logskey, JSON.stringify(filtered))
@@ -58,7 +58,7 @@ class LogScreen extends Component {
     }
 
     async editLog(position) {
-        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate()
+        Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22)
         var editlogs = this.state.logs
         editlogs[position].log = this.state.editlog
         this.setState({ logs: editlogs, editlog: "", editlogmodal: false })
@@ -93,7 +93,7 @@ class LogScreen extends Component {
                                 onChangeText={(log) => this.setState({ log })} multiline={true} onBlur={() => { Keyboard.dismiss() }} blurOnSubmit={false}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.setState({ log: "", logmodal: false }) }}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22); this.setState({ log: "", logmodal: false }) }}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 20, textAlign: "center" }}>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => this.addLog()}>
@@ -115,7 +115,7 @@ class LogScreen extends Component {
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 8, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete(this.state.logselected) }}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 20, textAlign: "center" }}>Delete</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); this.setState({ editlog: "", editlogmodal: false }) }}>
+                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22); this.setState({ editlog: "", editlogmodal: false }) }}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 20, textAlign: "center" }}>Cancel</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => this.editLog(this.state.position)}>
@@ -129,7 +129,7 @@ class LogScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
                         <View style={styles.hiddenLogButton}><Text style={{ color: "#e0f2f1", fontSize: 28, textAlign: "center" }}>+</Text></View>
                         <Text style={{ fontSize: 28, padding: 10 }}>Logs</Text>
-                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 10) })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { Platform.OS === "ios" && parseInt(Platform.Version, 10) >= 10 ? ReactNativeHaptic.generate('selection') : Vibration.vibrate(22); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 10) })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
                     </View>
                         {this.state.logs && eachlog !== undefined && <View>{eachlog}</View>}
                     </View>
