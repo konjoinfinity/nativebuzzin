@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
@@ -171,7 +171,7 @@ class ProfileScreen extends Component {
                         <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Happy Hour</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.happyhour} onChange={() => { this.handleSwitches("happyhour", happyhourkey, "sethappyhour"); Platform.OS === "android" && ReactNativeHaptic.generate('selection') }} /></View>
+                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
                             {this.state.happyhour === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("sethappyhour")}>
@@ -201,7 +201,7 @@ class ProfileScreen extends Component {
                         <View style={styles.endView}>
                             <Text style={[{ fontSize: loginButtonText }, styles.profileCardText]}>Custom Break</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.custombreak} onChange={() => { this.handleSwitches("custombreak", custombreakkey, "setcustombreak"); Platform.OS === "android" && ReactNativeHaptic.generate('selection') }} /></View>
+                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey, "setcustombreak")} /></View>
                             {this.state.custombreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={styles.profileSetting} onPress={() => this.showHideSetting("setcustombreak")}>

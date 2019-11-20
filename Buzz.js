@@ -577,7 +577,7 @@ class BuzzScreen extends Component {
                     </ScrollView>
                     {values[0].length > 1 && <View style={[styles.buzzInfo, { flexDirection: "row", justifyContent: "space-evenly" }]}>
                         <Text style={{ fontSize: loginButtonText }}>Week/Month</Text>
-                        <Switch ios_backgroundColor={"#4db6ac"} trackColor={{ true: "#4db6ac", false: "#4db6ac" }} value={this.state.chartswitch} onChange={() => { this.chartSwitch(); Platform.OS === "android" && ReactNativeHaptic.generate('selection') }} />
+                        <Switch ios_backgroundColor={"#4db6ac"} trackColor={{ true: "#4db6ac", false: "#4db6ac" }} value={this.state.chartswitch} onChange={() => this.chartSwitch()} />
                         <Text style={{ fontSize: loginButtonText }}>Cumulative</Text>
                     </View>}
                     {this.state.buzzes !== null && <View style={styles.buzzCard}>
