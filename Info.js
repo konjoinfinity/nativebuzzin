@@ -42,11 +42,10 @@ class InfoScreen extends Component {
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                         <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notificationWarning')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Warning</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Normal Vibration</Text></TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                         <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Default</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('impact')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Android (22ms)</Text></TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Normal Vibration</Text></TouchableOpacity>
                     </View>
                     <Text style={styles.infoTitle}>About Us</Text>
                     <Text style={styles.infoText}>Co-Founders Charles and Wesley started developing this app in June 2019 to help people drink alcohol responsibly.  We both have at one point in our lives struggled with alcohol.  We hope this tool we built helps our users to get a better handle on their drinking habits.  We both use the tool daily and we hope you will too.</Text>
