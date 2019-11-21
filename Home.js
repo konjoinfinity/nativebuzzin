@@ -213,7 +213,6 @@ class HomeScreen extends Component {
     async moveToOld() {
         var autobreakcheck, oldbuzzarray, newbuzzarray = this.state.buzzes;
         this.state.oldbuzzes.length !== 0 ? oldbuzzarray = this.state.oldbuzzes : oldbuzzarray = []
-        console.log(this.state.oldbuzzes.length !== 0)
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
         if (oldbuzzarray.length !== 0) {
             if (new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getMonth()) {
@@ -226,9 +225,6 @@ class HomeScreen extends Component {
         } else {
             oldbuzzarray.unshift(newbuzzarray);
         }
-        console.log(oldbuzzarray.length !== 0)
-        console.log(oldbuzzarray)
-        console.log(newbuzzarray)
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
