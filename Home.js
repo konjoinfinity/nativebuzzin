@@ -18,10 +18,9 @@ import {
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
-    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody
+    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody, warningkey
 } from "./Variables";
 
-var amount = Platform.OS === 'android' ? 10 : 0
 const CopilotView = walkthroughable(View);
 
 var maxRecValues;
@@ -35,20 +34,20 @@ class HomeScreen extends Component {
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
             showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: "", pacer: "", pacertime: "", showpacer: false,
-            selectedBuzz: "", buzzmodal: false, buzzduration: 30, lastcall: "", showlastcall: false, limithour: "", maxrec: "", warn: true
+            selectedBuzz: "", buzzmodal: false, buzzduration: 30, lastcall: "", showlastcall: false, limithour: "", maxrec: "", warn: ""
         }
     };
 
     async componentDidMount() {
-        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey,
-            happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey])
+        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey, happyhourkey,
+            autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey, warningkey])
         this.setState({
             autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
             limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
             happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
             gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
             pacertime: JSON.parse(values[12][1]), lastcall: JSON.parse(values[13][1]), limithour: JSON.parse(values[14][1]),
-            maxrec: JSON.parse(values[15][1])
+            maxrec: JSON.parse(values[15][1]), warn: JSON.parse(values[16][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
@@ -84,14 +83,13 @@ class HomeScreen extends Component {
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
                     var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
                     if (warning[0] === 0) {
-                        if (warning[3] >= 0 && warning[1] < 12) { this.setState({ warn: false }) }
-                    } else { this.setState({ warn: true }) }
+                        if (warning[3] >= 0 && warning[1] < 12) { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(false)) })(); this.setState({ warn: false }) }
+                    } else { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(true)) })(); this.setState({ warn: true }) }
                 }, 50);
             } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
         })
         const login = this.props.navigation.getParam('login');
         if (login === true) {
-            this.setState({ warn: false })
             this.props.copilotEvents.on('stepChange', this.handleStepChange);
             setTimeout(() => {
                 this.props.start();
@@ -215,16 +213,22 @@ class HomeScreen extends Component {
     async moveToOld() {
         var autobreakcheck, oldbuzzarray, newbuzzarray = this.state.buzzes;
         this.state.oldbuzzes.length !== 0 ? oldbuzzarray = this.state.oldbuzzes : oldbuzzarray = []
+        console.log(this.state.oldbuzzes.length !== 0)
         await AsyncStorage.getItem(autobreakminkey, (error, result) => { autobreakcheck = JSON.parse(result) })
         if (oldbuzzarray.length !== 0) {
             if (new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getDate() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getDate() && new Date(Date.parse(oldbuzzarray[0][oldbuzzarray[0].length - 1].dateCreated)).getMonth() === new Date(Date.parse(newbuzzarray[newbuzzarray.length - 1].dateCreated)).getMonth()) {
                 var combined = [].concat(newbuzzarray, oldbuzzarray[0]);
                 oldbuzzarray.shift();
                 oldbuzzarray.unshift(combined);
+            } else {
+                oldbuzzarray.unshift(newbuzzarray);
             }
         } else {
             oldbuzzarray.unshift(newbuzzarray);
         }
+        console.log(oldbuzzarray.length !== 0)
+        console.log(oldbuzzarray)
+        console.log(newbuzzarray)
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzarray))
         await AsyncStorage.removeItem(key, () => { this.setState({ buzzes: [], bac: 0.0, oldbuzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
@@ -366,6 +370,12 @@ class HomeScreen extends Component {
             if (maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] === true) { return true }
             else { return false }
         } else { return false }
+    }
+
+    async warnCardHandle() {
+        ReactNativeHaptic.generate('selection')
+        this.setState({ warn: false })
+        await AsyncStorage.setItem(warningkey, JSON.stringify(false))
     }
 
     render() {
@@ -685,7 +695,7 @@ class HomeScreen extends Component {
                             <Text style={{ fontSize: warnTitleButton, textAlign: "center", padding: 4, fontWeight: "bold" }}>Warning</Text>
                             <Text style={{ fontSize: warnBody, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
                             <Text style={{ fontSize: warnBody, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
-                            <TouchableOpacity style={{ borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount }} onPress={() => this.setState({ warn: false }, () => { ReactNativeHaptic.generate('selection') })}>
+                            <TouchableOpacity style={styles.warningCard} onPress={() => this.warnCardHandle()}>
                                 <Text style={{ color: "#FFFFFF", fontSize: warnTitleButton, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
                         </View>}
