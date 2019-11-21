@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
@@ -100,6 +100,7 @@ class ProfileScreen extends Component {
     }
 
     async handleSwitches(statename, keyvalue, setstatename) {
+        if (Platform.OS === "android") { ReactNativeHaptic.generate('selection') }
         if (statename === "custombreak" && this.state.custombreak === true) {
             this.setState({ setcustombreak: true })
             if (this.state.indefbreak === true || this.state.break === true) {

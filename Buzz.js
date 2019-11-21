@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert, Platform } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -54,6 +54,7 @@ class BuzzScreen extends Component {
     }
 
     chartSwitch() {
+        if (Platform.OS === "android") { ReactNativeHaptic.generate('selection') }
         this.setState(prevState => ({ chartswitch: !prevState.chartswitch }))
         this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
