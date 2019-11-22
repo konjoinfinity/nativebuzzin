@@ -104,13 +104,13 @@ class DemoScreen extends Component {
 
     closeTestBuzzModal() {
         ReactNativeHaptic.generate('selection')
-        this.setState({ testbuzzmodal: !this.state.testbuzzmodal, selectedBuzz: "" }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 155, animated: true }) }, 750) })
+        this.setState({ testbuzzmodal: !this.state.testbuzzmodal, selectedBuzz: "" }, () => { setTimeout(() => { this.scrolltop.scrollTo({ y: 150, animated: true }) }, 750) })
     }
 
     testBuzzDuration(incdec) {
         ReactNativeHaptic.generate('selection')
-        if (incdec === "up" && this.state.testbuzzduration >= 5 && this.state.testbuzzduration < 240) { this.setState({ testbuzzduration: this.state.testbuzzduration + 5 }) }
-        else if (incdec === "down" && this.state.testbuzzduration > 5 && this.state.testbuzzduration <= 240) { this.setState({ testbuzzduration: this.state.testbuzzduration - 5 }) }
+        if (incdec === "up" && this.state.testbuzzduration >= 5 && this.state.testbuzzduration < 120) { this.setState({ testbuzzduration: this.state.testbuzzduration + 5 }) }
+        else if (incdec === "down" && this.state.testbuzzduration > 5 && this.state.testbuzzduration <= 120) { this.setState({ testbuzzduration: this.state.testbuzzduration - 5 }) }
     }
 
     async deleteTestBuzz(buzz) {
@@ -242,11 +242,11 @@ class DemoScreen extends Component {
                             </View>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>How Long Ago?</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, marginLeft: 20, marginRight: 20 }}>
-                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 15 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.testBuzzDuration("down")}>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.testbuzzduration === 5 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.testBuzzDuration("down")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
                                     <View><Text style={{ fontSize: 22 }}>{this.state.testbuzzduration} Minutes</Text></View></TouchableOpacity>
-                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 240 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.testBuzzDuration("up")}>
+                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.testbuzzduration === 120 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.testBuzzDuration("up")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
                             <Text style={styles.profileLine}>___________________________________________</Text>
