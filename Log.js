@@ -38,7 +38,7 @@ class LogScreen extends Component {
             setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750)
         } else {
             ReactNativeHaptic.generate('notificationWarning')
-            Alert.alert("Please enter some text.")
+            Alert.alert("Please enter some text.", { onPress: () => ReactNativeHaptic.generate("notification") })
         }
     }
 
