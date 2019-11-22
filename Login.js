@@ -24,8 +24,8 @@ class LoginScreen extends React.Component {
         this.nameinput.focus();
     }
 
-    handleModal() {
-        ReactNativeHaptic.generate('selection');
+    handleModal(agree) {
+        agree === "yes" ? ReactNativeHaptic.generate('selection') : ReactNativeHaptic.generate("notificationError");
         if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
         else {
             ReactNativeHaptic.generate('notificationWarning');
@@ -47,7 +47,7 @@ class LoginScreen extends React.Component {
         [indefbreakkey, JSON.stringify(false)], [limithourkey, JSON.stringify(23)], [pacerkey, JSON.stringify(false)],
         [limitdatekey, JSON.stringify(new Date().setHours(23, 0, 0, 0))], [pacertimekey, JSON.stringify(1800)],
         [lastcallkey, JSON.stringify(false)], [maxreckey, JSON.stringify(false)], [warningkey, JSON.stringify(false)]])
-        this.handleModal();
+        this.handleModal("yes");
         this.props.navigation.navigate("Home", { login: true });
     }
 
@@ -61,7 +61,7 @@ class LoginScreen extends React.Component {
                                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10 }}>
                                     {loginText}
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                                        <TouchableOpacity style={styles.logindisagreeButton} onPress={() => { this.handleModal() }}>
+                                        <TouchableOpacity style={styles.logindisagreeButton} onPress={() => { this.handleModal("no") }}>
                                             <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Disagree</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={styles.loginbutton} onPress={() => { this.handleLogin() }}>
@@ -90,7 +90,7 @@ class LoginScreen extends React.Component {
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
-                            <TouchableOpacity style={[styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal()}>
+                            <TouchableOpacity style={[styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal("yes")}>
                                 <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                     <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Login   </Text><Icon name="login" color="#ffffff" size={loginButtonText} style={{ paddingTop: 2 }} />
                                 </View>
