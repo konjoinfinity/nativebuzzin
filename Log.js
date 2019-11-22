@@ -43,7 +43,6 @@ class LogScreen extends Component {
     }
 
     async deleteLog(log) {
-        ReactNativeHaptic.generate('selection')
         var filtered = this.state.logs.filter(deleted => deleted !== log)
         this.setState({ log: "", editlogmodal: false, logs: filtered, editlog: "" })
         await AsyncStorage.setItem(logskey, JSON.stringify(filtered))
@@ -68,7 +67,7 @@ class LogScreen extends Component {
 
     confirmDelete(log) {
         ReactNativeHaptic.generate('notificationWarning')
-        Alert.alert('Are you sure you want to delete this log?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteLog(log) } }, { text: 'No' }], { cancelable: false });
+        Alert.alert('Are you sure you want to delete this log?', 'Please confirm.', [{ text: 'Yes', onPress: () => { ReactNativeHaptic.generate("notification"); this.deleteLog(log) } }, { text: 'No', onPress: () => { ReactNativeHaptic.generate("selection") } }], { cancelable: false });
     }
 
     render() {
@@ -78,7 +77,7 @@ class LogScreen extends Component {
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, padding: 4, textAlign: "left", paddingTop: 10, width: Dimensions.get('window').width * 0.58 }}>{log.log}</Text>
                     <Text style={{ fontSize: 13, padding: 4, textAlign: "left" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { Platform.OS === "ios" ? this.editloginput.focus() : setTimeout(() => this.editloginput.focus(), 10) })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
+                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.editloginput.focus() : setTimeout(() => this.editloginput.focus(), 10) })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
         }))
