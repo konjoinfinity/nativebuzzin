@@ -160,8 +160,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 16
     numberInputSize = 150
     loginTitle = 22
-    barChartWidth = 140
-    scrollToAmt = 350
+    barChartWidth = 142
+    scrollToAmt = 360
     warnTitleButton = 13
     warnBody = 10
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
