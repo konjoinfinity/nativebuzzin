@@ -166,6 +166,29 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     }
     warnTitleButton = 13
     warnBody = 10
+} else if (screenWidth === 1080 && screenHeight === 1920) {
+    // console.log("1080 x 1920")
+    gaugeSize = 310
+    bacTextSize = 20
+    alcTypeSize = 40
+    alcTypeText = 18
+    abvText = 18
+    abvSize = 40
+    abvWineText = 18
+    abvWineSize = 40
+    abvLiquorText = 18
+    abvLiquorSize = 40
+    addButtonText = 30
+    addButtonSize = true
+    multiSwitchMargin = 0
+    loginButtonText = 16
+    loginGenderText = 16
+    numberInputSize = 150
+    loginTitle = 22
+    barChartWidth = 140
+    scrollToAmt = 350
+    warnTitleButton = 13
+    warnBody = 10
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
     // console.log("768 or equal to 1080 x 1776")
     gaugeSize = 300

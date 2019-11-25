@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Linking, Platform, TouchableOpacity, Vibration } from 'react-native'
+import { View, Text, ScrollView, Linking, Platform, TouchableOpacity, Vibration, Alert, Dimensions, PixelRatio } from 'react-native'
 import ReactNativeHaptic from 'react-native-haptic';
 import styles from "./Styles"
+
+var screenWidth = Dimensions.get('window').width * PixelRatio.get()
+var screenHeight = Dimensions.get('window').height * PixelRatio.get()
 
 class InfoScreen extends Component {
 
@@ -24,6 +27,9 @@ class InfoScreen extends Component {
                     <Text style={styles.infoText}>The buzzin app helps to reduce, moderate, and track personal alcohol consumption habits.  Alcohol is a problem for many people around the world.  We want to help people control the amount of alcohol they consume in a responsible manner.</Text>
                     <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Test Haptic Vibrations</Text>
                     <Text style={styles.profileLine}>___________________________________________</Text>
+                    <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <TouchableOpacity style={styles.button} onPress={() => Alert.alert("Screen Resolution:", `${screenWidth + " x " + screenHeight}`, [{ text: "Ok", onPress: () => ReactNativeHaptic.generate("selection") }], { cancelable: false })}><Text style={{ textAlign: "center", color: "#ffffff" }}>Screen</Text></TouchableOpacity>
+                    </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                         <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('selection')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Selection</Text></TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={() => ReactNativeHaptic.generate('notification')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification</Text></TouchableOpacity>
