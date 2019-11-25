@@ -1,7 +1,8 @@
 import { StyleSheet, Platform } from "react-native"
+import { abvText } from "./Variables"
 
 var amount = Platform.OS === 'android' ? 10 : 0
-var undoTrash = Platform.OS === 'android' ? 40 : 0
+var undoTrash = Platform.OS === 'android' ? 20 : 0
 
 const styles = StyleSheet.create({
     buzzheaderButton: {
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
         shadowColor: "#000000", shadowRadius: 3, elevation: amount
     },
     addButton: {
-        borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 100, width: 100, margin: 10, shadowOpacity: 0.35,
+        borderRadius: 50, backgroundColor: "#1de9b6", opacity: 0.8, height: 100, width: 100, margin: 5, shadowOpacity: 0.35,
         shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3, alignItems: 'center', justifyContent: 'center',
         elevation: amount
     },
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     },
     undoButton: {
         height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
-        borderRadius: 50, margin: 7, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 },
+        borderRadius: 50, margin: 5, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 },
         elevation: undoTrash
     },
     infoButton: {
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     loginbuttonText: { color: "#FFFFFF", textAlign: "center" },
     loginbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15, shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount },
     profilebuttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
-    buttonText: { color: "#FFFFFF", fontSize: 22, textAlign: "center" },
+    buttonText: { color: "#FFFFFF", fontSize: abvText, textAlign: "center" },
     multiSwitch: { backgroundColor: 'white', borderRadius: 20, borderWidth: 1, borderColor: "lightgrey", justifyContent: 'space-between' },
     cardView: { backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 },
     infoText: { fontSize: 15, textAlign: "center", padding: 10 },

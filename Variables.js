@@ -142,19 +142,19 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 13
     warnBody = 10
 } else if (screenWidth === 1080 && screenHeight === 1920) {
-    // console.log("1080 x 1920")
-    gaugeSize = 325
-    bacTextSize = 20
-    alcTypeSize = 50
-    alcTypeText = 20
-    abvText = 15
-    abvSize = 45
-    abvWineText = 15
-    abvWineSize = 45
-    abvLiquorText = 15
-    abvLiquorSize = 50
-    addButtonText = 28
-    addButtonSize = true
+    // console.log("1080 x 1920") galaxy s5
+    gaugeSize = 295
+    bacTextSize = 18
+    alcTypeSize = 52
+    alcTypeText = 23
+    abvText = 14
+    abvSize = 42
+    abvWineText = 14
+    abvWineSize = 44
+    abvLiquorText = 14
+    abvLiquorSize = 44
+    addButtonText = 33
+    addButtonSize = false
     multiSwitchMargin = 0
     loginButtonText = 16
     loginGenderText = 16

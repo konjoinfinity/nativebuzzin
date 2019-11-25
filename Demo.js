@@ -261,7 +261,7 @@ class DemoScreen extends Component {
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={styles.scrollCard}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 20 }}>     Gender - {this.state.gender}     </Text>
+                            <Text style={{ fontSize: abvText, textAlign: "center", paddingTop: 20 }}>     Gender - {this.state.gender}     </Text>
                             <TouchableOpacity style={styles.button} onPress={() => this.switchGender()}><Text style={styles.buttonText}>Switch ♂♀</Text></TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
