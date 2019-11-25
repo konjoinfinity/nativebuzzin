@@ -330,7 +330,7 @@ class BuzzScreen extends Component {
                                     <TouchableOpacity onPress={() => this.addOldBuzzState()} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
                                         <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                                 </View>
-                                <Text style={styles.profileLine}>___________________________________________</Text>
+                                <Text style={styles.profileLine}>_________________________________________</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", paddingTop: 5, paddingBottom: 5 }}>
                                     <TouchableOpacity style={[styles.buzzbutton, { backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => this.addOldModal()}>
                                         <Text style={styles.buttonText}>Cancel</Text>
@@ -414,7 +414,7 @@ class BuzzScreen extends Component {
                                 <TouchableOpacity onPress={() => this.editOldBuzz(this.state.obid)} style={addButtonSize === true ? styles.smallAddButton : styles.addButton}>
                                     <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                             </View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={[styles.buzzbutton, { margin: 10, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete() }}>
                                     <Text style={styles.buttonText}>Delete</Text>
@@ -506,7 +506,7 @@ class BuzzScreen extends Component {
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 240 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("up")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={styles.buzzbutton} onPress={() => this.buzzModal("close")}>
                                     <Text style={styles.buttonText}>Done</Text>

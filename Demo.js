@@ -249,7 +249,7 @@ class DemoScreen extends Component {
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.testbuzzduration === 120 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.testBuzzDuration("up")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={styles.buzzbutton} onPress={() => this.closeTestBuzzModal()}>
                                     <Text style={styles.buttonText}>Done</Text>

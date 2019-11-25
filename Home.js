@@ -385,7 +385,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
                         <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
-                        <Text style={{ fontSize: 16, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
                 </View></View>
             )
         }))
@@ -395,7 +395,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity style={styles.buzzheaderButton}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
                         <Text style={{ fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
-                        <Text style={{ fontSize: 16, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
+                        <Text style={{ fontSize: abvText, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
                     {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteBuzz(buzz)}><Text style={styles.buttonText}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>}</View>
             </View>
             )
@@ -491,11 +491,11 @@ class HomeScreen extends Component {
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 5 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, { backgroundColor: "#e0f2f1" }]}>
-                                    <View><Text style={{ fontSize: 22 }}>{this.state.buzzduration} Minutes</Text></View></TouchableOpacity>
+                                    <View><Text style={{ fontSize: abvText }}>{this.state.buzzduration} Minutes</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 120 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("up")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={styles.buzzbutton} onPress={() => this.closeBuzzModal()}>
                                     <Text style={styles.buttonText}>Done</Text>
@@ -661,7 +661,7 @@ class HomeScreen extends Component {
                             </TouchableOpacity>
                         </View>}
                     {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
-                        <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>Drink Pacer</Text>
+                        <Text style={{ fontSize: abvText, textAlign: "center", padding: 15 }}>Drink Pacer</Text>
                         <CountDown size={28} until={this.state.pacertime} onFinish={() => this.countDownFinished()}
                             digitStyle={{ backgroundColor: "#e0f2f1", borderWidth: 2, borderColor: "#00897b" }}
                             digitTxtStyle={{ color: "#00897b" }} separatorStyle={{ color: "#00897b" }}

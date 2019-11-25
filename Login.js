@@ -58,7 +58,7 @@ class LoginScreen extends React.Component {
                     <View onStartShouldSetResponder={() => this.nameinput.blur()} style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <Modal animationType="slide" transparent={false} visible={this.state.modal}>
                             <ScrollView>
-                                <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10 }}>
+                                <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, marginTop: 35, marginLeft: 10, marginRight: 10, padding: 10, marginBottom: 10 }}>
                                     {loginText}
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                         <TouchableOpacity style={styles.logindisagreeButton} onPress={() => { this.handleModal("no") }}>

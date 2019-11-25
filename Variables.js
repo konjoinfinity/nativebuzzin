@@ -44,31 +44,6 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
     indefbreakkey = "indefbreak", limithourkey = "limithour", pacerkey = "pacer", pacertimekey = "pacertime",
     limitdatekey = "limitdate", lastcallkey = "lastcall", logskey = "logs", maxreckey = "maxrec", warningkey = "warning";
 
-const warnText = (<View><Text style={styles.modalTextTitle}>Warning!</Text>
-    <Text style={styles.modalTextBody}>Your BAC is now above the legal drinking limit in most states.</Text>
-    <Text style={styles.modalTextBody}>Please:</Text>
-    <Text style={[styles.modalTextAdvice, { fontWeight: "bold" }]}>Take a break from drinking.</Text>
-    <Text style={styles.modalTextAdvice}>Drink water.</Text>
-    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
-
-const dangerText = (<View><Text style={styles.modalTextTitle}>Danger!</Text>
-    <Text style={styles.modalTextBody}>Your BAC is well above the legal drinking limit.</Text>
-    <Text style={[styles.modalTextTitle, { fontSize: 25 }]}>STOP DRINKING!</Text>
-    <Text style={styles.modalTextAdvice}>Drink water!</Text>
-    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
-
-const abovePoint10 = (<View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
-    <Text style={{ fontSize: 22, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
-    <Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text></View>)
-
-const loginText = (<View><Text style={{ fontSize: 25, textAlign: "center", padding: 10 }}>Welcome to buzzin!</Text>
-    <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>Legal Disclaimer and User Agreement</Text>
-    <Text style={{ fontSize: 15, textAlign: "center", padding: 10 }}>buzzin will not be held liable for any decisions made based on the information provided.
-    The Blood Alcohol Content (BAC) calculations are not 100% accurate and are aimed to give our users a general ballpark estimate based on their approximate weight and gender.
-    Users are liable for all data they input, as it is stored on their personal local device.  No user data is stored externally, buzzin does not store inputted user data externally.
-    By pressing agree, the user forfeits their rights to hold buzzin or LifeSystems LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
-    This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text></View>)
-
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     // console.log("480x854/800")
     gaugeSize = 440
@@ -168,17 +143,17 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnBody = 10
 } else if (screenWidth === 1080 && screenHeight === 1920) {
     // console.log("1080 x 1920")
-    gaugeSize = 310
+    gaugeSize = 325
     bacTextSize = 20
-    alcTypeSize = 40
-    alcTypeText = 18
-    abvText = 18
-    abvSize = 40
-    abvWineText = 18
-    abvWineSize = 40
-    abvLiquorText = 18
-    abvLiquorSize = 40
-    addButtonText = 30
+    alcTypeSize = 50
+    alcTypeText = 20
+    abvText = 15
+    abvSize = 45
+    abvWineText = 15
+    abvWineSize = 45
+    abvLiquorText = 15
+    abvLiquorSize = 50
+    addButtonText = 28
     addButtonSize = true
     multiSwitchMargin = 0
     loginButtonText = 16
@@ -476,6 +451,31 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 16
     warnBody = 13
 }
+
+const warnText = (<View><Text style={styles.modalTextTitle}>Warning!</Text>
+    <Text style={styles.modalTextBody}>Your BAC is now above the legal drinking limit in most states.</Text>
+    <Text style={styles.modalTextBody}>Please:</Text>
+    <Text style={[styles.modalTextAdvice, { fontWeight: "bold" }]}>Take a break from drinking.</Text>
+    <Text style={styles.modalTextAdvice}>Drink water.</Text>
+    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
+
+const dangerText = (<View><Text style={styles.modalTextTitle}>Danger!</Text>
+    <Text style={styles.modalTextBody}>Your BAC is well above the legal drinking limit.</Text>
+    <Text style={[styles.modalTextTitle, { fontSize: 25 }]}>STOP DRINKING!</Text>
+    <Text style={styles.modalTextAdvice}>Drink water!</Text>
+    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
+
+const abovePoint10 = (<View><Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+    <Text style={{ fontSize: abvText, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
+    <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text></View>)
+
+const loginText = (<View><Text style={{ fontSize: abvText, textAlign: "center", padding: 5, fontWeight: "bold" }}>Welcome to buzzin!</Text>
+    <Text style={{ fontSize: abvText - 1, textAlign: "center", padding: 5 }}>Legal Disclaimer and User Agreement</Text>
+    <Text style={{ fontSize: abvText - 2, textAlign: "center", padding: 10 }}>buzzin will not be held liable for any decisions made based on the information provided.
+    The Blood Alcohol Content (BAC) calculations are not 100% accurate and are aimed to give our users a general ballpark estimate based on their approximate weight and gender.
+    Users are liable for all data they input, as it is stored on their personal local device.  No user data is stored externally, buzzin does not store inputted user data externally.
+    By pressing agree, the user forfeits their rights to hold buzzin or LifeSystems LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
+    This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text></View>)
 
 export {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,

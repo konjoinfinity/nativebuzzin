@@ -165,7 +165,7 @@ class ProfileScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "center" }}><FontIcon name="user" color="#4db6ac" size={(loginButtonText + 3)} /><Text style={{ fontSize: (loginButtonText + 3), textAlign: "center", paddingBottom: 10 }}>  {this.state.name}</Text></View>
                         <Text style={{ fontSize: (loginButtonText + 1), textAlign: "center" }}>{this.state.gender === "Male" ? <Icon name="gender-male" color="#4db6ac" size={(loginButtonText + 1)} /> : <Icon name="gender-female" color="#4db6ac" size={(loginButtonText + 1)} />} {this.state.gender}   -   {this.state.weight} lbs.</Text>
-                        <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>___________________________________________</Text>
+                        <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>_________________________________________</Text>
                         <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
                     </View>
                     <View style={styles.profileCards}>
@@ -179,7 +179,7 @@ class ProfileScreen extends Component {
                                     <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.happyhour === true && this.state.sethappyhour && <View>
-                            <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 5 }}>___________________________________________</Text>
+                            <Text style={{ textAlign: "center", color: "#bdbdbd", paddingBottom: 5 }}>_________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Daily Break</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.hhhour === 16 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ hhhour: 16 }, () => this.saveValues("hhhour", hhhourkey))}>
@@ -209,7 +209,7 @@ class ProfileScreen extends Component {
                                     <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.custombreak === true && this.state.setcustombreak === true && <View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             {this.state.indefbreak === false && <View>
                                 <View style={styles.spaceAroundView}>
                                     <View>
@@ -286,7 +286,7 @@ class ProfileScreen extends Component {
                                     <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.limit === true && this.state.setlimit === true && <View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Set BAC Limit</Text>
                             <View style={styles.plusMinusView}>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.limitbac === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
@@ -319,7 +319,7 @@ class ProfileScreen extends Component {
                                     <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.lastcall === true && this.state.setlastcall === true && <View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Set Last Call</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5 }}>
                                 <TouchableOpacity style={this.state.limithour === 19 ? styles.selectedPlusMinusButton : styles.plusMinusButtons} onPress={() => this.setState({ limithour: 19 }, () => this.saveValues("limithour", limithourkey))}>
@@ -352,7 +352,7 @@ class ProfileScreen extends Component {
                                     <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.pacer === true && this.state.setpacer && <View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Set Drink Pace</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, margin: 15 }}>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.pacertime === 900 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("down")}>
@@ -377,7 +377,7 @@ class ProfileScreen extends Component {
                                     <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.maxrec === true && this.state.setmaxrec === true && <View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Max Recommneded Weekly Limit: {this.state.gender === "Male" ? "14" : "7"}</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>Max Recommneded Monthly Limit: {this.state.gender === "Male" ? "56" : "28"}</Text>
                             <TouchableOpacity style={styles.profilebreakbutton} onPress={() => this.showHideSetting("setmaxrec")}>
@@ -395,7 +395,7 @@ class ProfileScreen extends Component {
                                     <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
                         </View>
                         {this.state.autobreak === true && this.state.setautobreak === true && <View>
-                            <Text style={styles.profileLine}>___________________________________________</Text>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
                             <View style={styles.plusMinusView}>
                                 <TouchableOpacity style={[styles.plusMinusButtons, this.state.threshold === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
