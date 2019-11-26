@@ -20,11 +20,14 @@ import {
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
     pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody, warningkey
 } from "./Variables";
+(async () => { await AsyncStorage.removeItem(oldkey) })();
 
 const CopilotView = walkthroughable(View);
 
 var maxRecValues;
 (async () => { maxRecValues = await Functions.maxRecDrinks() })();
+
+
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -96,7 +99,7 @@ class HomeScreen extends Component {
                 this.props.navigation.setParams({ login: false });
             }, 100);
         }
-        setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 150);
+        setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 400);
         if (this.state.happyhour === true) {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
