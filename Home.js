@@ -20,14 +20,11 @@ import {
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
     pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody, warningkey
 } from "./Variables";
-(async () => { await AsyncStorage.removeItem(oldkey) })();
 
 const CopilotView = walkthroughable(View);
 
 var maxRecValues;
 (async () => { maxRecValues = await Functions.maxRecDrinks() })();
-
-
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -147,6 +144,7 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.saveBuzz();
             this.flashWarning();
+            // check haptics
             if (this.state.bac > 0.04 && this.state.bac < 0.06) { ReactNativeHaptic.generate('notification'); AlertHelper.show("success", "Optimal Buzz", "You are in the Optimal Buzz Zone, drink water.") }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) { ReactNativeHaptic.generate('notificationSuccess'); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
             if (this.state.bac > 0.07 && this.state.bac < 0.08) { ReactNativeHaptic.generate('notificationWarning'); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }

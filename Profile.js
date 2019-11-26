@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Switch, Dimensions, PixelRatio, Platform, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
@@ -97,6 +97,11 @@ class ProfileScreen extends Component {
             limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
             hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, maxreckey])
         this.props.navigation.navigate("Login")
+    }
+
+    confirmLogout() {
+        ReactNativeHaptic.generate('notificationWarning')
+        Alert.alert('Are you sure you want to logout? All user data will be deleted.', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.LogOut() } }, { text: 'No' }], { cancelable: false });
     }
 
     async handleSwitches(statename, keyvalue, setstatename) {
@@ -410,7 +415,7 @@ class ProfileScreen extends Component {
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <TouchableOpacity style={styles.profilebutton} onPress={() => this.LogOut()}><View style={{ flexDirection: "row", justifyContent: "center" }}>
+                        <TouchableOpacity style={styles.profilebutton} onPress={() => this.confirmLogout()}><View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Logout   </Text><Icon name="logout" color="#ffffff" size={loginButtonText} style={{ paddingTop: 2 }} /></View></TouchableOpacity>
                     </View>
                 </ScrollView>
