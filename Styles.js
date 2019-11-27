@@ -1,5 +1,4 @@
 import { StyleSheet, Platform } from "react-native"
-import { abvText } from "./Variables"
 
 var amount = Platform.OS === 'android' ? 10 : 0
 var undoTrash = Platform.OS === 'android' ? 20 : 0
