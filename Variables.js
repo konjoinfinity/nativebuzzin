@@ -152,7 +152,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     abvWineText = 14
     abvWineSize = 44
     abvLiquorText = 14
-    abvLiquorSize = 44
+    abvLiquorSize = 38
     addButtonText = 33
     addButtonSize = false
     multiSwitchMargin = 0

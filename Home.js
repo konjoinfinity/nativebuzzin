@@ -596,7 +596,7 @@ class HomeScreen extends Component {
                                                     <View style={{ paddingLeft: 10 }}>
                                                         <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
                                                             containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                            onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml" }) }} active={0}>
+                                                            onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml" }, () => { ReactNativeHaptic.generate('selection') }) }} active={0}>
                                                             <Text style={{ fontSize: abvLiquorText }}>{"oz"}</Text>
                                                             <Text style={{ fontSize: abvLiquorText }}>{"ml"}</Text>
                                                         </MultiSwitch>
