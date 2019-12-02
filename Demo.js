@@ -24,7 +24,7 @@ class DemoScreen extends Component {
         super(props);
         this.state = {
             gender: "Male", weight: 195, bac: 0.0, testbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false, timer: "",
-            modal1: false, modal2: false, selectedBuzz: "", testbuzzmodal: false, testbuzzduration: 30
+            modal1: false, modal2: false, selectedBuzz: "", testbuzzmodal: false, testbuzzduration: 30, metric: "oz"
         }
     };
 
@@ -344,13 +344,32 @@ class DemoScreen extends Component {
                                 </View>
                                 {this.state.alctype !== "Cocktail" &&
                                     <View style={styles.multiSwitchViews}>
-                                        <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
-                                            containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
-                                            <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "12oz" : this.state.alctype === "Wine" ? "5oz" : "1.5oz"}</Text>
-                                            <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "16oz" : this.state.alctype === "Wine" ? "8oz" : "3oz"}</Text>
-                                            <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "20oz" : this.state.alctype === "Wine" ? "12oz" : "6oz"}</Text>
-                                        </MultiSwitch>
+                                        <View style={{ flexDirection: "row" }}>
+                                            {this.state.metric === "oz" &&
+                                                <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
+                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                    onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
+                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "12" : this.state.alctype === "Wine" ? "5" : "1.5"}</Text>
+                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "16" : this.state.alctype === "Wine" ? "8" : "3"}</Text>
+                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "20" : this.state.alctype === "Wine" ? "12" : "6"}</Text>
+                                                </MultiSwitch>}
+                                            {this.state.metric === "ml" &&
+                                                <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
+                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                    onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
+                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "330" : this.state.alctype === "Wine" ? "175" : "25"}</Text>
+                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "473" : this.state.alctype === "Wine" ? "250" : "35"}</Text>
+                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "568" : this.state.alctype === "Wine" ? "375" : "50"}</Text>
+                                                </MultiSwitch>}
+                                            <View style={{ paddingLeft: 10 }}>
+                                                <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
+                                                    containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                    onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml" }) }} active={0}>
+                                                    <Text style={{ fontSize: abvLiquorText }}>{"oz"}</Text>
+                                                    <Text style={{ fontSize: abvLiquorText }}>{"ml"}</Text>
+                                                </MultiSwitch>
+                                            </View>
+                                        </View>
                                     </View>}
                                 {this.state.alctype === "Cocktail" &&
                                     <View style={styles.multiSwitchViews}>
