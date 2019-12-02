@@ -96,7 +96,7 @@ class HomeScreen extends Component {
                 this.props.navigation.setParams({ login: false });
             }, 100);
         }
-        setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 400);
+        setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 800);
         if (this.state.happyhour === true) {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })

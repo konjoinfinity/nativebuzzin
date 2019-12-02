@@ -25,19 +25,31 @@ const AppStack = createStackNavigator({
             {
                 Home: {
                     screen: HomeScreen,
-                    navigationOptions: { tabBarLabel: "Home", tabBarIcon: ({ tintColor }) => (<Icon name="home" color="#4db6ac" size={25} />) },
+                    navigationOptions: {
+                        tabBarLabel: "Home",
+                        tabBarIcon: ({ tintColor }) => (<Icon name="home" color="#4db6ac" size={25} />)
+                    },
                 },
                 Buzz: {
                     screen: BuzzScreen,
-                    navigationOptions: { tabBarLabel: "Buzz", tabBarIcon: ({ tintColor }) => (<Icon name="beer" color="#4db6ac" size={25} />) },
+                    navigationOptions: {
+                        tabBarLabel: "Buzz",
+                        tabBarIcon: ({ tintColor }) => (<Icon name="beer" color="#4db6ac" size={25} />)
+                    },
                 },
                 Profile: {
                     screen: ProfileScreen,
-                    navigationOptions: { tabBarLabel: "Profile", tabBarIcon: ({ tintColor }) => (<Icon name="user-cog" color="#4db6ac" size={24} />) },
+                    navigationOptions: {
+                        tabBarLabel: "Profile",
+                        tabBarIcon: ({ tintColor }) => (<Icon name="user-cog" color="#4db6ac" size={24} />)
+                    },
                 },
                 Demo: {
                     screen: DemoScreen,
-                    navigationOptions: { tabBarLabel: "Demo", tabBarIcon: ({ tintColor }) => (<Icon name="clipboard" color="#4db6ac" size={25} />) },
+                    navigationOptions: {
+                        tabBarLabel: "Demo",
+                        tabBarIcon: ({ tintColor }) => (<Icon name="clipboard" color="#4db6ac" size={25} />)
+                    },
                 },
             },
             {
