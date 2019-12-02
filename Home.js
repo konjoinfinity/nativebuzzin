@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Alert, Modal, Platform } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Alert, Modal, Platform, Switch } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -81,10 +81,12 @@ class HomeScreen extends Component {
                 setTimeout(() => {
                     var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
-                    var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
-                    if (warning[0] === 0) {
-                        if (warning[3] >= 0 && warning[1] < 12) { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(false)) })(); this.setState({ warn: false }) }
-                    } else { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(true)) })(); this.setState({ warn: true }) }
+                    if (JSON.stringify(this.state.buzzes) === "[]") {
+                        var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
+                        if (warning[0] === 0) {
+                            if (warning[3] >= 0 && warning[1] < 12) { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(false)) })(); this.setState({ warn: false }) }
+                        } else { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(true)) })(); this.setState({ warn: true }) }
+                    }
                 }, 50);
             } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
         })
@@ -203,7 +205,7 @@ class HomeScreen extends Component {
     countdownBac() {
         let bacTimer;
         if (this.state.countdown === true) {
-            bacTimer = setInterval(() => this.checkBac(), 500);
+            bacTimer = setInterval(() => this.checkBac(), 800);
             this.setState({ timer: bacTimer });
         } else if (this.state.countdown === false) {
             clearInterval(this.state.timer);
@@ -573,13 +575,23 @@ class HomeScreen extends Component {
                                         </View>
                                         {this.state.alctype !== "Cocktail" &&
                                             <View style={styles.multiSwitchViews}>
-                                                <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
-                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
-                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "12oz" : this.state.alctype === "Wine" ? "5oz" : "1.5oz"}</Text>
-                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "16oz" : this.state.alctype === "Wine" ? "8oz" : "3oz"}</Text>
-                                                    <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "20oz" : this.state.alctype === "Wine" ? "12oz" : "6oz"}</Text>
-                                                </MultiSwitch>
+                                                <View style={{ flexDirection: "row" }}>
+                                                    <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
+                                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                        onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
+                                                        <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "200" : this.state.alctype === "Wine" ? "5" : "1.5"}</Text>
+                                                        <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "300" : this.state.alctype === "Wine" ? "8" : "3"}</Text>
+                                                        <Text style={{ fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "500" : this.state.alctype === "Wine" ? "12" : "6"}</Text>
+                                                    </MultiSwitch>
+                                                    <View style={{ paddingLeft: 10 }}>
+                                                        <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
+                                                            containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
+                                                            onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype) }) }} active={0}>
+                                                            <Text style={{ fontSize: abvLiquorText }}>{"oz"}</Text>
+                                                            <Text style={{ fontSize: abvLiquorText }}>{"ml"}</Text>
+                                                        </MultiSwitch>
+                                                    </View>
+                                                </View>
                                             </View>}
                                         {this.state.alctype === "Cocktail" &&
                                             <View style={styles.multiSwitchViews}>
