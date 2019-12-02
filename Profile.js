@@ -138,6 +138,7 @@ class ProfileScreen extends Component {
     }
 
     async saveValues(statename, keyvalue) {
+        ReactNativeHaptic.generate('selection')
         await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
         if (statename === "limithour") {
             if (this.state.limithour !== 0) {
