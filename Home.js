@@ -379,10 +379,7 @@ class HomeScreen extends Component {
     }
 
     render() {
-        console.log(this.state.oz)
-        console.log(this.state.abv)
-        console.log(this.state.metric)
-        console.log(this.state.alctype)
+        // fix altype switch not updating from modal switch
         var returnValues = Functions.setColorPercent(this.state.bac)
         var gaugeColor = returnValues[0], bacPercentage = returnValues[1]
         let buzzes, selectedbuzz;
