@@ -64,8 +64,7 @@ const styles = StyleSheet.create({
         shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 }, elevation: amount
     },
     multiSwitchViews: {
-        opacity: 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3,
-        elevation: amount
+        opacity: Platform.OS === 'android' ? 0.9 : 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3
     },
     undoButton: {
         height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',

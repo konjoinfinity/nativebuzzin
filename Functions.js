@@ -55,21 +55,34 @@ export class Functions {
         return bac;
     }
 
-    static setOz(number, alcohol) {
+    static setOz(number, alcohol, metric) {
         ReactNativeHaptic.generate('selection')
-        if (alcohol === "Beer" && number === 0) { return 12 }
-        if (alcohol === "Beer" && number === 1) { return 16 }
-        if (alcohol === "Beer" && number === 2) { return 20 }
-        if (alcohol === "Wine" && number === 0) { return 5 }
-        if (alcohol === "Wine" && number === 1) { return 8 }
-        if (alcohol === "Wine" && number === 2) { return 12 }
-        if (alcohol === "Liquor" && number === 0) { return 1.5 }
-        if (alcohol === "Liquor" && number === 1) { return 3 }
-        if (alcohol === "Liquor" && number === 2) { return 6 }
-        if (alcohol === "Cocktail" && number === 0) { return 1.5 }
-        if (alcohol === "Cocktail" && number === 1) { return 3 }
-        if (alcohol === "Cocktail" && number === 2) { return 4.5 }
-        if (alcohol === "Cocktail" && number === 3) { return 6 }
+        if (alcohol === "Beer" && number === 0 && metric === "oz") { return 12 }
+        if (alcohol === "Beer" && number === 1 && metric === "oz") { return 16 }
+        if (alcohol === "Beer" && number === 2 && metric === "oz") { return 20 }
+        if (alcohol === "Wine" && number === 0 && metric === "oz") { return 5 }
+        if (alcohol === "Wine" && number === 1 && metric === "oz") { return 8 }
+        if (alcohol === "Wine" && number === 2 && metric === "oz") { return 12 }
+        if (alcohol === "Liquor" && number === 0 && metric === "oz") { return 1.5 }
+        if (alcohol === "Liquor" && number === 1 && metric === "oz") { return 3 }
+        if (alcohol === "Liquor" && number === 2 && metric === "oz") { return 6 }
+        if (alcohol === "Cocktail" && number === 0 && metric === "oz") { return 1.5 }
+        if (alcohol === "Cocktail" && number === 1 && metric === "oz") { return 3 }
+        if (alcohol === "Cocktail" && number === 2 && metric === "oz") { return 4.5 }
+        if (alcohol === "Cocktail" && number === 3 && metric === "oz") { return 6 }
+        if (alcohol === "Beer" && number === 0 && metric === "ml") { return 11.15 }
+        if (alcohol === "Beer" && number === 1 && metric === "ml") { return 16.9 }
+        if (alcohol === "Beer" && number === 2 && metric === "ml") { return 25.36 }
+        if (alcohol === "Wine" && number === 0 && metric === "ml") { return 5.91 }
+        if (alcohol === "Wine" && number === 1 && metric === "ml") { return 8.45 }
+        if (alcohol === "Wine" && number === 2 && metric === "ml") { return 12.68 }
+        if (alcohol === "Liquor" && number === 0 && metric === "ml") { return 0.84 }
+        if (alcohol === "Liquor" && number === 1 && metric === "ml") { return 1.18 }
+        if (alcohol === "Liquor" && number === 2 && metric === "ml") { return 1.69 }
+        if (alcohol === "Cocktail" && number === 0 && metric === "ml") { return 1.7 }
+        if (alcohol === "Cocktail" && number === 1 && metric === "ml") { return 3.4 }
+        if (alcohol === "Cocktail" && number === 2 && metric === "ml") { return 5.1 }
+        if (alcohol === "Cocktail" && number === 3 && metric === "ml") { return 6.8 }
     }
 
     static setAbv(number, alcohol) {
@@ -82,17 +95,25 @@ export class Functions {
         if (alcohol === "Wine" && number === 0) { return 0.11 }
         if (alcohol === "Wine" && number === 1) { return 0.12 }
         if (alcohol === "Wine" && number === 2) { return 0.13 }
+        // reset for release
         if (alcohol === "Liquor" && number === 0) { return 0.001 }
         if (alcohol === "Liquor" && number === 1) { return 0.40 }
         if (alcohol === "Liquor" && number === 2) { return 0.50 }
     }
 
-    static setAlcType(value) {
+    static setAlcType(value, metric) {
         ReactNativeHaptic.generate('selection')
-        if (value === "Beer") { return [0.05, 12] }
-        if (value === "Wine") { return [0.12, 5] }
-        if (value === "Liquor") { return [0.40, 1.5] }
-        if (value === "Cocktail") { return [0.45, 1.5] }
+        if (metric === "oz") {
+            if (value === "Beer") { return [0.05, 12] }
+            if (value === "Wine") { return [0.12, 5] }
+            if (value === "Liquor") { return [0.40, 1.5] }
+            if (value === "Cocktail") { return [0.45, 1.5] }
+        } else if (metric === "ml") {
+            if (value === "Beer") { return [0.05, 11.15] }
+            if (value === "Wine") { return [0.12, 5.91] }
+            if (value === "Liquor") { return [0.40, 0.84] }
+            if (value === "Cocktail") { return [0.45, 1.7] }
+        }
     }
 
     static setColorPercent(bac) {
