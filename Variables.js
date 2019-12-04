@@ -44,6 +44,8 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
     indefbreakkey = "indefbreak", limithourkey = "limithour", pacerkey = "pacer", pacertimekey = "pacertime",
     limitdatekey = "limitdate", lastcallkey = "lastcall", logskey = "logs", maxreckey = "maxrec", warningkey = "warning";
 
+// add metric value for usage across the app (oz and ml) load on each screen mount
+
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     // console.log("480x854/800")
     gaugeSize = 440
