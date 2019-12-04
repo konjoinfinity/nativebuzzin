@@ -467,7 +467,7 @@ class HomeScreen extends Component {
                                             </View>}
                                     </View>
                                     {this.state.alctype !== "Cocktail" &&
-                                        <View style={[styles.multiSwitchViews, { flexDirection: "row" }]}>
+                                        <View style={{ flexDirection: "row" }}>
                                             {this.state.metric === "oz" &&
                                                 <View style={styles.multiSwitchViews}>
                                                     <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
@@ -597,7 +597,7 @@ class HomeScreen extends Component {
                                                 </View>}
                                         </View>
                                         {this.state.alctype !== "Cocktail" &&
-                                            <View style={[styles.multiSwitchViews, { flexDirection: "row" }]}>
+                                            <View style={{ flexDirection: "row" }}>
                                                 {this.state.metric === "oz" &&
                                                     <View style={styles.multiSwitchViews}>
                                                         <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
