@@ -77,7 +77,7 @@ class LogScreen extends Component {
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ fontSize: 18, padding: 4, textAlign: "left", paddingTop: 10, width: Dimensions.get('window').width * 0.58 }}>{log.log}</Text>
                     <Text style={{ fontSize: 13, padding: 4, textAlign: "left" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.editloginput.focus() : setTimeout(() => this.editloginput.focus(), 10) })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
+                <TouchableOpacity style={styles.dropShadow, styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.editloginput.focus() : setTimeout(() => this.editloginput.focus(), 10) })}><Icon name="file-document-edit-outline" color="#ffffff" size={20} /></TouchableOpacity>
             </View>
             )
         }))
@@ -92,10 +92,10 @@ class LogScreen extends Component {
                                 onChangeText={(log) => this.setState({ log })} multiline={true} onBlur={() => { Keyboard.dismiss() }} blurOnSubmit={false}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ log: "", logmodal: false }) }}>
+                                <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton, { margin: 8 }]} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ log: "", logmodal: false }) }}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 20, textAlign: "center" }}>Cancel</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => this.addLog()}>
+                                <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton, { margin: 8 }]} onPress={() => this.addLog()}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 20, textAlign: "center" }}>Save</Text>
                                 </TouchableOpacity>
                             </View>
@@ -111,13 +111,13 @@ class LogScreen extends Component {
                                 onChangeText={(editlog) => this.setState({ editlog })} multiline={true} onBlur={() => { Keyboard.dismiss() }} blurOnSubmit={false}
                                 onContentSizeChange={(event) => { this.setState({ textinputheight: event.nativeEvent.contentSize.height }) }} />
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete(this.state.logselected) }}>
+                                <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton, { margin: 8, backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => { this.confirmDelete(this.state.logselected) }}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 20, textAlign: "center" }}>Delete</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ editlog: "", editlogmodal: false }) }}>
+                                <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton, { margin: 8 }]} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ editlog: "", editlogmodal: false }) }}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 20, textAlign: "center" }}>Cancel</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={[styles.buzzbutton, { margin: 8 }]} onPress={() => this.editLog(this.state.position)}>
+                                <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton, { margin: 8 }]} onPress={() => this.editLog(this.state.position)}>
                                     <Text style={{ color: "#FFFFFF", fontSize: 20, textAlign: "center" }}>Save</Text>
                                 </TouchableOpacity>
                             </View>
@@ -128,7 +128,7 @@ class LogScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
                         <View style={styles.hiddenLogButton}><Text style={{ color: "#e0f2f1", fontSize: 28, textAlign: "center" }}>+</Text></View>
                         <Text style={{ fontSize: 28, padding: 10 }}>Logs</Text>
-                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 10) })}><Text style={styles.logbuttonText, styles.dropShadow}>+</Text></TouchableOpacity>
+                        <TouchableOpacity style={[styles.dropShadow, styles.addLogButton]} onPress={() => this.setState({ logmodal: true }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 10) })}><Text style={[styles.logbuttonText, styles.dropShadow]}>+</Text></TouchableOpacity>
                     </View>
                         {this.state.logs && eachlog !== undefined && <View>{eachlog}</View>}
                     </View>

@@ -385,7 +385,7 @@ class HomeScreen extends Component {
         let buzzes, selectedbuzz;
         this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: 26, textAlign: "center", paddingRight: 45, paddingTop: 5 }}>Current Buzz</Text><TouchableOpacity style={[styles.plusMinusButtons, { marginRight: 5 }]} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ fontSize: 26, textAlign: "center", paddingRight: 45, paddingTop: 5 }}>Current Buzz</Text><TouchableOpacity style={[styles.dropShadow, styles.plusMinusButtons, { marginRight: 5 }]} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
                     <TouchableOpacity style={styles.buzzheaderButton, styles.dropShadow}><Text style={{ fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></TouchableOpacity>
                     <View style={{ flexDirection: "column" }}>
@@ -462,7 +462,7 @@ class HomeScreen extends Component {
                                                 </MultiSwitch>
                                             </View>}
                                         {this.state.alctype === "Cocktail" &&
-                                            <View style={[styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
+                                            <View style={[styles.dropShadow2, styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
                                                 <Text style={{ fontSize: abvWineText }}>Number of Shots</Text>
                                             </View>}
                                     </View>
@@ -509,21 +509,21 @@ class HomeScreen extends Component {
                                             </MultiSwitch>
                                         </View>}
                                 </View>
-                                <TouchableOpacity onPress={() => this.editBuzz()} style={styles.dropShadow2, addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                <TouchableOpacity onPress={() => this.editBuzz()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : [styles.dropShadow2, styles.addButton]}>
                                     <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                             </View>
                             <Text style={{ fontSize: abvText, textAlign: "center", padding: 10 }}>How Long Ago?</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, marginLeft: 20, marginRight: 20 }}>
-                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 5 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
+                                <TouchableOpacity style={[styles.dropShadow, styles.plusMinusButtons, this.state.buzzduration === 5 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, styles.dropShadow2, { backgroundColor: "#e0f2f1" }]}>
                                     <View><Text style={{ fontSize: abvText }}>{this.state.buzzduration} Minutes</Text></View></TouchableOpacity>
-                                <TouchableOpacity style={[styles.plusMinusButtons, this.state.buzzduration === 120 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("up")}>
+                                <TouchableOpacity style={[styles.dropShadow, styles.plusMinusButtons, this.state.buzzduration === 120 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("up")}>
                                     <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
                             <Text style={styles.profileLine}>_________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={styles.buzzbutton} onPress={() => this.closeBuzzModal()}>
+                                <TouchableOpacity style={styles.dropShadow1, styles.buzzbutton} onPress={() => this.closeBuzzModal()}>
                                     <Text style={styles.buttonText}>Done</Text>
                                 </TouchableOpacity></View>
                         </View>
@@ -592,7 +592,7 @@ class HomeScreen extends Component {
                                                     </MultiSwitch>
                                                 </View>}
                                             {this.state.alctype === "Cocktail" &&
-                                                <View style={[styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
+                                                <View style={[styles.dropShadow2, styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
                                                     <Text style={{ fontSize: abvWineText }}>Number of Shots</Text>
                                                 </View>}
                                         </View>
@@ -641,7 +641,7 @@ class HomeScreen extends Component {
                                     </View>
                                     <CopilotStep text="Press to add drink with selected options." order={3} name="add">
                                         <CopilotView>
-                                            <TouchableOpacity onPress={() => this.addDrink()} style={styles.dropShadow2, addButtonSize === true ? styles.smallAddButton : styles.addButton}>
+                                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : [styles.dropShadow2, styles.addButton]}>
                                                 <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                                         </CopilotView>
                                     </CopilotStep>
@@ -654,7 +654,7 @@ class HomeScreen extends Component {
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}</View> :
                             <View><Text style={{ fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                                 <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text></View>}
-                        <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("br")}>
+                        <TouchableOpacity style={styles.dropShadow, styles.button} onPress={() => this.cancelAlert("br")}>
                             <Text style={styles.buttonText}>Cancel Break</Text>
                         </TouchableOpacity>
                     </View>}
@@ -662,7 +662,7 @@ class HomeScreen extends Component {
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 15 }}>No drinks until:</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 15, fontWeight: "bold" }}>Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("hh")}>
+                            <TouchableOpacity style={styles.dropShadow, styles.button} onPress={() => this.cancelAlert("hh")}>
                                 <Text style={styles.buttonText}>Cancel Happy Hour</Text>
                             </TouchableOpacity>
                         </View>}
@@ -671,7 +671,7 @@ class HomeScreen extends Component {
                             <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking a break. {this.state.timesince !== null && this.state.bac === 0 && "It's been:"}</Text>
                             {this.state.timesince !== null && this.state.bac === 0 &&
                                 <Text style={{ fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
-                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("ib")}>
+                            <TouchableOpacity style={styles.dropShadow, styles.button} onPress={() => this.cancelAlert("ib")}>
                                 <Text style={styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
                         </View>}
@@ -695,7 +695,7 @@ class HomeScreen extends Component {
                                     <TouchableOpacity style={styles.dropShadow3, addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
                                         <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
                                     </TouchableOpacity>
-                                </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("sl")}>
+                                </View> : <TouchableOpacity style={styles.dropShadow, styles.button} onPress={() => this.cancelAlert("sl")}>
                                     <Text style={styles.buttonText}>Cancel Set Limit</Text>
                                 </TouchableOpacity>}
                         </View>}
@@ -703,7 +703,7 @@ class HomeScreen extends Component {
                         <View style={styles.cardView}>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
                             <Text style={{ fontSize: 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
-                            <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("lc")}>
+                            <TouchableOpacity style={styles.dropShadow, styles.button} onPress={() => this.cancelAlert("lc")}>
                                 <Text style={styles.buttonText}>Cancel Last Call</Text>
                             </TouchableOpacity>
                         </View>}
@@ -718,7 +718,7 @@ class HomeScreen extends Component {
                                 <TouchableOpacity style={styles.dropShadow3, addButtonSize === true ? styles.smallUndoButton : styles.undoButton} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
                                     <View><Text style={{ fontSize: alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>
-                            </View> : <TouchableOpacity style={styles.button} onPress={() => this.cancelAlert("pc")}>
+                            </View> : <TouchableOpacity style={styles.dropShadow, styles.button} onPress={() => this.cancelAlert("pc")}>
                                 <Text style={styles.buttonText}>Cancel Pacer</Text>
                             </TouchableOpacity>}
                     </View>}
@@ -738,7 +738,7 @@ class HomeScreen extends Component {
                             <Text style={{ fontSize: warnTitleButton, textAlign: "center", padding: 4, fontWeight: "bold" }}>Warning</Text>
                             <Text style={{ fontSize: warnBody, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
                             <Text style={{ fontSize: warnBody, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
-                            <TouchableOpacity style={styles.warningCard} onPress={() => this.warnCardHandle()}>
+                            <TouchableOpacity style={styles.dropShadow, styles.warningCard} onPress={() => this.warnCardHandle()}>
                                 <Text style={{ color: "#FFFFFF", fontSize: warnTitleButton, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
                         </View>}

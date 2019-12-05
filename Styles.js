@@ -8,7 +8,7 @@ var undoTrash = Platform.OS === 'android' ? 20 : 0
 const styles = StyleSheet.create({
     dropShadow: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: amount },
     dropShadow1: Platform.OS === "ios" ? { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3 } : { elevation: amount },
-    dropShadow2: Platform.OS === "ios" ? { opacity: 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3 } : { elevation: amount },
+    dropShadow2: Platform.OS === "ios" ? { opacity: 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3 } : { opacity: 0.8, elevation: amount },
     dropShadow3: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: undoTrash },
     buzzheaderButton: {
         height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
         borderRadius: 50
     },
     plusMinusButtons: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50, dropShadow
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50
     },
     selectedPlusMinusButton: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50, dropShadow
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50
     },
     // come back to this
     multiSwitchViews: {
@@ -73,28 +73,28 @@ const styles = StyleSheet.create({
         borderRadius: 50, padding: 2
     },
     buzzbutton: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15, dropShadow1
+        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15
     },
     profileSetting: {
-        backgroundColor: "#00897b", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12, dropShadow
+        backgroundColor: "#00897b", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12
     },
     button: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 10, borderRadius: 15, dropShadow
+        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 10, borderRadius: 15
     },
     numberofshots: {
-        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginRight: 40, dropShadow2
+        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginRight: 40
     },
     addLogButton: {
-        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50, dropShadow
+        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50
     },
     hiddenLogButton: {
         height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1", borderRadius: 50
     },
     deleteLogButtons: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', margin: 10, borderRadius: 50, dropShadow
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', margin: 10, borderRadius: 50
     },
     warningCard: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15, dropShadow
+        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15
     },
     profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
     dangerOkButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
@@ -124,9 +124,9 @@ const styles = StyleSheet.create({
     loginheader: { textAlign: "center", margin: 10 },
     logininputContainer: { paddingTop: 15 },
     logintextInput: { borderColor: "#CCCCCC", borderWidth: 1, height: 50, paddingLeft: 20, paddingRight: 20, borderRadius: 15, textAlign: "center" },
-    logindisagreeButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15, dropShadow },
+    logindisagreeButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
     loginbuttonText: { color: "#FFFFFF", textAlign: "center" },
-    loginbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15, dropShadow },
+    loginbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15 },
     profilebuttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
     buttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
     multiSwitch: { backgroundColor: 'white', borderRadius: 20, borderWidth: 1, borderColor: "lightgrey", justifyContent: 'space-between' },
