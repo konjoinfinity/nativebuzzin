@@ -128,7 +128,7 @@ class LogScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
                         <View style={styles.hiddenLogButton}><Text style={{ color: "#e0f2f1", fontSize: 28, textAlign: "center" }}>+</Text></View>
                         <Text style={{ fontSize: 28, padding: 10 }}>Logs</Text>
-                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 10) })}><Text style={styles.logbuttonText}>+</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.addLogButton} onPress={() => this.setState({ logmodal: true }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 10) })}><Text style={styles.logbuttonText, styles.dropShadow}>+</Text></TouchableOpacity>
                     </View>
                         {this.state.logs && eachlog !== undefined && <View>{eachlog}</View>}
                     </View>

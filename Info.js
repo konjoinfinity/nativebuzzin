@@ -88,12 +88,12 @@ class InfoScreen extends Component {
                     <Text style={styles.infoList}>@react-native-community/async-storage</Text>
                     <Text style={styles.infoTitle}>Contact</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                        <TouchableOpacity style={styles.profilebutton} onPress={() => {
+                        <TouchableOpacity style={styles.profilebutton, styles.dropShadow1} onPress={() => {
                             (Platform.OS === 'android')
                                 ? Linking.openURL('mailto:info@buzzin.io?cc=?subject=Buzzin&body=Message')
                                 : Linking.openURL('mailto:info@buzzin.io?cc=&subject=Buzzin&body=Message')
                         }}><Text style={{ textAlign: "center", color: "#ffffff" }}>Email Us</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.profilebutton} onPress={() => { Linking.openURL('http://www.buzzin.io') }}>
+                        <TouchableOpacity style={styles.profilebutton, styles.dropShadow1} onPress={() => { Linking.openURL('http://www.buzzin.io') }}>
                             <Text style={{ textAlign: "center", color: "#ffffff" }}>Our Website</Text></TouchableOpacity>
                     </View>
                 </View >
