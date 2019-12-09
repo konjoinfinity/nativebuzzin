@@ -1,15 +1,12 @@
 import { StyleSheet, Platform } from "react-native"
 
 var amount = Platform.OS === 'android' ? 10 : 0
-var undoTrash = Platform.OS === 'android' ? 20 : 0
-
-
 
 const styles = StyleSheet.create({
     dropShadow: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: amount },
     dropShadow1: Platform.OS === "ios" ? { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3 } : { elevation: amount },
     dropShadow2: Platform.OS === "ios" ? { opacity: 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3 } : { opacity: 0.85, elevation: amount },
-    dropShadow3: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: undoTrash },
+    dropShadow3: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: amount },
     buzzheaderButton: {
         height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
         borderRadius: 50, margin: 5
