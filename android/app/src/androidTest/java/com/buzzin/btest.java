@@ -1,6 +1,5 @@
 package com.buzzin;
 
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -13,55 +12,54 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
-@LargeTest
+
 @RunWith(AndroidJUnit4.class)
-public class SplashActivityTest2 {
+@LargeTest
+public class btest {
 
     @Rule
     public ActivityTestRule<SplashActivity> mActivityTestRule = new ActivityTestRule<>(SplashActivity.class);
 
     @Test
-    public void splashActivityTest2() {
-        ViewInteraction reactEditText = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withClassName(is("com.facebook.react.views.view.ReactViewGroup")),
-                                0),
-                        1),
-                        isDisplayed()));
+    public void btest() {
+
+//        android.os.SystemClock.sleep(5000);
+
+        ViewInteraction reactEditText =  onView(allOf(withContentDescription("nameinput,"), isDisplayed()));
         reactEditText.perform(replaceText("test"), closeSoftKeyboard());
 
-        ViewInteraction reactEditText2 = onView(
-                allOf(withText("test"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("com.facebook.react.views.view.ReactViewGroup")),
-                                        0),
-                                1),
-                        isDisplayed()));
+        ViewInteraction reactEditText2 = onView(allOf(withText("test"), isDisplayed()));
         reactEditText2.perform(pressImeActionButton());
 
-        ViewInteraction textView = onView(
-                allOf(withText("Choose Gender ♂♀"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                        2),
-                                0),
-                        isDisplayed()));
-        textView.perform(press(matches(withText("Choose Gender ♂♀"))));
+        ViewInteraction reactViewGroup1 =
+                onView(allOf(withContentDescription("gendertouch,"), isDisplayed()));
+        reactViewGroup1.perform(click());
+
+        ViewInteraction reactViewText1 =
+                onView(allOf(withContentDescription("touchdown,"), isDisplayed()));
+        reactViewText1.perform(click());
+
+        ViewInteraction reactViewText2 =
+                onView(allOf(withContentDescription("touchup,"), isDisplayed()));
+        reactViewText2.perform(click());
+
+        ViewInteraction reactViewGroup2 =
+                onView(allOf(withContentDescription("logintouch,"), isDisplayed()));
+        reactViewGroup2.perform(click());
+
+        ViewInteraction reactViewText3 =
+                onView(allOf(withContentDescription("agreetouch,"), isDisplayed()));
+        reactViewText3.perform(click());
+
     }
 
     private static Matcher<View> childAtPosition(

@@ -64,20 +64,20 @@ class LoginScreen extends React.Component {
                                         <TouchableOpacity style={[styles.dropShadow, styles.logindisagreeButton]} onPress={() => { this.handleModal("no") }}>
                                             <Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Disagree</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.dropShadow, styles.loginbutton]} onPress={() => { this.handleLogin() }}>
+                                        <TouchableOpacity accessibilityLabel="agreetouch" style={[styles.dropShadow, styles.loginbutton]} onPress={() => { this.handleLogin() }}>
                                             <Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Agree</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </ScrollView></Modal>
                         <Text style={[styles.loginheader, { color: "#000000", fontSize: loginTitle }]}>Login</Text>
-                        <View style={styles.logininputContainer}>
+                        <View style={styles.logininputContainer} accessibilityLabel="nameinput">
                             <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name"
                                 name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
                                 onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
-                            <TouchableOpacity style={[styles.dropShadow, styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.switchGender()}><Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Choose Gender ♂♀</Text></TouchableOpacity>
+                            <TouchableOpacity accessibilityLabel="gendertouch" style={[styles.dropShadow, styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.switchGender()}><Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Choose Gender ♂♀</Text></TouchableOpacity>
                             <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Text style={{ fontSize: loginGenderText, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
                             </View>
@@ -90,7 +90,7 @@ class LoginScreen extends React.Component {
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
                         <View style={{ paddingTop: 20 }}>
-                            <TouchableOpacity style={[styles.dropShadow, styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal("yes")}>
+                            <TouchableOpacity accessibilityLabel="logintouch" style={[styles.dropShadow, styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal("yes")}>
                                 <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                     <Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Login   </Text><Icon name="login" color="#ffffff" size={loginButtonText} style={{ paddingTop: 2 }} />
                                 </View>

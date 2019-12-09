@@ -125,8 +125,7 @@ class HomeScreen extends Component {
 
     handleStepChange = (step) => {
         if (step.order === 1 || step.order === 3) {
-            var timerAdd = setInterval(() => this.addDrink(), 1000);
-            setTimeout(() => { clearInterval(timerAdd) }, 2100);
+            setTimeout(() => { this.addDrink() }, 1000);
             setTimeout(() => { this.clearDrinks() }, 3000);
         }
         if (step.order === 2) {
@@ -137,6 +136,8 @@ class HomeScreen extends Component {
             setTimeout(() => { this.abvswitch.setActive(1); this.setState({ abv: 0.05 }) }, 3000);
             setTimeout(() => { this.ozswitch.setActive(2); this.setState({ oz: 20 }) }, 3500);
             setTimeout(() => { this.ozswitch.setActive(0); this.setState({ oz: 12 }) }, 4000);
+            setTimeout(() => { this.metricswitch.setActive(1); this.setState({ metric: "ml" }) }, 4500);
+            setTimeout(() => { this.metricswitch.setActive(0); this.setState({ metric: "oz" }) }, 5000);
         }
     }
 
@@ -532,7 +533,7 @@ class HomeScreen extends Component {
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <CopilotStep text="This gauge displays your current BAC.  The tick marks show the optimal buzz range.  Check the readout for your current BAC." order={1} name="gauge">
+                        <CopilotStep text="This gauge and readout both display your current BAC.  The tick marks show the optimal buzz range." order={1} name="gauge">
                             <CopilotView style={{ alignSelf: "center" }}>
                                 {this.state.bac > 0.06 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>WARNING              STOP              DRINKING</Text>
                                     : maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#000000", color: "#AE0000" }}>        BACK</Text></Text>
@@ -551,7 +552,7 @@ class HomeScreen extends Component {
                         </CopilotStep>
                     </View>
                     {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false && this.state.warn === false &&
-                        <CopilotStep text="Press to each to change drink type, abv, and ounces." order={2} name="drink">
+                        <CopilotStep text="Press to each to change drink type, abv, size, and metrics." order={2} name="drink">
                             <CopilotView><View style={styles.cardView}>
                                 <View style={[styles.multiSwitchViews, { paddingBottom: 13, flexDirection: "row", justifyContent: "space-between" }]}>
                                     <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
@@ -639,7 +640,7 @@ class HomeScreen extends Component {
                                                 </MultiSwitch>
                                             </View>}
                                     </View>
-                                    <CopilotStep text="Press to add drink with selected options." order={3} name="add">
+                                    <CopilotStep text="Tap to add drinks with the selected options." order={3} name="add">
                                         <CopilotView>
                                             <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : [styles.dropShadow2, styles.addButton]}>
                                                 <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
