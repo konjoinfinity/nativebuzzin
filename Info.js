@@ -23,9 +23,9 @@ class InfoScreen extends Component {
         return (
             <ScrollView>
                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                    <Text style={{ marginTop: 10, fontSize: 40, textAlign: "center", padding: 10 }}>Info</Text>
+                    <Text style={{ color: "#000000", marginTop: 10, fontSize: 40, textAlign: "center", padding: 10 }}>Info</Text>
                     <Text style={styles.infoText}>The buzzin app helps to reduce, moderate, and track personal alcohol consumption habits.  Alcohol is a problem for many people around the world.  We want to help people control the amount of alcohol they consume in a responsible manner.</Text>
-                    <Text style={{ fontSize: 20, textAlign: "center", paddingTop: 10 }}>Test Haptic Vibrations</Text>
+                    <Text style={{ color: "#000000", fontSize: 20, textAlign: "center", paddingTop: 10 }}>Test Haptic Vibrations</Text>
                     <Text style={styles.profileLine}>_________________________________________</Text>
                     <View style={{ flexDirection: "row", justifyContent: "center" }}>
                         <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => Alert.alert("Screen Resolution:", `${screenWidth + " x " + screenHeight}`, [{ text: "Ok", onPress: () => ReactNativeHaptic.generate("selection") }], { cancelable: false })}><Text style={{ textAlign: "center", color: "#ffffff" }}>Screen</Text></TouchableOpacity>
@@ -39,19 +39,19 @@ class InfoScreen extends Component {
                         <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('impactLight')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Light</Text></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('impactMedium')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Medium</Text></TouchableOpacity>
-                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('impactHeavy')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Impact Heavy</Text></TouchableOpacity>
+                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('impactMedium')}><Text style={{ color: "#000000", textAlign: "center", color: "#ffffff" }}>Impact Medium</Text></TouchableOpacity>
+                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('impactHeavy')}><Text style={{ color: "#000000", textAlign: "center", color: "#ffffff" }}>Impact Heavy</Text></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('notificationError')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Error</Text></TouchableOpacity>
-                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('notificationSuccess')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Success</Text></TouchableOpacity>
+                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('notificationError')}><Text style={{ color: "#000000", textAlign: "center", color: "#ffffff" }}>Notification Error</Text></TouchableOpacity>
+                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('notificationSuccess')}><Text style={{ color: "#000000", textAlign: "center", color: "#ffffff" }}>Notification Success</Text></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('notificationWarning')}><Text style={{ textAlign: "center", color: "#ffffff" }}>Notification Warning</Text></TouchableOpacity>
-                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Default</Text></TouchableOpacity>
+                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate('notificationWarning')}><Text style={{ color: "#000000", textAlign: "center", color: "#ffffff" }}>Notification Warning</Text></TouchableOpacity>
+                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => ReactNativeHaptic.generate()}><Text style={{ color: "#000000", textAlign: "center", color: "#ffffff" }}>Default</Text></TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => Vibration.vibrate()}><Text style={{ textAlign: "center", color: "#ffffff" }}>Normal Vibration</Text></TouchableOpacity>
+                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => Vibration.vibrate()}><Text style={{ color: "#000000", textAlign: "center", color: "#ffffff" }}>Normal Vibration</Text></TouchableOpacity>
                     </View>
                     <Text style={styles.infoTitle}>About Us</Text>
                     <Text style={styles.infoText}>Co-Founders Charles and Wesley started developing this app in June 2019 to help people drink alcohol responsibly.  We both have at one point in our lives struggled with alcohol.  We hope this tool we built helps our users to get a better handle on their drinking habits.  We both use the tool daily and we hope you will too.</Text>

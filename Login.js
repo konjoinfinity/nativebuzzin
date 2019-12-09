@@ -70,7 +70,7 @@ class LoginScreen extends React.Component {
                                     </View>
                                 </View>
                             </ScrollView></Modal>
-                        <Text style={[styles.loginheader, { fontSize: loginTitle }]}>Login</Text>
+                        <Text style={[styles.loginheader, { color: "#000000", fontSize: loginTitle }]}>Login</Text>
                         <View style={styles.logininputContainer}>
                             <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name"
                                 name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
@@ -83,7 +83,7 @@ class LoginScreen extends React.Component {
                             </View>
                         </View>
                         <View style={{ paddingTop: 20, alignItems: "center" }}>
-                            <Text style={{ fontSize: loginTitle, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
+                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight}
                                 onChange={(weight) => this.setState({ weight }, () => { ReactNativeHaptic.generate('selection'); })} step={5} totalWidth={numberInputSize}
                                 rounded textColor='#103900' iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
