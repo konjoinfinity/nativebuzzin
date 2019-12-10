@@ -20,6 +20,8 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.startsWith;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -27,37 +29,53 @@ import static org.hamcrest.Matchers.allOf;
 public class btest {
 
     @Rule
-    public ActivityTestRule<SplashActivity> mActivityTestRule = new ActivityTestRule<>(SplashActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
+    private String nameInput = "id/0x13";
+    private String genderButton = "gendertouch";
+    private String numInputDown = "touchdown";
+    private String numInputUp = "touchup,";
+    private String loginButton = "logintouch,";
+    private String agreeButton = "agreetouch,";
 
     @Test
     public void btest() {
 
-//        android.os.SystemClock.sleep(5000);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-        ViewInteraction reactEditText =  onView(allOf(withContentDescription("nameinput,"), isDisplayed()));
-        reactEditText.perform(replaceText("test"), closeSoftKeyboard());
 
-        ViewInteraction reactEditText2 = onView(allOf(withText("test"), isDisplayed()));
-        reactEditText2.perform(pressImeActionButton());
+        onView(allOf(withResourceName(nameInput), isDisplayed()))
+                    .perform(replaceText("test"), closeSoftKeyboard())
+                    .perform(pressImeActionButton());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
 
         ViewInteraction reactViewGroup1 =
-                onView(allOf(withContentDescription("gendertouch,"), isDisplayed()));
+                onView(allOf(withContentDescription("gendertouch"), isDisplayed()));
         reactViewGroup1.perform(click());
 
         ViewInteraction reactViewText1 =
-                onView(allOf(withContentDescription("touchdown,"), isDisplayed()));
+                onView(allOf(withContentDescription("touchdown"), isDisplayed()));
         reactViewText1.perform(click());
 
         ViewInteraction reactViewText2 =
-                onView(allOf(withContentDescription("touchup,"), isDisplayed()));
+                onView(allOf(withContentDescription("touchup"), isDisplayed()));
         reactViewText2.perform(click());
 
         ViewInteraction reactViewGroup2 =
-                onView(allOf(withContentDescription("logintouch,"), isDisplayed()));
+                onView(allOf(withContentDescription("logintouch"), isDisplayed()));
         reactViewGroup2.perform(click());
 
         ViewInteraction reactViewText3 =
-                onView(allOf(withContentDescription("agreetouch,"), isDisplayed()));
+                onView(allOf(withContentDescription("agreetouch"), isDisplayed()));
         reactViewText3.perform(click());
 
     }
