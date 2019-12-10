@@ -5,7 +5,7 @@ import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
-import { View, Dimensions, PixelRatio, TouchableOpacity } from "react-native"
+import { View, Dimensions, PixelRatio, TouchableOpacity, Text } from "react-native"
 import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';
@@ -70,10 +70,10 @@ const AppStack = createStackNavigator({
                 paddingTop: Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 ? 25 : 0
             },
             headerLeft: (<View style={{ flexDirection: "row" }}>
-                <TouchableOpacity style={[styles.infoButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>
+                <TouchableOpacity accessibilityLabel="infobutton" style={[styles.infoButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>
                     <Ficon name="info" color="#ffffff" size={25} style={{ height: 25, width: 25, textAlign: 'center' }} /></TouchableOpacity></View>),
             headerRight: (<View style={{ flexDirection: "row" }}>
-                <TouchableOpacity style={[styles.logButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Log")}>
+                <TouchableOpacity accessibilityLabel="logbutton" style={[styles.logButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Log")}>
                     <MatCommIcon name="file-document-edit-outline" color="#ffffff" size={18} style={{ height: 18, width: 18, textAlign: 'center' }} /></TouchableOpacity></View>)
         })
     },

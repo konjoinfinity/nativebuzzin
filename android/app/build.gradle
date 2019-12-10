@@ -200,6 +200,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation('com.microsoft.appcenter:espresso-test-extension:1.4')
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";

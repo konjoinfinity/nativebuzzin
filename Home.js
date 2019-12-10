@@ -533,8 +533,8 @@ class HomeScreen extends Component {
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <CopilotStep text="This gauge and readout both display your current BAC.  The tick marks show the optimal buzz range." order={1} name="gauge">
-                            <CopilotView style={{ alignSelf: "center" }}>
+                        <CopilotStep accessibilityLabel="1ststep" text="This gauge and readout both display your current BAC.  The tick marks show the optimal buzz range." order={1} name="gauge">
+                            <CopilotView accessibilityLabel="1ststepview" style={{ alignSelf: "center" }}>
                                 {this.state.bac > 0.06 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>WARNING              STOP              DRINKING</Text>
                                     : maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>|                          |</Text><Text style={{ color: "#000000", color: "#AE0000" }}>        BACK</Text></Text>
                                         : <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: "#00bfa5" }}>|                          |</Text>}
@@ -552,8 +552,8 @@ class HomeScreen extends Component {
                         </CopilotStep>
                     </View>
                     {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false && this.state.warn === false &&
-                        <CopilotStep text="Press to each to change drink type, abv, size, and metrics." order={2} name="drink">
-                            <CopilotView><View style={styles.cardView}>
+                        <CopilotStep accessibilityLabel="2ndstep" text="Press to each to change drink type, abv, size, and metrics." order={2} name="drink">
+                            <CopilotView accessibilityLabel="2ndstep"><View style={styles.cardView}>
                                 <View style={[styles.multiSwitchViews, { paddingBottom: 13, flexDirection: "row", justifyContent: "space-between" }]}>
                                     <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
                                         containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
@@ -640,8 +640,8 @@ class HomeScreen extends Component {
                                                 </MultiSwitch>
                                             </View>}
                                     </View>
-                                    <CopilotStep text="Tap to add drinks with the selected options." order={3} name="add">
-                                        <CopilotView>
+                                    <CopilotStep accessibilityLabel="3rdstep" text="Tap to add drinks with the selected options." order={3} name="add">
+                                        <CopilotView accessibilityLabel="3rdstepview">
                                             <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : [styles.dropShadow2, styles.addButton]}>
                                                 <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                                         </CopilotView>

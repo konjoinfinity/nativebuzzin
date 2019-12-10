@@ -1,5 +1,6 @@
 package com.buzzin;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -31,24 +32,18 @@ public class btest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    private String nameInput = "id/0x13";
-    private String genderButton = "gendertouch";
-    private String numInputDown = "touchdown";
-    private String numInputUp = "touchup,";
-    private String loginButton = "logintouch,";
-    private String agreeButton = "agreetouch,";
-
     @Test
     public void btest() {
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(8000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
+            // name input
 
-        onView(allOf(withResourceName(nameInput), isDisplayed()))
+        onView(allOf(withId(17), isDisplayed()))
                     .perform(replaceText("test"), closeSoftKeyboard())
                     .perform(pressImeActionButton());
             try {
@@ -57,45 +52,159 @@ public class btest {
                 e.printStackTrace();
             }
 
+        // gender switch
 
-        ViewInteraction reactViewGroup1 =
-                onView(allOf(withContentDescription("gendertouch"), isDisplayed()));
-        reactViewGroup1.perform(click());
+        onView(allOf(withId(27), isDisplayed()))
+        .perform(click());
 
-        ViewInteraction reactViewText1 =
-                onView(allOf(withContentDescription("touchdown"), isDisplayed()));
-        reactViewText1.perform(click());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        ViewInteraction reactViewText2 =
-                onView(allOf(withContentDescription("touchup"), isDisplayed()));
-        reactViewText2.perform(click());
+        // decrease weight
 
-        ViewInteraction reactViewGroup2 =
-                onView(allOf(withContentDescription("logintouch"), isDisplayed()));
-        reactViewGroup2.perform(click());
+        onView(allOf(withId(47), isDisplayed()))
+                .perform(click());
 
-        ViewInteraction reactViewText3 =
-                onView(allOf(withContentDescription("agreetouch"), isDisplayed()));
-        reactViewText3.perform(click());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-    }
+        // increase weight
 
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
+        onView(allOf(withId(59), isDisplayed()))
+                .perform(click());
 
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
+        // login button
+
+        onView(allOf(withId(83), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // disagree button
+
+        onView(allOf(withText("Disagree"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // login button
+
+        onView(allOf(withId(83), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // agree button
+
+        onView(allOf(withText("Agree"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // walkthrough 1st step
+
+        onView(allOf(withText("Next"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // walkthrough 2nd step
+
+        onView(allOf(withText("Next"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(8000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // walkthrough final step
+
+        onView(allOf(withText("Finish"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // nav to demo screen
+
+        onView(allOf(withText("Demo"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // nav to profile screen
+
+        onView(allOf(withText("Profile"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // nav to buzz screen
+
+        onView(allOf(withText("Buzz"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // nav back to home screen
+
+        onView(allOf(withText("Home"), isDisplayed()))
+                .perform(click());
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 }

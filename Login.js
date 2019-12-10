@@ -63,18 +63,18 @@ class LoginScreen extends React.Component {
                                     {loginText}
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                         <TouchableOpacity style={[styles.dropShadow, styles.logindisagreeButton]} onPress={() => { this.handleModal("no") }}>
-                                            <Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Disagree</Text>
+                                            <Text accessibilityLabel="donottouch" style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Disagree</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity accessibilityLabel="agreetouch" style={[styles.dropShadow, styles.loginbutton]} onPress={() => { this.handleLogin() }}>
-                                            <Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Agree</Text>
+                                        <TouchableOpacity style={[styles.dropShadow, styles.loginbutton]} onPress={() => { this.handleLogin() }}>
+                                            <Text accessibilityLabel="agreetouch" style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Agree</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </ScrollView>
                         </Modal>
                         <Text style={[styles.loginheader, { color: "#000000", fontSize: loginTitle }]}>Login</Text>
-                        <View style={styles.logininputContainer} {...setTestID("8888")}>
-                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name"
+                        <View style={styles.logininputContainer}>
+                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name" {...setTestID("firstcheck")}
                                 name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
                                 onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
