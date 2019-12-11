@@ -178,7 +178,7 @@ class ProfileScreen extends Component {
                         <View style={styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Happy Hour</Text>
                             <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
+                                <Switch accessibilityLabel="hhswitch" trackColor={{ true: "#26a69a" }} value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
                             {this.state.happyhour === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("sethappyhour")}>
