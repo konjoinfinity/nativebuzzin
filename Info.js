@@ -24,24 +24,47 @@ class InfoScreen extends Component {
             <ScrollView>
                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                     <Text style={{ color: "#000000", marginTop: 10, fontSize: 40, textAlign: "center", padding: 10 }}>Info</Text>
-                    <Text style={styles.infoText}>The buzzin app helps to reduce, moderate, and track personal alcohol consumption habits.  Alcohol is a problem for many people around the world.  We want to help people control the amount of alcohol they consume in a responsible manner.</Text>
-                    <Text style={{ color: "#000000", fontSize: 20, textAlign: "center", paddingTop: 10 }}>Check Screen Resolution</Text>
-                    <Text style={styles.profileLine}>_________________________________________</Text>
-                    <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                        <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => Alert.alert("Screen Resolution:", `${screenWidth + " x " + screenHeight}`, [{ text: "Ok", onPress: () => ReactNativeHaptic.generate("selection") }], { cancelable: false })}><Text style={{ textAlign: "center", color: "#ffffff" }}>HxW</Text></TouchableOpacity>
-                    </View>
+                    <Text style={styles.infoText}>buzzin - a modern alcohol moderation app.</Text>
+                    <Text style={styles.infoText}>Users can track blood alcohol content in real time based on individual gender and weight. Other features include weekly
+                    and monthly historical charts, realtime and retroactive buzz session editing, demo screen to show friends, a log to keep personal notes about your
+                    drinking habits, and a metric switch to change between imperial and metric drink measurements.</Text>
                     <Text style={styles.infoTitle}>About Us</Text>
-                    <Text style={styles.infoText}>Co-Founders Charles and Wesley started developing this app in June 2019 to help people drink alcohol responsibly.  We both have at one point in our lives struggled with alcohol.  We hope this tool we built helps our users to get a better handle on their drinking habits.  We both use the tool daily and we hope you will too.</Text>
+                    <Text style={styles.infoText}>Co-Founders Charles and Wesley started developing this app in June 2019 to help people drink alcohol responsibly.
+                    We both have at one point in our lives struggled with alcohol.  We hope this tool we built helps our users to get a better handle on their drinking habits.
+                    We both use the tool daily and we hope you will too.</Text>
                     <Text style={styles.infoTitle}>Disclaimer</Text>
-                    <Text style={styles.infoText}>Buzzin' will not be held liable for any decisions made based on the information provided.  The Blood Alcohol Content (BAC) calculations are not 100% accurate and are aimed to give our users a general ballpark estimate based on their approximate weight and gender.  Users are liable for all data they input, as it is stored on their personal local device.  No user data is stored externally, Buzzin' does not store inputted user data externally.  By pressing agree, the user forfeits their rights to hold Buzzin' or LifeSystem LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.  This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text>
-                    <Text style={styles.infoTitle}>Donate</Text>
-                    <Text style={styles.infoText}>Paypal (register buzzin.io email for paypal)Instructions for moderation options, how to use other parts of the app, etc.</Text>
-                    <Text style={styles.infoTitle}>Tips and FAQ</Text>
-                    <Text style={styles.infoText}>We recommend enabling at least one moderation option on the profile page.  Tips/FAQ should have detailed descriptions for each moderation option.</Text>
-                    <Text style={styles.infoTitle}>More Info</Text>
-                    <Text style={styles.infoText}>See our website or send us an email using the buttons below.</Text>
+                    <Text style={styles.infoText}>The Blood Alcohol Content (BAC) calculations displayed in buzzin
+                    are not 100% accurate.  buzzin is designed to give users a general estimate based on their entered weight and gender.  All user data entered into the app is
+                    stored locally on each individual device, no user data is stored externally by buzzin. This app is designed to track and reduce personal alcoholic consumption
+                    habits over time using moderation.  Enjoy!</Text>
+                    <Text style={styles.infoTitle}>Tips</Text>
+                    <Text style={styles.infoText}>We recommend enabling at least one moderation option on the profile page.  All options can be enabled or disabled at any time.
+                    Moderation options:</Text>
+                    <Text style={[styles.infoText, { fontWeight: "bold" }]}>Happy Hour</Text>
+                    <Text style={styles.infoText}>With happy hour enabled, drink entries can only be entered after the set daily happy hour time.  The happy hour card will be shown
+                    advising the happy hour time.</Text>
+                    <Text style={[styles.infoText, { fontWeight: "bold" }]}>Custom Break</Text>
+                    <Text style={styles.infoText}>With custom break enabled, the user can go on a specified duration or indefinite break.
+                    When a specified duration is set, a break card is shown with a countdown until the break is completed.  When the indefinite break is set, a break card
+                    will show indefinitely until the user turns the option off.  The time since last drink will also be displayed.</Text>
+                    <Text style={[styles.infoText, { fontWeight: "bold" }]}>Session Limits</Text>
+                    <Text style={styles.infoText}>When session limits are enabled, a total Blood Alcohol Content (BAC) limit and a total drink limit are both set.  If either limit
+                    is reached during a current session, the session limits card is displayed preventing additional drinks from being entered.</Text>
+                    <Text style={[styles.infoText, { fontWeight: "bold" }]}>Last Call</Text>
+                    <Text style={styles.infoText}>When last call is enabled, the user will be prevented from entering additional drinks by the last call card.  This last call card is
+                    shown when the current time is after the set last call hour.</Text>
+                    <Text style={[styles.infoText, { fontWeight: "bold" }]}>Drink Pacer</Text>
+                    <Text style={styles.infoText}>Drink pacer prevents entering drinks too quickly when enabled.  If set to 30 minute intervals, the user is unable to add additional
+                    drinks until the 30 minute countdown timer is finished.  Users can adjust the drink pacer based on personal preference to prevent drinking too much in a short
+                    period of time.</Text>
+                    <Text style={[styles.infoText, { fontWeight: "bold" }]}>Max Recommended</Text>
+                    <Text style={styles.infoText}>When max Recommended is enabled, the user will be cut off when they reach the weekly maximum recommended limit as perscribed by the
+                    Centers for Disease Control (CDC).  14 drinks weekly for males and 7 drinks weekly for females.</Text>
+                    <Text style={[styles.infoText, { fontWeight: "bold" }]}>Auto Break</Text>
+                    <Text style={styles.infoText}>Auto break triggers when the user has reached the set auto break BAC threshold, and when the BAC reaches 0.0.  After, the user is
+                    automatically placed on an break.  This gives the user time and a reference to think about the last drinking session.</Text>
                     <Text style={styles.infoTitle}>Acknowledgements</Text>
-                    <Text style={styles.infoText}>Built using the following third party packages:</Text>
+                    <Text style={styles.infoText}>Built using the following third party packages available via npm and github:</Text>
                     <Text style={styles.infoList}>react</Text>
                     <Text style={styles.infoList}>eslint</Text>
                     <Text style={styles.infoList}>jetifier</Text>

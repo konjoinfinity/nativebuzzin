@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, PixelRatio, View, Text } from 'react-native';
+import { Dimensions, PixelRatio, View, Text, Linking } from 'react-native';
 import styles from "./Styles"
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
@@ -44,7 +44,7 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
     indefbreakkey = "indefbreak", limithourkey = "limithour", pacerkey = "pacer", pacertimekey = "pacertime",
     limitdatekey = "limitdate", lastcallkey = "lastcall", logskey = "logs", maxreckey = "maxrec", warningkey = "warning";
 
-// add metric key value for usage across the app (oz and ml) load on each screen mount
+// add metric key value for usage across the app (oz and ml) load on each screen mount (first update once in both appstores)
 
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     // console.log("480x854/800")
@@ -471,13 +471,16 @@ const abovePoint10 = (<View><Text style={{ color: "#000000", fontSize: abvText, 
     <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
     <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text></View>)
 
-const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5, fontWeight: "bold" }}>Welcome to buzzin!</Text>
-    <Text style={{ color: "#000000", fontSize: abvText - 1, textAlign: "center", padding: 5 }}>Legal Disclaimer and User Agreement</Text>
-    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 10 }}>buzzin will not be held liable for any decisions made based on the information provided.
-    The Blood Alcohol Content (BAC) calculations are not 100% accurate and are aimed to give our users a general ballpark estimate based on their approximate weight and gender.
-    Users are liable for all data they input, as it is stored on their personal local device.  No user data is stored externally, buzzin does not store inputted user data externally.
-    By pressing agree, the user forfeits their rights to hold buzzin or LifeSystem LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
-    This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text></View>)
+const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 3, textAlign: "center", padding: 5, fontWeight: "bold" }}>Welcome to buzzin!</Text>
+    <Text style={{ color: "#000000", fontSize: abvText + 2, textAlign: "center", padding: 10 }}>Disclaimer</Text>
+    <Text style={{ color: "#000000", fontSize: abvText - 1, textAlign: "center", padding: 10 }}>The Blood Alcohol Content (BAC) calculations displayed in buzzin
+    are not 100% accurate.  buzzin is designed to give users a general estimate based on their entered weight and gender.  All user data entered into the app is
+    stored locally on each individual device, no user data is stored externally by buzzin. This app is designed to track and reduce personal alcoholic consumption
+    habits over time using moderation.  Enjoy!</Text>
+    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 10 }}>By pressing Agree, the user agrees to buzzin’s:</Text>
+    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", paddingBottom: 25 }}>
+        <Text style={{ color: "blue" }} onPress={() => { Linking.openURL('http://buzzin.io/privacy-policy.html') }}>Privacy Policy </Text>and
+    <Text style={{ color: "blue" }} onPress={() => { Linking.openURL('http://buzzin.io/terms-of-service.html') }}> Terms of Service.</Text></Text></View>)
 
 export {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
