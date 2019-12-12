@@ -140,7 +140,7 @@ class DemoScreen extends Component {
                 return (<View key={id}>
                     {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ color: "#000000", fontSize: 26, textAlign: "center", paddingRight: 45, paddingTop: 5 }}>Current Buzz</Text><TouchableOpacity style={[styles.dropShadow, styles.plusMinusButtons, { marginRight: 5 }]} onPress={() => this.testBuzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
                     <View style={styles.buzzMap}>
-                        <View style={styles.buzzheaderButton}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
+                        <View style={[styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
                         <View style={{ flexDirection: "column" }}>
                             <Text style={{ color: "#000000", fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
                             <Text style={{ color: "#000000", fontSize: abvText - 2, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
@@ -150,11 +150,11 @@ class DemoScreen extends Component {
         this.state.selectedBuzz !== "" && (selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
             return (<View key={id}>
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
-                    <View style={styles.buzzheaderButton}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
+                    <View style={[styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
                     <View style={{ flexDirection: "column" }}>
                         <Text style={{ color: "#000000", fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
                         <Text style={{ color: "#000000", fontSize: abvText - 2, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={styles.buzzheaderButton} onPress={() => this.deleteTestBuzz(buzz)}><Text style={styles.buttonText}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>}</View>
+                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={[styles.dropShadow3, styles.buzzheaderButton]} onPress={() => this.deleteTestBuzz(buzz)}><Text style={styles.buttonText}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>}</View>
             </View>
             )
         }))
@@ -325,11 +325,11 @@ class DemoScreen extends Component {
                                 <Text style={{ color: "#000000", fontSize: alcTypeText }}>🍹</Text>
                             </MultiSwitch>
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true &&
-                                <TouchableOpacity style={[styles.dropShadow3, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
+                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
                                     <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === false &&
-                                <TouchableOpacity style={[styles.dropShadow3, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.clearDrinks()}>
+                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.clearDrinks()}>
                                     <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></View>
                                 </TouchableOpacity>}
                         </View>
@@ -414,7 +414,7 @@ class DemoScreen extends Component {
                         <View style={styles.cardView}>
                             {abovePoint10}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                <TouchableOpacity style={[styles.dropShadow3, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
+                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
                                     <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View></TouchableOpacity>
                             </View>}
                         </View>}

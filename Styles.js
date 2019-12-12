@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     dropShadow: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: amount },
     dropShadow1: Platform.OS === "ios" ? { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3 } : { elevation: amount },
     dropShadow2: Platform.OS === "ios" ? { opacity: 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3 } : { opacity: 0.85, elevation: amount },
-    dropShadow3: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: amount },
+    dropShadow3: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: 0 },
     buzzheaderButton: {
         height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
         borderRadius: 50, margin: 5
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     selectedPlusMinusButton: {
         height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50
     },
-    // come back to this
     multiSwitchViews: {
-        opacity: Platform.OS === 'android' ? 0.9 : 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3
+        opacity: Platform.OS === 'android' ? 0.9 : 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 },
+        shadowColor: "#000000", shadowRadius: 3
     },
     undoButton: {
         height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
