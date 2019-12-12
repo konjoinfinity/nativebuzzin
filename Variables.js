@@ -44,7 +44,7 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
     indefbreakkey = "indefbreak", limithourkey = "limithour", pacerkey = "pacer", pacertimekey = "pacertime",
     limitdatekey = "limitdate", lastcallkey = "lastcall", logskey = "logs", maxreckey = "maxrec", warningkey = "warning";
 
-// add metric value for usage across the app (oz and ml) load on each screen mount
+// add metric key value for usage across the app (oz and ml) load on each screen mount
 
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     // console.log("480x854/800")
@@ -476,7 +476,7 @@ const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText, tex
     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 10 }}>buzzin will not be held liable for any decisions made based on the information provided.
     The Blood Alcohol Content (BAC) calculations are not 100% accurate and are aimed to give our users a general ballpark estimate based on their approximate weight and gender.
     Users are liable for all data they input, as it is stored on their personal local device.  No user data is stored externally, buzzin does not store inputted user data externally.
-    By pressing agree, the user forfeits their rights to hold buzzin or LifeSystems LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
+    By pressing agree, the user forfeits their rights to hold buzzin or LifeSystem LLC liable for any incidents, accidents, decisions based on information provided, risky activities, personal bodily injury, or accidental death.
     This application is designed to reduce and track personal alcoholic consumption habits.  Enjoy!</Text></View>)
 
 export {
