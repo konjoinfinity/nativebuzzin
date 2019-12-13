@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Linking, Platform, TouchableOpacity, Vibration, Alert, Dimensions, PixelRatio } from 'react-native'
+import { View, Text, ScrollView, Linking, Platform, TouchableOpacity } from 'react-native'
 import ReactNativeHaptic from 'react-native-haptic';
 import styles from "./Styles"
-
-var screenWidth = Dimensions.get('window').width * PixelRatio.get()
-var screenHeight = Dimensions.get('window').height * PixelRatio.get()
 
 class InfoScreen extends Component {
 

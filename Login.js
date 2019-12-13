@@ -5,7 +5,6 @@ import NumericInput from 'react-native-numeric-input'
 import styles from "./Styles"
 import ReactNativeHaptic from 'react-native-haptic';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import setTestID from "./testUtil"
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
@@ -74,7 +73,7 @@ class LoginScreen extends React.Component {
                         </Modal>
                         <Text style={[styles.loginheader, { color: "#000000", fontSize: loginTitle }]}>Login</Text>
                         <View style={styles.logininputContainer}>
-                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name" {...setTestID("firstcheck")}
+                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name"
                                 name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
                                 onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
