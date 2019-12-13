@@ -55,11 +55,11 @@ class InfoScreen extends Component {
                     drinks until the 30 minute countdown timer is finished.  Users can adjust the drink pacer based on personal preference to prevent drinking too much in a short
                     period of time.</Text>
                     <Text style={[styles.infoText, { fontWeight: "bold" }]}>Max Recommended</Text>
-                    <Text style={styles.infoText}>When max Recommended is enabled, the user will be cut off when they reach the weekly maximum recommended limit as perscribed by the
+                    <Text style={styles.infoText}>When max Recommended is enabled, the user will be cut off when they reach the weekly maximum recommended limit as prescribed by the
                     Centers for Disease Control (CDC).  14 drinks weekly for males and 7 drinks weekly for females.</Text>
                     <Text style={[styles.infoText, { fontWeight: "bold" }]}>Auto Break</Text>
                     <Text style={styles.infoText}>Auto break triggers when the user has reached the set auto break BAC threshold, and when the BAC reaches 0.0.  After, the user is
-                    automatically placed on an break.  This gives the user time and a reference to think about the last drinking session.</Text>
+                    automatically placed on a break.  This gives the user time and a reference to think about the last drinking session.</Text>
                     <Text style={styles.infoTitle}>Acknowledgements</Text>
                     <Text style={styles.infoText}>Built using the following third party packages available via npm and github:</Text>
                     <Text style={styles.infoList}>react</Text>
