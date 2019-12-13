@@ -6,7 +6,7 @@ import styles from "./Styles"
 import ReactNativeHaptic from 'react-native-haptic';
 import Ficon from 'react-native-vector-icons/Fontisto'
 import {
-    namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText, limitkey,
+    namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
     loginTitle, indefbreakkey, limithourkey, limitdatekey, pacerkey, pacertimekey, lastcallkey, amount, maxreckey, warningkey
 } from "./Variables";
@@ -89,10 +89,6 @@ class LoginScreen extends React.Component {
                         <View style={{ paddingTop: 20, flexDirection: "row", justifyContent: "space-evenly" }}>
                             <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Female" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: 50, height: 100, width: 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Male")}><Ficon name="male" color="#ffffff" size={40} /><Text style={{ color: "#ffffff", fontSize: 20 }}>Male</Text></TouchableOpacity>
                             <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Male" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: 50, height: 100, width: 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Female")}><Ficon name="female" color="#ffffff" size={40} /><Text style={{ color: "#ffffff", fontSize: 20 }}>Female</Text></TouchableOpacity>
-                            {/* <TouchableOpacity accessibilityLabel="gendertouch" style={[styles.dropShadow, styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.switchGender()}><Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Choose Gender ♂♀</Text></TouchableOpacity>
-                            <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
-                                <Text style={{ fontSize: loginGenderText, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
-                            </View> */}
                         </View>
                         <View style={{ paddingTop: 20, alignItems: "center" }}>
                             <Text style={{ color: "#000000", fontSize: loginTitle - 2, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
