@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import NumericInput from 'react-native-numeric-input'
 import styles from "./Styles"
 import ReactNativeHaptic from 'react-native-haptic';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ficon from 'react-native-vector-icons/Fontisto'
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, loginGenderText, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
@@ -15,7 +15,7 @@ class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "", gender: "Male", weight: 195, modal: false
+            name: "", gender: "", weight: 195, modal: false
         };
     }
 
@@ -26,16 +26,24 @@ class LoginScreen extends React.Component {
 
     handleModal(agree) {
         agree === "yes" ? ReactNativeHaptic.generate('selection') : ReactNativeHaptic.generate("notificationError");
-        if (this.state.name !== "") { this.setState({ modal: !this.state.modal }) }
-        else {
+        if (this.state.name !== "") {
+            if (this.state.gender !== "") {
+                this.setState({ modal: !this.state.modal })
+            } else {
+                ReactNativeHaptic.generate('notificationWarning');
+                Alert.alert("Please select your gender", "", [{ text: "Ok", onPress: () => { ReactNativeHaptic.generate("selection") } }], { cancelable: false })
+            }
+        } else {
             ReactNativeHaptic.generate('notificationWarning');
             Alert.alert("Please enter your name", "", [{ text: "Ok", onPress: () => { ReactNativeHaptic.generate("selection"); this.nameinput.focus() } }], { cancelable: false })
         }
     }
 
-    switchGender() {
-        ReactNativeHaptic.generate('selection');
-        this.state.gender === "Male" ? this.setState({ gender: "Female", weight: 165 }) : this.setState({ gender: "Male", weight: 195 })
+    switchGender(gender) {
+        if (this.state.gender !== gender) {
+            ReactNativeHaptic.generate('selection');
+            gender === "Male" ? this.setState({ gender: "Male", weight: 195 }) : this.setState({ gender: "Female", weight: 165 })
+        }
     }
 
     async handleLogin() {
@@ -62,29 +70,32 @@ class LoginScreen extends React.Component {
                                     {loginText}
                                     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                                         <TouchableOpacity style={[styles.dropShadow, styles.logindisagreeButton]} onPress={() => { this.handleModal("no") }}>
-                                            <Text accessibilityLabel="donottouch" style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Disagree</Text>
+                                            <Text accessibilityLabel="donottouch" style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Disagree</Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity style={[styles.dropShadow, styles.loginbutton]} onPress={() => { this.handleLogin() }}>
-                                            <Text accessibilityLabel="agreetouch" style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Agree</Text>
+                                            <Text accessibilityLabel="agreetouch" style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Agree</Text>
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </ScrollView>
                         </Modal>
-                        <Text style={[styles.loginheader, { color: "#000000", fontSize: loginTitle }]}>Login</Text>
+                        <Text style={[styles.loginheader, { color: "#000000", fontSize: loginTitle - 2 }]}>What is your name?</Text>
                         <View style={styles.logininputContainer}>
                             <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name"
                                 name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
                                 onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
-                        <View style={{ paddingTop: 20 }}>
-                            <TouchableOpacity accessibilityLabel="gendertouch" style={[styles.dropShadow, styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.switchGender()}><Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Choose Gender ♂♀</Text></TouchableOpacity>
+                        <Text style={{ fontSize: loginTitle - 2, paddingTop: 25, color: "#000000", alignSelf: "center" }}>Select Gender</Text>
+                        <View style={{ paddingTop: 20, flexDirection: "row", justifyContent: "space-evenly" }}>
+                            <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Female" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: 50, height: 100, width: 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Male")}><Ficon name="male" color="#ffffff" size={40} /><Text style={{ color: "#ffffff", fontSize: 20 }}>Male</Text></TouchableOpacity>
+                            <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Male" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: 50, height: 100, width: 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Female")}><Ficon name="female" color="#ffffff" size={40} /><Text style={{ color: "#ffffff", fontSize: 20 }}>Female</Text></TouchableOpacity>
+                            {/* <TouchableOpacity accessibilityLabel="gendertouch" style={[styles.dropShadow, styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.switchGender()}><Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Choose Gender ♂♀</Text></TouchableOpacity>
                             <View style={{ backgroundColor: "#fff", borderRadius: 15, margin: 10, padding: 10 }}>
                                 <Text style={{ fontSize: loginGenderText, textAlign: "center", color: "teal" }}>{this.state.gender}</Text>
-                            </View>
+                            </View> */}
                         </View>
                         <View style={{ paddingTop: 20, alignItems: "center" }}>
-                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
+                            <Text style={{ color: "#000000", fontSize: loginTitle - 2, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
                             <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight}
                                 onChange={(weight) => this.setState({ weight }, () => { ReactNativeHaptic.generate('selection'); })} step={5} totalWidth={numberInputSize}
                                 rounded textColor='#103900' iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
@@ -93,13 +104,13 @@ class LoginScreen extends React.Component {
                         <View style={{ paddingTop: 20 }}>
                             <TouchableOpacity accessibilityLabel="logintouch" style={[styles.dropShadow, styles.loginbutton, { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3, elevation: amount }]} onPress={() => this.handleModal("yes")}>
                                 <View style={{ flexDirection: "row", justifyContent: "center" }}>
-                                    <Text style={[styles.dropShadow, styles.loginbuttonText, { fontSize: loginButtonText }]}>Login   </Text><Icon name="login" color="#ffffff" size={loginButtonText} style={{ paddingTop: 2 }} />
+                                    <Text style={[styles.loginbuttonText, { fontSize: loginButtonText }]}>Next</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </ScrollView>
-            </KeyboardAvoidingView>
+            </KeyboardAvoidingView >
         );
     }
 }
