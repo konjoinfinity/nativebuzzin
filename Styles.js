@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     logincontainer: { flex: 1 },
     loginheader: { textAlign: "center", margin: 10 },
     logininputContainer: { paddingTop: 15 },
-    logintextInput: { borderColor: "#CCCCCC", borderWidth: 1, height: 50, paddingLeft: 20, paddingRight: 20, borderRadius: 15, textAlign: "center" },
+    logintextInput: { color: "#000000", borderColor: "#CCCCCC", borderWidth: 1, height: 50, paddingLeft: 20, paddingRight: 20, borderRadius: 15, textAlign: "center" },
     logindisagreeButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
     loginbuttonText: { color: "#FFFFFF", textAlign: "center" },
     loginbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15 },

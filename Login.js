@@ -81,7 +81,7 @@ class LoginScreen extends React.Component {
                         </Modal>
                         <Text style={[styles.loginheader, { color: "#000000", fontSize: loginTitle - 2 }]}>What is your name?</Text>
                         <View style={styles.logininputContainer}>
-                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name"
+                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name" placeholderTextColor="#777777"
                                 name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
                                 onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
