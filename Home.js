@@ -384,9 +384,9 @@ class HomeScreen extends Component {
         let buzzes, selectedbuzz;
         this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ color: "#000000", fontSize: 26, textAlign: "center", paddingRight: 45, paddingTop: 5 }}>Current Buzz</Text><TouchableOpacity style={[styles.dropShadow, styles.plusMinusButtons, { marginRight: 5 }]} onPress={() => this.buzzModal(buzz, id)}><Text style={styles.buttonText}>+</Text></TouchableOpacity></View>}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View><Text style={{ fontSize: addButtonSize === "tablet" ? abvText + 10 : 26, textAlign: "center", paddingTop: 5 }}>Current Buzz</Text><TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons]} onPress={() => this.buzzModal(buzz, id)}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity></View>}
                 <View style={styles.buzzMap}>
-                    <View style={[styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
+                    <View style={addButtonSize === "tablet" ? [styles.dropShadow3, styles.largebuzzheaderButton] : [styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
                     <View style={{ flexDirection: "column" }}>
                         <Text style={{ color: "#000000", fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
                         <Text style={{ color: "#000000", fontSize: abvText - 2, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
@@ -396,11 +396,11 @@ class HomeScreen extends Component {
         this.state.selectedBuzz !== "" && (selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
             return (<View key={id}>
                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
-                    <View style={[styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
+                    <View style={addButtonSize === "tablet" ? [styles.dropShadow3, styles.largebuzzheaderButton] : [styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
                     <View style={{ flexDirection: "column" }}>
                         <Text style={{ color: "#000000", fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
                         <Text style={{ color: "#000000", fontSize: abvText - 2, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={[styles.dropShadow3, styles.buzzheaderButton]} onPress={() => this.deleteBuzz(buzz)}><Text style={styles.buttonText}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>}</View>
+                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={addButtonSize === "tablet" ? [styles.dropShadow3, styles.largebuzzheaderButton] : [styles.dropShadow3, styles.buzzheaderButton]} onPress={() => this.deleteBuzz(buzz)}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>}</View>
             </View>
             )
         }))
@@ -421,7 +421,7 @@ class HomeScreen extends Component {
                 <Modal animationType="slide" transparent={false} visible={this.state.buzzmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
-                            <Text style={{ color: "#000000", textAlign: "center", fontSize: 20, fontWeight: "500", padding: 2 }}>Edit Current Buzz</Text>
+                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? abvText + 10 : 20, fontWeight: "500", padding: 2 }}>Edit Current Buzz</Text>
                             {selectedbuzz}
                         </View>
                         <View style={styles.cardView}>
@@ -508,22 +508,22 @@ class HomeScreen extends Component {
                                             </MultiSwitch>
                                         </View>}
                                 </View>
-                                <TouchableOpacity onPress={() => this.editBuzz()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : [styles.dropShadow2, styles.addButton]}>
+                                <TouchableOpacity onPress={() => this.editBuzz()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : [styles.dropShadow2, styles.largeAddButton]}>
                                     <Text style={{ color: "#000000", fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                             </View>
                             <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 10 }}>How Long Ago?</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, marginLeft: 20, marginRight: 20 }}>
-                                <TouchableOpacity style={[styles.dropShadow, styles.plusMinusButtons, this.state.buzzduration === 5 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
-                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
+                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.buzzduration === 5 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
+                                    <View><Text style={{ fontSize: abvText - 2, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, styles.dropShadow2, { backgroundColor: "#e0f2f1" }]}>
-                                    <View><Text style={{ color: "#000000", fontSize: abvText }}>{this.state.buzzduration} Minutes</Text></View></TouchableOpacity>
-                                <TouchableOpacity style={[styles.dropShadow, styles.plusMinusButtons, this.state.buzzduration === 120 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("up")}>
-                                    <View><Text style={{ fontSize: 20, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
+                                    <View><Text style={{ color: "#000000", fontSize: abvText, paddingTop: addButtonSize === "tablet" ? 20 : 0 }}>{this.state.buzzduration} Minutes</Text></View></TouchableOpacity>
+                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.buzzduration === 120 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("up")}>
+                                    <View><Text style={{ fontSize: abvText - 2, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
                             <Text style={styles.profileLine}>_________________________________________</Text>
                             <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
                                 <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => this.closeBuzzModal()}>
-                                    <Text style={styles.buttonText}>Done</Text>
+                                    <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Done</Text>
                                 </TouchableOpacity></View>
                         </View>
                     </ScrollView>
@@ -562,7 +562,7 @@ class HomeScreen extends Component {
                                         <Text style={{ color: "#000000", fontSize: alcTypeText }}>🍹</Text>
                                     </MultiSwitch>
                                     {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
-                                        <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
+                                        <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === false ? styles.undoButton : styles.largeUndoButton]} onPress={() => this.undoLastDrink()}>
                                             <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View></TouchableOpacity>}
                                 </View>
                                 <View style={{ flex: 1, flexDirection: "row" }}>
@@ -640,7 +640,7 @@ class HomeScreen extends Component {
                                     </View>
                                     <CopilotStep accessibilityLabel="3rdstep" text="Tap to add drinks with the selected options." order={3} name="add">
                                         <CopilotView accessibilityLabel="3rdstepview">
-                                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : [styles.dropShadow2, styles.addButton]}>
+                                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : [styles.dropShadow2, styles.largeAddButton]}>
                                                 <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                                         </CopilotView>
                                     </CopilotStep>

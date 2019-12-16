@@ -11,6 +11,18 @@ const styles = StyleSheet.create({
         height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
         borderRadius: 50, margin: 5
     },
+    largebuzzheaderButton: {
+        height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
+        borderRadius: 50, margin: 5
+    },
+    largeplusminusButton: {
+        height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b',
+        borderRadius: 50, margin: 5
+    },
+    hiddenlargeplusminusButton: {
+        height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1",
+        borderRadius: 50, margin: 5
+    },
     profilebreakbutton: {
         borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, marginTop: 15, marginRight: 90,
         marginLeft: 90, marginBottom: 10, borderRadius: 15
@@ -43,8 +55,16 @@ const styles = StyleSheet.create({
         borderRadius: 50, backgroundColor: "#1de9b6", height: 70, width: 70, margin: 5, alignItems: 'center',
         justifyContent: 'center'
     },
+    largeAddButton: {
+        borderRadius: 100, backgroundColor: "#1de9b6", height: 200, width: 200, margin: 5, alignItems: 'center',
+        justifyContent: 'center'
+    },
     smallUndoButton: {
         height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
+        borderRadius: 50
+    },
+    largeUndoButton: {
+        height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
         borderRadius: 50
     },
     plusMinusButtons: {
@@ -126,6 +146,7 @@ const styles = StyleSheet.create({
     loginbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15 },
     profilebuttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
     buttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
+    largeButtonText: { color: "#FFFFFF", fontSize: 35, textAlign: "center" },
     multiSwitch: { backgroundColor: 'white', borderRadius: 20, borderWidth: 1, borderColor: "lightgrey", justifyContent: 'space-between' },
     cardView: { backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 },
     infoText: { color: "#000000", fontSize: 15, textAlign: "center", padding: 10 },

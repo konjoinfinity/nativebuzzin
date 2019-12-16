@@ -406,7 +406,32 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     scrollToAmt = 410
     warnTitleButton = 16
     warnBody = 13
-} else if (screenWidth > 1125) {
+}
+else if (screenWidth === 1536 && screenHeight === 2048) {
+    console.log("ipad 9.7")
+    gaugeSize = 660
+    bacTextSize = 60
+    alcTypeSize = 120
+    alcTypeText = 60
+    abvText = 35
+    abvSize = 80
+    abvWineText = 35
+    abvWineSize = 80
+    abvLiquorText = 35
+    abvLiquorSize = 80
+    addButtonText = 80
+    addButtonSize = "tablet"
+    multiSwitchMargin = 8
+    loginButtonText = 35
+    loginGenderText = 35
+    numberInputSize = 400
+    loginTitle = 50
+    barChartWidth = 347
+    scrollToAmt = 768
+    warnTitleButton = 40
+    warnBody = 30
+}
+else if (screenWidth > 1125) {
     console.log("greater than 1125")
     gaugeSize = 390
     bacTextSize = 25

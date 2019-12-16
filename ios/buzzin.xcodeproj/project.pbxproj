@@ -753,7 +753,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7FGUVM5WTY;
 				INFOPLIST_FILE = buzzin/Info.plist;
@@ -767,6 +767,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lifesystem.buzzin;
 				PRODUCT_NAME = buzzin;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -778,7 +779,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7FGUVM5WTY;
 				INFOPLIST_FILE = buzzin/Info.plist;
@@ -792,6 +793,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lifesystem.buzzin;
 				PRODUCT_NAME = buzzin;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
