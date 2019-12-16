@@ -649,7 +649,9 @@ class BuzzScreen extends Component {
                             <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>
                         </View>
-                        {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
+                        {this.state.showHideBuzzes === true && <View>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
+                            {buzzes}</View>}
                     </View>}
                     {this.state.buzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
@@ -664,7 +666,9 @@ class BuzzScreen extends Component {
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideOldBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>
                             <TouchableOpacity style={[styles.dropShadow, styles.plusMinusButtons, { marginTop: 5 }]} onPress={() => this.addOldModal()}><Text style={styles.buttonText}>+</Text></TouchableOpacity>
                         </View>
-                        {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
+                        {this.state.showHideOldBuzzes === true && <View>
+                            <Text style={styles.profileLine}>_________________________________________</Text>
+                            {oldbuzzes}</View>}
                     </View>}
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
