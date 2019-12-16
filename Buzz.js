@@ -91,7 +91,6 @@ class BuzzScreen extends Component {
         lastTime.setHours(0, 0, 0, 0)
         obnormal[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
         await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal, selectedOldBuzz: obnormal[obid], obid: [obid] }) })
-        this.refreshValues()
         values = await Functions.maxRecDrinks()
     }
 
