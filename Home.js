@@ -563,7 +563,7 @@ class HomeScreen extends Component {
                                     </MultiSwitch>
                                     {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                                         <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
-                                            <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View></TouchableOpacity>}
+                                            <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View></TouchableOpacity>}
                                 </View>
                                 <View style={{ flex: 1, flexDirection: "row" }}>
                                     <View style={{ flex: 1, flexDirection: "column" }}>
@@ -679,7 +679,7 @@ class HomeScreen extends Component {
                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
-                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View>
+                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>
                             </View>}
                     </View>}
@@ -692,7 +692,7 @@ class HomeScreen extends Component {
                             {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                     <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
-                                        <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View>
+                                        <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                     </TouchableOpacity>
                                 </View> : <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("sl")}>
                                     <Text style={styles.buttonText}>Cancel Set Limit</Text>
@@ -715,7 +715,7 @@ class HomeScreen extends Component {
                         {this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
-                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View>
+                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>
                             </View> : <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("pc")}>
                                 <Text style={styles.buttonText}>Cancel Pacer</Text>
@@ -728,7 +728,7 @@ class HomeScreen extends Component {
                             {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                     <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
-                                        <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View>
+                                        <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                     </TouchableOpacity>
                                 </View>}
                         </View>}

@@ -326,7 +326,7 @@ class DemoScreen extends Component {
                             </MultiSwitch>
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true &&
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
-                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View>
+                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === false &&
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.clearDrinks()}>
@@ -415,7 +415,7 @@ class DemoScreen extends Component {
                             {abovePoint10}
                             {this.state.testbuzzes.length >= 1 && this.checkLastDrink() === true && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
-                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText }}>↩️</Text></View></TouchableOpacity>
+                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View></TouchableOpacity>
                             </View>}
                         </View>}
                     {(this.state.testbuzzes && this.state.testbuzzes.length > 0) && <View style={styles.buzzCard}>
