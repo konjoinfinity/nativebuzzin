@@ -18,6 +18,7 @@ var bottomPad = false;
 if (Dimensions.get('window').width * PixelRatio.get() === 828 && Dimensions.get('window').height * PixelRatio.get() === 1792) { bottomPad = true }
 if (Dimensions.get('window').width * PixelRatio.get() === 1125) { bottomPad = true }
 if (Dimensions.get('window').width * PixelRatio.get() === 1242 && Dimensions.get('window').height * PixelRatio.get() === 2688) { bottomPad = true }
+if (Dimensions.get('window').width * PixelRatio.get() === 1668 && Dimensions.get('window').height * PixelRatio.get() === 2388) { bottomPad = true }
 
 const AppStack = createStackNavigator({
     MyTab: {

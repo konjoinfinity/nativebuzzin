@@ -407,29 +407,29 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 16
     warnBody = 13
 }
-else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224) {
-    console.log("ipad 9.7")
-    gaugeSize = screenHeight === 2224 ? 775 : 660
-    bacTextSize = screenHeight === 2224 ? 75 : 60
-    alcTypeSize = 120
-    alcTypeText = 60
-    abvText = 35
-    abvSize = 80
-    abvWineText = 35
-    abvWineSize = 80
-    abvLiquorText = 35
-    abvLiquorSize = 80
-    addButtonText = 80
+else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224 || screenWidth === 1668 && screenHeight === 2388) {
+    console.log("ipad 9.7/ipad pro 10.5/ipad pro 11")
+    gaugeSize = screenHeight === 2224 || 2388 ? 775 : 660
+    bacTextSize = screenHeight === 2224 || 2388 ? 75 : 60
+    alcTypeSize = screenHeight === 2388 ? 140 : 120
+    alcTypeText = screenHeight === 2388 ? 65 : 60
+    abvText = screenHeight === 2388 ? 40 : 35
+    abvSize = screenHeight === 2388 ? 95 : 80
+    abvWineText = screenHeight === 2388 ? 40 : 35
+    abvWineSize = screenHeight === 2388 ? 95 : 80
+    abvLiquorText = screenHeight === 2388 ? 40 : 35
+    abvLiquorSize = screenHeight === 2388 ? 95 : 80
+    addButtonText = screenHeight === 2388 ? 95 : 80
     addButtonSize = "tablet"
-    multiSwitchMargin = 8
-    loginButtonText = 35
-    loginGenderText = 35
-    numberInputSize = 400
-    loginTitle = 45
-    barChartWidth = screenHeight === 2224 ? 379 : 347
-    scrollToAmt = screenHeight === 2224 ? 832 : 768
-    warnTitleButton = 40
-    warnBody = 30
+    multiSwitchMargin = screenHeight === 2388 ? 15 : 8
+    loginButtonText = screenHeight === 2388 ? 40 : 35
+    loginGenderText = screenHeight === 2388 ? 40 : 35
+    numberInputSize = screenHeight === 2388 ? 420 : 400
+    loginTitle = screenHeight === 2388 ? 50 : 45
+    barChartWidth = screenHeight === 2224 || 2388 ? 379 : 347
+    scrollToAmt = screenHeight === 2224 || 2388 ? 832 : 768
+    warnTitleButton = screenHeight === 2388 ? 45 : 40
+    warnBody = screenHeight === 2388 ? 35 : 30
 }
 else if (screenWidth > 1125) {
     console.log("greater than 1125")

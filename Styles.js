@@ -13,15 +13,15 @@ const styles = StyleSheet.create({
         borderRadius: 50, margin: 5
     },
     largebuzzheaderButton: {
-        height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
+        height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
         borderRadius: 50, margin: 5
     },
     largeplusminusButton: {
-        height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b',
+        height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b',
         borderRadius: 50, margin: 5
     },
     hiddenlargeplusminusButton: {
-        height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1",
+        height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1",
         borderRadius: 50, margin: 5
     },
     profilebreakbutton: {
