@@ -610,23 +610,23 @@ class BuzzScreen extends Component {
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
                                 <View style={{ flexDirection: 'column', padding: 10 }}>
-                                    <LineChart style={{ height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * 130 }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
+                                    <LineChart style={{ height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
-                                        <XAxis style={{ height: 30, width: values[0].length * 130 }} data={values[0]} contentInset={{ left: 30, right: 40 }}
+                                        <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} contentInset={{ left: 30, right: 40 }}
                                             formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
                                             svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
-                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * 130, left: 10, top: 10 }} gridMin={0}
+                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
                                         data={values[1]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
                                         svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>
                                     </LineChart>
                                     <LineChart
-                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * 130, left: 10, top: 10 }} gridMin={0}
+                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
                                         data={values[9]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
                                         svg={{ stroke: "#000000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [16, 8], strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>

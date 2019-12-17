@@ -407,10 +407,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 16
     warnBody = 13
 }
-else if (screenWidth === 1536 && screenHeight === 2048) {
+else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224) {
     console.log("ipad 9.7")
-    gaugeSize = 660
-    bacTextSize = 60
+    gaugeSize = screenHeight === 2224 ? 775 : 660
+    bacTextSize = screenHeight === 2224 ? 75 : 60
     alcTypeSize = 120
     alcTypeText = 60
     abvText = 35
@@ -426,8 +426,8 @@ else if (screenWidth === 1536 && screenHeight === 2048) {
     loginGenderText = 35
     numberInputSize = 400
     loginTitle = 45
-    barChartWidth = 347
-    scrollToAmt = 768
+    barChartWidth = screenHeight === 2224 ? 379 : 347
+    scrollToAmt = screenHeight === 2224 ? 832 : 768
     warnTitleButton = 40
     warnBody = 30
 }
