@@ -1,4 +1,5 @@
 import { StyleSheet, Platform } from "react-native"
+import { addButtonSize } from "./Variables"
 
 var amount = Platform.OS === 'android' ? 10 : 0
 
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         borderRadius: 50, padding: 2
     },
     buzzbutton: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15
+        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15, alignItems: 'center', justifyContent: 'center', marginTop: addButtonSize === "tablet" ? 10 : 0, marginBottom: addButtonSize === "tablet" ? 10 : 0
     },
     profileSetting: {
         backgroundColor: "#00897b", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
     modalTextAdvice: { fontSize: 18, textAlign: "center", padding: 8 },
     spaceAroundView: { flexDirection: "row", justifyContent: "space-around" },
     endView: { flexDirection: "row", justifyContent: "flex-end" },
+    centerView: { flexDirection: "row", justifyContent: "space-around" },
     buzzInfo: { backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 },
     buzzbuttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
     logincontainer: { flex: 1 },

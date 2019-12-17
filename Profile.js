@@ -12,7 +12,7 @@ import FontIcon from 'react-native-vector-icons/FontAwesome';
 import {
     namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
-    limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey, logskey, maxreckey
+    limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey, logskey, maxreckey, addButtonSize
 } from "./Variables";
 
 var numberInputSize = Dimensions.get('window').width * PixelRatio.get() < 750 ? 125 : 150
@@ -175,10 +175,10 @@ class ProfileScreen extends Component {
                         <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={styles.endView}>
+                        <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Happy Hour</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch accessibilityLabel="hhswitch" trackColor={{ true: "#26a69a" }} value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
+                            <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} accessibilityLabel="hhswitch" trackColor={{ true: "#26a69a" }} value={this.state.happyhour} onChange={() => this.handleSwitches("happyhour", happyhourkey, "sethappyhour")} /></View>
                             {this.state.happyhour === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("sethappyhour")}>
@@ -205,10 +205,10 @@ class ProfileScreen extends Component {
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={styles.endView}>
+                        <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Custom Break</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey, "setcustombreak")} /></View>
+                            <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.custombreak} onChange={() => this.handleSwitches("custombreak", custombreakkey, "setcustombreak")} /></View>
                             {this.state.custombreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("setcustombreak")}>
@@ -266,8 +266,8 @@ class ProfileScreen extends Component {
                             </View>}
                             {this.state.break === false && <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 15 }}>
                                 <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Indefinite Break</Text>
-                                <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                    <Switch trackColor={{ true: "#26a69a" }} value={this.state.indefbreak} onChange={() => this.handleSwitches("indefbreak", indefbreakkey)} /></View></View>}
+                                <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                    <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.indefbreak} onChange={() => this.handleSwitches("indefbreak", indefbreakkey)} /></View></View>}
                             {this.state.break === true && <View>
                                 <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 10 }}>You are taking a break until:</Text>
                                 <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 5, fontWeight: "bold" }}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text>
@@ -282,10 +282,10 @@ class ProfileScreen extends Component {
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={styles.endView}>
+                        <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Session Limits</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
+                            <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.limit} onChange={() => this.handleSwitches("limit", limitkey, "setlimit")} /></View>
                             {this.state.limit === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("setlimit")}>
@@ -315,10 +315,10 @@ class ProfileScreen extends Component {
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={styles.endView}>
+                        <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Last Call</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.lastcall} onChange={() => this.handleSwitches("lastcall", lastcallkey, "setlastcall")} /></View>
+                            <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.lastcall} onChange={() => this.handleSwitches("lastcall", lastcallkey, "setlastcall")} /></View>
                             {this.state.lastcall === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("setlastcall")}>
@@ -348,10 +348,10 @@ class ProfileScreen extends Component {
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={styles.endView}>
+                        <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Drink Pacer</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.pacer} onChange={() => this.handleSwitches("pacer", pacerkey, "setpacer")} /></View>
+                            <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.pacer} onChange={() => this.handleSwitches("pacer", pacerkey, "setpacer")} /></View>
                             {this.state.pacer === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("setpacer")}>
@@ -373,10 +373,10 @@ class ProfileScreen extends Component {
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={styles.endView}>
+                        <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Max Recommended</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.maxrec} onChange={() => this.handleSwitches("maxrec", maxreckey, "setmaxrec")} /></View>
+                            <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.maxrec} onChange={() => this.handleSwitches("maxrec", maxreckey, "setmaxrec")} /></View>
                             {this.state.maxrec === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("setmaxrec")}>
@@ -391,10 +391,10 @@ class ProfileScreen extends Component {
                         </View>}
                     </View>
                     <View style={styles.profileCards}>
-                        <View style={styles.endView}>
+                        <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Auto Break</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5 }}>
-                                <Switch trackColor={{ true: "#26a69a" }} value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
+                            <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
                             {this.state.autobreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
                                 <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
                                 : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("setautobreak")}>

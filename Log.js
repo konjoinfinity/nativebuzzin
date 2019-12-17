@@ -78,7 +78,7 @@ class LogScreen extends Component {
                 <View style={{ flexDirection: "column" }}>
                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 40 : 18, padding: 4, textAlign: "left", paddingTop: 10, width: Dimensions.get('window').width * 0.58 }}>{log.log}</Text>
                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 20 : 13, padding: 4, textAlign: "left" }}>{moment(log.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                <TouchableOpacity style={styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.deleteLogButtons} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.editloginput.focus() : setTimeout(() => this.editloginput.focus(), 10) })}><Icon name="file-document-edit-outline" color="#ffffff" size={addButtonSize === "tablet" ? 40 : 20} /></TouchableOpacity>
+                <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.deleteLogButtons]} onPress={() => this.setState({ editlogmodal: true, editlog: log.log, position: id, logselected: log }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.editloginput.focus() : setTimeout(() => this.editloginput.focus(), 10) })}><Icon name="file-document-edit-outline" color="#ffffff" size={addButtonSize === "tablet" ? 40 : 20} /></TouchableOpacity>
             </View>
             )
         }))

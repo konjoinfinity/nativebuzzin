@@ -425,7 +425,7 @@ else if (screenWidth === 1536 && screenHeight === 2048) {
     loginButtonText = 35
     loginGenderText = 35
     numberInputSize = 400
-    loginTitle = 50
+    loginTitle = 45
     barChartWidth = 347
     scrollToAmt = 768
     warnTitleButton = 40
