@@ -407,29 +407,31 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 16
     warnBody = 13
 }
-else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224 || screenWidth === 1668 && screenHeight === 2388) {
-    console.log("ipad 9.7/ipad pro 10.5/ipad pro 11")
-    gaugeSize = screenHeight === 2224 || 2388 ? 775 : 660
-    bacTextSize = screenHeight === 2224 || 2388 ? 75 : 60
-    alcTypeSize = screenHeight === 2388 ? 140 : 120
-    alcTypeText = screenHeight === 2388 ? 65 : 60
-    abvText = screenHeight === 2388 ? 40 : 35
-    abvSize = screenHeight === 2388 ? 95 : 80
-    abvWineText = screenHeight === 2388 ? 40 : 35
-    abvWineSize = screenHeight === 2388 ? 95 : 80
-    abvLiquorText = screenHeight === 2388 ? 40 : 35
-    abvLiquorSize = screenHeight === 2388 ? 95 : 80
-    addButtonText = screenHeight === 2388 ? 95 : 80
+else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224 || screenWidth === 1668 && screenHeight === 2388 || screenWidth === 2048 && screenHeight === 2732) {
+    console.log("ipad 9.7/ipad pro 10.5/ipad pro 11/12.9")
+    gaugeSize = screenHeight === 2224 || 2388 ? 775 : screenHeight === 2732 ? 800 : 660
+    bacTextSize = screenHeight === 2224 || 2388 ? 75 : screenHeight === 2732 ? 90 : 60
+    alcTypeSize = screenHeight === 2388 ? 140 : screenHeight === 2732 ? 160 : 120
+    alcTypeText = screenHeight === 2388 ? 65 : screenHeight === 2732 ? 75 : 60
+    abvText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
+    abvSize = screenHeight === 2388 ? 95 : screenHeight === 2732 ? 110 : 80
+    abvWineText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
+    abvWineSize = screenHeight === 2388 ? 95 : screenHeight === 2732 ? 110 : 80
+    abvLiquorText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
+    abvLiquorSize = screenHeight === 2388 ? 95 : screenHeight === 2732 ? 110 : 80
+    addButtonText = screenHeight === 2388 ? 95 : screenHeight === 2732 ? 110 : 80
     addButtonSize = "tablet"
-    multiSwitchMargin = screenHeight === 2388 ? 15 : 8
-    loginButtonText = screenHeight === 2388 ? 40 : 35
-    loginGenderText = screenHeight === 2388 ? 40 : 35
-    numberInputSize = screenHeight === 2388 ? 420 : 400
-    loginTitle = screenHeight === 2388 ? 50 : 45
-    barChartWidth = screenHeight === 2224 || 2388 ? 379 : 347
-    scrollToAmt = screenHeight === 2224 || 2388 ? 832 : 768
-    warnTitleButton = screenHeight === 2388 ? 45 : 40
-    warnBody = screenHeight === 2388 ? 35 : 30
+    multiSwitchMargin = screenHeight === 2388 ? 15 : screenHeight === 2732 ? 20 : 8
+    loginButtonText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
+    loginGenderText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
+    numberInputSize = screenHeight === 2388 ? 420 : screenHeight === 2732 ? 450 : 400
+    loginTitle = screenHeight === 2388 ? 50 : screenHeight === 2732 ? 60 : 45
+    // test render amount
+    barChartWidth = screenHeight === 2224 || 2388 ? 379 : screenHeight === 2732 ? 400 : 347
+    // test amount sidescrollto
+    scrollToAmt = screenHeight === 2224 || 2388 ? 832 : screenHeight === 2732 ? 900 : 768
+    warnTitleButton = screenHeight === 2388 ? 45 : screenHeight === 2732 ? 50 : 40
+    warnBody = screenHeight === 2388 ? 35 : screenHeight === 2732 ? 40 : 30
 }
 else if (screenWidth > 1125) {
     console.log("greater than 1125")
