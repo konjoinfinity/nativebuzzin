@@ -94,7 +94,10 @@ class InfoScreen extends Component {
                         <TouchableOpacity style={[styles.profilebutton, styles.dropShadow1]} onPress={() => { Linking.openURL('http://www.buzzin.io') }}>
                             <Text style={addButtonSize === "tablet" ? styles.largeButtonText : { textAlign: "center", color: "#ffffff" }}>Our Website</Text></TouchableOpacity>
                     </View>
-                </View >
+                    <Text style={[styles.profileLine, { paddingTop: 20 }]}>_________________________________________</Text>
+                    {/* Switch to 2020 for the new year */}
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { paddingTop: 10 }]}>buzzin Copyright © 2019</Text>
+                </View>
             </ScrollView >
         );
     }

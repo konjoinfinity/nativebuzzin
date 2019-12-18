@@ -409,8 +409,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 }
 else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224 || screenWidth === 1668 && screenHeight === 2388 || screenWidth === 2048 && screenHeight === 2732) {
     console.log("ipad 9.7/ipad pro 10.5/ipad pro 11/12.9")
-    gaugeSize = screenHeight === 2224 || 2388 ? 775 : screenHeight === 2732 ? 800 : 660
-    bacTextSize = screenHeight === 2224 || 2388 ? 75 : screenHeight === 2732 ? 90 : 60
+    gaugeSize = screenHeight === 2224 ? 775 : screenHeight === 2388 ? 775 : screenHeight === 2732 ? 800 : 660
+    bacTextSize = screenHeight === 2224 ? 75 : screenHeight === 2388 ? 75 : screenHeight === 2732 ? 90 : 60
     alcTypeSize = screenHeight === 2388 ? 140 : screenHeight === 2732 ? 160 : 120
     alcTypeText = screenHeight === 2388 ? 65 : screenHeight === 2732 ? 75 : 60
     abvText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
@@ -427,9 +427,9 @@ else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 &
     numberInputSize = screenHeight === 2388 ? 420 : screenHeight === 2732 ? 450 : 400
     loginTitle = screenHeight === 2388 ? 50 : screenHeight === 2732 ? 60 : 45
     // test render amount
-    barChartWidth = screenHeight === 2224 || 2388 ? 379 : screenHeight === 2732 ? 400 : 347
+    barChartWidth = screenHeight === 2224 ? 379 : screenHeight === 2388 ? 379 : screenHeight === 2732 ? 400 : 347
     // test amount sidescrollto
-    scrollToAmt = screenHeight === 2224 || 2388 ? 832 : screenHeight === 2732 ? 900 : 768
+    scrollToAmt = screenHeight === 2224 ? 832 : screenHeight === 2388 ? 832 : screenHeight === 2732 ? 900 : 768
     warnTitleButton = screenHeight === 2388 ? 45 : screenHeight === 2732 ? 50 : 40
     warnBody = screenHeight === 2388 ? 35 : screenHeight === 2732 ? 40 : 30
 }

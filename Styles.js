@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
         height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b',
         borderRadius: 50, margin: 5
     },
+    largeselectedPlusMinusButton: {
+        height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50, margin: 5
+    },
     hiddenlargeplusminusButton: {
         height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1",
         borderRadius: 50, margin: 5
