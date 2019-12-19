@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         borderRadius: 50, padding: 2
     },
     logButton: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 15,
+        height: 30, width: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 15,
         borderRadius: 50, padding: 2
     },
     largeinfoButton: {
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     modal2Card: { backgroundColor: "#ff5252", borderRadius: 15, marginTop: 25, marginLeft: 8, marginRight: 8, marginBottom: 8, padding: 8 },
     profileLine: { textAlign: "center", color: "#bdbdbd", paddingBottom: 10 },
     proNumericText: { color: "#000000", fontSize: 15, textAlign: "center", padding: 5 },
+    largeproNumericText: { color: "#000000", fontSize: 30, textAlign: "center", padding: 5 },
     buzzCard: { flexDirection: "column", backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 },
     buzzView: { flexDirection: "row", justifyContent: "space-evenly", margin: 10 },
     buzzMap: { flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 },

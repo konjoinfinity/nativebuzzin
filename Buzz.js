@@ -16,7 +16,7 @@ import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import {
     key, oldkey, loginTitle, loginButtonText, abvText, genderkey, barChartWidth, scrollToAmt, shotsStyle, alcTypeSize, alcValues,
     multiSwitchMargin, alcTypeText, abvSize, beerActive, abvLiquorSize, abvLiquorText, activeStyle, addButtonSize, addButtonText,
-    abvWineSize, abvWineText
+    abvWineSize, abvWineText, screenHeight, screenWidth
 } from "./Variables";
 
 var values;
