@@ -13,11 +13,8 @@ import ReactNativeHaptic from 'react-native-haptic';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,
-    abovePoint10, shotsStyle, loginTitle
+    abovePoint10, shotsStyle, loginTitle, screenHeight, screenWidth
 } from "./Variables";
-
-var screenWidth = Dimensions.get('window').width * PixelRatio.get()
-var screenHeight = Dimensions.get('window').height * PixelRatio.get()
 
 class DemoScreen extends Component {
     constructor(props) {

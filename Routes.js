@@ -5,7 +5,7 @@ import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
-import { View, Dimensions, PixelRatio, TouchableOpacity } from "react-native"
+import { View, TouchableOpacity } from "react-native"
 import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';
@@ -13,12 +13,14 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Ficon from 'react-native-vector-icons/Feather'
 import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LogScreen from "./Log"
+import { screenHeight, screenWidth } from "./Variables"
 
 var bottomPad = false;
-if (Dimensions.get('window').width * PixelRatio.get() === 828 && Dimensions.get('window').height * PixelRatio.get() === 1792) { bottomPad = true }
-if (Dimensions.get('window').width * PixelRatio.get() === 1125) { bottomPad = true }
-if (Dimensions.get('window').width * PixelRatio.get() === 1242 && Dimensions.get('window').height * PixelRatio.get() === 2688) { bottomPad = true }
-if (Dimensions.get('window').width * PixelRatio.get() === 1668 && Dimensions.get('window').height * PixelRatio.get() === 2388) { bottomPad = true }
+if (screenWidth === 1125) { bottomPad = true }
+if (screenWidth === 828 && screenHeight === 1792) { bottomPad = true }
+if (screenWidth === 1242 && screenHeight === 2688) { bottomPad = true }
+if (screenWidth === 1668 && screenHeight === 2388) { bottomPad = true }
+if (screenWidth === 2048 && screenHeight === 2732) { bottomPad = true }
 
 const AppStack = createStackNavigator({
     MyTab: {
@@ -68,7 +70,7 @@ const AppStack = createStackNavigator({
             headerStyle: { backgroundColor: '#80cbc4' },
             headerTitleStyle: {
                 color: "#ffffff", fontSize: 25, fontWeight: '400',
-                paddingTop: Dimensions.get('window').width * PixelRatio.get() === 1440 && Dimensions.get('window').height * PixelRatio.get() === 2792 ? 25 : 0
+                paddingTop: screenWidth === 1440 && screenHeight === 2792 ? 25 : 0
             },
             headerLeft: (<View style={{ flexDirection: "row" }}>
                 <TouchableOpacity accessibilityLabel="infobutton" style={[styles.infoButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>

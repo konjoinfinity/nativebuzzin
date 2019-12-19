@@ -18,7 +18,8 @@ import {
     genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, warnText, dangerText, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, abovePoint10, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
-    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody, warningkey
+    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody, warningkey,
+    screenHeight, screenWidth
 } from "./Variables";
 
 const CopilotView = walkthroughable(View);
@@ -410,13 +411,13 @@ class HomeScreen extends Component {
                     <ScrollView style={styles.modal1Card}>{warnText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.warnOkButton} onPress={() => { this.handleModal("modal1") }}>
-                                <Text style={styles.buttonText}>Ok</Text>
+                                <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Ok</Text>
                             </TouchableOpacity></View></ScrollView></Modal>
                 <Modal animationType="slide" transparent={false} visible={this.state.modal2}>
                     <ScrollView style={styles.modal2Card}>{dangerText}
                         <View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.dangerOkButton} onPress={() => { this.handleModal("modal2") }}>
-                                <Text style={styles.buttonText}>Ok</Text>
+                                <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Ok</Text>
                             </TouchableOpacity></View></ScrollView></Modal>
                 <Modal animationType="slide" transparent={false} visible={this.state.buzzmodal}>
                     <ScrollView>
@@ -508,7 +509,7 @@ class HomeScreen extends Component {
                                             </MultiSwitch>
                                         </View>}
                                 </View>
-                                <TouchableOpacity onPress={() => this.editBuzz()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : [styles.dropShadow2, styles.largeAddButton]}>
+                                <TouchableOpacity onPress={() => this.editBuzz()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : addButtonSize === "tablet" && screenWidth === 2048 && screenHeight === 2732 ? [styles.dropShadow2, styles.xlargeAddButton] : [styles.dropShadow2, styles.largeAddButton]}>
                                     <Text style={{ color: "#000000", fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                             </View>
                             <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 10 }}>How Long Ago?</Text>
@@ -640,7 +641,7 @@ class HomeScreen extends Component {
                                     </View>
                                     <CopilotStep accessibilityLabel="3rdstep" text="Tap to add drinks with the selected options." order={3} name="add">
                                         <CopilotView accessibilityLabel="3rdstepview">
-                                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : [styles.dropShadow2, styles.largeAddButton]}>
+                                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : addButtonSize === "tablet" && screenWidth === 2048 && screenHeight === 2732 ? [styles.dropShadow2, styles.xlargeAddButton] : [styles.dropShadow2, styles.largeAddButton]}>
                                                 <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                                         </CopilotView>
                                     </CopilotStep>
@@ -649,20 +650,20 @@ class HomeScreen extends Component {
                         </CopilotStep>}
                     {this.state.break === true && <View style={styles.cardView}>
                         {this.state.autobreak === true ?
-                            <View><Text style={{ color: "#000000", fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break. {this.state.timesince !== null && this.state.bac === 0 && "It's been:"}</Text>{this.state.timesince !== null && this.state.bac === 0 &&
+                            <View><Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 5 }}>You are taking a break. {this.state.timesince !== null && this.state.bac === 0 && "It's been:"}</Text>{this.state.timesince !== null && this.state.bac === 0 &&
                                 <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ color: "#000000", fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}</View> :
-                            <View><Text style={{ color: "#000000", fontSize: 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
+                            <View><Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                                 <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text></View>}
                         <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("br")}>
-                            <Text style={styles.buttonText}>Cancel Break</Text>
+                            <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Break</Text>
                         </TouchableOpacity>
                     </View>}
                     {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhour === true && this.state.happyhourtime !== "" &&
                         <View style={styles.cardView}>
-                            <Text style={{ color: "#000000", fontSize: 22, textAlign: "center", padding: 15 }}>No drinks until:</Text>
-                            <Text style={{ color: "#000000", fontSize: 22, textAlign: "center", padding: 15, fontWeight: "bold" }}>Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 15 }}>Daily break until:</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 15, fontWeight: "bold" }}>Happy Hour at {this.state.hhhour === 16 ? "4pm" : this.state.hhhour === 17 ? "5pm" : this.state.hhhour === 18 ? "6pm" : this.state.hhhour === 19 ? "7pm" : "8pm"}</Text>
                             <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("hh")}>
-                                <Text style={styles.buttonText}>Cancel Happy Hour</Text>
+                                <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Happy Hour</Text>
                             </TouchableOpacity>
                         </View>}
                     {this.state.indefbreak === true &&
@@ -671,60 +672,60 @@ class HomeScreen extends Component {
                             {this.state.timesince !== null && this.state.bac === 0 &&
                                 <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ color: "#000000", fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
                             <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("ib")}>
-                                <Text style={styles.buttonText}>Cancel Break</Text>
+                                <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
                         </View>}
                     {this.state.bac > 0.10 && <View style={styles.cardView}>
                         {abovePoint10}
                         {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
+                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === "tablet" ? styles.largeUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
                                     <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>
                             </View>}
                     </View>}
                     {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) && this.state.bac < 0.10 && this.state.showpacer === false &&
                         <View style={styles.cardView}>
-                            <Text style={{ color: "#000000", fontSize: 18, textAlign: "center", padding: 5 }}>You have reached your:</Text>
-                            {this.state.bac > this.state.limitbac && <Text style={{ color: "#000000", fontSize: 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>BAC Limit - {this.state.limitbac}</Text>}
-                            {this.state.buzzes.length >= this.state.drinks && <Text style={{ color: "#000000", fontSize: 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && "& "} Set Drink Limit - {this.state.drinks}</Text>}
-                            <Text style={{ color: "#000000", fontSize: 18, textAlign: "center", padding: 5 }}>Until your BAC reaches 0.0, stop drinking and have some water.</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>You have reached your:</Text>
+                            {this.state.bac > this.state.limitbac && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>BAC Limit - {this.state.limitbac}</Text>}
+                            {this.state.buzzes.length >= this.state.drinks && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && "& "} Set Drink Limit - {this.state.drinks}</Text>}
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>Until your BAC reaches 0.0, stop drinking and have some water.</Text>
                             {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                    <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
+                                    <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === "tablet" ? styles.largeUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
                                         <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                     </TouchableOpacity>
                                 </View> : <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("sl")}>
-                                    <Text style={styles.buttonText}>Cancel Set Limit</Text>
+                                    <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Set Limit</Text>
                                 </TouchableOpacity>}
                         </View>}
                     {this.state.lastcall === true && this.showLastCall() === true && this.state.bac < 0.10 && this.state.showpacer === false &&
                         <View style={styles.cardView}>
-                            <Text style={{ color: "#000000", fontSize: 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
-                            <Text style={{ color: "#000000", fontSize: 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
                             <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("lc")}>
-                                <Text style={styles.buttonText}>Cancel Last Call</Text>
+                                <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Last Call</Text>
                             </TouchableOpacity>
                         </View>}
                     {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
-                        <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 15 }}>Drink Pacer</Text>
-                        <CountDown size={abvText + 6} until={this.state.pacertime} onFinish={() => this.countDownFinished()}
+                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? abvText + 27 : abvText, textAlign: "center", padding: 15, fontWeight: addButtonSize === "tablet" ? "400" : "normal" }}>Drink Pacer</Text>
+                        <CountDown size={addButtonSize === "tablet" ? abvText + 27 : abvText + 6} until={this.state.pacertime} onFinish={() => this.countDownFinished()}
                             digitStyle={{ backgroundColor: "#e0f2f1", borderWidth: 2, borderColor: "#00897b" }}
                             digitTxtStyle={{ color: "#00897b" }} separatorStyle={{ color: "#00897b" }}
                             timeToShow={this.state.pacertime === 3600 ? ['H', 'M', 'S'] : ['M', 'S']} timeLabels={{ m: null, s: null }} showSeparator />
                         {this.checkLastDrink() === true ?
                             <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
+                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === "tablet" ? styles.largeUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
                                     <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                 </TouchableOpacity>
                             </View> : <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("pc")}>
-                                <Text style={styles.buttonText}>Cancel Pacer</Text>
+                                <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Pacer</Text>
                             </TouchableOpacity>}
                     </View>}
                     {this.checkMaxRec() === true &&
                         <View style={styles.cardView}>
-                            <Text style={{ color: "#000000", fontSize: 22, textAlign: "center", padding: 10 }}>You have reached the max recommended {maxRecValues[5] > maxRecValues[7] && maxRecValues[6] > maxRecValues[8] ? "weekly and monthly" : maxRecValues[5] > maxRecValues[7] === true && maxRecValues[6] > maxRecValues[8] === false ? "weekly" : "monthly"} limit.</Text>
-                            <Text style={{ color: "#000000", fontSize: 22, textAlign: "center", padding: 10 }}>Please condiser taking a break.</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>You have reached the max recommended {maxRecValues[5] > maxRecValues[7] && maxRecValues[6] > maxRecValues[8] ? "weekly and monthly" : maxRecValues[5] > maxRecValues[7] === true && maxRecValues[6] > maxRecValues[8] === false ? "weekly" : "monthly"} limit.</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>Please condiser taking a break.</Text>
                             {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                     <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
