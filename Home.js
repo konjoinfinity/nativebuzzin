@@ -708,8 +708,8 @@ class HomeScreen extends Component {
                             </TouchableOpacity>
                         </View>}
                     {this.state.buzzes.length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
-                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? abvText + 27 : abvText, textAlign: "center", padding: 15, fontWeight: addButtonSize === "tablet" ? "400" : "normal" }}>Drink Pacer</Text>
-                        <CountDown size={addButtonSize === "tablet" ? abvText + 27 : abvText + 6} until={this.state.pacertime} onFinish={() => this.countDownFinished()}
+                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? abvText + 20 : abvText, textAlign: "center", padding: 15, fontWeight: addButtonSize === "tablet" ? "400" : "normal" }}>Drink Pacer</Text>
+                        <CountDown size={addButtonSize === "tablet" ? abvText + 20 : abvText + 6} until={this.state.pacertime} onFinish={() => this.countDownFinished()}
                             digitStyle={{ backgroundColor: "#e0f2f1", borderWidth: 2, borderColor: "#00897b" }}
                             digitTxtStyle={{ color: "#00897b" }} separatorStyle={{ color: "#00897b" }}
                             timeToShow={this.state.pacertime === 3600 ? ['H', 'M', 'S'] : ['M', 'S']} timeLabels={{ m: null, s: null }} showSeparator />

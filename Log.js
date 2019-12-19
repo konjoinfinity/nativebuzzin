@@ -18,8 +18,9 @@ class LogScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            headerTitle: (<View><Text style={{ color: "#ffffff", fontSize: 25, textAlign: "center", fontWeight: '400' }}>buzzin</Text></View>),
-            headerStyle: { backgroundColor: '#80cbc4' }
+            headerTitle: (<View><Text style={{ color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 25, textAlign: "center", fontWeight: '400' }}>buzzin</Text></View>),
+            headerStyle: { backgroundColor: '#80cbc4', height: Dimensions.get('window').height * 0.066 },
+            headerBackTitleStyle: { fontSize: addButtonSize === "tablet" ? 30 : 25 }
         };
     }
 

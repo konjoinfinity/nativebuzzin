@@ -258,7 +258,7 @@ class DemoScreen extends Component {
                                             </MultiSwitch>
                                         </View>}
                                 </View>
-                                <TouchableOpacity onPress={() => this.editTestBuzz()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : [styles.dropShadow2, styles.largeAddButton]}>
+                                <TouchableOpacity onPress={() => this.editTestBuzz()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : addButtonSize === "tablet" && screenWidth === 2048 && screenHeight === 2732 ? [styles.dropShadow2, styles.xlargeAddButton] : [styles.dropShadow2, styles.largeAddButton]}>
                                     <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                             </View>
                             <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 10 }}>How Long Ago?</Text>
@@ -403,7 +403,7 @@ class DemoScreen extends Component {
                                         </MultiSwitch>
                                     </View>}
                             </View>
-                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : [styles.dropShadow2, styles.largeAddButton]}>
+                            <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : addButtonSize === "tablet" && screenWidth === 2048 && screenHeight === 2732 ? [styles.dropShadow2, styles.xlargeAddButton] : [styles.dropShadow2, styles.largeAddButton]}>
                                 <Text style={{ color: "#000000", fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                         </View>
                     </View>}

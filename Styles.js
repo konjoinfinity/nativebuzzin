@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     xlargeAddButton: {
-        borderRadius: 150, backgroundColor: "#1de9b6", height: 300, width: 300, margin: 5, alignItems: 'center',
+        borderRadius: 150, backgroundColor: "#1de9b6", height: 250, width: 250, margin: 5, alignItems: 'center',
         justifyContent: 'center'
     },
     smallUndoButton: {
@@ -94,7 +94,15 @@ const styles = StyleSheet.create({
         borderRadius: 50, padding: 2
     },
     logButton: {
-        height: 30, width: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 15,
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 15,
+        borderRadius: 50, padding: 2
+    },
+    largeinfoButton: {
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginLeft: 25,
+        borderRadius: 50, padding: 2
+    },
+    largelogButton: {
+        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 25,
         borderRadius: 50, padding: 2
     },
     buzzbutton: {
