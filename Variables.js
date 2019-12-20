@@ -3,20 +3,20 @@ import { Dimensions, PixelRatio, View, Text, Linking } from 'react-native';
 import styles from "./Styles"
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
-console.log(screenWidth + " x " + screenHeight)
+// console.log(screenWidth + " x " + screenHeight)
 
 // if (PixelRatio.get() === 1) {
-//     console.log("mdpi")
+//     // console.log("mdpi")
 // } else if (PixelRatio.get() === 1.5) {
-//     console.log("hdpi");
+//     // console.log("hdpi");
 // } else if (PixelRatio.get() === 2) {
-//     console.log("xhdpi");
+//     // console.log("xhdpi");
 // } else if (PixelRatio.get() === 3) {
-//     console.log("xxhdpi");
+//     // console.log("xxhdpi");
 // } else if (PixelRatio.get() === 3.5) {
-//     console.log("xxxhdpi");
+//     // console.log("xxxhdpi");
 // } else if (PixelRatio.get() === 4) {
-//     console.log("xxxhdpi");
+//     // console.log("xxxhdpi");
 // }
 
 var gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
@@ -47,7 +47,7 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
 // add metric key value for usage across the app (oz and ml) load on each screen mount (first update once in both appstores)
 
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
-    console.log("480x854/800")
+    // console.log("480x854/800")
     gaugeSize = 440
     bacTextSize = 30
     alcTypeSize = 75
@@ -70,7 +70,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 21
     warnBody = 18
 } else if (screenWidth <= 600) {
-    console.log("less than 600")
+    // console.log("less than 600")
     gaugeSize = 230
     bacTextSize = 13
     alcTypeSize = 38
@@ -93,7 +93,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 12
     warnBody = 9
 } else if (screenWidth === 720 && screenHeight === 1280) {
-    console.log("720x1280")
+    // console.log("720x1280")
     gaugeSize = 320
     bacTextSize = 20
     alcTypeSize = 60
@@ -116,7 +116,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 16
     warnBody = 13
 } else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
-    console.log("greater than 600 & less than 750")
+    // console.log("greater than 600 & less than 750")
     gaugeSize = 295
     bacTextSize = 20
     alcTypeSize = 50
@@ -144,7 +144,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 13
     warnBody = 10
 } else if (screenWidth === 1080 && screenHeight === 1920) {
-    console.log("1080 x 1920" + " galaxy s5")
+    // console.log("1080 x 1920" + " galaxy s5")
     gaugeSize = 295
     bacTextSize = 18
     alcTypeSize = 52
@@ -167,7 +167,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 13
     warnBody = 10
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
-    console.log("768 or equal to 1080 x 1776")
+    // console.log("768 or equal to 1080 x 1776")
     gaugeSize = 300
     bacTextSize = 20
     alcTypeSize = 50
@@ -195,7 +195,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 13
     warnBody = 10
 } else if (screenWidth >= 750 && screenWidth < 828) {
-    console.log("greater or equal to 750 & less than 828")
+    // console.log("greater or equal to 750 & less than 828")
     gaugeSize = 350
     bacTextSize = 30
     alcTypeSize = 64
@@ -218,7 +218,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 17
     warnBody = 14
 } else if (screenWidth === 828 || screenWidth === 1242 && screenHeight === 2688) {
-    console.log("828 or 1242 x 2688")
+    // console.log("828 or 1242 x 2688")
     gaugeSize = 390
     bacTextSize = 35
     alcTypeSize = 70
@@ -241,7 +241,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 24
     warnBody = 20
 } else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
-    console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
+    // console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
     gaugeSize = 380
     bacTextSize = 30
     alcTypeSize = 70
@@ -269,7 +269,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 20
     warnBody = 17
 } else if (screenWidth === 1080 && screenHeight === 2028) {
-    console.log("1080 x 2028")
+    // console.log("1080 x 2028")
     gaugeSize = 365
     bacTextSize = 30
     alcTypeSize = 70
@@ -292,7 +292,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 18
     warnBody = 15
 } else if (screenWidth === 1125) {
-    console.log("1125")
+    // console.log("1125")
     gaugeSize = 350
     bacTextSize = 30
     alcTypeSize = 64
@@ -315,7 +315,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 22
     warnBody = 19
 } else if (screenWidth === 1242) {
-    console.log("1242")
+    // console.log("1242")
     gaugeSize = 390
     bacTextSize = 30
     alcTypeSize = 70
@@ -338,7 +338,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 20
     warnBody = 18
 } else if (screenWidth === 1440 && screenHeight === 2896 || screenWidth === 1440 && screenHeight === 2816) {
-    console.log("1440x2896/2816")
+    // console.log("1440x2896/2816")
     gaugeSize = 455
     bacTextSize = 40
     alcTypeSize = 80
@@ -361,7 +361,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 23
     warnBody = 20
 } else if (screenWidth === 1440 && screenHeight === 2768) {
-    console.log("1440x2768")
+    // console.log("1440x2768")
     gaugeSize = 335
     bacTextSize = 25
     alcTypeSize = 62
@@ -384,7 +384,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 18
     warnBody = 15
 } else if (screenWidth === 1440 && screenHeight !== 2712) {
-    console.log("1440")
+    // console.log("1440")
     gaugeSize = 390
     bacTextSize = 25
     alcTypeSize = 70
@@ -408,7 +408,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnBody = 13
 }
 else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224 || screenWidth === 1668 && screenHeight === 2388 || screenWidth === 2048 && screenHeight === 2732) {
-    console.log("ipad 9.7/ipad pro 10.5/ipad pro 11/12.9")
+    // console.log("ipad 9.7/ipad pro 10.5/ipad pro 11/12.9")
     gaugeSize = screenHeight === 2224 ? 735 : screenHeight === 2388 ? 765 : screenHeight === 2732 ? 910 : 630
     bacTextSize = screenHeight === 2224 ? 60 : screenHeight === 2388 ? 70 : screenHeight === 2732 ? 85 : 50
     alcTypeSize = screenHeight === 2388 ? 130 : screenHeight === 2732 ? 150 : 110
@@ -432,7 +432,7 @@ else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 &
     warnBody = screenHeight === 2388 ? 30 : screenHeight === 2732 ? 35 : 25
 }
 else if (screenWidth > 1125) {
-    console.log("greater than 1125")
+    // console.log("greater than 1125")
     gaugeSize = 390
     bacTextSize = 25
     alcTypeSize = 75
@@ -455,7 +455,7 @@ else if (screenWidth > 1125) {
     warnTitleButton = 20
     warnBody = 18
 } else {
-    console.log("other size")
+    // console.log("other size")
     gaugeSize = 350
     bacTextSize = 28
     alcTypeSize = 65
