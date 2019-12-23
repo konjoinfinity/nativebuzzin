@@ -159,17 +159,17 @@ export class Functions {
     }
 
     static bacEmotion(bac) {
-        if (bac > 0.00 && bac < 0.01) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😊" : "🙂"] }
-        else if (bac >= 0.01 && bac < 0.02) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "☺️" : "😊"] }
-        else if (bac >= 0.02 && bac < 0.03) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😀" : "☺️"] }
-        else if (bac >= 0.03 && bac < 0.04) { return ["teal", "😃"] }
-        else if (bac >= 0.04 && bac < 0.05) { return ["teal", "😄"] }
-        else if (bac >= 0.05 && bac < 0.06) { return ["teal", "😆"] }
-        else if (bac >= 0.06 && bac < 0.07) { return ["white", "😝"] }
-        else if (bac >= 0.07 && bac < 0.08) { return ["white", "😜"] }
-        else if (bac >= 0.08 && bac < 0.09) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😋" : "🤪"] }
-        else if (bac >= 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😅" : "🥴"] }
-        else if (bac >= 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? "😵" : "🤮"] }
+        if (bac > 0.00 && bac < 0.01) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😊' : '🙂'] }
+        else if (bac >= 0.01 && bac < 0.02) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '☺️' : '😊'] }
+        else if (bac >= 0.02 && bac < 0.03) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😀' : '☺️'] }
+        else if (bac >= 0.03 && bac < 0.04) { return ["teal", '😃'] }
+        else if (bac >= 0.04 && bac < 0.05) { return ["teal", '😄'] }
+        else if (bac >= 0.05 && bac < 0.06) { return ["teal", '😆'] }
+        else if (bac >= 0.06 && bac < 0.07) { return ["white", '😝'] }
+        else if (bac >= 0.07 && bac < 0.08) { return ["white", '😜'] }
+        else if (bac >= 0.08 && bac < 0.09) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😋' : '🤪'] }
+        else if (bac >= 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😅' : '🥴'] }
+        else if (bac >= 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😵' : '🤮'] }
     }
 
     static timeSince(recent, type) {
