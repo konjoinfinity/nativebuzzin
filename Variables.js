@@ -497,7 +497,7 @@ const abovePoint10 = (<View><Text style={{ color: "#000000", fontSize: abvText, 
     <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text></View>)
 
 const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 3, textAlign: "center", padding: 5, fontWeight: "bold" }}>Welcome to buzzin!</Text>
-    <Text style={{ color: "#000000", fontSize: abvText + 2, textAlign: "center", padding: 10 }}>Disclaimer</Text>
+    <Text style={{ color: "#000000", fontSize: abvText + 4, textAlign: "center", padding: 10 }}>Disclaimer</Text>
     <Text style={{ color: "#000000", fontSize: abvText - 1, textAlign: "center", padding: 10 }}>The Blood Alcohol Content (BAC) calculations displayed in buzzin
     are not 100% accurate.  buzzin is designed to give users a general estimate based on their entered weight and gender.  All user data entered into the app is
     stored locally on each individual device, no user data is stored externally by buzzin. This app is designed to track and reduce personal alcoholic consumption

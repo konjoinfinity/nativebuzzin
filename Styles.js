@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     buzzInfo: { backgroundColor: "#e0f2f1", borderRadius: 15, marginBottom: 10, marginLeft: 10, marginRight: 10, padding: 10 },
     buzzbuttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
     logincontainer: { flex: 1 },
-    loginheader: { textAlign: "center", margin: 10 },
+    loginheader: { textAlign: "center", margin: 8 },
     logininputContainer: { paddingTop: 15 },
     logintextInput: { color: "#000000", borderColor: "#CCCCCC", borderWidth: 1, height: 50, paddingLeft: 20, paddingRight: 20, borderRadius: 15, textAlign: "center" },
     logindisagreeButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
