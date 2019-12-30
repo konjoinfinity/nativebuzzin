@@ -499,9 +499,7 @@ const abovePoint10 = (<View><Text style={{ color: "#000000", fontSize: abvText, 
 const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 3, textAlign: "center", padding: 5, fontWeight: "bold" }}>Welcome to buzzin!</Text>
     <Text style={{ color: "#000000", fontSize: abvText + 4, textAlign: "center", padding: 10 }}>Disclaimer</Text>
     <Text style={{ color: "#000000", fontSize: abvText - 1, textAlign: "center", padding: 10 }}>The Blood Alcohol Content (BAC) calculations displayed in buzzin
-    are not 100% accurate.  buzzin is designed to give users a general estimate based on their entered weight and gender.  All user data entered into the app is
-    stored locally on each individual device, no user data is stored externally by buzzin. This app is designed to track and reduce personal alcoholic consumption
-    habits over time using moderation.  Enjoy!</Text>
+    are <Text style={{ textDecorationLine: "underline", fontWeight: "bold" }}>not 100% accurate.</Text>  buzzin is designed to give users a general estimate based on their entered weight and gender.  All data entered is stored locally, <Text style={{ textDecorationLine: "underline", fontWeight: "bold" }}>buzzin does not keep personal data.</Text>  This app is designed to track and reduce personal alcoholic consumption habits over time using moderation.  Enjoy!</Text>
     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 10 }}>By pressing Agree, the user agrees to buzzin’s:</Text>
     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", paddingBottom: 25 }}>
         <Text style={{ color: "blue" }} onPress={() => { Linking.openURL('http://buzzin.io/privacy-policy.html') }}>Privacy Policy </Text>and
