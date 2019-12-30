@@ -668,7 +668,10 @@ class BuzzScreen extends Component {
                         {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                     </View>}
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
-                        <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
+                            <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, { marginTop: 5 }]} onPress={() => this.addOldModal()}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity>
+                        </View>
                     </View>}
                 </ScrollView>
             </View >
