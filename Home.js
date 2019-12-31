@@ -149,6 +149,7 @@ class HomeScreen extends Component {
         setTimeout(() => {
             this.saveBuzz();
             this.flashWarning();
+            // Create fun messages ex. Whoa Nellie! You're drunk! You might want to chill for a bit.
             if (this.state.bac > 0.04 && this.state.bac < 0.06) { ReactNativeHaptic.generate('notification'); AlertHelper.show("success", "Buzzed", "You are now buzzed, drink water.") }
             if (this.state.bac > 0.06 && this.state.bac < 0.07) { ReactNativeHaptic.generate('notificationSuccess'); AlertHelper.show("warn", "Slow Down", "Please take a break and drink some water.") }
             if (this.state.bac > 0.07 && this.state.bac < 0.08) { ReactNativeHaptic.generate('notificationWarning'); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
@@ -534,7 +535,7 @@ class HomeScreen extends Component {
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <CopilotStep accessibilityLabel="1ststep" text="This gauge and readout both display your estimated BAC in real time." order={1} name="gauge">
                             <CopilotView accessibilityLabel="1ststepview" style={{ alignSelf: "center" }}>
-                                {this.state.bac > 0.06 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>WARNING              STOP              DRINKING</Text>
+                                {this.state.bac > 0.06 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>DRINK                            WATER</Text>
                                     : maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        BACK</Text></Text> : <View />}
                                 <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
                                 {(this.state.bac === 0 || this.state.bac === undefined) &&
