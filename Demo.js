@@ -306,7 +306,7 @@ class DemoScreen extends Component {
                         {this.state.bac > 0.00 && <View style={styles.spaceAroundView}><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}>{this.state.gender} </Text>
                             <View style={[styles.dropShadow2, addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
                                 <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>}
-                        <Text style={{ fontSize: loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*Estimated Blood Alcohol Content (BAC)</Text>
+                        <Text style={{ fontSize: addButtonSize === "tablet" ? 16 : loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*Estimated Blood Alcohol Content (BAC)</Text>
                     </View>
                     {this.state.bac < 0.10 && <View style={styles.cardView}>
                         <View style={[styles.multiSwitchViews, { paddingBottom: 10, flexDirection: "row", justifyContent: "space-between" }]}>

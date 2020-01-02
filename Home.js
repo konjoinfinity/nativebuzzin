@@ -543,7 +543,7 @@ class HomeScreen extends Component {
                                 {this.state.bac > 0.00 && <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                     <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text>
                                 </View>}
-                                <Text style={{ fontSize: loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*Estimated Blood Alcohol Content (BAC)</Text>
+                                <Text style={{ fontSize: addButtonSize === "tablet" ? loginTitle - 44 : loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*Estimated Blood Alcohol Content (BAC)</Text>
                             </CopilotView>
                         </CopilotStep>
                     </View>
@@ -732,9 +732,9 @@ class HomeScreen extends Component {
                         </View>}
                     {this.state.warn === true && this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhour === false &&
                         <View style={styles.cardView}>
-                            <Text style={{ color: "#000000", fontSize: warnTitleButton, textAlign: "center", padding: 4, fontWeight: "bold" }}>Warning</Text>
-                            <Text style={{ color: "#000000", fontSize: warnBody, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
-                            <Text style={{ color: "#000000", fontSize: warnBody, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
+                            <Text style={{ color: "#000000", fontSize: warnTitleButton - 1, textAlign: "center", padding: 4, fontWeight: "bold" }}>Warning</Text>
+                            <Text style={{ color: "#000000", fontSize: warnBody - 2, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
+                            <Text style={{ color: "#000000", fontSize: warnBody - 2, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
                             <TouchableOpacity style={[styles.dropShadow, styles.warningCard]} onPress={() => this.warnCardHandle()}>
                                 <Text style={{ color: "#FFFFFF", fontSize: warnTitleButton, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
