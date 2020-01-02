@@ -543,7 +543,7 @@ class HomeScreen extends Component {
                                 {this.state.bac > 0.00 && <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                     <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text>
                                 </View>}
-                                <Text style={{ fontSize: loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*Esitmated Blood Alcohol Content (BAC)</Text>
+                                <Text style={{ fontSize: loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*Estimated Blood Alcohol Content (BAC)</Text>
                             </CopilotView>
                         </CopilotStep>
                     </View>
