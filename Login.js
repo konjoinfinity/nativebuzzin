@@ -85,7 +85,7 @@ class LoginScreen extends React.Component {
                                 name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
                                 onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
-                        <Text style={{ fontSize: loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*All data entered is stored locally, buzzin does not keep personal data.</Text>
+                        <Text style={{ fontSize: loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*All data entered is stored locally on your phone, buzzin does not collect personal data.</Text>
                         <Text style={{ fontSize: loginTitle - 2, paddingTop: 15, color: "#000000", alignSelf: "center" }}>Select Gender</Text>
                         <View style={{ paddingTop: 15, flexDirection: "row", justifyContent: "space-evenly" }}>
                             <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Female" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: 50, height: 100, width: 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Male")}><Ficon name="male" color="#ffffff" size={40} /><Text style={{ color: "#ffffff", fontSize: 20 }}>Male</Text></TouchableOpacity>

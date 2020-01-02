@@ -44,7 +44,7 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
     indefbreakkey = "indefbreak", limithourkey = "limithour", pacerkey = "pacer", pacertimekey = "pacertime",
     limitdatekey = "limitdate", lastcallkey = "lastcall", logskey = "logs", maxreckey = "maxrec", warningkey = "warning";
 
-// add metric key value for usage across the app (oz and ml) load on each screen mount (first update once in both appstores)
+// add metric key value for usage across the app (oz and ml) load on each screen mount
 
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     // console.log("480x854/800")
@@ -481,26 +481,27 @@ else if (screenWidth > 1125) {
 
 const warnText = (<View><Text style={styles.modalTextTitle}>Warning!</Text>
     <Text style={styles.modalTextBody}>Your BAC is now above the legal drinking limit in most states.</Text>
-    <Text style={styles.modalTextBody}>Please:</Text>
-    <Text style={[styles.modalTextAdvice, { fontWeight: "bold" }]}>Take a break from drinking.</Text>
-    <Text style={styles.modalTextAdvice}>Drink water.</Text>
+    <Text style={styles.modalTextBody}>Consider:</Text>
+    <Text style={[styles.modalTextAdvice, { fontWeight: "bold" }]}>Taking a break from drinking.</Text>
+    <Text style={styles.modalTextAdvice}>Drinking some water.</Text>
     <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
 
 const dangerText = (<View><Text style={styles.modalTextTitle}>Danger!</Text>
     <Text style={styles.modalTextBody}>Your BAC is well above the legal drinking limit.</Text>
-    <Text style={[styles.modalTextTitle, { fontSize: 25 }]}>STOP DRINKING!</Text>
+    <Text style={[styles.modalTextTitle, { fontSize: 25 }]}>Take a break from drinking!</Text>
     <Text style={styles.modalTextAdvice}>Drink water!</Text>
     <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
 
 const abovePoint10 = (<View><Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
     <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>
-    <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Until then, stop drinking and have some water.</Text></View>)
+    <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Until then, take a break and drink water.</Text></View>)
 
-const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 3, textAlign: "center", padding: 5, fontWeight: "bold" }}>Welcome to buzzin!</Text>
-    <Text style={{ color: "#000000", fontSize: abvText + 4, textAlign: "center", padding: 10 }}>Disclaimer</Text>
-    <Text style={{ color: "#000000", fontSize: abvText - 1, textAlign: "center", padding: 10 }}>The Blood Alcohol Content (BAC) calculations displayed in buzzin
-    are <Text style={{ textDecorationLine: "underline", fontWeight: "bold" }}>not 100% accurate.</Text>  buzzin is designed to give users a general estimate based on their entered weight and gender.  All data entered is stored locally, <Text style={{ textDecorationLine: "underline", fontWeight: "bold" }}>buzzin does not keep personal data.</Text>  This app is designed to track and reduce personal alcoholic consumption habits over time using moderation.  Enjoy!</Text>
-    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 10 }}>By pressing Agree, the user agrees to buzzin’s:</Text>
+const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 4, textAlign: "center", padding: 5, fontWeight: "bold" }}>Disclaimer</Text>
+    <Text style={{ color: "#000000", fontSize: abvText - 5, textAlign: "center", padding: 5 }}>Any information provided by this application is for entertainment purposes only. All information displayed should not be considered or construed as medical, legal, or lifestyle advice on any subject matter.
+One moderation function in this application estimates blood alcohol content (BAC) based on body weight and gender using information published by the National Institutes for Health (NIH).  Maximum recommended alcoholic consumption amounts are based on information provided by the Centers for Disease Control (CDC).  Actual BAC may be higher or lower than displayed in this app due to many factors including age, food consumption, medication, and hydration or dehydration levels.  These factors are not taken into account by this application when estimating BAC.
+People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before or after consuming any amount of alcohol.
+All data entered into buzzin is stored locally, buzzin does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
+    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 8 }}>By pressing Agree, the user agrees to buzzin’s:</Text>
     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", paddingBottom: 25 }}>
         <Text style={{ color: "blue" }} onPress={() => { Linking.openURL('http://buzzin.io/privacy-policy.html') }}>Privacy Policy </Text>and
     <Text style={{ color: "blue" }} onPress={() => { Linking.openURL('http://buzzin.io/terms-of-service.html') }}> Terms of Service.</Text></Text></View>)
