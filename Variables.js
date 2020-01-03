@@ -305,7 +305,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     abvLiquorSize = 45
     addButtonText = 40
     addButtonSize = false
-    multiSwitchMargin = 20
+    multiSwitchMargin = 15
     loginButtonText = 23
     loginGenderText = 26
     numberInputSize = 260
