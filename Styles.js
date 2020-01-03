@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
         borderRadius: 50
     },
     plusMinusButtons: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50
+        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50
     },
     selectedPlusMinusButton: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50
+        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50
     },
     multiSwitchViews: {
         opacity: Platform.OS === 'android' ? 0.9 : 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 },
