@@ -407,10 +407,10 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     warnTitleButton = 16
     warnBody = 13
 }
-else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224 || screenWidth === 1668 && screenHeight === 2388 || screenWidth === 2048 && screenHeight === 2732) {
+else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224 || screenWidth === 1668 && screenHeight === 2388 || screenWidth === 2048 && screenHeight === 2732 || screenWidth === 1620 && screenHeight === 2160) {
     // console.log("ipad 9.7/ipad pro 10.5/ipad pro 11/12.9")
-    gaugeSize = screenHeight === 2224 ? 735 : screenHeight === 2388 ? 765 : screenHeight === 2732 ? 910 : 630
-    bacTextSize = screenHeight === 2224 ? 60 : screenHeight === 2388 ? 70 : screenHeight === 2732 ? 85 : 50
+    gaugeSize = screenHeight === 2224 ? 730 : screenHeight === 2388 ? 760 : screenHeight === 2732 ? 905 : 625
+    bacTextSize = screenHeight === 2224 ? 55 : screenHeight === 2388 ? 65 : screenHeight === 2732 ? 80 : 45
     alcTypeSize = screenHeight === 2388 ? 130 : screenHeight === 2732 ? 150 : 110
     alcTypeText = screenHeight === 2388 ? 60 : screenHeight === 2732 ? 70 : 55
     abvText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
@@ -421,7 +421,7 @@ else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 &
     abvLiquorSize = screenHeight === 2388 ? 95 : screenHeight === 2732 ? 110 : 80
     addButtonText = screenHeight === 2388 ? 95 : screenHeight === 2732 ? 110 : 80
     addButtonSize = "tablet"
-    multiSwitchMargin = 3
+    multiSwitchMargin = 2
     loginButtonText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
     loginGenderText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
     numberInputSize = screenHeight === 2388 ? 420 : screenHeight === 2732 ? 450 : 400
@@ -497,7 +497,7 @@ const abovePoint10 = (<View><Text style={{ color: "#000000", fontSize: abvText, 
     <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Until then, take a break and drink water.</Text></View>)
 
 const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 4, textAlign: "center", padding: 5, fontWeight: "bold" }}>Disclaimer</Text>
-    <Text style={{ color: "#000000", fontSize: abvText - 5, textAlign: "center", padding: 5 }}>Any information provided by this application is for entertainment purposes only. All information displayed should not be considered or construed as medical, legal, or lifestyle advice on any subject matter.
+    <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? abvText - 18 : abvText - 5, textAlign: "center", padding: 5 }}>Any information provided by this application is for entertainment purposes only. All information displayed should not be considered or construed as medical, legal, or lifestyle advice on any subject matter.
 One moderation function in this application estimates blood alcohol content (BAC) based on body weight and gender using information published by the National Institutes for Health (NIH).  Maximum recommended alcoholic consumption amounts are based on information provided by the Centers for Disease Control (CDC).  Actual BAC may be higher or lower than displayed in this app due to many factors including age, food consumption, medication, and hydration or dehydration levels.  These factors are not taken into account by this application when estimating BAC.
 People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before or after consuming any amount of alcohol.
 All data entered into buzzin is stored locally, buzzin does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>

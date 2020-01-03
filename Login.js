@@ -8,7 +8,7 @@ import Ficon from 'react-native-vector-icons/Fontisto'
 import {
     namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
-    loginTitle, indefbreakkey, limithourkey, limitdatekey, pacerkey, pacertimekey, lastcallkey, amount, maxreckey, warningkey
+    loginTitle, indefbreakkey, limithourkey, limitdatekey, pacerkey, pacertimekey, lastcallkey, amount, maxreckey, warningkey, addButtonSize
 } from "./Variables";
 
 class LoginScreen extends React.Component {
@@ -81,15 +81,15 @@ class LoginScreen extends React.Component {
                         </Modal>
                         <Text style={[styles.loginheader, { color: "#000000", fontSize: loginTitle - 2 }]}>What is your name?</Text>
                         <View style={styles.logininputContainer}>
-                            <TextInput style={[styles.logintextInput, { fontSize: loginButtonText }]} placeholder="Name" placeholderTextColor="#777777"
+                            <TextInput style={[addButtonSize === "tablet" ? styles.largelogintextInput : styles.logintextInput, { fontSize: addButtonSize === "tablet" ? 50 : loginButtonText }]} placeholder="Name" placeholderTextColor="#777777"
                                 name="name" id="name" blurOnSubmit={true} value={this.state.name} ref={(input) => { this.nameinput = input }} onFocus={() => this.nameinput.focus()}
                                 onChangeText={(name) => this.setState({ name })} onSubmitEditing={() => Keyboard.dismiss()} returnKeyType={'done'} onBlur={() => { Keyboard.dismiss() }} />
                         </View>
-                        <Text style={{ fontSize: loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*All data entered is stored locally on your phone, buzzin does not collect personal data.</Text>
+                        <Text style={{ fontSize: addButtonSize === "tablet" ? loginTitle - 30 : loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*All data entered is stored locally on your phone, buzzin does not collect personal data.</Text>
                         <Text style={{ fontSize: loginTitle - 2, paddingTop: 15, color: "#000000", alignSelf: "center" }}>Select Gender</Text>
                         <View style={{ paddingTop: 15, flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Female" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: 50, height: 100, width: 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Male")}><Ficon name="male" color="#ffffff" size={40} /><Text style={{ color: "#ffffff", fontSize: 20 }}>Male</Text></TouchableOpacity>
-                            <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Male" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: 50, height: 100, width: 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Female")}><Ficon name="female" color="#ffffff" size={40} /><Text style={{ color: "#ffffff", fontSize: 20 }}>Female</Text></TouchableOpacity>
+                            <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Female" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: addButtonSize === "tablet" ? 100 : 50, height: addButtonSize === "tablet" ? 200 : 100, width: addButtonSize === "tablet" ? 200 : 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Male")}><Ficon name="male" color="#ffffff" size={addButtonSize === "tablet" ? 80 : 40} /><Text style={{ color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 20 }}>Male</Text></TouchableOpacity>
+                            <TouchableOpacity style={[styles.dropShadow2, { backgroundColor: this.state.gender === "Male" || this.state.gender === "" ? "#A8A8A8" : "#00897b", borderRadius: addButtonSize === "tablet" ? 100 : 50, height: addButtonSize === "tablet" ? 200 : 100, width: addButtonSize === "tablet" ? 200 : 100, margin: 5, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }]} onPress={() => this.switchGender("Female")}><Ficon name="female" color="#ffffff" size={addButtonSize === "tablet" ? 80 : 40} /><Text style={{ color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 20 }}>Female</Text></TouchableOpacity>
                         </View>
                         <View style={{ paddingTop: 20, alignItems: "center" }}>
                             <Text style={{ color: "#000000", fontSize: loginTitle - 2, textAlign: "center", paddingBottom: 20 }}>Enter Weight - lbs.</Text>
