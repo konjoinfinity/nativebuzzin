@@ -533,7 +533,7 @@ class HomeScreen extends Component {
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <CopilotStep accessibilityLabel="1ststep" text="View your current buzz." order={1} name="gauge">
+                        <CopilotStep accessibilityLabel="1ststep" text="Track your drinks." order={1} name="gauge">
                             <CopilotView accessibilityLabel="1ststepview" style={{ alignSelf: "center" }}>
                                 {this.state.bac > 0.06 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>DRINK                            WATER</Text>
                                     : maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        BACK</Text></Text> : <View />}

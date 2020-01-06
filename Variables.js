@@ -47,7 +47,7 @@ const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzze
 if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || screenWidth === 480 && screenHeight === 800 && PixelRatio.get() === 1) {
     console.log("480x854/800")
     gaugeSize = 440
-    bacTextSize = 30
+    bacTextSize = 40
     alcTypeSize = 75
     alcTypeText = 35
     abvText = 25
@@ -70,7 +70,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth <= 600) {
     console.log("less than 600")
     gaugeSize = 230
-    bacTextSize = 13
+    bacTextSize = 23
     alcTypeSize = 38
     alcTypeText = 13
     abvText = 11
@@ -93,7 +93,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 720 && screenHeight === 1280) {
     console.log("720x1280")
     gaugeSize = 320
-    bacTextSize = 20
+    bacTextSize = 30
     alcTypeSize = 60
     alcTypeText = 25
     abvText = 18
@@ -116,7 +116,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth > 600 && screenWidth < 750 || screenWidth === 1440 && screenHeight === 2368) {
     console.log("greater than 600 & less than 750")
     gaugeSize = 295
-    bacTextSize = 20
+    bacTextSize = 30
     alcTypeSize = 50
     alcTypeText = 20
     abvText = 15
@@ -144,7 +144,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 1080 && screenHeight === 1920) {
     console.log("1080 x 1920" + " galaxy s5")
     gaugeSize = 295
-    bacTextSize = 18
+    bacTextSize = 28
     alcTypeSize = 52
     alcTypeText = 23
     abvText = 14
@@ -167,7 +167,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 768 || screenWidth === 1080 && screenHeight === 1776) {
     console.log("768 or equal to 1080 x 1776")
     gaugeSize = 300
-    bacTextSize = 20
+    bacTextSize = 30
     alcTypeSize = 50
     alcTypeText = 20
     abvText = 15
@@ -218,7 +218,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 828 || screenWidth === 1242 && screenHeight === 2688) {
     console.log("828 or 1242 x 2688")
     gaugeSize = 390
-    bacTextSize = 35
+    bacTextSize = 45
     alcTypeSize = 70
     alcTypeText = 40
     abvText = 20
@@ -241,7 +241,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
     console.log("1440 x 2712/2792/2621/2416(s6 edge+)")
     gaugeSize = 380
-    bacTextSize = 30
+    bacTextSize = 40
     alcTypeSize = 70
     alcTypeText = 35
     abvText = 20
@@ -269,7 +269,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 1080 && screenHeight === 2028) {
     console.log("1080 x 2028")
     gaugeSize = 365
-    bacTextSize = 30
+    bacTextSize = 40
     alcTypeSize = 70
     alcTypeText = 30
     abvText = 18
@@ -292,7 +292,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 1125) {
     console.log("1125")
     gaugeSize = 350
-    bacTextSize = 30
+    bacTextSize = 40
     alcTypeSize = 64
     alcTypeText = 35
     abvText = 18
@@ -315,7 +315,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 1242) {
     console.log("1242")
     gaugeSize = 390
-    bacTextSize = 30
+    bacTextSize = 40
     alcTypeSize = 70
     alcTypeText = 30
     abvText = 18
@@ -338,7 +338,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 1440 && screenHeight === 2896 || screenWidth === 1440 && screenHeight === 2816) {
     console.log("1440x2896/2816")
     gaugeSize = 455
-    bacTextSize = 40
+    bacTextSize = 50
     alcTypeSize = 80
     alcTypeText = 45
     abvText = 25
@@ -361,7 +361,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 1440 && screenHeight === 2768) {
     console.log("1440x2768")
     gaugeSize = 335
-    bacTextSize = 25
+    bacTextSize = 35
     alcTypeSize = 62
     alcTypeText = 30
     abvText = 15
@@ -384,7 +384,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 } else if (screenWidth === 1440 && screenHeight !== 2712) {
     console.log("1440")
     gaugeSize = 390
-    bacTextSize = 25
+    bacTextSize = 35
     alcTypeSize = 70
     alcTypeText = 25
     abvText = 18
@@ -408,7 +408,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
 else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 && screenHeight === 2224 || screenWidth === 1668 && screenHeight === 2388 || screenWidth === 2048 && screenHeight === 2732 || screenWidth === 1620 && screenHeight === 2160) {
     console.log("ipad 9.7/ipad pro 10.5/ipad pro 11/12.9")
     gaugeSize = screenHeight === 2224 ? 730 : screenHeight === 2388 ? 760 : screenHeight === 2732 ? 905 : 625
-    bacTextSize = screenHeight === 2224 ? 55 : screenHeight === 2388 ? 65 : screenHeight === 2732 ? 80 : 45
+    bacTextSize = screenHeight === 2224 ? 65 : screenHeight === 2388 ? 75 : screenHeight === 2732 ? 90 : 55
     alcTypeSize = screenHeight === 2388 ? 130 : screenHeight === 2732 ? 150 : 110
     alcTypeText = screenHeight === 2388 ? 60 : screenHeight === 2732 ? 70 : 55
     abvText = screenHeight === 2388 ? 40 : screenHeight === 2732 ? 50 : 35
@@ -432,7 +432,7 @@ else if (screenWidth === 1536 && screenHeight === 2048 || screenWidth === 1668 &
 else if (screenWidth > 1125) {
     console.log("greater than 1125")
     gaugeSize = 390
-    bacTextSize = 25
+    bacTextSize = 35
     alcTypeSize = 75
     alcTypeText = 30
     abvText = 18
@@ -455,7 +455,7 @@ else if (screenWidth > 1125) {
 } else {
     console.log("other size")
     gaugeSize = 350
-    bacTextSize = 28
+    bacTextSize = 38
     alcTypeSize = 65
     alcTypeText = 28
     abvText = 18

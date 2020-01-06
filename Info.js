@@ -28,20 +28,22 @@ class InfoScreen extends Component {
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Custom Break</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Take a break from drinking for a specified duration or an indefinite amount of time.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Session Limits</Text>
-                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set session limits to moderate total drinks consumed or BAC session level.</Text>
-                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>BAC Estimation</Text>
-                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Track your current drinking session and view your estimated BAC (Blood Alcohol Content).</Text>
+                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set session limits to moderate total drinks consumed.</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Buzz Tracker</Text>
+                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Track your drinks and modify your current session.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Last Call</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set last call to moderate consumption too late into the evening.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Drink Pacer</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Drink pacer helps moderate drinking too quickly.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Max Recommended</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Maximum recommended limits as prescribed by the Centers for Disease Control (CDC).  14 drinks weekly for males and 7 drinks weekly for females.</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { color: "blue", fontWeight: "bold" }]} onPress={() => { Linking.openURL('https://www.cdc.gov/alcohol/fact-sheets/moderate-drinking.htm') }}>CDC Information</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle}>Disclaimer</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Any information provided by this application is for entertainment purposes only. All information displayed should not be considered or construed as medical, legal, or lifestyle advice on any subject matter.
-One moderation function in this application estimates blood alcohol content (BAC) based on body weight and gender using information published by the National Institutes for Health (NIH).  Maximum recommended alcoholic consumption amounts are based on information provided by the Centers for Disease Control (CDC).  Actual BAC may be higher or lower than displayed in this app due to many factors including age, food consumption, medication, and hydration or dehydration levels.  These factors are not taken into account by this application when estimating BAC.
-People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before or after consuming any amount of alcohol.
-All data entered into buzzin is stored locally, buzzin does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
+        One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
+        in this app due to many factors including age, food consumption, missing drink entries, standard drink measurements medication, and hydration or dehydration levels.  These factors are not taken into account by
+        this application when estimating total drink numbers over time.  People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before
+        or after consuming any amount of alcohol.  All data entered into buzzin is stored locally, buzzin does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle}>Acknowledgements</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Built using the following third party packages available via npm and github:</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList}>react</Text>
