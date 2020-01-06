@@ -539,8 +539,8 @@ class HomeScreen extends Component {
                                     : maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        BACK</Text></Text> : <View />}
                                 <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
                                 {(this.state.bac === 0 || this.state.bac === undefined) &&
-                                    <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor, padding: 22 }]}>
-                                        <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: "white" }}></Text></View>}
+                                    <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
+                                        <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{Platform.OS === "ios" ? "null" : ""}</Text></View>}
                                 {this.state.bac > 0.00 && <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
                                     <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{Functions.bacEmotion(this.state.bac)[1]}</Text>
                                 </View>}
