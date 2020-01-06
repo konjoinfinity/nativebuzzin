@@ -169,7 +169,7 @@ export class Functions {
         else if (bac >= 0.07 && bac < 0.08) { return ["white", '😜'] }
         else if (bac >= 0.08 && bac < 0.09) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😋' : '🤪'] }
         else if (bac >= 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😅' : '🥴'] }
-        else if (bac >= 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😅' : '🥴'] }
+        else if (bac >= 0.10) { return ["white", '😵'] }
     }
 
     static timeSince(recent, type) {

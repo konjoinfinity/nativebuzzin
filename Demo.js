@@ -46,6 +46,7 @@ class DemoScreen extends Component {
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal1") }
             if (this.state.bac > 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal2") }
         }, 200);
+        setTimeout(() => this.state.buzzes.length === 1 ? this.scrolltop.scrollToEnd({ animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }), 4000)
     }
 
     async checkBac() {

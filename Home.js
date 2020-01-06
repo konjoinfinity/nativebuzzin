@@ -94,11 +94,11 @@ class HomeScreen extends Component {
         })
         const login = this.props.navigation.getParam('login');
         if (login === true) {
-            this.props.copilotEvents.on('stepChange', this.handleStepChange);
             setTimeout(() => {
+                this.props.copilotEvents.on('stepChange', this.handleStepChange);
                 this.props.start();
                 this.props.navigation.setParams({ login: false });
-            }, 100);
+            }, 200);
         }
         setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 800);
         if (this.state.happyhour === true) {
@@ -127,18 +127,18 @@ class HomeScreen extends Component {
     handleStepChange = (step) => {
         if (step.order === 1 || step.order === 3) {
             setTimeout(() => { this.addDrink() }, 1000);
-            setTimeout(() => { this.clearDrinks() }, 3000);
+            setTimeout(() => { this.clearDrinks() }, 4000);
+            setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 5000)
         }
         if (step.order === 2) {
             setTimeout(() => { this.alcswitch.setActive(1); this.setState({ alctype: "Wine" }) }, 1000);
-            setTimeout(() => { this.alcswitch.setActive(2); this.setState({ alctype: "Liquor" }) }, 1500);
-            setTimeout(() => { this.alcswitch.setActive(0); this.setState({ alctype: "Beer" }) }, 2000);
-            setTimeout(() => { this.abvswitch.setActive(4); this.setState({ abv: 0.07 }) }, 2500);
-            setTimeout(() => { this.abvswitch.setActive(1); this.setState({ abv: 0.05 }) }, 3000);
-            setTimeout(() => { this.ozswitch.setActive(2); this.setState({ oz: 20 }) }, 3500);
-            setTimeout(() => { this.ozswitch.setActive(0); this.setState({ oz: 12 }) }, 4000);
-            setTimeout(() => { this.metricswitch.setActive(1); this.setState({ metric: "ml" }) }, 4500);
-            setTimeout(() => { this.metricswitch.setActive(0); this.setState({ metric: "oz" }) }, 5000);
+            setTimeout(() => { this.alcswitch.setActive(0); this.setState({ alctype: "Beer" }) }, 1500);
+            setTimeout(() => { this.abvswitch.setActive(4); this.setState({ abv: 0.07 }) }, 2000);
+            setTimeout(() => { this.abvswitch.setActive(1); this.setState({ abv: 0.05 }) }, 2500);
+            setTimeout(() => { this.ozswitch.setActive(2); this.setState({ oz: 20 }) }, 3000);
+            setTimeout(() => { this.ozswitch.setActive(0); this.setState({ oz: 12 }) }, 3500);
+            setTimeout(() => { this.metricswitch.setActive(1); this.setState({ metric: "ml" }) }, 4000);
+            setTimeout(() => { this.metricswitch.setActive(0); this.setState({ metric: "oz" }) }, 4500);
         }
     }
 
@@ -154,6 +154,7 @@ class HomeScreen extends Component {
             if (this.state.bac > 0.07 && this.state.bac < 0.08) { ReactNativeHaptic.generate('notificationWarning'); AlertHelper.show("error", "Drunk", "Stop drinking and drink water.") }
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal1") }
             if (this.state.bac > 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal2") }
+            setTimeout(() => this.state.buzzes.length === 1 ? this.scrolltop.scrollToEnd({ animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }), 4000)
         }, 200);
     }
 
@@ -635,7 +636,7 @@ class HomeScreen extends Component {
                                                 </MultiSwitch>
                                             </View>}
                                     </View>
-                                    <CopilotStep accessibilityLabel="3rdstep" text="Tap to add drinks using the selected options." order={3} name="add">
+                                    <CopilotStep accessibilityLabel="3rdstep" text="Tap to add drinks using the selected options or edit below." order={3} name="add">
                                         <CopilotView accessibilityLabel="3rdstepview">
                                             <TouchableOpacity onPress={() => this.addDrink()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : addButtonSize === "tablet" && screenWidth === 2048 && screenHeight === 2732 ? [styles.dropShadow2, styles.xlargeAddButton] : [styles.dropShadow2, styles.largeAddButton]}>
                                                 <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
@@ -683,9 +684,9 @@ class HomeScreen extends Component {
                     {this.state.showlimit === true && (this.state.bac > this.state.limitbac || this.state.buzzes.length >= this.state.drinks) && this.state.bac < 0.10 && this.state.showpacer === false &&
                         <View style={styles.cardView}>
                             <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>You have reached your:</Text>
-                            {this.state.bac > this.state.limitbac && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>BAC Limit - {this.state.limitbac}</Text>}
+                            {this.state.bac > this.state.limitbac && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>Buzz Limit - {Functions.bacEmotion(this.state.limitbac)[1]}</Text>}
                             {this.state.buzzes.length >= this.state.drinks && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && "& "} Set Drink Limit - {this.state.drinks}</Text>}
-                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>Until your BAC reaches 0.0, stop drinking and have some water.</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>Until you are sober, stop drinking and have some water.</Text>
                             {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                     <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === "tablet" ? styles.largeUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
@@ -720,7 +721,7 @@ class HomeScreen extends Component {
                     </View>}
                     {this.checkMaxRec() === true &&
                         <View style={styles.cardView}>
-                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>You have reached the max recommended {maxRecValues[5] > maxRecValues[7] && maxRecValues[6] > maxRecValues[8] ? "weekly and monthly" : maxRecValues[5] > maxRecValues[7] === true && maxRecValues[6] > maxRecValues[8] === false ? "weekly" : "monthly"} limit.</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>You have reached the max recommended {maxRecValues[5] > maxRecValues[7] && maxRecValues[6] > maxRecValues[8] ? "weekly and monthly" : maxRecValues[5] > maxRecValues[7] === true && maxRecValues[6] > maxRecValues[8] === false ? "weekly" : "monthly"} limit according to the CDC.</Text>
                             <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>Please condiser taking a break.</Text>
                             {this.state.buzzes.length >= 1 && this.checkLastDrink() === true &&
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
@@ -738,9 +739,10 @@ class HomeScreen extends Component {
                                 <Text style={{ color: "#FFFFFF", fontSize: warnTitleButton, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
                         </View>}
-                    {(this.state.buzzes && this.state.buzzes.length > 0) && <View style={styles.buzzCard}>
-                        {buzzes}
-                    </View>}
+                    {(this.state.buzzes && this.state.buzzes.length > 0) &&
+                        <View style={styles.buzzCard}>
+                            {buzzes}
+                        </View>}
                 </ScrollView>
             </View >
         );
