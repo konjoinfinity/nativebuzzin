@@ -293,12 +293,12 @@ class ProfileScreen extends Component {
                         </View>
                         {this.state.limit === true && this.state.setlimit === true && <View>
                             <Text style={styles.profileLine}>_________________________________________</Text>
-                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Set BAC Limit</Text>
+                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Set Buzz Limit</Text>
                             <View style={styles.plusMinusView}>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.limitbac === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
                                     <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, styles.dropShadow2, { backgroundColor: "#e0f2f1", justifyContent: "center", alignItems: "center", alignContent: "center" }]}>
-                                    <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center" }}>{this.state.limitbac && this.state.limitbac.toFixed(2)}</Text></TouchableOpacity>
+                                    <Text style={{ color: "#000000", fontSize: loginButtonText + 10, textAlign: "center" }}>{Functions.bacEmotion(this.state.limitbac)[1]}</Text></TouchableOpacity>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.limitbac === 0.08 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
                                     <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>
@@ -402,12 +402,12 @@ class ProfileScreen extends Component {
                         </View>
                         {this.state.autobreak === true && this.state.setautobreak === true && <View>
                             <Text style={styles.profileLine}>_________________________________________</Text>
-                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break BAC Threshold</Text>
+                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break Buzz Threshold</Text>
                             <View style={styles.plusMinusView}>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.threshold === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
                                     <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
                                 <TouchableOpacity style={[styles.smallbac, styles.dropShadow2, { backgroundColor: "#e0f2f1", justifyContent: "center", alignContent: "center", alignItems: "center" }]}>
-                                    <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center" }}>{this.state.threshold && this.state.threshold.toFixed(2)}</Text></TouchableOpacity>
+                                    <Text style={{ color: "#000000", fontSize: loginButtonText + 10, textAlign: "center" }}>{Functions.bacEmotion(this.state.threshold)[1]}</Text></TouchableOpacity>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.threshold === 0.08 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
                                     <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
                             </View>

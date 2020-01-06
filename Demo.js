@@ -302,11 +302,10 @@ class DemoScreen extends Component {
                         </View>
                         {(this.state.bac === 0 || this.state.bac === undefined) && (<View style={styles.spaceAroundView}><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}>{this.state.gender} </Text>
                             <View style={[styles.dropShadow2, addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: "teal" }}>0.0</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>)}
+                                <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: "white" }}>null</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>)}
                         {this.state.bac > 0.00 && <View style={styles.spaceAroundView}><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}>{this.state.gender} </Text>
                             <View style={[styles.dropShadow2, addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>}
-                        <Text style={{ fontSize: addButtonSize === "tablet" ? 18 : loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*Estimated Blood Alcohol Content (BAC)</Text>
+                                <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{Functions.bacEmotion(this.state.bac)[1]}</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>}
                     </View>
                     {this.state.bac < 0.10 && <View style={styles.cardView}>
                         <View style={[styles.multiSwitchViews, { paddingBottom: 10, flexDirection: "row", justifyContent: "space-between" }]}>

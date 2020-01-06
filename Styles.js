@@ -36,12 +36,12 @@ const styles = StyleSheet.create({
         marginLeft: 70, marginBottom: 10, borderRadius: 15
     },
     bac: {
-        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginTop: 10, marginBottom: 5,
-        marginLeft: 60, marginRight: 60
+        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 5, marginTop: 12, marginBottom: 12,
+        marginLeft: 85, marginRight: 85
     },
     smallbac: {
         borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginTop: 0, marginBottom: 0,
-        marginLeft: 60, marginRight: 60
+        marginLeft: 85, marginRight: 85
     },
     optimalbac: {
         borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginTop: 10, marginBottom: 5,

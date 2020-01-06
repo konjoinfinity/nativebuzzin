@@ -532,18 +532,17 @@ class HomeScreen extends Component {
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <CopilotStep accessibilityLabel="1ststep" text="View your estimated BAC." order={1} name="gauge">
+                        <CopilotStep accessibilityLabel="1ststep" text="View your current buzz." order={1} name="gauge">
                             <CopilotView accessibilityLabel="1ststepview" style={{ alignSelf: "center" }}>
                                 {this.state.bac > 0.06 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>DRINK                            WATER</Text>
                                     : maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        BACK</Text></Text> : <View />}
                                 <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
                                 {(this.state.bac === 0 || this.state.bac === undefined) &&
                                     <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
-                                        <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: "teal" }}>0.0</Text></View>}
+                                        <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: "white" }}>null</Text></View>}
                                 {this.state.bac > 0.00 && <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
-                                    <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{this.state.bac}  {Functions.bacEmotion(this.state.bac)[1]}</Text>
+                                    <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{Functions.bacEmotion(this.state.bac)[1]}</Text>
                                 </View>}
-                                <Text style={{ fontSize: addButtonSize === "tablet" ? 18 : loginTitle - 14, paddingTop: 8, color: "#AE0000", textAlign: "center" }}>*Estimated Blood Alcohol Content (BAC)</Text>
                             </CopilotView>
                         </CopilotStep>
                     </View>
