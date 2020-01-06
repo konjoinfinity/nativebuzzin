@@ -293,7 +293,7 @@ class ProfileScreen extends Component {
                         </View>
                         {this.state.limit === true && this.state.setlimit === true && <View>
                             <Text style={styles.profileLine}>_________________________________________</Text>
-                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Set Buzz Limit</Text>
+                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Set Drink Tracker Limit</Text>
                             <View style={styles.plusMinusView}>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.limitbac === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
                                     <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
@@ -402,7 +402,7 @@ class ProfileScreen extends Component {
                         </View>
                         {this.state.autobreak === true && this.state.setautobreak === true && <View>
                             <Text style={styles.profileLine}>_________________________________________</Text>
-                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break Buzz Threshold</Text>
+                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break Tracker Threshold</Text>
                             <View style={styles.plusMinusView}>
                                 <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.threshold === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
                                     <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>-</Text></View></TouchableOpacity>

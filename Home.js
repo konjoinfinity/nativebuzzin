@@ -208,7 +208,7 @@ class HomeScreen extends Component {
     countdownBac() {
         let bacTimer;
         if (this.state.countdown === true) {
-            bacTimer = setInterval(() => this.checkBac(), 800);
+            bacTimer = setInterval(() => this.checkBac(), 1000);
             this.setState({ timer: bacTimer });
         } else if (this.state.countdown === false) {
             clearInterval(this.state.timer);

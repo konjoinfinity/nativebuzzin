@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         marginLeft: 85, marginRight: 85
     },
     smallbac: {
-        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginTop: 0, marginBottom: 0,
+        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 5, marginTop: 10, marginBottom: 10,
         marginLeft: 85, marginRight: 85
     },
     optimalbac: {

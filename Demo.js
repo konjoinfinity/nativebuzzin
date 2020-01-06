@@ -46,7 +46,7 @@ class DemoScreen extends Component {
             if (this.state.bac > 0.08 && this.state.bac < 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal1") }
             if (this.state.bac > 0.10) { ReactNativeHaptic.generate('notificationError'); this.handleModal("modal2") }
         }, 200);
-        setTimeout(() => this.state.buzzes.length === 1 ? this.scrolltop.scrollToEnd({ animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }), 4000)
+        setTimeout(() => this.state.testbuzzes.length === 1 ? this.scrolltop.scrollToEnd({ animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }), 4000)
     }
 
     async checkBac() {
@@ -64,7 +64,7 @@ class DemoScreen extends Component {
     countdownBac() {
         let testBacTimer;
         if (this.state.countdown === true) {
-            testBacTimer = setInterval(() => this.checkBac(), 500);
+            testBacTimer = setInterval(() => this.checkBac(), 1000);
             this.setState({ timer: testBacTimer });
         } else if (this.state.countdown === false) {
             clearInterval(this.state.timer);

@@ -29,7 +29,7 @@ class InfoScreen extends Component {
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Take a break from drinking for a specified duration or an indefinite amount of time.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Session Limits</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set session limits to moderate total drinks consumed.</Text>
-                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Buzz Tracker</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Drink Tracker</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Track your drinks and modify your current session.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Last Call</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set last call to moderate consumption too late into the evening.</Text>
