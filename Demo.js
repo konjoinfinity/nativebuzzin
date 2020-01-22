@@ -10,7 +10,6 @@ import { Functions } from "./Functions";
 import styles from "./Styles"
 import moment from "moment";
 import ReactNativeHaptic from 'react-native-haptic';
-import MatIcon from "react-native-vector-icons/MaterialIcons"
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,

@@ -12,7 +12,6 @@ import { Functions } from "./Functions";
 import styles from "./Styles"
 import CountDown from 'react-native-countdown-component';
 import ReactNativeHaptic from 'react-native-haptic';
-import Micon from "react-native-vector-icons/MaterialCommunityIcons"
 import MatIcon from "react-native-vector-icons/MaterialIcons"
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
