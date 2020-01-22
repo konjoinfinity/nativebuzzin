@@ -23,21 +23,21 @@ class InfoScreen extends Component {
             <ScrollView>
                 <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle}>Features</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Max Recommended</Text>
+                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Maximum recommended limits as prescribed by the Centers for Disease Control (CDC).  14 drinks weekly for males and 7 drinks weekly for females.</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { color: "blue", fontWeight: "bold" }]} onPress={() => { Linking.openURL('https://www.cdc.gov/alcohol/fact-sheets/moderate-drinking.htm') }}>CDC Information</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Happy Hour</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set a daily break with happy hour, prevents entering drinks before set time.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Custom Break</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Take a break from drinking for a specified duration or an indefinite amount of time.</Text>
-                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Session Limits</Text>
-                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set session limits to moderate total drinks consumed.</Text>
-                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Drink Tracker</Text>
-                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Track your drinks and modify your current session.</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Drink Limits</Text>
+                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set limits to moderate total drinks consumed.</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Drink Counter</Text>
+                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Keep track and count your drinks.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Last Call</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set last call to moderate consumption too late into the evening.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Drink Pacer</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Drink pacer helps moderate drinking too quickly.</Text>
-                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Max Recommended</Text>
-                    <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Maximum recommended limits as prescribed by the Centers for Disease Control (CDC).  14 drinks weekly for males and 7 drinks weekly for females.</Text>
-                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { color: "blue", fontWeight: "bold" }]} onPress={() => { Linking.openURL('https://www.cdc.gov/alcohol/fact-sheets/moderate-drinking.htm') }}>CDC Information</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle}>Disclaimer</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Any information provided by this application is for entertainment purposes only. All information displayed should not be considered or construed as medical, legal, or lifestyle advice on any subject matter.
         One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
