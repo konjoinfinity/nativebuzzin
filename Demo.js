@@ -10,6 +10,7 @@ import { Functions } from "./Functions";
 import styles from "./Styles"
 import moment from "moment";
 import ReactNativeHaptic from 'react-native-haptic';
+import MatIcon from 'react-native-vector-icons/MaterialIcons';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,
@@ -295,8 +296,8 @@ class DemoScreen extends Component {
                         </View>
                     </View>
                     {Platform.OS === "ios" ?
-                        this.state.testbuzzes && this.state.testbuzzes.length > 0 ? <View style={[styles.buzzCard, { marginTop: 10 }]}>{testbuzzes}</View> :
-                            <View style={[styles.buzzInfo, { marginTop: 10 }]}>
+                        this.state.testbuzzes && this.state.testbuzzes.length > 0 ? <View style={styles.buzzCard}>{testbuzzes}</View> :
+                            <View style={styles.buzzInfo}>
                                 <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10, paddingTop: 10 }}>You haven't had any drinks.</Text>
                             </View>
                         :
