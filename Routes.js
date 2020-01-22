@@ -12,6 +12,7 @@ import InfoScreen from './Info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Ficon from 'react-native-vector-icons/Feather'
 import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import EIcon from "react-native-vector-icons/Entypo"
 import LogScreen from "./Log"
 import { screenHeight, screenWidth, addButtonSize } from "./Variables"
 
@@ -26,16 +27,16 @@ const AppStack = createStackNavigator({
     MyTab: {
         screen: createMaterialTopTabNavigator(
             {
-                Home: {
-                    screen: HomeScreen,
-                    navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="home" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Home</Text></View>)
-                    },
-                },
-                Buzz: {
+                Charts: {
                     screen: BuzzScreen,
                     navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="beer" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Buzz</Text></View>)
+                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><EIcon name="bar-graph" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Charts</Text></View>)
+                    },
+                },
+                Drinks: {
+                    screen: HomeScreen,
+                    navigationOptions: {
+                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="beer" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Drinks</Text></View>)
                     },
                 },
                 Profile: {

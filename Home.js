@@ -12,6 +12,8 @@ import { Functions } from "./Functions";
 import styles from "./Styles"
 import CountDown from 'react-native-countdown-component';
 import ReactNativeHaptic from 'react-native-haptic';
+import Micon from "react-native-vector-icons/MaterialCommunityIcons"
+import MatIcon from "react-native-vector-icons/MaterialIcons"
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
@@ -92,14 +94,14 @@ class HomeScreen extends Component {
                 }, 50);
             } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
         })
-        const login = this.props.navigation.getParam('login');
-        if (login === true) {
-            setTimeout(() => {
-                this.props.copilotEvents.on('stepChange', this.handleStepChange);
-                this.props.start();
-                this.props.navigation.setParams({ login: false });
-            }, 200);
-        }
+        // const login = this.props.navigation.getParam('login');
+        // if (login === true) {
+        //     setTimeout(() => {
+        //         this.props.copilotEvents.on('stepChange', this.handleStepChange);
+        //         this.props.start();
+        //         this.props.navigation.setParams({ login: false });
+        //     }, 200);
+        // }
         setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 800);
         if (this.state.happyhour === true) {
             var happyHour = moment(new Date()).local().hours()
@@ -114,7 +116,7 @@ class HomeScreen extends Component {
     }
 
     componentWillUnmount() {
-        this.props.copilotEvents.off('stop');
+        // this.props.copilotEvents.off('stop');
         clearInterval(this.state.timer);
         clearInterval(this.state.flashtimer);
     }
@@ -124,23 +126,23 @@ class HomeScreen extends Component {
         this.setState({ [number]: !this.state[number] });
     }
 
-    handleStepChange = (step) => {
-        if (step.order === 1 || step.order === 3) {
-            setTimeout(() => { this.addDrink() }, 1000);
-            setTimeout(() => { this.clearDrinks() }, 4000);
-            setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 5000)
-        }
-        if (step.order === 2) {
-            setTimeout(() => { this.alcswitch.setActive(1); this.setState({ alctype: "Wine" }) }, 1000);
-            setTimeout(() => { this.alcswitch.setActive(0); this.setState({ alctype: "Beer" }) }, 1500);
-            setTimeout(() => { this.abvswitch.setActive(4); this.setState({ abv: 0.07 }) }, 2000);
-            setTimeout(() => { this.abvswitch.setActive(1); this.setState({ abv: 0.05 }) }, 2500);
-            setTimeout(() => { this.ozswitch.setActive(2); this.setState({ oz: 20 }) }, 3000);
-            setTimeout(() => { this.ozswitch.setActive(0); this.setState({ oz: 12 }) }, 3500);
-            setTimeout(() => { this.metricswitch.setActive(1); this.setState({ metric: "ml" }) }, 4000);
-            setTimeout(() => { this.metricswitch.setActive(0); this.setState({ metric: "oz" }) }, 4500);
-        }
-    }
+    // handleStepChange = (step) => {
+    //     if (step.order === 1 || step.order === 3) {
+    //         setTimeout(() => { this.addDrink() }, 1000);
+    //         setTimeout(() => { this.clearDrinks() }, 4000);
+    //         setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 5000)
+    //     }
+    //     if (step.order === 2) {
+    //         setTimeout(() => { this.alcswitch.setActive(1); this.setState({ alctype: "Wine" }) }, 1000);
+    //         setTimeout(() => { this.alcswitch.setActive(0); this.setState({ alctype: "Beer" }) }, 1500);
+    //         setTimeout(() => { this.abvswitch.setActive(4); this.setState({ abv: 0.07 }) }, 2000);
+    //         setTimeout(() => { this.abvswitch.setActive(1); this.setState({ abv: 0.05 }) }, 2500);
+    //         setTimeout(() => { this.ozswitch.setActive(2); this.setState({ oz: 20 }) }, 3000);
+    //         setTimeout(() => { this.ozswitch.setActive(0); this.setState({ oz: 12 }) }, 3500);
+    //         setTimeout(() => { this.metricswitch.setActive(1); this.setState({ metric: "ml" }) }, 4000);
+    //         setTimeout(() => { this.metricswitch.setActive(0); this.setState({ metric: "oz" }) }, 4500);
+    //     }
+    // }
 
     async addDrink() {
         ReactNativeHaptic.generate('selection')
@@ -208,7 +210,7 @@ class HomeScreen extends Component {
     countdownBac() {
         let bacTimer;
         if (this.state.countdown === true) {
-            bacTimer = setInterval(() => this.checkBac(), 1000);
+            bacTimer = setInterval(() => this.checkBac(), Platform.OS === "android" ? 1000 : 10000);
             this.setState({ timer: bacTimer });
         } else if (this.state.countdown === false) {
             clearInterval(this.state.timer);
@@ -386,7 +388,7 @@ class HomeScreen extends Component {
         let buzzes, selectedbuzz;
         this.state.buzzes && this.state.buzzes.length !== 0 && (buzzes = this.state.buzzes.map((buzz, id) => {
             return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View><Text style={{ fontSize: addButtonSize === "tablet" ? abvText + 10 : 26, textAlign: "center", paddingTop: 5, color: "#000000" }}>Current Buzz</Text>{this.state.bac >= 0.0 && this.state.bac <= 0.10 ? <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons]} onPress={() => this.buzzModal(buzz, id)}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity> : <View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View>}</View>}
+                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View><Text style={{ fontSize: addButtonSize === "tablet" ? abvText + 10 : 26, textAlign: "center", paddingTop: 5, color: "#000000" }}>Drinks</Text>{this.state.bac >= 0.0 && this.state.bac <= 0.10 ? <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons]} onPress={() => this.buzzModal(buzz, id)}><MatIcon name="edit" color="#ffffff" size={addButtonSize === "tablet" ? 40 : 21} /></TouchableOpacity> : <View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View>}</View>}
                 <View style={styles.buzzMap}>
                     <View style={addButtonSize === "tablet" ? [styles.dropShadow3, styles.largebuzzheaderButton] : [styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
                     <View style={{ flexDirection: "column" }}>
@@ -423,7 +425,7 @@ class HomeScreen extends Component {
                 <Modal animationType="slide" transparent={false} visible={this.state.buzzmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
-                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? abvText + 10 : 20, fontWeight: "500", padding: 2 }}>Edit Current Buzz</Text>
+                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? abvText + 10 : 20, fontWeight: "500", padding: 2 }}>Edit Drinks</Text>
                             {selectedbuzz}
                         </View>
                         <View style={styles.cardView}>
@@ -532,21 +534,27 @@ class HomeScreen extends Component {
                 </Modal>
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <CopilotStep accessibilityLabel="1ststep" text="Track your drinks." order={1} name="gauge">
-                            <CopilotView accessibilityLabel="1ststepview" style={{ alignSelf: "center" }}>
-                                {this.state.bac > 0.06 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>DRINK                            WATER</Text>
-                                    : maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        BACK</Text></Text> : <View />}
-                                <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
-                                {(this.state.bac === 0 || this.state.bac === undefined) &&
-                                    <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
-                                        <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{Platform.OS === "ios" ? "null" : ""}</Text></View>}
-                                {this.state.bac > 0.00 && <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
-                                    <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{Functions.bacEmotion(this.state.bac)[1]}</Text>
-                                </View>}
-                            </CopilotView>
-                        </CopilotStep>
-                    </View>
+                    {Platform.OS === "ios" ?
+                        this.state.buzzes && this.state.buzzes.length > 0 ? <View style={[styles.buzzCard, { marginTop: 10 }]}>{buzzes}</View> :
+                            <View style={[styles.buzzInfo, { marginTop: 10 }]}>
+                                <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10, paddingTop: 10 }}>You haven't had any drinks.</Text>
+                            </View>
+                        :
+                        <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
+                            <CopilotStep accessibilityLabel="1ststep" text="Track your drinks." order={1} name="gauge">
+                                <CopilotView accessibilityLabel="1ststepview" style={{ alignSelf: "center" }}>
+                                    {this.state.bac > 0.06 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", color: this.state.flashwarning }}>DRINK                            WATER</Text>
+                                        : maxRecValues[5] > maxRecValues[7] || maxRecValues[6] > maxRecValues[8] ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>  CUT        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        BACK</Text></Text> : <View />}
+                                    <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
+                                    {(this.state.bac === 0 || this.state.bac === undefined) &&
+                                        <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
+                                            <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{Platform.OS === "ios" ? "null" : ""}</Text></View>}
+                                    {this.state.bac > 0.00 && <View style={[styles.dropShadow2, addButtonSize === true ? styles.smallbac : styles.bac, { backgroundColor: gaugeColor }]}>
+                                        <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{Functions.bacEmotion(this.state.bac)[1]}</Text>
+                                    </View>}
+                                </CopilotView>
+                            </CopilotStep>
+                        </View>}
                     {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.bac < 0.10 && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false && this.state.warn === false &&
                         <CopilotStep accessibilityLabel="2ndstep" text="Select to modify drink type, abv, size, and metrics." order={2} name="drink">
                             <CopilotView accessibilityLabel="2ndstep"><View style={styles.cardView}>
@@ -686,7 +694,7 @@ class HomeScreen extends Component {
                             <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>You have reached your:</Text>
                             {this.state.bac > this.state.limitbac && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>Buzz Limit - {Functions.bacEmotion(this.state.limitbac)[1]}</Text>}
                             {this.state.buzzes.length >= this.state.drinks && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>{this.state.bac > this.state.limitbac && this.state.buzzes.length >= this.state.drinks && "& "} Set Drink Limit - {this.state.drinks}</Text>}
-                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>Until you are sober, stop drinking and have some water.</Text>
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>Until you are sober, drink some water.</Text>
                             {this.state.buzzes.length >= 1 && this.checkLastDrink() === true ?
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                     <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === "tablet" ? styles.largeUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
@@ -739,7 +747,7 @@ class HomeScreen extends Component {
                                 <Text style={{ color: "#FFFFFF", fontSize: warnTitleButton, textAlign: "center" }}>Accept</Text>
                             </TouchableOpacity>
                         </View>}
-                    {(this.state.buzzes && this.state.buzzes.length > 0) &&
+                    {Platform.OS === "android" && (this.state.buzzes && this.state.buzzes.length > 0) &&
                         <View style={styles.buzzCard}>
                             {buzzes}
                         </View>}

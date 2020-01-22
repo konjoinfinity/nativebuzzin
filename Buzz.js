@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -245,7 +245,7 @@ class BuzzScreen extends Component {
                 <Modal animationType="slide" transparent={false} visible={this.state.addoldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
-                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500", padding: 10 }}>Add Old Buzz</Text>
+                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500", padding: 10 }}>Add Drinks</Text>
                             {this.state.selectedStartDate !== null ? <Text style={{ color: "#000000", fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(this.state.selectedStartDate).format('ddd MMM Do YYYY')}</Text> : <Text style={{ color: "#000000", fontSize: abvText, padding: 10, textAlign: "center" }}>Select Date</Text>}
                             {oldbuzztoadd}
                         </View>
@@ -364,7 +364,7 @@ class BuzzScreen extends Component {
                 <Modal animationType="slide" transparent={false} visible={this.state.oldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
-                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500" }}>Edit Old Buzz</Text>
+                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500" }}>Edit Old Drinks</Text>
                             {selectedoldbuzz}
                         </View>
                         <View style={styles.cardView}>
@@ -468,7 +468,7 @@ class BuzzScreen extends Component {
                 <Modal animationType="slide" transparent={false} visible={this.state.buzzmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
-                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500" }}>Edit Current Buzz</Text>
+                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500" }}>Edit Drinks</Text>
                             {selectedbuzz}
                         </View>
                         <View style={styles.cardView}>
@@ -601,11 +601,12 @@ class BuzzScreen extends Component {
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "center" }}>
-                                <Text style={{ color: "#000000", fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}>
+                                <Text style={{ color: "#000000", fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: addButtonSize === "tablet" ? 10 : 0 }}>
                                     <Text style={{ color: "#000000", color: values[3][0], fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }}>■ </Text>
                                     {values[3][1]}  <Text style={{ color: "#000000", color: values[4][0], fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }}>■ </Text>
                                     {values[4][1]}</Text>
                             </View>
+                            <Text style={{ fontSize: addButtonSize === "tablet" ? 24 : 12, color: "#AE0000", textAlign: "center", paddingTop: addButtonSize === "tablet" ? 20 : 5 }}>*Based on CDC Maximum Recommended Guidelines</Text>
                         </View>
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
@@ -632,7 +633,7 @@ class BuzzScreen extends Component {
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>
                                     </LineChart>
                                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#00897b", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: 0.8 }}>- </Text>Historical Weekly Totals</Text>
-                                    <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: 0.3 }}>- </Text>Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
+                                    <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: 0.3 }}>- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
                                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#000000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: 0.3 }}>- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)} Drinks</Text>
                                 </View>
                             </View>}
@@ -646,21 +647,21 @@ class BuzzScreen extends Component {
                     </View>}
                     {this.state.buzzes !== null && <View style={styles.buzzCard}>
                         <View style={styles.buzzView}>
-                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Current Buzz</Text>
+                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drinks</Text>
                             <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>
                         </View>
                         {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
                     </View>}
                     {this.state.buzzes === null && <View style={styles.buzzInfo}>
-                        <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Current Buzz</Text>
+                        <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Drinks</Text>
                         <View>
                             {this.state.timesince !== null && <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ color: "#000000", fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}
                             {this.state.timesince === null && <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}</View>
                     </View>}
                     {this.state.oldbuzzes !== null && <View style={styles.buzzCard}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>
-                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Old Buzzes</Text>
+                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>
                             <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideOldBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>
                             <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, { marginTop: 5 }]} onPress={() => this.addOldModal()}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity>
@@ -669,7 +670,7 @@ class BuzzScreen extends Component {
                     </View>}
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>No Old Buzzes</Text>
+                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>
                             <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, { marginTop: 5 }]} onPress={() => this.addOldModal()}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity>
                         </View>
                     </View>}

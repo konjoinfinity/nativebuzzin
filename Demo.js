@@ -10,6 +10,7 @@ import { Functions } from "./Functions";
 import styles from "./Styles"
 import moment from "moment";
 import ReactNativeHaptic from 'react-native-haptic';
+import MatIcon from "react-native-vector-icons/MaterialIcons"
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, gaugeLabels, warnText, dangerText,
@@ -136,7 +137,7 @@ class DemoScreen extends Component {
         (this.state.testbuzzes && this.state.testbuzzes.length > 0) &&
             (testbuzzes = this.state.testbuzzes.map((buzz, id) => {
                 return (<View key={id}>
-                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View><Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 40 : 26, textAlign: "center", paddingRight: 45, paddingTop: 5 }}>Current Buzz</Text>{this.state.bac >= 0.0 && this.state.bac <= 0.10 ? <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, { marginRight: 5 }]} onPress={() => this.testBuzzModal(buzz, id)}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity> : <View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View>}</View>}
+                    {id === 0 && <View style={{ flexDirection: "row", justifyContent: "space-between" }}><View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View><Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 50 : 26, textAlign: "center", paddingRight: 45, paddingTop: 5, fontWeight: "500" }}>Drinks</Text>{this.state.bac >= 0.0 && this.state.bac <= 0.10 ? <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, { marginRight: 5 }]} onPress={() => this.testBuzzModal(buzz, id)}><MatIcon name="edit" color="#ffffff" size={addButtonSize === "tablet" ? 40 : 21} /></TouchableOpacity> : <View style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton]}><Text style={[addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.buttonText, { color: "#e0f2f1" }]}>+</Text></View>}</View>}
                     <View style={styles.buzzMap}>
                         <View style={addButtonSize === "tablet" ? [styles.dropShadow3, styles.largebuzzheaderButton] : [styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
                         <View style={{ flexDirection: "column" }}>
@@ -172,7 +173,7 @@ class DemoScreen extends Component {
                 <Modal animationType="slide" transparent={false} visible={this.state.testbuzzmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
-                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500", padding: 2 }}>Edit Current Buzz</Text>
+                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500", padding: 2 }}>Edit Drinks</Text>
                             {selectedbuzz}
                         </View>
                         <View style={styles.cardView}>
@@ -294,20 +295,26 @@ class DemoScreen extends Component {
                                 leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
                     </View>
-                    <View style={styles.cardView}>
-                        {addButtonSize === true ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>DEMO        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        DEMO</Text></Text>
-                            : addButtonSize === false && screenWidth !== 1080 && screenHeight !== 1920 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>DEMO                </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>                DEMO</Text></Text>
-                                : <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>DEMO        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        DEMO</Text></Text>}
-                        <View style={{ alignSelf: "center" }}>
-                            <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
-                        </View>
-                        {(this.state.bac === 0 || this.state.bac === undefined) && (<View style={styles.spaceAroundView}><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}>{this.state.gender} </Text>
-                            <View style={[styles.dropShadow2, addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{Platform.OS === "ios" ? "null" : ""}</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>)}
-                        {this.state.bac > 0.00 && <View style={styles.spaceAroundView}><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}>{this.state.gender} </Text>
-                            <View style={[styles.dropShadow2, addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
-                                <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{Functions.bacEmotion(this.state.bac)[1]}</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>}
-                    </View>
+                    {Platform.OS === "ios" ?
+                        this.state.testbuzzes && this.state.testbuzzes.length > 0 ? <View style={[styles.buzzCard, { marginTop: 10 }]}>{testbuzzes}</View> :
+                            <View style={[styles.buzzInfo, { marginTop: 10 }]}>
+                                <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10, paddingTop: 10 }}>You haven't had any drinks.</Text>
+                            </View>
+                        :
+                        <View style={styles.cardView}>
+                            {addButtonSize === true ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>DEMO        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        DEMO</Text></Text>
+                                : addButtonSize === false && screenWidth !== 1080 && screenHeight !== 1920 ? <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>DEMO                </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>                DEMO</Text></Text>
+                                    : <Text style={{ color: "#000000", fontWeight: "bold", textAlign: "center", }}><Text style={{ color: "#000000", color: "#AE0000" }}>DEMO        </Text><Text style={{ color: "#000000", color: "#00bfa5" }}>                          </Text><Text style={{ color: "#000000", color: "#AE0000" }}>        DEMO</Text></Text>}
+                            <View style={{ alignSelf: "center" }}>
+                                <RNSpeedometer value={bacPercentage} size={gaugeSize} maxValue={100} defaultValue={0} innerCircleStyle={{ backgroundColor: "#e0f2f1" }} labels={gaugeLabels} />
+                            </View>
+                            {(this.state.bac === 0 || this.state.bac === undefined) && (<View style={styles.spaceAroundView}><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}>{this.state.gender} </Text>
+                                <View style={[styles.dropShadow2, addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
+                                    <Text style={{ fontSize: bacTextSize, textAlign: "center", color: "white" }}>{Platform.OS === "ios" ? "null" : ""}</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>)}
+                            {this.state.bac > 0.00 && <View style={styles.spaceAroundView}><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}>{this.state.gender} </Text>
+                                <View style={[styles.dropShadow2, addButtonSize === true ? styles.smalloptimalbac : styles.optimalbac, { backgroundColor: gaugeColor }]}>
+                                    <Text style={{ color: "#000000", fontSize: bacTextSize, textAlign: "center", color: Functions.bacEmotion(this.state.bac)[0] }}>{Functions.bacEmotion(this.state.bac)[1]}</Text></View><Text style={{ color: "#000000", fontSize: 15, paddingTop: addButtonSize === true ? 15 : 30, fontWeight: "bold" }}> {this.state.weight} lbs</Text></View>}
+                        </View>}
                     {this.state.bac < 0.10 && <View style={styles.cardView}>
                         <View style={[styles.multiSwitchViews, { paddingBottom: 10, flexDirection: "row", justifyContent: "space-between" }]}>
                             <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
@@ -412,7 +419,7 @@ class DemoScreen extends Component {
                                     <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View></TouchableOpacity>
                             </View>}
                         </View>}
-                    {(this.state.testbuzzes && this.state.testbuzzes.length > 0) && <View style={styles.buzzCard}>
+                    {Platform.OS === "android" && (this.state.testbuzzes && this.state.testbuzzes.length > 0) && <View style={styles.buzzCard}>
                         <View>{testbuzzes}</View>
                     </View>}
                     <View style={{ paddingTop: 20 }}></View>
