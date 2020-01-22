@@ -387,6 +387,7 @@ class ProfileScreen extends Component {
                             <Text style={styles.profileLine}>_________________________________________</Text>
                             <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 10 }}>Max Recommneded Weekly Limit: {this.state.gender === "Male" ? "14" : "7"}</Text>
                             <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 10 }}>Max Recommneded Monthly Limit: {this.state.gender === "Male" ? "56" : "28"}</Text>
+                            <Text style={{ fontSize: addButtonSize === "tablet" ? 24 : 12, color: "#AE0000", textAlign: "center", paddingTop: addButtonSize === "tablet" ? 20 : 5 }}>*Based on CDC Guidelines</Text>
                             <TouchableOpacity style={[styles.profilebreakbutton, styles.dropShadow1]} onPress={() => this.showHideSetting("setmaxrec")}>
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                         </View>}

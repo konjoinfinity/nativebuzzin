@@ -25,7 +25,7 @@ class InfoScreen extends Component {
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle}>Features</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Max Recommended</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Maximum recommended limits as prescribed by the Centers for Disease Control (CDC).  14 drinks weekly for males and 7 drinks weekly for females.</Text>
-                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { color: "blue", fontWeight: "bold" }]} onPress={() => { Linking.openURL('https://www.cdc.gov/alcohol/fact-sheets/moderate-drinking.htm') }}>CDC Information</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { color: "blue", fontWeight: "bold" }]} onPress={() => { Linking.openURL('https://www.cdc.gov/alcohol/fact-sheets/moderate-drinking.htm') }}>Link to CDC Guidelines</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Happy Hour</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set a daily break with happy hour, prevents entering drinks before set time.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Custom Break</Text>
