@@ -185,6 +185,30 @@ export class Functions {
         return breakDate
     }
 
+    static standardDrinks(oz, abv) {
+        var total, volume;
+        // conversion from ounces to mililiters (multiply the volume value by 29.574)
+        volume = oz * 29.574
+        // total drink volume * alcohol by volume * volumetric mass density 
+        total = volume * abv * 0.78924
+        // US standard drink in (standard drink defined as 0.6 fl oz (US) or 14g) 
+        // dividing the total by the standard drink size - 14 
+        total = total / 14
+        return parseFloat(total.toFixed(1))
+    }
+
+    static drinkVals(old) {
+        console.log(old)
+        var total = [];
+        old.map((buzz) => {
+            var drink;
+            drink = this.standardDrinks(buzz.oz, buzz.abv)
+            total.push(drink)
+        })
+        console.log(total)
+        return parseFloat(total.reduce((a, b) => a + b, 0).toFixed(1))
+    }
+
     static async maxRecDrinks() {
         var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [],
             maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg;
@@ -210,12 +234,15 @@ export class Functions {
                 for (i = 0; i < numOfArrays; i++) {
                     weeksData.push(lastWeeks[i].length)
                     maxrecdata.push(maxrecgender)
-
                     trendLine.push(lastWeeks[i].length / 7)
                 }
-                weekColor = this.barColor(sevenArray.length + buzzes.length, "seven", gender)
-                monthColor = this.barColor(thirtyArray.length, "thirty", gender)
-                sevenData = [sevenArray.length + buzzes.length], thirtyData = [thirtyArray.length]
+                console.log(this.drinkVals(buzzes))
+                console.log(this.drinkVals(sevenArray))
+                console.log(this.drinkVals(thirtyArray))
+                weekColor = this.barColor(this.drinkVals(sevenArray) + this.drinkVals(buzzes), "seven", gender)
+                monthColor = this.barColor(this.drinkVals(thirtyArray) + this.drinkVals(buzzes), "thirty", gender)
+                sevenData = [this.drinkVals(sevenArray) + this.drinkVals(buzzes)]
+                thirtyData = [this.drinkVals(thirtyArray) + this.drinkVals(buzzes)]
                 weekly = gender === "Male" ? 14 : 7
                 monthly = gender === "Male" ? 56 : 28
                 pushavg = weeksData.reduce((a, b) => a.concat(b), []).reduce((a, b) => a + b, 0) / weeksData.length
