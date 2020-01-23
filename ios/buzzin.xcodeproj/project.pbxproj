@@ -46,7 +46,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* buzzinTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = buzzinTests.m; sourceTree = "<group>"; };
 		057A7A33B1EE0F08CA1C808C /* Pods-buzzinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buzzinTests.debug.xcconfig"; path = "Target Support Files/Pods-buzzinTests/Pods-buzzinTests.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* buzzin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = buzzin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Buzzin BAC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Buzzin BAC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = buzzin/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = buzzin/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -210,7 +210,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* buzzin.app */,
+				13B07F961A680F5B00A75B9A /* Buzzin BAC.app */,
 				00E356EE1AD99517003FC87E /* buzzinTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* buzzin-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* buzzin-tvOSTests.xctest */,
@@ -288,7 +288,7 @@
 			);
 			name = buzzin;
 			productName = buzzin;
-			productReference = 13B07F961A680F5B00A75B9A /* buzzin.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Buzzin BAC.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* buzzin-tvOS */ = {
@@ -753,7 +753,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7FGUVM5WTY;
 				INFOPLIST_FILE = buzzin/Info.plist;
@@ -765,7 +765,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lifesystem.buzzinbac;
-				PRODUCT_NAME = buzzin;
+				PRODUCT_NAME = "Buzzin BAC";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -779,7 +779,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7FGUVM5WTY;
 				INFOPLIST_FILE = buzzin/Info.plist;
@@ -791,7 +791,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lifesystem.buzzinbac;
-				PRODUCT_NAME = buzzin;
+				PRODUCT_NAME = "Buzzin BAC";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
