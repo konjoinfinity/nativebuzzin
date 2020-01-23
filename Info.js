@@ -26,6 +26,18 @@ class InfoScreen extends Component {
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Max Recommended</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Maximum recommended limits as prescribed by the Centers for Disease Control (CDC).  14 drinks weekly for males and 7 drinks weekly for females.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { color: "blue", fontWeight: "bold" }]} onPress={() => { Linking.openURL('https://www.cdc.gov/alcohol/fact-sheets/moderate-drinking.htm') }}>Link to CDC Guidelines</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Standard Drink Calculation</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { padding: 4 }]}>Conversion from fluid ounces (US) to mililiters (multiply the volume value by 29.574)</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { padding: 4 }]}>Total Drink Volume = fluidounces * 29.574</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { padding: 4 }]}>Alcohol has a density of 789.24 g/L (at 20 °C)</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { padding: 4 }]}>Total Drink Volume * Alcohol by Volume (ABV %) * Volumetric Mass Density</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { padding: 4 }]}>Total = Total Drink Volume * ABV * 0.78924</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { padding: 4 }]}>US standard drink - Standard Drink defined as 0.6 fl oz (US) or 14g</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { padding: 4 }]}>Divide the Total by the Standard Drink Size - 14</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList, { padding: 4 }]}>Total Standard Drinks = Total / 14</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { color: "blue", fontWeight: "bold" }]} onPress={() => { Linking.openURL('https://pubs.niaaa.nih.gov/publications/practitioner/PocketGuide/pocket_guide2.htm') }}>Link to NIH Standard Drink Guidelines</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { color: "blue", fontWeight: "bold" }]} onPress={() => { Linking.openURL('https://en.wikipedia.org/wiki/Standard_drink') }}>Link to Wikipedia Standard Drink Info</Text>
+
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Happy Hour</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set a daily break with happy hour, prevents entering drinks before set time.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Custom Break</Text>

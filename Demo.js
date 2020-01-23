@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, Modal, Platform } from 'react-native';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
-import NumericInput from 'react-native-numeric-input'
 import RNSpeedometer from 'react-native-speedometer'
 import { NavigationEvents } from "react-navigation";
 import { AlertHelper } from './AlertHelper';
@@ -286,13 +285,6 @@ class DemoScreen extends Component {
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                             <Text style={{ color: "#000000", fontSize: abvText + 2, textAlign: "center", paddingTop: 20 }}>     Gender - {this.state.gender}     </Text>
                             <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.switchGender()}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Switch ♂♀</Text></TouchableOpacity>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <Text style={{ color: "#000000", fontSize: abvText + 2, textAlign: "center", paddingTop: 10 }}>Enter Weight - lbs.</Text>
-                            <NumericInput minValue={50} maxValue={500} initValue={this.state.weight} value={this.state.weight} totalHeight={addButtonSize === "tablet" ? 100 : 50}
-                                onChange={(weight) => this.setState({ weight }, () => { ReactNativeHaptic.generate('selection'); })} step={5} rounded textColor='#103900' totalWidth={addButtonSize === "tablet" ? 240 : 120}
-                                iconStyle={{ color: 'white' }} rightButtonBackgroundColor={this.state.weight === 500 ? "#AE0000" : "#00897b"}
-                                leftButtonBackgroundColor={this.state.weight === 50 ? "#AE0000" : "#00897b"} />
                         </View>
                     </View>
                     {Platform.OS === "ios" ?

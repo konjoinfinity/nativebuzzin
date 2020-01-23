@@ -169,8 +169,7 @@ class ProfileScreen extends Component {
                 <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
-                        <View style={{ flexDirection: "row", justifyContent: "center" }}><FontIcon name="user" color="#4db6ac" size={(loginButtonText + 3)} /><Text style={{ color: "#000000", fontSize: (loginButtonText + 3), textAlign: "center", paddingBottom: 10 }}>  {this.state.name}</Text></View>
-                        <Text style={{ color: "#000000", fontSize: (loginButtonText + 1), textAlign: "center" }}>{this.state.gender === "Male" ? <Icon name="gender-male" color="#4db6ac" size={(loginButtonText + 1)} /> : <Icon name="gender-female" color="#4db6ac" size={(loginButtonText + 1)} />} {this.state.gender}   -   {this.state.weight} lbs.</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 10 }}><FontIcon name="user" color="#4db6ac" size={(loginButtonText + 3)} /><Text style={{ color: "#000000", fontSize: (loginButtonText + 3), textAlign: "center", paddingBottom: 10 }}>  {this.state.name}  -  {this.state.gender === "Male" ? <Icon name="gender-male" color="#4db6ac" size={(loginButtonText + 1)} /> : <Icon name="gender-female" color="#4db6ac" size={(loginButtonText + 1)} />} {this.state.gender}</Text></View>
                         <Text style={{ color: "#000000", textAlign: "center", color: "#bdbdbd", paddingBottom: 10 }}>_________________________________________</Text>
                         <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Canceled Breaks: {this.state.cancelbreaks && this.state.cancelbreaks}</Text>
                     </View>
