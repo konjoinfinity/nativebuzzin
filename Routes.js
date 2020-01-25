@@ -6,13 +6,11 @@ import LoginScreen from './Login';
 import AuthLoadScreen from "./AuthLoad"
 import HomeScreen from "./Home"
 import { View, TouchableOpacity, Dimensions, Text } from "react-native"
-import DemoScreen from './Demo';
 import styles from "./Styles"
 import InfoScreen from './Info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Ficon from 'react-native-vector-icons/Feather'
 import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import EIcon from "react-native-vector-icons/Entypo"
 import LogScreen from "./Log"
 import { screenHeight, screenWidth, addButtonSize } from "./Variables"
 
@@ -27,16 +25,22 @@ const AppStack = createStackNavigator({
     MyTab: {
         screen: createMaterialTopTabNavigator(
             {
-                Charts: {
+                Home: {
                     screen: BuzzScreen,
                     navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><EIcon name="bar-graph" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Charts</Text></View>)
+                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="home" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Home</Text></View>)
                     },
                 },
                 Drinks: {
                     screen: HomeScreen,
                     navigationOptions: {
                         tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="beer" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Drinks</Text></View>)
+                    },
+                },
+                Log: {
+                    screen: LogScreen,
+                    navigationOptions: {
+                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><MatCommIcon name="file-document-edit-outline" color="#4db6ac" size={addButtonSize === "tablet" ? 45 : 28} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Log</Text></View>)
                     },
                 },
                 Profile: {
@@ -46,12 +50,7 @@ const AppStack = createStackNavigator({
 
                     },
                 },
-                Demo: {
-                    screen: DemoScreen,
-                    navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="clipboard" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Demo</Text></View>)
-                    },
-                },
+
             },
             {
                 tabBarOptions: {
@@ -71,16 +70,12 @@ const AppStack = createStackNavigator({
                 color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 25, fontWeight: '400',
                 paddingTop: screenWidth === 1440 && screenHeight === 2792 ? 25 : 0
             },
-            headerLeft: (<View style={{ flexDirection: "row" }}>
+            headerRight: (<View style={{ flexDirection: "row", paddingRight: 10 }}>
                 <TouchableOpacity accessibilityLabel="infobutton" style={[addButtonSize === "tablet" ? styles.largeinfoButton : styles.infoButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>
-                    <Ficon name="info" color="#ffffff" size={addButtonSize === "tablet" ? 40 : 25} style={{ height: addButtonSize === "tablet" ? 40 : 25, width: addButtonSize === "tablet" ? 40 : 25, textAlign: 'center' }} /></TouchableOpacity></View>),
-            headerRight: (<View style={{ flexDirection: "row" }}>
-                <TouchableOpacity accessibilityLabel="logbutton" style={[addButtonSize === "tablet" ? styles.largelogButton : styles.logButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Log")}>
-                    <MatCommIcon name="file-document-edit-outline" color="#ffffff" size={addButtonSize === "tablet" ? 32 : 18} style={{ height: addButtonSize === "tablet" ? 32 : 18, width: addButtonSize === "tablet" ? 32 : 18, textAlign: 'center' }} /></TouchableOpacity></View>)
+                    <Ficon name="info" color="#ffffff" size={addButtonSize === "tablet" ? 40 : 25} style={{ height: addButtonSize === "tablet" ? 40 : 25, width: addButtonSize === "tablet" ? 40 : 25, textAlign: 'center' }} /></TouchableOpacity></View>)
         })
     },
     Info: InfoScreen,
-    Log: LogScreen
 }, { headerLayoutPreset: 'center' })
 
 const AuthStack = createStackNavigator({ Login: LoginScreen },
