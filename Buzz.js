@@ -578,30 +578,31 @@ class BuzzScreen extends Component {
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }}>
                         <View style={styles.scrollCard}>
+                            <Text style={{ fontSize: 20, fontWeight: "400", textAlign: "center" }}>Standard Drinks</Text>
                             <View style={{ flexDirection: 'row', justifyContent: "space-evenly" }}>
-                                <View style={{ flexDirection: 'column', padding: 10 }}>
-                                    <BarChart style={{ flex: 1, padding: 10, height: addButtonSize === "tablet" ? 400 : 200, width: barChartWidth }} data={values[5]}
+                                <View style={{ flexDirection: 'column', paddingLeft: 10, paddingBottom: 10, paddingRight: 10 }}>
+                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 180, width: barChartWidth }} data={values[5]}
                                         svg={{ fill: values[3][0], fillOpacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[5][0] + 3} animate={true} animationDuration={1500}>
                                         <XAxis style={{ marginTop: 10 }} data={values[5]} scale={scale.scaleBand} formatLabel={() => ""} />
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <LabelWeek />
                                     </BarChart>
-                                    <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Week</Text>
+                                    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 3 }}>Total Last Week</Text>
                                 </View>
                                 <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
-                                    <BarChart style={{ flex: 1, padding: 10, height: addButtonSize === "tablet" ? 400 : 200, width: barChartWidth }} data={values[6]}
+                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 180, width: barChartWidth }} data={values[6]}
                                         svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[6][0] + 10}>
                                         <XAxis style={{ marginTop: 10 }} data={values[6]} scale={scale.scaleBand} formatLabel={() => ""} />
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <LabelMonth />
                                     </BarChart>
-                                    <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Total Last Month</Text>
+                                    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 3 }}>Total Last Month</Text>
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "center" }}>
-                                <Text style={{ color: "#000000", fontSize: abvText, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: addButtonSize === "tablet" ? 10 : 0 }}>
+                                <Text style={{ color: "#000000", fontSize: abvText - 3, textAlign: "left", paddingLeft: 10, paddingRight: 10, paddingTop: addButtonSize === "tablet" ? 10 : 0 }}>
                                     <Text style={{ color: "#000000", color: values[3][0], fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }}>■ </Text>
                                     {values[3][1]}  <Text style={{ color: "#000000", color: values[4][0], fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }}>■ </Text>
                                     {values[4][1]}</Text>
@@ -637,6 +638,8 @@ class BuzzScreen extends Component {
                                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: 0.3 }}>- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
                                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#000000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: 0.3 }}>- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)} Drinks</Text>
                                 </View>
+                                <Text style={{ fontSize: addButtonSize === "tablet" ? 24 : 12, color: "#AE0000", textAlign: "left", paddingTop: addButtonSize === "tablet" ? 20 : 3, paddingLeft: 20 }}>*Based on CDC Maximum Recommended</Text>
+                                <Text style={{ fontSize: addButtonSize === "tablet" ? 24 : 12, color: "#AE0000", textAlign: "left", paddingTop: addButtonSize === "tablet" ? 10 : 2, paddingLeft: 20 }}> and NIH Standard Drink Guidelines</Text>
                             </View>}
                     </ScrollView>
                     {values[0].length > 1 && <View style={[styles.buzzInfo, { flexDirection: "row", justifyContent: "space-evenly" }]}>
