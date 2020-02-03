@@ -124,14 +124,14 @@ class BuzzScreen extends Component {
         this.setState({ addoldbuzzes: addoldbuzzes })
     }
 
-    addOldDrink() {
+    async addOldDrink() {
         // Add handling for null, and same day entries, etc
         ReactNativeHaptic.generate('selection')
         addolddrinks = this.state.oldbuzzes
         var olddrinkdate = new Date();
         console.log(olddrinkdate)
         if (this.state.oldbuzzes === null) {
-            this.setState({ oldbuzzes: [{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }] }, () => console.log(this.state.oldbuzzes))
+            this.setState({ oldbuzzes: [[{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]] }, () => console.log(this.state.oldbuzzes))
         } if (new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
             var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, addolddrinks[0]);
             console.log(combined)
@@ -142,6 +142,12 @@ class BuzzScreen extends Component {
             addolddrinks.unshift([{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]);
             this.setState({ oldbuzzes: addolddrinks }, () => console.log(this.state.oldbuzzes))
         }
+        await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.oldbuzzes))
+        this.setState({ oldbuzzes: null })
+        await AsyncStorage.getItem(oldkey, (error, result) => {
+            if (result !== null && result !== "[]") { setTimeout(() => { this.setState({ oldbuzzes: JSON.parse(result) }) }, 200) }
+        })
+        this.componentDidMount()
     }
 
     deleteAddOldBuzz(oldbuzz) {

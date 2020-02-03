@@ -55,7 +55,7 @@ class LoginScreen extends React.Component {
         [limitdatekey, JSON.stringify(new Date().setHours(23, 0, 0, 0))], [pacertimekey, JSON.stringify(1800)],
         [lastcallkey, JSON.stringify(false)], [maxreckey, JSON.stringify(false)], [warningkey, JSON.stringify(false)]])
         this.handleModal("yes");
-        this.props.navigation.navigate("Charts", { login: true });
+        this.props.navigation.navigate("Home", { login: true });
     }
 
     render() {
