@@ -138,10 +138,8 @@ class BuzzScreen extends Component {
         if (oldbuzzes.length !== 0) {
             if (new Date(Date.parse(oldbuzzes[0][oldbuzzes[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(oldbuzzes[0][oldbuzzes[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
                 var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, oldbuzzes[0]);
-                console.log(combined)
                 oldbuzzes.shift();
                 oldbuzzes.unshift(combined);
-                console.log(oldbuzzes)
             }
         } else {
             oldbuzzes.unshift(addolddrinks);
