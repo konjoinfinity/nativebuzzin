@@ -11,7 +11,6 @@ import InfoScreen from './Info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Ficon from 'react-native-vector-icons/Feather'
 import MIcon from 'react-native-vector-icons/MaterialIcons';
-import Sicon from 'react-native-vector-icons/SimpleLineIcons';
 import LogScreen from "./Log"
 import { screenHeight, screenWidth, addButtonSize } from "./Variables"
 

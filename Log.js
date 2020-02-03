@@ -7,6 +7,7 @@ import moment from "moment";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import ReactNativeHaptic from 'react-native-haptic';
 import { addButtonSize } from "./Variables"
+import { NavigationEvents } from "react-navigation";
 
 class LogScreen extends Component {
     constructor(props) {
@@ -85,6 +86,7 @@ class LogScreen extends Component {
         }))
         return (
             <View>
+                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
                 <Modal animationType="fade" transparent={true} visible={this.state.logmodal}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: '#00000080', paddingTop: 25 }} onStartShouldSetResponder={() => this.loginput.blur()}>
                         <View style={[styles.cardView, { margin: 10, width: Dimensions.get('window').width * 0.9, height: Dimensions.get('window').height * 0.56 }]}>
