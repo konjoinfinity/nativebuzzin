@@ -135,7 +135,17 @@ class BuzzScreen extends Component {
         var olddrinkdate = new Date();
         var addolddrinks = [{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]
         this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
-        oldbuzzes.unshift(addolddrinks);
+        if (oldbuzzes.length !== 0) {
+            if (new Date(Date.parse(oldbuzzes[0][oldbuzzes[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(oldbuzzes[0][oldbuzzes[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
+                var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, oldbuzzes[0]);
+                console.log(combined)
+                oldbuzzes.shift();
+                oldbuzzes.unshift(combined);
+                console.log(oldbuzzes)
+            }
+        } else {
+            oldbuzzes.unshift(addolddrinks);
+        }
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }) })
         this.refreshVals()
