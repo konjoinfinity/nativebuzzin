@@ -211,17 +211,13 @@ export class Functions {
             if (result[0][1] !== null && result[0][1] !== "[]" && result[1][1] !== null && result[1][1] !== "[]") {
                 oldbuzzes = JSON.parse(result[0][1])
                 result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
-                console.log(oldbuzzes)
                 var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[oldbuzzes.length - 1].length - 1].dateCreated) / 168)
-                console.log(numOfArrays)
                 maxrecgender = gender === "Male" ? 14 : 7
                 // i = 1
                 for (i = 0; i <= numOfArrays; i++) { lastWeeks.push([]) }
                 (oldbuzzes.map((buzz) => {
                     return buzz.map((oldbuzz) => {
-                        console.log(oldbuzz)
                         var drinkTime = this.singleDuration(oldbuzz.dateCreated);
-                        console.log(drinkTime)
                         if (drinkTime < 168) { lastWeeks[0].push(oldbuzz), sevenArray.push(oldbuzz) }
                         if (drinkTime < 720) { thirtyArray.push(oldbuzz) }
                         for (var i = 1; i < numOfArrays; i++) {
@@ -252,7 +248,6 @@ export class Functions {
                 }
             }
         })
-        console.log(sevenData)
         return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, avg]
     }
 

@@ -135,16 +135,12 @@ class BuzzScreen extends Component {
         var olddrinkdate = new Date();
         var addolddrinks = [{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]
         this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
-        console.log(olddrinkdate)
         oldbuzzes.unshift(addolddrinks);
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }) })
-        setTimeout(() => { this.refreshVals() }, 200);
-
-        // if (this.state.oldbuzzes === null) {
-        //     addolddrinks = [[{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]]
-        //     this.setState({ oldbuzzes: addolddrinks }, () => console.log(this.state.oldbuzzes))
-        //     await AsyncStorage.setItem(oldkey, JSON.stringify(addolddrinks))
+        this.refreshVals()
+        // Add buzz (same day) combining method later
+        //
         // } else if (this.state.oldbuzzes !== null) {
         //     if (new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
         //         var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, addolddrinks[0]);
@@ -154,14 +150,6 @@ class BuzzScreen extends Component {
         //         console.log(addolddrinks)
         //         await AsyncStorage.setItem(oldkey, JSON.stringify(addolddrinks))
         //     }
-        // } else {
-        //     addolddrinks.unshift([{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]);
-        //     this.setState({ oldbuzzes: addolddrinks }, () => console.log(this.state.oldbuzzes))
-        //     await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.addolddrinks))
-        // }
-        // console.log(this.state.oldbuzzes)
-        // console.log(addolddrinks)
-
     }
 
     deleteAddOldBuzz(oldbuzz) {
@@ -210,7 +198,6 @@ class BuzzScreen extends Component {
         var oldbuzzmonth;
         var monthOld = new Date()
         monthOld.setMonth(monthOld.getMonth() - 2)
-        console.log(this.state.oldbuzzes)
         this.state.oldbuzzes !== null && (oldbuzzmonth = this.state.oldbuzzes.map(buzz => { return buzz.filter(oldbuzz => Date.parse(oldbuzz.dateCreated) > monthOld) }))
         this.state.oldbuzzes !== null && (oldbuzzes = oldbuzzmonth.map((buzz, obid) => {
             return buzz.map((oldbuzz, id) => {
