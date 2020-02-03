@@ -10,7 +10,8 @@ import styles from "./Styles"
 import InfoScreen from './Info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Ficon from 'react-native-vector-icons/Feather'
-import MatCommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
+import Sicon from 'react-native-vector-icons/SimpleLineIcons';
 import LogScreen from "./Log"
 import { screenHeight, screenWidth, addButtonSize } from "./Variables"
 
@@ -40,7 +41,7 @@ const AppStack = createStackNavigator({
                 Log: {
                     screen: LogScreen,
                     navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><MatCommIcon name="file-document-edit-outline" color="#4db6ac" size={addButtonSize === "tablet" ? 45 : 28} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Log</Text></View>)
+                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><MIcon name="note-add" color="#4db6ac" size={addButtonSize === "tablet" ? 45 : 28} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Log</Text></View>)
                     },
                 },
                 Profile: {

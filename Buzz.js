@@ -590,7 +590,7 @@ class BuzzScreen extends Component {
                                     </BarChart>
                                     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 3 }}>Total Last Week</Text>
                                 </View>
-                                <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingTop: 10, paddingBottom: 10 }}>
+                                <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingBottom: 10 }}>
                                     <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 180, width: barChartWidth }} data={values[6]}
                                         svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[6][0] + 10}>
@@ -638,8 +638,6 @@ class BuzzScreen extends Component {
                                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: 0.3 }}>- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
                                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 14, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#000000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: 0.3 }}>- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)} Drinks</Text>
                                 </View>
-                                <Text style={{ fontSize: addButtonSize === "tablet" ? 24 : 12, color: "#AE0000", textAlign: "left", paddingTop: addButtonSize === "tablet" ? 20 : 3, paddingLeft: 20 }}>*Based on CDC Maximum Recommended</Text>
-                                <Text style={{ fontSize: addButtonSize === "tablet" ? 24 : 12, color: "#AE0000", textAlign: "left", paddingTop: addButtonSize === "tablet" ? 10 : 2, paddingLeft: 20 }}> and NIH Standard Drink Guidelines</Text>
                             </View>}
                     </ScrollView>
                     {values[0].length > 1 && <View style={[styles.buzzInfo, { flexDirection: "row", justifyContent: "space-evenly" }]}>
@@ -657,12 +655,12 @@ class BuzzScreen extends Component {
                         </View>
                         {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
                     </View>}
-                    {this.state.buzzes === null && <View style={styles.buzzInfo}>
+                    {/* {this.state.buzzes === null && <View style={styles.buzzInfo}>
                         <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Drinks</Text>
                         <View>
                             {this.state.timesince !== null && <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ color: "#000000", fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}
                             {this.state.timesince === null && <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}</View>
-                    </View>}
+                    </View>} */}
                     {this.state.oldbuzzes !== null && <View style={styles.buzzCard}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>
                             <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>

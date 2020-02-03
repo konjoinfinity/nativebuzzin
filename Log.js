@@ -128,7 +128,7 @@ class LogScreen extends Component {
                 </Modal >
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}><View style={{ flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
-                        <View style={styles.hiddenlargeplusminusButton}><Text style={{ color: "#e0f2f1", fontSize: addButtonSize === "tablet" ? 40 : 28, textAlign: "center" }}>+</Text></View>
+                        <View style={addButtonSize === "tablet" ? styles.hiddenlargeplusminusButton : styles.hiddenLogButton}><Text style={{ color: "#e0f2f1", fontSize: addButtonSize === "tablet" ? 40 : 28, textAlign: "center" }}>+</Text></View>
                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 50 : 28, padding: 10 }}>Logs</Text>
                         <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.addLogButton]} onPress={() => this.setState({ logmodal: true }, () => { ReactNativeHaptic.generate('selection'); Platform.OS === "ios" ? this.loginput.focus() : setTimeout(() => this.loginput.focus(), 10) })}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.logbuttonText}>+</Text></TouchableOpacity>
                     </View>
