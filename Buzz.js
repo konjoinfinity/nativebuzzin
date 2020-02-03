@@ -48,6 +48,11 @@ class BuzzScreen extends Component {
         await AsyncStorage.getItem(genderkey, (error, result) => { this.setState({ gender: JSON.parse(result) }) })
     }
 
+    async refreshVals() {
+        values = await Functions.maxRecDrinks();
+        await AsyncStorage.getItem(oldkey, (error, result) => { this.setState({ oldbuzzes: JSON.parse(result) }) })
+    }
+
     showHideBuzzes(statename) {
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
         ReactNativeHaptic.generate('selection')
@@ -125,29 +130,38 @@ class BuzzScreen extends Component {
     }
 
     async addOldDrink() {
-        // Add handling for null, and same day entries, etc
+        var oldbuzzes;
         ReactNativeHaptic.generate('selection')
-        addolddrinks = this.state.oldbuzzes
         var olddrinkdate = new Date();
+        var addolddrinks = [{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]
+        this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
         console.log(olddrinkdate)
-        if (this.state.oldbuzzes === null) {
-            this.setState({ oldbuzzes: [[{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]] }, () => console.log(this.state.oldbuzzes))
-        } if (new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
-            var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, addolddrinks[0]);
-            console.log(combined)
-            addolddrinks.shift();
-            addolddrinks.unshift(combined);
-            console.log(addolddrinks)
-        } else {
-            addolddrinks.unshift([{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]);
-            this.setState({ oldbuzzes: addolddrinks }, () => console.log(this.state.oldbuzzes))
-        }
-        await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.oldbuzzes))
-        this.setState({ oldbuzzes: null })
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null && result !== "[]") { setTimeout(() => { this.setState({ oldbuzzes: JSON.parse(result) }) }, 200) }
-        })
-        this.componentDidMount()
+        oldbuzzes.unshift(addolddrinks);
+        oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
+        await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }) })
+        setTimeout(() => { this.refreshVals() }, 200);
+
+        // if (this.state.oldbuzzes === null) {
+        //     addolddrinks = [[{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]]
+        //     this.setState({ oldbuzzes: addolddrinks }, () => console.log(this.state.oldbuzzes))
+        //     await AsyncStorage.setItem(oldkey, JSON.stringify(addolddrinks))
+        // } else if (this.state.oldbuzzes !== null) {
+        //     if (new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
+        //         var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, addolddrinks[0]);
+        //         console.log(combined)
+        //         addolddrinks.shift();
+        //         addolddrinks.unshift(combined);
+        //         console.log(addolddrinks)
+        //         await AsyncStorage.setItem(oldkey, JSON.stringify(addolddrinks))
+        //     }
+        // } else {
+        //     addolddrinks.unshift([{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]);
+        //     this.setState({ oldbuzzes: addolddrinks }, () => console.log(this.state.oldbuzzes))
+        //     await AsyncStorage.setItem(oldkey, JSON.stringify(this.state.addolddrinks))
+        // }
+        // console.log(this.state.oldbuzzes)
+        // console.log(addolddrinks)
+
     }
 
     deleteAddOldBuzz(oldbuzz) {
@@ -608,24 +622,24 @@ class BuzzScreen extends Component {
                             <Text style={{ fontSize: 20, fontWeight: "400", textAlign: "center", color: "#000000" }}>Standard Drinks</Text>
                             <View style={{ flexDirection: 'row', justifyContent: "space-evenly" }}>
                                 <View style={{ flexDirection: 'column', paddingLeft: 10, paddingBottom: 10, paddingRight: 10 }}>
-                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 180, width: barChartWidth }} data={values[5]}
+                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 160, width: barChartWidth }} data={values[5]}
                                         svg={{ fill: values[3][0], fillOpacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[5][0] + 3} animate={true} animationDuration={1500}>
                                         <XAxis style={{ marginTop: 10 }} data={values[5]} scale={scale.scaleBand} formatLabel={() => ""} />
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <LabelWeek />
                                     </BarChart>
-                                    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 3 }}>Total Last Week</Text>
+                                    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center" }}>Total Last Week</Text>
                                 </View>
                                 <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingBottom: 10 }}>
-                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 180, width: barChartWidth }} data={values[6]}
+                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 160, width: barChartWidth }} data={values[6]}
                                         svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[6][0] + 10}>
                                         <XAxis style={{ marginTop: 10 }} data={values[6]} scale={scale.scaleBand} formatLabel={() => ""} />
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <LabelMonth />
                                     </BarChart>
-                                    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 3 }}>Total Last Month</Text>
+                                    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center" }}>Total Last Month</Text>
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "center" }}>
@@ -640,7 +654,7 @@ class BuzzScreen extends Component {
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
                                 <View style={{ flexDirection: 'column', padding: 10 }}>
-                                    <LineChart style={{ height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
+                                    <LineChart style={{ height: addButtonSize === "tablet" ? 400 : 180, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
                                         <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} contentInset={{ left: 30, right: 40 }}
