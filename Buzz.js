@@ -149,17 +149,6 @@ class BuzzScreen extends Component {
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }) })
         this.refreshVals()
-        // Add buzz (same day) combining method later
-        //
-        // } else if (this.state.oldbuzzes !== null) {
-        //     if (new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(addolddrinks[0][addolddrinks[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
-        //         var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, addolddrinks[0]);
-        //         console.log(combined)
-        //         addolddrinks.shift();
-        //         addolddrinks.unshift(combined);
-        //         console.log(addolddrinks)
-        //         await AsyncStorage.setItem(oldkey, JSON.stringify(addolddrinks))
-        //     }
     }
 
     deleteAddOldBuzz(oldbuzz) {
