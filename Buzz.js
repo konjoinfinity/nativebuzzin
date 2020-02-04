@@ -140,6 +140,8 @@ class BuzzScreen extends Component {
                 var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, oldbuzzes[0]);
                 oldbuzzes.shift();
                 oldbuzzes.unshift(combined);
+            } else {
+                oldbuzzes.unshift(addolddrinks);
             }
         } else {
             oldbuzzes.unshift(addolddrinks);
