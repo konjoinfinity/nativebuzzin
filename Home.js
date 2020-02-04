@@ -1096,7 +1096,7 @@ class HomeScreen extends Component {
                             {buzzes}
                         </View>}
 
-                    {this.state.oldbuzzes !== null && <View style={styles.buzzCard}>
+                    {this.state.oldbuzzes.length !== 0 && <View style={styles.buzzCard}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>
                             <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>
                             <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
@@ -1105,7 +1105,7 @@ class HomeScreen extends Component {
                         </View>
                         {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                     </View>}
-                    {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
+                    {this.state.oldbuzzes.length === 0 && <View style={styles.buzzInfo}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                             <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>
                             <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, { marginTop: 5 }]} onPress={() => this.addOldModal()}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity>

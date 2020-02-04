@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     loginbuttonText: { color: "#FFFFFF", textAlign: "center" },
     loginbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 15, margin: 5, borderRadius: 15 },
     profilebuttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
-    buttonText: { color: "#FFFFFF", fontSize: 18, textAlign: "center" },
+    buttonText: { color: "#FFFFFF", fontSize: 20, textAlign: "center" },
     largeButtonText: { color: "#FFFFFF", fontSize: 50, textAlign: "center" },
     multiSwitch: { backgroundColor: 'white', borderRadius: 20, borderWidth: 1, borderColor: "lightgrey", justifyContent: 'space-between' },
     cardView: { backgroundColor: "#e0f2f1", borderRadius: 15, marginRight: 10, marginLeft: 10, marginBottom: 10, padding: 10 },
