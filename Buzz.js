@@ -64,24 +64,6 @@ class BuzzScreen extends Component {
         this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
     }
 
-    async deleteBuzz(buzz) {
-        ReactNativeHaptic.generate('selection')
-        var filtered = this.state.buzzes.filter(deleted => deleted !== buzz)
-        await AsyncStorage.setItem(key, JSON.stringify(filtered), () => { this.setState({ buzzes: filtered, selectedBuzz: filtered }) })
-        values = await Functions.maxRecDrinks()
-    }
-
-    async editBuzz() {
-        ReactNativeHaptic.generate('selection')
-        var delayTime = new Date();
-        delayTime.setMinutes(delayTime.getMinutes() - this.state.buzzduration)
-        var editbuzzes = this.state.buzzes
-        editbuzzes.unshift({ drinkType: this.state.alctype, dateCreated: delayTime, oz: this.state.oz, abv: this.state.abv })
-        editbuzzes.sort((a, b) => new Date(Date.parse(b.dateCreated)).getTime() - new Date(Date.parse(a.dateCreated)).getTime());
-        await AsyncStorage.setItem(key, JSON.stringify(editbuzzes), () => { this.setState({ buzzes: editbuzzes, selectedBuzz: editbuzzes }) })
-        values = await Functions.maxRecDrinks()
-    }
-
     async deleteOldBuzz(obid, oldbuzz) {
         ReactNativeHaptic.generate('selection')
         var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
@@ -102,11 +84,6 @@ class BuzzScreen extends Component {
     oldModal(buzz, obid) {
         ReactNativeHaptic.generate('selection')
         this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz === "a" ? "" : buzz, obid: obid === "z" ? "" : obid });
-    }
-
-    buzzModal(action) {
-        ReactNativeHaptic.generate('selection')
-        this.setState({ buzzmodal: !this.state.buzzmodal, selectedBuzz: action === "open" ? this.state.buzzes : "" });
     }
 
     addOldModal() {
@@ -182,18 +159,33 @@ class BuzzScreen extends Component {
         Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
     }
 
+    async undoLastDrink() {
+        if (Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) < 0.0333333) {
+            ReactNativeHaptic.generate('selection')
+            var undobuzz;
+            await AsyncStorage.getItem(oldkey, (error, result) => {
+                if (result !== null && result !== "[]") {
+                    undobuzz = JSON.parse(result);
+                    if (undobuzz.length === 1 && undobuzz[0].length === 1) {
+                        undobuzz = null
+                    } else {
+                        undobuzz[0].shift();
+                    }
+                    this.setState({ oldbuzzes: undobuzz })
+                }
+            })
+            undobuzz === null ? await AsyncStorage.removeItem(oldkey) : await AsyncStorage.setItem(oldkey, JSON.stringify(undobuzz))
+        }
+        this.refreshVals()
+    }
+
+    checkLastDrink() {
+        if (Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) < 0.0333333) { return true }
+        else { return false }
+    }
+
     render() {
-        let buzzes, oldbuzzes, selectedbuzz, selectedoldbuzz, oldbuzztoadd;
-        this.state.buzzes !== null && (buzzes = this.state.buzzes.map((buzz, id) => {
-            return (<View key={id}>
-                {id === 0 && <View style={{ flexDirection: "row", justifyContent: "flex-end" }}><Text style={{ color: "#000000", fontSize: abvText, padding: 10, textAlign: "center", marginRight: 30 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text><TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons]} onPress={() => this.buzzModal("open")}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity></View>}
-                <View style={styles.buzzMap}>
-                    <View style={addButtonSize === "tablet" ? [styles.dropShadow3, styles.largebuzzheaderButton] : [styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
-                    <View style={{ flexDirection: "column" }}>
-                        <Text style={{ color: "#000000", fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
-                        <Text style={{ color: "#000000", fontSize: abvText - 2, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                </View></View>)
-        }))
+        let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
         monthOld.setMonth(monthOld.getMonth() - 2)
@@ -211,18 +203,6 @@ class BuzzScreen extends Component {
                     </View></View>
                 )
             })
-        }))
-        this.state.selectedBuzz !== "" && (selectedbuzz = this.state.selectedBuzz.map((buzz, id) => {
-            return (<View key={id}>
-                {id === 0 && <Text style={{ color: "#000000", fontSize: abvText, padding: 10, textAlign: "center" }}>Session Date: {moment(buzz.dateCreated).format('ddd MMM Do YYYY')}</Text>}
-                <View style={{ flexDirection: "row", justifyContent: "space-evenly", backgroundColor: "#b2dfdb", margin: 5, padding: 5, borderRadius: 15 }}>
-                    <View style={addButtonSize === "tablet" ? [styles.dropShadow3, styles.largebuzzheaderButton] : [styles.dropShadow3, styles.buzzheaderButton]}><Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 5 }}>{buzz.drinkType === "Beer" && <Text>🍺</Text>}{buzz.drinkType === "Wine" && <Text>🍷</Text>}{buzz.drinkType === "Liquor" && <Text>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>}{buzz.drinkType === "Cocktail" && <Text>🍹</Text>}</Text></View>
-                    <View style={{ flexDirection: "column" }}>
-                        <Text style={{ color: "#000000", fontSize: abvText, padding: 5 }}>{buzz.oz}oz  -  {Math.round(buzz.abv * 100)}% ABV</Text>
-                        <Text style={{ color: "#000000", fontSize: abvText - 2, padding: 5 }}>{moment(buzz.dateCreated).format('ddd MMM Do YYYY, h:mm a')}</Text></View>
-                    {this.state.selectedBuzz.length >= 2 && <TouchableOpacity style={[styles.dropShadow3, addButtonSize === "tablet" ? styles.largebuzzheaderButton : styles.buzzheaderButton]} onPress={() => this.deleteBuzz(buzz)}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>{Platform.OS === 'android' && Platform.Version < 24 ? "❌" : "🗑"}</Text></TouchableOpacity>}</View>
-            </View>
-            )
         }))
         this.state.selectedOldBuzz !== "" && (selectedoldbuzz = this.state.selectedOldBuzz.map((oldbuzz, id) => {
             return (<View key={id}>
@@ -492,116 +472,6 @@ class BuzzScreen extends Component {
                         </View>
                     </ScrollView>
                 </Modal>
-                <Modal animationType="slide" transparent={false} visible={this.state.buzzmodal}>
-                    <ScrollView>
-                        <View style={[styles.cardView, { marginTop: 30 }]}>
-                            <Text style={{ color: "#000000", textAlign: "center", fontSize: addButtonSize === "tablet" ? 40 : 20, fontWeight: "500" }}>Edit Drinks</Text>
-                            {selectedbuzz}
-                        </View>
-                        <View style={styles.cardView}>
-                            <View style={[styles.multiSwitchViews, { paddingBottom: 15, flexDirection: "row", justifyContent: "space-between" }]}>
-                                <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.editcurrentmodalalcswitch = ref }}
-                                    containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                    onActivate={(number) => { this.setState({ alctype: alcValues[number].value, abv: Functions.setAlcType(alcValues[number].value, this.state.metric)[0], oz: Functions.setAlcType(alcValues[number].value, this.state.metric)[1] }) }} active={this.state.alctype === "Beer" ? 0 : this.state.alctype === "Wine" ? 1 : this.state.alctype === "Liquor" ? 2 : 3}>
-                                    <Text style={{ color: "#000000", fontSize: alcTypeText }}>🍺</Text>
-                                    <Text style={{ color: "#000000", fontSize: alcTypeText }}>🍷</Text>
-                                    <Text style={{ color: "#000000", fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
-                                    <Text style={{ color: "#000000", fontSize: alcTypeText }}>🍹</Text>
-                                </MultiSwitch>
-                            </View>
-                            <View style={{ flex: 1, flexDirection: "row" }}>
-                                <View style={{ flex: 1, flexDirection: "column", paddingBottom: 5 }}>
-                                    <View style={{ paddingBottom: 15 }}>
-                                        {this.state.alctype === "Beer" &&
-                                            <View style={styles.multiSwitchViews}>
-                                                <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
-                                                    containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.04 ? 0 : this.state.abv === 0.05 ? 1 : this.state.abv === 0.06 ? 2 : this.state.abv === 0.07 ? 3 : 4}>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>4%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>5%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>6%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>7%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>8%</Text>
-                                                </MultiSwitch>
-                                            </View>}
-                                        {this.state.alctype !== "Beer" && this.state.alctype !== "Cocktail" &&
-                                            <View style={styles.multiSwitchViews}>
-                                                <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
-                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.13 || this.state.abv === 0.5 ? 2 : this.state.abv === 0.12 || this.state.abv === 0.4 ? 1 : 0}>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
-                                                </MultiSwitch>
-                                            </View>}
-                                        {this.state.alctype === "Cocktail" &&
-                                            <View style={[styles.dropShadow2, styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
-                                                <Text style={{ color: "#000000", fontSize: abvWineText }}>Number of Shots</Text>
-                                            </View>}
-                                    </View>
-                                    {this.state.alctype !== "Cocktail" &&
-                                        <View style={{ flexDirection: "row" }}>
-                                            {this.state.metric === "oz" &&
-                                                <View style={styles.multiSwitchViews}>
-                                                    <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
-                                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                        onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype, this.state.metric) }) }} active={this.state.oz === 11.15 || this.state.oz === 5.91 || this.state.oz === 0.84 || this.state.oz === 12 || this.state.oz === 5 || this.state.oz === 1.5 ? 0 : this.state.oz === 25.36 || this.state.oz === 8.45 || this.state.oz === 1.18 || this.state.oz === 16 || this.state.oz === 8 || this.state.oz === 3 ? 1 : 2}>
-                                                        <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "12" : this.state.alctype === "Wine" ? "5" : "1.5"}</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "16" : this.state.alctype === "Wine" ? "8" : "3"}</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "20" : this.state.alctype === "Wine" ? "12" : "6"}</Text>
-                                                    </MultiSwitch>
-                                                </View>}
-                                            {this.state.metric === "ml" &&
-                                                <View style={styles.multiSwitchViews}>
-                                                    <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.mlswitch = ref }}
-                                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                        onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype, this.state.metric) }) }} active={this.state.oz === 11.15 || this.state.oz === 5.91 || this.state.oz === 0.84 || this.state.oz === 12 || this.state.oz === 5 || this.state.oz === 1.5 ? 0 : this.state.oz === 25.36 || this.state.oz === 8.45 || this.state.oz === 1.18 || this.state.oz === 16 || this.state.oz === 8 || this.state.oz === 3 ? 1 : 2}>
-                                                        <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "330" : this.state.alctype === "Wine" ? "175" : "25"}</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "500" : this.state.alctype === "Wine" ? "250" : "35"}</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{this.state.alctype === "Beer" ? "750" : this.state.alctype === "Wine" ? "375" : "50"}</Text>
-                                                    </MultiSwitch>
-                                                </View>}
-                                            <View style={[styles.multiSwitchViews, { paddingLeft: 10 }]}>
-                                                <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
-                                                    containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { ReactNativeHaptic.generate('selection') }) }} active={this.state.metric === "oz" ? 0 : 1}>
-                                                    <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"oz"}</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"ml"}</Text>
-                                                </MultiSwitch>
-                                            </View>
-                                        </View>}
-                                    {this.state.alctype === "Cocktail" &&
-                                        <View style={styles.multiSwitchViews}>
-                                            <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.ozswitch = ref }}
-                                                containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                onActivate={(number) => { this.setState({ oz: Functions.setOz(number, this.state.alctype, this.state.metric) }) }} active={this.state.oz === 1.7 || this.state.oz === 1.5 ? 0 : this.state.oz === 3.4 || this.state.oz === 3 ? 1 : this.state.oz === 5.1 || this.state.oz === 4.5 ? 2 : 3}>
-                                                <Text style={{ color: "#000000", fontSize: abvLiquorText }}>1</Text>
-                                                <Text style={{ color: "#000000", fontSize: abvLiquorText }}>2</Text>
-                                                <Text style={{ color: "#000000", fontSize: abvLiquorText }}>3</Text>
-                                                <Text style={{ color: "#000000", fontSize: abvLiquorText }}>4</Text>
-                                            </MultiSwitch>
-                                        </View>}
-                                </View>
-                                <TouchableOpacity onPress={() => this.editBuzz()} style={addButtonSize === true ? [styles.dropShadow2, styles.smallAddButton] : addButtonSize === false ? [styles.dropShadow2, styles.addButton] : addButtonSize === "tablet" && screenWidth === 2048 && screenHeight === 2732 ? [styles.dropShadow2, styles.xlargeAddButton] : [styles.dropShadow2, styles.largeAddButton]}>
-                                    <Text style={{ color: "#000000", fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
-                            </View>
-                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 10 }}>How Long Ago?</Text>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, marginLeft: 20, marginRight: 20 }}>
-                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.buzzduration === 15 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("down")}>
-                                    <View><Text style={{ fontSize: abvText - 2, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
-                                <TouchableOpacity style={[styles.smallbac, styles.dropShadow2, { backgroundColor: "#e0f2f1", alignItems: 'center', justifyContent: 'center' }]}>
-                                    <Text style={{ color: "#000000", fontSize: abvText }}>{this.state.buzzduration} Minutes</Text></TouchableOpacity>
-                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.buzzduration === 240 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.buzzDuration("up")}>
-                                    <View><Text style={{ fontSize: abvText - 2, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
-                            </View>
-                            <Text style={styles.profileLine}>_________________________________________</Text>
-                            <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 5, paddingBottom: 5 }}>
-                                <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => this.buzzModal("close")}>
-                                    <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Done</Text>
-                                </TouchableOpacity></View>
-                        </View>
-                    </ScrollView>
-                </Modal>
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     <ScrollView horizontal={true} ref={(ref) => { this.sidescroll = ref }}>
                         <View style={styles.scrollCard}>
@@ -685,6 +555,9 @@ class BuzzScreen extends Component {
                                 <Text style={{ color: "#000000", fontSize: alcTypeText }}>{Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃"}</Text>
                                 <Text style={{ color: "#000000", fontSize: alcTypeText }}>🍹</Text>
                             </MultiSwitch>
+                            {this.state.oldbuzzes !== null && this.state.oldbuzzes[0].length >= 1 && this.checkLastDrink() === true &&
+                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === false ? styles.undoButton : styles.largeUndoButton]} onPress={() => this.undoLastDrink()}>
+                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View></TouchableOpacity>}
                         </View>
                         <View style={{ flex: 1, flexDirection: "row" }}>
                             <View style={{ flex: 1, flexDirection: "column" }}>
@@ -763,20 +636,6 @@ class BuzzScreen extends Component {
                                 <Text style={{ fontSize: addButtonText, color: "white" }}>+{this.state.alctype === "Beer" ? "🍺" : this.state.alctype === "Wine" ? "🍷" : this.state.alctype === "Liquor" ? (Platform.OS === 'android' && Platform.Version < 24 ? "🍸" : "🥃") : "🍹"}</Text></TouchableOpacity>
                         </View>
                     </View>
-                    {/* {this.state.buzzes !== null && <View style={styles.buzzCard}>
-                        <View style={styles.buzzView}>
-                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drinks</Text>
-                            <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => this.showHideBuzzes("showHideBuzzes")}>
-                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>{this.state.showHideBuzzes === false ? "Show" : "Hide"}</Text></TouchableOpacity>
-                        </View>
-                        {this.state.showHideBuzzes === true && <View>{buzzes}</View>}
-                    </View>} */}
-                    {/* {this.state.buzzes === null && <View style={styles.buzzInfo}>
-                        <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10 }}>Drinks</Text>
-                        <View>
-                            {this.state.timesince !== null && <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>It's been: <Text style={{ color: "#000000", fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}
-                            {this.state.timesince === null && <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", paddingBottom: 10 }}>You haven't had any drinks.</Text>}</View>
-                    </View>} */}
                     {this.state.oldbuzzes !== null && <View style={styles.buzzCard}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>
                             <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>
