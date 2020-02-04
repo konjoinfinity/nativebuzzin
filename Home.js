@@ -878,7 +878,7 @@ class HomeScreen extends Component {
                 </Modal>
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
-                    {Platform.OS === "ios" ?
+                    {/* {Platform.OS === "ios" ?
                         this.state.buzzes && this.state.buzzes.length > 0 ? <View style={[styles.buzzCard, { marginTop: 10 }]}>{buzzes}</View> :
                             <View style={[styles.buzzInfo, { marginTop: 10 }]}>
                                 <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingBottom: 10, paddingTop: 10 }}>You haven't had any drinks.</Text>
@@ -996,8 +996,10 @@ class HomeScreen extends Component {
                                     </CopilotStep>
                                 </View>
                             </View></CopilotView>
-                        </CopilotStep>}
-                    {this.state.break === true && <View style={styles.cardView}>
+                        </CopilotStep>} */}
+
+
+                    {/* {this.state.break === true && <View style={styles.cardView}>
                         {this.state.autobreak === true ?
                             <View><Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 5 }}>You are taking a break. {this.state.timesince !== null && this.state.bac === 0 && "It's been:"}</Text>{this.state.timesince !== null && this.state.bac === 0 &&
                                 <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ color: "#000000", fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}</View> :
@@ -1094,9 +1096,9 @@ class HomeScreen extends Component {
                     {Platform.OS === "android" && (this.state.buzzes && this.state.buzzes.length > 0) &&
                         <View style={styles.buzzCard}>
                             {buzzes}
-                        </View>}
+                        </View>} */}
 
-                    {this.state.oldbuzzes.length !== 0 && <View style={styles.buzzCard}>
+                    {this.state.oldbuzzes.length !== 0 && <View style={[styles.buzzCard, { marginTop: 10 }]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>
                             <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>
                             <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => this.showHideBuzzes("showHideOldBuzzes")}>
@@ -1105,7 +1107,7 @@ class HomeScreen extends Component {
                         </View>
                         {this.state.showHideOldBuzzes === true && <View>{oldbuzzes}</View>}
                     </View>}
-                    {this.state.oldbuzzes.length === 0 && <View style={styles.buzzInfo}>
+                    {this.state.oldbuzzes.length === 0 && <View style={[styles.buzzCard, { marginTop: 10 }]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
                             <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>
                             <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, { marginTop: 5 }]} onPress={() => this.addOldModal()}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity>
