@@ -198,9 +198,11 @@ class BuzzScreen extends Component {
 
     async deleteWholeOldBuzz() {
         var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
-        await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
+        filtered.length === 0 ?
+            await AsyncStorage.removeItem(oldkey, () => { this.setState({ oldbuzzes: null }) }) :
+            await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) });
         this.oldModal("a", "z")
-        if (this.state.oldbuzzes.length === 0) { this.setState({ timesince: null }, () => { this.showHideBuzzes("showHideOldBuzzes") }) }
+        if (filtered.length === 0) { this.setState({ timesince: null }, () => { this.showHideBuzzes("showHideOldBuzzes") }) }
         this.componentDidMount()
     }
 
@@ -306,6 +308,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log(this.state.oldbuzzes)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
