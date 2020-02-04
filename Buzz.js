@@ -53,15 +53,14 @@ class BuzzScreen extends Component {
                 }, 200);
             } else { this.setState({ oldbuzzes: null }) }
         })
-
-        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey, happyhourkey,
+        var avalues = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey, happyhourkey,
             autobreakthresholdkey, namekey, genderkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey, warningkey])
         this.setState({
-            autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
-            limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
-            happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), hhhour: JSON.parse(values[10][1]), pacertime: JSON.parse(values[11][1]),
-            lastcall: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]), maxrec: JSON.parse(values[14][1]), warn: JSON.parse(values[15][1])
+            autobreak: JSON.parse(avalues[0][1]), custombreak: JSON.parse(avalues[1][1]), indefbreak: JSON.parse(avalues[2][1]),
+            limitbac: JSON.parse(avalues[3][1]), limit: JSON.parse(avalues[4][1]), drinks: JSON.parse(avalues[5][1]),
+            happyhour: JSON.parse(avalues[6][1]), threshold: JSON.parse(avalues[7][1]), name: JSON.parse(avalues[8][1]),
+            gender: JSON.parse(avalues[9][1]), hhhour: JSON.parse(avalues[10][1]), pacertime: JSON.parse(avalues[11][1]),
+            lastcall: JSON.parse(avalues[12][1]), limithour: JSON.parse(avalues[13][1]), maxrec: JSON.parse(avalues[14][1]), warn: JSON.parse(avalues[15][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
@@ -307,8 +306,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(this.state.happyhour)
-        console.log(this.state.happyhourtime)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
