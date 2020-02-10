@@ -13,7 +13,6 @@ import styles from "./Styles"
 import CalendarPicker from 'react-native-calendar-picker';
 import ReactNativeHaptic from 'react-native-haptic';
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
-import CountDown from 'react-native-countdown-component';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey, genderkey, weightkey, key, oldkey,
@@ -60,7 +59,8 @@ class BuzzScreen extends Component {
             limitbac: JSON.parse(avalues[3][1]), limit: JSON.parse(avalues[4][1]), drinks: JSON.parse(avalues[5][1]),
             happyhour: JSON.parse(avalues[6][1]), threshold: JSON.parse(avalues[7][1]), name: JSON.parse(avalues[8][1]),
             gender: JSON.parse(avalues[9][1]), hhhour: JSON.parse(avalues[10][1]), pacertime: JSON.parse(avalues[11][1]),
-            lastcall: JSON.parse(avalues[12][1]), limithour: JSON.parse(avalues[13][1]), maxrec: JSON.parse(avalues[14][1]), warn: JSON.parse(avalues[15][1])
+            lastcall: JSON.parse(avalues[12][1]), limithour: JSON.parse(avalues[13][1]), maxrec: JSON.parse(avalues[14][1]),
+            warn: JSON.parse(avalues[15][1])
         })
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
@@ -176,9 +176,11 @@ class BuzzScreen extends Component {
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }) })
         this.refreshVals()
-        if (this.state.oldbuzzes[0].length >= this.state.drinks) {
-            this.setState({ showlimit: true })
-            await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
+        if (this.state.limit === true) {
+            if (this.state.oldbuzzes[0].length >= this.state.drinks) {
+                this.setState({ showlimit: true })
+                await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
+            }
         }
     }
 
@@ -316,6 +318,7 @@ class BuzzScreen extends Component {
 
     render() {
         console.log(this.state.showlimit)
+        console.log(this.state.oldbuzzes)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
@@ -770,7 +773,7 @@ class BuzzScreen extends Component {
                         </View>}
                     {this.state.break === true && <View style={styles.cardView}>
                         {this.state.autobreak === true ?
-                            <View><Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 5 }}>You are taking a break. {this.state.timesince !== null && this.state.bac === 0 && "It's been:"}</Text>{this.state.timesince !== null && this.state.bac === 0 &&
+                            <View><Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 5 }}>You are taking a break. {this.state.timesince !== null && "It's been:"}</Text>{this.state.timesince !== null &&
                                 <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ color: "#000000", fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink.</Text>}</View> :
                             <View><Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
                                 <Text style={styles.breakDateText}>{moment(this.state.breakdate).format('ddd MMM Do YYYY, h:mm a')}</Text></View>}
@@ -788,8 +791,8 @@ class BuzzScreen extends Component {
                         </View>}
                     {this.state.indefbreak === true &&
                         <View style={styles.cardView}>
-                            <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking a break. {this.state.timesince !== null && this.state.bac === 0 && "It's been:"}</Text>
-                            {this.state.timesince !== null && this.state.bac === 0 &&
+                            <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 5 }}>You are taking a break. {this.state.timesince !== null && "It's been:"}</Text>
+                            {this.state.timesince !== null &&
                                 <Text style={{ color: "#000000", fontSize: loginButtonText, textAlign: "center", padding: 5 }}><Text style={{ color: "#000000", fontWeight: "bold" }}>{this.state.timesince}</Text> since your last drink. Keep up the good work!</Text>}
                             <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("ib")}>
                                 <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Break</Text>
@@ -809,7 +812,7 @@ class BuzzScreen extends Component {
                                     <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Set Limit</Text>
                                 </TouchableOpacity>}
                         </View>}
-                    {this.state.lastcall === true && this.showLastCall() === true && this.state.bac < 0.10 && this.state.showpacer === false &&
+                    {this.state.lastcall === true && this.showLastCall() === true && this.state.showpacer === false &&
                         <View style={styles.cardView}>
                             <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>It is now last call.</Text>
                             <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 22, textAlign: "center", padding: 10 }}>Drink water and get home safely.</Text>
