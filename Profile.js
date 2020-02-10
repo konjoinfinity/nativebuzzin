@@ -292,16 +292,6 @@ class ProfileScreen extends Component {
                         </View>
                         {this.state.limit === true && this.state.setlimit === true && <View>
                             <Text style={styles.profileLine}>_________________________________________</Text>
-                            {Platform.OS === "android" && <View>
-                                <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Set Drink Limit</Text>
-                                <View style={styles.plusMinusView}>
-                                    <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.limitbac === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "limitbac", limitbackey)}>
-                                        <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
-                                    <TouchableOpacity style={[styles.smallbac, styles.dropShadow2, { backgroundColor: "#e0f2f1", justifyContent: "center", alignItems: "center", alignContent: "center" }]}>
-                                        <Text style={{ color: "#000000", fontSize: loginButtonText + 10, textAlign: "center" }}>{Functions.bacEmotion(this.state.limitbac)[1]}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.limitbac === 0.08 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "limitbac", limitbackey)}>
-                                        <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
-                                </View></View>}
                             <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 10 }}>Total Drink Limit</Text>
                             <View style={{ alignSelf: "center" }}>
                                 <NumericInput minValue={1} maxValue={8} initValue={this.state.drinks} value={this.state.drinks}
@@ -349,31 +339,6 @@ class ProfileScreen extends Component {
                     </View>
                     <View style={styles.profileCards}>
                         <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
-                            <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Drink Pacer</Text>
-                            <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
-                                <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.pacer} onChange={() => this.handleSwitches("pacer", pacerkey, "setpacer")} /></View>
-                            {this.state.pacer === false ? <TouchableOpacity style={styles.profileSettingHidden}>
-                                <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
-                                : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("setpacer")}>
-                                    <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
-                        </View>
-                        {this.state.pacer === true && this.state.setpacer && <View>
-                            <Text style={styles.profileLine}>_________________________________________</Text>
-                            <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 10 }}>Set Drink Pace</Text>
-                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", padding: 5, margin: 15 }}>
-                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.pacertime === 900 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("down")}>
-                                    <View><Text style={{ fontSize: abvText - 2, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
-                                <TouchableOpacity style={[styles.smallbac, styles.dropShadow2, { backgroundColor: "#e0f2f1", justifyContent: "center", alignContent: "center", alignItems: "center" }]}>
-                                    <View><Text style={{ color: "#000000", fontSize: abvText }}>{this.state.pacertime / 60} Minutes</Text></View></TouchableOpacity>
-                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.pacertime === 3600 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.pacerDuration("up")}>
-                                    <View><Text style={{ fontSize: abvText - 2, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
-                            </View>
-                            <TouchableOpacity style={[styles.profilebreakbutton, styles.dropShadow1]} onPress={() => this.showHideSetting("setpacer")}>
-                                <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
-                        </View>}
-                    </View>
-                    <View style={styles.profileCards}>
-                        <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
                             <Text style={[{ color: "#000000", fontSize: loginButtonText - 2 }, styles.profileCardText]}>Max Recommended</Text>
                             <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
                                 <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.maxrec} onChange={() => this.handleSwitches("maxrec", maxreckey, "setmaxrec")} /></View>
@@ -391,32 +356,6 @@ class ProfileScreen extends Component {
                                 <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
                         </View>}
                     </View>
-                    {Platform.OS === "android" &&
-                        <View style={styles.profileCards}>
-                            <View style={addButtonSize === "tablet" ? styles.centerView : styles.endView}>
-                                <Text style={[{ color: "#000000", fontSize: loginButtonText }, styles.profileCardText]}>Auto Break</Text>
-                                <View style={{ marginLeft: 5, marginRight: 5, padding: addButtonSize === "tablet" ? 10 : 0 }}>
-                                    <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} trackColor={{ true: "#26a69a" }} value={this.state.autobreak} onChange={() => this.handleSwitches("autobreak", autobreakkey, "setautobreak")} /></View>
-                                {this.state.autobreak === false ? <TouchableOpacity style={styles.profileSettingHidden}>
-                                    <Icon name="settings" color="#e0f2f1" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>
-                                    : <TouchableOpacity style={[styles.dropShadow, styles.profileSetting]} onPress={() => this.showHideSetting("setautobreak")}>
-                                        <Icon name="settings" color="#ffffff" size={loginButtonText - 3} style={{ padding: 3.5 }} /></TouchableOpacity>}
-                            </View>
-                            {this.state.autobreak === true && this.state.setautobreak === true && <View>
-                                <Text style={styles.profileLine}>_________________________________________</Text>
-                                <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Auto Break Tracker Threshold</Text>
-                                <View style={styles.plusMinusView}>
-                                    <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.threshold === 0.02 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("down", "threshold", autobreakthresholdkey)}>
-                                        <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>-</Text></View></TouchableOpacity>
-                                    <TouchableOpacity style={[styles.smallbac, styles.dropShadow2, { backgroundColor: "#e0f2f1", justifyContent: "center", alignContent: "center", alignItems: "center" }]}>
-                                        <Text style={{ color: "#000000", fontSize: loginButtonText + 10, textAlign: "center" }}>{Functions.bacEmotion(this.state.threshold)[1]}</Text></TouchableOpacity>
-                                    <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, this.state.threshold === 0.08 ? { backgroundColor: "#AE0000" } : { backgroundColor: "#00897b" }]} onPress={() => this.changeBac("up", "threshold", autobreakthresholdkey)}>
-                                        <View><Text style={{ fontSize: addButtonSize === "tablet" ? 36 : 18, color: "#ffffff" }}>+</Text></View></TouchableOpacity>
-                                </View>
-                                <TouchableOpacity style={[styles.profilebreakbutton, styles.dropShadow1]} onPress={() => this.showHideSetting("setautobreak")}>
-                                    <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Done</Text></TouchableOpacity>
-                            </View>}
-                        </View>}
                     <View style={styles.profileCards}>
                         <TouchableOpacity style={[styles.profilebutton, styles.dropShadow1]} onPress={() => this.confirmLogout()}><View style={{ flexDirection: "row", justifyContent: "center" }}>
                             <Text style={{ color: "#FFFFFF", fontSize: loginButtonText, textAlign: "center" }}>Logout   </Text><Icon name="logout" color="#ffffff" size={loginButtonText} style={{ paddingTop: 2 }} /></View></TouchableOpacity>

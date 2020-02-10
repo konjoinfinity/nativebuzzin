@@ -6,11 +6,9 @@ import _ from 'lodash';
 import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
 import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
-import RNSpeedometer from 'react-native-speedometer'
 import moment from "moment";
 import { Functions } from "./Functions";
 import styles from "./Styles"
-import CountDown from 'react-native-countdown-component';
 import ReactNativeHaptic from 'react-native-haptic';
 import MatIcon from "react-native-vector-icons/MaterialIcons"
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -83,7 +81,7 @@ class HomeScreen extends Component {
         await AsyncStorage.getItem(key, (error, result) => { result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: [] }) })
         await AsyncStorage.getItem(oldkey, (error, result) => {
             if (result !== null && result !== "[]") {
-                this.setState({ oldbuzzes: JSON.parse(result) }, () => this.checkBac())
+                this.setState({ oldbuzzes: JSON.parse(result) })
                 setTimeout(() => {
                     var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
                     this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
@@ -94,17 +92,9 @@ class HomeScreen extends Component {
                         } else { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(true)) })(); this.setState({ warn: true }) }
                     }
                 }, 50);
-            } else { this.setState({ oldbuzzes: [] }, () => this.checkBac()) }
+            } else { this.setState({ oldbuzzes: [] }) }
         })
-        // const login = this.props.navigation.getParam('login');
-        // if (login === true) {
-        //     setTimeout(() => {
-        //         this.props.copilotEvents.on('stepChange', this.handleStepChange);
-        //         this.props.start();
-        //         this.props.navigation.setParams({ login: false });
-        //     }, 200);
-        // }
-        setTimeout(() => { this.setState({ focus: true }, () => this.checkBac()) }, 800);
+        setTimeout(() => { this.setState({ focus: true }) }, 800);
         if (this.state.happyhour === true) {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
@@ -118,8 +108,6 @@ class HomeScreen extends Component {
     }
 
     componentWillUnmount() {
-        // this.props.copilotEvents.off('stop');
-        clearInterval(this.state.timer);
         clearInterval(this.state.flashtimer);
     }
 
@@ -195,24 +183,6 @@ class HomeScreen extends Component {
         Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
     }
 
-    // handleStepChange = (step) => {
-    //     if (step.order === 1 || step.order === 3) {
-    //         setTimeout(() => { this.addDrink() }, 1000);
-    //         setTimeout(() => { this.clearDrinks() }, 4000);
-    //         setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 5000)
-    //     }
-    //     if (step.order === 2) {
-    //         setTimeout(() => { this.alcswitch.setActive(1); this.setState({ alctype: "Wine" }) }, 1000);
-    //         setTimeout(() => { this.alcswitch.setActive(0); this.setState({ alctype: "Beer" }) }, 1500);
-    //         setTimeout(() => { this.abvswitch.setActive(4); this.setState({ abv: 0.07 }) }, 2000);
-    //         setTimeout(() => { this.abvswitch.setActive(1); this.setState({ abv: 0.05 }) }, 2500);
-    //         setTimeout(() => { this.ozswitch.setActive(2); this.setState({ oz: 20 }) }, 3000);
-    //         setTimeout(() => { this.ozswitch.setActive(0); this.setState({ oz: 12 }) }, 3500);
-    //         setTimeout(() => { this.metricswitch.setActive(1); this.setState({ metric: "ml" }) }, 4000);
-    //         setTimeout(() => { this.metricswitch.setActive(0); this.setState({ metric: "oz" }) }, 4500);
-    //     }
-    // }
-
     showHideBuzzes(statename) {
         this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
         ReactNativeHaptic.generate('selection')
@@ -221,7 +191,7 @@ class HomeScreen extends Component {
     async addDrink() {
         ReactNativeHaptic.generate('selection')
         var drinkDate = new Date();
-        this.setState(prevState => ({ buzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes] }), () => this.checkBac())
+        this.setState(prevState => ({ buzzes: [{ drinkType: this.state.alctype, dateCreated: drinkDate, oz: this.state.oz, abv: this.state.abv }, ...prevState.buzzes] }))
         setTimeout(() => {
             this.saveBuzz();
             this.flashWarning();
@@ -247,28 +217,6 @@ class HomeScreen extends Component {
         maxRecValues = await Functions.maxRecDrinks()
     }
 
-    async checkBac() {
-        if (this.state.buzzes.length >= 1) {
-            var duration = Functions.singleDuration(this.state.buzzes[this.state.buzzes.length - 1].dateCreated)
-            var totalBac = Functions.varGetBAC(this.state.weight, this.state.gender, duration, this.state.buzzes)
-            if (totalBac > 0) {
-                totalBac = parseFloat(totalBac.toFixed(6));
-                this.setState({ bac: totalBac })
-                if (totalBac < 0.06 && this.state.flashtext === true) {
-                    clearInterval(this.state.flashtimer)
-                    this.setState({ flashtext: false, flashtimer: "", flashtext: "" })
-                }
-                if (this.state.countdown === false) { this.setState({ countdown: true }, () => this.countdownBac()) }
-            } else {
-                this.setState({ countdown: false }, () => clearInterval(this.state.timer))
-                setTimeout(() => this.setState({ timer: "" }, () => this.moveToOld()), 200);
-            }
-        } else if (this.state.buzzes.length === 0) {
-            this.setState({ bac: 0.0, countdown: false }, () => clearInterval(this.state.timer))
-            setTimeout(() => this.setState({ timer: "" }), 200);
-        }
-    }
-
     flashWarning() {
         if (this.state.bac > 0.06) {
             this.setState({ flashtext: true })
@@ -278,17 +226,6 @@ class HomeScreen extends Component {
                     this.setState({ flashtimer: flashTimer })
                 }
             }, 200);
-        }
-    }
-
-    countdownBac() {
-        let bacTimer;
-        if (this.state.countdown === true) {
-            bacTimer = setInterval(() => this.checkBac(), Platform.OS === "android" ? 1000 : 10000);
-            this.setState({ timer: bacTimer });
-        } else if (this.state.countdown === false) {
-            clearInterval(this.state.timer);
-            setTimeout(() => this.setState({ timer: "" }), 200);
         }
     }
 
@@ -329,23 +266,6 @@ class HomeScreen extends Component {
         clearInterval(this.state.flashtimer);
         this.setState({ buzzes: [], bac: 0.0, flashtext: false, flashtimer: "", flashtext: "" })
         await AsyncStorage.removeItem(key);
-    }
-
-    async undoLastDrink() {
-        if (Functions.singleDuration(this.state.buzzes[0].dateCreated) < 0.0333333) {
-            ReactNativeHaptic.generate('selection')
-            var undobuzz;
-            await AsyncStorage.getItem(key, (error, result) => {
-                if (result !== null) {
-                    undobuzz = JSON.parse(result);
-                    undobuzz.shift();
-                    this.setState({ buzzes: undobuzz })
-                }
-            })
-            await AsyncStorage.setItem(key, JSON.stringify(undobuzz), () => { this.checkBac() })
-        }
-        if (this.state.showlimit === true && this.state.bac < this.state.limitbac) { this.setState({ showlimit: false }) }
-        maxRecValues = await Functions.maxRecDrinks()
     }
 
     checkLastDrink() {

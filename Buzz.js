@@ -176,6 +176,10 @@ class BuzzScreen extends Component {
         oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
         await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }) })
         this.refreshVals()
+        if (this.state.oldbuzzes[0].length >= this.state.drinks) {
+            this.setState({ showlimit: true })
+            await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
+        }
     }
 
     deleteAddOldBuzz(oldbuzz) {
@@ -311,6 +315,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log(this.state.showlimit)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
@@ -790,20 +795,11 @@ class BuzzScreen extends Component {
                                 <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Break</Text>
                             </TouchableOpacity>
                         </View>}
-                    {/* {this.state.bac > 0.10 && <View style={styles.cardView}>
-                        {abovePoint10}
-                        {this.state.oldbuzzes[0].length >= 1 && this.checkLastDrink() === true &&
-                            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === "tablet" ? styles.largeUndoButton : styles.undoButton]} onPress={() => this.undoLastDrink()}>
-                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
-                                </TouchableOpacity>
-                            </View>}
-                    </View>} */}
-                    {this.state.showlimit === true && this.state.oldbuzzes[0].length >= this.state.drinks && this.state.bac < 0.10 && this.state.showpacer === false &&
+                    {this.state.showlimit === true && this.state.oldbuzzes[0].length >= this.state.drinks && this.state.showpacer === false &&
                         <View style={styles.cardView}>
                             <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>You have reached your:</Text>
-                            {this.state.oldbuzzes[0].length >= this.state.drinks && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>{this.state.oldbuzzes[0].length >= this.state.drinks && "& "} Set Drink Limit - {this.state.drinks}</Text>}
-                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>Until you are sober, drink some water.</Text>
+                            {this.state.oldbuzzes[0].length >= this.state.drinks && <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton + 2 : 20, textAlign: "center", padding: 2, fontWeight: "bold" }}>Set Drink Limit - {this.state.drinks}</Text>}
+                            <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 18, textAlign: "center", padding: 5 }}>Please drink some water.</Text>
                             {this.state.oldbuzzes !== null && this.state.oldbuzzes[0].length >= 1 && this.checkLastDrink() === true ?
                                 <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
                                     <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === "tablet" ? styles.largeUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showlimit: false }) }}>
@@ -821,21 +817,6 @@ class BuzzScreen extends Component {
                                 <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Last Call</Text>
                             </TouchableOpacity>
                         </View>}
-                    {this.state.oldbuzzes !== null && this.state.oldbuzzes[0].length >= 1 && this.state.showpacer === true && <View style={styles.cardView}>
-                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? abvText + 20 : abvText, textAlign: "center", padding: 15, fontWeight: addButtonSize === "tablet" ? "400" : "normal" }}>Drink Pacer</Text>
-                        <CountDown size={addButtonSize === "tablet" ? abvText + 20 : abvText + 6} until={this.state.pacertime} onFinish={() => this.countDownFinished()}
-                            digitStyle={{ backgroundColor: "#e0f2f1", borderWidth: 2, borderColor: "#00897b" }}
-                            digitTxtStyle={{ color: "#00897b" }} separatorStyle={{ color: "#00897b" }}
-                            timeToShow={this.state.pacertime === 3600 ? ['H', 'M', 'S'] : ['M', 'S']} timeLabels={{ m: null, s: null }} showSeparator />
-                        {this.checkLastDrink() === true ?
-                            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-                                <TouchableOpacity style={[styles.dropShadow, addButtonSize === true ? styles.smallUndoButton : addButtonSize === "tablet" ? styles.largeUndoButton : styles.undoButton]} onPress={() => { this.undoLastDrink(), this.setState({ showpacer: false }) }}>
-                                    <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
-                                </TouchableOpacity>
-                            </View> : <TouchableOpacity style={[styles.dropShadow, styles.button]} onPress={() => this.cancelAlert("pc")}>
-                                <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel Pacer</Text>
-                            </TouchableOpacity>}
-                    </View>}
                     {this.checkMaxRec() === true &&
                         <View style={styles.cardView}>
                             <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? warnTitleButton : 20, textAlign: "center", padding: 10 }}>You have reached the max recommended {values[5] > values[7] && values[6] > values[8] ? "weekly and monthly" : values[5] > values[7] === true && values[6] > values[8] === false ? "weekly" : "monthly"} limit according to the CDC.</Text>
