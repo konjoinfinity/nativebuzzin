@@ -317,8 +317,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(this.state.showlimit)
-        console.log(this.state.oldbuzzes)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
