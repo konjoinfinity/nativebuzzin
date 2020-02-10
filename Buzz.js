@@ -604,7 +604,7 @@ class BuzzScreen extends Component {
                             <Text style={{ fontSize: 20, fontWeight: "400", textAlign: "center", color: "#000000" }}>Standard Drinks</Text>
                             <View style={{ flexDirection: 'row', justifyContent: "space-evenly" }}>
                                 <View style={{ flexDirection: 'column', paddingLeft: 10, paddingBottom: 10, paddingRight: 10 }}>
-                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 160, width: barChartWidth }} data={values[5]}
+                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 115 : 160, width: barChartWidth }} data={values[5]}
                                         svg={{ fill: values[3][0], fillOpacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[5][0] + 3} animate={true} animationDuration={1500}>
                                         <XAxis style={{ marginTop: 10 }} data={values[5]} scale={scale.scaleBand} formatLabel={() => ""} />
@@ -614,7 +614,7 @@ class BuzzScreen extends Component {
                                     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center" }}>Total Last Week</Text>
                                 </View>
                                 <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingBottom: 10 }}>
-                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : 160, width: barChartWidth }} data={values[6]}
+                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 115 : 160, width: barChartWidth }} data={values[6]}
                                         svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[6][0] + 10}>
                                         <XAxis style={{ marginTop: 10 }} data={values[6]} scale={scale.scaleBand} formatLabel={() => ""} />
@@ -635,8 +635,8 @@ class BuzzScreen extends Component {
                         </View>
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
-                                <View style={{ flexDirection: 'column', padding: 10 }}>
-                                    <LineChart style={{ height: addButtonSize === "tablet" ? 400 : 180, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
+                                <View style={{ flexDirection: 'column', padding: 5 }}>
+                                    <LineChart style={{ height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 135 : 180, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
                                         <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} contentInset={{ left: 30, right: 40 }}
@@ -646,13 +646,13 @@ class BuzzScreen extends Component {
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
-                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
+                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
                                         data={values[1]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
                                         svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>
                                     </LineChart>
                                     <LineChart
-                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
+                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
                                         data={values[9]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
                                         svg={{ stroke: "#000000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [16, 8], strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>
@@ -663,16 +663,16 @@ class BuzzScreen extends Component {
                                 </View>
                             </View>}
                     </ScrollView>
-                    {values[0].length > 1 && <View style={[styles.buzzInfo, { flexDirection: "row", justifyContent: "space-evenly" }]}>
-                        <Text style={{ color: "#000000", fontSize: loginButtonText }}>Week/Month</Text>
-                        <View style={{ padding: addButtonSize === "tablet" ? 10 : 0 }}>
-                            {/* Add Android scale sizing */}
-                            <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} ios_backgroundColor={"#4db6ac"} trackColor={{ true: "#4db6ac", false: "#4db6ac" }} value={this.state.chartswitch} onChange={() => this.chartSwitch()} />
-                        </View>
-                        <Text style={{ color: "#000000", fontSize: loginButtonText }}>Cumulative</Text>
-                    </View>}
                     {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false && this.state.warn === false &&
                         <View style={styles.cardView}>
+                            {values[0].length > 1 && <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, paddingBottom: 12, flexDirection: "row", justifyContent: "space-evenly" }}>
+                                <Text style={{ color: "#000000", fontSize: loginButtonText }}>Week/Month</Text>
+                                <View style={{ padding: addButtonSize === "tablet" ? 10 : 0 }}>
+                                    {/* Add Android scale sizing */}
+                                    <Switch style={addButtonSize === "tablet" ? { transform: [{ scaleX: 1.8 }, { scaleY: 1.8 }] } : { padding: 0 }} ios_backgroundColor={"#4db6ac"} trackColor={{ true: "#4db6ac", false: "#4db6ac" }} value={this.state.chartswitch} onChange={() => this.chartSwitch()} />
+                                </View>
+                                <Text style={{ color: "#000000", fontSize: loginButtonText }}>Cumulative</Text>
+                            </View>}
                             <View style={[styles.multiSwitchViews, { paddingBottom: 13, flexDirection: "row", justifyContent: "space-between" }]}>
                                 <MultiSwitch choiceSize={alcTypeSize} activeItemStyle={shotsStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.alcswitch = ref }}
                                     containerStyles={_.times(4, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
