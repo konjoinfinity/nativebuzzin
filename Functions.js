@@ -39,22 +39,6 @@ export class Functions {
         return durations;
     };
 
-    static varGetBAC(weight, gender, hours, buzz) {
-        var distribution, drinkTotal, totalAlc, totalArray = [], bac
-        if (gender === "Female") { distribution = 0.66 }
-        if (gender === "Male") { distribution = 0.73 }
-        for (var i = 0; i < buzz.length; i++) {
-            if (buzz[i].drinkType === "Beer") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
-            if (buzz[i].drinkType === "Wine") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
-            if (buzz[i].drinkType === "Liquor") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
-            if (buzz[i].drinkType === "Cocktail") { drinkTotal = buzz[i].oz * 1 * buzz[i].abv }
-            totalArray.push(drinkTotal)
-        }
-        totalAlc = totalArray.reduce((a, b) => a + b, 0);
-        bac = (totalAlc * 5.14) / (weight * distribution) - 0.015 * hours;
-        return bac;
-    }
-
     static setOz(number, alcohol, metric) {
         ReactNativeHaptic.generate('selection')
         if (alcohol === "Beer" && number === 0 && metric === "oz") { return 12 }
@@ -115,21 +99,6 @@ export class Functions {
         }
     }
 
-    static setColorPercent(bac) {
-        if (bac === 0 || bac === undefined) { return ["#ffffff", 0] }
-        else if (bac > 0.00 && bac < 0.01) { return ["#b5d3a0", bac * 1000] }
-        else if (bac >= 0.01 && bac < 0.02) { return ["#96c060", bac * 1000] }
-        else if (bac >= 0.02 && bac < 0.03) { return ["#9fc635", bac * 1000] }
-        else if (bac >= 0.03 && bac < 0.04) { return ["#d3e50e", bac * 1000] }
-        else if (bac >= 0.04 && bac < 0.05) { return ["#ffeb00", bac * 1000] }
-        else if (bac >= 0.05 && bac < 0.06) { return ["#f9bf00", bac * 1000] }
-        else if (bac >= 0.06 && bac < 0.07) { return ["#e98f00", bac * 1000] }
-        else if (bac >= 0.07 && bac < 0.08) { return ["#d05900", bac * 1000] }
-        else if (bac >= 0.08 && bac < 0.09) { return ["#AE0000", bac * 1000] }
-        else if (bac >= 0.09 && bac < 0.10) { return ["#571405", bac * 1000] }
-        else if (bac >= 0.10) { return ["#000000", 100] }
-    }
-
     static barColor(drinks, weekMonth, gender) {
         if (gender === "Male") {
             if (weekMonth === "seven") {
@@ -156,20 +125,6 @@ export class Functions {
                 else if (drinks > 28) { return ["#AE0000", "29+ Over Max"] }
             }
         }
-    }
-
-    static bacEmotion(bac) {
-        if (bac > 0.00 && bac < 0.01) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😊' : '🙂'] }
-        else if (bac >= 0.01 && bac < 0.02) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '☺️' : '😊'] }
-        else if (bac >= 0.02 && bac < 0.03) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😀' : '☺️'] }
-        else if (bac >= 0.03 && bac < 0.04) { return ["teal", '😃'] }
-        else if (bac >= 0.04 && bac < 0.05) { return ["teal", '😄'] }
-        else if (bac >= 0.05 && bac < 0.06) { return ["teal", '😆'] }
-        else if (bac >= 0.06 && bac < 0.07) { return ["white", '😝'] }
-        else if (bac >= 0.07 && bac < 0.08) { return ["white", '😜'] }
-        else if (bac >= 0.08 && bac < 0.09) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😋' : '🤪'] }
-        else if (bac >= 0.09 && bac < 0.10) { return ["white", Platform.OS === 'android' && Platform.Version < 24 ? '😅' : '🥴'] }
-        else if (bac >= 0.10) { return ["white", '😵'] }
     }
 
     static timeSince(recent, type) {
@@ -213,7 +168,6 @@ export class Functions {
                 result[2][1] !== null && result[2][1] !== "[]" ? buzzes = JSON.parse(result[2][1]) : buzzes = []
                 var numOfArrays = Math.ceil(this.singleDuration(oldbuzzes[oldbuzzes.length - 1][oldbuzzes[oldbuzzes.length - 1].length - 1].dateCreated) / 168)
                 maxrecgender = gender === "Male" ? 14 : 7
-                // i = 1
                 for (i = 0; i <= numOfArrays; i++) { lastWeeks.push([]) }
                 (oldbuzzes.map((buzz) => {
                     return buzz.map((oldbuzz) => {
@@ -249,18 +203,6 @@ export class Functions {
             }
         })
         return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, avg]
-    }
-
-    static getBAC(weight, gender, hours, buzz) {
-        var distribution, drinkTotal, bac
-        if (gender === "Female") { distribution = 0.66 }
-        if (gender === "Male") { distribution = 0.73 }
-        if (buzz.drinkType === "Beer") { drinkTotal = buzz.oz * 1 * buzz.abv }
-        if (buzz.drinkType === "Wine") { drinkTotal = buzz.oz * 1 * buzz.abv }
-        if (buzz.drinkType === "Liquor") { drinkTotal = buzz.oz * 1 * buzz.abv }
-        if (buzz.drinkType === "Cocktail") { drinkTotal = buzz.oz * 1 * buzz.abv }
-        bac = (drinkTotal * 5.14) / (weight * distribution) - 0.015 * hours;
-        return bac;
     }
 }
 

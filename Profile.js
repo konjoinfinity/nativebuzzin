@@ -114,13 +114,6 @@ class ProfileScreen extends Component {
                 await AsyncStorage.removeItem(breakdatekey)
             }
         }
-        if (statename === "autobreak" && this.state.autobreak === true) {
-            this.setState({ setautobreak: true })
-            if (this.state.break === true) {
-                this.setState({ break: false })
-                await AsyncStorage.setItem(breakkey, JSON.stringify(false))
-            }
-        }
         if (statename === "limit" && this.state.limit === true) { this.setState({ setlimit: true }) }
         if (statename === "lastcall" && this.state.lastcall === true) { this.saveValues("limithour", limithourkey) }
         if (statename === "happyhour" && this.state.happyhour === true) { this.setState({ sethappyhour: true }) }
@@ -130,11 +123,6 @@ class ProfileScreen extends Component {
 
     async saveSwitches(statevalue, keyvalue) {
         await AsyncStorage.setItem(keyvalue, JSON.stringify(statevalue))
-    }
-
-    changeBac(increment, statename, keyvalue) {
-        if (increment === "up" && this.state[statename] < 0.08) { this.setState({ [statename]: Math.round((this.state[statename] + 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue)) }
-        if (increment === "down" && this.state[statename] > 0.02) { this.setState({ [statename]: Math.round((this.state[statename] - 0.01) * 100) / 100 }, () => this.saveValues(statename, keyvalue)) }
     }
 
     async saveValues(statename, keyvalue) {
@@ -156,11 +144,6 @@ class ProfileScreen extends Component {
     showHideSetting(statename) {
         ReactNativeHaptic.generate('selection')
         this.setState(prevState => ({ [statename]: !prevState[statename] }))
-    }
-
-    pacerDuration(incdec) {
-        if (incdec === "up" && this.state.pacertime >= 900 && this.state.pacertime < 3600) { this.setState({ pacertime: this.state.pacertime + 300 }, () => this.saveValues("pacertime", pacertimekey)) }
-        else if (incdec === "down" && this.state.pacertime > 900 && this.state.pacertime <= 3600) { this.setState({ pacertime: this.state.pacertime - 300 }, () => this.saveValues("pacertime", pacertimekey)) }
     }
 
     render() {
