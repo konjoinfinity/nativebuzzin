@@ -145,6 +145,8 @@ export class Functions {
         volume = oz * 29.574
         total = volume * abv * 0.78924
         total = total / 14
+        console.log(total)
+        console.log(parseFloat(total.toFixed(1)))
         return parseFloat(total.toFixed(1))
     }
 
@@ -155,6 +157,8 @@ export class Functions {
             drink = this.standardDrinks(buzz.oz, buzz.abv)
             total.push(drink)
         })
+        console.log(total)
+        console.log(parseFloat(total.reduce((a, b) => a + b, 0).toFixed(1)))
         return parseFloat(total.reduce((a, b) => a + b, 0).toFixed(1))
     }
 

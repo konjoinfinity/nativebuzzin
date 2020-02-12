@@ -310,6 +310,8 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log(values[5][0])
+        console.log(values[6][0])
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
@@ -357,20 +359,20 @@ class BuzzScreen extends Component {
             )
         }))
         const LabelWeek = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
-            <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - (addButtonSize === "tablet" ? 20 : 10)} fontSize={addButtonSize === "tablet" ? 40 : 20} fill={'black'}
-                alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
+            <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value.toFixed(1)) - (addButtonSize === "tablet" ? 20 : 10)} fontSize={addButtonSize === "tablet" ? 40 : 20} fill={'black'}
+                alignmentBaseline={'middle'} textAnchor={'middle'}>{value.toFixed(1)}</TextSVG>
                 {(this.state.gender === "Male" && value > 10 || this.state.gender === "Female") &&
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 14 : 7)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 14 : 7)}
                         strokeWidth={3} strokeOpacity={0.3} strokeDasharray={[8, 6]} strokeLinecap={"round"} stroke={"#000000"} />}</G>)))
         const LabelMonth = ({ x, y, bandwidth, data }) => (data.map((value, index) => (
-            <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value) - (addButtonSize === "tablet" ? 20 : 10)} fontSize={addButtonSize === "tablet" ? 40 : 20} fill={'black'}
-                alignmentBaseline={'middle'} textAnchor={'middle'}>{value}</TextSVG>
+            <G key={index}><TextSVG x={x(index) + (bandwidth / 2)} y={y(value.toFixed(1)) - (addButtonSize === "tablet" ? 20 : 10)} fontSize={addButtonSize === "tablet" ? 40 : 20} fill={'black'}
+                alignmentBaseline={'middle'} textAnchor={'middle'}>{value.toFixed(1)}</TextSVG>
                 {(this.state.gender === "Male" && value > 45 || this.state.gender === "Female" && value > 17) &&
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 56 : 28)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 56 : 28)}
                         strokeWidth={3} strokeOpacity={0.3} strokeDasharray={[8, 6]} strokeLinecap={"round"} stroke={"#000000"} />}</G>)))
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
-            <TextSVG key={index} x={x(index) + 5} y={y(value) - (addButtonSize === "tablet" ? 30 : 20)} fontSize={addButtonSize === "tablet" ? 30 : 18} fill={'black'} alignmentBaseline={'middle'}
-                textAnchor={'middle'}>{value}</TextSVG>)))
+            <TextSVG key={index} x={x(index) + 5} y={y(value.toFixed(1)) - (addButtonSize === "tablet" ? 30 : 20)} fontSize={addButtonSize === "tablet" ? 30 : 18} fill={'black'} alignmentBaseline={'middle'}
+                textAnchor={'middle'}>{value.toFixed(1)}</TextSVG>)))
         return (
             <View>
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
