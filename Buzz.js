@@ -65,11 +65,6 @@ class BuzzScreen extends Component {
         await AsyncStorage.getItem(breakkey, (error, result) => {
             if (result !== null) { this.setState({ break: JSON.parse(result) }) }
         })
-        await AsyncStorage.getItem(pacerkey, (error, result) => {
-            if (result === "true") {
-                this.setState({ pacer: JSON.parse(result) })
-            } else { this.setState({ pacer: JSON.parse(result), showpacer: false }) }
-        })
         await AsyncStorage.getItem(limitdatekey, (error, result) => {
             if (result !== null) {
                 this.setState({ limitdate: JSON.parse(result) })
@@ -91,11 +86,7 @@ class BuzzScreen extends Component {
             var happyHour = moment(new Date()).local().hours()
             happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
         } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
-        if (this.state.pacer === true && this.state.buzzes.length >= 1 && this.state.showpacer === false) {
-            var drinkPacerTime = Functions.singleDuration(this.state.buzzes[0].dateCreated)
-            drinkPacerTime = drinkPacerTime * 3600
-            if (drinkPacerTime < this.state.pacertime) { this.setState({ pacertime: this.state.pacertime - drinkPacerTime }, () => this.setState({ showpacer: true })) }
-        }
+        setTimeout(() => { this.setState({ focus: true }) }, 800)
     }
 
     async refreshVals() {
@@ -240,6 +231,8 @@ class BuzzScreen extends Component {
         this.refreshVals()
     }
 
+
+
     checkLastDrink() {
         if (Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) < 0.0333333) { return true }
         else { return false }
@@ -380,7 +373,7 @@ class BuzzScreen extends Component {
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} onDidFocus={() => ReactNativeHaptic.generate('impactLight')} />
+                {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
                 <Modal animationType="slide" transparent={false} visible={this.state.addoldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
