@@ -3,7 +3,7 @@ import { Dimensions, PixelRatio, View, Text, Linking, Platform } from 'react-nat
 import styles from "./Styles"
 
 var screenWidth = Dimensions.get('window').width * PixelRatio.get(), screenHeight = Dimensions.get('window').height * PixelRatio.get()
-// console.log(screenWidth + " x " + screenHeight)
+console.log(screenWidth + " x " + screenHeight)
 
 // if (PixelRatio.get() === 1) {
 //     console.log("mdpi")
@@ -133,7 +133,7 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     numberInputSize = 135
     loginTitle = 25
     if (screenHeight === 1136) {
-        barChartWidth = 120
+        barChartWidth = 122.5
         scrollToAmt = 320
     } else {
         barChartWidth = 142
@@ -234,8 +234,8 @@ if (screenWidth === 480 && screenHeight === 854 && PixelRatio.get() === 1 || scr
     loginGenderText = 26
     numberInputSize = 270
     loginTitle = 30
-    barChartWidth = 168
-    scrollToAmt = 410
+    barChartWidth = 169
+    scrollToAmt = 413
     warnTitleButton = 24
     warnBody = 20
 } else if (screenWidth === 1440 && screenHeight === 2712 || screenWidth === 1440 && screenHeight === 2792 || screenWidth === 1440 && screenHeight === 2621 || screenWidth === 1440 && screenHeight === 2416) {
