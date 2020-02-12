@@ -369,7 +369,7 @@ class BuzzScreen extends Component {
                     <Line x1={x(index) + 3} y1={y(this.state.gender === "Male" ? 56 : 28)} x2={bandwidth + 13} y2={y(this.state.gender === "Male" ? 56 : 28)}
                         strokeWidth={3} strokeOpacity={0.3} strokeDasharray={[8, 6]} strokeLinecap={"round"} stroke={"#000000"} />}</G>)))
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
-            <TextSVG key={index} x={x(index)} y={y(value) - (addButtonSize === "tablet" ? 30 : 20)} fontSize={addButtonSize === "tablet" ? 32 : 18} fill={'black'} alignmentBaseline={'middle'}
+            <TextSVG key={index} x={x(index) + 5} y={y(value) - (addButtonSize === "tablet" ? 30 : 20)} fontSize={addButtonSize === "tablet" ? 30 : 18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value}</TextSVG>)))
         return (
             <View>
@@ -603,7 +603,7 @@ class BuzzScreen extends Component {
                             <Text style={{ fontSize: 20, fontWeight: "400", textAlign: "center", color: "#000000" }}>Standard Drinks</Text>
                             <View style={{ flexDirection: 'row', justifyContent: "space-evenly" }}>
                                 <View style={{ flexDirection: 'column', paddingLeft: 10, paddingBottom: 10, paddingRight: 10 }}>
-                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 115 : 160, width: barChartWidth }} data={values[5]}
+                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 115 : 160, width: barChartWidth }} data={values[5]}
                                         svg={{ fill: values[3][0], fillOpacity: values[3][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[5][0] + 3} animate={true} animationDuration={1500}>
                                         <XAxis style={{ marginTop: 10 }} data={values[5]} scale={scale.scaleBand} formatLabel={() => ""} />
@@ -613,7 +613,7 @@ class BuzzScreen extends Component {
                                     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center" }}>Total Last Week</Text>
                                 </View>
                                 <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingBottom: 10 }}>
-                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 115 : 160, width: barChartWidth }} data={values[6]}
+                                    <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 115 : 160, width: barChartWidth }} data={values[6]}
                                         svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
                                         contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[6][0] + 10}>
                                         <XAxis style={{ marginTop: 10 }} data={values[6]} scale={scale.scaleBand} formatLabel={() => ""} />
@@ -635,7 +635,7 @@ class BuzzScreen extends Component {
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
                                 <View style={{ flexDirection: 'column', padding: 5 }}>
-                                    <LineChart style={{ height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 135 : 180, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
+                                    <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
                                         <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} contentInset={{ left: 30, right: 40 }}
@@ -645,13 +645,13 @@ class BuzzScreen extends Component {
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
-                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
+                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
                                         data={values[1]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
                                         svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>
                                     </LineChart>
                                     <LineChart
-                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 400 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
+                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
                                         data={values[9]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
                                         svg={{ stroke: "#000000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [16, 8], strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>
@@ -842,7 +842,7 @@ class BuzzScreen extends Component {
                     </View>}
                     {this.state.oldbuzzes === null && <View style={styles.buzzInfo}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", padding: 10 }}>Drink History</Text>
+                            <Text style={{ color: "#000000", fontSize: loginTitle, textAlign: "center", paddingTop: 10, paddingBottom: 10 }}>Drink History</Text>
                             <TouchableOpacity style={[styles.dropShadow, addButtonSize === "tablet" ? styles.largeplusminusButton : styles.plusMinusButtons, { marginTop: 5 }]} onPress={() => this.addOldModal()}><Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>+</Text></TouchableOpacity>
                         </View>
                     </View>}
