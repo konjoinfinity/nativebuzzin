@@ -477,29 +477,12 @@ else if (screenWidth > 1125) {
     warnBody = 13
 }
 
-const warnText = (<View><Text style={styles.modalTextTitle}>Warning</Text>
-    <Text style={styles.modalTextBody}>You're Drunk.</Text>
-    <Text style={styles.modalTextBody}>Consider:</Text>
-    <Text style={[styles.modalTextAdvice, { fontWeight: "bold" }]}>Taking a break from drinking.</Text>
-    <Text style={styles.modalTextAdvice}>Drinking some water.</Text>
-    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
-
-const dangerText = (<View><Text style={styles.modalTextTitle}>Warning</Text>
-    <Text style={styles.modalTextBody}>You're Really Drunk.</Text>
-    <Text style={[styles.modalTextTitle, { fontSize: 25 }]}>Take a break from drinking.</Text>
-    <Text style={styles.modalTextAdvice}>Drink water.</Text>
-    <Text style={styles.modalTextAdvice}>Call a friend, Uber, or Lyft to pick you up.</Text></View>)
-
-const abovePoint10 = (<View><Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>You are taking a break until:</Text>
-    {Platform.OS === "ios" ? <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5, fontWeight: "bold" }}>You are sober.</Text> : <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5, fontWeight: "bold" }}>Your BAC is less than 0.10</Text>}
-    <Text style={{ color: "#000000", fontSize: abvText, textAlign: "center", padding: 5 }}>Until then, drink some water.</Text></View>)
-
 const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 4, textAlign: "center", padding: 5, fontWeight: "bold" }}>Disclaimer</Text>
     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? abvText - 18 : abvText - 5, textAlign: "center", padding: 5 }}>
         Any information provided by this application is for entertainment purposes only. All information displayed should not be considered or construed as medical, legal, or lifestyle advice on any subject matter.
-        One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
-        in this app due to many factors including age, food consumption, missing drink entries, standard drink measurements medication, and hydration or dehydration levels.  These factors are not taken into account by
-        this application when estimating total drink numbers over time.  People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before
+            One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
+            in this app due to many factors including age, food consumption, missing drink entries, standard drink measurements, medication, hydration, or dehydration levels.  These factors are not taken into account by
+            this application when estimating total drink numbers over time.  People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before
         or after consuming any amount of alcohol.  All data entered into buzzin is stored locally, buzzin does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
     <Text style={addButtonSize === "tablet" ? { color: "#000000", fontSize: 30, textAlign: "center", padding: 20, color: "blue", fontWeight: "bold" } : { color: "#000000", fontSize: 15, textAlign: "center", padding: 5, color: "blue", fontWeight: "bold" }} onPress={() => { Linking.openURL('https://www.cdc.gov/alcohol/fact-sheets/moderate-drinking.htm') }}>Link to CDC Guidelines</Text>
     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 8 }}>By pressing Agree, the user agrees to buzzin’s:</Text>
@@ -510,8 +493,8 @@ const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 4,
 export {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey, genderkey, weightkey, key, oldkey,
-    breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, gaugeLabels, warnText, dangerText,
-    limitkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, abovePoint10, loginText, hhhourkey,
+    breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, gaugeLabels,
+    limitkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey,
     loginButtonText, loginGenderText, numberInputSize, loginTitle, barChartWidth, scrollToAmt, indefbreakkey, limithourkey,
     limitdatekey, pacerkey, pacertimekey, shotsStyle, lastcallkey, logskey, maxreckey, warnTitleButton, warnBody, warningkey,
     screenHeight, screenWidth
