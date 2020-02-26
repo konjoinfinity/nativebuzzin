@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert, Slider, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -706,7 +706,7 @@ class BuzzScreen extends Component {
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <LabelWeek />
                                     </BarChart>
-                                    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center" }}>Total Last Week</Text>
+                                    <Text style={{ color: "#000000", fontSize: abvText - 3, textAlign: "center" }}>Total Last Week</Text>
                                 </View>
                                 <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingBottom: 10 }}>
                                     <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 115 : 160, width: barChartWidth }} data={values[6]}
@@ -716,7 +716,7 @@ class BuzzScreen extends Component {
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <LabelMonth />
                                     </BarChart>
-                                    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center" }}>Total Last Month</Text>
+                                    <Text style={{ color: "#000000", fontSize: abvText - 3, textAlign: "center" }}>Total Last Month</Text>
                                 </View>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: "center" }}>
@@ -725,8 +725,8 @@ class BuzzScreen extends Component {
                                     {values[3][1]}  <Text style={{ color: "#000000", color: values[4][0], fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 25, opacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }}>■ </Text>
                                     {values[4][1]}</Text>
                             </View>
-                            <Text style={{ fontSize: addButtonSize === "tablet" ? 24 : 12, color: "#AE0000", textAlign: "center", paddingTop: addButtonSize === "tablet" ? 20 : 5 }}>*Based on CDC Maximum Recommended</Text>
-                            <Text style={{ fontSize: addButtonSize === "tablet" ? 24 : 12, color: "#AE0000", textAlign: "center", paddingTop: addButtonSize === "tablet" ? 10 : 2 }}>and NIH Standard Drink Guidelines</Text>
+                            <Text style={{ fontSize: addButtonSize === "tablet" ? 22 : 9, color: "#AE0000", textAlign: "center", paddingTop: addButtonSize === "tablet" ? 20 : 5 }}>*Based on CDC Maximum Recommended</Text>
+                            <Text style={{ fontSize: addButtonSize === "tablet" ? 22 : 9, color: "#AE0000", textAlign: "center", paddingTop: addButtonSize === "tablet" ? 10 : 2 }}>and NIH Standard Drink Guidelines</Text>
                         </View>
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
@@ -786,7 +786,8 @@ class BuzzScreen extends Component {
                                     <View style={{ paddingBottom: 13 }}>
                                         {this.state.alctype === "Beer" &&
                                             <View style={styles.multiSwitchViews}>
-                                                <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
+                                                <View style={styles.multiSwitch}>
+                                                    {/* <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
                                                     containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                     onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.04 ? 0 : this.state.abv === 0.05 ? 1 : this.state.abv === 0.06 ? 2 : this.state.abv === 0.07 ? 3 : 4}>
                                                     <Text style={{ color: "#000000", fontSize: abvText }}>4%</Text>
@@ -794,17 +795,28 @@ class BuzzScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText }}>6%</Text>
                                                     <Text style={{ color: "#000000", fontSize: abvText }}>7%</Text>
                                                     <Text style={{ color: "#000000", fontSize: abvText }}>8%</Text>
-                                                </MultiSwitch>
+                                                </MultiSwitch> */}
+                                                    <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                        minimumValue={0.032} step={0.01} maximumValue={0.33} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                        onValueChange={(number) => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }} onSlidingComplete={(number) => this.setState({ abv: parseFloat(number.toFixed(2)) })} />
+                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500" }}>{this.state.abv} % ABV</Text>
+                                                </View>
                                             </View>}
                                         {this.state.alctype !== "Beer" && this.state.alctype !== "Cocktail" &&
                                             <View style={styles.multiSwitchViews}>
-                                                <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
+                                                <View style={styles.multiSwitch}>
+                                                    {/* <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
                                                     containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
                                                     onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.13 || this.state.abv === 0.5 ? 2 : this.state.abv === 0.12 || this.state.abv === 0.4 ? 1 : 0}>
                                                     <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
                                                     <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
                                                     <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
-                                                </MultiSwitch>
+                                                </MultiSwitch> */}
+                                                    <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                        minimumValue={0.05} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                        onValueChange={(number) => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }} onSlidingComplete={(number) => this.setState({ abv: parseFloat(number.toFixed(2)) })} />
+                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500" }}>{this.state.abv} % ABV</Text>
+                                                </View>
                                             </View>}
                                         {this.state.alctype === "Cocktail" &&
                                             <View style={[styles.dropShadow2, styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
