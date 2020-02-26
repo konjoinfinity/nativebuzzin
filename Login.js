@@ -19,43 +19,59 @@ class LoginScreen extends React.Component {
     }
 
     componentDidMount() {
-        ReactNativeHaptic.generate('impactLight');
-        this.nameinput.focus();
+        try {
+            ReactNativeHaptic.generate('impactLight');
+            this.nameinput.focus();
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     handleModal(agree) {
-        agree === "yes" ? ReactNativeHaptic.generate('selection') : ReactNativeHaptic.generate("notificationError");
-        if (this.state.name !== "") {
-            if (this.state.gender !== "") {
-                this.setState({ modal: !this.state.modal })
+        try {
+            agree === "yes" ? ReactNativeHaptic.generate('selection') : ReactNativeHaptic.generate("notificationError");
+            if (this.state.name !== "") {
+                if (this.state.gender !== "") {
+                    this.setState({ modal: !this.state.modal })
+                } else {
+                    ReactNativeHaptic.generate('notificationWarning');
+                    Alert.alert("Please select your gender", "", [{ text: "Ok", onPress: () => { ReactNativeHaptic.generate("selection") } }], { cancelable: false })
+                }
             } else {
                 ReactNativeHaptic.generate('notificationWarning');
-                Alert.alert("Please select your gender", "", [{ text: "Ok", onPress: () => { ReactNativeHaptic.generate("selection") } }], { cancelable: false })
+                Alert.alert("Please enter your name", "", [{ text: "Ok", onPress: () => { ReactNativeHaptic.generate("selection"); this.nameinput.focus() } }], { cancelable: false })
             }
-        } else {
-            ReactNativeHaptic.generate('notificationWarning');
-            Alert.alert("Please enter your name", "", [{ text: "Ok", onPress: () => { ReactNativeHaptic.generate("selection"); this.nameinput.focus() } }], { cancelable: false })
+        } catch (error) {
+            console.log(error)
         }
     }
 
     switchGender(gender) {
-        if (this.state.gender !== gender) {
-            ReactNativeHaptic.generate('selection');
-            gender === "Male" ? this.setState({ gender: "Male", weight: 195 }) : this.setState({ gender: "Female", weight: 165 })
+        try {
+            if (this.state.gender !== gender) {
+                ReactNativeHaptic.generate('selection');
+                gender === "Male" ? this.setState({ gender: "Male", weight: 195 }) : this.setState({ gender: "Female", weight: 165 })
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     async handleLogin() {
-        await AsyncStorage.multiSet([[namekey, JSON.stringify(this.state.name)], [genderkey, JSON.stringify(this.state.gender)],
-        [weightkey, JSON.stringify(this.state.weight)], [autobreakkey, JSON.stringify(false)], [happyhourkey, JSON.stringify(false)],
-        [autobreakminkey, JSON.stringify(false)], [limitkey, JSON.stringify(false)], [limitbackey, JSON.stringify(0.06)],
-        [autobreakthresholdkey, JSON.stringify(0.06)], [drinkskey, JSON.stringify(3)], [cancelbreakskey, JSON.stringify(0)],
-        [showlimitkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)],
-        [indefbreakkey, JSON.stringify(false)], [limithourkey, JSON.stringify(23)], [pacerkey, JSON.stringify(false)],
-        [limitdatekey, JSON.stringify(new Date().setHours(23, 0, 0, 0))], [pacertimekey, JSON.stringify(1800)],
-        [lastcallkey, JSON.stringify(false)], [maxreckey, JSON.stringify(false)], [warningkey, JSON.stringify(false)]])
-        this.handleModal("yes");
-        this.props.navigation.navigate("Home", { login: true });
+        try {
+            await AsyncStorage.multiSet([[namekey, JSON.stringify(this.state.name)], [genderkey, JSON.stringify(this.state.gender)],
+            [weightkey, JSON.stringify(this.state.weight)], [autobreakkey, JSON.stringify(false)], [happyhourkey, JSON.stringify(false)],
+            [autobreakminkey, JSON.stringify(false)], [limitkey, JSON.stringify(false)], [limitbackey, JSON.stringify(0.06)],
+            [autobreakthresholdkey, JSON.stringify(0.06)], [drinkskey, JSON.stringify(3)], [cancelbreakskey, JSON.stringify(0)],
+            [showlimitkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)],
+            [indefbreakkey, JSON.stringify(false)], [limithourkey, JSON.stringify(23)], [pacerkey, JSON.stringify(false)],
+            [limitdatekey, JSON.stringify(new Date().setHours(23, 0, 0, 0))], [pacertimekey, JSON.stringify(1800)],
+            [lastcallkey, JSON.stringify(false)], [maxreckey, JSON.stringify(false)], [warningkey, JSON.stringify(false)]])
+            this.handleModal("yes");
+            this.props.navigation.navigate("Home", { login: true });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
