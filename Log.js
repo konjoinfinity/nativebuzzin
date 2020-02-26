@@ -26,51 +26,75 @@ class LogScreen extends Component {
     }
 
     async componentDidMount() {
-        ReactNativeHaptic.generate('impactLight')
-        await AsyncStorage.getItem(logskey, (error, result) => { result !== null && result !== "[]" ? this.setState({ logs: JSON.parse(result) }) : this.setState({ logs: [] }) })
+        try {
+            ReactNativeHaptic.generate('impactLight')
+            await AsyncStorage.getItem(logskey, (error, result) => { result !== null && result !== "[]" ? this.setState({ logs: JSON.parse(result) }) : this.setState({ logs: [] }) })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async addLog() {
-        if (this.state.log !== "") {
-            ReactNativeHaptic.generate('selection')
-            var newLog = this.state.logs
-            var logDate = new Date();
-            newLog.unshift({ log: this.state.log, dateCreated: logDate })
-            this.setState({ log: "", logmodal: false, logs: newLog })
-            await AsyncStorage.setItem(logskey, JSON.stringify(newLog))
-            setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750)
-        } else {
-            ReactNativeHaptic.generate('notificationWarning')
-            Alert.alert("Please enter some text.", "", [{ text: "Ok", onPress: () => ReactNativeHaptic.generate("selection") }], { cancelable: false })
+        try {
+            if (this.state.log !== "") {
+                ReactNativeHaptic.generate('selection')
+                var newLog = this.state.logs
+                var logDate = new Date();
+                newLog.unshift({ log: this.state.log, dateCreated: logDate })
+                this.setState({ log: "", logmodal: false, logs: newLog })
+                await AsyncStorage.setItem(logskey, JSON.stringify(newLog))
+                setTimeout(() => { this.scrolltop.scrollTo({ y: 90, animated: true }) }, 750)
+            } else {
+                ReactNativeHaptic.generate('notificationWarning')
+                Alert.alert("Please enter some text.", "", [{ text: "Ok", onPress: () => ReactNativeHaptic.generate("selection") }], { cancelable: false })
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     async deleteLog(log) {
-        var filtered = this.state.logs.filter(deleted => deleted !== log)
-        this.setState({ log: "", editlogmodal: false, logs: filtered, editlog: "" })
-        await AsyncStorage.setItem(logskey, JSON.stringify(filtered))
-        setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 750)
+        try {
+            var filtered = this.state.logs.filter(deleted => deleted !== log)
+            this.setState({ log: "", editlogmodal: false, logs: filtered, editlog: "" })
+            await AsyncStorage.setItem(logskey, JSON.stringify(filtered))
+            setTimeout(() => { this.scrolltop.scrollTo({ y: 0, animated: true }) }, 750)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     scrollToLogRef(id) {
-        this.refs['log' + id].measure((ox, oy, width, height, px, py) => {
-            const offsetY = oy + 90;
-            this.scrolltop.scrollTo({ y: offsetY })
-        });
+        try {
+            this.refs['log' + id].measure((ox, oy, width, height, px, py) => {
+                const offsetY = oy + 90;
+                this.scrolltop.scrollTo({ y: offsetY })
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async editLog(position) {
-        ReactNativeHaptic.generate('selection')
-        var editlogs = this.state.logs
-        editlogs[position].log = this.state.editlog
-        this.setState({ logs: editlogs, editlog: "", editlogmodal: false })
-        await AsyncStorage.setItem(logskey, JSON.stringify(editlogs))
-        setTimeout(() => { this.scrollToLogRef(this.state.position) }, 750)
+        try {
+            ReactNativeHaptic.generate('selection')
+            var editlogs = this.state.logs
+            editlogs[position].log = this.state.editlog
+            this.setState({ logs: editlogs, editlog: "", editlogmodal: false })
+            await AsyncStorage.setItem(logskey, JSON.stringify(editlogs))
+            setTimeout(() => { this.scrollToLogRef(this.state.position) }, 750)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     confirmDelete(log) {
-        ReactNativeHaptic.generate('notificationWarning')
-        Alert.alert('Are you sure you want to delete this log?', 'Please confirm.', [{ text: 'Yes', onPress: () => { ReactNativeHaptic.generate("notification"); this.deleteLog(log) } }, { text: 'No', onPress: () => { ReactNativeHaptic.generate("selection") } }], { cancelable: false });
+        try {
+            ReactNativeHaptic.generate('notificationWarning')
+            Alert.alert('Are you sure you want to delete this log?', 'Please confirm.', [{ text: 'Yes', onPress: () => { ReactNativeHaptic.generate("notification"); this.deleteLog(log) } }, { text: 'No', onPress: () => { ReactNativeHaptic.generate("selection") } }], { cancelable: false });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
