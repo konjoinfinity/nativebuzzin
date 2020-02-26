@@ -7,7 +7,11 @@ import { addButtonSize } from "./Variables"
 class InfoScreen extends Component {
 
     componentDidMount() {
-        ReactNativeHaptic.generate('impactLight')
+        try {
+            ReactNativeHaptic.generate('impactLight')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     static navigationOptions = ({ navigation }) => {

@@ -30,120 +30,156 @@ class ProfileScreen extends Component {
     };
 
     async componentDidMount() {
-        ReactNativeHaptic.generate('impactLight');
-        this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false, setmaxrec: false })
-        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
-            drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
-            limithourkey, pacerkey, pacertimekey, lastcallkey, maxreckey])
-        this.setState({
-            autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
-            limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
-            happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-            indefbreak: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]), pacer: JSON.parse(values[14][1]),
-            pacertime: JSON.parse(values[15][1]), lastcall: JSON.parse(values[16][1]), maxrec: JSON.parse(values[17][1])
-        })
-        await AsyncStorage.getItem(breakkey, (error, result) => {
-            if (result !== null) {
-                this.setState({ break: JSON.parse(result) })
-                if (JSON.parse(result) === false) { this.setState({ hours: 0, days: 0, weeks: 0, months: 0 }) }
-            } else { this.setState({ break: false }) }
-        })
-        await AsyncStorage.getItem(breakdatekey, (error, result) => {
-            if (result !== null) {
-                this.setState({ breakdate: JSON.parse(result) })
-                setTimeout(() => {
-                    var breaktime = Functions.timeSince(this.state.breakdate, "break")
-                    if (breaktime[0] + breaktime[1] + breaktime[2] + breaktime[3] < 0) {
-                        if (this.state.autobreak === true) {
-                            var stopBreak5pm = moment(new Date()).local().hours()
-                            if (stopBreak5pm >= 17) { this.stopBreak("all") }
-                        } else if (this.state.autobreak === false) { this.stopBreak("all") }
-                    }
-                    var breakDate = Date.parse(this.state.breakdate), currentDate = Functions.zeroDate()
-                    var durations = Functions.breakDiff(currentDate, breakDate)
-                    this.setState({ hours: durations[3], days: durations[2], weeks: durations[1], months: durations[0] })
-                }, 100);
-            }
-        })
+        try {
+            ReactNativeHaptic.generate('impactLight');
+            this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false, setmaxrec: false })
+            var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
+                drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
+                limithourkey, pacerkey, pacertimekey, lastcallkey, maxreckey])
+            this.setState({
+                autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
+                limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
+                happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
+                gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
+                indefbreak: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]), pacer: JSON.parse(values[14][1]),
+                pacertime: JSON.parse(values[15][1]), lastcall: JSON.parse(values[16][1]), maxrec: JSON.parse(values[17][1])
+            })
+            await AsyncStorage.getItem(breakkey, (error, result) => {
+                if (result !== null) {
+                    this.setState({ break: JSON.parse(result) })
+                    if (JSON.parse(result) === false) { this.setState({ hours: 0, days: 0, weeks: 0, months: 0 }) }
+                } else { this.setState({ break: false }) }
+            })
+            await AsyncStorage.getItem(breakdatekey, (error, result) => {
+                if (result !== null) {
+                    this.setState({ breakdate: JSON.parse(result) })
+                    setTimeout(() => {
+                        var breaktime = Functions.timeSince(this.state.breakdate, "break")
+                        if (breaktime[0] + breaktime[1] + breaktime[2] + breaktime[3] < 0) {
+                            if (this.state.autobreak === true) {
+                                var stopBreak5pm = moment(new Date()).local().hours()
+                                if (stopBreak5pm >= 17) { this.stopBreak("all") }
+                            } else if (this.state.autobreak === false) { this.stopBreak("all") }
+                        }
+                        var breakDate = Date.parse(this.state.breakdate), currentDate = Functions.zeroDate()
+                        var durations = Functions.breakDiff(currentDate, breakDate)
+                        this.setState({ hours: durations[3], days: durations[2], weeks: durations[1], months: durations[0] })
+                    }, 100);
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async takeAbreak() {
-        if (this.state.hours !== 0 || this.state.days !== 0 || this.state.weeks !== 0 || this.state.months !== 0) {
-            var breakDate = Functions.zeroDate()
-            var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
-            if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
-            if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
-            ReactNativeHaptic.generate('selection');
-            this.setState({ break: true, breakdate: breakDate })
-            await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
+        try {
+            if (this.state.hours !== 0 || this.state.days !== 0 || this.state.weeks !== 0 || this.state.months !== 0) {
+                var breakDate = Functions.zeroDate()
+                var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
+                if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
+                if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
+                ReactNativeHaptic.generate('selection');
+                this.setState({ break: true, breakdate: breakDate })
+                await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
+            }
+            if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak("zero") }
+        } catch (error) {
+            console.log(error)
         }
-        if (this.state.hours === 0 && this.state.days === 0 && this.state.weeks === 0 && this.state.months === 0) { this.stopBreak("zero") }
     }
 
     async stopBreak(type) {
-        ReactNativeHaptic.generate('selection');
-        this.setState({ break: false, breakdate: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
-        await AsyncStorage.removeItem(breakdatekey)
-        await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
-        if (type !== "zero") { await AsyncStorage.setItem(custombreakkey, JSON.stringify(false), () => { this.setState({ setcustombreak: false, custombreak: false }) }) }
+        try {
+            ReactNativeHaptic.generate('selection');
+            this.setState({ break: false, breakdate: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
+            await AsyncStorage.removeItem(breakdatekey)
+            await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
+            if (type !== "zero") { await AsyncStorage.setItem(custombreakkey, JSON.stringify(false), () => { this.setState({ setcustombreak: false, custombreak: false }) }) }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async LogOut() {
-        ReactNativeHaptic.generate('selection');
-        await AsyncStorage.removeItem(oldkey)
-        await AsyncStorage.removeItem(logskey)
-        await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
-            limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
-            hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, maxreckey])
-        this.props.navigation.navigate("Login")
+        try {
+            ReactNativeHaptic.generate('selection');
+            await AsyncStorage.removeItem(oldkey)
+            await AsyncStorage.removeItem(logskey)
+            await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
+                limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
+                hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, maxreckey])
+            this.props.navigation.navigate("Login")
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     confirmLogout() {
-        ReactNativeHaptic.generate('notificationWarning')
-        Alert.alert('Are you sure you want to logout? All user data will be deleted.', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.LogOut() } }, { text: 'No' }], { cancelable: false });
+        try {
+            ReactNativeHaptic.generate('notificationWarning')
+            Alert.alert('Are you sure you want to logout? All user data will be deleted.', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.LogOut() } }, { text: 'No' }], { cancelable: false });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async handleSwitches(statename, keyvalue, setstatename) {
-        if (Platform.OS === "android") { ReactNativeHaptic.generate('selection') }
-        if (statename === "custombreak" && this.state.custombreak === true) {
-            this.setState({ setcustombreak: true })
-            if (this.state.indefbreak === true || this.state.break === true) {
-                this.setState({ indefbreak: false, break: false, breakdate: "" })
-                await AsyncStorage.multiSet([[indefbreakkey, JSON.stringify(false)], [breakkey, JSON.stringify(false)]])
-                await AsyncStorage.removeItem(breakdatekey)
+        try {
+            if (Platform.OS === "android") { ReactNativeHaptic.generate('selection') }
+            if (statename === "custombreak" && this.state.custombreak === true) {
+                this.setState({ setcustombreak: true })
+                if (this.state.indefbreak === true || this.state.break === true) {
+                    this.setState({ indefbreak: false, break: false, breakdate: "" })
+                    await AsyncStorage.multiSet([[indefbreakkey, JSON.stringify(false)], [breakkey, JSON.stringify(false)]])
+                    await AsyncStorage.removeItem(breakdatekey)
+                }
             }
+            if (statename === "limit" && this.state.limit === true) { this.setState({ setlimit: true }) }
+            if (statename === "lastcall" && this.state.lastcall === true) { this.saveValues("limithour", limithourkey) }
+            if (statename === "happyhour" && this.state.happyhour === true) { this.setState({ sethappyhour: true }) }
+            this.setState(prevState => ({ [statename]: !prevState[statename] }), () => this.saveSwitches(this.state[statename], keyvalue))
+            this.setState(prevState => ({ [setstatename]: !prevState[setstatename] }))
+        } catch (error) {
+            console.log(error)
         }
-        if (statename === "limit" && this.state.limit === true) { this.setState({ setlimit: true }) }
-        if (statename === "lastcall" && this.state.lastcall === true) { this.saveValues("limithour", limithourkey) }
-        if (statename === "happyhour" && this.state.happyhour === true) { this.setState({ sethappyhour: true }) }
-        this.setState(prevState => ({ [statename]: !prevState[statename] }), () => this.saveSwitches(this.state[statename], keyvalue))
-        this.setState(prevState => ({ [setstatename]: !prevState[setstatename] }))
     }
 
     async saveSwitches(statevalue, keyvalue) {
-        await AsyncStorage.setItem(keyvalue, JSON.stringify(statevalue))
+        try {
+            await AsyncStorage.setItem(keyvalue, JSON.stringify(statevalue))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async saveValues(statename, keyvalue) {
-        ReactNativeHaptic.generate('selection')
-        await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
-        if (statename === "limithour") {
-            if (this.state.limithour !== 0) {
-                var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
-                await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall))
-            } else {
-                var midnight = new Date()
-                midnight.setDate(midnight.getDate() + 1)
-                midnight.setHours(0, 0, 0, 0)
-                await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
+        try {
+            ReactNativeHaptic.generate('selection')
+            await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
+            if (statename === "limithour") {
+                if (this.state.limithour !== 0) {
+                    var lastCall = new Date().setHours(this.state.limithour, 0, 0, 0)
+                    await AsyncStorage.setItem(limitdatekey, JSON.stringify(lastCall))
+                } else {
+                    var midnight = new Date()
+                    midnight.setDate(midnight.getDate() + 1)
+                    midnight.setHours(0, 0, 0, 0)
+                    await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
+                }
             }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     showHideSetting(statename) {
-        ReactNativeHaptic.generate('selection')
-        this.setState(prevState => ({ [statename]: !prevState[statename] }))
+        try {
+            ReactNativeHaptic.generate('selection')
+            this.setState(prevState => ({ [statename]: !prevState[statename] }))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
