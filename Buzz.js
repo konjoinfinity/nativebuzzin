@@ -90,223 +90,315 @@ class BuzzScreen extends Component {
     }
 
     async refreshVals() {
-        values = await Functions.maxRecDrinks();
-        await AsyncStorage.getItem(oldkey, (error, result) => { this.setState({ oldbuzzes: JSON.parse(result) }) })
+        try {
+            values = await Functions.maxRecDrinks();
+            await AsyncStorage.getItem(oldkey, (error, result) => { this.setState({ oldbuzzes: JSON.parse(result) }) })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     showHideBuzzes(statename) {
-        this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
-        ReactNativeHaptic.generate('selection')
+        try {
+            this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
+            ReactNativeHaptic.generate('selection')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     chartSwitch() {
-        if (Platform.OS === "android") { ReactNativeHaptic.generate('selection') }
-        this.setState(prevState => ({ chartswitch: !prevState.chartswitch }))
-        this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
+        try {
+            if (Platform.OS === "android") { ReactNativeHaptic.generate('selection') }
+            this.setState(prevState => ({ chartswitch: !prevState.chartswitch }))
+            this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async deleteOldBuzz(obid, oldbuzz) {
-        ReactNativeHaptic.generate('selection')
-        var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
-        await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
-        values = await Functions.maxRecDrinks()
+        try {
+            ReactNativeHaptic.generate('selection')
+            var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
+            await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
+            values = await Functions.maxRecDrinks()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async editOldBuzz(obid) {
-        ReactNativeHaptic.generate('selection')
-        var obnormal = this.state.oldbuzzes
-        var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
-        lastTime.setHours(0, 0, 0, 0)
-        obnormal[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
-        await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal, selectedOldBuzz: obnormal[obid], obid: [obid] }) })
-        values = await Functions.maxRecDrinks()
+        try {
+            ReactNativeHaptic.generate('selection')
+            var obnormal = this.state.oldbuzzes
+            var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
+            lastTime.setHours(0, 0, 0, 0)
+            obnormal[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
+            await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal, selectedOldBuzz: obnormal[obid], obid: [obid] }) })
+            values = await Functions.maxRecDrinks()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     oldModal(buzz, obid) {
-        ReactNativeHaptic.generate('selection')
-        this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz === "a" ? "" : buzz, obid: obid === "z" ? "" : obid });
+        try {
+            ReactNativeHaptic.generate('selection')
+            this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz === "a" ? "" : buzz, obid: obid === "z" ? "" : obid });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     addOldModal() {
-        ReactNativeHaptic.generate('selection')
-        this.setState({ addoldmodal: !this.state.addoldmodal, selectedStartDate: null, drinkadd: false, addoldbuzzes: [] });
+        try {
+            ReactNativeHaptic.generate('selection')
+            this.setState({ addoldmodal: !this.state.addoldmodal, selectedStartDate: null, drinkadd: false, addoldbuzzes: [] });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     buzzDuration(incdec) {
-        ReactNativeHaptic.generate('selection')
-        if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) { this.setState({ buzzduration: this.state.buzzduration + 15 }) }
-        else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) { this.setState({ buzzduration: this.state.buzzduration - 15 }) }
+        try {
+            ReactNativeHaptic.generate('selection')
+            if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) { this.setState({ buzzduration: this.state.buzzduration + 15 }) }
+            else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) { this.setState({ buzzduration: this.state.buzzduration - 15 }) }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     addOldBuzzState() {
-        ReactNativeHaptic.generate('selection')
-        addoldbuzzes = this.state.addoldbuzzes
-        var oldbuzzdate = new Date(this.state.selectedStartDate);
-        oldbuzzdate.setHours(0, 0, 0, 0);
-        addoldbuzzes.unshift({ drinkType: this.state.alctype, dateCreated: oldbuzzdate, oz: this.state.oz, abv: this.state.abv })
-        this.setState({ addoldbuzzes: addoldbuzzes })
+        try {
+            ReactNativeHaptic.generate('selection')
+            addoldbuzzes = this.state.addoldbuzzes
+            var oldbuzzdate = new Date(this.state.selectedStartDate);
+            oldbuzzdate.setHours(0, 0, 0, 0);
+            addoldbuzzes.unshift({ drinkType: this.state.alctype, dateCreated: oldbuzzdate, oz: this.state.oz, abv: this.state.abv })
+            this.setState({ addoldbuzzes: addoldbuzzes })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async addOldDrink() {
-        var oldbuzzes;
-        ReactNativeHaptic.generate('selection')
-        var olddrinkdate = new Date();
-        var addolddrinks = [{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]
-        this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
-        if (oldbuzzes.length !== 0) {
-            if (new Date(Date.parse(oldbuzzes[0][oldbuzzes[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(oldbuzzes[0][oldbuzzes[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
-                var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, oldbuzzes[0]);
-                oldbuzzes.shift();
-                oldbuzzes.unshift(combined);
+        try {
+            var oldbuzzes;
+            ReactNativeHaptic.generate('selection')
+            var olddrinkdate = new Date();
+            var addolddrinks = [{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]
+            this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
+            if (oldbuzzes.length !== 0) {
+                if (new Date(Date.parse(oldbuzzes[0][oldbuzzes[0].length - 1].dateCreated)).getDate() === olddrinkdate.getDate() && new Date(Date.parse(oldbuzzes[0][oldbuzzes[0].length - 1].dateCreated)).getMonth() === olddrinkdate.getMonth()) {
+                    var combined = [].concat({ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }, oldbuzzes[0]);
+                    oldbuzzes.shift();
+                    oldbuzzes.unshift(combined);
+                } else {
+                    oldbuzzes.unshift(addolddrinks);
+                }
             } else {
                 oldbuzzes.unshift(addolddrinks);
             }
-        } else {
-            oldbuzzes.unshift(addolddrinks);
-        }
-        oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
-        await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }) })
-        this.refreshVals()
-        if (this.state.limit === true) {
-            if (this.state.oldbuzzes[0].length >= this.state.drinks) {
-                this.setState({ showlimit: true })
-                await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
+            oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
+            await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }) })
+            this.refreshVals()
+            if (this.state.limit === true) {
+                if (this.state.oldbuzzes[0].length >= this.state.drinks) {
+                    this.setState({ showlimit: true })
+                    await AsyncStorage.setItem(showlimitkey, JSON.stringify(true))
+                }
             }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     deleteAddOldBuzz(oldbuzz) {
-        ReactNativeHaptic.generate('selection')
-        var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
-        this.setState({ addoldbuzzes: delfilter })
+        try {
+            ReactNativeHaptic.generate('selection')
+            var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
+            this.setState({ addoldbuzzes: delfilter })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async addOldBuzz() {
-        var oldbuzzes;
-        ReactNativeHaptic.generate('selection')
-        var oldbuzzadd = this.state.addoldbuzzes;
-        this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
-        oldbuzzes.unshift(oldbuzzadd);
-        oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
-        await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
-        if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
-        this.componentDidMount()
+        try {
+            var oldbuzzes;
+            ReactNativeHaptic.generate('selection')
+            var oldbuzzadd = this.state.addoldbuzzes;
+            this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
+            oldbuzzes.unshift(oldbuzzadd);
+            oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
+            await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
+            if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
+            this.componentDidMount()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async deleteWholeOldBuzz() {
-        var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
-        filtered.length === 0 ?
-            await AsyncStorage.removeItem(oldkey, () => { this.setState({ oldbuzzes: null }) }) :
-            await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) });
-        this.oldModal("a", "z")
-        if (filtered.length === 0) { this.setState({ timesince: null }, () => { this.showHideBuzzes("showHideOldBuzzes") }) }
-        this.componentDidMount()
+        try {
+            var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
+            filtered.length === 0 ?
+                await AsyncStorage.removeItem(oldkey, () => { this.setState({ oldbuzzes: null }) }) :
+                await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) });
+            this.oldModal("a", "z")
+            if (filtered.length === 0) { this.setState({ timesince: null }, () => { this.showHideBuzzes("showHideOldBuzzes") }) }
+            this.componentDidMount()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     confirmDelete() {
-        ReactNativeHaptic.generate('notificationWarning')
-        Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
+        try {
+            ReactNativeHaptic.generate('notificationWarning')
+            Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async undoLastDrink() {
-        if (Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) < 0.0333333) {
-            ReactNativeHaptic.generate('selection')
-            var undobuzz;
-            await AsyncStorage.getItem(oldkey, (error, result) => {
-                if (result !== null && result !== "[]") {
-                    undobuzz = JSON.parse(result);
-                    if (undobuzz.length === 1 && undobuzz[0].length === 1) {
-                        undobuzz = null
-                    } else {
-                        undobuzz[0].shift();
-                        if (undobuzz[0].length === 0) {
-                            undobuzz.shift();
+        try {
+            if (Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) < 0.0333333) {
+                ReactNativeHaptic.generate('selection')
+                var undobuzz;
+                await AsyncStorage.getItem(oldkey, (error, result) => {
+                    if (result !== null && result !== "[]") {
+                        undobuzz = JSON.parse(result);
+                        if (undobuzz.length === 1 && undobuzz[0].length === 1) {
+                            undobuzz = null
+                        } else {
+                            undobuzz[0].shift();
+                            if (undobuzz[0].length === 0) {
+                                undobuzz.shift();
+                            }
                         }
+                        this.setState({ oldbuzzes: undobuzz })
                     }
-                    this.setState({ oldbuzzes: undobuzz })
-                }
-            })
-            undobuzz === null ? await AsyncStorage.removeItem(oldkey) : await AsyncStorage.setItem(oldkey, JSON.stringify(undobuzz))
+                })
+                undobuzz === null ? await AsyncStorage.removeItem(oldkey) : await AsyncStorage.setItem(oldkey, JSON.stringify(undobuzz))
+            }
+            this.refreshVals()
+        } catch (error) {
+            console.log(error)
         }
-        this.refreshVals()
     }
 
 
 
     checkLastDrink() {
-        if (Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) < 0.0333333) { return true }
-        else { return false }
+        try {
+            if (Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) < 0.0333333) { return true }
+            else { return false }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     checkMaxRec() {
-        if (this.state.maxrec === true) {
-            if (values[5] > values[7] || values[6] > values[8] === true) { return true }
-            else { return false }
-        } else { return false }
+        try {
+            if (this.state.maxrec === true) {
+                if (values[5] > values[7] || values[6] > values[8] === true) { return true }
+                else { return false }
+            } else { return false }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async warnCardHandle() {
-        ReactNativeHaptic.generate('selection')
-        this.setState({ warn: false })
-        await AsyncStorage.setItem(warningkey, JSON.stringify(false))
+        try {
+            ReactNativeHaptic.generate('selection')
+            this.setState({ warn: false })
+            await AsyncStorage.setItem(warningkey, JSON.stringify(false))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     cancelAlert(typealert) {
-        ReactNativeHaptic.generate('notificationWarning');
-        Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
-            typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
-                typealert === "ib" ? 'Consider keeping up your streak.' : typealert === "lc" ? "It's after last call, consider going home." :
-                    "Drink pacer helps reduce drinking too quickly.",
-            [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : typealert === "br" ? this.stopModeration("break") : typealert === "ib" ? this.stopModeration("ib") : typealert === "lc" ? this.stopModeration("lc") : this.stopModeration("pc") }, { text: 'No' }],
-            { cancelable: false },
-        );
+        try {
+            ReactNativeHaptic.generate('notificationWarning');
+            Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
+                typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
+                    typealert === "ib" ? 'Consider keeping up your streak.' : typealert === "lc" ? "It's after last call, consider going home." :
+                        "Drink pacer helps reduce drinking too quickly.",
+                [{ text: 'Yes', onPress: () => typealert === "hh" ? this.stopModeration("hh") : typealert === "sl" ? this.stopModeration("sl") : typealert === "br" ? this.stopModeration("break") : typealert === "ib" ? this.stopModeration("ib") : typealert === "lc" ? this.stopModeration("lc") : this.stopModeration("pc") }, { text: 'No' }],
+                { cancelable: false },
+            );
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async stopModeration(stoptype) {
-        ReactNativeHaptic.generate('selection');
-        this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
-            stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } :
-                stoptype === "ib" ? { indefbreak: false } : stoptype === "lc" ? { limitdate: "", showlastcall: false, lastcall: false } : { showpacer: false, pacer: false })
-        if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
-        if (stoptype === "lc") { await AsyncStorage.removeItem(limitdatekey) }
-        var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
-        await AsyncStorage.multiSet(stoptype === "break" ? [[breakkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)],
-        [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
-            stoptype === "hh" ? [[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
-                stoptype === "sl" ? [[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)],
-                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : stoptype === "ib" ? [[indefbreakkey, JSON.stringify(false)],
-                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : stoptype === "lc" ? [[lastcallkey, JSON.stringify(false)],
-                [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : [[pacerkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
+        try {
+            ReactNativeHaptic.generate('selection');
+            this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
+                stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } :
+                    stoptype === "ib" ? { indefbreak: false } : stoptype === "lc" ? { limitdate: "", showlastcall: false, lastcall: false } : { showpacer: false, pacer: false })
+            if (stoptype === "break") { await AsyncStorage.removeItem(breakdatekey) }
+            if (stoptype === "lc") { await AsyncStorage.removeItem(limitdatekey) }
+            var cancelbreaks = JSON.parse(await AsyncStorage.getItem(cancelbreakskey))
+            await AsyncStorage.multiSet(stoptype === "break" ? [[breakkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)],
+            [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
+                stoptype === "hh" ? [[happyhourkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] :
+                    stoptype === "sl" ? [[limitkey, JSON.stringify(false)], [showlimitkey, JSON.stringify(false)],
+                    [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : stoptype === "ib" ? [[indefbreakkey, JSON.stringify(false)],
+                    [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : stoptype === "lc" ? [[lastcallkey, JSON.stringify(false)],
+                    [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]] : [[pacerkey, JSON.stringify(false)], [cancelbreakskey, JSON.stringify(cancelbreaks + 1)]])
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async checkLastCall() {
-        var lastCall = Functions.getDayHourMin(new Date(this.state.limitdate), new Date)
-        if (lastCall[3] < 0) { this.setState({ showlastcall: false }) }
-        if (lastCall[3] >= 0 && lastCall[1] < 12) { this.setState({ showlastcall: true }) }
-        if (lastCall[1] >= 12) {
-            this.setState({ showlastcall: false })
-            if (this.state.limithour !== 0) {
-                var beforeMidnight = new Date().setHours(this.state.limithour, 0, 0, 0)
-                await AsyncStorage.setItem(limitdatekey, JSON.stringify(beforeMidnight))
-                this.setState({ limitdate: beforeMidnight })
-            } else {
-                var midnight = new Date()
-                midnight.setDate(midnight.getDate() + 1)
-                midnight.setHours(0, 0, 0, 0)
-                await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
-                this.setState({ limitdate: midnight })
+        try {
+            var lastCall = Functions.getDayHourMin(new Date(this.state.limitdate), new Date)
+            if (lastCall[3] < 0) { this.setState({ showlastcall: false }) }
+            if (lastCall[3] >= 0 && lastCall[1] < 12) { this.setState({ showlastcall: true }) }
+            if (lastCall[1] >= 12) {
+                this.setState({ showlastcall: false })
+                if (this.state.limithour !== 0) {
+                    var beforeMidnight = new Date().setHours(this.state.limithour, 0, 0, 0)
+                    await AsyncStorage.setItem(limitdatekey, JSON.stringify(beforeMidnight))
+                    this.setState({ limitdate: beforeMidnight })
+                } else {
+                    var midnight = new Date()
+                    midnight.setDate(midnight.getDate() + 1)
+                    midnight.setHours(0, 0, 0, 0)
+                    await AsyncStorage.setItem(limitdatekey, JSON.stringify(midnight))
+                    this.setState({ limitdate: midnight })
+                }
             }
+        } catch (error) {
+            console.log(error)
         }
     }
 
     countDownFinished() {
-        setTimeout(() => { this.setState({ showpacer: false }) }, 100)
-        ReactNativeHaptic.generate('notificationSuccess')
+        try {
+            setTimeout(() => { this.setState({ showpacer: false }) }, 100)
+            ReactNativeHaptic.generate('notificationSuccess')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     showLastCall() {
-        if (this.state.showlastcall === true) { return true }
-        else { return false }
+        try {
+            if (this.state.showlastcall === true) { return true }
+            else { return false }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

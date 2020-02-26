@@ -131,8 +131,8 @@ android {
         applicationId "com.buzzin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20
-        versionName "1.0.20"
+        versionCode 30
+        versionName "1.0.30"
         multiDexEnabled true
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
