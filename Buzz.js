@@ -41,52 +41,56 @@ class BuzzScreen extends Component {
     };
 
     async componentDidMount() {
-        values = await Functions.maxRecDrinks()
-        await AsyncStorage.getItem(key, (error, result) => { result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null }) })
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null && result !== "[]") {
-                this.setState({ oldbuzzes: JSON.parse(result) })
-                setTimeout(() => {
-                    var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
-                    this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
-                }, 200);
-            } else { this.setState({ oldbuzzes: null }) }
-        })
-        var avalues = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey, happyhourkey,
-            autobreakthresholdkey, namekey, genderkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey, warningkey])
-        this.setState({
-            autobreak: JSON.parse(avalues[0][1]), custombreak: JSON.parse(avalues[1][1]), indefbreak: JSON.parse(avalues[2][1]),
-            limitbac: JSON.parse(avalues[3][1]), limit: JSON.parse(avalues[4][1]), drinks: JSON.parse(avalues[5][1]),
-            happyhour: JSON.parse(avalues[6][1]), threshold: JSON.parse(avalues[7][1]), name: JSON.parse(avalues[8][1]),
-            gender: JSON.parse(avalues[9][1]), hhhour: JSON.parse(avalues[10][1]), pacertime: JSON.parse(avalues[11][1]),
-            lastcall: JSON.parse(avalues[12][1]), limithour: JSON.parse(avalues[13][1]), maxrec: JSON.parse(avalues[14][1]),
-            warn: JSON.parse(avalues[15][1])
-        })
-        await AsyncStorage.getItem(breakkey, (error, result) => {
-            if (result !== null) { this.setState({ break: JSON.parse(result) }) }
-        })
-        await AsyncStorage.getItem(limitdatekey, (error, result) => {
-            if (result !== null) {
-                this.setState({ limitdate: JSON.parse(result) })
-                if (this.state.lastcall === true) { this.checkLastCall() }
-            }
-        })
-        await AsyncStorage.getItem(breakdatekey, (error, result) => {
-            if (result !== null) {
-                this.setState({ breakdate: JSON.parse(result) })
-                setTimeout(() => {
-                    var breaktime = Functions.timeSince(this.state.breakdate, "break")
-                    if (breaktime[0] + breaktime[1] + breaktime[2] + breaktime[3] < 0) {
-                        if (this.state.autobreak === false) { this.stopBreak("break") }
-                    }
-                }, 100);
-            }
-        })
-        if (this.state.happyhour === true) {
-            var happyHour = moment(new Date()).local().hours()
-            happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
-        } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
-        setTimeout(() => { this.setState({ focus: true }) }, 800)
+        try {
+            values = await Functions.maxRecDrinks()
+            await AsyncStorage.getItem(key, (error, result) => { result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null }) })
+            await AsyncStorage.getItem(oldkey, (error, result) => {
+                if (result !== null && result !== "[]") {
+                    this.setState({ oldbuzzes: JSON.parse(result) })
+                    setTimeout(() => {
+                        var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
+                        this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
+                    }, 200);
+                } else { this.setState({ oldbuzzes: null }) }
+            })
+            var avalues = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey, happyhourkey,
+                autobreakthresholdkey, namekey, genderkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey, warningkey])
+            this.setState({
+                autobreak: JSON.parse(avalues[0][1]), custombreak: JSON.parse(avalues[1][1]), indefbreak: JSON.parse(avalues[2][1]),
+                limitbac: JSON.parse(avalues[3][1]), limit: JSON.parse(avalues[4][1]), drinks: JSON.parse(avalues[5][1]),
+                happyhour: JSON.parse(avalues[6][1]), threshold: JSON.parse(avalues[7][1]), name: JSON.parse(avalues[8][1]),
+                gender: JSON.parse(avalues[9][1]), hhhour: JSON.parse(avalues[10][1]), pacertime: JSON.parse(avalues[11][1]),
+                lastcall: JSON.parse(avalues[12][1]), limithour: JSON.parse(avalues[13][1]), maxrec: JSON.parse(avalues[14][1]),
+                warn: JSON.parse(avalues[15][1])
+            })
+            await AsyncStorage.getItem(breakkey, (error, result) => {
+                if (result !== null) { this.setState({ break: JSON.parse(result) }) }
+            })
+            await AsyncStorage.getItem(limitdatekey, (error, result) => {
+                if (result !== null) {
+                    this.setState({ limitdate: JSON.parse(result) })
+                    if (this.state.lastcall === true) { this.checkLastCall() }
+                }
+            })
+            await AsyncStorage.getItem(breakdatekey, (error, result) => {
+                if (result !== null) {
+                    this.setState({ breakdate: JSON.parse(result) })
+                    setTimeout(() => {
+                        var breaktime = Functions.timeSince(this.state.breakdate, "break")
+                        if (breaktime[0] + breaktime[1] + breaktime[2] + breaktime[3] < 0) {
+                            if (this.state.autobreak === false) { this.stopBreak("break") }
+                        }
+                    }, 100);
+                }
+            })
+            if (this.state.happyhour === true) {
+                var happyHour = moment(new Date()).local().hours()
+                happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
+            } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
+            setTimeout(() => { this.setState({ focus: true }) }, 800)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async refreshVals() {

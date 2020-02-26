@@ -43,117 +43,167 @@ class HomeScreen extends Component {
     };
 
     async componentDidMount() {
-        var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey, happyhourkey,
-            autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey, warningkey])
-        this.setState({
-            autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
-            limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
-            happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-            gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-            pacertime: JSON.parse(values[12][1]), lastcall: JSON.parse(values[13][1]), limithour: JSON.parse(values[14][1]),
-            maxrec: JSON.parse(values[15][1]), warn: JSON.parse(values[16][1])
-        })
-        await AsyncStorage.getItem(oldkey, (error, result) => {
-            if (result !== null && result !== "[]") {
-                this.setState({ oldbuzzes: JSON.parse(result) })
-                setTimeout(() => {
-                    var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
-                    this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
-                    if (JSON.stringify(this.state.buzzes) === "[]") {
-                        var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
-                        if (warning[0] === 0) {
-                            if (warning[3] >= 0 && warning[1] < 12) { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(false)) })(); this.setState({ warn: false }) }
-                        } else { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(true)) })(); this.setState({ warn: true }) }
-                    }
-                }, 50);
-            } else { this.setState({ oldbuzzes: [] }) }
-        })
-
-
-        maxRecValues = await Functions.maxRecDrinks()
+        try {
+            var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey, happyhourkey,
+                autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey, warningkey])
+            this.setState({
+                autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
+                limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
+                happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
+                gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
+                pacertime: JSON.parse(values[12][1]), lastcall: JSON.parse(values[13][1]), limithour: JSON.parse(values[14][1]),
+                maxrec: JSON.parse(values[15][1]), warn: JSON.parse(values[16][1])
+            })
+            await AsyncStorage.getItem(oldkey, (error, result) => {
+                if (result !== null && result !== "[]") {
+                    this.setState({ oldbuzzes: JSON.parse(result) })
+                    setTimeout(() => {
+                        var durations = Functions.timeSince(this.state.oldbuzzes[0][0].dateCreated, "timesince")
+                        this.setState({ timesince: `${durations[0]} ${durations[0] === 1 ? "day" : "days"}, ${durations[1]} ${durations[1] === 1 ? "hour" : "hours"}, ${durations[2]} ${durations[2] === 1 ? "minute" : "minutes"}, and ${durations[3]} ${durations[3] === 1 ? "second" : "seconds"}` })
+                        if (JSON.stringify(this.state.buzzes) === "[]") {
+                            var warning = Functions.getDayHourMin(new Date(this.state.oldbuzzes[0][0].dateCreated), new Date)
+                            if (warning[0] === 0) {
+                                if (warning[3] >= 0 && warning[1] < 12) { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(false)) })(); this.setState({ warn: false }) }
+                            } else { (async () => { await AsyncStorage.setItem(warningkey, JSON.stringify(true)) })(); this.setState({ warn: true }) }
+                        }
+                    }, 50);
+                } else { this.setState({ oldbuzzes: [] }) }
+            })
+            maxRecValues = await Functions.maxRecDrinks()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     handleModal(number) {
-        ReactNativeHaptic.generate('selection')
-        this.setState({ [number]: !this.state[number] });
+        try {
+            ReactNativeHaptic.generate('selection')
+            this.setState({ [number]: !this.state[number] });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async deleteOldBuzz(obid, oldbuzz) {
-        ReactNativeHaptic.generate('selection')
-        var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
-        await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
-        values = await Functions.maxRecDrinks()
+        try {
+            ReactNativeHaptic.generate('selection')
+            var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
+            await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
+            values = await Functions.maxRecDrinks()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async editOldBuzz(obid) {
-        ReactNativeHaptic.generate('selection')
-        var obnormal = this.state.oldbuzzes
-        var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
-        lastTime.setHours(0, 0, 0, 0)
-        obnormal[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
-        await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal, selectedOldBuzz: obnormal[obid], obid: [obid] }) })
-        values = await Functions.maxRecDrinks()
+        try {
+            ReactNativeHaptic.generate('selection')
+            var obnormal = this.state.oldbuzzes
+            var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
+            lastTime.setHours(0, 0, 0, 0)
+            obnormal[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
+            await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal, selectedOldBuzz: obnormal[obid], obid: [obid] }) })
+            values = await Functions.maxRecDrinks()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     oldModal(buzz, obid) {
-        ReactNativeHaptic.generate('selection')
-        this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz === "a" ? "" : buzz, obid: obid === "z" ? "" : obid });
+        try {
+            ReactNativeHaptic.generate('selection')
+            this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz === "a" ? "" : buzz, obid: obid === "z" ? "" : obid });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     addOldModal() {
-        ReactNativeHaptic.generate('selection')
-        this.setState({ addoldmodal: !this.state.addoldmodal, selectedStartDate: null, drinkadd: false, addoldbuzzes: [] });
+        try {
+            ReactNativeHaptic.generate('selection')
+            this.setState({ addoldmodal: !this.state.addoldmodal, selectedStartDate: null, drinkadd: false, addoldbuzzes: [] });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     addOldBuzzState() {
-        ReactNativeHaptic.generate('selection')
-        addoldbuzzes = this.state.addoldbuzzes
-        var oldbuzzdate = new Date(this.state.selectedStartDate);
-        oldbuzzdate.setHours(0, 0, 0, 0);
-        addoldbuzzes.unshift({ drinkType: this.state.alctype, dateCreated: oldbuzzdate, oz: this.state.oz, abv: this.state.abv })
-        this.setState({ addoldbuzzes: addoldbuzzes })
+        try {
+            ReactNativeHaptic.generate('selection')
+            addoldbuzzes = this.state.addoldbuzzes
+            var oldbuzzdate = new Date(this.state.selectedStartDate);
+            oldbuzzdate.setHours(0, 0, 0, 0);
+            addoldbuzzes.unshift({ drinkType: this.state.alctype, dateCreated: oldbuzzdate, oz: this.state.oz, abv: this.state.abv })
+            this.setState({ addoldbuzzes: addoldbuzzes })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     deleteAddOldBuzz(oldbuzz) {
-        ReactNativeHaptic.generate('selection')
-        var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
-        this.setState({ addoldbuzzes: delfilter })
+        try {
+            ReactNativeHaptic.generate('selection')
+            var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
+            this.setState({ addoldbuzzes: delfilter })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async addOldBuzz() {
-        var oldbuzzes;
-        ReactNativeHaptic.generate('selection')
-        var oldbuzzadd = this.state.addoldbuzzes;
-        this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
-        oldbuzzes.unshift(oldbuzzadd);
-        oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
-        await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
-        if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
-        this.componentDidMount()
+        try {
+            var oldbuzzes;
+            ReactNativeHaptic.generate('selection')
+            var oldbuzzadd = this.state.addoldbuzzes;
+            this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
+            oldbuzzes.unshift(oldbuzzadd);
+            oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
+            await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
+            if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
+            this.componentDidMount()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async deleteWholeOldBuzz() {
-        var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
-        await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
-        this.oldModal("a", "z")
-        if (this.state.oldbuzzes.length === 0) { this.setState({ timesince: null }, () => { this.showHideBuzzes("showHideOldBuzzes") }) }
-        this.componentDidMount()
+        try {
+            var filtered = _.pull(this.state.oldbuzzes, this.state.oldbuzzes[this.state.obid]);
+            await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered }) })
+            this.oldModal("a", "z")
+            if (this.state.oldbuzzes.length === 0) { this.setState({ timesince: null }, () => { this.showHideBuzzes("showHideOldBuzzes") }) }
+            this.componentDidMount()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     confirmDelete() {
-        ReactNativeHaptic.generate('notificationWarning')
-        Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
+        try {
+            ReactNativeHaptic.generate('notificationWarning')
+            Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     showHideBuzzes(statename) {
-        this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
-        ReactNativeHaptic.generate('selection')
+        try {
+            this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
+            ReactNativeHaptic.generate('selection')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     buzzDuration(incdec) {
-        ReactNativeHaptic.generate('selection')
-        if (incdec === "up" && this.state.buzzduration >= 5 && this.state.buzzduration < 120) { this.setState({ buzzduration: this.state.buzzduration + 5 }) }
-        else if (incdec === "down" && this.state.buzzduration > 5 && this.state.buzzduration <= 120) { this.setState({ buzzduration: this.state.buzzduration - 5 }) }
+        try {
+            ReactNativeHaptic.generate('selection')
+            if (incdec === "up" && this.state.buzzduration >= 5 && this.state.buzzduration < 120) { this.setState({ buzzduration: this.state.buzzduration + 5 }) }
+            else if (incdec === "down" && this.state.buzzduration > 5 && this.state.buzzduration <= 120) { this.setState({ buzzduration: this.state.buzzduration - 5 }) }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
