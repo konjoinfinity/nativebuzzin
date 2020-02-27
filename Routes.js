@@ -60,7 +60,8 @@ const AppStack = createStackNavigator({
                     activeTintColor: "gray", inactiveTintColor: '#ffffff', upperCaseLabel: false, showLabel: true, showIcon: false,
                     tabStyle: { height: Dimensions.get('window').height * 0.088, width: Dimensions.get('window').width * 0.25 }
                 },
-                tabBarPosition: 'bottom'
+                tabBarPosition: 'bottom',
+                swipeEnabled: false
             }
         ),
         navigationOptions: ({ navigation }) => ({

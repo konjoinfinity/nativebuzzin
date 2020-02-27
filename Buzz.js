@@ -812,6 +812,9 @@ class BuzzScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
                                                     <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
                                                 </MultiSwitch> */}
+
+                                                    {/* Use separate counter for slider value, set abv state on slide complete */}
+
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.05} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
                                                         onValueChange={(number) => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }} onSlidingComplete={(number) => this.setState({ abv: parseFloat(number.toFixed(2)) })} />
