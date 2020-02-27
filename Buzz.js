@@ -406,6 +406,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log(this.state.abv)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
@@ -787,38 +788,34 @@ class BuzzScreen extends Component {
                                         {this.state.alctype === "Beer" &&
                                             <View style={styles.multiSwitchViews}>
                                                 <View style={styles.multiSwitch}>
-                                                    {/* <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
-                                                    containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.04 ? 0 : this.state.abv === 0.05 ? 1 : this.state.abv === 0.06 ? 2 : this.state.abv === 0.07 ? 3 : 4}>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>4%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>5%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>6%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>7%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>8%</Text>
-                                                </MultiSwitch> */}
+                                                    {/* Beer */}
+
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
-                                                        minimumValue={0.032} step={0.01} maximumValue={0.33} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }} onSlidingComplete={(number) => this.setState({ abv: parseFloat(number.toFixed(2)) })} />
-                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500" }}>{this.state.abv} % ABV</Text>
+                                                        minimumValue={0.032} step={0.01} maximumValue={0.18} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500" }}>{this.state.abv}{this.state.abv === 0.1 ? "0" : ""} % ABV</Text>
                                                 </View>
                                             </View>}
-                                        {this.state.alctype !== "Beer" && this.state.alctype !== "Cocktail" &&
+                                        {this.state.alctype === "Wine" &&
                                             <View style={styles.multiSwitchViews}>
                                                 <View style={styles.multiSwitch}>
-                                                    {/* <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
-                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.13 || this.state.abv === 0.5 ? 2 : this.state.abv === 0.12 || this.state.abv === 0.4 ? 1 : 0}>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
-                                                </MultiSwitch> */}
-
-                                                    {/* Use separate counter for slider value, set abv state on slide complete */}
+                                                    {/* Wine */}
 
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
-                                                        minimumValue={0.05} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }} onSlidingComplete={(number) => this.setState({ abv: parseFloat(number.toFixed(2)) })} />
-                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500" }}>{this.state.abv} % ABV</Text>
+                                                        minimumValue={0.09} step={0.01} maximumValue={0.25} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500" }}>{this.state.abv}{this.state.abv === 0.1 || this.state.abv === 0.2 ? "0" : ""} % ABV</Text>
+                                                </View>
+                                            </View>}
+                                        {this.state.alctype === "Liquor" &&
+                                            <View style={styles.multiSwitchViews}>
+                                                <View style={styles.multiSwitch}>
+                                                    {/* Liquor */}
+
+                                                    <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                        minimumValue={0.2} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500" }}>{this.state.abv}{this.state.abv === 0.2 || this.state.abv === 0.3 || this.state.abv === 0.4 || this.state.abv === 0.5 || this.state.abv === 0.6 || this.state.abv === 0.7 || this.state.abv === 0.8 || this.state.abv === 0.9 ? "0" : ""} % ABV</Text>
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Cocktail" &&
