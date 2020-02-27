@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, TouchableOpacity, Alert, Modal, Platform, Text } from 'react-native';
+import { ScrollView, View, TouchableOpacity, Alert, Modal, Platform, Text, Slider, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
@@ -291,25 +291,33 @@ class HomeScreen extends Component {
                                         <View style={{ paddingBottom: 15 }}>
                                             {this.state.alctype === "Beer" &&
                                                 <View style={styles.multiSwitchViews}>
-                                                    <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
-                                                        containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                        onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.04 ? 0 : this.state.abv === 0.05 ? 1 : this.state.abv === 0.06 ? 2 : this.state.abv === 0.07 ? 3 : 4}>
-                                                        <Text style={{ color: "#000000", fontSize: abvText }}>4%</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvText }}>5%</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvText }}>6%</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvText }}>7%</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvText }}>8%</Text>
-                                                    </MultiSwitch>
+                                                    <View style={styles.multiSwitch}>
+                                                        {/* Beer */}
+                                                        <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 ? "0" : ""} % ABV</Text>
+                                                        <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                            minimumValue={0.032} step={0.01} maximumValue={0.18} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                    </View>
                                                 </View>}
-                                            {this.state.alctype !== "Beer" && this.state.alctype !== "Cocktail" &&
+                                            {this.state.alctype === "Wine" &&
                                                 <View style={styles.multiSwitchViews}>
-                                                    <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
-                                                        containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                        onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.13 || this.state.abv === 0.5 ? 2 : this.state.abv === 0.12 || this.state.abv === 0.4 ? 1 : 0}>
-                                                        <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
-                                                        <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
-                                                    </MultiSwitch>
+                                                    <View style={styles.multiSwitch}>
+                                                        {/* Wine */}
+                                                        <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 || this.state.abv === 0.2 ? "0" : ""} % ABV</Text>
+                                                        <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                            minimumValue={0.09} step={0.01} maximumValue={0.25} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                    </View>
+                                                </View>}
+                                            {this.state.alctype === "Liquor" &&
+                                                <View style={styles.multiSwitchViews}>
+                                                    <View style={styles.multiSwitch}>
+                                                        {/* Liquor */}
+                                                        <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.2 || this.state.abv === 0.3 || this.state.abv === 0.4 || this.state.abv === 0.5 || this.state.abv === 0.6 || this.state.abv === 0.7 || this.state.abv === 0.8 || this.state.abv === 0.9 ? "0" : ""} % ABV</Text>
+                                                        <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                            minimumValue={0.2} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                    </View>
                                                 </View>}
                                             {this.state.alctype === "Cocktail" &&
                                                 <View style={[styles.dropShadow2, styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
@@ -396,25 +404,33 @@ class HomeScreen extends Component {
                                     <View style={{ paddingBottom: 15 }}>
                                         {this.state.alctype === "Beer" &&
                                             <View style={styles.multiSwitchViews}>
-                                                <MultiSwitch choiceSize={abvSize} activeItemStyle={beerActive} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.abvswitch = ref }}
-                                                    containerStyles={_.times(5, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.04 ? 0 : this.state.abv === 0.05 ? 1 : this.state.abv === 0.06 ? 2 : this.state.abv === 0.07 ? 3 : 4}>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>4%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>5%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>6%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>7%</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvText }}>8%</Text>
-                                                </MultiSwitch>
+                                                <View style={styles.multiSwitch}>
+                                                    {/* Beer */}
+                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 ? "0" : ""} % ABV</Text>
+                                                    <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                        minimumValue={0.032} step={0.01} maximumValue={0.18} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                </View>
                                             </View>}
-                                        {this.state.alctype !== "Beer" && this.state.alctype !== "Cocktail" &&
+                                        {this.state.alctype === "Wine" &&
                                             <View style={styles.multiSwitchViews}>
-                                                <MultiSwitch choiceSize={abvWineSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }}
-                                                    containerStyles={_.times(3, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ abv: Functions.setAbv(number, this.state.alctype) }) }} active={this.state.abv === 0.13 || this.state.abv === 0.5 ? 2 : this.state.abv === 0.12 || this.state.abv === 0.4 ? 1 : 0}>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "11%" : "30%"}</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "12%" : "40%"}</Text>
-                                                    <Text style={{ color: "#000000", fontSize: abvWineText }}>{this.state.alctype === "Wine" ? "13%" : "50%"}</Text>
-                                                </MultiSwitch>
+                                                <View style={styles.multiSwitch}>
+                                                    {/* Wine */}
+                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 || this.state.abv === 0.2 ? "0" : ""} % ABV</Text>
+                                                    <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                        minimumValue={0.09} step={0.01} maximumValue={0.25} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                </View>
+                                            </View>}
+                                        {this.state.alctype === "Liquor" &&
+                                            <View style={styles.multiSwitchViews}>
+                                                <View style={styles.multiSwitch}>
+                                                    {/* Liquor */}
+                                                    <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.2 || this.state.abv === 0.3 || this.state.abv === 0.4 || this.state.abv === 0.5 || this.state.abv === 0.6 || this.state.abv === 0.7 || this.state.abv === 0.8 || this.state.abv === 0.9 ? "0" : ""} % ABV</Text>
+                                                    <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
+                                                        minimumValue={0.2} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
+                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                </View>
                                             </View>}
                                         {this.state.alctype === "Cocktail" &&
                                             <View style={[styles.dropShadow2, styles.numberofshots, { backgroundColor: "#e0f2f1" }]}>
