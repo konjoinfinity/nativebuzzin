@@ -88,6 +88,7 @@ class BuzzScreen extends Component {
             } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
             setTimeout(() => { this.setState({ focus: true }) }, 800)
             values = await Functions.maxRecDrinks()
+            this.refreshVals()
         } catch (error) {
             console.log(error)
         }
@@ -239,8 +240,8 @@ class BuzzScreen extends Component {
             oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
             await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
             if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
+            values = await Functions.maxRecDrinks()
             this.componentDidMount()
-            this.refreshVals()
         } catch (error) {
             console.log(error)
         }
@@ -751,10 +752,10 @@ class BuzzScreen extends Component {
                                     <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
+                                        <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} contentInset={{ left: 30, right: 40 }}
                                             formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"}
                                             svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
-                                        <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
