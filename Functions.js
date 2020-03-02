@@ -262,6 +262,8 @@ export class Functions {
     // Potentially add "Today" stacked bar chart for last 7 days 
     // start from oldest or most recent?
 
+    // Only run if 2 weeks worth of data is present, just like maxrecdrinks/weekly & cumulative switch
+
     static async dailyDrinks() {
         try {
             var oldDrinks, days;
@@ -273,7 +275,6 @@ export class Functions {
             console.log("Total Days: " + days[0])
             console.log(days[0])
             var dailyarr = []
-            // i-- ?
             var totalbuzzes = oldDrinks.length - 1
             var currentDay = new Date(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated)
             for (i = 0; i <= days[0]; i++) {
@@ -292,6 +293,7 @@ export class Functions {
                     // will have to loop / map through each buzz, and check each
                     // return total calculated standard drinks for that day
                     // daytotal = # of standard drinks
+                    // calculate standard drinks for that drink array, then push the [total]
                     dailyarr.push([1])
                     totalbuzzes = totalbuzzes - 1
                     console.log(totalbuzzes)
@@ -299,7 +301,6 @@ export class Functions {
                 } else {
                     dailyarr.push([0])
                     currentDay.setDate(currentDay.getDate() + 1);
-
                     // daytotal = 0
                 }
             }
