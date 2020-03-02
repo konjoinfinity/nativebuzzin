@@ -260,5 +260,42 @@ export class Functions {
     // Overlay days of the week? Probably for ease reading, grab datestamp from drink (if drink)
     // Will likely have to loop over the object, adding one day after last drink is read or no drinks are present
     // Potentially add "Today" stacked bar chart for last 7 days 
+    // start from oldest or most recent?
+
+    static async dailyDrinks() {
+        try {
+            var oldDrinks, days;
+            await AsyncStorage.getItem(oldkey, (error, result) => {
+                oldDrinks = JSON.parse(result)
+                days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.parse(oldDrinks[0][0].dateCreated))
+
+            })
+            console.log("Total Days: " + days[0])
+            console.log(days[0])
+            var dailyarr = []
+            // for (i = 0; i < days[0]; i++) {
+            var currentDay = new Date(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated)
+            var dayNum = currentDay.getDate()
+            console.log(currentDay)
+            console.log(dayNum)
+            currentDay.setDate(currentDay.getDate() - 1);
+            console.log(currentDay)
+            dayNum = currentDay.getDate()
+            console.log(dayNum)
+            //         var daytotal = 0
+            //         if (oldbuzz.datecreated.getday() === currentday()) {
+            //             will have to loop / map through each buzz, and check each
+            //             return total calculated standard drinks for that day
+            //     daytotal = # of standard drinks
+            //             dailyarr.push()
+            //         } else {
+            //             daytotal = 0
+            //         }
+            //     }
+            // }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
