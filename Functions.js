@@ -252,5 +252,13 @@ export class Functions {
             console.log(error)
         }
     }
+
+    // Calculate everyday for drinks consumed
+    // If no drink for that day, push empty array
+    // Plot and display total number of standard drinks per day
+    // Will have to overlay 7 line chart points per week
+    // Overlay days of the week? Probably for ease reading, grab datestamp from drink (if drink)
+    // Will likely have to loop over the object, adding one day after last drink is read or no drinks are present
+    // Potentially add "Today" stacked bar chart for last 7 days 
 }
 

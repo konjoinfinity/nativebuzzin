@@ -42,7 +42,6 @@ class BuzzScreen extends Component {
 
     async componentDidMount() {
         try {
-            values = await Functions.maxRecDrinks()
             await AsyncStorage.getItem(key, (error, result) => { result !== null && result !== "[]" ? this.setState({ buzzes: JSON.parse(result) }) : this.setState({ buzzes: null }) })
             await AsyncStorage.getItem(oldkey, (error, result) => {
                 if (result !== null && result !== "[]") {
@@ -88,6 +87,7 @@ class BuzzScreen extends Component {
                 happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
             } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
             setTimeout(() => { this.setState({ focus: true }) }, 800)
+            values = await Functions.maxRecDrinks()
         } catch (error) {
             console.log(error)
         }
@@ -240,6 +240,7 @@ class BuzzScreen extends Component {
             await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
             if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
             this.componentDidMount()
+            this.refreshVals()
         } catch (error) {
             console.log(error)
         }
