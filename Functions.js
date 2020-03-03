@@ -253,6 +253,7 @@ export class Functions {
         }
     }
 
+    // Look into navigation lag issue, going back to home screen
     static async dailyDrinks() {
         try {
             var newArr = []
