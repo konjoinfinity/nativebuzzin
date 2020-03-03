@@ -256,6 +256,7 @@ export class Functions {
     static async dailyDrinks() {
         try {
             var newArr = []
+            var datearr = []
             await AsyncStorage.getItem(oldkey, (error, result) => {
                 if (result !== null && result !== "[]") {
                     var oldDrinks, days;
@@ -271,7 +272,6 @@ export class Functions {
                     var currentDay = new Date(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated)
                     for (i = 0; i <= days[0]; i++) {
                         var dayNum = currentDay.getDate()
-                        dayNum = currentDay.getDate()
                         var currentDrink = new Date(oldDrinks[totalbuzzes][0].dateCreated).getDate()
                         if (currentDrink === dayNum) {
                             var stantotal = 0
@@ -281,10 +281,14 @@ export class Functions {
                             });
                             dailyarr.push(stantotal);
                             totalbuzzes = totalbuzzes - 1
-                            currentDay.setDate(currentDay.getDate() + 1);
+                            var plusone = new Date(currentDay.setDate(currentDay.getDate() + 1));
+                            console.log(plusone)
+                            datearr.push(plusone);
                         } else {
                             dailyarr.push(0)
-                            currentDay.setDate(currentDay.getDate() + 1);
+                            var pluszero = new Date(currentDay.setDate(currentDay.getDate() + 1));
+                            console.log(pluszero)
+                            datearr.push(pluszero);
                         }
                     }
                     for (i = dailyarr.length - 1; i >= 0; i--) {
@@ -295,6 +299,7 @@ export class Functions {
                     newArr = [0]
                 }
             })
+            console.log(datearr)
             return newArr
         } catch (error) {
             console.log(error)

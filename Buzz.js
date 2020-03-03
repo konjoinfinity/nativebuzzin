@@ -413,7 +413,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(daily)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
