@@ -763,7 +763,7 @@ class BuzzScreen extends Component {
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={daily[1]} contentInset={{ left: 30, right: 40 }}
-                                            xAccessor={({ item, index }) => item} formatLabel={(value) => moment(value).format('DD MMM')} svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
+                                            xAccessor={({ item, index }) => item} formatLabel={(value, index) => moment(value[index]).format('DD MMM')} svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
