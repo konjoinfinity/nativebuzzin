@@ -265,6 +265,7 @@ export class Functions {
                     //     days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.now())
                     // }
                     // console.log(days)
+                    // will have to add conditional for single daily values to push an array of zeros then the value
                     var dailyarr = []
                     var totalbuzzes = oldDrinks.length - 1
                     var currentDay = new Date(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated)
