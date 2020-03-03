@@ -762,8 +762,8 @@ class BuzzScreen extends Component {
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
-                                        <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={daily[1]} contentInset={{ left: 30, right: 40 }}
-                                            xAccessor={({ item, index }) => item} formatLabel={(value, index) => moment(value[index]).format('DD MMM')} svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
+                                        <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} contentInset={{ left: 30, right: 40 }}
+                                            formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"} svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart

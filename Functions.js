@@ -283,12 +283,12 @@ export class Functions {
                             totalbuzzes = totalbuzzes - 1
                             var plusone = new Date(currentDay.setDate(currentDay.getDate() + 1));
                             console.log(plusone)
-                            datearr.push(plusone);
+                            datearr.push({ date: plusone });
                         } else {
                             dailyarr.push(0)
                             var pluszero = new Date(currentDay.setDate(currentDay.getDate() + 1));
                             console.log(pluszero)
-                            datearr.push(pluszero);
+                            datearr.push({ date: pluszero });
                         }
                     }
                     for (i = dailyarr.length - 1; i >= 0; i--) {
