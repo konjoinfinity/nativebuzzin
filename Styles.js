@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from "react-native"
-import { addButtonSize } from "./Variables"
+import { Dimensions, PixelRatio } from 'react-native';
 
+var screenHeight = Dimensions.get('window').height * PixelRatio.get()
 var amount = Platform.OS === 'android' ? 10 : 0
 
 const styles = StyleSheet.create({
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
         borderRadius: 50, padding: 2
     },
     buzzbutton: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15, alignItems: 'center', justifyContent: 'center', marginTop: addButtonSize === "tablet" ? 10 : 0, marginBottom: addButtonSize === "tablet" ? 10 : 0
+        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15, alignItems: 'center', justifyContent: 'center', marginTop: screenHeight >= 2048 ? 10 : 0, marginBottom: screenHeight >= 2048 ? 10 : 0
     },
     profileSetting: {
         backgroundColor: "#00897b", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12
