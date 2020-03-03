@@ -23,8 +23,9 @@ import {
     screenHeight, screenWidth
 } from "./Variables";
 
-var values;
+var values, daily;
 (async () => { values = await Functions.maxRecDrinks() })();
+(async () => { daily = await Functions.dailyDrinks() })();
 
 class BuzzScreen extends Component {
     constructor(props) {
@@ -409,6 +410,8 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log(daily)
+        console.log(values[1])
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
@@ -470,6 +473,9 @@ class BuzzScreen extends Component {
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index) + 5} y={y(value.toFixed(1)) - (addButtonSize === "tablet" ? 30 : 20)} fontSize={addButtonSize === "tablet" ? 30 : 18} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value.toFixed(1)}</TextSVG>)))
+        const DailyLabels = ({ x, y, data }) => (data.map((value, index) => (
+            <TextSVG key={index} x={x(index) + 5} y={y(value.toFixed(1)) - (addButtonSize === "tablet" ? 30 : 20)} fontSize={addButtonSize === "tablet" ? 30 : 18} fill={'black'} alignmentBaseline={'middle'}
+                textAnchor={'middle'}>{value === 0 ? "" : value.toFixed(1)}</TextSVG>)))
         return (
             <View>
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
@@ -770,6 +776,13 @@ class BuzzScreen extends Component {
                                         data={values[9]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
                                         svg={{ stroke: "#000000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [16, 8], strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>
+                                    </LineChart>
+                                    <LineChart
+                                        style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
+                                        data={daily} contentInset={{ top: 25, bottom: 15, left: 20, right: 20 }} numberOfTicks={values[0].length}
+                                        svg={{ stroke: "#000000", strokeWidth: 4, strokeLinecap: "round" }}
+                                        gridMax={Math.max(...values[0]) + 6} horizontal={true}>
+                                        <DailyLabels />
                                     </LineChart>
                                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#00897b", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.8 }}>-- </Text>Historical Weekly Totals</Text>
                                     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>

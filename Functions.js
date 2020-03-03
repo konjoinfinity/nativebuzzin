@@ -300,17 +300,18 @@ export class Functions {
                         var standrink = this.standardDrinks(drink.oz, drink.abv);
                         stantotal = stantotal + standrink
                     });
-                    dailyarr.push([stantotal]);
+                    dailyarr.push(stantotal);
                     totalbuzzes = totalbuzzes - 1
                     console.log(totalbuzzes)
                     currentDay.setDate(currentDay.getDate() + 1);
                 } else {
-                    dailyarr.push([0])
+                    dailyarr.push(0)
                     currentDay.setDate(currentDay.getDate() + 1);
                     // daytotal = 0
                 }
             }
             console.log(dailyarr)
+            return dailyarr
         } catch (error) {
             console.log(error)
         }
