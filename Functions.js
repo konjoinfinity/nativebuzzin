@@ -300,7 +300,7 @@ export class Functions {
                 }
             })
             console.log(datearr)
-            return newArr
+            return [newArr, datearr]
         } catch (error) {
             console.log(error)
         }
