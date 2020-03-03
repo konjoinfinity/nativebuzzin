@@ -92,6 +92,7 @@ class BuzzScreen extends Component {
         } catch (error) {
             console.log(error)
         }
+        Functions.dailyDrinks()
     }
 
     async refreshVals() {
