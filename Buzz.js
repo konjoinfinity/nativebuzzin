@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert, Slider, Dimensions } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from "moment";
 import _ from 'lodash'
@@ -13,6 +13,7 @@ import styles from "./Styles"
 import CalendarPicker from 'react-native-calendar-picker';
 import ReactNativeHaptic from 'react-native-haptic';
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Slider from '@react-native-community/slider';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
     addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey, genderkey, weightkey, key, oldkey,
@@ -413,7 +414,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(daily)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()

@@ -282,12 +282,10 @@ export class Functions {
                             dailyarr.push(stantotal);
                             totalbuzzes = totalbuzzes - 1
                             var plusone = new Date(currentDay.setDate(currentDay.getDate() + 1));
-                            console.log(plusone)
                             datearr.push({ date: plusone });
                         } else {
                             dailyarr.push(0)
                             var pluszero = new Date(currentDay.setDate(currentDay.getDate() + 1));
-                            console.log(pluszero)
                             datearr.push({ date: pluszero });
                         }
                     }
@@ -299,7 +297,6 @@ export class Functions {
                     newArr = [0]
                 }
             })
-            console.log(datearr)
             return [newArr, datearr]
         } catch (error) {
             console.log(error)
