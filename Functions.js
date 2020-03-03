@@ -311,7 +311,12 @@ export class Functions {
                 }
             }
             console.log(dailyarr)
-            return dailyarr
+            var newArr = [];
+            for (i = dailyarr.length - 1; i >= 0; i--) {
+                newArr.push(dailyarr[i]);
+            }
+            console.log(newArr)
+            return newArr
         } catch (error) {
             console.log(error)
         }

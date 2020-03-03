@@ -93,12 +93,12 @@ class BuzzScreen extends Component {
         } catch (error) {
             console.log(error)
         }
-        Functions.dailyDrinks()
     }
 
     async refreshVals() {
         try {
             values = await Functions.maxRecDrinks();
+            daily = await Functions.dailyDrinks();
             await AsyncStorage.getItem(oldkey, (error, result) => { this.setState({ oldbuzzes: JSON.parse(result) }) })
         } catch (error) {
             console.log(error)
@@ -129,7 +129,8 @@ class BuzzScreen extends Component {
             ReactNativeHaptic.generate('selection')
             var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
             await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
-            values = await Functions.maxRecDrinks()
+            values = await Functions.maxRecDrinks();
+            daily = await Functions.dailyDrinks();
         } catch (error) {
             console.log(error)
         }
@@ -143,7 +144,8 @@ class BuzzScreen extends Component {
             lastTime.setHours(0, 0, 0, 0)
             obnormal[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
             await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal, selectedOldBuzz: obnormal[obid], obid: [obid] }) })
-            values = await Functions.maxRecDrinks()
+            values = await Functions.maxRecDrinks();
+            daily = await Functions.dailyDrinks();
         } catch (error) {
             console.log(error)
         }
@@ -242,7 +244,8 @@ class BuzzScreen extends Component {
             oldbuzzes.sort((a, b) => new Date(Date.parse(b[0].dateCreated)).getTime() - new Date(Date.parse(a[0].dateCreated)).getTime());
             await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
             if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
-            values = await Functions.maxRecDrinks()
+            values = await Functions.maxRecDrinks();
+            daily = await Functions.dailyDrinks();
             this.componentDidMount()
         } catch (error) {
             console.log(error)
@@ -472,9 +475,9 @@ class BuzzScreen extends Component {
                         strokeWidth={3} strokeOpacity={0.3} strokeDasharray={[8, 6]} strokeLinecap={"round"} stroke={"#000000"} />}</G>)))
         const WeeksLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index) + 5} y={y(value.toFixed(1)) - (addButtonSize === "tablet" ? 30 : 20)} fontSize={addButtonSize === "tablet" ? 30 : 18} fill={'black'} alignmentBaseline={'middle'}
-                textAnchor={'middle'}>{value.toFixed(1)}</TextSVG>)))
+                textAnchor={'middle'}>{value === 0 ? "" : value.toFixed(1)}</TextSVG>)))
         const DailyLabels = ({ x, y, data }) => (data.map((value, index) => (
-            <TextSVG key={index} x={x(index) + 5} y={y(value.toFixed(1)) - (addButtonSize === "tablet" ? 30 : 20)} fontSize={addButtonSize === "tablet" ? 30 : 18} fill={'black'} alignmentBaseline={'middle'}
+            <TextSVG key={index} x={x(index)} y={y(value.toFixed(1)) + (addButtonSize === "tablet" ? 30 : 15)} fontSize={addButtonSize === "tablet" ? 22 : 12} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value === 0 ? "" : value.toFixed(1)}</TextSVG>)))
         return (
             <View>
@@ -780,13 +783,18 @@ class BuzzScreen extends Component {
                                     <LineChart
                                         style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
                                         data={daily} contentInset={{ top: 25, bottom: 15, left: 20, right: 20 }} numberOfTicks={values[0].length}
-                                        svg={{ stroke: "#000000", strokeWidth: 4, strokeLinecap: "round" }}
+                                        svg={{ stroke: "#ffcc80", strokeWidth: 4, strokeOpacity: 0.7, strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true}>
                                         <DailyLabels />
                                     </LineChart>
-                                    <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#00897b", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.8 }}>-- </Text>Historical Weekly Totals</Text>
-                                    <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
-                                    <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#000000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)} Drinks</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#00897b", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.8 }}>-- </Text>Historical Weekly Totals</Text>
+                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#000000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)} Drinks</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
+                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#ffcc80", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.7 }}>-- </Text>Daily Totals</Text>
+                                    </View>
                                 </View>
                             </View>}
                     </ScrollView>
