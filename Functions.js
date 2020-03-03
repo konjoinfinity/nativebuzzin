@@ -253,69 +253,42 @@ export class Functions {
         }
     }
 
-    // Calculate everyday for drinks consumed
-    // If no drink for that day, push empty array
-    // Plot and display total number of standard drinks per day
-    // Will have to overlay 7 line chart points per week
-    // Overlay days of the week? Probably for ease reading, grab datestamp from drink (if drink)
-    // Will likely have to loop over the object, adding one day after last drink is read or no drinks are present
-    // Potentially add "Today" stacked bar chart for last 7 days 
-    // start from oldest or most recent?
-
-    // Only run if 2 weeks worth of data is present, just like maxrecdrinks/weekly & cumulative switch
-
     static async dailyDrinks() {
         try {
-            var oldDrinks, days;
+            var newArr = []
             await AsyncStorage.getItem(oldkey, (error, result) => {
-                oldDrinks = JSON.parse(result)
-                days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.parse(oldDrinks[0][0].dateCreated))
-
-            })
-            console.log("Total Days: " + days[0])
-            console.log(days[0])
-            var dailyarr = []
-            var totalbuzzes = oldDrinks.length - 1
-            var currentDay = new Date(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated)
-            for (i = 0; i <= days[0]; i++) {
-                var dayNum = currentDay.getDate()
-                // console.log(totalbuzzes)
-                // console.log(currentDay)
-                // console.log(dayNum)
-                // console.log(currentDay)
-                dayNum = currentDay.getDate()
-                // var daytotal = 0
-                // console.log(oldDrinks[totalbuzzes][0].dateCreated)
-                var currentDrink = new Date(oldDrinks[totalbuzzes][0].dateCreated).getDate()
-                console.log(oldDrinks)
-                console.log(dayNum)
-                console.log(currentDrink)
-                if (currentDrink === dayNum) {
-                    // will have to loop / map through each buzz, and check each
-                    // return total calculated standard drinks for that day
-                    // daytotal = # of standard drinks
-                    // calculate standard drinks for that drink array, then push the [total]
-                    var stantotal = 0
-                    oldDrinks[totalbuzzes].forEach(drink => {
-                        var standrink = this.standardDrinks(drink.oz, drink.abv);
-                        stantotal = stantotal + standrink
-                    });
-                    dailyarr.push(stantotal);
-                    totalbuzzes = totalbuzzes - 1
-                    console.log(totalbuzzes)
-                    currentDay.setDate(currentDay.getDate() + 1);
+                if (result !== null && result !== "[]") {
+                    var oldDrinks, days;
+                    oldDrinks = JSON.parse(result)
+                    days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.parse(oldDrinks[0][0].dateCreated))
+                    var dailyarr = []
+                    var totalbuzzes = oldDrinks.length - 1
+                    var currentDay = new Date(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated)
+                    for (i = 0; i <= days[0]; i++) {
+                        var dayNum = currentDay.getDate()
+                        dayNum = currentDay.getDate()
+                        var currentDrink = new Date(oldDrinks[totalbuzzes][0].dateCreated).getDate()
+                        if (currentDrink === dayNum) {
+                            var stantotal = 0
+                            oldDrinks[totalbuzzes].forEach(drink => {
+                                var standrink = this.standardDrinks(drink.oz, drink.abv);
+                                stantotal = stantotal + standrink
+                            });
+                            dailyarr.push(stantotal);
+                            totalbuzzes = totalbuzzes - 1
+                            currentDay.setDate(currentDay.getDate() + 1);
+                        } else {
+                            dailyarr.push(0)
+                            currentDay.setDate(currentDay.getDate() + 1);
+                        }
+                    }
+                    for (i = dailyarr.length - 1; i >= 0; i--) {
+                        newArr.push(dailyarr[i]);
+                    }
                 } else {
-                    dailyarr.push(0)
-                    currentDay.setDate(currentDay.getDate() + 1);
-                    // daytotal = 0
+                    newArr = [0]
                 }
-            }
-            console.log(dailyarr)
-            var newArr = [];
-            for (i = dailyarr.length - 1; i >= 0; i--) {
-                newArr.push(dailyarr[i]);
-            }
-            console.log(newArr)
+            })
             return newArr
         } catch (error) {
             console.log(error)
