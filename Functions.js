@@ -206,6 +206,7 @@ export class Functions {
         try {
             var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [],
                 maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg;
+            // we are accessing the same data here (oldkey)
             await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
                 gender = JSON.parse(result[1][1])
                 if (result[0][1] !== null && result[0][1] !== "[]" && result[1][1] !== null && result[1][1] !== "[]") {
@@ -253,7 +254,7 @@ export class Functions {
         }
     }
 
-    // Look into navigation lag issue, going back to home screen
+    // Look into navigation lag issue, going back to home screen, possible to combine with function above?
     static async dailyDrinks() {
         try {
             var newArr = []
@@ -297,7 +298,6 @@ export class Functions {
                     for (i = datearr.length - 1; i >= 0; i--) {
                         newdate.push(datearr[i]);
                     }
-                    // console.log(dailyarr)
                 } else {
                     newArr = [0]
                 }

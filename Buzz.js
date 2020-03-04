@@ -25,6 +25,7 @@ import {
 } from "./Variables";
 
 var values, daily;
+// these could be combined
 (async () => { values = await Functions.maxRecDrinks() })();
 (async () => { daily = await Functions.dailyDrinks() })();
 
@@ -742,7 +743,7 @@ class BuzzScreen extends Component {
                                 <View style={{ flexDirection: 'column', paddingLeft: 5, paddingRight: 10, paddingBottom: 10 }}>
                                     <BarChart style={{ flex: 1, paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 115 : 160, width: barChartWidth }} data={values[6]}
                                         svg={{ fill: values[4][0], fillOpacity: values[4][0] === "#ffeb00" ? 0.5 : 0.8 }} spacing={addButtonSize === "tablet" ? 4 : 2} gridMin={0}
-                                        contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[6][0] + 10}>
+                                        contentInset={{ top: 10, bottom: 10, left: 10, right: 10 }} gridMax={values[6][0] + 10} animationDuration={1800}>
                                         <XAxis style={{ marginTop: 10 }} data={values[6]} scale={scale.scaleBand} formatLabel={() => ""} />
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <LabelMonth />
@@ -764,28 +765,24 @@ class BuzzScreen extends Component {
                                 <View style={{ flexDirection: 'column', padding: 5 }}>
                                     {daily[1] !== null && <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), paddingLeft: 30 }}>{chartDates}</View>}
                                     <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
-                                        svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
-                                        contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
+                                        svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true} animationDuration={2000}>
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
                                         style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
-                                        data={values[1]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
-                                        svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
-                                        gridMax={Math.max(...values[0]) + 6} horizontal={true}>
+                                        data={values[1]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length} svg={{ stroke: "#AE0000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [8, 6], strokeLinecap: "round" }}
+                                        gridMax={Math.max(...values[0]) + 6} horizontal={true} animationDuration={2000}>
                                     </LineChart>
                                     <LineChart
                                         style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
-                                        data={values[9]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length}
-                                        svg={{ stroke: "#000000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [16, 8], strokeLinecap: "round" }}
-                                        gridMax={Math.max(...values[0]) + 6} horizontal={true}>
+                                        data={values[9]} contentInset={{ top: 25, bottom: 10, left: 5, right: 5 }} numberOfTicks={values[0].length} svg={{ stroke: "#000000", strokeWidth: 3, strokeOpacity: 0.3, strokeDasharray: [16, 8], strokeLinecap: "round" }}
+                                        gridMax={Math.max(...values[0]) + 6} horizontal={true} animationDuration={2000}>
                                     </LineChart>
                                     <LineChart
                                         style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
-                                        data={daily[0]} contentInset={{ top: 25, bottom: 15, left: 20, right: 20 }} numberOfTicks={values[0].length}
-                                        svg={{ stroke: "#ffcc80", strokeWidth: 4, strokeOpacity: 0.7, strokeLinecap: "round" }}
-                                        gridMax={Math.max(...values[0]) + 6} horizontal={true}>
+                                        data={daily[0]} contentInset={{ top: 25, bottom: 15, left: 20, right: 20 }} numberOfTicks={values[0].length} svg={{ stroke: "#ffcc80", strokeWidth: 4, strokeOpacity: 0.7, strokeLinecap: "round" }}
+                                        gridMax={Math.max(...values[0]) + 6} horizontal={true} animationDuration={2000}>
                                         <DailyLabels />
                                     </LineChart>
                                     <View style={{ flexDirection: 'row' }}>
@@ -793,7 +790,7 @@ class BuzzScreen extends Component {
                                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#000000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)} Drinks</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#ffcc80", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.7 }}>-- </Text>Daily Totals</Text>
+                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#ffcc80", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.8 }}>-- </Text>Daily Totals</Text>
                                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
                                     </View>
                                 </View>
