@@ -789,12 +789,12 @@ class BuzzScreen extends Component {
                                         <DailyLabels />
                                     </LineChart>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#00897b", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.8 }}>-- </Text>Historical Weekly Totals</Text>
+                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#00897b", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.8 }}>-- </Text>Weekly Totals</Text>
                                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#000000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)} Drinks</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
                                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#ffcc80", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.7 }}>-- </Text>Daily Totals</Text>
+                                        <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
                                     </View>
                                 </View>
                             </View>}
