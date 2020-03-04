@@ -258,6 +258,7 @@ export class Functions {
         try {
             var newArr = []
             var datearr = []
+            var newdate = []
             await AsyncStorage.getItem(oldkey, (error, result) => {
                 if (result !== null && result !== "[]") {
                     var oldDrinks, days;
@@ -293,12 +294,15 @@ export class Functions {
                     for (i = dailyarr.length - 1; i >= 0; i--) {
                         newArr.push(dailyarr[i]);
                     }
+                    for (i = datearr.length - 1; i >= 0; i--) {
+                        newdate.push(datearr[i]);
+                    }
                     // console.log(dailyarr)
                 } else {
                     newArr = [0]
                 }
             })
-            return [newArr, datearr]
+            return [newArr, newdate]
         } catch (error) {
             console.log(error)
         }

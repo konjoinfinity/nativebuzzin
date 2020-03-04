@@ -478,6 +478,10 @@ class BuzzScreen extends Component {
         const DailyLabels = ({ x, y, data }) => (data.map((value, index) => (
             <TextSVG key={index} x={x(index)} y={y(value.toFixed(1)) + (addButtonSize === "tablet" ? 30 : 15)} fontSize={addButtonSize === "tablet" ? 22 : 12} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value === 0 ? "" : value.toFixed(1)}</TextSVG>)))
+        var chartDates;
+        daily[1] !== null && (chartDates = daily[1].map((dates, id) => {
+            return (<Text key={id} style={{ fontSize: 10, color: "#000000", flexDirection: "row", transform: [{ rotate: '-45deg' }] }}>{moment(dates.date).format('DD MMM')}</Text>)
+        }))
         return (
             <View>
                 {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
@@ -758,12 +762,15 @@ class BuzzScreen extends Component {
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
                                 <View style={{ flexDirection: 'column', padding: 5 }}>
+                                    {daily[1] !== null && <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), paddingLeft: 30 }}>{chartDates}</View>}
                                     <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }}
                                         contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true}>
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
-                                        <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} contentInset={{ left: 30, right: 40 }}
-                                            formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"} svg={{ fontSize: 12 }} belowChart={true} ticks={4} />
+                                        {/* <XAxis style={{ height: 30, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} contentInset={{ left: 30, right: 40 }}
+                                            svg={{ fontSize: 12 }} belowChart={true} ticks={4} /> */}
+                                        {/* formatLabel={(index) => index === 0 ? "Last Week" : index === 1 ? "1 Week Ago" : (index) + " Weeks Ago"} */}
+                                        {/* xAccessor={({ item }) => item} formatLabel={(value, index) => moment(value[index]).format('DD MMM')} */}
                                         <WeeksLabels />
                                     </LineChart>
                                     <LineChart
