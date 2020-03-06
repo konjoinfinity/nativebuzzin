@@ -24,10 +24,9 @@ import {
     screenHeight, screenWidth
 } from "./Variables";
 
-var values, daily;
+var values;
 // these could be combined
 (async () => { values = await Functions.maxRecDrinks() })();
-(async () => { daily = await Functions.dailyDrinks() })();
 
 class BuzzScreen extends Component {
     constructor(props) {
@@ -100,7 +99,6 @@ class BuzzScreen extends Component {
     async refreshVals() {
         try {
             values = await Functions.maxRecDrinks();
-            daily = await Functions.dailyDrinks();
             await AsyncStorage.getItem(oldkey, (error, result) => { this.setState({ oldbuzzes: JSON.parse(result) }) })
         } catch (error) {
             console.log(error)
@@ -132,7 +130,6 @@ class BuzzScreen extends Component {
             var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
             await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
             values = await Functions.maxRecDrinks();
-            daily = await Functions.dailyDrinks();
         } catch (error) {
             console.log(error)
         }
@@ -147,7 +144,6 @@ class BuzzScreen extends Component {
             obnormal[obid].unshift({ drinkType: this.state.alctype, dateCreated: lastTime, oz: this.state.oz, abv: this.state.abv })
             await AsyncStorage.setItem(oldkey, JSON.stringify(obnormal), () => { this.setState({ oldbuzzes: obnormal, selectedOldBuzz: obnormal[obid], obid: [obid] }) })
             values = await Functions.maxRecDrinks();
-            daily = await Functions.dailyDrinks();
         } catch (error) {
             console.log(error)
         }
@@ -247,7 +243,6 @@ class BuzzScreen extends Component {
             await AsyncStorage.setItem(oldkey, JSON.stringify(oldbuzzes), () => { this.setState({ oldbuzzes: oldbuzzes }, () => { this.addOldModal() }) })
             if (this.state.showHideOldBuzzes === false) { this.showHideBuzzes("showHideOldBuzzes") }
             values = await Functions.maxRecDrinks();
-            daily = await Functions.dailyDrinks();
             this.componentDidMount()
         } catch (error) {
             console.log(error)
@@ -415,6 +410,8 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log(values[11])
+        console.log(values[10])
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
@@ -480,7 +477,7 @@ class BuzzScreen extends Component {
             <TextSVG key={index} x={x(index)} y={y(value.toFixed(1)) + (addButtonSize === "tablet" ? 30 : 15)} fontSize={addButtonSize === "tablet" ? 22 : 12} fill={'black'} alignmentBaseline={'middle'}
                 textAnchor={'middle'}>{value === 0 ? "" : value.toFixed(1)}</TextSVG>)))
         var chartDates;
-        daily[1] !== null && (chartDates = daily[1].map((dates, id) => {
+        values[11] !== null && (chartDates = values[11].map((dates, id) => {
             return (<Text key={id} style={{ fontSize: 10, color: "#000000", flexDirection: "row", transform: [{ rotate: '-45deg' }] }}>{moment(dates.date).format('DD MMM')}</Text>)
         }))
         return (
@@ -763,7 +760,7 @@ class BuzzScreen extends Component {
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
                                 <View style={{ flexDirection: 'column', padding: 5 }}>
-                                    {daily[1] !== null && <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), paddingLeft: 30 }}>{chartDates}</View>}
+                                    {values[11] !== null && <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), paddingLeft: 30 }}>{chartDates}</View>}
                                     <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true} animationDuration={2000}>
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
@@ -781,7 +778,7 @@ class BuzzScreen extends Component {
                                     </LineChart>
                                     <LineChart
                                         style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
-                                        data={daily[0]} contentInset={{ top: 25, bottom: 15, left: 20, right: 20 }} numberOfTicks={values[0].length} svg={{ stroke: "#ffcc80", strokeWidth: 4, strokeOpacity: 0.7, strokeLinecap: "round" }}
+                                        data={values[10]} contentInset={{ top: 25, bottom: 15, left: 20, right: 20 }} numberOfTicks={values[0].length} svg={{ stroke: "#ffcc80", strokeWidth: 4, strokeOpacity: 0.7, strokeLinecap: "round" }}
                                         gridMax={Math.max(...values[0]) + 6} horizontal={true} animationDuration={2000}>
                                         <DailyLabels />
                                     </LineChart>

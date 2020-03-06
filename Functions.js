@@ -204,9 +204,8 @@ export class Functions {
 
     static async maxRecDrinks() {
         try {
-            var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [],
+            var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [], newArr = [], datearr = [], newdate = [],
                 maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg;
-            // we are accessing the same data here (oldkey)
             await AsyncStorage.multiGet([oldkey, genderkey, key], (error, result) => {
                 gender = JSON.parse(result[1][1])
                 if (result[0][1] !== null && result[0][1] !== "[]" && result[1][1] !== null && result[1][1] !== "[]") {
@@ -247,23 +246,10 @@ export class Functions {
                         weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56, trendArr = [0], avg = [0]
                     }
                 }
-            })
-            return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, avg]
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    // Look into navigation lag issue, going back to home screen, possible to combine with function above?
-    static async dailyDrinks() {
-        try {
-            var newArr = []
-            var datearr = []
-            var newdate = []
-            await AsyncStorage.getItem(oldkey, (error, result) => {
-                if (result !== null && result !== "[]") {
+                // daily
+                if (result[1][1] !== null && result[1][1] !== "[]") {
                     var oldDrinks, days;
-                    oldDrinks = JSON.parse(result)
+                    oldDrinks = JSON.parse(result[1][1])
                     days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.parse(oldDrinks[0][0].dateCreated))
                     // if (days[0] === 0) {
                     //     days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.now())
@@ -302,10 +288,11 @@ export class Functions {
                     newArr = [0]
                 }
             })
-            return [newArr, newdate]
+            return [weeksData, maxrecdata, maxrecgender, weekColor, monthColor, sevenData, thirtyData, weekly, monthly, avg, newArr, newdate]
         } catch (error) {
             console.log(error)
         }
     }
+
 }
 
