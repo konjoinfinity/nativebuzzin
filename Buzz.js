@@ -25,7 +25,6 @@ import {
 } from "./Variables";
 
 var values;
-// these could be combined
 (async () => { values = await Functions.maxRecDrinks() })();
 
 class BuzzScreen extends Component {
@@ -89,7 +88,7 @@ class BuzzScreen extends Component {
                 happyHour < this.state.hhhour ? this.setState({ happyhourtime: happyHour }) : this.setState({ happyhourtime: "" })
             } else if (this.state.happyhour === false) { this.setState({ happyhourtime: "" }) }
             setTimeout(() => { this.setState({ focus: true }) }, 800)
-            values = await Functions.maxRecDrinks()
+            // Look into switching or reordering this function call to either in the onfocus event or to be called just once
             this.refreshVals()
         } catch (error) {
             console.log(error)
@@ -410,7 +409,6 @@ class BuzzScreen extends Component {
     }
 
     render() {
-        console.log(values)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()

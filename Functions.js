@@ -203,6 +203,7 @@ export class Functions {
     }
 
     static async maxRecDrinks() {
+        console.log("fired")
         try {
             var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [], newArr = [], datearr = [], newdate = [],
                 maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg;
