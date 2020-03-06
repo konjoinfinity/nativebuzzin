@@ -247,9 +247,9 @@ export class Functions {
                     }
                 }
                 // daily
-                if (result[1][1] !== null && result[1][1] !== "[]") {
+                if (result[0][1] !== null && result[0][1] !== "[]") {
                     var oldDrinks, days;
-                    oldDrinks = JSON.parse(result[1][1])
+                    oldDrinks = JSON.parse(result[0][1])
                     days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.parse(oldDrinks[0][0].dateCreated))
                     // if (days[0] === 0) {
                     //     days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.now())
