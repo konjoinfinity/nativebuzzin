@@ -203,7 +203,6 @@ export class Functions {
     }
 
     static async maxRecDrinks() {
-        console.log("fired")
         try {
             var oldbuzzes, gender, sevenArray = [], thirtyArray = [], lastWeeks = [], weeksData = [], trendLine = [], newArr = [], datearr = [], newdate = [],
                 maxrecdata = [], maxrecgender, weekColor, monthColor, sevenData, weekly, monthly, buzzes, pushavg, avg;
@@ -247,16 +246,10 @@ export class Functions {
                         weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56, trendArr = [0], avg = [0]
                     }
                 }
-                // daily
                 if (result[0][1] !== null && result[0][1] !== "[]") {
                     var oldDrinks, days;
                     oldDrinks = JSON.parse(result[0][1])
                     days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.parse(oldDrinks[0][0].dateCreated))
-                    // if (days[0] === 0) {
-                    //     days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.now())
-                    // }
-                    // console.log(days)
-                    // will have to add conditional for single daily values to push an array of zeros then the value
                     var dailyarr = []
                     var totalbuzzes = oldDrinks.length - 1
                     var currentDay = new Date(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated)
