@@ -410,6 +410,7 @@ class BuzzScreen extends Component {
 
     showHideToggle(state) {
         try {
+            ReactNativeHaptic.generate('selection');
             this.setState(prevState => ({ [state]: !prevState[state] }))
         } catch (error) {
             console.log(error)
