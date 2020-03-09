@@ -767,12 +767,11 @@ class BuzzScreen extends Component {
                             <View style={styles.scrollCard}>
                                 <View style={{ flexDirection: 'column', padding: 5 }}>
                                     {values[11] !== null && <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), paddingLeft: 30 }}>{chartDates}</View>}
-                                    {this.state.showWeekly === true &&
-                                        <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
-                                            svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true} animationDuration={2000}>
-                                            <Grid direction={Grid.Direction.HORIZONTAL} />
-                                            <WeeksLabels />
-                                        </LineChart>}
+                                    <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
+                                        svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true} animationDuration={2000}>
+                                        <Grid direction={Grid.Direction.HORIZONTAL} />
+                                        <WeeksLabels />
+                                    </LineChart>
                                     {this.state.showcdc === true &&
                                         <LineChart
                                             style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
@@ -793,27 +792,27 @@ class BuzzScreen extends Component {
                                             <DailyLabels />
                                         </LineChart>}
                                     <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity style={[styles.dropShadow, styles.logindisagreeButton, this.state.showWeekly === true ? { backgroundColor: "#00897b", borderColor: "#00897b" } : { backgroundColor: "gray", borderColor: "#gray" }]} onPress={() => { this.showHideToggle("showWeekly") }}>
+                                        <TouchableOpacity style={[styles.dropShadow, styles.logindisagreeButton, this.state.showWeekly === true ? { backgroundColor: "#00897b", borderColor: "#00897b", paddingLeft: 8, paddingRight: 8, marginBottom: 0, marginTop: 0 } : { backgroundColor: "#00897b", borderColor: "#00897b", paddingLeft: 8, paddingRight: 8, marginBottom: 0, marginTop: 0 }]} onPress={() => { this.showHideToggle("showWeekly") }}>
                                             <Text style={[styles.loginbuttonText, { fontSize: loginButtonText - 10 }]}>Weekly</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.dropShadow, styles.loginbutton, this.state.showDaily === true ? { backgroundColor: "#ffcc80", borderColor: "#ffcc80" } : { backgroundColor: "gray", borderColor: "#gray" }]} onPress={() => { this.showHideToggle("showDaily") }}>
+                                        <TouchableOpacity style={[styles.dropShadow, styles.loginbutton, this.state.showDaily === true ? { backgroundColor: "#ffcc80", borderColor: "#ffcc80", paddingLeft: 8, paddingRight: 8, marginBottom: 0, marginTop: 0 } : { backgroundColor: "#ffcc80", borderColor: "#ffcc80", paddingLeft: 8, paddingRight: 8, marginBottom: 0, marginTop: 0 }]} onPress={() => { this.showHideToggle("showDaily") }}>
                                             <Text style={[styles.loginbuttonText, { fontSize: loginButtonText - 10 }]}>Daily</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.dropShadow, styles.logindisagreeButton, this.state.showavg === true ? { backgroundColor: "#000000", borderColor: "#000000" } : { backgroundColor: "gray", borderColor: "#gray" }]} onPress={() => { this.showHideToggle("showavg") }}>
-                                            <Text style={[styles.loginbuttonText, { fontSize: loginButtonText - 10 }]}>Average</Text>
+                                        <TouchableOpacity style={[styles.dropShadow, styles.logindisagreeButton, this.state.showavg === true ? { backgroundColor: "#000000", borderColor: "#000000", paddingLeft: 8, paddingRight: 8, marginBottom: 0, marginTop: 0 } : { backgroundColor: "#000000", borderColor: "#000000", paddingLeft: 8, paddingRight: 8, marginBottom: 0, marginTop: 0 }]} onPress={() => { this.showHideToggle("showavg") }}>
+                                            <Text style={[styles.loginbuttonText, { fontSize: loginButtonText - 10 }]}>Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)}</Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.dropShadow, styles.loginbutton, this.state.showcdc === true ? { backgroundColor: "#AE0000", borderColor: "#AE0000" } : { backgroundColor: "gray", borderColor: "#gray" }]} onPress={() => { this.showHideToggle("showcdc") }}>
-                                            <Text style={[styles.loginbuttonText, { fontSize: loginButtonText - 10 }]}>CDC Max</Text>
+                                        <TouchableOpacity style={[styles.dropShadow, styles.loginbutton, this.state.showcdc === true ? { backgroundColor: "#AE0000", borderColor: "#AE0000", paddingLeft: 8, paddingRight: 8, marginBottom: 0, marginTop: 0 } : { backgroundColor: "#AE0000", borderColor: "#AE0000", paddingLeft: 8, paddingRight: 8, marginBottom: 0, marginTop: 0 }]} onPress={() => { this.showHideToggle("showcdc") }}>
+                                            <Text style={[styles.loginbuttonText, { fontSize: loginButtonText - 10 }]}>CDC Max - {this.state.oldbuzzes !== null && values[2]}</Text>
                                         </TouchableOpacity>
                                     </View>
-                                    <View style={{ flexDirection: 'row' }}>
+                                    {/* <View style={{ flexDirection: 'row' }}>
                                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#00897b", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.8 }}>-- </Text>Weekly Totals</Text>
                                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#000000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>Weekly Average - {this.state.oldbuzzes !== null && values[9][0].toFixed(1)} Drinks</Text>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
                                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#ffcc80", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.8 }}>-- </Text>Daily Totals</Text>
                                         <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? 28 : 11, textAlign: "left", paddingLeft: 10, paddingRight: 10 }}><Text style={{ color: "#000000", color: "#AE0000", fontWeight: "bold", fontSize: addButtonSize === "tablet" ? 40 : 16, opacity: 0.3 }}>-- </Text>CDC Max Recommended - {this.state.oldbuzzes !== null && values[2]} ({this.state.gender})</Text>
-                                    </View>
+                                    </View> */}
                                 </View>
                             </View>}
                     </ScrollView>
