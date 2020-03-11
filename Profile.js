@@ -10,7 +10,7 @@ import ReactNativeHaptic from 'react-native-haptic';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontIcon from 'react-native-vector-icons/FontAwesome';
 import {
-    namekey, genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
+    namekey, genderkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, abvText, indefbreakkey,
     limithourkey, limitdatekey, pacerkey, pacertimekey, autobreakminkey, lastcallkey, logskey, maxreckey, addButtonSize, screenWidth
 } from "./Variables";
@@ -21,7 +21,7 @@ class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "", gender: "", weight: "", alctype: "", break: "", breakdate: "", hours: 0, days: 0, weeks: 0,
+            name: "", gender: "", alctype: "", break: "", breakdate: "", hours: 0, days: 0, weeks: 0,
             months: 0, autobreak: "", happyhour: "", threshold: "", limit: "", drinks: 0, limitbac: "", cancelbreaks: "",
             custombreak: "", hhhour: "", setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false,
             indefbreak: "", limithour: "", pacer: "", setpacer: false, pacertime: "", setlastcall: false, lastcall: "",
@@ -34,15 +34,15 @@ class ProfileScreen extends Component {
             ReactNativeHaptic.generate('impactLight');
             this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false, setmaxrec: false })
             var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
-                drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, indefbreakkey,
+                drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, hhhourkey, indefbreakkey,
                 limithourkey, pacerkey, pacertimekey, lastcallkey, maxreckey])
             this.setState({
                 autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), cancelbreaks: JSON.parse(values[2][1]),
                 limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
                 happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-                gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-                indefbreak: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]), pacer: JSON.parse(values[14][1]),
-                pacertime: JSON.parse(values[15][1]), lastcall: JSON.parse(values[16][1]), maxrec: JSON.parse(values[17][1])
+                gender: JSON.parse(values[9][1]), hhhour: JSON.parse(values[10][1]),
+                indefbreak: JSON.parse(values[11][1]), limithour: JSON.parse(values[12][1]), pacer: JSON.parse(values[13][1]),
+                pacertime: JSON.parse(values[14][1]), lastcall: JSON.parse(values[15][1]), maxrec: JSON.parse(values[16][1])
             })
             await AsyncStorage.getItem(breakkey, (error, result) => {
                 if (result !== null) {
@@ -106,7 +106,7 @@ class ProfileScreen extends Component {
             ReactNativeHaptic.generate('selection');
             await AsyncStorage.removeItem(oldkey)
             await AsyncStorage.removeItem(logskey)
-            await AsyncStorage.multiRemove([namekey, key, genderkey, weightkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
+            await AsyncStorage.multiRemove([namekey, key, genderkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
                 limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
                 hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, maxreckey])
             this.props.navigation.navigate("Login")

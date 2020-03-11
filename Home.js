@@ -17,7 +17,7 @@ import Slider from '@react-native-community/slider';
 import {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
     abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
-    genderkey, weightkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
+    genderkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
     gaugeLabels, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
     showlimitkey, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
     pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody, warningkey,
@@ -33,7 +33,7 @@ class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "", gender: "", weight: "", buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
+            name: "", gender: "", buzzes: [], oldbuzzes: [], alctype: "Beer", oz: 12, abv: 0.05, countdown: false,
             timer: "", break: "", breakdate: "", autobreak: "", focus: false, modal1: false, modal2: false, flashwarning: "#AE0000",
             flashtext: "", flashtimer: "", happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
             showlimit: false, hhhour: "", indefbreak: false, timesince: null, limitdate: "", pacer: "", pacertime: "", showpacer: false,
@@ -46,14 +46,14 @@ class HomeScreen extends Component {
     async componentDidMount() {
         try {
             var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, indefbreakkey, limitbackey, limitkey, drinkskey, happyhourkey,
-                autobreakthresholdkey, namekey, genderkey, weightkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey, warningkey])
+                autobreakthresholdkey, namekey, genderkey, hhhourkey, pacertimekey, lastcallkey, limithourkey, maxreckey, warningkey])
             this.setState({
                 autobreak: JSON.parse(values[0][1]), custombreak: JSON.parse(values[1][1]), indefbreak: JSON.parse(values[2][1]),
                 limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
                 happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
-                gender: JSON.parse(values[9][1]), weight: JSON.parse(values[10][1]), hhhour: JSON.parse(values[11][1]),
-                pacertime: JSON.parse(values[12][1]), lastcall: JSON.parse(values[13][1]), limithour: JSON.parse(values[14][1]),
-                maxrec: JSON.parse(values[15][1]), warn: JSON.parse(values[16][1])
+                gender: JSON.parse(values[9][1]), hhhour: JSON.parse(values[10][1]), pacertime: JSON.parse(values[11][1]),
+                lastcall: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]),
+                maxrec: JSON.parse(values[14][1]), warn: JSON.parse(values[15][1])
             })
             await AsyncStorage.getItem(oldkey, (error, result) => {
                 if (result !== null && result !== "[]") {

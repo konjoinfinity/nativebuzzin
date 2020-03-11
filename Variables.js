@@ -37,7 +37,7 @@ const gaugeLabels = [
     { name: '11', labelColor: '#e0f2f1', activeBarColor: '#571405' }, { name: '12', labelColor: '#e0f2f1', activeBarColor: '#000000' }
 ]
 
-const namekey = "name", genderkey = "gender", weightkey = "weight", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break",
+const namekey = "name", genderkey = "gender", key = "buzzes", oldkey = "oldbuzzes", breakkey = "break",
     breakdatekey = "breakdate", autobreakkey = "autobreak", happyhourkey = "happyhour", autobreakminkey = "autobreakmin",
     autobreakthresholdkey = "autobreakthreshold", limitkey = "limit", limitbackey = "limitbac", drinkskey = "drinks",
     cancelbreakskey = "cancelbreaks", showlimitkey = "showlimit", custombreakkey = "custombreak", hhhourkey = "hhhour",
@@ -492,7 +492,7 @@ const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 4,
 
 export {
     gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText, abvLiquorSize,
-    addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey, genderkey, weightkey, key, oldkey,
+    addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey, genderkey, key, oldkey,
     breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, gaugeLabels,
     limitkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey,
     loginButtonText, loginGenderText, numberInputSize, loginTitle, barChartWidth, scrollToAmt, indefbreakkey, limithourkey,

@@ -5,7 +5,7 @@ import styles from "./Styles"
 import ReactNativeHaptic from 'react-native-haptic';
 import Ficon from 'react-native-vector-icons/Fontisto'
 import {
-    namekey, genderkey, weightkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, limitkey,
+    namekey, genderkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, limitkey,
     drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, loginText, hhhourkey, loginButtonText, numberInputSize,
     loginTitle, indefbreakkey, limithourkey, limitdatekey, pacerkey, pacertimekey, lastcallkey, amount, maxreckey, warningkey, addButtonSize
 } from "./Variables";
@@ -14,7 +14,7 @@ class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "", gender: "", weight: 195, modal: false
+            name: "", gender: "", modal: false
         };
     }
 
@@ -50,7 +50,7 @@ class LoginScreen extends React.Component {
         try {
             if (this.state.gender !== gender) {
                 ReactNativeHaptic.generate('selection');
-                gender === "Male" ? this.setState({ gender: "Male", weight: 195 }) : this.setState({ gender: "Female", weight: 165 })
+                gender === "Male" ? this.setState({ gender: "Male" }) : this.setState({ gender: "Female" })
             }
         } catch (error) {
             console.log(error)
@@ -60,7 +60,7 @@ class LoginScreen extends React.Component {
     async handleLogin() {
         try {
             await AsyncStorage.multiSet([[namekey, JSON.stringify(this.state.name)], [genderkey, JSON.stringify(this.state.gender)],
-            [weightkey, JSON.stringify(this.state.weight)], [autobreakkey, JSON.stringify(false)], [happyhourkey, JSON.stringify(false)],
+            [autobreakkey, JSON.stringify(false)], [happyhourkey, JSON.stringify(false)],
             [autobreakminkey, JSON.stringify(false)], [limitkey, JSON.stringify(false)], [limitbackey, JSON.stringify(0.06)],
             [autobreakthresholdkey, JSON.stringify(0.06)], [drinkskey, JSON.stringify(3)], [cancelbreakskey, JSON.stringify(0)],
             [showlimitkey, JSON.stringify(false)], [custombreakkey, JSON.stringify(false)], [hhhourkey, JSON.stringify(17)],
