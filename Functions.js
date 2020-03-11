@@ -246,6 +246,7 @@ export class Functions {
                         weeksData = [0], maxrecdata = [0], maxrecgender = [0], weekColor = ["#ffffff", "0 Drinks"], monthColor = ["#ffffff", "0 Drinks"], sevenData = [0], thirtyData = [0], weekly = 14, monthly = 56, trendArr = [0], avg = [0]
                     }
                 }
+                // modify to account for current day until the most recent drink (push current day and all days inbetween up until last drink)
                 if (result[0][1] !== null && result[0][1] !== "[]") {
                     var oldDrinks, days;
                     oldDrinks = JSON.parse(result[0][1])
