@@ -9,127 +9,35 @@ const styles = StyleSheet.create({
     dropShadow1: Platform.OS === "ios" ? { shadowOpacity: 0.35, shadowOffset: { width: 4, height: 4 }, shadowColor: "#000000", shadowRadius: 3 } : { elevation: amount },
     dropShadow2: Platform.OS === "ios" ? { opacity: 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3 } : { opacity: 0.85, elevation: amount },
     dropShadow3: Platform.OS === "ios" ? { shadowColor: 'black', shadowOpacity: 0.5, shadowOffset: { width: 2, height: 2 } } : { elevation: 0 },
-    buzzheaderButton: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
-        borderRadius: 50, margin: 5
-    },
-    largebuzzheaderButton: {
-        height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
-        borderRadius: 50, margin: 5
-    },
-    largeplusminusButton: {
-        height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b',
-        borderRadius: 50, margin: 5
-    },
-    largeselectedPlusMinusButton: {
-        height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50, margin: 5
-    },
-    hiddenlargeplusminusButton: {
-        height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1",
-        borderRadius: 50, margin: 5
-    },
-    profilebreakbutton: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, marginTop: 15, marginRight: 90,
-        marginLeft: 90, marginBottom: 10, borderRadius: 15
-    },
-    profilebutton: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, marginTop: 10, marginRight: 70,
-        marginLeft: 70, marginBottom: 10, borderRadius: 15
-    },
-    bac: {
-        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 5, marginTop: 12, marginBottom: 12,
-        marginLeft: 85, marginRight: 85
-    },
-    smallbac: {
-        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 5, marginTop: 10, marginBottom: 10,
-        marginLeft: 85, marginRight: 85
-    },
-    optimalbac: {
-        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginTop: 10, marginBottom: 5,
-        marginLeft: 5, marginRight: 5
-    },
-    smalloptimalbac: {
-        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginTop: 0, marginBottom: 0,
-        marginLeft: 5, marginRight: 5
-    },
-    addButton: {
-        borderRadius: 50, backgroundColor: "#1de9b6", height: 100, width: 100, margin: 5, alignItems: 'center',
-        justifyContent: 'center'
-    },
-    smallAddButton: {
-        borderRadius: 50, backgroundColor: "#1de9b6", height: 70, width: 70, margin: 5, alignItems: 'center',
-        justifyContent: 'center'
-    },
-    largeAddButton: {
-        borderRadius: 100, backgroundColor: "#1de9b6", height: 200, width: 200, margin: 5, alignItems: 'center',
-        justifyContent: 'center'
-    },
-    xlargeAddButton: {
-        borderRadius: 150, backgroundColor: "#1de9b6", height: 250, width: 250, margin: 5, alignItems: 'center',
-        justifyContent: 'center'
-    },
-    smallUndoButton: {
-        height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
-        borderRadius: 50
-    },
-    largeUndoButton: {
-        height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
-        borderRadius: 50
-    },
-    plusMinusButtons: {
-        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50
-    },
-    selectedPlusMinusButton: {
-        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50
-    },
-    multiSwitchViews: {
-        opacity: Platform.OS === 'android' ? 0.9 : 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 },
-        shadowColor: "#000000", shadowRadius: 3
-    },
-    undoButton: {
-        height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)',
-        borderRadius: 50, margin: 5
-    },
-    infoButton: {
-        height: 30, width: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginLeft: 15,
-        borderRadius: 50, padding: 2
-    },
-    logButton: {
-        height: 30, width: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 15,
-        borderRadius: 50, padding: 2
-    },
-    largeinfoButton: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginLeft: 25,
-        borderRadius: 50, padding: 2
-    },
-    largelogButton: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 25,
-        borderRadius: 50, padding: 2
-    },
-    buzzbutton: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15, alignItems: 'center', justifyContent: 'center', marginTop: screenHeight >= 2048 ? 10 : 0, marginBottom: screenHeight >= 2048 ? 10 : 0
-    },
-    profileSetting: {
-        backgroundColor: "#00897b", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12
-    },
-    button: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 10, borderRadius: 15
-    },
-    numberofshots: {
-        borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginRight: 40
-    },
-    addLogButton: {
-        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50
-    },
-    hiddenLogButton: {
-        height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1", borderRadius: 50
-    },
-    deleteLogButtons: {
-        height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', margin: 10, borderRadius: 50
-    },
-    warningCard: {
-        borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15
-    },
+    buzzheaderButton: { height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)', borderRadius: 50, margin: 5 },
+    largebuzzheaderButton: { height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)', borderRadius: 50, margin: 5 },
+    largeplusminusButton: { height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50, margin: 5 },
+    largeselectedPlusMinusButton: { height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50, margin: 5 },
+    hiddenlargeplusminusButton: { height: 90, width: 90, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1", borderRadius: 50, margin: 5 },
+    profilebreakbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, marginTop: 15, marginRight: 90, marginLeft: 90, marginBottom: 10, borderRadius: 15 },
+    profilebutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, marginTop: 10, marginRight: 70, marginLeft: 70, marginBottom: 10, borderRadius: 15 },
+    addButton: { borderRadius: 50, backgroundColor: "#1de9b6", height: 100, width: 100, margin: 5, alignItems: 'center', justifyContent: 'center' },
+    smallAddButton: { borderRadius: 50, backgroundColor: "#1de9b6", height: 70, width: 70, margin: 5, alignItems: 'center', justifyContent: 'center' },
+    largeAddButton: { borderRadius: 100, backgroundColor: "#1de9b6", height: 200, width: 200, margin: 5, alignItems: 'center', justifyContent: 'center' },
+    xlargeAddButton: { borderRadius: 150, backgroundColor: "#1de9b6", height: 250, width: 250, margin: 5, alignItems: 'center', justifyContent: 'center' },
+    smallUndoButton: { height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)', borderRadius: 50 },
+    largeUndoButton: { height: 100, width: 100, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)', borderRadius: 50 },
+    plusMinusButtons: { height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50 },
+    selectedPlusMinusButton: { height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: "#1de9b6", borderRadius: 50 },
+    multiSwitchViews: { opacity: Platform.OS === 'android' ? 0.9 : 0.8, shadowOpacity: 0.35, shadowOffset: { width: 0, height: 5 }, shadowColor: "#000000", shadowRadius: 3 },
+    undoButton: { height: 50, width: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(250, 250, 250, 0.7)', borderRadius: 50, margin: 5 },
+    infoButton: { height: 30, width: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginLeft: 15, borderRadius: 50, padding: 2 },
+    logButton: { height: 30, width: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 15, borderRadius: 50, padding: 2 },
+    largeinfoButton: { height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginLeft: 25, borderRadius: 50, padding: 2 },
+    largelogButton: { height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', marginRight: 25, borderRadius: 50, padding: 2 },
+    buzzbutton: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, borderRadius: 15, alignItems: 'center', justifyContent: 'center', marginTop: screenHeight >= 2048 ? 10 : 0, marginBottom: screenHeight >= 2048 ? 10 : 0 },
+    profileSetting: { backgroundColor: "#00897b", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
+    button: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 10, borderRadius: 15 },
+    numberofshots: { borderRadius: 15, borderStyle: "solid", borderColor: "teal", borderWidth: 2, padding: 10, marginRight: 40 },
+    addLogButton: { height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', borderRadius: 50 },
+    hiddenLogButton: { height: 55, width: 55, alignItems: 'center', justifyContent: 'center', backgroundColor: "#e0f2f1", borderRadius: 50 },
+    deleteLogButtons: { height: 45, width: 45, alignItems: 'center', justifyContent: 'center', backgroundColor: '#00897b', margin: 10, borderRadius: 50 },
+    warningCard: { borderWidth: 1, borderColor: "#00897b", backgroundColor: "#00897b", padding: 10, margin: 4, marginRight: 100, marginLeft: 100, borderRadius: 15 },
     profileSettingHidden: { backgroundColor: "#e0f2f1", borderRadius: 50, padding: 5, marginLeft: 12, marginRight: 12 },
     dangerOkButton: { borderWidth: 1, borderColor: "#AE0000", backgroundColor: "#AE0000", padding: 15, margin: 5, borderRadius: 15 },
     warnOkButton: { borderWidth: 1, borderColor: "#f9a825", backgroundColor: "#f9a825", padding: 15, margin: 5, borderRadius: 15 },
