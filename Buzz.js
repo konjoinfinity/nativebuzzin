@@ -767,11 +767,16 @@ class BuzzScreen extends Component {
                             <View style={styles.scrollCard}>
                                 <View style={{ flexDirection: 'column', padding: 5 }}>
                                     {values[11] !== null && <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), paddingLeft: 30 }}>{chartDates}</View>}
-                                    <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
+                                    {this.state.showWeekly === false &&
+                                        <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
+                                            svg={{ stroke: "#e0f2f1", strokeWidth: 4, strokeOpacity: 0.1, strokeLinecap: "round" }} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true} animationDuration={2000}>
+                                            <Grid direction={Grid.Direction.HORIZONTAL} />
+                                        </LineChart>}
+                                    {this.state.showWeekly === true && <LineChart style={{ height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130) }} data={values[0]} gridMax={Math.max(...values[0]) + 6}
                                         svg={{ stroke: '#00897b', strokeWidth: 4, strokeOpacity: 0.8, strokeLinecap: "round" }} contentInset={{ top: 25, bottom: 10, left: 20, right: 20 }} numberOfTicks={8} gridMin={0} horizontal={true} animationDuration={2000}>
                                         <Grid direction={Grid.Direction.HORIZONTAL} />
                                         <WeeksLabels />
-                                    </LineChart>
+                                    </LineChart>}
                                     {this.state.showcdc === true &&
                                         <LineChart
                                             style={{ position: "absolute", height: addButtonSize === "tablet" ? 320 : values[0].length > 1 ? 155 : 200, width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), left: 10, top: 10 }} gridMin={0}
