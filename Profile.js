@@ -104,9 +104,7 @@ class ProfileScreen extends Component {
     async LogOut() {
         try {
             ReactNativeHaptic.generate('selection');
-            await AsyncStorage.removeItem(oldkey)
-            await AsyncStorage.removeItem(logskey)
-            await AsyncStorage.multiRemove([namekey, key, genderkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
+            await AsyncStorage.multiRemove([oldkey, logskey, namekey, key, genderkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
                 limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
                 hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, maxreckey])
             this.props.navigation.navigate("Login")
