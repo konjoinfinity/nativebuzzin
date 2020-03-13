@@ -765,6 +765,7 @@ class BuzzScreen extends Component {
                         </View>
                         {values[0].length > 1 &&
                             <View style={styles.scrollCard}>
+                                {/* Could potentially add a asyncstorage key for cumulative chart setting daily/weekly/ on and off, etc. */}
                                 <View style={{ flexDirection: 'column', padding: 5 }}>
                                     {values[11] !== null && <View style={{ flexDirection: "row", justifyContent: "space-evenly", width: values[0].length * (addButtonSize === "tablet" ? 200 : 130), paddingLeft: 30 }}>{chartDates}</View>}
                                     {this.state.showWeekly === false &&

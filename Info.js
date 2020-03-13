@@ -59,14 +59,14 @@ class InfoScreen extends Component {
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Keep track and count your drinks over time.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Last Call</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Set last call to moderate consumption too late into the evening.</Text>
-                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Weekly, Monthly, and Cumulative Charts</Text>
+                    <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { fontWeight: "bold" }]}>Weekly, Monthly, and Daily Cumulative Charts</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>View and track consumption habits over time with multiple charts.</Text>
 
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle, { padding: 1, margin: 10, padding: 10 }]}>Disclaimer</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText, { padding: 1, margin: 10 }]}>Any information provided by this application is for entertainment purposes only. All information displayed should not be considered or construed as medical, legal, or lifestyle advice on any subject matter.
-        One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
-        in this app due to many factors including age, food consumption, missing drink entries, standard drink measurements, medication, hydration, or dehydration levels.  These factors are not taken into account by
-        this application when estimating total drink numbers over time.  People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before
+                    One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
+                    in this app due to many factors including age, food consumption, missing drink entries, standard drink measurements, medication, hydration, or dehydration levels.  These factors are not taken into account by
+                    this application when estimating total drink numbers over time.  People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before
         or after consuming any amount of alcohol.  All data entered into buzzin is stored locally, buzzin does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle, { padding: 1, margin: 10, padding: 10 }]}>Acknowledgements</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Built using the following third party packages available via npm and github:</Text>
