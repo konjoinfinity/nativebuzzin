@@ -1,4 +1,3 @@
-import { Platform } from 'react-native';
 import moment from "moment";
 import AsyncStorage from '@react-native-community/async-storage';
 import { oldkey, genderkey, key } from "./Variables";

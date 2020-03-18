@@ -4,23 +4,21 @@ import AsyncStorage from '@react-native-community/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
-import { AlertHelper } from './AlertHelper';
 import { NavigationEvents } from "react-navigation";
 import moment from "moment";
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import ReactNativeHaptic from 'react-native-haptic';
-import MatIcon from "react-native-vector-icons/MaterialIcons"
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import CalendarPicker from 'react-native-calendar-picker';
 import Slider from '@react-native-community/slider';
 import {
-    gaugeSize, bacTextSize, alcTypeSize, alcTypeText, abvText, abvSize, abvWineText, abvWineSize, abvLiquorText,
-    abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, beerActive, namekey,
-    genderkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakminkey,
-    gaugeLabels, autobreakthresholdkey, limitbackey, limitkey, drinkskey, cancelbreakskey,
-    showlimitkey, custombreakkey, hhhourkey, indefbreakkey, loginButtonText, limitdatekey, pacerkey,
-    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warnTitleButton, warnBody, warningkey,
+    alcTypeSize, alcTypeText, abvText, abvWineText, abvLiquorText,
+    abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, namekey,
+    genderkey, oldkey, autobreakkey, happyhourkey,
+    autobreakthresholdkey, limitbackey, limitkey, drinkskey,
+    custombreakkey, hhhourkey, indefbreakkey, loginButtonText,
+    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warningkey,
     screenHeight, screenWidth
 } from "./Variables";
 
