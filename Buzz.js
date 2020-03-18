@@ -37,7 +37,7 @@ class BuzzScreen extends Component {
             drinkadd: false, metric: "oz", name: "", countdown: false, timer: "", break: "", breakdate: "", autobreak: "", focus: false,
             modal1: false, modal2: false, happyhour: "", happyhourtime: "", threshold: "", limit: "", limitbac: "", drinks: "",
             showlimit: false, hhhour: "", indefbreak: false, limitdate: "", pacer: "", pacertime: "", showpacer: false,
-            lastcall: "", showlastcall: false, limithour: "", maxrec: "", warn: "", showWeekly: true, showDaily: true, showavg: true, showcdc: true
+            lastcall: "", showlastcall: false, limithour: "", maxrec: "", showWeekly: true, showDaily: true, showavg: true, showcdc: true
         }
     };
 
@@ -60,8 +60,7 @@ class BuzzScreen extends Component {
                 limitbac: JSON.parse(avalues[3][1]), limit: JSON.parse(avalues[4][1]), drinks: JSON.parse(avalues[5][1]),
                 happyhour: JSON.parse(avalues[6][1]), threshold: JSON.parse(avalues[7][1]), name: JSON.parse(avalues[8][1]),
                 gender: JSON.parse(avalues[9][1]), hhhour: JSON.parse(avalues[10][1]), pacertime: JSON.parse(avalues[11][1]),
-                lastcall: JSON.parse(avalues[12][1]), limithour: JSON.parse(avalues[13][1]), maxrec: JSON.parse(avalues[14][1]),
-                warn: JSON.parse(avalues[15][1])
+                lastcall: JSON.parse(avalues[12][1]), limithour: JSON.parse(avalues[13][1]), maxrec: JSON.parse(avalues[14][1])
             })
             await AsyncStorage.getItem(breakkey, (error, result) => {
                 if (result !== null) { this.setState({ break: JSON.parse(result) }) }
@@ -315,16 +314,6 @@ class BuzzScreen extends Component {
                 if (values[5] > values[7] || values[6] > values[8] === true) { return true }
                 else { return false }
             } else { return false }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    async warnCardHandle() {
-        try {
-            ReactNativeHaptic.generate('selection')
-            this.setState({ warn: false })
-            await AsyncStorage.setItem(warningkey, JSON.stringify(false))
         } catch (error) {
             console.log(error)
         }
@@ -822,7 +811,7 @@ class BuzzScreen extends Component {
                                 </View>
                             </View>}
                     </ScrollView>
-                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false && this.state.warn === false &&
+                    {this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhourtime === "" && this.state.showlimit === false && this.state.showpacer === false && this.state.showlastcall === false && this.checkMaxRec() === false &&
                         <View style={styles.cardView}>
                             {values[0].length > 1 && <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, paddingBottom: 12, flexDirection: "row", justifyContent: "space-evenly" }}>
                                 <Text style={{ color: "#000000", fontSize: loginButtonText }}>Week/Month</Text>
@@ -989,15 +978,6 @@ class BuzzScreen extends Component {
                                         <View><Text style={{ color: "#000000", fontSize: alcTypeText === 40 ? 35 : alcTypeText }}>↩️</Text></View>
                                     </TouchableOpacity>
                                 </View>}
-                        </View>}
-                    {this.state.warn === true && this.state.indefbreak === false && (this.state.break === "" || this.state.break === false) && this.state.happyhour === false &&
-                        <View style={styles.cardView}>
-                            <Text style={{ color: "#000000", fontSize: warnTitleButton - 1, textAlign: "center", padding: 4, fontWeight: "bold" }}>Warning</Text>
-                            <Text style={{ color: "#000000", fontSize: warnBody - 2, textAlign: "center", padding: 4 }}>(1) According to the Surgeon General, women should not drink alcoholic beverages during pregnancy because of the risk of birth defects.</Text>
-                            <Text style={{ color: "#000000", fontSize: warnBody - 2, textAlign: "center", padding: 4 }}>(2) Consumption of alcoholic beverages impairs your ability to drive a car or operate machinery, and may cause health problems.</Text>
-                            <TouchableOpacity style={[styles.dropShadow, styles.warningCard]} onPress={() => this.warnCardHandle()}>
-                                <Text style={{ color: "#FFFFFF", fontSize: warnTitleButton, textAlign: "center" }}>Accept</Text>
-                            </TouchableOpacity>
                         </View>}
                     {this.state.oldbuzzes !== null && <View style={styles.buzzCard}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>
