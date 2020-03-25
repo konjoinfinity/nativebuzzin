@@ -13,13 +13,10 @@ import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import CalendarPicker from 'react-native-calendar-picker';
 import Slider from '@react-native-community/slider';
 import {
-    alcTypeSize, alcTypeText, abvText, abvWineText, abvLiquorText,
-    abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, namekey,
-    genderkey, oldkey, autobreakkey, happyhourkey,
-    autobreakthresholdkey, limitbackey, limitkey, drinkskey,
-    custombreakkey, hhhourkey, indefbreakkey, loginButtonText,
-    pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warningkey,
-    screenHeight, screenWidth
+    alcTypeSize, alcTypeText, abvText, abvWineText, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues,
+    activeStyle, namekey, genderkey, oldkey, autobreakkey, happyhourkey, autobreakthresholdkey, limitbackey, limitkey, drinkskey, custombreakkey,
+    hhhourkey, indefbreakkey, loginButtonText, pacertimekey, shotsStyle, loginTitle, lastcallkey, limithourkey, maxreckey, warningkey, screenHeight,
+    screenWidth
 } from "./Variables";
 
 const CopilotView = walkthroughable(View);
@@ -50,8 +47,8 @@ class HomeScreen extends Component {
                 limitbac: JSON.parse(values[3][1]), limit: JSON.parse(values[4][1]), drinks: JSON.parse(values[5][1]),
                 happyhour: JSON.parse(values[6][1]), threshold: JSON.parse(values[7][1]), name: JSON.parse(values[8][1]),
                 gender: JSON.parse(values[9][1]), hhhour: JSON.parse(values[10][1]), pacertime: JSON.parse(values[11][1]),
-                lastcall: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]),
-                maxrec: JSON.parse(values[14][1]), warn: JSON.parse(values[15][1])
+                lastcall: JSON.parse(values[12][1]), limithour: JSON.parse(values[13][1]), maxrec: JSON.parse(values[14][1]),
+                warn: JSON.parse(values[15][1])
             })
             await AsyncStorage.getItem(oldkey, (error, result) => {
                 if (result !== null && result !== "[]") {

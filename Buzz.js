@@ -15,13 +15,10 @@ import ReactNativeHaptic from 'react-native-haptic';
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Slider from '@react-native-community/slider';
 import {
-    alcTypeSize, alcTypeText, abvText, abvWineText, abvLiquorText, abvLiquorSize,
-    addButtonText, addButtonSize, multiSwitchMargin, alcValues, activeStyle, namekey, genderkey, key, oldkey,
-    breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey,
-    limitkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey,
-    loginButtonText, loginTitle, barChartWidth, scrollToAmt, indefbreakkey, limithourkey,
-    limitdatekey, pacerkey, pacertimekey, shotsStyle, lastcallkey, maxreckey, warnTitleButton, warnBody, warningkey,
-    screenHeight, screenWidth
+    alcTypeSize, alcTypeText, abvText, abvWineText, abvLiquorText, abvLiquorSize, addButtonText, addButtonSize, multiSwitchMargin, alcValues,
+    activeStyle, namekey, genderkey, key, oldkey, breakkey, breakdatekey, autobreakkey, happyhourkey, autobreakthresholdkey, limitkey, drinkskey,
+    limitbackey, cancelbreakskey, showlimitkey, custombreakkey, hhhourkey, loginButtonText, loginTitle, barChartWidth, scrollToAmt, indefbreakkey,
+    limithourkey, limitdatekey, pacerkey, pacertimekey, shotsStyle, lastcallkey, maxreckey, warnTitleButton, warnBody, warningkey, screenHeight, screenWidth
 } from "./Variables";
 
 var values;
@@ -407,6 +404,7 @@ class BuzzScreen extends Component {
     }
 
     render() {
+        console.log(this.state.oldbuzzes)
         let oldbuzzes, selectedoldbuzz, oldbuzztoadd;
         var oldbuzzmonth;
         var monthOld = new Date()
