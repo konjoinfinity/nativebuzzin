@@ -249,12 +249,12 @@ export class Functions {
                 if (result[0][1] !== null && result[0][1] !== "[]") {
                     var oldDrinks, days;
                     oldDrinks = JSON.parse(result[0][1])
-                    // var duration = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), new Date())
-                    // days = duration[0]
+                    // days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), new Date())
                     // console.log(days)
                     days = this.getDayHourMin(Date.parse(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated), Date.parse(oldDrinks[0][0].dateCreated))
                     var dailyarr = []
                     var totalbuzzes = oldDrinks.length - 1
+                    // current actual day
                     var currentDay = new Date(oldDrinks[oldDrinks.length - 1][oldDrinks[oldDrinks.length - 1].length - 1].dateCreated)
                     for (i = 0; i <= days[0]; i++) {
                         var dayNum = currentDay.getDate()
