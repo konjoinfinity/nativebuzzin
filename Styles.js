@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from "react-native"
+import { StyleSheet, Platform } from "react-native";
 import { Dimensions, PixelRatio } from 'react-native';
 
 var screenHeight = Dimensions.get('window').height * PixelRatio.get()

@@ -65,7 +65,7 @@ const AppStack = createStackNavigator({
             }
         ),
         navigationOptions: ({ navigation }) => ({
-            title: `buzzin`,
+            title: `Kontrol`,
             headerStyle: { backgroundColor: '#80cbc4', height: Dimensions.get('window').height * 0.066 },
             headerTitleStyle: {
                 color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 25, fontWeight: '400',
@@ -84,7 +84,7 @@ const AuthStack = createStackNavigator({ Login: LoginScreen },
         initialRouteName: 'Login',
         headerLayoutPreset: 'center',
         defaultNavigationOptions: ({
-            title: `buzzin`, headerStyle: { backgroundColor: '#80cbc4' },
+            title: `Kontrol`, headerStyle: { backgroundColor: '#80cbc4' },
             headerTitleStyle: { color: "#ffffff", fontSize: 25, textAlign: "center", fontWeight: '400' }
         })
     })

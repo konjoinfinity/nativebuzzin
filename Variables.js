@@ -480,13 +480,14 @@ else if (screenWidth > 1125) {
 const loginText = (<View><Text style={{ color: "#000000", fontSize: abvText + 4, textAlign: "center", padding: 5, fontWeight: "bold" }}>Disclaimer</Text>
     <Text style={{ color: "#000000", fontSize: addButtonSize === "tablet" ? abvText - 18 : abvText - 5, textAlign: "center", padding: 5 }}>
         Any information provided by this application is for entertainment purposes only. All information displayed should not be considered or construed as medical, legal, or lifestyle advice on any subject matter.
-            One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
-            in this app due to many factors including age, food consumption, missing drink entries, standard drink measurements, medication, hydration, or dehydration levels.  These factors are not taken into account by
-            this application when estimating total drink numbers over time.  People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before
-        or after consuming any amount of alcohol.  All data entered into buzzin is stored locally, buzzin does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
+        One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
+        in this app due to many factors including age, food consumption, missing drink entries, standard drink measurements, medication, hydration, or dehydration levels.  These factors are not taken into account by
+        this application when estimating total drink numbers over time.  People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before
+        or after consuming any amount of alcohol.  All data entered into Kontrol is stored locally, Kontrol does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
     <Text style={addButtonSize === "tablet" ? { color: "#000000", fontSize: 30, textAlign: "center", padding: 20, color: "blue", fontWeight: "bold" } : { color: "#000000", fontSize: 15, textAlign: "center", padding: 5, color: "blue", fontWeight: "bold" }} onPress={() => { Linking.openURL('https://www.cdc.gov/alcohol/fact-sheets/moderate-drinking.htm') }}>Link to CDC Guidelines</Text>
-    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 8 }}>By pressing Agree, the user agrees to buzzin’s:</Text>
+    <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", padding: 8 }}>By pressing Agree, the user agrees to Kontrol’s:</Text>
     <Text style={{ color: "#000000", fontSize: abvText - 2, textAlign: "center", paddingBottom: 25 }}>
+        {/* Update website and email links after new domain is purcahsed */}
         <Text style={{ color: "blue" }} onPress={() => { Linking.openURL('http://buzzin.io/privacy-policy.html') }}>Privacy Policy </Text>and
     <Text style={{ color: "blue" }} onPress={() => { Linking.openURL('http://buzzin.io/terms-of-service.html') }}> Terms of Service.</Text></Text></View>)
 

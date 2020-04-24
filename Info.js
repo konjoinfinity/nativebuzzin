@@ -16,7 +16,7 @@ class InfoScreen extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            headerTitle: (<View><Text style={{ color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 25, textAlign: "center", fontWeight: '400' }}>buzzin</Text></View>),
+            headerTitle: (<View><Text style={{ color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 25, textAlign: "center", fontWeight: '400' }}>Kontrol</Text></View>),
             headerStyle: { backgroundColor: '#80cbc4', height: Dimensions.get('window').height * 0.066 },
             headerBackTitleStyle: { fontSize: addButtonSize === "tablet" ? 30 : 22 }
         };
@@ -67,7 +67,7 @@ class InfoScreen extends Component {
                     One moderation function in this application is max recommended (Maximum Recommended Weekly Consumption) based on information published by the Centers for Disease Control (CDC).  Actual drink numbers may be higher or lower than displayed
                     in this app due to many factors including age, food consumption, missing drink entries, standard drink measurements, medication, hydration, or dehydration levels.  These factors are not taken into account by
                     this application when estimating total drink numbers over time.  People are affected by alcohol consumption differently and we make no claim or guarantee that any person is safe or legal to operate any machinery, equipment, or vehicles before
-        or after consuming any amount of alcohol.  All data entered into buzzin is stored locally, buzzin does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
+        or after consuming any amount of alcohol.  All data entered into Kontrol is stored locally, Kontrol does not store personal data externally.  This app is designed as an estimation tool and to moderate alcohol consumption habits over time.</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle, { padding: 1, margin: 10, padding: 10 }]}>Acknowledgements</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoText : styles.infoText}>Built using the following third party packages available via npm and github:</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList}>react</Text>
@@ -93,6 +93,7 @@ class InfoScreen extends Component {
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList}>@react-native-community/async-storage</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle, { margin: 15, padding: 15 }]}>Contact</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                        {/* Update website and email links after new domain is purcahsed */}
                         <TouchableOpacity style={[styles.profilebutton, styles.dropShadow1]} onPress={() => {
                             (Platform.OS === 'android')
                                 ? Linking.openURL('mailto:info@buzzin.io?cc=?subject=Buzzin&body=Message')
