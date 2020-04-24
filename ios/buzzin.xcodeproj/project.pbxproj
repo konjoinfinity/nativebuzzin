@@ -18,6 +18,7 @@
 		D1F6A8348822A9A74DC76D42 /* libPods-buzzin-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AA3C88B93AED9982FEE1C4 /* libPods-buzzin-tvOSTests.a */; };
 		D54397C92347C9B600DE66FB /* logopurple1.png in Resources */ = {isa = PBXBuildFile; fileRef = D54397C82347C9B600DE66FB /* logopurple1.png */; };
 		D5B8CF6823635DAE008C9966 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
+		D5E88AFB24535A390020A40C /* K.png in Resources */ = {isa = PBXBuildFile; fileRef = D5E88AFA24535A390020A40C /* K.png */; };
 		DC37C44C41C7C72A20FA94B2 /* libPods-buzzin-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBBCB9FE9DF70238603C6A0 /* libPods-buzzin-tvOS.a */; };
 		E40FDF1D9169B29EE675879B /* libPods-buzzin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECA422868433E2F71EC57AD7 /* libPods-buzzin.a */; };
 		F7296B71FF418C037D823DED /* libPods-buzzinTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB2AC85481786D4D3DE3F86 /* libPods-buzzinTests.a */; };
@@ -77,6 +78,7 @@
 		CEBBCB9FE9DF70238603C6A0 /* libPods-buzzin-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-buzzin-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4AA3C88B93AED9982FEE1C4 /* libPods-buzzin-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-buzzin-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54397C82347C9B600DE66FB /* logopurple1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logopurple1.png; path = ../../../../../Downloads/logopurple1.png; sourceTree = "<group>"; };
+		D5E88AFA24535A390020A40C /* K.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = K.png; path = ../../../../../Downloads/K.png; sourceTree = "<group>"; };
 		DA20FB6225BB14F837F4346D /* Pods-buzzin-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buzzin-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-buzzin-tvOSTests/Pods-buzzin-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DF4751DA85564D17B98EABDF /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		E48513F9110F8EB142F9A972 /* Pods-buzzin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-buzzin.release.xcconfig"; path = "Target Support Files/Pods-buzzin/Pods-buzzin.release.xcconfig"; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		13B07FAE1A68108700A75B9A /* buzzin */ = {
 			isa = PBXGroup;
 			children = (
+				D5E88AFA24535A390020A40C /* K.png */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -398,6 +401,7 @@
 				D5B8CF6823635DAE008C9966 /* LaunchScreen.xib in Resources */,
 				D54397C92347C9B600DE66FB /* logopurple1.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				D5E88AFB24535A390020A40C /* K.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
