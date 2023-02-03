@@ -35,7 +35,7 @@ if (screenWidth === 2048 && screenHeight === 2732) { bottomPad = true }
 function StackScreen() {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={MyTabs} options={{ title: 'Kontrol', headerTitleStyle: {color: '#fff', fontSize: 30, fontWeight: '300'},headerStyle: {backgroundColor: '#4db6ac'} }}/>
+        <Stack.Screen name="Root" component={MyTabs} options={{ title: 'Kontrol', headerTitleStyle: {color: '#fff', fontSize: 30, fontWeight: '300'},headerStyle: {backgroundColor: '#4db6ac'} }}/>
       </Stack.Navigator>
     );
   }
