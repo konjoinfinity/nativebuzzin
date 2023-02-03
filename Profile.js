@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, Switch, Platform, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
 import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
@@ -183,7 +183,7 @@ class ProfileScreen extends Component {
     render() {
         return (
             <View>
-                <NavigationEvents onWillFocus={() => this.componentDidMount()} />
+                {/* <NavigationEvents onWillFocus={() => this.componentDidMount()} /> */}
                 <ScrollView>
                     <View style={{ backgroundColor: "#e0f2f1", borderRadius: 15, margin: 10, padding: 10 }}>
                         <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 10 }}><FontIcon name="user" color="#4db6ac" size={(loginButtonText + 3)} /><Text style={{ color: "#000000", fontSize: (loginButtonText + 3), textAlign: "center", paddingBottom: 10 }}>  {this.state.name}  -  {this.state.gender === "Male" ? <Icon name="gender-male" color="#4db6ac" size={(loginButtonText + 1)} /> : <Icon name="gender-female" color="#4db6ac" size={(loginButtonText + 1)} />} {this.state.gender}</Text></View>

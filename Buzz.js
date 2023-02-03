@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from "moment";
 import _ from 'lodash'
 import MultiSwitch from "react-native-multi-switch";
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
 import { BarChart, Grid, XAxis, LineChart } from 'react-native-svg-charts'
 import { Text as TextSVG, G, Line } from "react-native-svg";
 import * as scale from 'd3-scale'
@@ -474,7 +474,7 @@ class BuzzScreen extends Component {
         }))
         return (
             <View>
-                {this.state.focus === true && <NavigationEvents onWillFocus={() => { Haptics.selectionAsync(); this.componentDidMount() }} />}
+                {/* {this.state.focus === true && <NavigationEvents onWillFocus={() => { Haptics.selectionAsync(); this.componentDidMount() }} />} */}
                 <Modal animationType="slide" transparent={false} visible={this.state.addoldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>

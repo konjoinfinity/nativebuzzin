@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';
-import { NavigationEvents } from "react-navigation";
+// import { NavigationEvents } from "react-navigation";
 import moment from "moment";
 import { Functions } from "./Functions";
 import styles from "./Styles"
@@ -490,7 +490,7 @@ class HomeScreen extends Component {
                         </View>
                     </ScrollView>
                 </Modal>
-                <NavigationEvents onWillFocus={() => { Haptics.selectionAsync(); this.componentDidMount() }} />
+                {/* <NavigationEvents onWillFocus={() => { Haptics.selectionAsync(); this.componentDidMount() }} /> */}
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     {this.state.oldbuzzes.length !== 0 && <View style={[styles.buzzCard, { marginTop: 10 }]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>

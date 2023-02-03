@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer, createSwitchNavigator, createMaterialTopTabNavigator } from "react-navigation";
+// import { createStackNavigator, createAppContainer, createSwitchNavigator, createMaterialTopTabNavigator } from "react-navigation";
 import ProfileScreen from "./Profile"
 import BuzzScreen from "./Buzz"
 import LoginScreen from './Login';
@@ -13,6 +13,23 @@ import Ficon from 'react-native-vector-icons/Feather'
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import LogScreen from "./Log"
 import { screenHeight, screenWidth, addButtonSize } from "./Variables"
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+const Stack = createNativeStackNavigator();
+
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+const Tab = createMaterialBottomTabNavigator();
+
+// function MyTabs() {
+//   return (
+//     <Tab.Navigator>
+//       <Tab.Screen name="Home" component={HomeScreen} />
+//       <Tab.Screen name="Settings" component={SettingsScreen} />
+//     </Tab.Navigator>
+//   );
+// }
 
 var bottomPad = false;
 if (screenWidth === 1125) { bottomPad = true }
@@ -21,79 +38,109 @@ if (screenWidth === 1242 && screenHeight === 2688) { bottomPad = true }
 if (screenWidth === 1668 && screenHeight === 2388) { bottomPad = true }
 if (screenWidth === 2048 && screenHeight === 2732) { bottomPad = true }
 
-const AppStack = createStackNavigator({
-    MyTab: {
-        screen: createMaterialTopTabNavigator(
-            {
-                Home: {
-                    screen: BuzzScreen,
-                    navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="home" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Home</Text></View>)
-                    },
-                },
-                Drinks: {
-                    screen: HomeScreen,
-                    navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="beer" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Drinks</Text></View>)
-                    },
-                },
-                Log: {
-                    screen: LogScreen,
-                    navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><MIcon name="note-add" color="#4db6ac" size={addButtonSize === "tablet" ? 45 : 28} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Log</Text></View>)
-                    },
-                },
-                Profile: {
-                    screen: ProfileScreen,
-                    navigationOptions: {
-                        tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="user-cog" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Profile</Text></View>)
 
-                    },
-                },
+function MyTabs() {
+  return (
+    <Tab.Navigator>
+<Tab.Screen name="Home" component={BuzzScreen}
+        options={{
+          tabBarIcon: <Icon name="home" color="#4db6ac" size={20} />,
+          headerTitle: 'Kontrol',    
+          tabBarLabelPosition: "below-icon"
+          }}/>
+          <Tab.Screen name="Drinks" component={HomeScreen}
+        options={{
+          tabBarIcon: <Icon name="home" color="#4db6ac" size={20} />,
+          headerTitle: 'Kontrol',    
+          tabBarLabelPosition: "below-icon"
+          }}/>
+          <Tab.Screen name="Log" component={LogScreen}
+        options={{
+          tabBarIcon: <Icon name="home" color="#4db6ac" size={20} />,
+          headerTitle: 'Kontrol',    
+          tabBarLabelPosition: "below-icon"
+          }}/>
+          <Tab.Screen name="Profile" component={ProfileScreen}
+        options={{
+          tabBarIcon: <Icon name="home" color="#4db6ac" size={20} />,
+          headerTitle: 'Kontrol',    
+          tabBarLabelPosition: "below-icon"
+          }}/>
 
-            },
-            {
-                tabBarOptions: {
-                    style: { backgroundColor: '#ffffff', borderTopWidth: 0.5, borderTopColor: "#e0e0e0" },
-                    indicatorStyle: { backgroundColor: "#4db6ac" },
-                    labelStyle: { margin: 0, padding: 0, paddingBottom: bottomPad === true ? 7 : 0 },
-                    activeTintColor: "gray", inactiveTintColor: '#ffffff', upperCaseLabel: false, showLabel: true, showIcon: false,
-                    tabStyle: { height: Dimensions.get('window').height * 0.088, width: Dimensions.get('window').width * 0.25 }
-                },
-                tabBarPosition: 'bottom',
-                swipeEnabled: false
-            }
-        ),
-        navigationOptions: ({ navigation }) => ({
-            title: `Kontrol`,
-            headerStyle: { backgroundColor: '#80cbc4', height: Dimensions.get('window').height * 0.066 },
-            headerTitleStyle: {
-                color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 25, fontWeight: '400',
-                paddingTop: screenWidth === 1440 && screenHeight === 2792 ? 25 : 0
-            },
-            headerRight: (<View style={{ flexDirection: "row", paddingRight: 10 }}>
-                <TouchableOpacity accessibilityLabel="infobutton" style={[addButtonSize === "tablet" ? styles.largeinfoButton : styles.infoButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>
-                    <Ficon name="info" color="#ffffff" size={addButtonSize === "tablet" ? 40 : 25} style={{ height: addButtonSize === "tablet" ? 40 : 25, width: addButtonSize === "tablet" ? 40 : 25, textAlign: 'center' }} /></TouchableOpacity></View>)
-        })
-    },
-    Info: InfoScreen,
-}, { headerLayoutPreset: 'center' })
+</Tab.Navigator>
+  )}
 
-const AuthStack = createStackNavigator({ Login: LoginScreen },
-    {
-        initialRouteName: 'Login',
-        headerLayoutPreset: 'center',
-        defaultNavigationOptions: ({
-            title: `Kontrol`, headerStyle: { backgroundColor: '#80cbc4' },
-            headerTitleStyle: { color: "#ffffff", fontSize: 25, textAlign: "center", fontWeight: '400' }
-        })
-    })
+export default MyTabs
 
-export default createAppContainer(createSwitchNavigator(
-    {
-        AuthLoad: AuthLoadScreen,
-        App: AppStack,
-        Auth: AuthStack
-    },
-    { initialRouteName: 'AuthLoad' }
-));
+//                 Home: {
+//                     screen: ,
+//                     navigationOptions: {
+//                         tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="home" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Home</Text></View>)
+//                     },
+//                 },
+//                 Drinks: {
+//                     screen: HomeScreen,
+//                     navigationOptions: {
+//                         tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="beer" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Drinks</Text></View>)
+//                     },
+//                 },
+//                 Log: {
+//                     screen: LogScreen,
+//                     navigationOptions: {
+//                         tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><MIcon name="note-add" color="#4db6ac" size={addButtonSize === "tablet" ? 45 : 28} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Log</Text></View>)
+//                     },
+//                 },
+//                 Profile: {
+//                     screen: ProfileScreen,
+//                     navigationOptions: {
+//                         tabBarLabel: ({ tintColor }) => (<View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", alignContent: "center", paddingTop: 2 }}><Icon name="user-cog" color="#4db6ac" size={addButtonSize === "tablet" ? 42 : 25} /><Text style={{ fontSize: addButtonSize === "tablet" ? 18 : 10, color: tintColor }}>Profile</Text></View>)
+
+//                     },
+//                 },
+
+//             },
+//             {
+//                 tabBarOptions: {
+//                     style: { backgroundColor: '#ffffff', borderTopWidth: 0.5, borderTopColor: "#e0e0e0" },
+//                     indicatorStyle: { backgroundColor: "#4db6ac" },
+//                     labelStyle: { margin: 0, padding: 0, paddingBottom: bottomPad === true ? 7 : 0 },
+//                     activeTintColor: "gray", inactiveTintColor: '#ffffff', upperCaseLabel: false, showLabel: true, showIcon: false,
+//                     tabStyle: { height: Dimensions.get('window').height * 0.088, width: Dimensions.get('window').width * 0.25 }
+//                 },
+//                 tabBarPosition: 'bottom',
+//                 swipeEnabled: false
+//             }
+//         ),
+//         navigationOptions: ({ navigation }) => ({
+//             title: `Kontrol`,
+//             headerStyle: { backgroundColor: '#80cbc4', height: Dimensions.get('window').height * 0.066 },
+//             headerTitleStyle: {
+//                 color: "#ffffff", fontSize: addButtonSize === "tablet" ? 40 : 25, fontWeight: '400',
+//                 paddingTop: screenWidth === 1440 && screenHeight === 2792 ? 25 : 0
+//             },
+//             headerRight: (<View style={{ flexDirection: "row", paddingRight: 10 }}>
+//                 <TouchableOpacity accessibilityLabel="infobutton" style={[addButtonSize === "tablet" ? styles.largeinfoButton : styles.infoButton, styles.dropShadow, { backgroundColor: "#009688" }]} onPress={() => navigation.push("Info")}>
+//                     <Ficon name="info" color="#ffffff" size={addButtonSize === "tablet" ? 40 : 25} style={{ height: addButtonSize === "tablet" ? 40 : 25, width: addButtonSize === "tablet" ? 40 : 25, textAlign: 'center' }} /></TouchableOpacity></View>)
+//         })
+//     },
+//     Info: InfoScreen,
+// }, { headerLayoutPreset: 'center' })
+
+// const AuthStack = createStackNavigator({ Login: LoginScreen },
+//     {
+//         initialRouteName: 'Login',
+//         headerLayoutPreset: 'center',
+//         defaultNavigationOptions: ({
+//             title: `Kontrol`, headerStyle: { backgroundColor: '#80cbc4' },
+//             headerTitleStyle: { color: "#ffffff", fontSize: 25, textAlign: "center", fontWeight: '400' }
+//         })
+//     })
+
+// export default createAppContainer(createSwitchNavigator(
+//     {
+//         AuthLoad: AuthLoadScreen,
+//         App: AppStack,
+//         Auth: AuthStack
+//     },
+//     { initialRouteName: 'AuthLoad' }
+// ));
