@@ -14,6 +14,7 @@ import MIcon from 'react-native-vector-icons/MaterialIcons';
 import LogScreen from "./Log"
 import { screenHeight, screenWidth, addButtonSize } from "./Variables"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,15 +22,8 @@ const Stack = createNativeStackNavigator();
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const Tab = createMaterialBottomTabNavigator();
+const BottomTab = createBottomTabNavigator();
 
-// function MyTabs() {
-//   return (
-//     <Tab.Navigator>
-//       <Tab.Screen name="Home" component={HomeScreen} />
-//       <Tab.Screen name="Settings" component={SettingsScreen} />
-//     </Tab.Navigator>
-//   );
-// }
 
 var bottomPad = false;
 if (screenWidth === 1125) { bottomPad = true }
@@ -38,39 +32,50 @@ if (screenWidth === 1242 && screenHeight === 2688) { bottomPad = true }
 if (screenWidth === 1668 && screenHeight === 2388) { bottomPad = true }
 if (screenWidth === 2048 && screenHeight === 2732) { bottomPad = true }
 
+function StackScreen() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={MyTabs} options={{ title: 'Kontrol', headerTitleStyle: {color: '#fff', fontSize: 30, fontWeight: '300'},headerStyle: {backgroundColor: '#4db6ac'} }}/>
+      </Stack.Navigator>
+    );
+  }
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
-<Tab.Screen name="Home" component={BuzzScreen}
+    <BottomTab.Navigator title="Kontrol" screenOptions={{
+        tabBarActiveTintColor: '#4db6ac'}}>
+<BottomTab.Screen name="Home" component={BuzzScreen}
         options={{
-          tabBarIcon: <Icon name="home" color="#4db6ac" size={20} />,
-          headerTitle: 'Kontrol',    
+        headerShown:false,
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ color, size }) => (<Icon name="home" color={color} size={size} />),
           tabBarLabelPosition: "below-icon"
           }}/>
           <Tab.Screen name="Drinks" component={HomeScreen}
         options={{
-          tabBarIcon: <Icon name="home" color="#4db6ac" size={20} />,
-          headerTitle: 'Kontrol',    
+            tabBarLabel: 'Drinks',
+            headerShown:false,
+            tabBarIcon: ({ color, size }) => (<Icon name="beer" color={color} size={size} />),
           tabBarLabelPosition: "below-icon"
           }}/>
           <Tab.Screen name="Log" component={LogScreen}
         options={{
-          tabBarIcon: <Icon name="home" color="#4db6ac" size={20} />,
-          headerTitle: 'Kontrol',    
+            tabBarLabel: 'Logs',
+            headerShown:false,
+            tabBarIcon: ({ color, size }) => (<MIcon name="note-add" color={color} size={size} />),
           tabBarLabelPosition: "below-icon"
           }}/>
           <Tab.Screen name="Profile" component={ProfileScreen}
         options={{
-          tabBarIcon: <Icon name="home" color="#4db6ac" size={20} />,
-          headerTitle: 'Kontrol',    
+            tabBarLabel: 'Profile',
+            headerShown:false,
+            tabBarIcon: ({ color, size }) => (<Icon name="user-cog" color={color} size={size} />),
           tabBarLabelPosition: "below-icon"
           }}/>
-
-</Tab.Navigator>
+</BottomTab.Navigator>
   )}
 
-export default MyTabs
+export default StackScreen;
 
 //                 Home: {
 //                     screen: ,
