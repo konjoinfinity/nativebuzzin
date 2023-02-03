@@ -90,7 +90,7 @@ class InfoScreen extends Component {
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList}>react-native-gesture-handler</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList}>react-native-calendar-picker</Text>
                     <Text style={addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList}>react-native-countdown-component</Text>
-                    <Text style={addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList}>@react-native-community/async-storage</Text>
+                    <Text style={addButtonSize === "tablet" ? styles.largeInfoList : styles.infoList}>@react-native-async-storage/async-storage</Text>
                     <Text style={[addButtonSize === "tablet" ? styles.largeInfoTitle : styles.infoTitle, { margin: 15, padding: 15 }]}>Contact</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                         {/* Update website and email links after new domain is purcahsed */}

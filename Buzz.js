@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, Platform, Switch, Modal, Alert, Dimensions } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from "moment";
 import _ from 'lodash'
 import MultiSwitch from "react-native-multi-switch";

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Keyboard, Modal, Dimensions, TextInput, Alert, Platform } from 'react-native'
 import styles from "./Styles"
 import { loginButtonText, logskey } from "./Variables"
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import moment from "moment";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import ReactNativeHaptic from 'react-native-haptic';

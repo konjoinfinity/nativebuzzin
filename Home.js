@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, TouchableOpacity, Alert, Modal, Platform, Text, Dimensions } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MultiSwitch from "react-native-multi-switch";
 import _ from 'lodash';
 import { copilot, walkthroughable, CopilotStep } from 'react-native-copilot';

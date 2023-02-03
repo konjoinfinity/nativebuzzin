@@ -1,5 +1,5 @@
 import moment from "moment";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { oldkey, genderkey, key } from "./Variables";
 import ReactNativeHaptic from 'react-native-haptic';
 

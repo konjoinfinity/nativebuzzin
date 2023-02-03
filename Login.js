@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert, Keyboard, Modal, ScrollView, Platform } from "react-native";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "./Styles"
 import ReactNativeHaptic from 'react-native-haptic';
 import Ficon from 'react-native-vector-icons/Fontisto'

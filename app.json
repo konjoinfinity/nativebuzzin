@@ -1,4 +1,42 @@
 {
-  "name": "buzzin",
-  "displayName": "buzzin"
+  "expo": {
+    "name": "buzzin",
+    "slug": "buzzin",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.konjo.buzzin",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.konjo.buzzin"
+    },
+    "extra": {
+      "eas": {
+
+      }
+    }
+  }
 }
