@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Linking, Platform, TouchableOpacity, Dimensions } from 'react-native'
-import ReactNativeHaptic from 'react-native-haptic';
+import * as Haptics from 'expo-haptics';;
 import styles from "./Styles"
 import { addButtonSize } from "./Variables"
 
@@ -8,7 +8,7 @@ class InfoScreen extends Component {
 
     componentDidMount() {
         try {
-            ReactNativeHaptic.generate('impactLight')
+            Haptics.selectionAsync()
         } catch (error) {
             console.log(error)
         }

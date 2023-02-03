@@ -1,7 +1,7 @@
 import moment from "moment";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { oldkey, genderkey, key } from "./Variables";
-import ReactNativeHaptic from 'react-native-haptic';
+import * as Haptics from 'expo-haptics';;
 
 export class Functions {
 
@@ -52,7 +52,7 @@ export class Functions {
 
     static setOz(number, alcohol, metric) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             if (alcohol === "Beer" && number === 0 && metric === "oz") { return 12 }
             if (alcohol === "Beer" && number === 1 && metric === "oz") { return 16 }
             if (alcohol === "Beer" && number === 2 && metric === "oz") { return 20 }
@@ -86,7 +86,7 @@ export class Functions {
 
     static setAbv(number, alcohol) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             if (alcohol === "Beer" && number === 0) { return 0.04 }
             if (alcohol === "Beer" && number === 1) { return 0.05 }
             if (alcohol === "Beer" && number === 2) { return 0.06 }
@@ -105,7 +105,7 @@ export class Functions {
 
     static setAlcType(value, metric) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             if (metric === "oz") {
                 if (value === "Beer") { return [0.05, 12] }
                 if (value === "Wine") { return [0.12, 5] }

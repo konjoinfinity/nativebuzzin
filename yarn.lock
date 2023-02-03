@@ -7787,11 +7787,6 @@ react-native-gradle-plugin@^0.70.3:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz#cbcf0619cbfbddaa9128701aa2d7b4145f9c4fc8"
   integrity sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A==
 
-react-native-haptic@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-haptic/-/react-native-haptic-1.0.1.tgz#5ecedb6049c1b0cdeca5e31e4fbde16a622675f3"
-  integrity sha512-Eg5omAZYZsIGe+QsVkQrK3Krgv96qejYyfgPUfyIELZ1j6W7RnisduJJ+65aV9Nw/k6gxrmvEUC/Uuap4qf8JA==
-
 react-native-multi-switch@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-multi-switch/-/react-native-multi-switch-1.2.0.tgz#cd5bc236bf987c3f7693e074a5b17bfb3d156e08"

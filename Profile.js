@@ -6,7 +6,7 @@ import NumericInput from 'react-native-numeric-input'
 import moment from "moment";
 import { Functions } from "./Functions";
 import styles from "./Styles"
-import ReactNativeHaptic from 'react-native-haptic';
+import * as Haptics from 'expo-haptics';;
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontIcon from 'react-native-vector-icons/FontAwesome';
 import {
@@ -31,7 +31,7 @@ class ProfileScreen extends Component {
 
     async componentDidMount() {
         try {
-            ReactNativeHaptic.generate('impactLight');
+            Haptics.selectionAsync();
             this.setState({ setautobreak: false, sethappyhour: false, setlimit: false, setcustombreak: false, setpacer: false, setlastcall: false, setmaxrec: false })
             var values = await AsyncStorage.multiGet([autobreakkey, custombreakkey, cancelbreakskey, limitbackey, limitkey,
                 drinkskey, happyhourkey, autobreakthresholdkey, namekey, genderkey, hhhourkey, indefbreakkey,
@@ -79,7 +79,7 @@ class ProfileScreen extends Component {
                 var duration = this.state.days + (this.state.weeks * 7) + (this.state.months * 30), hours = this.state.hours * 60 * 60 * 1000
                 if (duration !== 0) { breakDate.setDate(breakDate.getDate() + duration) }
                 if (hours !== 0) { breakDate.setTime(breakDate.getTime() + hours) }
-                ReactNativeHaptic.generate('selection');
+                Haptics.selectionAsync()
                 this.setState({ break: true, breakdate: breakDate })
                 await AsyncStorage.multiSet([[breakkey, JSON.stringify(true)], [breakdatekey, JSON.stringify(breakDate)]])
             }
@@ -91,7 +91,7 @@ class ProfileScreen extends Component {
 
     async stopBreak(type) {
         try {
-            ReactNativeHaptic.generate('selection');
+            Haptics.selectionAsync()
             this.setState({ break: false, breakdate: "", hours: 0, days: 0, weeks: 0, months: 0, cancelbreaks: this.state.cancelbreaks + 1 })
             await AsyncStorage.removeItem(breakdatekey)
             await AsyncStorage.multiSet([[cancelbreakskey, JSON.stringify(this.state.cancelbreaks)], [breakkey, JSON.stringify(false)]])
@@ -103,7 +103,7 @@ class ProfileScreen extends Component {
 
     async LogOut() {
         try {
-            ReactNativeHaptic.generate('selection');
+            Haptics.selectionAsync()
             await AsyncStorage.multiRemove([oldkey, logskey, namekey, key, genderkey, breakkey, breakdatekey, autobreakkey, happyhourkey,
                 limitkey, autobreakthresholdkey, autobreakminkey, drinkskey, limitbackey, cancelbreakskey, showlimitkey, custombreakkey,
                 hhhourkey, indefbreakkey, limithourkey, pacerkey, pacertimekey, limitdatekey, lastcallkey, maxreckey])
@@ -115,7 +115,7 @@ class ProfileScreen extends Component {
 
     confirmLogout() {
         try {
-            ReactNativeHaptic.generate('notificationWarning')
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning)
             Alert.alert('Are you sure you want to logout? All user data will be deleted.', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.LogOut() } }, { text: 'No' }], { cancelable: false });
         } catch (error) {
             console.log(error)
@@ -124,7 +124,7 @@ class ProfileScreen extends Component {
 
     async handleSwitches(statename, keyvalue, setstatename) {
         try {
-            if (Platform.OS === "android") { ReactNativeHaptic.generate('selection') }
+            if (Platform.OS === "android") { Haptics.selectionAsync() }
             if (statename === "custombreak" && this.state.custombreak === true) {
                 this.setState({ setcustombreak: true })
                 if (this.state.indefbreak === true || this.state.break === true) {
@@ -153,7 +153,7 @@ class ProfileScreen extends Component {
 
     async saveValues(statename, keyvalue) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             await AsyncStorage.setItem(keyvalue, JSON.stringify(this.state[statename]))
             if (statename === "limithour") {
                 if (this.state.limithour !== 0) {
@@ -173,7 +173,7 @@ class ProfileScreen extends Component {
 
     showHideSetting(statename) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             this.setState(prevState => ({ [statename]: !prevState[statename] }))
         } catch (error) {
             console.log(error)

@@ -32,7 +32,6 @@
     "react-native-countdown-component": "^2.7.1",
     "react-native-dropdownalert": "^4.5.1",
     "react-native-gesture-handler": "~2.8.0",
-    "react-native-haptic": "^1.0.1",
     "react-native-multi-switch": "^1.2.0",
     "react-native-numeric-input": "^1.9.1",
     "react-native-speedometer": "^1.0.5",

@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert, Keyboard, Modal, ScrollView, Platform } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from "./Styles"
-import ReactNativeHaptic from 'react-native-haptic';
+import * as Haptics from 'expo-haptics';;
 import Ficon from 'react-native-vector-icons/Fontisto'
 import {
     namekey, genderkey, autobreakkey, happyhourkey, autobreakminkey, autobreakthresholdkey, limitkey,
@@ -20,7 +20,7 @@ class LoginScreen extends React.Component {
 
     componentDidMount() {
         try {
-            ReactNativeHaptic.generate('impactLight');
+            Haptics.selectionAsync();
             this.nameinput.focus();
         } catch (error) {
             console.log(error)
@@ -29,17 +29,17 @@ class LoginScreen extends React.Component {
 
     handleModal(agree) {
         try {
-            agree === "yes" ? ReactNativeHaptic.generate('selection') : ReactNativeHaptic.generate("notificationError");
+            agree === "yes" ? Haptics.selectionAsync() : Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             if (this.state.name !== "") {
                 if (this.state.gender !== "") {
                     this.setState({ modal: !this.state.modal })
                 } else {
-                    ReactNativeHaptic.generate('notificationWarning');
-                    Alert.alert("Please select your gender", "", [{ text: "Ok", onPress: () => { ReactNativeHaptic.generate("selection") } }], { cancelable: false })
+                    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+                    Alert.alert("Please select your gender", "", [{ text: "Ok", onPress: () => { Haptics.selectionAsync() } }], { cancelable: false })
                 }
             } else {
-                ReactNativeHaptic.generate('notificationWarning');
-                Alert.alert("Please enter your name", "", [{ text: "Ok", onPress: () => { ReactNativeHaptic.generate("selection"); this.nameinput.focus() } }], { cancelable: false })
+                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+                Alert.alert("Please enter your name", "", [{ text: "Ok", onPress: () => { Haptics.selectionAsync(); this.nameinput.focus() } }], { cancelable: false })
             }
         } catch (error) {
             console.log(error)
@@ -49,7 +49,7 @@ class LoginScreen extends React.Component {
     switchGender(gender) {
         try {
             if (this.state.gender !== gender) {
-                ReactNativeHaptic.generate('selection');
+                Haptics.selectionAsync();
                 gender === "Male" ? this.setState({ gender: "Male" }) : this.setState({ gender: "Female" })
             }
         } catch (error) {

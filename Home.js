@@ -8,7 +8,7 @@ import { NavigationEvents } from "react-navigation";
 import moment from "moment";
 import { Functions } from "./Functions";
 import styles from "./Styles"
-import ReactNativeHaptic from 'react-native-haptic';
+import * as Haptics from 'expo-haptics';;
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import CalendarPicker from 'react-native-calendar-picker';
 import Slider from '@react-native-community/slider';
@@ -73,7 +73,7 @@ class HomeScreen extends Component {
 
     handleModal(number) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             this.setState({ [number]: !this.state[number] });
         } catch (error) {
             console.log(error)
@@ -82,7 +82,7 @@ class HomeScreen extends Component {
 
     async deleteOldBuzz(obid, oldbuzz) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
             await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
             values = await Functions.maxRecDrinks()
@@ -93,7 +93,7 @@ class HomeScreen extends Component {
 
     async editOldBuzz(obid) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var obnormal = this.state.oldbuzzes
             var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
             lastTime.setHours(0, 0, 0, 0)
@@ -107,7 +107,7 @@ class HomeScreen extends Component {
 
     oldModal(buzz, obid) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz === "a" ? "" : buzz, obid: obid === "z" ? "" : obid });
         } catch (error) {
             console.log(error)
@@ -116,7 +116,7 @@ class HomeScreen extends Component {
 
     addOldModal() {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             this.setState({ addoldmodal: !this.state.addoldmodal, selectedStartDate: null, drinkadd: false, addoldbuzzes: [] });
         } catch (error) {
             console.log(error)
@@ -125,7 +125,7 @@ class HomeScreen extends Component {
 
     addOldBuzzState() {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             addoldbuzzes = this.state.addoldbuzzes
             var oldbuzzdate = new Date(this.state.selectedStartDate);
             oldbuzzdate.setHours(0, 0, 0, 0);
@@ -138,7 +138,7 @@ class HomeScreen extends Component {
 
     deleteAddOldBuzz(oldbuzz) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
             this.setState({ addoldbuzzes: delfilter })
         } catch (error) {
@@ -149,7 +149,7 @@ class HomeScreen extends Component {
     async addOldBuzz() {
         try {
             var oldbuzzes;
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var oldbuzzadd = this.state.addoldbuzzes;
             this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
             oldbuzzes.unshift(oldbuzzadd);
@@ -176,7 +176,7 @@ class HomeScreen extends Component {
 
     confirmDelete() {
         try {
-            ReactNativeHaptic.generate('notificationWarning')
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning)
             Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
         } catch (error) {
             console.log(error)
@@ -186,7 +186,7 @@ class HomeScreen extends Component {
     showHideBuzzes(statename) {
         try {
             this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
         } catch (error) {
             console.log(error)
         }
@@ -194,7 +194,7 @@ class HomeScreen extends Component {
 
     buzzDuration(incdec) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             if (incdec === "up" && this.state.buzzduration >= 5 && this.state.buzzduration < 120) { this.setState({ buzzduration: this.state.buzzduration + 5 }) }
             else if (incdec === "down" && this.state.buzzduration > 5 && this.state.buzzduration <= 120) { this.setState({ buzzduration: this.state.buzzduration - 5 }) }
         } catch (error) {
@@ -260,13 +260,13 @@ class HomeScreen extends Component {
                         </View>
                         <View style={[styles.cardView, { padding: 10 }]}>
                             {this.state.drinkadd === false && <View>
-                                <CalendarPicker onDateChange={(date) => { this.setState({ selectedStartDate: date }); ReactNativeHaptic.generate('selection') }} maxDate={new Date()} minDate={monthOld} scaleFactor={400} selectedDayColor={"#1de9b6"} />
+                                <CalendarPicker onDateChange={(date) => { this.setState({ selectedStartDate: date }); Haptics.selectionAsync() }} maxDate={new Date()} minDate={monthOld} scaleFactor={400} selectedDayColor={"#1de9b6"} />
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 5 }}>
                                     <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton, { backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => this.addOldModal()}>
                                         <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel</Text>
                                     </TouchableOpacity>
                                     {this.state.selectedStartDate !== null &&
-                                        <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ drinkadd: true }) }}>
+                                        <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => { Haptics.selectionAsync(); this.setState({ drinkadd: true }) }}>
                                             <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Add Drinks</Text>
                                         </TouchableOpacity>}
                                 </View>
@@ -292,7 +292,7 @@ class HomeScreen extends Component {
                                                         <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 ? "0" : ""} % ABV</Text>
                                                         <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                             minimumValue={0.032} step={0.01} maximumValue={0.18} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                            onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                     </View>
                                                 </View>}
                                             {this.state.alctype === "Wine" &&
@@ -302,7 +302,7 @@ class HomeScreen extends Component {
                                                         <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 || this.state.abv === 0.2 ? "0" : ""} % ABV</Text>
                                                         <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                             minimumValue={0.09} step={0.01} maximumValue={0.25} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                            onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                     </View>
                                                 </View>}
                                             {this.state.alctype === "Liquor" &&
@@ -312,7 +312,7 @@ class HomeScreen extends Component {
                                                         <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.2 || this.state.abv === 0.3 || this.state.abv === 0.4 || this.state.abv === 0.5 || this.state.abv === 0.6 || this.state.abv === 0.7 || this.state.abv === 0.8 || this.state.abv === 0.9 ? "0" : ""} % ABV</Text>
                                                         <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                             minimumValue={0.2} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                            onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                     </View>
                                                 </View>}
                                             {this.state.alctype === "Cocktail" &&
@@ -345,7 +345,7 @@ class HomeScreen extends Component {
                                                 <View style={[styles.multiSwitchViews, { paddingLeft: 10 }]}>
                                                     <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
                                                         containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                        onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { ReactNativeHaptic.generate('selection') }) }} active={this.state.metric === "oz" ? 0 : 1}>
+                                                        onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { Haptics.selectionAsync() }) }} active={this.state.metric === "oz" ? 0 : 1}>
                                                         <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"oz"}</Text>
                                                         <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"ml"}</Text>
                                                     </MultiSwitch>
@@ -405,7 +405,7 @@ class HomeScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.032} step={0.01} maximumValue={0.18} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Wine" &&
@@ -415,7 +415,7 @@ class HomeScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 || this.state.abv === 0.2 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.09} step={0.01} maximumValue={0.25} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Liquor" &&
@@ -425,7 +425,7 @@ class HomeScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.2 || this.state.abv === 0.3 || this.state.abv === 0.4 || this.state.abv === 0.5 || this.state.abv === 0.6 || this.state.abv === 0.7 || this.state.abv === 0.8 || this.state.abv === 0.9 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.2} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Cocktail" &&
@@ -458,7 +458,7 @@ class HomeScreen extends Component {
                                             <View style={[styles.multiSwitchViews, { paddingLeft: 10 }]}>
                                                 <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
                                                     containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { ReactNativeHaptic.generate('selection') }) }} active={this.state.metric === "oz" ? 0 : 1}>
+                                                    onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { Haptics.selectionAsync() }) }} active={this.state.metric === "oz" ? 0 : 1}>
                                                     <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"oz"}</Text>
                                                     <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"ml"}</Text>
                                                 </MultiSwitch>
@@ -490,7 +490,7 @@ class HomeScreen extends Component {
                         </View>
                     </ScrollView>
                 </Modal>
-                <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />
+                <NavigationEvents onWillFocus={() => { Haptics.selectionAsync(); this.componentDidMount() }} />
                 <ScrollView ref={(ref) => { this.scrolltop = ref }}>
                     {this.state.oldbuzzes.length !== 0 && <View style={[styles.buzzCard, { marginTop: 10 }]}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", margin: 10, padding: 5 }}>

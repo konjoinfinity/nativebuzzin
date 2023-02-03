@@ -11,7 +11,7 @@ import * as scale from 'd3-scale'
 import { Functions } from "./Functions";
 import styles from "./Styles"
 import CalendarPicker from 'react-native-calendar-picker';
-import ReactNativeHaptic from 'react-native-haptic';
+import * as Haptics from 'expo-haptics';;
 import Micon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Slider from '@react-native-community/slider';
 import {
@@ -103,7 +103,7 @@ class BuzzScreen extends Component {
     showHideBuzzes(statename) {
         try {
             this.setState(prevState => ({ [statename]: !prevState[statename] }), () => setTimeout(() => { this.state[statename] === true ? this.scrolltop.scrollTo({ y: 400, animated: true }) : this.scrolltop.scrollTo({ y: 0, animated: true }) }, 500));
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
         } catch (error) {
             console.log(error)
         }
@@ -111,7 +111,7 @@ class BuzzScreen extends Component {
 
     chartSwitch() {
         try {
-            if (Platform.OS === "android") { ReactNativeHaptic.generate('selection') }
+            if (Platform.OS === "android") { Haptics.selectionAsync() }
             this.setState(prevState => ({ chartswitch: !prevState.chartswitch }))
             this.state.chartswitch === true ? this.sidescroll.scrollTo({ x: 0 }) : this.sidescroll.scrollTo({ x: scrollToAmt })
         } catch (error) {
@@ -121,7 +121,7 @@ class BuzzScreen extends Component {
 
     async deleteOldBuzz(obid, oldbuzz) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var filtered = this.state.oldbuzzes.map((oldbuzzes) => { return oldbuzzes.filter(buzz => buzz !== oldbuzz) })
             await AsyncStorage.setItem(oldkey, JSON.stringify(filtered), () => { this.setState({ oldbuzzes: filtered, selectedOldBuzz: filtered[obid], obid: [obid] }) })
             values = await Functions.maxRecDrinks();
@@ -132,7 +132,7 @@ class BuzzScreen extends Component {
 
     async editOldBuzz(obid) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var obnormal = this.state.oldbuzzes
             var lastTime = new Date(Date.parse(obnormal[obid][0].dateCreated))
             lastTime.setHours(0, 0, 0, 0)
@@ -146,7 +146,7 @@ class BuzzScreen extends Component {
 
     oldModal(buzz, obid) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             this.setState({ oldmodal: !this.state.oldmodal, selectedOldBuzz: buzz === "a" ? "" : buzz, obid: obid === "z" ? "" : obid });
         } catch (error) {
             console.log(error)
@@ -155,7 +155,7 @@ class BuzzScreen extends Component {
 
     addOldModal() {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             this.setState({ addoldmodal: !this.state.addoldmodal, selectedStartDate: null, drinkadd: false, addoldbuzzes: [] });
         } catch (error) {
             console.log(error)
@@ -164,7 +164,7 @@ class BuzzScreen extends Component {
 
     buzzDuration(incdec) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             if (incdec === "up" && this.state.buzzduration >= 15 && this.state.buzzduration < 240) { this.setState({ buzzduration: this.state.buzzduration + 15 }) }
             else if (incdec === "down" && this.state.buzzduration > 15 && this.state.buzzduration <= 240) { this.setState({ buzzduration: this.state.buzzduration - 15 }) }
         } catch (error) {
@@ -174,7 +174,7 @@ class BuzzScreen extends Component {
 
     addOldBuzzState() {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             addoldbuzzes = this.state.addoldbuzzes
             var oldbuzzdate = new Date(this.state.selectedStartDate);
             oldbuzzdate.setHours(0, 0, 0, 0);
@@ -188,7 +188,7 @@ class BuzzScreen extends Component {
     async addOldDrink() {
         try {
             var oldbuzzes;
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var olddrinkdate = new Date();
             var addolddrinks = [{ drinkType: this.state.alctype, dateCreated: olddrinkdate, oz: this.state.oz, abv: this.state.abv }]
             this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
@@ -219,7 +219,7 @@ class BuzzScreen extends Component {
 
     deleteAddOldBuzz(oldbuzz) {
         try {
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var delfilter = this.state.addoldbuzzes.filter(deleted => deleted !== oldbuzz)
             this.setState({ addoldbuzzes: delfilter })
         } catch (error) {
@@ -230,7 +230,7 @@ class BuzzScreen extends Component {
     async addOldBuzz() {
         try {
             var oldbuzzes;
-            ReactNativeHaptic.generate('selection')
+            Haptics.selectionAsync()
             var oldbuzzadd = this.state.addoldbuzzes;
             this.state.oldbuzzes === null ? oldbuzzes = [] : oldbuzzes = this.state.oldbuzzes
             oldbuzzes.unshift(oldbuzzadd);
@@ -260,7 +260,7 @@ class BuzzScreen extends Component {
 
     confirmDelete() {
         try {
-            ReactNativeHaptic.generate('notificationWarning')
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning)
             Alert.alert('Are you sure you want to delete this entire session?', 'Please confirm.', [{ text: 'Yes', onPress: () => { this.deleteWholeOldBuzz() } }, { text: 'No' }], { cancelable: false });
         } catch (error) {
             console.log(error)
@@ -270,7 +270,7 @@ class BuzzScreen extends Component {
     async undoLastDrink() {
         try {
             if (Functions.singleDuration(this.state.oldbuzzes[0][0].dateCreated) < 0.0333333) {
-                ReactNativeHaptic.generate('selection')
+                Haptics.selectionAsync()
                 var undobuzz;
                 await AsyncStorage.getItem(oldkey, (error, result) => {
                     if (result !== null && result !== "[]") {
@@ -318,7 +318,7 @@ class BuzzScreen extends Component {
 
     cancelAlert(typealert) {
         try {
-            ReactNativeHaptic.generate('notificationWarning');
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
             Alert.alert('Are you sure you want to start drinking now?', typealert === "hh" ? 'Maybe you should hold off.' :
                 typealert === "sl" ? 'Consider waiting it out.' : typealert === "br" ? 'Think about sticking to your break.' :
                     typealert === "ib" ? 'Consider keeping up your streak.' : typealert === "lc" ? "It's after last call, consider going home." :
@@ -333,7 +333,7 @@ class BuzzScreen extends Component {
 
     async stopModeration(stoptype) {
         try {
-            ReactNativeHaptic.generate('selection');
+            Haptics.selectionAsync();
             this.setState(stoptype === "break" ? { break: false } : stoptype === "hh" ? { happyhour: false, happyhourtime: "" } :
                 stoptype === "sl" ? { showlimit: false, limit: false, limitbac: "", drinks: "" } :
                     stoptype === "ib" ? { indefbreak: false } : stoptype === "lc" ? { limitdate: "", showlastcall: false, lastcall: false } : { showpacer: false, pacer: false })
@@ -379,7 +379,7 @@ class BuzzScreen extends Component {
     countDownFinished() {
         try {
             setTimeout(() => { this.setState({ showpacer: false }) }, 100)
-            ReactNativeHaptic.generate('notificationSuccess')
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
         } catch (error) {
             console.log(error)
         }
@@ -396,7 +396,7 @@ class BuzzScreen extends Component {
 
     showHideToggle(state) {
         try {
-            ReactNativeHaptic.generate('selection');
+            Haptics.selectionAsync();
             this.setState(prevState => ({ [state]: !prevState[state] }))
         } catch (error) {
             console.log(error)
@@ -474,7 +474,7 @@ class BuzzScreen extends Component {
         }))
         return (
             <View>
-                {this.state.focus === true && <NavigationEvents onWillFocus={() => { ReactNativeHaptic.generate('impactLight'); this.componentDidMount() }} />}
+                {this.state.focus === true && <NavigationEvents onWillFocus={() => { Haptics.selectionAsync(); this.componentDidMount() }} />}
                 <Modal animationType="slide" transparent={false} visible={this.state.addoldmodal}>
                     <ScrollView>
                         <View style={[styles.cardView, { marginTop: 30 }]}>
@@ -484,13 +484,13 @@ class BuzzScreen extends Component {
                         </View>
                         <View style={[styles.cardView, { padding: 10 }]}>
                             {this.state.drinkadd === false && <View>
-                                <CalendarPicker onDateChange={(date) => { this.setState({ selectedStartDate: date }); ReactNativeHaptic.generate('selection') }} maxDate={new Date()} minDate={monthOld} scaleFactor={400} selectedDayColor={"#1de9b6"} />
+                                <CalendarPicker onDateChange={(date) => { this.setState({ selectedStartDate: date }); Haptics.selectionAsync() }} maxDate={new Date()} minDate={monthOld} scaleFactor={400} selectedDayColor={"#1de9b6"} />
                                 <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginBottom: 5 }}>
                                     <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton, { backgroundColor: "#AE0000", borderColor: "#AE0000" }]} onPress={() => this.addOldModal()}>
                                         <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Cancel</Text>
                                     </TouchableOpacity>
                                     {this.state.selectedStartDate !== null &&
-                                        <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => { ReactNativeHaptic.generate('selection'); this.setState({ drinkadd: true }) }}>
+                                        <TouchableOpacity style={[styles.dropShadow1, styles.buzzbutton]} onPress={() => { Haptics.selectionAsync(); this.setState({ drinkadd: true }) }}>
                                             <Text style={addButtonSize === "tablet" ? styles.largeButtonText : styles.buttonText}>Add Drinks</Text>
                                         </TouchableOpacity>}
                                 </View>
@@ -516,7 +516,7 @@ class BuzzScreen extends Component {
                                                         <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 ? "0" : ""} % ABV</Text>
                                                         <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                             minimumValue={0.032} step={0.01} maximumValue={0.18} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                            onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                     </View>
                                                 </View>}
                                             {this.state.alctype === "Wine" &&
@@ -526,7 +526,7 @@ class BuzzScreen extends Component {
                                                         <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 || this.state.abv === 0.2 ? "0" : ""} % ABV</Text>
                                                         <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                             minimumValue={0.09} step={0.01} maximumValue={0.25} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                            onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                     </View>
                                                 </View>}
                                             {this.state.alctype === "Liquor" &&
@@ -536,7 +536,7 @@ class BuzzScreen extends Component {
                                                         <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.2 || this.state.abv === 0.3 || this.state.abv === 0.4 || this.state.abv === 0.5 || this.state.abv === 0.6 || this.state.abv === 0.7 || this.state.abv === 0.8 || this.state.abv === 0.9 ? "0" : ""} % ABV</Text>
                                                         <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                             minimumValue={0.2} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                            onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                            onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                     </View>
                                                 </View>}
                                             {this.state.alctype === "Cocktail" &&
@@ -569,7 +569,7 @@ class BuzzScreen extends Component {
                                                 <View style={[styles.multiSwitchViews, { paddingLeft: 10 }]}>
                                                     <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
                                                         containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                        onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { ReactNativeHaptic.generate('selection') }) }} active={this.state.metric === "oz" ? 0 : 1}>
+                                                        onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { Haptics.selectionAsync() }) }} active={this.state.metric === "oz" ? 0 : 1}>
                                                         <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"oz"}</Text>
                                                         <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"ml"}</Text>
                                                     </MultiSwitch>
@@ -629,7 +629,7 @@ class BuzzScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.032} step={0.01} maximumValue={0.18} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Wine" &&
@@ -639,7 +639,7 @@ class BuzzScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 || this.state.abv === 0.2 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.09} step={0.01} maximumValue={0.25} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Liquor" &&
@@ -649,7 +649,7 @@ class BuzzScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.2 || this.state.abv === 0.3 || this.state.abv === 0.4 || this.state.abv === 0.5 || this.state.abv === 0.6 || this.state.abv === 0.7 || this.state.abv === 0.8 || this.state.abv === 0.9 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.2} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Cocktail" &&
@@ -682,7 +682,7 @@ class BuzzScreen extends Component {
                                             <View style={[styles.multiSwitchViews, { paddingLeft: 10 }]}>
                                                 <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
                                                     containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { ReactNativeHaptic.generate('selection') }) }} active={this.state.metric === "oz" ? 0 : 1}>
+                                                    onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml", oz: Functions.setAlcType(this.state.alctype, number === 0 ? "oz" : "ml")[1] }, () => { Haptics.selectionAsync() }) }} active={this.state.metric === "oz" ? 0 : 1}>
                                                     <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"oz"}</Text>
                                                     <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"ml"}</Text>
                                                 </MultiSwitch>
@@ -841,7 +841,7 @@ class BuzzScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.032} step={0.01} maximumValue={0.18} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Wine" &&
@@ -851,7 +851,7 @@ class BuzzScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.1 || this.state.abv === 0.2 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.09} step={0.01} maximumValue={0.25} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Liquor" &&
@@ -861,7 +861,7 @@ class BuzzScreen extends Component {
                                                     <Text style={{ color: "#000000", fontSize: abvText - 2, alignSelf: "center", fontWeight: "500", paddingTop: 2 }}>{this.state.abv}{this.state.abv === 0.2 || this.state.abv === 0.3 || this.state.abv === 0.4 || this.state.abv === 0.5 || this.state.abv === 0.6 || this.state.abv === 0.7 || this.state.abv === 0.8 || this.state.abv === 0.9 ? "0" : ""} % ABV</Text>
                                                     <Slider style={{ width: Dimensions.get('window').width * 0.53, height: Dimensions.get('window').height * 0.065, alignSelf: "center" }}
                                                         minimumValue={0.2} step={0.01} maximumValue={0.95} minimumTrackTintColor="#80cbc4" maximumTrackTintColor="#00897b" value={this.state.abv}
-                                                        onValueChange={(number) => { ReactNativeHaptic.generate('selection'); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
+                                                        onValueChange={(number) => { Haptics.selectionAsync(); clearTimeout(this.sliderTimeoutId); this.sliderTimeoutId = setTimeout(() => { this.setState({ abv: parseFloat(number.toFixed(2)) }) }, 5) }} />
                                                 </View>
                                             </View>}
                                         {this.state.alctype === "Cocktail" &&
@@ -894,7 +894,7 @@ class BuzzScreen extends Component {
                                             <View style={[styles.multiSwitchViews, { paddingLeft: 10 }]}>
                                                 <MultiSwitch choiceSize={abvLiquorSize} activeItemStyle={activeStyle} layout={{ vertical: 0, horizontal: -1 }} ref={(ref) => { this.metricswitch = ref }}
                                                     containerStyles={_.times(2, () => ([styles.multiSwitch, { marginTop: multiSwitchMargin, marginBottom: multiSwitchMargin }]))}
-                                                    onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml" }, () => { ReactNativeHaptic.generate('selection'); this.setState({ oz: Functions.setAlcType(this.state.alctype, this.state.metric)[1] }) }) }} active={this.state.metric === "oz" ? 0 : 1}>
+                                                    onActivate={(number) => { this.setState({ metric: number === 0 ? "oz" : "ml" }, () => { Haptics.selectionAsync(); this.setState({ oz: Functions.setAlcType(this.state.alctype, this.state.metric)[1] }) }) }} active={this.state.metric === "oz" ? 0 : 1}>
                                                     <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"oz"}</Text>
                                                     <Text style={{ color: "#000000", fontSize: abvLiquorText }}>{"ml"}</Text>
                                                 </MultiSwitch>
