@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "buzzin",
-    "slug": "buzzin",
+    "name": "Kontrol Drinks",
+    "slug": "kontrol-drinks",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./logo.png",
@@ -19,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.konjo.buzzin",
+      "bundleIdentifier": "com.konjo.kontroldrinks",
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -31,11 +31,11 @@
         "foregroundImage": "./logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.konjo.buzzin"
+      "package": "com.konjo.kontroldrinks"
     },
     "extra": {
       "eas": {
-
+        "projectId": "60aedf5c-b71a-4d7d-a263-7f9c760641cd"
       }
     }
   }
