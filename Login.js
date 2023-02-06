@@ -115,7 +115,7 @@ class LoginScreen extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-            </KeyboardAvoidingView >
+            </KeyboardAvoidingView>
         );
     }
 }

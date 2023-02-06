@@ -10,20 +10,19 @@ import styles from "./Styles"
 import InfoScreen from './Info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Ficon from 'react-native-vector-icons/Feather'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import LogScreen from "./Log"
 import { screenHeight, screenWidth, addButtonSize } from "./Variables"
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 
 const Stack = createNativeStackNavigator();
-
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-
 const Tab = createMaterialBottomTabNavigator();
 const BottomTab = createBottomTabNavigator();
-
+const namekey = "name"
 
 var bottomPad = false;
 if (screenWidth === 1125) { bottomPad = true }
@@ -32,11 +31,16 @@ if (screenWidth === 1242 && screenHeight === 2688) { bottomPad = true }
 if (screenWidth === 1668 && screenHeight === 2388) { bottomPad = true }
 if (screenWidth === 2048 && screenHeight === 2732) { bottomPad = true }
 
-function StackScreen() {
+async function StackScreen () {
+    const user = await AsyncStorage.getItem(namekey)
+
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Root" component={MyTabs} options={{ title: 'Kontrol', headerTitleStyle: {color: '#fff', fontSize: 30, fontWeight: '300'},headerStyle: {backgroundColor: '#4db6ac'} }}/>
-      </Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Kontrol', headerTitleStyle: {color: '#fff', fontSize: 30, fontWeight: '300'},headerStyle: {backgroundColor: '#4db6ac'} }}/>
+       
+        {/* <Stack.Screen name="Root" component={MyTabs} options={{ title: 'Kontrol', headerTitleStyle: {color: '#fff', fontSize: 30, fontWeight: '300'},headerStyle: {backgroundColor: '#4db6ac'} }}/> */}
+        
+        </Stack.Navigator>
     );
   }
 
